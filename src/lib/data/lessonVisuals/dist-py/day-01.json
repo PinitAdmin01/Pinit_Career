@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Many machines acting as one",
       "codeHash": "e6645f817d225631101bd5eafc45df1db2b69ea2b43da2ff5494c14e229f3395",
       "spec": {
         "template": "flow",
-        "title": "Many machines acting as one — Execution Pipeline",
+        "title": "Many machines acting as one",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "servers",
+            "label": "servers"
           },
           {
-            "id": "proc",
-            "label": "2. Many machines actin...",
-            "tappable": true
+            "id": "users",
+            "label": "users"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "server",
+            "label": "server"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Many machines acting as one [Done.Pone.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Many machines actin... [Done.Pone.Stwo].",
+            "caption": "A distributed system is a group of computers that work together and appear.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "servers": {
+                "var": "servers",
+                "line": 1,
+                "hit": 1
+              },
+              "users": {
+                "var": "users",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "server": {
+                "var": "server",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "servers": "data",
+              "users": "data",
+              "name": "data",
+              "server": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "name"
+              ],
+              [
+                "name",
+                "server"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pone.object-storage].",
+            "at": "say2",
+            "caption": "We distribute for three reasons.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "servers": {
+                "var": "servers",
+                "line": 2,
+                "hit": 1
+              },
+              "users": {
+                "var": "users",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "server": {
+                "var": "server",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "servers": "data",
+              "users": "data",
+              "name": "data",
+              "server": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "servers",
+                "users"
+              ],
+              [
+                "users",
+                "name"
+              ],
+              [
+                "name",
+                "server"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Many machines acting as one.",
+            "at": "say6",
+            "caption": "Keep asking one question throughout the course.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "servers": {
+                "var": "servers",
+                "line": 3,
+                "hit": 1
+              },
+              "users": {
+                "var": "users",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "server": {
+                "var": "server",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "servers": "ok",
+              "users": "ok",
+              "name": "ok",
+              "server": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "name"
+              ],
+              [
+                "name",
+                "server"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Many machines acting as one — Execution Pipeline",
+        "title": "Many machines acting as one",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "servers",
+            "label": "servers"
           },
           {
-            "id": "proc",
-            "label": "2. Many machines actin...",
-            "tappable": true
+            "id": "users",
+            "label": "users"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "server",
+            "label": "server"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Many machines acting as one [D1.P1.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Many machines actin... [D1.P1.S2].",
+            "caption": "A distributed system is a group of computers that work together and appear.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "servers": "{0: {}, 1: {}, 2: {}}",
+              "users": "['asha', 'bala', 'chitra', 'dev', 'esha…",
+              "name": "'asha'",
+              "server": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "servers": "data",
+              "users": "data",
+              "name": "data",
+              "server": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "name"
+              ],
+              [
+                "name",
+                "server"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P1.S3].",
+            "at": "say2",
+            "caption": "We distribute for three reasons.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "servers": "{0: {}, 1: {}, 2: {}}",
+              "users": "['asha', 'bala', 'chitra', 'dev', 'esha…",
+              "name": "'asha'",
+              "server": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "servers": "data",
+              "users": "data",
+              "name": "data",
+              "server": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "servers",
+                "users"
+              ],
+              [
+                "users",
+                "name"
+              ],
+              [
+                "name",
+                "server"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Many machines acting as one [D1.P1.S4].",
+            "at": "say6",
+            "caption": "Keep asking one question throughout the course.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "servers": "{0: {}, 1: {}, 2: {}}",
+              "users": "['asha', 'bala', 'chitra', 'dev', 'esha…",
+              "name": "'asha'",
+              "server": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "servers": "ok",
+              "users": "ok",
+              "name": "ok",
+              "server": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "name"
+              ],
+              [
+                "name",
+                "server"
               ]
             ]
           }
@@ -235,166 +289,106 @@
       "partTitle": "The fallacies of distributed computing",
       "codeHash": "3abaab10935264b2c983eb9638b4a75b5f5125bf5bd02a533f5d8c53a9de88f3",
       "spec": {
-        "template": "table",
-        "title": "Fallacies of distributed computing and engineering remedies",
-        "columns": [
-          "fallacy",
-          "remedy"
+        "template": "states",
+        "title": "The fallacies of distributed computing",
+        "states": [
+          {
+            "id": "fallacies",
+            "label": "fallacies"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "myth",
+            "label": "myth"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineers identified false assumptions about distributed networks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The network is reliable"
-                  },
-                  {
-                    "text": "add retries and idempotency"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "In the 1990s, engineers at Sun Microsystems listed eight false assumptions.",
+            "currentState": "fallacies",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Common network myths assume zero latency and infinite bandwidth.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The network is reliable"
-                  },
-                  {
-                    "text": "add retries and idempotency"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Latency is zero"
-                  },
-                  {
-                    "text": "set timeouts and avoid chatty calls"
-                  }
-                ],
-                "tone": "error"
+            "caption": "The network is reliable.",
+            "currentState": "i",
+            "transition": {
+              "from": "fallacies",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Each fallacy causes bugs that timeouts and retries fix.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The network is reliable"
-                  },
-                  {
-                    "text": "add retries and idempotency"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Latency is zero"
-                  },
-                  {
-                    "text": "set timeouts and avoid chatty calls"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Bandwidth is infinite"
-                  },
-                  {
-                    "text": "keep messages small, paginate"
-                  }
-                ],
-                "tone": "error"
+            "at": "say6",
+            "caption": "Keep this list nearby when reviewing designs.",
+            "currentState": "myth",
+            "transition": {
+              "from": "i",
+              "to": "myth",
+              "label": {
+                "var": "myth",
+                "line": 11,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fallacies of distributed computing and engineering remedies",
-        "columns": [
-          "fallacy",
-          "remedy"
+        "template": "states",
+        "title": "The fallacies of distributed computing",
+        "states": [
+          {
+            "id": "fallacies",
+            "label": "fallacies"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "myth",
+            "label": "myth"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineers identified false assumptions about distributed networks.",
-            "rows": [
-              {
-                "cells": [
-                  "The network is reliable",
-                  "add retries and idempotency"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "In the 1990s, engineers at Sun Microsystems listed eight false assumptions.",
+            "currentState": "fallacies",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Common network myths assume zero latency and infinite bandwidth.",
-            "rows": [
-              {
-                "cells": [
-                  "The network is reliable",
-                  "add retries and idempotency"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Latency is zero",
-                  "set timeouts and avoid chatty calls"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "The network is reliable.",
+            "currentState": "i",
+            "transition": {
+              "from": "fallacies",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Each fallacy causes bugs that timeouts and retries fix.",
-            "rows": [
-              {
-                "cells": [
-                  "The network is reliable",
-                  "add retries and idempotency"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Latency is zero",
-                  "set timeouts and avoid chatty calls"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Bandwidth is infinite",
-                  "keep messages small, paginate"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say6",
+            "caption": "Keep this list nearby when reviewing designs.",
+            "currentState": "myth",
+            "transition": {
+              "from": "i",
+              "to": "myth",
+              "label": "'Latency is zero'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -403,132 +397,162 @@
       "partTitle": "Partial failure and timeouts",
       "codeHash": "adc153a7d58b1c4ac682b43baeb448f6ee3092d9a4d32791428da00f9d74ebdd",
       "spec": {
-        "template": "compare",
-        "title": "Partial failure modes in distributed calls with timeouts",
-        "leftLabel": "Successful Call",
-        "rightLabel": "Timed Out Call",
+        "template": "sequence",
+        "title": "Partial failure and timeouts",
+        "actors": [
+          "rng",
+          "TIMEOUT_MS",
+          "i"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed system suffers partial failure while other parts run.",
-            "left": {
-              "code": "latency <= TIMEOUT_MS",
-              "result": {
-                "text": "ok"
+            "caption": "On one computer, a function either runs or the whole program crashes.",
+            "activeActor": "rng",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "call_server crashed",
-              "result": {
-                "text": "server crashed"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": {
+                  "var": "TIMEOUT_MS",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Caller cannot tell whether server crashed or reply was lost.",
-            "left": {
-              "code": "call returns in 80 ms",
-              "result": {
-                "text": "ok"
+            "caption": "Worse, when a call gets no reply, you cannot tell whether the request was.",
+            "activeActor": "TIMEOUT_MS",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": {
+                  "var": "rng",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "no reply from server",
-              "result": {
-                "text": "TIMEOUT"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": {
+                  "var": "TIMEOUT_MS",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Timeouts protect callers from waiting forever on dead servers.",
-            "left": {
-              "code": "call completes normally",
-              "result": {
-                "text": "ok"
+            "at": "say6",
+            "caption": "Notice that \"slow\" and \"failed\" look the same to a caller with a timeout.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": {
+                  "var": "rng",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "call exceeds 300 ms",
-              "result": {
-                "text": "TIMEOUT"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": {
+                  "var": "TIMEOUT_MS",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Partial failure modes in distributed calls with timeouts",
-        "leftLabel": "Successful Call",
-        "rightLabel": "Timed Out Call",
+        "template": "sequence",
+        "title": "Partial failure and timeouts",
+        "actors": [
+          "rng",
+          "TIMEOUT_MS",
+          "i"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed system suffers partial failure while other parts run.",
-            "left": {
-              "code": "latency <= TIMEOUT_MS",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
-            },
-            "right": {
-              "code": "call_server crashed",
-              "result": "server crashed",
-              "tone": "error",
-              "checks": [
-                "server crashed"
-              ]
-            }
+            "caption": "On one computer, a function either runs or the whole program crashes.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rng"
           },
           {
             "at": "say2",
-            "caption": "Caller cannot tell whether server crashed or reply was lost.",
-            "left": {
-              "code": "call returns in 80 ms",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
-            },
-            "right": {
-              "code": "no reply from server",
-              "result": "TIMEOUT",
-              "tone": "error",
-              "checks": [
-                "TIMEOUT"
-              ]
-            }
+            "caption": "Worse, when a call gets no reply, you cannot tell whether the request was.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "TIMEOUT_MS"
           },
           {
-            "at": "say3",
-            "caption": "Timeouts protect callers from waiting forever on dead servers.",
-            "left": {
-              "code": "call completes normally",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
-            },
-            "right": {
-              "code": "call exceeds 300 ms",
-              "result": "TIMEOUT",
-              "tone": "error",
-              "checks": [
-                "TIMEOUT"
-              ]
-            }
+            "at": "say6",
+            "caption": "Notice that \"slow\" and \"failed\" look the same to a caller with a timeout.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "TIMEOUT_MS",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "TIMEOUT_MS",
+                "to": "i",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           }
         ]
       }
@@ -537,98 +561,105 @@
       "partTitle": "Retrying with exponential backoff",
       "codeHash": "39ddde8a448b2c358308111d8d495dbd9b8801e2671db1926756c24420fc55ae",
       "spec": {
-        "template": "sequence",
-        "title": "Exponential backoff retry timeline on transient failures",
-        "actors": [
-          "client",
-          "server"
-        ],
+        "template": "cells",
+        "title": "Retrying with exponential backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "Temporary network glitch triggers immediate retry attempt.",
-            "messages": [
+            "caption": "Many failures are temporary.",
+            "items": {
+              "var": "waits",
+              "line": 18,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "from": "client",
-                "to": "server",
-                "label": {
-                  "text": "reset"
-                },
-                "tone": "error"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Exponential backoff waits longer after each failure before retrying.",
-            "messages": [
+            "caption": "But retrying immediately and repeatedly can overload a struggling server.",
+            "items": {
+              "var": "waits",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "from": "client",
-                "to": "server",
-                "label": {
-                  "text": "slow"
-                },
-                "tone": "error"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Return result as soon as call succeeds.",
-            "messages": [
+            "at": "say6",
+            "caption": "Trace how only updates retry during execution.",
+            "items": {
+              "var": "waits",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "from": "client",
-                "to": "server",
-                "label": {
-                  "text": "payment ok"
-                },
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Exponential backoff retry timeline on transient failures",
-        "actors": [
-          "client",
-          "server"
-        ],
+        "template": "cells",
+        "title": "Retrying with exponential backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "Temporary network glitch triggers immediate retry attempt.",
-            "messages": [
+            "caption": "Many failures are temporary.",
+            "items": [
+              "100",
+              "200"
+            ],
+            "pointers": [
               {
-                "from": "client",
-                "to": "server",
-                "label": "reset",
-                "tone": "error"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Exponential backoff waits longer after each failure before retrying.",
-            "messages": [
+            "caption": "But retrying immediately and repeatedly can overload a struggling server.",
+            "items": [
+              "100",
+              "200"
+            ],
+            "pointers": [
               {
-                "from": "client",
-                "to": "server",
-                "label": "slow",
-                "tone": "error"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Return result as soon as call succeeds.",
-            "messages": [
+            "at": "say6",
+            "caption": "Trace how only updates retry during execution.",
+            "items": [
+              "100",
+              "200"
+            ],
+            "pointers": [
               {
-                "from": "client",
-                "to": "server",
-                "label": "payment ok",
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -639,112 +670,91 @@
       "partTitle": "Backoff delays, jitter and retry budgets",
       "codeHash": "571dfe9851c7848c82d45d1e4bd9b120be8504cd79216c94127d72fd38a4b32d",
       "spec": {
-        "template": "table",
-        "title": "Exponential backoff delay calculations across retry attempts",
-        "columns": [
+        "template": "sequence",
+        "title": "Backoff delays, jitter and retry budgets",
+        "actors": [
           "attempt",
           "base_delay",
-          "delay_ms"
+          "rng"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function backoff_delay returns exponential delay for attempts.",
-            "rows": [
+            "caption": "Backoff_delay(attempt, base_delay) returns base_delay x 2^(attempt - 1).",
+            "activeActor": "attempt",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
+                "from": "attempt",
+                "to": "base_delay",
+                "label": {
+                  "var": "attempt",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "base_delay",
+                "to": "rng",
+                "label": {
+                  "var": "base_delay",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cap the maximum delay so outage does not cause absurd waits.",
-            "rows": [
+            "caption": "Cap the delay (for example at 10 seconds), so a long outage does not lead.",
+            "activeActor": "base_delay",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
+                "from": "attempt",
+                "to": "base_delay",
+                "label": {
+                  "var": "attempt",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "from": "base_delay",
+                "to": "rng",
+                "label": {
+                  "var": "base_delay",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Add jitter so thousands of clients do not retry simultaneously.",
-            "rows": [
+            "at": "say6",
+            "caption": "Backoff with jitter and budgets is standard in every major cloud client.",
+            "activeActor": "rng",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
+                "from": "attempt",
+                "to": "base_delay",
+                "label": {
+                  "var": "attempt",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "400"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
+                "from": "base_delay",
+                "to": "rng",
+                "label": {
+                  "var": "base_delay",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -752,79 +762,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exponential backoff delay calculations across retry attempts",
-        "columns": [
+        "template": "sequence",
+        "title": "Backoff delays, jitter and retry budgets",
+        "actors": [
           "attempt",
           "base_delay",
-          "delay_ms"
+          "rng"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function backoff_delay returns exponential delay for attempts.",
-            "rows": [
+            "caption": "Backoff_delay(attempt, base_delay) returns base_delay x 2^(attempt - 1).",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "100",
-                  "100"
-                ],
+                "from": "attempt",
+                "to": "base_delay",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "base_delay",
+                "to": "rng",
+                "label": "100",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "attempt"
           },
           {
             "at": "say2",
-            "caption": "Cap the maximum delay so outage does not cause absurd waits.",
-            "rows": [
+            "caption": "Cap the delay (for example at 10 seconds), so a long outage does not lead.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "100",
-                  "100"
-                ],
-                "tone": "ok"
+                "from": "attempt",
+                "to": "base_delay",
+                "label": "2",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "200",
-                  "100",
-                  "200"
-                ],
+                "from": "base_delay",
+                "to": "rng",
+                "label": "100",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "base_delay"
           },
           {
-            "at": "say3",
-            "caption": "Add jitter so thousands of clients do not retry simultaneously.",
-            "rows": [
+            "at": "say6",
+            "caption": "Backoff with jitter and budgets is standard in every major cloud client.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "100",
-                  "100"
-                ],
-                "tone": "ok"
+                "from": "attempt",
+                "to": "base_delay",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "200",
-                  "100",
-                  "200"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "400",
-                  "100",
-                  "400"
-                ],
+                "from": "base_delay",
+                "to": "rng",
+                "label": "100",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "rng"
           }
         ]
       }
@@ -833,224 +834,162 @@
       "partTitle": "Latency and the long tail",
       "codeHash": "a24a261a285cf9ac4da82bb27b73d6f70bcea04df3778c82260ff8ca2c61531f",
       "spec": {
-        "template": "flow",
-        "title": "Latency and the long tail — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Latency and the lon...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Latency and the long tail",
+        "actors": [
+          "servers",
+          "all_fast",
+          "latency_ns"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Latency and the long tail [Done.Psix.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Latency and the lon... [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Average latency hides problems.",
+            "activeActor": "servers",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": {
+                  "var": "servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": {
+                  "var": "all_fast",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Fan-out makes the tail matter more.",
+            "activeActor": "all_fast",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": {
+                  "var": "servers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": {
+                  "var": "all_fast",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Latency and the long tail.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "These numbers explain why you keep chatty calls inside one datacentre.",
+            "activeActor": "latency_ns",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": {
+                  "var": "servers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": {
+                  "var": "all_fast",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Latency and the long tail — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Latency and the lon...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Latency and the long tail",
+        "actors": [
+          "servers",
+          "all_fast",
+          "latency_ns"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Latency and the long tail [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Latency and the lon... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Average latency hides problems.",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": "0.99",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "servers"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Fan-out makes the tail matter more.",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": "0.99",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "all_fast"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Latency and the long tail [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "These numbers explain why you keep chatty calls inside one datacentre.",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "all_fast",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "all_fast",
+                "to": "latency_ns",
+                "label": "0.99",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "latency_ns"
           }
         ]
       }

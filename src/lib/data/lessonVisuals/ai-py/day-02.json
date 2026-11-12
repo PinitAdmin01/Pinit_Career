@@ -2,71 +2,98 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tokens are pieces of words",
       "codeHash": "7e2be703b29d32f331df9a5aa0e12fd8b9a4cf8126c407492d60c27d199ae645",
       "spec": {
-        "template": "table",
-        "title": "Character counts versus estimated token counts",
-        "columns": [
-          "sample_text",
-          "char_count",
-          "token_estimate"
+        "template": "sequence",
+        "title": "Tokens are pieces of words",
+        "actors": [
+          "samples",
+          "s",
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models read tokens representing common words or parts of text.",
-            "rows": [
+            "caption": "Models do not read letters or whole words.",
+            "activeActor": "samples",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Hello!"
-                  },
-                  {
-                    "text": "6"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
+                "from": "samples",
+                "to": "s",
+                "label": {
+                  "var": "samples",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "s",
+                "to": "text",
+                "label": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Context limits and processing speed are measured in tokens rather than words.",
-            "rows": [
+            "at": "say2",
+            "caption": "A useful rule of thumb for English.",
+            "activeActor": "s",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Hello!"
-                  },
-                  {
-                    "text": "6"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
+                "from": "samples",
+                "to": "s",
+                "label": {
+                  "var": "samples",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Summary report"
-                  },
-                  {
-                    "text": "52"
-                  },
-                  {
-                    "text": "13"
-                  }
-                ],
+                "from": "s",
+                "to": "text",
+                "label": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Real tokenizers ship with each model.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "s",
+                "label": {
+                  "var": "samples",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "s",
+                "to": "text",
+                "label": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -74,49 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Character counts versus estimated token counts",
-        "columns": [
-          "sample_text",
-          "char_count",
-          "token_estimate"
+        "template": "sequence",
+        "title": "Tokens are pieces of words",
+        "actors": [
+          "samples",
+          "s",
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models read tokens representing common words or parts of text.",
-            "rows": [
+            "caption": "Models do not read letters or whole words.",
+            "messages": [
               {
-                "cells": [
-                  "Hello!",
-                  "6",
-                  "2"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Context limits and processing speed are measured in tokens rather than words.",
-            "rows": [
-              {
-                "cells": [
-                  "Hello!",
-                  "6",
-                  "2"
-                ],
+                "from": "samples",
+                "to": "s",
+                "label": "['Hello!', 'Please summarise this repor…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Summary report",
-                  "52",
-                  "13"
-                ],
+                "from": "s",
+                "to": "text",
+                "label": "'Hello!'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "samples"
+          },
+          {
+            "at": "say2",
+            "caption": "A useful rule of thumb for English.",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "s",
+                "label": "['Hello!', 'Please summarise this repor…",
+                "tone": "data"
+              },
+              {
+                "from": "s",
+                "to": "text",
+                "label": "'Hello!'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "s"
+          },
+          {
+            "at": "say6",
+            "caption": "Real tokenizers ship with each model.",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "s",
+                "label": "['Hello!', 'Please summarise this repor…",
+                "tone": "data"
+              },
+              {
+                "from": "s",
+                "to": "text",
+                "label": "'Please summarise this report in three …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }
@@ -125,122 +173,162 @@
       "partTitle": "Byte-pair encoding: learning the pieces",
       "codeHash": "05da8d0feafb34cb9e46847eb146a58ef83523cd9d86ab21976f9c9d7574987c",
       "spec": {
-        "template": "bars",
-        "title": "Frequency count of adjacent character pairs",
+        "template": "sequence",
+        "title": "Byte-pair encoding: learning the pieces",
+        "actors": [
+          "words",
+          "pairs",
+          "w"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Byte pair encoding merges the most frequent neighbouring pair into a token.",
-            "bars": [
+            "caption": "How does a tokenizer decide its pieces.",
+            "activeActor": "words",
+            "messages": [
               {
-                "label": "(\"l\", \"o\")",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "(\"o\", \"w\")",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "(\"e\", \"r\")",
-                "value": {
-                  "text": "2"
+                "from": "words",
+                "to": "pairs",
+                "label": {
+                  "var": "words",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": {
+                  "var": "pairs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Common pairs become single merged tokens while rare pieces remain split.",
-            "bars": [
+            "caption": "In \"low lower lowest\", the pair (\"l\", \"o\") is very common, so \"lo\" becomes.",
+            "activeActor": "pairs",
+            "messages": [
               {
-                "label": "(\"l\", \"o\")",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "(\"o\", \"w\")",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "(\"e\", \"r\")",
-                "value": {
-                  "text": "2"
+                "from": "words",
+                "to": "pairs",
+                "label": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "(\"w\", \"e\")",
-                "value": {
-                  "text": "1"
+                "from": "pairs",
+                "to": "w",
+                "label": {
+                  "var": "pairs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The first step, counting neighbouring pairs, is a simple Counter job.",
+            "activeActor": "w",
+            "messages": [
+              {
+                "from": "words",
+                "to": "pairs",
+                "label": {
+                  "var": "words",
+                  "line": 5,
+                  "hit": 1
                 },
                 "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": {
+                  "var": "pairs",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Frequency count of adjacent character pairs",
+        "template": "sequence",
+        "title": "Byte-pair encoding: learning the pieces",
+        "actors": [
+          "words",
+          "pairs",
+          "w"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Byte pair encoding merges the most frequent neighbouring pair into a token.",
-            "bars": [
+            "caption": "How does a tokenizer decide its pieces.",
+            "messages": [
               {
-                "label": "(\"l\", \"o\")",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "(\"o\", \"w\")",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "(\"e\", \"r\")",
-                "value": 2,
+                "from": "words",
+                "to": "pairs",
+                "label": "[['l', 'o', 'w'], ['l', 'o', 'w', 'e', …",
                 "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "words"
           },
           {
             "at": "say2",
-            "caption": "Common pairs become single merged tokens while rare pieces remain split.",
-            "bars": [
+            "caption": "In \"low lower lowest\", the pair (\"l\", \"o\") is very common, so \"lo\" becomes.",
+            "messages": [
               {
-                "label": "(\"l\", \"o\")",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "(\"o\", \"w\")",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "(\"e\", \"r\")",
-                "value": 2,
+                "from": "words",
+                "to": "pairs",
+                "label": "[['l', 'o', 'w'], ['l', 'o', 'w', 'e', …",
                 "tone": "data"
               },
               {
-                "label": "(\"w\", \"e\")",
-                "value": 1,
-                "tone": "data"
+                "from": "pairs",
+                "to": "w",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pairs"
+          },
+          {
+            "at": "say6",
+            "caption": "The first step, counting neighbouring pairs, is a simple Counter job.",
+            "messages": [
+              {
+                "from": "words",
+                "to": "pairs",
+                "label": "[['l', 'o', 'w'], ['l', 'o', 'w', 'e', …",
+                "tone": "data"
+              },
+              {
+                "from": "pairs",
+                "to": "w",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "w"
           }
         ]
       }
@@ -250,108 +338,192 @@
       "codeHash": "949e7c830aa92809e72fb78c59cefa37176aa4e8dec7bd79211a34b4a17f103b",
       "spec": {
         "template": "boxes",
-        "title": "Progressive token list state during BPE merges",
+        "title": "Applying merge rules",
         "boxes": [
           {
-            "id": "b0",
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "merge_rules",
+            "label": "merge_rules"
+          },
+          {
+            "id": "left",
             "label": "left"
-          },
-          {
-            "id": "b1",
-            "label": "right"
-          },
-          {
-            "id": "b2",
-            "label": "merged"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Matching token pairs are merged into combined pieces while walking the list.",
+            "at": "say1",
+            "caption": "Apply_bpe_merges(tokens, merge_rules).",
             "values": {
-              "b0": {
-                "text": "lo"
+              "rules": {
+                "var": "rules",
+                "line": 14,
+                "hit": 1
               },
-              "b1": {
-                "text": "w"
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
               },
-              "b2": {
-                "text": "er"
+              "merge_rules": {
+                "var": "merge_rules",
+                "line": 2,
+                "hit": 1
+              },
+              "left": {
+                "var": "left",
+                "line": 2,
+                "hit": 1
               }
             },
             "tones": {
-              "b0": "ok",
-              "b1": "data",
-              "b2": "ok"
+              "rules": "data",
+              "tokens": "data",
+              "merge_rules": "data",
+              "left": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "For each rule, walk through the list with an index.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 15,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "merge_rules": {
+                "var": "merge_rules",
+                "line": 3,
+                "hit": 1
+              },
+              "left": {
+                "var": "left",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rules": "data",
+              "tokens": "data",
+              "merge_rules": "data",
+              "left": "data"
             }
           },
           {
             "at": "say5",
-            "caption": "Sequential merge rule order determines how final tokens are formed.",
+            "caption": "The order of rules matters too.",
             "values": {
-              "b0": {
-                "text": "low"
+              "rules": {
+                "var": "rules",
+                "line": 16,
+                "hit": 1
               },
-              "b1": {
-                "text": "er"
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
               },
-              "b2": {
-                "text": ""
+              "merge_rules": {
+                "var": "merge_rules",
+                "line": 4,
+                "hit": 1
+              },
+              "left": {
+                "var": "left",
+                "line": 4,
+                "hit": 1
               }
             },
             "tones": {
-              "b0": "ok",
-              "b1": "ok",
-              "b2": "idle"
+              "rules": "ok",
+              "tokens": "ok",
+              "merge_rules": "ok",
+              "left": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Progressive token list state during BPE merges",
+        "title": "Applying merge rules",
         "boxes": [
           {
-            "id": "b0",
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "merge_rules",
+            "label": "merge_rules"
+          },
+          {
+            "id": "left",
             "label": "left"
-          },
-          {
-            "id": "b1",
-            "label": "right"
-          },
-          {
-            "id": "b2",
-            "label": "merged"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Matching token pairs are merged into combined pieces while walking the list.",
+            "at": "say1",
+            "caption": "Apply_bpe_merges(tokens, merge_rules).",
             "values": {
-              "b0": "lo",
-              "b1": "w",
-              "b2": "er"
+              "rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
+              "tokens": "['l', 'o', 'w', 'e', 'r']",
+              "merge_rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
+              "left": "'l'"
             },
             "tones": {
-              "b0": "ok",
-              "b1": "data",
-              "b2": "ok"
+              "rules": "data",
+              "tokens": "data",
+              "merge_rules": "data",
+              "left": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "For each rule, walk through the list with an index.",
+            "values": {
+              "rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
+              "tokens": "['l', 'o', 'w', 'e', 'r']",
+              "merge_rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
+              "left": "'l'"
+            },
+            "tones": {
+              "rules": "data",
+              "tokens": "data",
+              "merge_rules": "data",
+              "left": "data"
             }
           },
           {
             "at": "say5",
-            "caption": "Sequential merge rule order determines how final tokens are formed.",
+            "caption": "The order of rules matters too.",
             "values": {
-              "b0": "low",
-              "b1": "er",
-              "b2": ""
+              "rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
+              "tokens": "['l', 'o', 'w', 'e', 'r']",
+              "merge_rules": "[['l', 'o', 'lo'], ['e', 'r', 'er'], ['…",
+              "left": "'l'"
             },
             "tones": {
-              "b0": "ok",
-              "b1": "ok",
-              "b2": "idle"
+              "rules": "ok",
+              "tokens": "ok",
+              "merge_rules": "ok",
+              "left": "ok"
             }
           }
         ]
@@ -361,224 +533,194 @@
       "partTitle": "The context window",
       "codeHash": "96c492261a3d1feb0ec66c98aa30b8f49e3a96fb7777b67954891c0837c7e8f1",
       "spec": {
-        "template": "flow",
-        "title": "The context window — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "The context window",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "proc",
-            "label": "2. The context window",
-            "tappable": true
+            "id": "system",
+            "label": "system"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "messages",
+            "label": "messages"
+          },
+          {
+            "id": "window",
+            "label": "window"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The context window [Dtwo.Pfour.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The context window [Dtwo.Pfour.Stwo].",
+            "caption": "Every model has a context window.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "history": {
+                "var": "history",
+                "line": 12,
+                "hit": 1
+              },
+              "system": {
+                "var": "system",
+                "line": 2,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 2,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "system": "data",
+              "messages": "data",
+              "window": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfour.object-storage].",
+            "at": "say2",
+            "caption": "Bigger is not free.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "history": {
+                "var": "history",
+                "line": 13,
+                "hit": 1
+              },
+              "system": {
+                "var": "system",
+                "line": 3,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 3,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "system": "data",
+              "messages": "data",
+              "window": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The context window [Dtwo.Pfour.Sfour].",
+            "at": "say6",
+            "caption": "Trace how will updates learn during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "history": {
+                "var": "history",
+                "line": 14,
+                "hit": 1
+              },
+              "system": {
+                "var": "system",
+                "line": 4,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 4,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "ok",
+              "system": "ok",
+              "messages": "ok",
+              "window": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The context window — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "The context window",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "proc",
-            "label": "2. The context window",
-            "tappable": true
+            "id": "system",
+            "label": "system"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "messages",
+            "label": "messages"
+          },
+          {
+            "id": "window",
+            "label": "window"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The context window [D2.P4.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The context window [D2.P4.S2].",
+            "caption": "Every model has a context window.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "history": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
+              "system": "'You are helpful.You are helpful.You ar…",
+              "messages": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
+              "window": "250"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "system": "data",
+              "messages": "data",
+              "window": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P4.S3].",
+            "at": "say2",
+            "caption": "Bigger is not free.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "history": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
+              "system": "'You are helpful.You are helpful.You ar…",
+              "messages": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
+              "window": "250"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "system": "data",
+              "messages": "data",
+              "window": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The context window [D2.P4.S4].",
+            "at": "say6",
+            "caption": "Trace how will updates learn during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "history": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
+              "system": "'You are helpful.You are helpful.You ar…",
+              "messages": "['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…",
+              "window": "250"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "ok",
+              "system": "ok",
+              "messages": "ok",
+              "window": "ok"
+            }
           }
         ]
       }
@@ -588,110 +730,161 @@
       "codeHash": "d513a93e794b6d0245855fbe8831b66955360f749610bce75a1f6f91fa840830",
       "spec": {
         "template": "flow",
-        "title": "What does a call cost? — Execution Pipeline",
+        "title": "What does a call cost?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "input_tokens",
+            "label": "input_tokens"
           },
           {
-            "id": "proc",
-            "label": "2. What does a call cost?",
-            "tappable": true
+            "id": "output_tokens",
+            "label": "output_tokens"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "input_per_million",
+            "label": "input_per_million"
+          },
+          {
+            "id": "output_per_million",
+            "label": "output_per_million"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What does a call cost? [Dtwo.Pfive.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What does a call cost? [Dtwo.Pfive.Stwo].",
+            "caption": "APIs price tokens per million, with output tokens usually several times.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_tokens": {
+                "var": "input_tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "output_tokens": {
+                "var": "output_tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "input_per_million": {
+                "var": "input_per_million",
+                "line": 2,
+                "hit": 1
+              },
+              "output_per_million": {
+                "var": "output_per_million",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "input_tokens": "data",
+              "output_tokens": "data",
+              "input_per_million": "data",
+              "output_per_million": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_tokens",
+                "output_tokens"
               ],
               [
-                "proc",
-                "out"
+                "output_tokens",
+                "input_per_million"
+              ],
+              [
+                "input_per_million",
+                "output_per_million"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Trace how cost updates input during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_tokens": {
+                "var": "input_tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "output_tokens": {
+                "var": "output_tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "input_per_million": {
+                "var": "input_per_million",
+                "line": 3,
+                "hit": 1
+              },
+              "output_per_million": {
+                "var": "output_per_million",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "input_tokens": "data",
+              "output_tokens": "data",
+              "input_per_million": "data",
+              "output_per_million": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "input_tokens",
+                "output_tokens"
+              ],
+              [
+                "output_tokens",
+                "input_per_million"
+              ],
+              [
+                "input_per_million",
+                "output_per_million"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What does a call cost.",
+            "at": "say6",
+            "caption": "Round money to a sensible number of decimals only at the end, to avoid.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_tokens": {
+                "var": "input_tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "output_tokens": {
+                "var": "output_tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "input_per_million": {
+                "var": "input_per_million",
+                "line": 3,
+                "hit": 1
+              },
+              "output_per_million": {
+                "var": "output_per_million",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "input_tokens": "ok",
+              "output_tokens": "ok",
+              "input_per_million": "ok",
+              "output_per_million": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_tokens",
+                "output_tokens"
               ],
               [
-                "proc",
-                "out"
+                "output_tokens",
+                "input_per_million"
+              ],
+              [
+                "input_per_million",
+                "output_per_million"
               ]
             ]
           }
@@ -699,110 +892,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "What does a call cost? — Execution Pipeline",
+        "title": "What does a call cost?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "input_tokens",
+            "label": "input_tokens"
           },
           {
-            "id": "proc",
-            "label": "2. What does a call cost?",
-            "tappable": true
+            "id": "output_tokens",
+            "label": "output_tokens"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "input_per_million",
+            "label": "input_per_million"
+          },
+          {
+            "id": "output_per_million",
+            "label": "output_per_million"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What does a call cost? [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What does a call cost? [D2.P5.S2].",
+            "caption": "APIs price tokens per million, with output tokens usually several times.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_tokens": "1500",
+              "output_tokens": "300",
+              "input_per_million": "2.5",
+              "output_per_million": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "input_tokens": "data",
+              "output_tokens": "data",
+              "input_per_million": "data",
+              "output_per_million": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_tokens",
+                "output_tokens"
               ],
               [
-                "proc",
-                "out"
+                "output_tokens",
+                "input_per_million"
+              ],
+              [
+                "input_per_million",
+                "output_per_million"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how cost updates input during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_tokens": "1500",
+              "output_tokens": "300",
+              "input_per_million": "2.5",
+              "output_per_million": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "input_tokens": "data",
+              "output_tokens": "data",
+              "input_per_million": "data",
+              "output_per_million": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "input_tokens",
+                "output_tokens"
+              ],
+              [
+                "output_tokens",
+                "input_per_million"
+              ],
+              [
+                "input_per_million",
+                "output_per_million"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What does a call cost? [D2.P5.S4].",
+            "at": "say6",
+            "caption": "Round money to a sensible number of decimals only at the end, to avoid.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_tokens": "1500",
+              "output_tokens": "300",
+              "input_per_million": "2.5",
+              "output_per_million": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "input_tokens": "ok",
+              "output_tokens": "ok",
+              "input_per_million": "ok",
+              "output_per_million": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_tokens",
+                "output_tokens"
               ],
               [
-                "proc",
-                "out"
+                "output_tokens",
+                "input_per_million"
+              ],
+              [
+                "input_per_million",
+                "output_per_million"
               ]
             ]
           }
@@ -813,94 +1009,218 @@
       "partTitle": "Context economics: spending tokens wisely",
       "codeHash": "b8613a2df751a5562884b11c9920159152d4ecfb44a62e0844456fb22e044124",
       "spec": {
-        "template": "compare",
-        "title": "Cost difference between large and small models",
-        "leftLabel": "Large Model",
-        "rightLabel": "Small Model",
+        "template": "bars",
+        "title": "Context economics: spending tokens wisely",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Smaller models are cheaper and effective for basic classification tasks.",
-            "left": {
-              "code": "$2.50 in / $10.00 out",
-              "result": {
-                "text": "$20,250 / month"
+            "at": "say1",
+            "caption": "Tokens are your budget.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": {
+                  "var": "pin",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "$0.15 in / $0.60 out",
-              "result": {
-                "text": "$1,215 / month"
+              {
+                "label": "pout",
+                "value": {
+                  "var": "pout",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "label": "inp",
+                "value": {
+                  "var": "inp",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "out",
+                "value": {
+                  "var": "out",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Restricting output length cuts down expensive tokens in the reply.",
-            "left": {
-              "code": "essay output (2000 tokens)",
-              "result": {
-                "text": "high cost burden"
+            "at": "say2",
+            "caption": "Smaller models can be 10 to 30 times cheaper and are often good enough.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": {
+                  "var": "pin",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "json output (100 tokens)",
-              "result": {
-                "text": "minimal token cost"
+              {
+                "label": "pout",
+                "value": {
+                  "var": "pout",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "tone": "ok"
-            }
+              {
+                "label": "inp",
+                "value": {
+                  "var": "inp",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "out",
+                "value": {
+                  "var": "out",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how days updates return during execution.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": {
+                  "var": "pin",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pout",
+                "value": {
+                  "var": "pout",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "inp",
+                "value": {
+                  "var": "inp",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "out",
+                "value": {
+                  "var": "out",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Cost difference between large and small models",
-        "leftLabel": "Large Model",
-        "rightLabel": "Small Model",
+        "template": "bars",
+        "title": "Context economics: spending tokens wisely",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Smaller models are cheaper and effective for basic classification tasks.",
-            "left": {
-              "code": "$2.50 in / $10.00 out",
-              "result": "$20,250 / month",
-              "tone": "data",
-              "checks": [
-                "$20,250 / month"
-              ]
-            },
-            "right": {
-              "code": "$0.15 in / $0.60 out",
-              "result": "$1,215 / month",
-              "tone": "ok",
-              "checks": [
-                "$1,215 / month"
-              ]
-            }
+            "at": "say1",
+            "caption": "Tokens are your budget.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": 2.5,
+                "tone": "data"
+              },
+              {
+                "label": "pout",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "inp",
+                "value": 1500,
+                "tone": "data"
+              },
+              {
+                "label": "out",
+                "value": 300,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Restricting output length cuts down expensive tokens in the reply.",
-            "left": {
-              "code": "essay output (2000 tokens)",
-              "result": "high cost burden",
-              "tone": "error",
-              "checks": [
-                "high cost burden"
-              ]
-            },
-            "right": {
-              "code": "json output (100 tokens)",
-              "result": "minimal token cost",
-              "tone": "ok",
-              "checks": [
-                "minimal token cost"
-              ]
-            }
+            "at": "say2",
+            "caption": "Smaller models can be 10 to 30 times cheaper and are often good enough.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": 2.5,
+                "tone": "ok"
+              },
+              {
+                "label": "pout",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "inp",
+                "value": 1500,
+                "tone": "ok"
+              },
+              {
+                "label": "out",
+                "value": 300,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how days updates return during execution.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": 2.5,
+                "tone": "ok"
+              },
+              {
+                "label": "pout",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "inp",
+                "value": 1500,
+                "tone": "ok"
+              },
+              {
+                "label": "out",
+                "value": 300,
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

@@ -1480,15 +1480,17 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Compute Kafka Partition",
     eDesc: "Write `computeKafkaPartition(key: string, numPartitions: number): number` implementing deterministic partition key hashing.",
     eLanguage: "typescript",
-    eStarter: lines("function computeKafkaPartition(key, numPartitions) {", "  // Compute partition index", "  return 0;", "}"),
+    // [FIX-STAGE: wave1c-nodeweb-anti-constant] Starter fails closed + test rejects hardcoded constants
+    eStarter: lines("function computeKafkaPartition(key, numPartitions) {", "  // Compute partition index", "  throw new Error('TODO: implement computeKafkaPartition');", "}"),
     eHint: "let hash = 0; for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) >>> 0; return hash % numPartitions;",
     eTest: lines(
       "if (typeof computeKafkaPartition !== 'function') throw new Error('computeKafkaPartition not found');",
       "const p1 = computeKafkaPartition('user-100', 8);",
       "const p2 = computeKafkaPartition('user-100', 8);",
-      "if (p1 !== p2 || p1 < 0 || p1 >= 8) throw new Error('Partition non-deterministic or out of bounds');",
+      "if (typeof p1 !== 'number' || Number.isNaN(p1) || p1 !== p2 || p1 < 0 || p1 >= 8) throw new Error('Partition non-deterministic or out of bounds');",
       "const p3 = computeKafkaPartition('order-999', 8);",
-      "if (typeof p3 !== 'number') throw new Error('Expected number partition');"
+      "if (typeof p3 !== 'number' || Number.isNaN(p3) || p3 < 0 || p3 >= 8) throw new Error('Expected valid partition index for order-999');",
+      "if (p1 === p3) throw new Error('Distinct keys must distribute across partitions (hardcoded constant rejected)');"
     ),
     aTitle: "Evaluate Consumer Lag",
     aDesc: "Write `evaluateConsumerLag(leo: number, committed: number): { lag: number; isCritical: boolean }` checking if lag > 100.",
@@ -1595,15 +1597,18 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Calculate Redis Cluster Slot",
     eDesc: "Write `calculateRedisSlot(key: string): number` extracting `{tag}` if present, summing character codes, and returning `sum % 16384`.",
     eLanguage: "typescript",
-    eStarter: lines("function calculateRedisSlot(key) {", "  // Return slot modulo 16384", "  return 0;", "}"),
+    // [FIX-STAGE: wave1c-nodeweb-anti-constant] Starter fails closed + test rejects hardcoded constants and verifies {tag} semantics
+    eStarter: lines("function calculateRedisSlot(key) {", "  // Return slot modulo 16384", "  throw new Error('TODO: implement calculateRedisSlot');", "}"),
     eHint: "const m = key.match(/\\{([^}]+)\\}/); const s = m ? m[1] : key; let h = 0; for (let i = 0; i < s.length; i++) h += s.charCodeAt(i); return h % 16384;",
     eTest: lines(
       "if (typeof calculateRedisSlot !== 'function') throw new Error('calculateRedisSlot not found');",
       "const s1 = calculateRedisSlot('user:101');",
-      "if (typeof s1 !== 'number' || s1 < 0 || s1 >= 16384) throw new Error('Invalid slot for s1: ' + s1);",
+      "if (typeof s1 !== 'number' || Number.isNaN(s1) || s1 < 0 || s1 >= 16384) throw new Error('Invalid slot for s1: ' + s1);",
       "const s2 = calculateRedisSlot('{inventory:sku_iphone}:stock');",
       "const s3 = calculateRedisSlot('{inventory:sku_iphone}:holds');",
-      "if (s2 !== s3) throw new Error('Hash tagged keys must map to identical slot: ' + s2 + ' vs ' + s3);"
+      "const sTagOnly = calculateRedisSlot('inventory:sku_iphone');",
+      "if (s2 !== s3 || s2 !== sTagOnly) throw new Error('Hash tagged keys must map to identical slot as tag: ' + s2 + ' vs ' + s3 + ' vs ' + sTagOnly);",
+      "if (s1 === s2 || s2 === 0) throw new Error('Distinct untagged vs tagged keys must produce distinct non-zero slots');"
     ),
     aTitle: "Evaluate Cache Eviction Policy",
     aDesc: "Write `evaluateEvictionPolicy(policy: string, maxMemoryReached: boolean): { evict: boolean; policy: string }` checking if memory is reached and policy starts with allkeys- or volatile-.",
@@ -2193,16 +2198,18 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Calculate Kafka Partition Key Hash",
     eDesc: "Write `calculateKafkaPartition(key: string, partitionCount: number): number` computing deterministic hash = `(hash * 31 + charCode) & 0x7fffffff` and returning `hash % partitionCount`.",
     eLanguage: "typescript",
-    eStarter: lines("function calculateKafkaPartition(key, partitionCount) {", "  // Return partition index", "  return 0;", "}"),
+    // [FIX-STAGE: wave1c-nodeweb-anti-constant] Starter fails closed + test rejects hardcoded constants
+    eStarter: lines("function calculateKafkaPartition(key, partitionCount) {", "  // Return partition index", "  throw new Error('TODO: implement calculateKafkaPartition');", "}"),
     eHint: "let hash = 0; for (let i = 0; i < key.length; i++) { hash = (hash * 31 + key.charCodeAt(i)) & 0x7fffffff; } return hash % partitionCount;",
     eTest: lines(
       "if (typeof calculateKafkaPartition !== 'function') throw new Error('calculateKafkaPartition not found');",
       "const p1 = calculateKafkaPartition('cust_101', 4);",
       "const p2 = calculateKafkaPartition('cust_101', 4);",
       "if (p1 !== p2) throw new Error('Hashing must be deterministic');",
-      "if (p1 < 0 || p1 >= 4) throw new Error('Partition out of range: ' + p1);",
+      "if (typeof p1 !== 'number' || Number.isNaN(p1) || p1 < 0 || p1 >= 4) throw new Error('Partition out of range: ' + p1);",
       "const p3 = calculateKafkaPartition('cust_202', 4);",
-      "if (typeof p3 !== 'number') throw new Error('Partition must be a number');"
+      "if (typeof p3 !== 'number' || Number.isNaN(p3) || p3 < 0 || p3 >= 4) throw new Error('Partition out of range for cust_202: ' + p3);",
+      "if (p1 === p3) throw new Error('Distinct keys must yield distinct partitions (hardcoded constant rejected)');"
     ),
     aTitle: "Evaluate Consumer Lag & Throttle State",
     aDesc: "Write `evaluateConsumerLag(logEndOffset: number, currentOffset: number, maxAllowedLag: number): { lag: number; shouldThrottle: boolean }` calculating `lag = logEndOffset - currentOffset` and `shouldThrottle = lag > maxAllowedLag`.",
@@ -2285,16 +2292,19 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Compute Redis Cluster Hash Slot with Hash Tags",
     eDesc: "Write `computeRedisClusterSlot(key: string): number` extracting `{tag}` if present, computing hash with `hash = ((hash << 5) - hash + charCode) & 0xffff` and returning `Math.abs(hash) % 16384`.",
     eLanguage: "typescript",
-    eStarter: lines("function computeRedisClusterSlot(key) {", "  // Return CRC16 hash slot 0..16383", "  return 0;", "}"),
+    // [FIX-STAGE: wave1c-nodeweb-anti-constant] Starter fails closed + test rejects hardcoded constants and verifies {tag} semantics
+    eStarter: lines("function computeRedisClusterSlot(key) {", "  // Return CRC16 hash slot 0..16383", "  throw new Error('TODO: implement computeRedisClusterSlot');", "}"),
     eHint: "let hKey = key; const m = key.match(/\\{([^\\}]+)\\}/); if (m) hKey = m[1]; let hash = 0; for (let i = 0; i < hKey.length; i++) { hash = ((hash << 5) - hash + hKey.charCodeAt(i)) & 0xffff; } return Math.abs(hash) % 16384;",
     eTest: lines(
       "if (typeof computeRedisClusterSlot !== 'function') throw new Error('computeRedisClusterSlot not found');",
       "const s1 = computeRedisClusterSlot('{user:991}.profile');",
       "const s2 = computeRedisClusterSlot('{user:991}.orders');",
-      "if (s1 !== s2) throw new Error('Hash tags must collocate on identical slot: ' + s1 + ' vs ' + s2);",
-      "if (s1 < 0 || s1 >= 16384) throw new Error('Slot out of bounds: ' + s1);",
+      "const sTagOnly = computeRedisClusterSlot('user:991');",
+      "if (s1 !== s2 || s1 !== sTagOnly) throw new Error('Hash tags must collocate on identical slot as tag: ' + s1 + ' vs ' + s2 + ' vs ' + sTagOnly);",
+      "if (typeof s1 !== 'number' || Number.isNaN(s1) || s1 <= 0 || s1 >= 16384) throw new Error('Slot out of bounds: ' + s1);",
       "const s3 = computeRedisClusterSlot('standaloneKey');",
-      "if (typeof s3 !== 'number') throw new Error('Slot must be number');"
+      "if (typeof s3 !== 'number' || Number.isNaN(s3) || s3 < 0 || s3 >= 16384) throw new Error('Slot must be valid number');",
+      "if (s1 === s3) throw new Error('Distinct keys must produce distinct hash slots (hardcoded constant rejected)');"
     ),
     aTitle: "Coalesce Write-Behind Delta Increments",
     aDesc: "Write `coalesceWriteBehindDeltas(updates: Array<{ id: string; delta: number }>): Record<string, number>` aggregating all deltas for each distinct `id`.",

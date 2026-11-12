@@ -2,801 +2,551 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 33,
-  "promptSha": "d109a85779b9816eb672c47de067951ef878903fd96fced35a2b729167c2c789",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Ring All-Reduce Bandwidth Math — Foundations & Mathematical Invariants",
-      "codeHash": "07525f494e2ee1a3b397267b6bd0a003d968d4d3ead4a40b569fc280210c115f",
+      "codeHash": "eb7811a9d226cd6f88d98f9bd6440180a03ca8fd8262e5687d64889303a45346",
       "spec": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Ring All-Reduce Bandwidth Math — Foundations & Mathematical Inva",
+        "actors": [
+          "RING_ALLREDUCE_TAXONOMY",
+          "name",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In Distributed Data Parallel (DDP) training, each GPU worker maintains.",
+            "activeActor": "RING_ALLREDUCE_TAXONOMY",
+            "messages": [
+              {
+                "from": "RING_ALLREDUCE_TAXONOMY",
+                "to": "name",
+                "label": {
+                  "var": "RING_ALLREDUCE_TAXONOMY",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "desc",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At the completion of each backward pass, gradients computed locally across.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "RING_ALLREDUCE_TAXONOMY",
+                "to": "name",
+                "label": {
+                  "var": "RING_ALLREDUCE_TAXONOMY",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "desc",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Distributed systems architects master collective communication mathematics.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "RING_ALLREDUCE_TAXONOMY",
+                "to": "name",
+                "label": {
+                  "var": "RING_ALLREDUCE_TAXONOMY",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "desc",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Ring All-Reduce Bandwidth Math — Foundations & Mathematical Inva",
+        "actors": [
+          "RING_ALLREDUCE_TAXONOMY",
+          "name",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In Distributed Data Parallel (DDP) training, each GPU worker maintains.",
+            "messages": [
+              {
+                "from": "RING_ALLREDUCE_TAXONOMY",
+                "to": "name",
+                "label": "{'SCATTER_REDUCE': 'Each of N GPUs send…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "desc",
+                "label": "'ALL_GATHER'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "RING_ALLREDUCE_TAXONOMY"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At the completion of each backward pass, gradients computed locally across.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "RING_ALLREDUCE_TAXONOMY",
+                "to": "name",
+                "label": "{'SCATTER_REDUCE': 'Each of N GPUs send…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "desc",
+                "label": "'ALL_GATHER'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Distributed systems architects master collective communication mathematics.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "RING_ALLREDUCE_TAXONOMY",
+                "to": "name",
+                "label": "{'SCATTER_REDUCE': 'Each of N GPUs send…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "desc",
+                "label": "'BANDWIDTH_OPTIMALITY'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "desc"
           }
         ]
       }
     },
     {
       "partTitle": "Ring All-Reduce Bandwidth Math — Core Algorithm & State Representation",
-      "codeHash": "3fed98dd49f854b902070922067baeaf671e12a45143fed4300a3b9a1e065ffb",
+      "codeHash": "8dce2669db15c8cdff757ab53c5a54d6060b86c9b7c8d4701f06f961af86e325",
       "spec": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Ring All-Reduce Bandwidth Math — Core Algorithm & State Represen",
+        "actors": [
+          "tensor_size_gb",
+          "num_gpus",
+          "transferred"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Ring All-Reduce bandwidth calculator computes the precise data.",
+            "activeActor": "tensor_size_gb",
+            "messages": [
+              {
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": {
+                  "var": "tensor_size_gb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": {
+                  "var": "num_gpus",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For a 14-gigabyte model gradient tensor distributed across 8 GPUs, each.",
+            "activeActor": "num_gpus",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": {
+                  "var": "tensor_size_gb",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": {
+                  "var": "num_gpus",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Infrastructure teams use bandwidth calculators to benchmark and validate.",
+            "activeActor": "transferred",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": {
+                  "var": "tensor_size_gb",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": {
+                  "var": "num_gpus",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Ring All-Reduce Bandwidth Math — Core Algorithm & State Represen",
+        "actors": [
+          "tensor_size_gb",
+          "num_gpus",
+          "transferred"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Ring All-Reduce bandwidth calculator computes the precise data.",
+            "messages": [
+              {
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": "14",
+                "tone": "data"
+              },
+              {
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tensor_size_gb"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For a 14-gigabyte model gradient tensor distributed across 8 GPUs, each.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": "14",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "num_gpus"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Infrastructure teams use bandwidth calculators to benchmark and validate.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tensor_size_gb",
+                "to": "num_gpus",
+                "label": "14",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "num_gpus",
+                "to": "transferred",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "transferred"
           }
         ]
       }
     },
     {
       "partTitle": "Ring All-Reduce Bandwidth Math — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5ea945820394ade8bcfebd2890d04f21c479b592170468826e864c6bf2e02969",
+      "codeHash": "77052d67acc0346973b7dfcdf77b585b643b5bf5b8b48eff4334bc21ea2327f8",
       "spec": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Throughput Optimization & Edge-Case H",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ring All-Reduce Bandwidth Math — Throughput Optimization & Edge-",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Decomposing Ring All-Reduce into individual step latencies exposes.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": {
+                  "var": "num_gpus",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tensor_mb",
+                "value": {
+                  "var": "tensor_mb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "link_latency_u",
+                "value": {
+                  "var": "link_latency_us",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "link_bandwidth",
+                "value": {
+                  "var": "link_bandwidth_gb_per_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The total step count is 2 * (N - 1).",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_gpus",
+                "value": {
+                  "var": "num_gpus",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tensor_mb",
+                "value": {
+                  "var": "tensor_mb",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "link_latency_u",
+                "value": {
+                  "var": "link_latency_us",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "link_bandwidth",
+                "value": {
+                  "var": "link_bandwidth_gb_per_sec",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Performance engineers tune gradient bucket sizes in distributed data.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_gpus",
+                "value": {
+                  "var": "num_gpus",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tensor_mb",
+                "value": {
+                  "var": "tensor_mb",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "link_latency_u",
+                "value": {
+                  "var": "link_latency_us",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "link_bandwidth",
+                "value": {
+                  "var": "link_bandwidth_gb_per_sec",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Throughput Optimization & Edge-Case H",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ring All-Reduce Bandwidth Math — Throughput Optimization & Edge-",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Decomposing Ring All-Reduce into individual step latencies exposes.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "tensor_mb",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "link_latency_u",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "link_bandwidth",
+                "value": 400,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The total step count is 2 * (N - 1).",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_gpus",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tensor_mb",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "link_latency_u",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "link_bandwidth",
+                "value": 400,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Performance engineers tune gradient bucket sizes in distributed data.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_gpus",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tensor_mb",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "link_latency_u",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "link_bandwidth",
+                "value": 400,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +555,218 @@
     },
     {
       "partTitle": "Ring All-Reduce Bandwidth Math — Resilience Guardrails & Failure Recovery",
-      "codeHash": "8926ed78a4f71bfa8e5b00530b8def74200d7cef157e8e7b896faaffe20cb0fb",
+      "codeHash": "0e898150a54f283aa25b3e9355ac0afad246a4dcedfd6f240104292c3839b1d0",
       "spec": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Resilience Guardrails & Failure Recov",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ring All-Reduce Bandwidth Math — Resilience Guardrails & Failure",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In a ring topology, communication proceeds sequentially from node to node.",
+            "bars": [
+              {
+                "label": "min_acceptable",
+                "value": {
+                  "var": "min_acceptable_gbps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "speed",
+                "value": {
+                  "var": "speed",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_speed",
+                "value": {
+                  "var": "min_speed",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A single degraded network cable, transceiver error, or PCIe link operating.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_acceptable",
+                "value": {
+                  "var": "min_acceptable_gbps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "speed",
+                "value": {
+                  "var": "speed",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_speed",
+                "value": {
+                  "var": "min_speed",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated fabric straggler detection scripts identify degraded network.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_acceptable",
+                "value": {
+                  "var": "min_acceptable_gbps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "speed",
+                "value": {
+                  "var": "speed",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_speed",
+                "value": {
+                  "var": "min_speed",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Resilience Guardrails & Failure Recov",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ring All-Reduce Bandwidth Math — Resilience Guardrails & Failure",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In a ring topology, communication proceeds sequentially from node to node.",
+            "bars": [
+              {
+                "label": "min_acceptable",
+                "value": 300,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "speed",
+                "value": 380,
+                "tone": "data"
+              },
+              {
+                "label": "min_speed",
+                "value": 380,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A single degraded network cable, transceiver error, or PCIe link operating.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_acceptable",
+                "value": 300,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "speed",
+                "value": 380,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_speed",
+                "value": 380,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated fabric straggler detection scripts identify degraded network.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_acceptable",
+                "value": 300,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "speed",
+                "value": 395,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_speed",
+                "value": 380,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +775,279 @@
     },
     {
       "partTitle": "Ring All-Reduce Bandwidth Math — Production Telemetry & Verification Audit",
-      "codeHash": "bb4de3f8adf0dfcc0f4573f350d25fe31f5bd4bc4187e18b1b3521e132925ffd",
+      "codeHash": "665c79b5b9cb34dc58fc66108d0aebca7dcc28fbc7176d88ad56c9a49e7b0007",
       "spec": {
         "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Production Telemetry & Verification A",
+        "title": "Ring All-Reduce Bandwidth Math — Production Telemetry & Verifica",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ring_optimal",
+            "label": "ring_optimal"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "step_simulated",
+            "label": "step_simulated"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "straggler_guard_ok",
+            "label": "straggler_guard_ok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "controls",
+            "label": "controls"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining optimal collective communication performance requires.",
+            "values": {
+              "ring_optimal": {
+                "var": "ring_optimal",
+                "line": 5,
+                "hit": 1
+              },
+              "step_simulated": {
+                "var": "step_simulated",
+                "line": 5,
+                "hit": 1
+              },
+              "straggler_guard_ok": {
+                "var": "straggler_guard_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "controls": {
+                "var": "controls",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ring_optimal": "data",
+              "step_simulated": "data",
+              "straggler_guard_ok": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "ring_optimal",
+                "step_simulated"
+              ],
+              [
+                "step_simulated",
+                "straggler_guard_ok"
+              ],
+              [
+                "straggler_guard_ok",
+                "controls"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A collective communication auditor asserts that ring bandwidth.",
+            "values": {
+              "ring_optimal": {
+                "var": "ring_optimal",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "step_simulated": {
+                "var": "step_simulated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "straggler_guard_ok": {
+                "var": "straggler_guard_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "controls": {
+                "var": "controls",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ring_optimal": "data",
+              "step_simulated": "data",
+              "straggler_guard_ok": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "ring_optimal",
+                "step_simulated"
+              ],
+              [
+                "step_simulated",
+                "straggler_guard_ok"
+              ],
+              [
+                "straggler_guard_ok",
+                "controls"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous collective communication auditing ensures that multi-node GPU.",
+            "values": {
+              "ring_optimal": {
+                "var": "ring_optimal",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "step_simulated": {
+                "var": "step_simulated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "straggler_guard_ok": {
+                "var": "straggler_guard_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "controls": {
+                "var": "controls",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "ring_optimal": "ok",
+              "step_simulated": "ok",
+              "straggler_guard_ok": "ok",
+              "controls": "ok"
+            },
+            "arrows": [
+              [
+                "ring_optimal",
+                "step_simulated"
+              ],
+              [
+                "step_simulated",
+                "straggler_guard_ok"
+              ],
+              [
+                "straggler_guard_ok",
+                "controls"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Ring All-Reduce Bandwidth Math — Production Telemetry & Verification A",
+        "title": "Ring All-Reduce Bandwidth Math — Production Telemetry & Verifica",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ring_optimal",
+            "label": "ring_optimal"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "step_simulated",
+            "label": "step_simulated"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "straggler_guard_ok",
+            "label": "straggler_guard_ok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "controls",
+            "label": "controls"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining optimal collective communication performance requires.",
+            "values": {
+              "ring_optimal": "True",
+              "step_simulated": "True",
+              "straggler_guard_ok": "True",
+              "controls": "{'RING_BANDWIDTH_FORMULA': True, 'STEP_…"
+            },
+            "tones": {
+              "ring_optimal": "data",
+              "step_simulated": "data",
+              "straggler_guard_ok": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "ring_optimal",
+                "step_simulated"
+              ],
+              [
+                "step_simulated",
+                "straggler_guard_ok"
+              ],
+              [
+                "straggler_guard_ok",
+                "controls"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A collective communication auditor asserts that ring bandwidth.",
+            "values": {
+              "ring_optimal": "True",
+              "step_simulated": "True",
+              "straggler_guard_ok": "True",
+              "controls": "{'RING_BANDWIDTH_FORMULA': True, 'STEP_…"
+            },
+            "tones": {
+              "ring_optimal": "data",
+              "step_simulated": "data",
+              "straggler_guard_ok": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "ring_optimal",
+                "step_simulated"
+              ],
+              [
+                "step_simulated",
+                "straggler_guard_ok"
+              ],
+              [
+                "straggler_guard_ok",
+                "controls"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous collective communication auditing ensures that multi-node GPU.",
+            "values": {
+              "ring_optimal": "True",
+              "step_simulated": "True",
+              "straggler_guard_ok": "True",
+              "controls": "{'RING_BANDWIDTH_FORMULA': True, 'STEP_…"
+            },
+            "tones": {
+              "ring_optimal": "ok",
+              "step_simulated": "ok",
+              "straggler_guard_ok": "ok",
+              "controls": "ok"
+            },
+            "arrows": [
+              [
+                "ring_optimal",
+                "step_simulated"
+              ],
+              [
+                "step_simulated",
+                "straggler_guard_ok"
+              ],
+              [
+                "straggler_guard_ok",
+                "controls"
+              ]
             ]
           }
         ]

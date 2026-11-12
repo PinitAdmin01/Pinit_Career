@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 58,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 58,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Nature Of LLM Drift: Silent Failures In Hosted Foundation Model APIs",
       "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
       "spec": {
-        "template": "table",
-        "title": "Silent Failures In Hosted Foundation Model APIs.",
-        "columns": [
-          "Drift Vector",
-          "Manifestation Mechanism",
-          "Detection Challenge SLA"
+        "template": "sequence",
+        "title": "The Nature Of LLM Drift: Silent Failures In Hosted Foundation Mo",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Silent model updates alter behavior without producing network error codes.",
-            "rows": [
-              [
-                "Upstream Weight Shift",
-                "Cloud Provider Fine-Tuning And Quantization",
-                "Zero HTTP Error Signatures"
-              ],
-              [
-                "Prompt Formatting Drift",
-                "Truncates Closing Brackets And Injects Preambles",
-                "Breaks Downstream Parsers"
-              ]
+            "caption": "In traditional software engineering, a compiled binary deployed.",
+            "activeActor": "monitors",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The manifestation of model drift in production environments is subtle.",
-            "rows": [
-              [
-                "Tokenizer Modification",
-                "Alters Subword Splitting And Token Counts",
-                "Unexpected Cloud Billing Surges"
-              ],
-              [
-                "User Distribution Drift",
-                "Shifting Vocabulary And Query Complexity",
-                "Exposes Untested Edge Cases"
-              ]
+            "activeActor": "telemetry",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Silent model updates alter formatting and accuracy without error codes.",
-            "rows": [
-              [
-                "Decoupled Async Tap",
-                "Clones Prompts And Completions In Background",
-                "Sub Millisecond User Impact"
-              ],
-              [
-                "Statutory Audit Trail",
-                "Maintains Immutable Performance Logs",
-                "Full EU AI Act Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design an enterprise observability strategy detecting silent model drift.",
-            "rows": [
-              [
-                "Automated Alert Policy",
-                "Notifies Teams When Confidence Thresholds Fail",
-                "Instant Operational Escalation"
-              ],
-              [
-                "Sovereign Drift Guard",
-                "Transforms Monitoring Into Proactive Reliability",
-                "Enterprise Production Grade SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering the architecture of model drift monitoring transforms enterprise.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Silent Failures In Hosted Foundation Model APIs.",
-        "columns": [
-          "Drift Vector",
-          "Manifestation Mechanism",
-          "Detection Challenge SLA"
+        "template": "sequence",
+        "title": "The Nature Of LLM Drift: Silent Failures In Hosted Foundation Mo",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Silent model updates alter behavior without producing network error codes.",
-            "rows": [
-              [
-                "Upstream Weight Shift",
-                "Cloud Provider Fine-Tuning And Quantization",
-                "Zero HTTP Error Signatures"
-              ],
-              [
-                "Prompt Formatting Drift",
-                "Truncates Closing Brackets And Injects Preambles",
-                "Breaks Downstream Parsers"
-              ]
-            ]
+            "caption": "In traditional software engineering, a compiled binary deployed.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "monitors"
           },
           {
             "at": "say2",
             "caption": "The manifestation of model drift in production environments is subtle.",
-            "rows": [
-              [
-                "Tokenizer Modification",
-                "Alters Subword Splitting And Token Counts",
-                "Unexpected Cloud Billing Surges"
-              ],
-              [
-                "User Distribution Drift",
-                "Shifting Vocabulary And Query Complexity",
-                "Exposes Untested Edge Cases"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "telemetry"
           },
           {
-            "at": "example",
-            "caption": "Silent model updates alter formatting and accuracy without error codes.",
-            "rows": [
-              [
-                "Decoupled Async Tap",
-                "Clones Prompts And Completions In Background",
-                "Sub Millisecond User Impact"
-              ],
-              [
-                "Statutory Audit Trail",
-                "Maintains Immutable Performance Logs",
-                "Full EU AI Act Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design an enterprise observability strategy detecting silent model drift.",
-            "rows": [
-              [
-                "Automated Alert Policy",
-                "Notifies Teams When Confidence Thresholds Fail",
-                "Instant Operational Escalation"
-              ],
-              [
-                "Sovereign Drift Guard",
-                "Transforms Monitoring Into Proactive Reliability",
-                "Enterprise Production Grade SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering the architecture of model drift monitoring transforms enterprise.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,152 +173,162 @@
       "partTitle": "Statistical Drift Detection: Wasserstein Distance, Kolmogorov-Smirnov Tests & Perplexity",
       "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
       "spec": {
-        "template": "table",
-        "title": "Statistical Drift Detection Wasserstein And Kolmogorov-Smirnov.",
-        "columns": [
-          "Statistical Metric",
-          "Mathematical Formulation",
-          "Alert Sensitivity SLA"
+        "template": "sequence",
+        "title": "Statistical Drift Detection: Wasserstein Distance, Kolmogorov-Sm",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Wasserstein distance and Kolmogorov-Smirnov tests detect semantic shifts.",
-            "rows": [
-              [
-                "Wasserstein Distance",
-                "Measures Earth Mover Work Across Embeddings",
-                "Zero Point Zero Five Alert SLA"
-              ],
-              [
-                "Kolmogorov-Smirnov Test",
-                "Compares Empirical Cumulative Distribution Curves",
-                "Robust Statistical P Values"
-              ]
+            "caption": "Detecting subtle semantic degradation within high-volume production prompt.",
+            "activeActor": "monitors",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Detecting subtle semantic degradation within high volume production text.",
-            "rows": [
-              [
-                "Perplexity Surprisal",
-                "Measures Token Likelihood Under Reference Model",
-                "Immediate Anomaly Interception"
-              ],
-              [
-                "Sliding Temporal Window",
-                "Compares Recent One Thousand Calls To Baseline",
-                "Rapid Emerging Shift Detection"
-              ]
+            "caption": "Wasserstein Distance, also known as the Earth Mover's Distance, serves.",
+            "activeActor": "telemetry",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Wasserstein distance quantifies geometric semantic drift across text.",
-            "rows": [
-              [
-                "False Discovery Control",
-                "Adjusts Thresholds For Simultaneous Metric Tests",
-                "Zero Alert Fatigue Tolerance"
-              ],
-              [
-                "Dimensionality Reduction",
-                "Projects High Dimensional Vectors To Low Dimensions",
-                "Visual Cluster Drift Analysis"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a Kolmogorov-Smirnov two sample test detecting length drift.",
-            "rows": [
-              [
-                "Cosine Distance Filter",
-                "Computes Centroid Shifts Over Production Traffic",
-                "Microsecond Computation Speed"
-              ],
-              [
-                "Statistical Drift Shield",
-                "Detects Geometric Shifts In Model Output Spaces",
-                "Flawless Detection Precision SLA"
-              ]
+            "at": "say14",
+            "caption": "Mastering statistical drift detection provides you with the mathematical.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Statistical Drift Detection Wasserstein And Kolmogorov-Smirnov.",
-        "columns": [
-          "Statistical Metric",
-          "Mathematical Formulation",
-          "Alert Sensitivity SLA"
+        "template": "sequence",
+        "title": "Statistical Drift Detection: Wasserstein Distance, Kolmogorov-Sm",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Wasserstein distance and Kolmogorov-Smirnov tests detect semantic shifts.",
-            "rows": [
-              [
-                "Wasserstein Distance",
-                "Measures Earth Mover Work Across Embeddings",
-                "Zero Point Zero Five Alert SLA"
-              ],
-              [
-                "Kolmogorov-Smirnov Test",
-                "Compares Empirical Cumulative Distribution Curves",
-                "Robust Statistical P Values"
-              ]
-            ]
+            "caption": "Detecting subtle semantic degradation within high-volume production prompt.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "monitors"
           },
           {
             "at": "say2",
-            "caption": "Detecting subtle semantic degradation within high volume production text.",
-            "rows": [
-              [
-                "Perplexity Surprisal",
-                "Measures Token Likelihood Under Reference Model",
-                "Immediate Anomaly Interception"
-              ],
-              [
-                "Sliding Temporal Window",
-                "Compares Recent One Thousand Calls To Baseline",
-                "Rapid Emerging Shift Detection"
-              ]
-            ]
+            "caption": "Wasserstein Distance, also known as the Earth Mover's Distance, serves.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "telemetry"
           },
           {
-            "at": "example",
-            "caption": "Wasserstein distance quantifies geometric semantic drift across text.",
-            "rows": [
-              [
-                "False Discovery Control",
-                "Adjusts Thresholds For Simultaneous Metric Tests",
-                "Zero Alert Fatigue Tolerance"
-              ],
-              [
-                "Dimensionality Reduction",
-                "Projects High Dimensional Vectors To Low Dimensions",
-                "Visual Cluster Drift Analysis"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a Kolmogorov-Smirnov two sample test detecting length drift.",
-            "rows": [
-              [
-                "Cosine Distance Filter",
-                "Computes Centroid Shifts Over Production Traffic",
-                "Microsecond Computation Speed"
-              ],
-              [
-                "Statistical Drift Shield",
-                "Detects Geometric Shifts In Model Output Spaces",
-                "Flawless Detection Precision SLA"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering statistical drift detection provides you with the mathematical.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,150 +337,220 @@
       "partTitle": "Continuous Canary Testing And Automated Regression Suites",
       "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
       "spec": {
-        "template": "table",
-        "title": "Continuous Canary Testing And Automated Regression Suites.",
-        "columns": [
-          "Canary Mechanism",
-          "Validation Technique",
-          "Regression Containment SLA"
+        "template": "flow",
+        "title": "Continuous Canary Testing And Automated Regression Suites",
+        "nodes": [
+          {
+            "id": "monitors",
+            "label": "monitors"
+          },
+          {
+            "id": "telemetry",
+            "label": "telemetry"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Active canary probe harnesses inject standardized tests at set intervals.",
-            "rows": [
+            "caption": "While statistical drift detection monitors production traffic passively.",
+            "values": {
+              "monitors": {
+                "var": "monitors",
+                "line": 6,
+                "hit": 1
+              },
+              "telemetry": {
+                "var": "telemetry",
+                "line": 13,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "monitors": "data",
+              "telemetry": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Canary Probe Harness",
-                "Dispatches Synthetic Test Batteries Regularly",
-                "Continuous Laboratory Probing"
+                "monitors",
+                "telemetry"
               ],
               [
-                "Cryptographic Hashes",
-                "Compares SHA Two Fifty Six Digests At Zero Temp",
-                "Instantaneous Weight Drift Flag"
+                "telemetry",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "While statistical drift detection monitors production traffic passively.",
-            "rows": [
+            "caption": "The canary probe harness operates as an automated synthetic user.",
+            "values": {
+              "monitors": {
+                "var": "monitors",
+                "line": 14,
+                "hit": 1
+              },
+              "telemetry": {
+                "var": "telemetry",
+                "line": 21,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "monitors": "data",
+              "telemetry": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Semantic Threshold Gate",
-                "Asserts Ninety Five Percent Embedding Alignment",
-                "Tolerates Natural Variation"
+                "monitors",
+                "telemetry"
               ],
               [
-                "Negative Canary Tripwire",
-                "Probes Models With Calibrated Adversarial Prompts",
-                "Zero Safety Policy Erosion"
+                "telemetry",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Continuous canary probes evaluate frozen benchmark prompts reliably.",
-            "rows": [
+            "at": "say14",
+            "caption": "Mastering continuous canary testing and automated regression suites.",
+            "values": {
+              "monitors": {
+                "var": "monitors",
+                "line": 15,
+                "hit": 1
+              },
+              "telemetry": {
+                "var": "telemetry",
+                "line": 22,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "monitors": "ok",
+              "telemetry": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Automated Rollback CI",
-                "Redirects Traffic To Previous Stable Checkpoints",
-                "Sub Second Incident Containment"
+                "monitors",
+                "telemetry"
               ],
               [
-                "Synthetic Probe Diversity",
-                "Spans Financial Ledgers Schemas And Translations",
-                "Comprehensive Feature Coverage"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a canary runner comparing zero temperature completion hashes in CI.",
-            "rows": [
-              [
-                "Shadow Traffic Mesh",
-                "Mirrors Real User Queries To Candidate Prompts",
-                "Risk Free Pre Release Testing"
-              ],
-              [
-                "Active Canary Defense",
-                "Verifies Behavioral Fidelity In Production Streams",
-                "Uncompromising Reliability SLA"
+                "telemetry",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Continuous Canary Testing And Automated Regression Suites.",
-        "columns": [
-          "Canary Mechanism",
-          "Validation Technique",
-          "Regression Containment SLA"
+        "template": "flow",
+        "title": "Continuous Canary Testing And Automated Regression Suites",
+        "nodes": [
+          {
+            "id": "monitors",
+            "label": "monitors"
+          },
+          {
+            "id": "telemetry",
+            "label": "telemetry"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Active canary probe harnesses inject standardized tests at set intervals.",
-            "rows": [
+            "caption": "While statistical drift detection monitors production traffic passively.",
+            "values": {
+              "monitors": "['Wasserstein Embedding Drift Detector'…",
+              "telemetry": "{'baselineEmbeddingCosineDrift': 0.042,…",
+              "result": "{'driftMonitorPlatform': 'Enterprise LL…"
+            },
+            "tones": {
+              "monitors": "data",
+              "telemetry": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Canary Probe Harness",
-                "Dispatches Synthetic Test Batteries Regularly",
-                "Continuous Laboratory Probing"
+                "monitors",
+                "telemetry"
               ],
               [
-                "Cryptographic Hashes",
-                "Compares SHA Two Fifty Six Digests At Zero Temp",
-                "Instantaneous Weight Drift Flag"
+                "telemetry",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "While statistical drift detection monitors production traffic passively.",
-            "rows": [
+            "caption": "The canary probe harness operates as an automated synthetic user.",
+            "values": {
+              "monitors": "['Wasserstein Embedding Drift Detector'…",
+              "telemetry": "{'baselineEmbeddingCosineDrift': 0.042,…",
+              "result": "{'driftMonitorPlatform': 'Enterprise LL…"
+            },
+            "tones": {
+              "monitors": "data",
+              "telemetry": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Semantic Threshold Gate",
-                "Asserts Ninety Five Percent Embedding Alignment",
-                "Tolerates Natural Variation"
+                "monitors",
+                "telemetry"
               ],
               [
-                "Negative Canary Tripwire",
-                "Probes Models With Calibrated Adversarial Prompts",
-                "Zero Safety Policy Erosion"
+                "telemetry",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Continuous canary probes evaluate frozen benchmark prompts reliably.",
-            "rows": [
+            "at": "say14",
+            "caption": "Mastering continuous canary testing and automated regression suites.",
+            "values": {
+              "monitors": "['Wasserstein Embedding Drift Detector'…",
+              "telemetry": "{'baselineEmbeddingCosineDrift': 0.042,…",
+              "result": "{'driftMonitorPlatform': 'Enterprise LL…"
+            },
+            "tones": {
+              "monitors": "ok",
+              "telemetry": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Automated Rollback CI",
-                "Redirects Traffic To Previous Stable Checkpoints",
-                "Sub Second Incident Containment"
+                "monitors",
+                "telemetry"
               ],
               [
-                "Synthetic Probe Diversity",
-                "Spans Financial Ledgers Schemas And Translations",
-                "Comprehensive Feature Coverage"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a canary runner comparing zero temperature completion hashes in CI.",
-            "rows": [
-              [
-                "Shadow Traffic Mesh",
-                "Mirrors Real User Queries To Candidate Prompts",
-                "Risk Free Pre Release Testing"
-              ],
-              [
-                "Active Canary Defense",
-                "Verifies Behavioral Fidelity In Production Streams",
-                "Uncompromising Reliability SLA"
+                "telemetry",
+                "result"
               ]
             ]
           }
@@ -470,152 +561,162 @@
       "partTitle": "Production Observability: OpenTelemetry, Prometheus & Latency Distribution SLIs",
       "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
       "spec": {
-        "template": "table",
-        "title": "Production Observability OpenTelemetry And Prometheus Metrics.",
-        "columns": [
-          "Observability Primitive",
-          "Architectural Role",
-          "Telemetry Resolution SLA"
+        "template": "sequence",
+        "title": "Production Observability: OpenTelemetry, Prometheus & Latency Di",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "OpenTelemetry traces capture step by step latencies across model stages.",
-            "rows": [
-              [
-                "OpenTelemetry Tracing",
-                "Captures Distributed Traces Across Gateway Nodes",
-                "Microsecond Latency Visibility"
-              ],
-              [
-                "Prometheus Histogram",
-                "Tracks P Fifty P Ninety And P Ninety Nine Spans",
-                "High Precision Tail Tracking"
-              ]
+            "caption": "Deploying robust drift monitors and canary testing harnesses.",
+            "activeActor": "monitors",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Deploying robust drift monitors and canary testing harnesses is essential.",
-            "rows": [
-              [
-                "Tail Latency Monitor",
-                "Pinpoints Tail Latency Spikes And Pipeline Stalls",
-                "Prevents Production Timeouts"
-              ],
-              [
-                "FinOps Token Tracker",
-                "Calculates Real Time Expenditure Across Vendors",
-                "Zero Budget Overrun Tolerance"
-              ]
+            "caption": "OpenTelemetry instrumentation provides standardized, vendor-neutral.",
+            "activeActor": "telemetry",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "OpenTelemetry distributed traces capture precise timing across stages.",
-            "rows": [
-              [
-                "Grafana Command Board",
-                "Synthesizes Safety Heatmaps And Drift Indices",
-                "Total Situational Awareness"
-              ],
-              [
-                "Telemetry Sanitizer",
-                "Scrubs Personally Identifiable Information",
-                "Strict GDPR And SOC Two SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure Prometheus metrics tracking latency and token burn rates.",
-            "rows": [
-              [
-                "Distributed Trace Bus",
-                "Tracks Context Across Asynchronous Microservices",
-                "Flawless Forensic Auditing"
-              ],
-              [
-                "Apex Observability Mesh",
-                "Brings High Frequency Trading Rigor To AI Systems",
-                "Enterprise Production Grade SLA"
-              ]
+            "at": "say17",
+            "caption": "Mastering production observability using OpenTelemetry and Prometheus.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Observability OpenTelemetry And Prometheus Metrics.",
-        "columns": [
-          "Observability Primitive",
-          "Architectural Role",
-          "Telemetry Resolution SLA"
+        "template": "sequence",
+        "title": "Production Observability: OpenTelemetry, Prometheus & Latency Di",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "OpenTelemetry traces capture step by step latencies across model stages.",
-            "rows": [
-              [
-                "OpenTelemetry Tracing",
-                "Captures Distributed Traces Across Gateway Nodes",
-                "Microsecond Latency Visibility"
-              ],
-              [
-                "Prometheus Histogram",
-                "Tracks P Fifty P Ninety And P Ninety Nine Spans",
-                "High Precision Tail Tracking"
-              ]
-            ]
+            "caption": "Deploying robust drift monitors and canary testing harnesses.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "monitors"
           },
           {
             "at": "say2",
-            "caption": "Deploying robust drift monitors and canary testing harnesses is essential.",
-            "rows": [
-              [
-                "Tail Latency Monitor",
-                "Pinpoints Tail Latency Spikes And Pipeline Stalls",
-                "Prevents Production Timeouts"
-              ],
-              [
-                "FinOps Token Tracker",
-                "Calculates Real Time Expenditure Across Vendors",
-                "Zero Budget Overrun Tolerance"
-              ]
-            ]
+            "caption": "OpenTelemetry instrumentation provides standardized, vendor-neutral.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "telemetry"
           },
           {
-            "at": "example",
-            "caption": "OpenTelemetry distributed traces capture precise timing across stages.",
-            "rows": [
-              [
-                "Grafana Command Board",
-                "Synthesizes Safety Heatmaps And Drift Indices",
-                "Total Situational Awareness"
-              ],
-              [
-                "Telemetry Sanitizer",
-                "Scrubs Personally Identifiable Information",
-                "Strict GDPR And SOC Two SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure Prometheus metrics tracking latency and token burn rates.",
-            "rows": [
-              [
-                "Distributed Trace Bus",
-                "Tracks Context Across Asynchronous Microservices",
-                "Flawless Forensic Auditing"
-              ],
-              [
-                "Apex Observability Mesh",
-                "Brings High Frequency Trading Rigor To AI Systems",
-                "Enterprise Production Grade SLA"
-              ]
-            ]
+            "at": "say17",
+            "caption": "Mastering production observability using OpenTelemetry and Prometheus.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Observability & Drift Shield: Ten Thousand Production Canary Runs",
       "codeHash": "a88377eeb549cbd43c783ee308f5c841063e8cb6828eca7e78d6f43a2519b964",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Continuous Observability And Drift Shield Mesh.",
-        "columns": [
-          "Shield Subsystem",
-          "Operational Metric",
-          "Stability Verification SLA"
+        "template": "sequence",
+        "title": "Enterprise Observability & Drift Shield: Ten Thousand Production",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise drift shields benchmark ten thousand production canary runs.",
-            "rows": [
-              [
-                "Wasserstein Detector",
-                "Tracks Embedding Drift Across Vector Manifolds",
-                "Zero Point Zero Four Two Drift"
-              ],
-              [
-                "Kolmogorov-Smirnov Gate",
-                "Executes Non Parametric Two Sample Tests",
-                "Zero Point Forty Eight P Value"
-              ]
+            "caption": "Translating model drift theory, statistical non-parametric tests.",
+            "activeActor": "monitors",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Translating model drift theory and statistical non parametric tests.",
-            "rows": [
-              [
-                "Perplexity Anomaly Core",
-                "Monitors Token Distribution Predictability",
-                "Zero Surprisal Spikes SLA"
-              ],
-              [
-                "CI Regression Battery",
-                "Executes Active Synthetic Canary Probes",
-                "Ninety Nine Point Eight Percent Pass"
-              ]
+            "caption": "The software architecture of the enterprise drift shield integrates five.",
+            "activeActor": "telemetry",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise drift shields maintain ninety nine percent regression passes.",
-            "rows": [
-              [
-                "OpenTelemetry Trace Bus",
-                "Monitors P Ninety Nine Latency Distributions",
-                "Forty Two Point Six Milliseconds"
-              ],
-              [
-                "Cryptographic Audit Vault",
-                "Archives Immutable SHA Two Fifty Six Hashes",
-                "Full Statutory AI Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an integrated drift shield monitoring active production canaries.",
-            "rows": [
-              [
-                "Apex Drift Shield Mesh",
-                "Harmonizes Five Monitoring And Defense Modules",
-                "Ten Thousand Canary Runs"
-              ],
-              [
-                "Production Reliability Core",
-                "Protects Autonomous Systems From Silent Failures",
-                "Mastery Of AI Observability"
-              ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise LLM observability.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": {
+                  "var": "monitors",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": {
+                  "var": "telemetry",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Continuous Observability And Drift Shield Mesh.",
-        "columns": [
-          "Shield Subsystem",
-          "Operational Metric",
-          "Stability Verification SLA"
+        "template": "sequence",
+        "title": "Enterprise Observability & Drift Shield: Ten Thousand Production",
+        "actors": [
+          "monitors",
+          "telemetry",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise drift shields benchmark ten thousand production canary runs.",
-            "rows": [
-              [
-                "Wasserstein Detector",
-                "Tracks Embedding Drift Across Vector Manifolds",
-                "Zero Point Zero Four Two Drift"
-              ],
-              [
-                "Kolmogorov-Smirnov Gate",
-                "Executes Non Parametric Two Sample Tests",
-                "Zero Point Forty Eight P Value"
-              ]
-            ]
+            "caption": "Translating model drift theory, statistical non-parametric tests.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "monitors"
           },
           {
             "at": "say2",
-            "caption": "Translating model drift theory and statistical non parametric tests.",
-            "rows": [
-              [
-                "Perplexity Anomaly Core",
-                "Monitors Token Distribution Predictability",
-                "Zero Surprisal Spikes SLA"
-              ],
-              [
-                "CI Regression Battery",
-                "Executes Active Synthetic Canary Probes",
-                "Ninety Nine Point Eight Percent Pass"
-              ]
-            ]
+            "caption": "The software architecture of the enterprise drift shield integrates five.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "telemetry"
           },
           {
-            "at": "example",
-            "caption": "Enterprise drift shields maintain ninety nine percent regression passes.",
-            "rows": [
-              [
-                "OpenTelemetry Trace Bus",
-                "Monitors P Ninety Nine Latency Distributions",
-                "Forty Two Point Six Milliseconds"
-              ],
-              [
-                "Cryptographic Audit Vault",
-                "Archives Immutable SHA Two Fifty Six Hashes",
-                "Full Statutory AI Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an integrated drift shield monitoring active production canaries.",
-            "rows": [
-              [
-                "Apex Drift Shield Mesh",
-                "Harmonizes Five Monitoring And Defense Modules",
-                "Ten Thousand Canary Runs"
-              ],
-              [
-                "Production Reliability Core",
-                "Protects Autonomous Systems From Silent Failures",
-                "Mastery Of AI Observability"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise LLM observability.",
+            "messages": [
+              {
+                "from": "monitors",
+                "to": "telemetry",
+                "label": "['Wasserstein Embedding Drift Detector'…",
+                "tone": "data"
+              },
+              {
+                "from": "telemetry",
+                "to": "result",
+                "label": "{'baselineEmbeddingCosineDrift': 0.042,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

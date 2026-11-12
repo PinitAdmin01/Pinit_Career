@@ -2,269 +2,157 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 58,
-  "promptSha": "1b94b2d0b392e451e4fc4a2a66c5c507b73f364508ebe73dc6fb0b7ba72ea555",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Replication — Foundations & Mathematical Invariants",
-      "codeHash": "956306259cacde5ef32d50e6c7b2e67356b5e4336ae803b2ec6677c8dd4841f4",
+      "codeHash": "f8dc98efae659785926f7383a1527bd89299f0a7b649a844b6fea2903790f686",
       "spec": {
-        "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Combining hardware-backed key protection with high-performance local.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "hierarchy"
+                  },
+                  {
+                    "var": "hierarchy",
+                    "line": 15,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Hardware security modules provide tamper-proof cryptographic boundaries.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "hierarchy"
+                  },
+                  {
+                    "var": "hierarchy",
+                    "line": 16,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Review the mathematical envelope encryption hierarchy and cryptographic.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Combining hardware-backed key protection with high-performance local.",
+            "rows": [
+              {
+                "cells": [
+                  "hierarchy",
+                  "{'root_key': 'AWS KMS KMS Key (Master K…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Hardware security modules provide tamper-proof cryptographic boundaries.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "hierarchy",
+                  "{'root_key': 'AWS KMS KMS Key (Master K…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Review the mathematical envelope encryption hierarchy and cryptographic.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  "out 1",
+                  "root key: AWS KMS KMS Key (Master Key / HSM Protected)"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  "out 2",
+                  "data key: 256-bit AES-GCM Data Encryption Key (DEK)"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 3",
+                  "envelope structure: ['ciphertext_data', 'ciphertext_dek', 'encryption_context']"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +161,279 @@
     },
     {
       "partTitle": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Replication — Core Algorithm & State Representation",
-      "codeHash": "78f85a0218f1b9a3c3c9d812ccb16044e5490e50bfdd70801d665c141cfd884e",
+      "codeHash": "411ae11f44e3f04b587f347cad1a880e0e89053668d545a0072852d8b18c4899",
       "spec": {
         "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ctx",
+            "label": "ctx"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "kms_key_id",
+            "label": "kms_key_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "context",
+            "label": "context"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "plaintext_dek",
+            "label": "plaintext_dek"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Strict memory wiping protocols prevent lingering cryptographic material.",
+            "values": {
+              "ctx": {
+                "var": "ctx",
+                "line": 30,
+                "hit": 1
+              },
+              "kms_key_id": {
+                "var": "kms_key_id",
+                "line": 7,
+                "hit": 1
+              },
+              "context": {
+                "var": "context",
+                "line": 7,
+                "hit": 1
+              },
+              "plaintext_dek": {
+                "var": "plaintext_dek",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ctx": "data",
+              "kms_key_id": "data",
+              "context": "data",
+              "plaintext_dek": "data"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "kms_key_id"
+              ],
+              [
+                "kms_key_id",
+                "context"
+              ],
+              [
+                "context",
+                "plaintext_dek"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Binding cryptographic operations to Encryption Context ensures.",
+            "values": {
+              "ctx": {
+                "var": "ctx",
+                "line": 31,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "kms_key_id": {
+                "var": "kms_key_id",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "context": {
+                "var": "context",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "plaintext_dek": {
+                "var": "plaintext_dek",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ctx": "data",
+              "kms_key_id": "data",
+              "context": "data",
+              "plaintext_dek": "data"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "kms_key_id"
+              ],
+              [
+                "kms_key_id",
+                "context"
+              ],
+              [
+                "context",
+                "plaintext_dek"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Observe the complete envelope encryption and decryption engine.",
+            "values": {
+              "ctx": {
+                "var": "ctx",
+                "line": 32,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "kms_key_id": {
+                "var": "kms_key_id",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "context": {
+                "var": "context",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "plaintext_dek": {
+                "var": "plaintext_dek",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "ctx": "ok",
+              "kms_key_id": "ok",
+              "context": "ok",
+              "plaintext_dek": "ok"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "kms_key_id"
+              ],
+              [
+                "kms_key_id",
+                "context"
+              ],
+              [
+                "context",
+                "plaintext_dek"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ctx",
+            "label": "ctx"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "kms_key_id",
+            "label": "kms_key_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "context",
+            "label": "context"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "plaintext_dek",
+            "label": "plaintext_dek"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Strict memory wiping protocols prevent lingering cryptographic material.",
+            "values": {
+              "ctx": "{'tenant_id': 'cust_404', 'data_class':…",
+              "kms_key_id": "'arn:aws:kms:us-east-1:key-99'",
+              "context": "{'tenant_id': 'cust_404', 'data_class':…",
+              "plaintext_dek": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "ctx": "data",
+              "kms_key_id": "data",
+              "context": "data",
+              "plaintext_dek": "data"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "kms_key_id"
+              ],
+              [
+                "kms_key_id",
+                "context"
+              ],
+              [
+                "context",
+                "plaintext_dek"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Binding cryptographic operations to Encryption Context ensures.",
+            "values": {
+              "ctx": "{'tenant_id': 'cust_404', 'data_class':…",
+              "kms_key_id": "'arn:aws:kms:us-east-1:key-99'",
+              "context": "{'tenant_id': 'cust_404', 'data_class':…",
+              "plaintext_dek": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "ctx": "data",
+              "kms_key_id": "data",
+              "context": "data",
+              "plaintext_dek": "data"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "kms_key_id"
+              ],
+              [
+                "kms_key_id",
+                "context"
+              ],
+              [
+                "context",
+                "plaintext_dek"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Observe the complete envelope encryption and decryption engine.",
+            "values": {
+              "ctx": "{'tenant_id': 'cust_404', 'data_class':…",
+              "kms_key_id": "'arn:aws:kms:us-east-1:key-99'",
+              "context": "{'tenant_id': 'cust_404', 'data_class':…",
+              "plaintext_dek": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "ctx": "ok",
+              "kms_key_id": "ok",
+              "context": "ok",
+              "plaintext_dek": "ok"
+            },
+            "arrows": [
+              [
+                "ctx",
+                "kms_key_id"
+              ],
+              [
+                "kms_key_id",
+                "context"
+              ],
+              [
+                "context",
+                "plaintext_dek"
+              ]
             ]
           }
         ]
@@ -539,265 +441,279 @@
     },
     {
       "partTitle": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Replication — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ffc54251afe42d7a2e5fa7c8da360301c4934c5a32b28394e1e5ecb1cca819be",
+      "codeHash": "99c95737224bb98eccb2d68a8d25cefbaded79c9a60218054a6ffee7557f2b7c",
       "spec": {
         "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mrk_primary",
+            "label": "mrk_primary"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "primary_key_arn",
+            "label": "primary_key_arn"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "target_regions",
+            "label": "target_regions"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "base_id",
+            "label": "base_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Multi-Region Keys allow cross-region disaster recovery clusters to decrypt.",
+            "values": {
+              "mrk_primary": {
+                "var": "mrk_primary",
+                "line": 19,
+                "hit": 1
+              },
+              "primary_key_arn": {
+                "var": "primary_key_arn",
+                "line": 5,
+                "hit": 1
+              },
+              "target_regions": {
+                "var": "target_regions",
+                "line": 5,
+                "hit": 1
+              },
+              "base_id": {
+                "var": "base_id",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mrk_primary": "data",
+              "primary_key_arn": "data",
+              "target_regions": "data",
+              "base_id": "data"
+            },
+            "arrows": [
+              [
+                "mrk_primary",
+                "primary_key_arn"
+              ],
+              [
+                "primary_key_arn",
+                "target_regions"
+              ],
+              [
+                "target_regions",
+                "base_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Decoupled regional key policies give security teams granular control over.",
+            "values": {
+              "mrk_primary": {
+                "var": "mrk_primary",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "primary_key_arn": {
+                "var": "primary_key_arn",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "target_regions": {
+                "var": "target_regions",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "base_id": {
+                "var": "base_id",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "mrk_primary": "data",
+              "primary_key_arn": "data",
+              "target_regions": "data",
+              "base_id": "data"
+            },
+            "arrows": [
+              [
+                "mrk_primary",
+                "primary_key_arn"
+              ],
+              [
+                "primary_key_arn",
+                "target_regions"
+              ],
+              [
+                "target_regions",
+                "base_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Decoupled regional key policies ensure that security administrators.",
+            "values": {
+              "mrk_primary": {
+                "var": "mrk_primary",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "primary_key_arn": {
+                "var": "primary_key_arn",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "target_regions": {
+                "var": "target_regions",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "base_id": {
+                "var": "base_id",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "mrk_primary": "ok",
+              "primary_key_arn": "ok",
+              "target_regions": "ok",
+              "base_id": "ok"
+            },
+            "arrows": [
+              [
+                "mrk_primary",
+                "primary_key_arn"
+              ],
+              [
+                "primary_key_arn",
+                "target_regions"
+              ],
+              [
+                "target_regions",
+                "base_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mrk_primary",
+            "label": "mrk_primary"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "primary_key_arn",
+            "label": "primary_key_arn"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "target_regions",
+            "label": "target_regions"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "base_id",
+            "label": "base_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Multi-Region Keys allow cross-region disaster recovery clusters to decrypt.",
+            "values": {
+              "mrk_primary": "'arn:aws:kms:us-east-1:123456789012:key…",
+              "primary_key_arn": "'arn:aws:kms:us-east-1:123456789012:key…",
+              "target_regions": "['eu-west-1', 'ap-southeast-1']",
+              "base_id": "'mrk-4bf92f3577b34da6'"
+            },
+            "tones": {
+              "mrk_primary": "data",
+              "primary_key_arn": "data",
+              "target_regions": "data",
+              "base_id": "data"
+            },
+            "arrows": [
+              [
+                "mrk_primary",
+                "primary_key_arn"
+              ],
+              [
+                "primary_key_arn",
+                "target_regions"
+              ],
+              [
+                "target_regions",
+                "base_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Decoupled regional key policies give security teams granular control over.",
+            "values": {
+              "mrk_primary": "'arn:aws:kms:us-east-1:123456789012:key…",
+              "primary_key_arn": "'arn:aws:kms:us-east-1:123456789012:key…",
+              "target_regions": "['eu-west-1', 'ap-southeast-1']",
+              "base_id": "'mrk-4bf92f3577b34da6'"
+            },
+            "tones": {
+              "mrk_primary": "data",
+              "primary_key_arn": "data",
+              "target_regions": "data",
+              "base_id": "data"
+            },
+            "arrows": [
+              [
+                "mrk_primary",
+                "primary_key_arn"
+              ],
+              [
+                "primary_key_arn",
+                "target_regions"
+              ],
+              [
+                "target_regions",
+                "base_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Decoupled regional key policies ensure that security administrators.",
+            "values": {
+              "mrk_primary": "'arn:aws:kms:us-east-1:123456789012:key…",
+              "primary_key_arn": "'arn:aws:kms:us-east-1:123456789012:key…",
+              "target_regions": "['eu-west-1', 'ap-southeast-1']",
+              "base_id": "'mrk-4bf92f3577b34da6'"
+            },
+            "tones": {
+              "mrk_primary": "ok",
+              "primary_key_arn": "ok",
+              "target_regions": "ok",
+              "base_id": "ok"
+            },
+            "arrows": [
+              [
+                "mrk_primary",
+                "primary_key_arn"
+              ],
+              [
+                "primary_key_arn",
+                "target_regions"
+              ],
+              [
+                "target_regions",
+                "base_id"
+              ]
             ]
           }
         ]
@@ -805,532 +721,272 @@
     },
     {
       "partTitle": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Replication — Resilience Guardrails & Failure Recovery",
-      "codeHash": "ef2ae1ba7425bbd5503cd8f69a5f0d335ca2735f82303501c7bf94e69e623613",
+      "codeHash": "3a6d80e09d43cbcea4f8b6d512dd4f9af13042ddaccfe83c925bf482e7bbf708",
       "spec": {
-        "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
+        "actors": [
+          "km",
+          "key_metadata",
+          "current_year"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Annual automated key rotation refreshes cryptographic backing material.",
+            "activeActor": "km",
+            "messages": [
+              {
+                "from": "km",
+                "to": "key_metadata",
+                "label": {
+                  "var": "km",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": {
+                  "var": "key_metadata",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Mandatory key deletion waiting periods safeguard organizations against.",
+            "activeActor": "key_metadata",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "km",
+                "to": "key_metadata",
+                "label": {
+                  "var": "km",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": {
+                  "var": "key_metadata",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Carefully structured key policies ensure that administrative roles can.",
+            "activeActor": "current_year",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "km",
+                "to": "key_metadata",
+                "label": {
+                  "var": "km",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": {
+                  "var": "key_metadata",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
+        "actors": [
+          "km",
+          "key_metadata",
+          "current_year"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Annual automated key rotation refreshes cryptographic backing material.",
+            "messages": [
+              {
+                "from": "km",
+                "to": "key_metadata",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "data"
+              },
+              {
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "km"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Mandatory key deletion waiting periods safeguard organizations against.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "km",
+                "to": "key_metadata",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "key_metadata"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Carefully structured key policies ensure that administrative roles can.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "km",
+                "to": "key_metadata",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "key_metadata",
+                "to": "current_year",
+                "label": "{'arn': 'arn:aws:kms:us-east-1:12345678…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "current_year"
           }
         ]
       }
     },
     {
       "partTitle": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Replication — Production Telemetry & Verification Audit",
-      "codeHash": "9ad7b25c9cd008e031e26b18372e6ce2dfb4486bdb6aa5897242594f26e7d16c",
+      "codeHash": "760a85021a17eb7757008326bab438b5d9a00ddb2973bed69f0febd8510a2289",
       "spec": {
-        "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
-        "nodes": [
+        "template": "states",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "test_keys",
+            "label": "test_keys"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "keys",
+            "label": "keys"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "audit_results",
+            "label": "audit_results"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "CloudTrail audit trails record every cryptographic API request, providing.",
+            "currentState": "test_keys",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Automated configuration audits verify that key rotation and multi-region.",
+            "currentState": "keys",
+            "transition": {
+              "from": "test_keys",
+              "to": "keys",
+              "label": {
+                "var": "keys",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Continuous verification of key access policies guarantees separation.",
+            "currentState": "audit_results",
+            "transition": {
+              "from": "keys",
+              "to": "audit_results",
+              "label": {
+                "var": "audit_results",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secret Repl",
-        "nodes": [
+        "template": "states",
+        "title": "Cloud KMS Envelope Encryption, Key Rotation & Cross-Region Secre",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "test_keys",
+            "label": "test_keys"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "keys",
+            "label": "keys"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "audit_results",
+            "label": "audit_results"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "CloudTrail audit trails record every cryptographic API request, providing.",
+            "currentState": "test_keys",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Automated configuration audits verify that key rotation and multi-region.",
+            "currentState": "keys",
+            "transition": {
+              "from": "test_keys",
+              "to": "keys",
+              "label": "[{'id': 'key-prod-orders', 'rotation_en…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Continuous verification of key access policies guarantees separation.",
+            "currentState": "audit_results",
+            "transition": {
+              "from": "keys",
+              "to": "audit_results",
+              "label": "[]"
+            },
+            "tone": "ok"
           }
         ]
       }

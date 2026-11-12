@@ -2,150 +2,111 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Imbalance at the top of the book",
       "codeHash": "82f67ed04a91b4807bf7a9ebc1b9135bfbc83b262f3f46ebbc9bc691382c0978",
       "spec": {
-        "template": "table",
-        "title": "Top-of-book liquidity asymmetry and order book imbalance",
-        "columns": [
-          "bid_qty",
-          "ask_qty"
-        ],
+        "template": "bars",
+        "title": "Imbalance at the top of the book",
         "steps": [
           {
             "at": "say1",
-            "caption": "Order book imbalance compares resting quantities at best bid and ask.",
-            "rows": [
+            "caption": "Order book imbalance (OBI) compares the size waiting at the best bid.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "ok"
+                "label": "bid_qty",
+                "value": {
+                  "var": "bid_qty",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ask_qty",
+                "value": {
+                  "var": "ask_qty",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "obi",
+                "value": {
+                  "var": "obi",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Imbalance ranges between extremes while zero indicates balanced liquidity.",
-            "rows": [
+            "caption": "Zero means balanced.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
+                "label": "bid_qty",
+                "value": {
+                  "var": "bid_qty",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "books"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
+                "label": "ask_qty",
+                "value": {
+                  "var": "ask_qty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "obi",
+                "value": {
+                  "var": "obi",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lighter liquidity sides are more likely to clear when buy orders arrive.",
-            "rows": [
+            "at": "say7",
+            "caption": "Short-term signals like this are useful for execution (when to place.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
+                "label": "bid_qty",
+                "value": {
+                  "var": "bid_qty",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "books"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
+                "label": "ask_qty",
+                "value": {
+                  "var": "ask_qty",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "obi"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example computes imbalance across distinct order books.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "books"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "obi"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "books"
-                  },
-                  {
-                    "text": "bid_qty"
-                  }
-                ],
+                "label": "obi",
+                "value": {
+                  "var": "obi",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +114,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Top-of-book liquidity asymmetry and order book imbalance",
-        "columns": [
-          "bid_qty",
-          "ask_qty"
-        ],
+        "template": "bars",
+        "title": "Imbalance at the top of the book",
         "steps": [
           {
             "at": "say1",
-            "caption": "Order book imbalance compares resting quantities at best bid and ask.",
-            "rows": [
+            "caption": "Order book imbalance (OBI) compares the size waiting at the best bid.",
+            "bars": [
               {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
-                "tone": "ok"
+                "label": "bid_qty",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "ask_qty",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "obi",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Imbalance ranges between extremes while zero indicates balanced liquidity.",
-            "rows": [
+            "caption": "Zero means balanced.",
+            "bars": [
               {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
+                "label": "bid_qty",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "books",
-                  "obi"
-                ],
+                "label": "ask_qty",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "obi",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lighter liquidity sides are more likely to clear when buy orders arrive.",
-            "rows": [
+            "at": "say7",
+            "caption": "Short-term signals like this are useful for execution (when to place.",
+            "bars": [
               {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
+                "label": "bid_qty",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "books",
-                  "obi"
-                ],
+                "label": "ask_qty",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "obi",
-                  "print"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example computes imbalance across distinct order books.",
-            "rows": [
-              {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "books",
-                  "obi"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "obi",
-                  "print"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "books",
-                  "bid_qty"
-                ],
+                "label": "obi",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,249 +187,277 @@
       "partTitle": "The micro-price",
       "codeHash": "23ed0f3537885827d48f6541817d677062179e637848716739f72bbb812a6f26",
       "spec": {
-        "template": "table",
-        "title": "Volume-weighted fair value and micro-price calculation",
-        "columns": [
-          "bid",
-          "ask"
+        "template": "flow",
+        "title": "The micro-price",
+        "nodes": [
+          {
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
+          },
+          {
+            "id": "bq",
+            "label": "bq"
+          },
+          {
+            "id": "aq",
+            "label": "aq"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The micro-price adjusts midpoint levels towards the side likely to fill next.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The midpoint ignores sizes.",
+            "values": {
+              "bid": {
+                "var": "bid",
+                "line": 5,
+                "hit": 1
+              },
+              "ask": {
+                "var": "ask",
+                "line": 5,
+                "hit": 1
+              },
+              "bq": {
+                "var": "bq",
+                "line": 7,
+                "hit": 1
+              },
+              "aq": {
+                "var": "aq",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "bq": "data",
+              "aq": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "bq"
+              ],
+              [
+                "bq",
+                "aq"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Crossed quantity weighting pulls the price towards the side facing pressure.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A simple form is (bid ask_qty + ask bid_qty) / (bid_qty + ask_qty).",
+            "values": {
+              "bid": {
+                "var": "bid",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "ok"
+              "ask": {
+                "var": "ask",
+                "line": 6,
+                "hit": 1
+              },
+              "bq": {
+                "var": "bq",
+                "line": 8,
+                "hit": 1
+              },
+              "aq": {
+                "var": "aq",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Equal queue sizes preserve micro-price alignment with the simple midpoint.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "bq": "data",
+              "aq": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "bq"
+              ],
+              [
+                "bq",
+                "aq"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example compares midpoint and micro-price shifts as imbalance changes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example compares the midpoint and micro-price as the imbalance changes.",
+            "values": {
+              "bid": {
+                "var": "bid",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "ok"
+              "ask": {
+                "var": "ask",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
+              "bq": {
+                "var": "bq",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "micro_price"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "aq": {
+                "var": "aq",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "bid": "ok",
+              "ask": "ok",
+              "bq": "ok",
+              "aq": "ok"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "bq"
+              ],
+              [
+                "bq",
+                "aq"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Volume-weighted fair value and micro-price calculation",
-        "columns": [
-          "bid",
-          "ask"
+        "template": "flow",
+        "title": "The micro-price",
+        "nodes": [
+          {
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
+          },
+          {
+            "id": "bq",
+            "label": "bq"
+          },
+          {
+            "id": "aq",
+            "label": "aq"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The micro-price adjusts midpoint levels towards the side likely to fill next.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The midpoint ignores sizes.",
+            "values": {
+              "bid": "100",
+              "ask": "100.02",
+              "bq": "500",
+              "aq": "500"
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "bq": "data",
+              "aq": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "bq"
+              ],
+              [
+                "bq",
+                "aq"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Crossed quantity weighting pulls the price towards the side facing pressure.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Equal queue sizes preserve micro-price alignment with the simple midpoint.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "round"
-                ],
-                "tone": "data"
-              }
+            "caption": "A simple form is (bid ask_qty + ask bid_qty) / (bid_qty + ask_qty).",
+            "values": {
+              "bid": "100",
+              "ask": "100.02",
+              "bq": "500",
+              "aq": "500"
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "bq": "data",
+              "aq": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "bq"
+              ],
+              [
+                "bq",
+                "aq"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example compares midpoint and micro-price shifts as imbalance changes.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid_qty",
-                  "ask_qty"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "round"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "micro_price",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example compares the midpoint and micro-price as the imbalance changes.",
+            "values": {
+              "bid": "100",
+              "ask": "100.02",
+              "bq": "900",
+              "aq": "100"
+            },
+            "tones": {
+              "bid": "ok",
+              "ask": "ok",
+              "bq": "ok",
+              "aq": "ok"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "bq"
+              ],
+              [
+                "bq",
+                "aq"
+              ]
             ]
           }
         ]
@@ -513,143 +467,91 @@
       "partTitle": "From imbalance to a signal",
       "codeHash": "6679bf0483ae5e866833eacd911afec11492a3939f38f9dd7a7ae35094241337",
       "spec": {
-        "template": "table",
-        "title": "Imbalance signal generation and threshold gating",
-        "columns": [
-          "signal",
-          "obi"
+        "template": "sequence",
+        "title": "From imbalance to a signal",
+        "actors": [
+          "obi",
+          "threshold",
+          "signal"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Signal classification turns raw metric numbers into actionable trading states.",
-            "rows": [
+            "caption": "A raw number is not yet a decision.",
+            "activeActor": "obi",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "signal"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Data bounds clamp values safely before producing signal outputs and scores.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "signal"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Clamping protects downstream pipelines from invalid and corrupt input data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "signal"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "min"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "from": "obi",
+                "to": "threshold",
+                "label": {
+                  "var": "obi",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": {
+                  "var": "threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how example updates imbalance during execution.",
+            "activeActor": "threshold",
+            "messages": [
+              {
+                "from": "obi",
+                "to": "threshold",
+                "label": {
+                  "var": "obi",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": {
+                  "var": "threshold",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
             "caption": "The example converts a series of imbalances into signals.",
-            "rows": [
+            "activeActor": "signal",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "signal"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "min"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "from": "obi",
+                "to": "threshold",
+                "label": {
+                  "var": "obi",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "obi_signal"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "threshold",
+                "to": "signal",
+                "label": {
+                  "var": "threshold",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,106 +559,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Imbalance signal generation and threshold gating",
-        "columns": [
-          "signal",
-          "obi"
+        "template": "sequence",
+        "title": "From imbalance to a signal",
+        "actors": [
+          "obi",
+          "threshold",
+          "signal"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Signal classification turns raw metric numbers into actionable trading states.",
-            "rows": [
+            "caption": "A raw number is not yet a decision.",
+            "messages": [
               {
-                "cells": [
-                  "signal",
-                  "obi"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Data bounds clamp values safely before producing signal outputs and scores.",
-            "rows": [
-              {
-                "cells": [
-                  "signal",
-                  "obi"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "threshold",
-                  "max"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Clamping protects downstream pipelines from invalid and corrupt input data.",
-            "rows": [
-              {
-                "cells": [
-                  "signal",
-                  "obi"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "threshold",
-                  "max"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "min",
-                  "round"
-                ],
+                "from": "obi",
+                "to": "threshold",
+                "label": "0.8",
                 "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": "0.3",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "obi"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how example updates imbalance during execution.",
+            "messages": [
+              {
+                "from": "obi",
+                "to": "threshold",
+                "label": "0.8",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "signal",
+                "label": "0.3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "threshold"
           },
           {
             "at": "say7",
             "caption": "The example converts a series of imbalances into signals.",
-            "rows": [
+            "messages": [
               {
-                "cells": [
-                  "signal",
-                  "obi"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "threshold",
-                  "max"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "min",
-                  "round"
-                ],
+                "from": "obi",
+                "to": "threshold",
+                "label": "0.8",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "obi_signal",
-                  "print"
-                ],
+                "from": "threshold",
+                "to": "signal",
+                "label": "0.3",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "signal"
           }
         ]
       }
@@ -765,143 +631,131 @@
       "partTitle": "Testing a signal honestly",
       "codeHash": "b4a710e90c75cab725279eab99a26aef87d2c846725a9080fd6a03b5efdfe805",
       "spec": {
-        "template": "table",
-        "title": "Signal directional predictability and out-of-sample backtesting",
-        "columns": [
-          "hits",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Testing a signal honestly",
         "steps": [
           {
             "at": "say1",
-            "caption": "Statistical evaluation verifies whether a signal actually predicts direction.",
-            "rows": [
+            "caption": "Before trusting a signal, test whether it actually predicts something.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "obi",
+                "value": {
+                  "var": "obi",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "next_move",
+                "value": {
+                  "var": "next_move",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Directional hit rate benchmarks compare predictions against random baselines.",
-            "rows": [
+            "caption": "Measure the hit rate (how often the direction was right) and the average.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "snapshots"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "obi",
+                "value": {
+                  "var": "obi",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "next_move",
+                "value": {
+                  "var": "next_move",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Simple models often beat overfitted strategies across unseen market regimes.",
-            "rows": [
+            "at": "say7",
+            "caption": "Being honest with yourself about a signal is one of the most important.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "snapshots"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "next_move"
-                  },
-                  {
-                    "text": "predicted"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example measures the hit rate of the imbalance signal across snapshots.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "obi",
+                "value": {
+                  "var": "obi",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "snapshots"
-                  },
-                  {
-                    "text": "obi"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "next_move"
-                  },
-                  {
-                    "text": "predicted"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "next_move",
+                "value": {
+                  "var": "next_move",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +763,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Signal directional predictability and out-of-sample backtesting",
-        "columns": [
-          "hits",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Testing a signal honestly",
         "steps": [
           {
             "at": "say1",
-            "caption": "Statistical evaluation verifies whether a signal actually predicts direction.",
-            "rows": [
+            "caption": "Before trusting a signal, test whether it actually predicts something.",
+            "bars": [
               {
-                "cells": [
-                  "hits",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "obi",
+                "value": 0.7,
+                "tone": "data"
+              },
+              {
+                "label": "next_move",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Directional hit rate benchmarks compare predictions against random baselines.",
-            "rows": [
+            "caption": "Measure the hit rate (how often the direction was right) and the average.",
+            "bars": [
               {
-                "cells": [
-                  "hits",
-                  "total"
-                ],
+                "label": "hits",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "snapshots",
-                  "obi"
-                ],
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "obi",
+                "value": 0.7,
+                "tone": "ok"
+              },
+              {
+                "label": "next_move",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Simple models often beat overfitted strategies across unseen market regimes.",
-            "rows": [
+            "at": "say7",
+            "caption": "Being honest with yourself about a signal is one of the most important.",
+            "bars": [
               {
-                "cells": [
-                  "hits",
-                  "total"
-                ],
+                "label": "hits",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "snapshots",
-                  "obi"
-                ],
+                "label": "total",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "next_move",
-                  "predicted"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example measures the hit rate of the imbalance signal across snapshots.",
-            "rows": [
-              {
-                "cells": [
-                  "hits",
-                  "total"
-                ],
+                "label": "obi",
+                "value": 0.7,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "snapshots",
-                  "obi"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "next_move",
-                  "predicted"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "hits",
-                  "print"
-                ],
+                "label": "next_move",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -1017,223 +851,109 @@
       "partTitle": "Deeper book signals",
       "codeHash": "4fd3e1e8cd6478723a0659adeffefbfb08f67d86f53f81ac5262b2fc0deab30b",
       "spec": {
-        "template": "flow",
-        "title": "Deeper book signals — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Deeper book signals",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Deeper book signals",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Deeper book signals [Dseven.Pfive.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Deeper book signals [Dseven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Looking beyond the top level gives more information.",
+            "items": {
+              "var": "weights",
+              "line": 3,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Order flow signals look at events rather than snapshots.",
+            "items": {
+              "var": "weights",
+              "line": 5,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Deeper book signals [Dseven.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Try different weights and see how the result changes.",
+            "items": {
+              "var": "weights",
+              "line": 7,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deeper book signals — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Deeper book signals",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Deeper book signals",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Deeper book signals [D7.P5.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Deeper book signals [D7.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Looking beyond the top level gives more information.",
+            "items": [
+              "1",
+              "0.5",
+              "0.25"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Order flow signals look at events rather than snapshots.",
+            "items": [
+              "1",
+              "0.5",
+              "0.25"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Deeper book signals [D7.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Try different weights and see how the result changes.",
+            "items": [
+              "1",
+              "0.5",
+              "0.25"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +963,217 @@
       "partTitle": "Practice time: micro-price and signal",
       "codeHash": "ccdbb74cdacd2c336719a8037fe20c07700e39887754c562f9b8faa49810a453",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: micro-price and signal — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: micr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: micro-price and signal",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: micro-price and signal.",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: micr... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Total = bid_qty + ask_qty.",
+            "bars": [
+              {
+                "label": "bid",
+                "value": {
+                  "var": "bid",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bq",
+                "value": {
+                  "var": "bq",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ask",
+                "value": {
+                  "var": "ask",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "aq",
+                "value": {
+                  "var": "aq",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Heavy asks pull it down.",
+            "bars": [
+              {
+                "label": "bid",
+                "value": {
+                  "var": "bid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bq",
+                "value": {
+                  "var": "bq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ask",
+                "value": {
+                  "var": "ask",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "aq",
+                "value": {
+                  "var": "aq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: micro-price and si.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example does exactly that for a short stream.",
+            "bars": [
+              {
+                "label": "bid",
+                "value": {
+                  "var": "bid",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bq",
+                "value": {
+                  "var": "bq",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ask",
+                "value": {
+                  "var": "ask",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "aq",
+                "value": {
+                  "var": "aq",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: micro-price and signal — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: micr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: micro-price and signal",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: micro-price and signal [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: micr... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Total = bid_qty + ask_qty.",
+            "bars": [
+              {
+                "label": "bid",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "bq",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "ask",
+                "value": 100.02,
+                "tone": "data"
+              },
+              {
+                "label": "aq",
+                "value": 500,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Heavy asks pull it down.",
+            "bars": [
+              {
+                "label": "bid",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "bq",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "ask",
+                "value": 100.02,
+                "tone": "ok"
+              },
+              {
+                "label": "aq",
+                "value": 500,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: micro-price and si.. [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example does exactly that for a short stream.",
+            "bars": [
+              {
+                "label": "bid",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "bq",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "ask",
+                "value": 100.02,
+                "tone": "ok"
+              },
+              {
+                "label": "aq",
+                "value": 500,
+                "tone": "ok"
+              }
             ]
           }
         ]

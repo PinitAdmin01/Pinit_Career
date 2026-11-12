@@ -2,88 +2,214 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 45,
-  "promptSha": "5b569355e0601b83abbd540778e4a1153aa5149440b077539cebcad6e55681f9",
-  "model": "gate-v2-verified",
+  "promptSha": "9ecdc51df3b6a53439ac608b39d6d843fb8027a9f5a3fa9b25d091c96c7944f7",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Milestone 8 Architecture Specification & Distributed Contracts",
       "codeHash": "59858270d73417d0f1b14ceaf00f7e2b279a2a1ad02f75b244b0ff07b5f53b40",
       "spec": {
-        "template": "table",
-        "title": "Milestone 8 Architecture Specification & Distribut",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "MilestoneMessageEnvelope contract lifecycle states",
+        "nodes": [
+          {
+            "id": "env",
+            "label": "MilestoneMessageEnvelope"
+          },
+          {
+            "id": "st",
+            "label": "state"
+          },
+          {
+            "id": "ret",
+            "label": "retries"
+          }
+        ],
+        "edges": [
+          {
+            "from": "env",
+            "to": "st",
+            "label": "PENDING"
+          },
+          {
+            "from": "st",
+            "to": "ret",
+            "label": "max_retries"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Milestone"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Message envelopes bind task identifiers and deterministic state machines.",
+            "values": {
+              "env": {
+                "text": "MilestoneMessageEnvelope"
+              },
+              "st": {
+                "text": "PENDING"
+              },
+              "ret": {
+                "text": "max_retries"
               }
-            ]
+            },
+            "tones": {
+              "env": "data",
+              "st": "data",
+              "ret": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Specification"
-                  },
-                  {
-                    "text": "Distributed"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Broker contracts route jobs using delivery attempt counters and metadata.",
+            "values": {
+              "env": {
+                "text": "task_name"
+              },
+              "st": {
+                "text": "task_id"
+              },
+              "ret": {
+                "text": "retries"
               }
-            ]
+            },
+            "tones": {
+              "env": "ok",
+              "st": "data",
+              "ret": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Envelope contract validates JSON serialization with initial pending state.",
+            "values": {
+              "env": {
+                "text": "m8_task_001"
+              },
+              "st": {
+                "text": "PENDING"
+              },
+              "ret": {
+                "text": "to_dict"
+              }
+            },
+            "tones": {
+              "env": "ok",
+              "st": "ok",
+              "ret": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add priority field to MilestoneMessageEnvelope and verify to_dict includes it.",
+            "values": {
+              "env": {
+                "text": "Add"
+              },
+              "st": {
+                "text": "field"
+              },
+              "ret": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "env": "ok",
+              "st": "data",
+              "ret": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Milestone 8 Architecture Specification & Distribut",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "MilestoneMessageEnvelope contract lifecycle states",
+        "nodes": [
+          {
+            "id": "env",
+            "label": "MilestoneMessageEnvelope"
+          },
+          {
+            "id": "st",
+            "label": "state"
+          },
+          {
+            "id": "ret",
+            "label": "retries"
+          }
+        ],
+        "edges": [
+          {
+            "from": "env",
+            "to": "st",
+            "label": "PENDING"
+          },
+          {
+            "from": "st",
+            "to": "ret",
+            "label": "max_retries"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Milestone",
-                  "Architecture"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Message envelopes bind task identifiers and deterministic state machines.",
+            "values": {
+              "env": "orders.process_checkout",
+              "st": "PENDING -> STARTED",
+              "ret": "0 / 3 Max"
+            },
+            "tones": {
+              "env": "data",
+              "st": "data",
+              "ret": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Specification",
-                  "Distributed"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Broker contracts route jobs using delivery attempt counters and metadata.",
+            "values": {
+              "env": "task_id = m8_task_001",
+              "st": "State Audit Headers",
+              "ret": "retries = 0"
+            },
+            "tones": {
+              "env": "ok",
+              "st": "data",
+              "ret": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Envelope contract validates JSON serialization with initial pending state.",
+            "values": {
+              "env": "to_dict() JSON Ready",
+              "st": "state = PENDING",
+              "ret": "max_retries = 3 OK"
+            },
+            "tones": {
+              "env": "ok",
+              "st": "ok",
+              "ret": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add priority field to MilestoneMessageEnvelope and verify to_dict includes it.",
+            "values": {
+              "env": "priority = 9 In to_dict()",
+              "st": "state = PENDING",
+              "ret": "max_retries = 3"
+            },
+            "tones": {
+              "env": "ok",
+              "st": "data",
+              "ret": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class MilestoneMessageEnvelope:\n    def __init__(self, task_name, task_id=\"m8_task_001\", args=None, kwargs=None, priority=5):\n        self.task_id = task_id\n        self.task_name = task_name\n        self.args = args or []\n        self.kwargs = kwargs or {}\n        self.retries = 0\n        self.max_retries = 3\n        self.state = \"PENDING\"\n        self.priority = priority\n\n    def to_dict(self):\n        return {\n            \"id\": self.task_id,\n            \"name\": self.task_name,\n            \"args\": self.args,\n            \"kwargs\": self.kwargs,\n            \"retries\": self.retries,\n            \"state\": self.state,\n            \"priority\": self.priority\n        }\n\nenv = MilestoneMessageEnvelope(\"orders.process_checkout\", args=[\"order_9812\"], priority=9)\nprint(f\"Contract Schema Verified: Task '{env.task_name}' [ID: {env.task_id}]\")\nprint(f\"Initial State: {env.state} | Max Retries: {env.max_retries}\")\nprint(f\"Serialized Payload: {env.to_dict()}\")",
+            "checks": [
+              "'priority': 9"
             ]
           }
         ]
@@ -93,82 +219,164 @@
       "partTitle": "Worker Crash Recovery & Idempotency Stress Testing",
       "codeHash": "73375c7f0a63856bce4e3af1f3dd296e9906cd1051837f30a3942f6d8eda768a",
       "spec": {
-        "template": "table",
-        "title": "Worker Crash Recovery & Idempotency Stress Testing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Stalled lock leak vs clean SIGKILL lock release",
+        "leftLabel": "Leaked Lock On Crash",
+        "rightLabel": "CrashResilientExecutor",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The second concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Worker"
-                  },
-                  {
-                    "text": "Crash"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Late ACK contracts keep unacknowledged tasks intact across worker crashes.",
+            "left": {
+              "code": "charge_attempts",
+              "result": "Message Lost On Ack",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "CrashResilientExecutor",
+              "result": "Redelivered To Standby",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The consider logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Recovery"
-                  },
-                  {
-                    "text": "Idempotency"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Unreleased crash locks stall standby retries by rejecting redelivered work.",
+            "left": {
+              "code": "locks",
+              "result": "Stuck Until TTL Expires",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "execute_payment_step",
+              "result": "Purges Lock On Error",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Simulated crash releases the lock so standby payment settles safely.",
+            "left": {
+              "code": "locks",
+              "result": "Attempt 1 SIGKILL Crash",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "completed_txs",
+              "result": "Attempt 2 Approved Once",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Fail execute_payment_step twice before third attempt succeeds cleanly.",
+            "left": {
+              "code": "fail_on_first_try (1 crash -> 2nd OK)",
+              "result": "Settled on Attempt 2 (AUTH_APPROVED_981)",
+              "tone": "data",
+              "checks": [
+                "Attempts: 2 | Auth: AUTH_APPROVED_981"
+              ],
+              "whatIf": "class CrashResilientExecutor:\n    def __init__(self):\n        self.locks = set()\n        self.completed_txs = {}\n        self.charge_attempts = 0\n\n    def execute_payment_step(self, order_id, fail_on_first_try=True):\n        self.charge_attempts += 1\n        print(f\"[Attempt {self.charge_attempts}] Processing payment for '{order_id}'...\")\n        \n        # Acquire in-flight lock\n        self.locks.add(order_id)\n        try:\n            if fail_on_first_try and self.charge_attempts == 1:\n                print(f\"[Attempt {self.charge_attempts}] Worker crashed mid-flight! (SIGKILL simulated)\")\n                raise RuntimeError(\"SimulatedWorkerCrash\")\n            # Payment success\n            self.completed_txs[order_id] = \"AUTH_APPROVED_981\"\n            print(f\"[Attempt {self.charge_attempts}] Payment settled successfully.\")\n            return self.completed_txs[order_id]\n        except Exception:\n            # Crucial: Release lock so late-ACK retry can acquire it!\n            self.locks.remove(order_id)\n            print(\"Late ACK safety: In-flight lock cleanly released for redelivery.\")\n            return None\n\nexecutor = CrashResilientExecutor()\n# First attempt crashes\nexecutor.execute_payment_step(\"order_880\", fail_on_first_try=True)\n# Redelivery attempt by standby worker succeeds\nauth = executor.execute_payment_step(\"order_880\", fail_on_first_try=False)\n\nprint(f\"Final Transaction State: {executor.completed_txs}\")\nprint(f\"Attempts: {executor.charge_attempts} | Auth: {auth}\")"
+            },
+            "right": {
+              "code": "fail_twice (2 crashes -> 3rd OK)",
+              "result": "Lock Released 2x -> 3rd Attempt Succeeds",
+              "tone": "ok",
+              "checks": [
+                "[Attempt 2] Worker crashed mid-flight!",
+                "Late ACK safety: In-flight lock cleanly released for redelivery.",
+                "[Attempt 3] Payment settled successfully.",
+                "Attempts: 3"
+              ],
+              "whatIf": "class CrashResilientExecutor:\n    def __init__(self):\n        self.locks = set()\n        self.completed_txs = {}\n        self.charge_attempts = 0\n\n    def execute_payment_step(self, order_id, fail_on_first_try=True):\n        self.charge_attempts += 1\n        print(f\"[Attempt {self.charge_attempts}] Processing payment for '{order_id}'...\")\n        \n        # Acquire in-flight lock\n        self.locks.add(order_id)\n        try:\n            if fail_on_first_try and self.charge_attempts <= 2:\n                print(f\"[Attempt {self.charge_attempts}] Worker crashed mid-flight! (SIGKILL simulated)\")\n                raise RuntimeError(\"SimulatedWorkerCrash\")\n            # Payment success\n            self.completed_txs[order_id] = \"AUTH_APPROVED_981\"\n            print(f\"[Attempt {self.charge_attempts}] Payment settled successfully.\")\n            return self.completed_txs[order_id]\n        except Exception:\n            # Crucial: Release lock so late-ACK retry can acquire it!\n            self.locks.remove(order_id)\n            print(\"Late ACK safety: In-flight lock cleanly released for redelivery.\")\n            return None\n\nexecutor = CrashResilientExecutor()\n# First attempt crashes\nexecutor.execute_payment_step(\"order_880\", fail_on_first_try=True)\nexecutor.execute_payment_step(\"order_880\", fail_on_first_try=True)\nauth = executor.execute_payment_step(\"order_880\", fail_on_first_try=False)\nprint(f\"Attempts: {executor.charge_attempts} | Locks Held: {len(executor.locks)}\")\n\nprint(f\"Final Transaction State: {executor.completed_txs}\")\nprint(f\"Payment Authorization: {auth}\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Worker Crash Recovery & Idempotency Stress Testing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Stalled lock leak vs clean SIGKILL lock release",
+        "leftLabel": "Leaked Lock On Crash",
+        "rightLabel": "CrashResilientExecutor",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The second concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Worker",
-                  "Crash"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Late ACK contracts keep unacknowledged tasks intact across worker crashes.",
+            "left": {
+              "code": "Early Ack Before Crash",
+              "result": "order_880 Dropped",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "task_acks_late = True",
+              "result": "order_880 Redelivered",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The consider logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Recovery",
-                  "Idempotency"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Unreleased crash locks stall standby retries by rejecting redelivered work.",
+            "left": {
+              "code": "Lock Left Set After Exception",
+              "result": "Retry Falsely Blocked",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "except: locks.remove(id)",
+              "result": "Immediate Re-Acquisition",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Simulated crash releases the lock so standby payment settles safely.",
+            "left": {
+              "code": "SIGKILL Attempt 1 Aborted",
+              "result": "Lock Cleaned For Standby",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Attempt 2 Succeeded",
+              "result": "AUTH_APPROVED_981 (1x)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Fail execute_payment_step twice before third attempt succeeds cleanly.",
+            "left": {
+              "code": "fail_on_first_try (1 crash -> 2nd OK)",
+              "result": "Settled on Attempt 2 (AUTH_APPROVED_981)",
+              "tone": "data",
+              "checks": [
+                "Attempts: 2 | Auth: AUTH_APPROVED_981"
+              ],
+              "whatIf": "class CrashResilientExecutor:\n    def __init__(self):\n        self.locks = set()\n        self.completed_txs = {}\n        self.charge_attempts = 0\n\n    def execute_payment_step(self, order_id, fail_on_first_try=True):\n        self.charge_attempts += 1\n        print(f\"[Attempt {self.charge_attempts}] Processing payment for '{order_id}'...\")\n        \n        # Acquire in-flight lock\n        self.locks.add(order_id)\n        try:\n            if fail_on_first_try and self.charge_attempts == 1:\n                print(f\"[Attempt {self.charge_attempts}] Worker crashed mid-flight! (SIGKILL simulated)\")\n                raise RuntimeError(\"SimulatedWorkerCrash\")\n            # Payment success\n            self.completed_txs[order_id] = \"AUTH_APPROVED_981\"\n            print(f\"[Attempt {self.charge_attempts}] Payment settled successfully.\")\n            return self.completed_txs[order_id]\n        except Exception:\n            # Crucial: Release lock so late-ACK retry can acquire it!\n            self.locks.remove(order_id)\n            print(\"Late ACK safety: In-flight lock cleanly released for redelivery.\")\n            return None\n\nexecutor = CrashResilientExecutor()\n# First attempt crashes\nexecutor.execute_payment_step(\"order_880\", fail_on_first_try=True)\n# Redelivery attempt by standby worker succeeds\nauth = executor.execute_payment_step(\"order_880\", fail_on_first_try=False)\n\nprint(f\"Final Transaction State: {executor.completed_txs}\")\nprint(f\"Attempts: {executor.charge_attempts} | Auth: {auth}\")"
+            },
+            "right": {
+              "code": "fail_twice (2 crashes -> 3rd OK)",
+              "result": "Lock Released 2x -> 3rd Attempt Succeeds",
+              "tone": "ok",
+              "checks": [
+                "[Attempt 2] Worker crashed mid-flight!",
+                "Late ACK safety: In-flight lock cleanly released for redelivery.",
+                "[Attempt 3] Payment settled successfully.",
+                "Attempts: 3"
+              ],
+              "whatIf": "class CrashResilientExecutor:\n    def __init__(self):\n        self.locks = set()\n        self.completed_txs = {}\n        self.charge_attempts = 0\n\n    def execute_payment_step(self, order_id, fail_on_first_try=True):\n        self.charge_attempts += 1\n        print(f\"[Attempt {self.charge_attempts}] Processing payment for '{order_id}'...\")\n        \n        # Acquire in-flight lock\n        self.locks.add(order_id)\n        try:\n            if fail_on_first_try and self.charge_attempts <= 2:\n                print(f\"[Attempt {self.charge_attempts}] Worker crashed mid-flight! (SIGKILL simulated)\")\n                raise RuntimeError(\"SimulatedWorkerCrash\")\n            # Payment success\n            self.completed_txs[order_id] = \"AUTH_APPROVED_981\"\n            print(f\"[Attempt {self.charge_attempts}] Payment settled successfully.\")\n            return self.completed_txs[order_id]\n        except Exception:\n            # Crucial: Release lock so late-ACK retry can acquire it!\n            self.locks.remove(order_id)\n            print(\"Late ACK safety: In-flight lock cleanly released for redelivery.\")\n            return None\n\nexecutor = CrashResilientExecutor()\n# First attempt crashes\nexecutor.execute_payment_step(\"order_880\", fail_on_first_try=True)\nexecutor.execute_payment_step(\"order_880\", fail_on_first_try=True)\nauth = executor.execute_payment_step(\"order_880\", fail_on_first_try=False)\nprint(f\"Attempts: {executor.charge_attempts} | Locks Held: {len(executor.locks)}\")\n\nprint(f\"Final Transaction State: {executor.completed_txs}\")\nprint(f\"Payment Authorization: {auth}\")"
+            }
           }
         ]
       }
@@ -177,81 +385,182 @@
       "partTitle": "Distributed Task Queue & Canvas Workflow Engine Implementation",
       "codeHash": "e95051b2cf720490c67bf55d4aff4d618a34f0e0b8a8a209946b8d8529c6519c",
       "spec": {
-        "template": "table",
-        "title": "Distributed Task Queue & Canvas Workflow Engine Im",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "MilestoneCanvasWorkflow Chain, Group, and Chord stages",
+        "boxes": [
+          {
+            "id": "c1",
+            "label": "execute_order_pipeline"
+          },
+          {
+            "id": "c2",
+            "label": "charge_payment"
+          },
+          {
+            "id": "c3",
+            "label": "reserve_inventory"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The third concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Distributed"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Declarative Canvas chains and chords avoid fragile nested task callbacks.",
+            "values": {
+              "c1": {
+                "text": "MilestoneCanvasWorkflow"
+              },
+              "c2": {
+                "text": "charge_payment"
+              },
+              "c3": {
+                "text": "reserve_inventory"
               }
-            ]
+            },
+            "tones": {
+              "c1": "data",
+              "c2": "idle",
+              "c3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The under logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Queue"
-                  },
-                  {
-                    "text": "Canvas"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Parallel groups run payment, inventory, and warehouse jobs together.",
+            "values": {
+              "c1": {
+                "text": "execute_order_pipeline"
+              },
+              "c2": {
+                "text": "charge_payment"
+              },
+              "c3": {
+                "text": "notify_warehouse"
               }
-            ]
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "data",
+              "c3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Order workflow moves cleanly from validation into parallel jobs and invoice.",
+            "values": {
+              "c1": {
+                "text": "execute_order_pipeline"
+              },
+              "c2": {
+                "text": "charge_payment"
+              },
+              "c3": {
+                "text": "reserve_inventory"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "ok",
+              "c3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append send_analytics_event fourth parallel subtask to Group barrier.",
+            "values": {
+              "c1": {
+                "text": "Add"
+              },
+              "c2": {
+                "text": "parallel"
+              },
+              "c3": {
+                "text": "send_analytics_event"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "data",
+              "c3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed Task Queue & Canvas Workflow Engine Im",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "MilestoneCanvasWorkflow Chain, Group, and Chord stages",
+        "boxes": [
+          {
+            "id": "c1",
+            "label": "execute_order_pipeline"
+          },
+          {
+            "id": "c2",
+            "label": "charge_payment"
+          },
+          {
+            "id": "c3",
+            "label": "reserve_inventory"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The third concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Distributed",
-                  "Task"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Declarative Canvas chains and chords avoid fragile nested task callbacks.",
+            "values": {
+              "c1": "Step 1: Chain Validation",
+              "c2": "Awaiting Validation",
+              "c3": "Awaiting Validation"
+            },
+            "tones": {
+              "c1": "data",
+              "c2": "idle",
+              "c3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The under logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Queue",
-                  "Canvas"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Parallel groups run payment, inventory, and warehouse jobs together.",
+            "values": {
+              "c1": "Group Dispatched (3)",
+              "c2": "Running Concurrently",
+              "c3": "+ notify_warehouse"
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "data",
+              "c3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Order workflow moves cleanly from validation into parallel jobs and invoice.",
+            "values": {
+              "c1": "Chord Barrier 3/3 Hit",
+              "c2": "Payment Authorized",
+              "c3": "INVOICE_PDF_GENERATED"
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "ok",
+              "c3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append send_analytics_event fourth parallel subtask to Group barrier.",
+            "values": {
+              "c1": "Chord Barrier 4/4 Hit",
+              "c2": "Analytics Task Included",
+              "c3": "INVOICE_PDF_GENERATED"
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "data",
+              "c3": "ok"
+            },
+            "whatIf": "class MilestoneCanvasWorkflow:\n    def execute_order_pipeline(self, order_id):\n        log = []\n        # Step 1: Sequential Validation\n        log.append(f\"STEP 1 [Chain]: Validate order '{order_id}' items and customer profile.\")\n        \n        # Step 2: Parallel Group\n        subtasks = [\"charge_payment\", \"reserve_inventory\", \"notify_warehouse\", \"send_analytics_event\"]\n        log.append(f\"STEP 2 [Group]: Dispatch {len(subtasks)} tasks concurrently: {subtasks}\")\n        \n        # Step 3: Chord Barrier\n        log.append(\"STEP 3 [Chord]: Barrier reached (4/4 completed).\")\n        log.append(f\"STEP 3 [Chord]: Trigger callback -> generate_tax_invoice('{order_id}').\")\n        return \"INVOICE_PDF_GENERATED\", log\n\nworkflow = MilestoneCanvasWorkflow()\nstatus, execution_log = workflow.execute_order_pipeline(\"ord_9901\")\n\nprint(\"=== Milestone 8 Canvas Order Workflow ===\")\nfor entry in execution_log:\n    print(f\"  {entry}\")\nprint(f\"Final Pipeline Result: {status}\")",
+            "checks": [
+              "Dispatch 4 tasks concurrently: ['charge_payment', 'reserve_inventory', 'notify_warehouse', 'send_analytics_event']",
+              "Barrier reached (4/4 completed)."
             ]
           }
         ]
@@ -261,81 +570,258 @@
       "partTitle": "Poison Pill Interception & Dead-Letter Queue Self-Healing",
       "codeHash": "e5ebc5aa86aad129a9f72fc36f14e6befbb67ba3b8e260cd1e142e42eb575294",
       "spec": {
-        "template": "table",
-        "title": "Poison Pill Interception & Dead-Letter Queue Self-",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "MilestoneDLQEngine isolation while valid orders run",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The fourth concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bounded retry backoff shields recovering backends from permanent schema errors.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Poison"
-                  },
-                  {
-                    "text": "Pill"
-                  }
-                ],
+                "text": "MilestoneDLQEngine"
+              },
+              {
+                "text": "max_retries"
+              },
+              {
+                "text": "primary_processed"
+              },
+              {
+                "text": "dlq"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "cap",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
-            "rows": [
+            "caption": "Exhausting three retries evicts poison payloads into dead-letter queues.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Interception"
-                  },
-                  {
-                    "text": "Dead"
-                  }
-                ],
+                "text": "dispatch"
+              },
+              {
+                "text": "3"
+              },
+              {
+                "text": "primary_processed"
+              },
+              {
+                "text": "dlq"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "dlq",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "ok",
+              "3": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bounded retries quarantine the poison pill while valid orders finish.",
+            "items": [
+              {
+                "text": "primary_processed"
+              },
+              {
+                "text": "dispatch"
+              },
+              {
+                "text": "max_retries"
+              },
+              {
+                "text": "dlq"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "isolated",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Dispatch two consecutive poison pill orders and verify DLQ stores both.",
+            "items": [
+              {
+                "text": "Dispatch"
+              },
+              {
+                "text": "consecutive"
+              },
+              {
+                "text": "pill"
+              },
+              {
+                "text": "and"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "isolated",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "error",
+              "2": "error",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Poison Pill Interception & Dead-Letter Queue Self-",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "MilestoneDLQEngine isolation while valid orders run",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The fourth concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bounded retry backoff shields recovering backends from permanent schema errors.",
+            "items": [
+              "Engine Active",
+              "max_retries = 3",
+              "2 Valid Orders Passed",
+              "dlq: [] Empty"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Poison",
-                  "Pill"
-                ],
+                "name": "cap",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
-            "rows": [
+            "caption": "Exhausting three retries evicts poison payloads into dead-letter queues.",
+            "items": [
+              "poison_order_99",
+              "Retry 3/3 Failed",
+              "Primary Unblocked",
+              "Evicted to dlq"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Interception",
-                  "Dead"
-                ],
+                "name": "dlq",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "ok",
+              "3": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bounded retries quarantine the poison pill while valid orders finish.",
+            "items": [
+              "Valid Orders: 2",
+              "Healthy Latency Preserved",
+              "Retry Limit = 3",
+              "dlq Depth = 1 Isolated"
+            ],
+            "pointers": [
+              {
+                "name": "isolated",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Dispatch two consecutive poison pill orders and verify DLQ stores both.",
+            "items": [
+              "Valid Orders: 2",
+              "poison_order_99 Evicted",
+              "poison_order_100 Evicted",
+              "dlq Depth = 2 Isolated"
+            ],
+            "pointers": [
+              {
+                "name": "isolated",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "error",
+              "2": "error",
+              "3": "data"
+            },
+            "whatIf": "class MilestoneDLQEngine:\n    def __init__(self, max_retries=3):\n        self.max_retries = max_retries\n        self.primary_processed = 0\n        self.dlq = []\n\n    def dispatch(self, task_id, is_poison=False):\n        if not is_poison:\n            self.primary_processed += 1\n            return \"SUCCESS\"\n        # Poison pill: fails up to max retries, then evicted to DLQ\n        print(f\"Poison pill detected on task '{task_id}'! Retrying up to {self.max_retries} times...\")\n        for r in range(1, self.max_retries + 1):\n            print(f\"  Retry attempt {r}/{self.max_retries} failed (Invalid SKU payload).\")\n        entry = {\"task_id\": task_id, \"error\": \"FATAL_INVALID_SKU\", \"status\": \"DLQ_QUARANTINED\"}\n        self.dlq.append(entry)\n        print(f\"Task '{task_id}' evicted to DLQ: Cluster capacity preserved.\")\n        return \"DLQ_ISOLATED\"\n\nengine = MilestoneDLQEngine(max_retries=3)\nengine.dispatch(\"valid_order_01\", is_poison=False)\nengine.dispatch(\"valid_order_02\", is_poison=False)\nengine.dispatch(\"poison_order_99\", is_poison=True)\nengine.dispatch(\"poison_order_100\", is_poison=True)\n\nprint(f\"Valid orders completed: {engine.primary_processed}\")\nprint(f\"Dead-lettered orders: {len(engine.dlq)} (Isolated in DLQ)\")",
+            "checks": [
+              "Valid orders completed: 2",
+              "Dead-lettered orders: 2 (Isolated in DLQ)"
             ]
           }
         ]
@@ -346,43 +832,146 @@
       "codeHash": "36f4c280ed375b0102827c7d9b7cf4ec69c515f5d7bb7d5a120dafd19437da64",
       "spec": {
         "template": "table",
-        "title": "Milestone 8 Production Defense & Verification Gate",
+        "title": "Milestone8VerificationGate production contracts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Contract",
+          "Metric",
+          "Gate Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Late ACK and idempotency contracts verify zero task loss or double charges.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Milestone"
+                    "text": "Milestone8VerificationGate"
                   },
                   {
-                    "text": "Production"
+                    "text": "run_production_defense"
+                  },
+                  {
+                    "text": "checks"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "checks"
+                  },
+                  {
+                    "text": "Milestone8VerificationGate"
+                  },
+                  {
+                    "text": "run_production_defense"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The third logic drives deterministic execution.",
+            "caption": "Poison pill isolation and Canvas barrier checks confirm zero race conditions.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Defense"
+                    "text": "checks"
                   },
                   {
-                    "text": "Verification"
+                    "text": "Milestone8VerificationGate"
+                  },
+                  {
+                    "text": "run_production_defense"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "run_production_defense"
+                  },
+                  {
+                    "text": "checks"
+                  },
+                  {
+                    "text": "Milestone8VerificationGate"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Production defense gate asserts every distributed reliability contract passes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Milestone8VerificationGate"
+                  },
+                  {
+                    "text": "checks"
+                  },
+                  {
+                    "text": "run_production_defense"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "run_production_defense"
+                  },
+                  {
+                    "text": "Milestone8VerificationGate"
+                  },
+                  {
+                    "text": "checks"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raise task_loss_rate so verification gate prints FAILED contract status.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Modify"
+                  },
+                  {
+                    "text": "task_loss_rate"
+                  },
+                  {
+                    "text": "0.05"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "0.05"
+                  },
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "observe"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,36 +979,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Milestone 8 Production Defense & Verification Gate",
+        "title": "Milestone8VerificationGate production contracts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Contract",
+          "Metric",
+          "Gate Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Late ACK and idempotency contracts verify zero task loss or double charges.",
             "rows": [
               {
                 "cells": [
-                  "Milestone",
-                  "Production"
+                  "Zero Task Loss Contract",
+                  "task_loss_rate == 0.0",
+                  "[PASSED]"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Strict Idempotency Contract",
+                  "duplicate_charge_count == 0",
+                  "[PASSED]"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The third logic drives deterministic execution.",
+            "caption": "Poison pill isolation and Canvas barrier checks confirm zero race conditions.",
             "rows": [
               {
                 "cells": [
-                  "Defense",
-                  "Verification"
+                  "100% Poison Pill Isolation",
+                  "poison_pill_isolation_rate == 1.0",
+                  "[PASSED]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Canvas Barrier Synchronization",
+                  "workflow_success_rate == 1.0",
+                  "[PASSED]"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Production defense gate asserts every distributed reliability contract passes.",
+            "rows": [
+              {
+                "cells": [
+                  "All 4 Reliability Contracts",
+                  "Verified Under Chaos",
+                  "[PASSED]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Milestone 8 Engine",
+                  "Production Certified",
+                  "MILESTONE 8 PASSED"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raise task_loss_rate so verification gate prints FAILED contract status.",
+            "rows": [
+              {
+                "cells": [
+                  "Zero Task Loss Contract",
+                  "task_loss_rate = 0.05",
+                  "[FAILED]"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Production Release Gate",
+                  "all_passed = False",
+                  "RELEASE BLOCKED"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "class Milestone8VerificationGate:\n    def run_production_defense(self):\n        # 1. Late ACK Durability Check\n        task_loss_rate = 0.05\n        # 2. Idempotency Check (Duplicate charges)\n        duplicate_charge_count = 0\n        # 3. DLQ Quarantine Efficiency\n        poison_pill_isolation_rate = 1.0\n        # 4. Canvas Workflow Completion\n        workflow_success_rate = 1.0\n        \n        checks = [\n            (\"Zero Task Loss Contract\", task_loss_rate == 0.0),\n            (\"Strict Idempotency Contract\", duplicate_charge_count == 0),\n            (\"100% Poison Pill Isolation\", poison_pill_isolation_rate == 1.0),\n            (\"Canvas Barrier Synchronization\", workflow_success_rate == 1.0)\n        ]\n        return checks\n\ngate = Milestone8VerificationGate()\nresults = gate.run_production_defense()\n\nprint(\"=== Milestone 8 Production Verification Gate ===\")\nall_passed = True\nfor name, passed in results:\n    status = \"PASSED\" if passed else \"FAILED\"\n    print(f\"  [{status}] {name}\")\n    if not passed: all_passed = False\n\nif all_passed:\n    print(\"\")\n    print(\"MILESTONE 8 PASSED: Distributed Task Queue Engine Certified for Production!\")",
+            "checks": [
+              "[FAILED] Zero Task Loss Contract"
             ]
           }
         ]

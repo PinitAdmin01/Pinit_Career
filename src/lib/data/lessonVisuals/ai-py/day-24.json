@@ -2,139 +2,229 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "From imitation to preference",
       "codeHash": "2076ae75ee5e3f3158f81b0559b1d7b2543e61dcc0fece01cd7473851ed8198d",
       "spec": {
-        "template": "compare",
-        "title": "Human preference alignment chosen versus rejected candidate answers",
-        "leftLabel": "Chosen Response",
-        "rightLabel": "Rejected Response",
+        "template": "flow",
+        "title": "From imitation to preference",
+        "nodes": [
+          {
+            "id": "pair",
+            "label": "pair"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Supervised fine-tuning (SFT) teaches a model to copy example answers.",
+            "values": {
+              "pair": {
+                "var": "pair",
+                "line": 1,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 6,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "pair": "data",
+              "key": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "pair",
+                "key"
+              ],
+              [
+                "key",
+                "text"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Preference training uses pairs with chosen and rejected answers.",
-            "left": {
-              "code": "An API is like a waiter: your app asks it for something and it brings back what the kitchen prepared.",
-              "result": {
-                "text": "chosen"
+            "caption": "Preference training uses pairs.",
+            "values": {
+              "pair": {
+                "var": "pair",
+                "line": 6,
+                "hit": 1
               },
-              "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "An API is an application programming interface enabling programmatic interoperability between software components.",
-              "result": {
-                "text": "rejected"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "pair": "data",
+              "key": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "pair",
+                "key"
+              ],
+              [
+                "key",
+                "text"
+              ]
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Model makes chosen answers more likely and rejected answers less likely.",
-            "left": {
-              "code": "clear empathetic explanation",
-              "result": {
-                "text": "chosen"
+            "at": "say7",
+            "caption": "As an AI engineer, you are more likely to collect preference data and run.",
+            "values": {
+              "pair": {
+                "var": "pair",
+                "line": 7,
+                "hit": 1
               },
-              "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 6,
+                "hit": 2
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "stiff jargon laden description",
-              "result": {
-                "text": "rejected"
-              },
-              "tone": "error"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Pipeline moves through pre-training SFT and preference tuning.",
-            "left": {
-              "code": "supervised fine tuning baseline",
-              "result": {
-                "text": "chosen"
-              },
-              "tone": "ok"
+            "tones": {
+              "pair": "ok",
+              "key": "ok",
+              "text": "ok"
             },
-            "right": {
-              "code": "unaligned raw text continuation",
-              "result": {
-                "text": "rejected"
-              },
-              "tone": "error"
-            }
+            "arrows": [
+              [
+                "pair",
+                "key"
+              ],
+              [
+                "key",
+                "text"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Human preference alignment chosen versus rejected candidate answers",
-        "leftLabel": "Chosen Response",
-        "rightLabel": "Rejected Response",
+        "template": "flow",
+        "title": "From imitation to preference",
+        "nodes": [
+          {
+            "id": "pair",
+            "label": "pair"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Supervised fine-tuning (SFT) teaches a model to copy example answers.",
+            "values": {
+              "pair": "{'prompt': 'Explain what an API is to a…",
+              "key": "'prompt'",
+              "text": "'Explain what an API is to a shop owner…"
+            },
+            "tones": {
+              "pair": "data",
+              "key": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "pair",
+                "key"
+              ],
+              [
+                "key",
+                "text"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Preference training uses pairs with chosen and rejected answers.",
-            "left": {
-              "code": "An API is like a waiter: your app asks it for something and it brings back what the kitchen prepared.",
-              "result": "chosen",
-              "tone": "ok",
-              "checks": [
-                "chosen"
-              ]
+            "caption": "Preference training uses pairs.",
+            "values": {
+              "pair": "{'prompt': 'Explain what an API is to a…",
+              "key": "'prompt'",
+              "text": "'Explain what an API is to a shop owner…"
             },
-            "right": {
-              "code": "An API is an application programming interface enabling programmatic interoperability between software components.",
-              "result": "rejected",
-              "tone": "error",
-              "checks": [
-                "rejected"
+            "tones": {
+              "pair": "data",
+              "key": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "pair",
+                "key"
+              ],
+              [
+                "key",
+                "text"
               ]
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Model makes chosen answers more likely and rejected answers less likely.",
-            "left": {
-              "code": "clear empathetic explanation",
-              "result": "chosen",
-              "tone": "ok",
-              "checks": [
-                "chosen"
-              ]
+            "at": "say7",
+            "caption": "As an AI engineer, you are more likely to collect preference data and run.",
+            "values": {
+              "pair": "{'prompt': 'Explain what an API is to a…",
+              "key": "'chosen'",
+              "text": "'An API is like a waiter: your app asks…"
             },
-            "right": {
-              "code": "stiff jargon laden description",
-              "result": "rejected",
-              "tone": "error",
-              "checks": [
-                "rejected"
-              ]
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Pipeline moves through pre-training SFT and preference tuning.",
-            "left": {
-              "code": "supervised fine tuning baseline",
-              "result": "chosen",
-              "tone": "ok",
-              "checks": [
-                "chosen"
-              ]
+            "tones": {
+              "pair": "ok",
+              "key": "ok",
+              "text": "ok"
             },
-            "right": {
-              "code": "unaligned raw text continuation",
-              "result": "rejected",
-              "tone": "error",
-              "checks": [
-                "rejected"
+            "arrows": [
+              [
+                "pair",
+                "key"
+              ],
+              [
+                "key",
+                "text"
               ]
-            }
+            ]
           }
         ]
       }
@@ -143,190 +233,216 @@
       "partTitle": "RLHF in outline",
       "codeHash": "dd329364f6d1b816d06fcde2d31764ff3ebeb0879db0c1c81002fc275cda2068",
       "spec": {
-        "template": "table",
-        "title": "Reward model score differentials and preference probabilities",
-        "columns": [
-          "reward_chosen",
-          "reward_rejected",
-          "preference_p"
-        ],
+        "template": "bars",
+        "title": "RLHF in outline",
         "steps": [
           {
             "at": "say1",
-            "caption": "RLHF trains reward model to output score for how people like answer.",
-            "rows": [
+            "caption": "Reinforcement learning from human feedback (RLHF) first trains a reward model.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "2.0"
-                  },
-                  {
-                    "text": "0.5"
-                  },
-                  {
-                    "text": "reward chosen"
-                  }
-                ],
-                "tone": "ok"
+                "label": "chosen",
+                "value": {
+                  "var": "chosen",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "rejected"
-                  }
-                ],
+                "label": "rejected",
+                "value": {
+                  "var": "rejected",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reward model learns from pairs where chosen answer scores higher.",
-            "rows": [
+            "caption": "The reward model learns from pairs.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "2.0"
-                  },
-                  {
-                    "text": "0.5"
-                  },
-                  {
-                    "text": "reward chosen"
-                  }
-                ],
+                "label": "chosen",
+                "value": {
+                  "var": "chosen",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "rejected"
-                  }
-                ],
-                "tone": "data"
+                "label": "rejected",
+                "value": {
+                  "var": "rejected",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "DPO skips separate reward model simplifying training.",
-            "rows": [
+            "at": "say7",
+            "caption": "The sigmoid formula below is the heart of how reward models learn from pairs.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "2.0"
-                  },
-                  {
-                    "text": "0.5"
-                  },
-                  {
-                    "text": "reward chosen"
-                  }
-                ],
+                "label": "chosen",
+                "value": {
+                  "var": "chosen",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "rejected"
-                  }
-                ],
-                "tone": "data"
+                "label": "rejected",
+                "value": {
+                  "var": "rejected",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Reward model score differentials and preference probabilities",
-        "columns": [
-          "reward_chosen",
-          "reward_rejected",
-          "preference_p"
-        ],
+        "template": "bars",
+        "title": "RLHF in outline",
         "steps": [
           {
             "at": "say1",
-            "caption": "RLHF trains reward model to output score for how people like answer.",
-            "rows": [
+            "caption": "Reinforcement learning from human feedback (RLHF) first trains a reward model.",
+            "bars": [
               {
-                "cells": [
-                  "2.0",
-                  "0.5",
-                  "reward chosen"
-                ],
-                "tone": "ok"
+                "label": "chosen",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1.0",
-                  "1.0",
-                  "rejected"
-                ],
+                "label": "rejected",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 1.5,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.8175744761936437,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reward model learns from pairs where chosen answer scores higher.",
-            "rows": [
+            "caption": "The reward model learns from pairs.",
+            "bars": [
               {
-                "cells": [
-                  "2.0",
-                  "0.5",
-                  "reward chosen"
-                ],
+                "label": "chosen",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "1.0",
-                  "1.0",
-                  "rejected"
-                ],
-                "tone": "data"
+                "label": "rejected",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.8175744761936437,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "DPO skips separate reward model simplifying training.",
-            "rows": [
+            "at": "say7",
+            "caption": "The sigmoid formula below is the heart of how reward models learn from pairs.",
+            "bars": [
               {
-                "cells": [
-                  "2.0",
-                  "0.5",
-                  "reward chosen"
-                ],
+                "label": "chosen",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "1.0",
-                  "1.0",
-                  "rejected"
-                ],
-                "tone": "data"
+                "label": "rejected",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": -1.2,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.8175744761936437,
+                "tone": "ok"
               }
             ]
           }
@@ -337,223 +453,217 @@
       "partTitle": "Log probabilities",
       "codeHash": "451fbde5a6d87b5968fa32a1918619c5725ea46bc10f1dc7462d52ad5b00de1a",
       "spec": {
-        "template": "flow",
-        "title": "Log probabilities — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Log probabilities",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Log probabilities",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Log probabilities [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Log probabilities [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A model gives each token a probability.",
+            "bars": [
+              {
+                "label": "product",
+                "value": {
+                  "var": "product",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "logprob",
+                "value": {
+                  "var": "logprob",
+                  "line": 5,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p1",
+                "value": {
+                  "var": "p1",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "So we use log probabilities (logprobs).",
+            "bars": [
+              {
+                "label": "product",
+                "value": {
+                  "var": "product",
+                  "line": 5,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logprob",
+                "value": {
+                  "var": "logprob",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p1",
+                "value": {
+                  "var": "p1",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Log probabilities [D.Pthree.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "DPO, next, is built entirely from logprob differences.",
+            "bars": [
+              {
+                "label": "product",
+                "value": {
+                  "var": "product",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logprob",
+                "value": {
+                  "var": "logprob",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p1",
+                "value": {
+                  "var": "p1",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Log probabilities — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Log probabilities",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Log probabilities",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Log probabilities [D24.P3.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Log probabilities [D24.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A model gives each token a probability.",
+            "bars": [
+              {
+                "label": "product",
+                "value": 0.4788,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "logprob",
+                "value": -0.736472305298319,
+                "tone": "data"
+              },
+              {
+                "label": "p1",
+                "value": 0.30000000000000004,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "So we use log probabilities (logprobs).",
+            "bars": [
+              {
+                "label": "product",
+                "value": 0.4788,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "logprob",
+                "value": -0.736472305298319,
+                "tone": "ok"
+              },
+              {
+                "label": "p1",
+                "value": -1.25,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Log probabilities [D24.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "DPO, next, is built entirely from logprob differences.",
+            "bars": [
+              {
+                "label": "product",
+                "value": 0.4788,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.95,
+                "tone": "ok"
+              },
+              {
+                "label": "logprob",
+                "value": -0.736472305298319,
+                "tone": "ok"
+              },
+              {
+                "label": "p1",
+                "value": -1.25,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -563,192 +673,162 @@
       "partTitle": "Direct preference optimisation",
       "codeHash": "4a5df0d6bf931ba5e105cabbaa9b91c8466b0946cce02c36a5b41878a0247578",
       "spec": {
-        "template": "table",
-        "title": "Direct preference optimization policy margin alignment status",
-        "columns": [
+        "template": "sequence",
+        "title": "Direct preference optimisation",
+        "actors": [
           "chosen_logprob",
           "rejected_logprob",
-          "status"
+          "beta"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "DPO trains directly on preference pairs without separate reward model.",
-            "rows": [
+            "caption": "DPO trains directly on preference pairs without a separate reward model.",
+            "activeActor": "chosen_logprob",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "-12.0"
-                  },
-                  {
-                    "text": "-15.5"
-                  },
-                  {
-                    "text": "ALIGNED"
-                  }
-                ],
-                "tone": "ok"
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": {
+                  "var": "chosen_logprob",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "-20.0"
-                  },
-                  {
-                    "text": "-18.0"
-                  },
-                  {
-                    "text": "MISALIGNED"
-                  }
-                ],
-                "tone": "error"
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": {
+                  "var": "rejected_logprob",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Evaluate DPO pair checks margin returning ALIGNED or MISALIGNED.",
-            "rows": [
+            "caption": "The margin is logprob(chosen) - logprob(rejected).",
+            "activeActor": "rejected_logprob",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "-12.0"
-                  },
-                  {
-                    "text": "-15.5"
-                  },
-                  {
-                    "text": "ALIGNED"
-                  }
-                ],
-                "tone": "ok"
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": {
+                  "var": "chosen_logprob",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "-20.0"
-                  },
-                  {
-                    "text": "-18.0"
-                  },
-                  {
-                    "text": "MISALIGNED"
-                  }
-                ],
-                "tone": "error"
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": {
+                  "var": "rejected_logprob",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Training lowers loss by widening margin over reference model.",
-            "rows": [
+            "at": "say7",
+            "caption": "DPO is simpler and more stable than RLHF, which is why many open models use it.",
+            "activeActor": "beta",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "-12.0"
-                  },
-                  {
-                    "text": "-15.5"
-                  },
-                  {
-                    "text": "ALIGNED"
-                  }
-                ],
-                "tone": "ok"
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": {
+                  "var": "chosen_logprob",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "-20.0"
-                  },
-                  {
-                    "text": "-18.0"
-                  },
-                  {
-                    "text": "MISALIGNED"
-                  }
-                ],
-                "tone": "error"
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": {
+                  "var": "rejected_logprob",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Direct preference optimization policy margin alignment status",
-        "columns": [
+        "template": "sequence",
+        "title": "Direct preference optimisation",
+        "actors": [
           "chosen_logprob",
           "rejected_logprob",
-          "status"
+          "beta"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "DPO trains directly on preference pairs without separate reward model.",
-            "rows": [
+            "caption": "DPO trains directly on preference pairs without a separate reward model.",
+            "messages": [
               {
-                "cells": [
-                  "-12.0",
-                  "-15.5",
-                  "ALIGNED"
-                ],
-                "tone": "ok"
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": "-12",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "-20.0",
-                  "-18.0",
-                  "MISALIGNED"
-                ],
-                "tone": "error"
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": "-15.5",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "chosen_logprob"
           },
           {
             "at": "say2",
-            "caption": "Evaluate DPO pair checks margin returning ALIGNED or MISALIGNED.",
-            "rows": [
+            "caption": "The margin is logprob(chosen) - logprob(rejected).",
+            "messages": [
               {
-                "cells": [
-                  "-12.0",
-                  "-15.5",
-                  "ALIGNED"
-                ],
-                "tone": "ok"
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": "-12",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "-20.0",
-                  "-18.0",
-                  "MISALIGNED"
-                ],
-                "tone": "error"
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": "-15.5",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "rejected_logprob"
           },
           {
-            "at": "say4",
-            "caption": "Training lowers loss by widening margin over reference model.",
-            "rows": [
+            "at": "say7",
+            "caption": "DPO is simpler and more stable than RLHF, which is why many open models use it.",
+            "messages": [
               {
-                "cells": [
-                  "-12.0",
-                  "-15.5",
-                  "ALIGNED"
-                ],
-                "tone": "ok"
+                "from": "chosen_logprob",
+                "to": "rejected_logprob",
+                "label": "-12",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "-20.0",
-                  "-18.0",
-                  "MISALIGNED"
-                ],
-                "tone": "error"
+                "from": "rejected_logprob",
+                "to": "beta",
+                "label": "-15.5",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "beta"
           }
         ]
       }
@@ -757,224 +837,194 @@
       "partTitle": "Collecting good preference data",
       "codeHash": "d038d087b7cc36be776b80226be6f456daf1211c5b6e67eac5abe5efd7888024",
       "spec": {
-        "template": "flow",
-        "title": "Collecting good preference data — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Collecting good preference data",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "labeller_a",
+            "label": "labeller_a"
           },
           {
-            "id": "proc",
-            "label": "2. Collecting good pre...",
-            "tappable": true
+            "id": "labeller_b",
+            "label": "labeller_b"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Collecting good preference data [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Collecting good pre... [D.Pfive.Stwo].",
+            "caption": "Preference training is only as good as its pairs.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "labeller_a": {
+                "var": "labeller_a",
+                "line": 1,
+                "hit": 1
+              },
+              "labeller_b": {
+                "var": "labeller_b",
+                "line": 2,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "labeller_a": "data",
+              "labeller_b": "data",
+              "a": "data",
+              "b": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Give some pairs to two labellers and measure how often they agree.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "labeller_a": {
+                "var": "labeller_a",
+                "line": 2,
+                "hit": 1
+              },
+              "labeller_b": {
+                "var": "labeller_b",
+                "line": 3,
+                "hit": 10
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "labeller_a": "data",
+              "labeller_b": "data",
+              "a": "data",
+              "b": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Collecting good preference data.",
+            "at": "say6",
+            "caption": "Keep the data versioned, like code, so you know exactly what each model.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "labeller_a": {
+                "var": "labeller_a",
+                "line": 3,
+                "hit": 10
+              },
+              "labeller_b": {
+                "var": "labeller_b",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 3
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "labeller_a": "ok",
+              "labeller_b": "ok",
+              "a": "ok",
+              "b": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Collecting good preference data — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Collecting good preference data",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "labeller_a",
+            "label": "labeller_a"
           },
           {
-            "id": "proc",
-            "label": "2. Collecting good pre...",
-            "tappable": true
+            "id": "labeller_b",
+            "label": "labeller_b"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Collecting good preference data [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Collecting good pre... [D24.P5.S2].",
+            "caption": "Preference training is only as good as its pairs.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "labeller_a": "['A', 'A', 'B', 'A', 'B', 'A', 'A', 'B']",
+              "labeller_b": "['A', 'B', 'B', 'A', 'B', 'A', 'B', 'B']",
+              "a": "'A'",
+              "b": "'A'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "labeller_a": "data",
+              "labeller_b": "data",
+              "a": "data",
+              "b": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
+            "at": "say2",
+            "caption": "Give some pairs to two labellers and measure how often they agree.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "labeller_a": "['A', 'A', 'B', 'A', 'B', 'A', 'A', 'B']",
+              "labeller_b": "['A', 'B', 'B', 'A', 'B', 'A', 'B', 'B']",
+              "a": "'A'",
+              "b": "'B'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "labeller_a": "data",
+              "labeller_b": "data",
+              "a": "data",
+              "b": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Collecting good preference data [D24.P5.S4].",
+            "at": "say6",
+            "caption": "Keep the data versioned, like code, so you know exactly what each model.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "labeller_a": "['A', 'A', 'B', 'A', 'B', 'A', 'A', 'B']",
+              "labeller_b": "['A', 'B', 'B', 'A', 'B', 'A', 'B', 'B']",
+              "a": "'B'",
+              "b": "'B'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "labeller_a": "ok",
+              "labeller_b": "ok",
+              "a": "ok",
+              "b": "ok"
+            }
           }
         ]
       }
@@ -983,158 +1033,194 @@
       "partTitle": "Measuring alignment with win rates",
       "codeHash": "b043e6a22020edd9adfbafab53c022bb6c9a4e75692b8f370b7ad5056a2bd4b9",
       "spec": {
-        "template": "bars",
-        "title": "Model evaluation win rate and judgement outcome breakdown",
+        "template": "boxes",
+        "title": "Measuring alignment with win rates",
+        "boxes": [
+          {
+            "id": "judgements",
+            "label": "judgements"
+          },
+          {
+            "id": "wins",
+            "label": "wins"
+          },
+          {
+            "id": "losses",
+            "label": "losses"
+          },
+          {
+            "id": "ties",
+            "label": "ties"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compare new model with old model where judge picks better answer or tie.",
-            "bars": [
-              {
-                "label": "new_model_wins",
-                "value": {
-                  "text": "new"
-                },
-                "tone": "ok"
+            "caption": "After training, compare the new model with the old one on a fixed set.",
+            "values": {
+              "judgements": {
+                "var": "judgements",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "label": "old_model_losses",
-                "value": {
-                  "text": "old"
-                },
-                "tone": "error"
+              "wins": {
+                "var": "wins",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "judgement_ties",
-                "value": {
-                  "text": "tie"
-                },
-                "tone": "idle"
+              "losses": {
+                "var": "losses",
+                "line": 3,
+                "hit": 1
+              },
+              "ties": {
+                "var": "ties",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "judgements": "data",
+              "wins": "data",
+              "losses": "data",
+              "ties": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Win rate counts wins and ties where rate above fifty percent is preferred.",
-            "bars": [
-              {
-                "label": "new_model_wins",
-                "value": {
-                  "text": "new"
-                },
-                "tone": "ok"
+            "caption": "Win rate = wins / (wins + losses), often counting ties as half a win.",
+            "values": {
+              "judgements": {
+                "var": "judgements",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "old_model_losses",
-                "value": {
-                  "text": "old"
-                },
-                "tone": "error"
+              "wins": {
+                "var": "wins",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "label": "judgement_ties",
-                "value": {
-                  "text": "tie"
-                },
-                "tone": "idle"
+              "losses": {
+                "var": "losses",
+                "line": 4,
+                "hit": 1
+              },
+              "ties": {
+                "var": "ties",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "judgements": "data",
+              "wins": "data",
+              "losses": "data",
+              "ties": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Use enough prompts before trusting a win rate across judgements.",
-            "bars": [
-              {
-                "label": "new_model_wins",
-                "value": {
-                  "text": "new"
-                },
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Tomorrow you will learn to serve open models efficiently yourself.",
+            "values": {
+              "judgements": {
+                "var": "judgements",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "label": "old_model_losses",
-                "value": {
-                  "text": "old"
-                },
-                "tone": "error"
+              "wins": {
+                "var": "wins",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "label": "judgement_ties",
-                "value": {
-                  "text": "tie"
-                },
-                "tone": "idle"
+              "losses": {
+                "var": "losses",
+                "line": 5,
+                "hit": 1
+              },
+              "ties": {
+                "var": "ties",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "judgements": "ok",
+              "wins": "ok",
+              "losses": "ok",
+              "ties": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Model evaluation win rate and judgement outcome breakdown",
+        "template": "boxes",
+        "title": "Measuring alignment with win rates",
+        "boxes": [
+          {
+            "id": "judgements",
+            "label": "judgements"
+          },
+          {
+            "id": "wins",
+            "label": "wins"
+          },
+          {
+            "id": "losses",
+            "label": "losses"
+          },
+          {
+            "id": "ties",
+            "label": "ties"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compare new model with old model where judge picks better answer or tie.",
-            "bars": [
-              {
-                "label": "new_model_wins",
-                "value": "new",
-                "tone": "ok"
-              },
-              {
-                "label": "old_model_losses",
-                "value": "old",
-                "tone": "error"
-              },
-              {
-                "label": "judgement_ties",
-                "value": "tie",
-                "tone": "idle"
-              }
-            ]
+            "caption": "After training, compare the new model with the old one on a fixed set.",
+            "values": {
+              "judgements": "['new', 'new', 'old', 'tie', 'new', 'ne…",
+              "wins": "6",
+              "losses": "2",
+              "ties": "2"
+            },
+            "tones": {
+              "judgements": "data",
+              "wins": "data",
+              "losses": "data",
+              "ties": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Win rate counts wins and ties where rate above fifty percent is preferred.",
-            "bars": [
-              {
-                "label": "new_model_wins",
-                "value": "new",
-                "tone": "ok"
-              },
-              {
-                "label": "old_model_losses",
-                "value": "old",
-                "tone": "error"
-              },
-              {
-                "label": "judgement_ties",
-                "value": "tie",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Win rate = wins / (wins + losses), often counting ties as half a win.",
+            "values": {
+              "judgements": "['new', 'new', 'old', 'tie', 'new', 'ne…",
+              "wins": "6",
+              "losses": "2",
+              "ties": "2"
+            },
+            "tones": {
+              "judgements": "data",
+              "wins": "data",
+              "losses": "data",
+              "ties": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Use enough prompts before trusting a win rate across judgements.",
-            "bars": [
-              {
-                "label": "new_model_wins",
-                "value": "new",
-                "tone": "ok"
-              },
-              {
-                "label": "old_model_losses",
-                "value": "old",
-                "tone": "error"
-              },
-              {
-                "label": "judgement_ties",
-                "value": "tie",
-                "tone": "idle"
-              }
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will learn to serve open models efficiently yourself.",
+            "values": {
+              "judgements": "['new', 'new', 'old', 'tie', 'new', 'ne…",
+              "wins": "6",
+              "losses": "2",
+              "ties": "2"
+            },
+            "tones": {
+              "judgements": "ok",
+              "wins": "ok",
+              "losses": "ok",
+              "ties": "ok"
+            }
           }
         ]
       }

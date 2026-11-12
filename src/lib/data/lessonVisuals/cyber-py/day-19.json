@@ -2,249 +2,243 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 19,
-  "promptSha": "eb1d3d9c99f086dda74c156037fb0d24a937a45e27347a5e9c5e5bb4b1778fbb",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Your code is mostly dependencies",
       "codeHash": "f74d1027919dc30a23429d3cc65d23647bae3d0ad2488a527dd28af7b1cdc392",
       "spec": {
-        "template": "compare",
-        "title": "First-party application codebase versus third-party supply chain attack surface",
-        "left": {
-          "title": "First-Party Application Code",
-          "items": [
-            "Handcrafted business logic authored by internal team",
-            "Carefully reviewed during internal pull requests",
-            "Represents tiny fraction of overall executable logic"
-          ]
-        },
-        "right": {
-          "title": "Third-Party Open Source Supply Chain",
-          "items": [
-            "Thousands of direct and transitive package dependencies",
-            "Vulnerable to compromised upstream maintainer accounts",
-            "Dramatically expands application security attack surface"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Open source libraries expand the attack surface and risk footprint.",
-            "highlightSide": "right",
-            "statusBadge": "active"
-          },
-          {
-            "at": "say7",
-            "caption": "Compromised upstream packages make downstream applications vulnerable.",
-            "highlightSide": "right",
-            "statusBadge": "failed"
-          }
-        ],
-        "leftLabel": "First-Party Application Code",
-        "rightLabel": "Third-Party Open Source Supply Chain"
-      },
-      "filled": {
-        "template": "compare",
-        "title": "First-party application codebase versus third-party supply chain attack surface",
-        "left": {
-          "title": "First-Party Application Code",
-          "items": [
-            "Handcrafted business logic authored by internal team",
-            "Carefully reviewed during internal pull requests",
-            "Represents tiny fraction of overall executable logic"
-          ]
-        },
-        "right": {
-          "title": "Third-Party Open Source Supply Chain",
-          "items": [
-            "Thousands of direct and transitive package dependencies",
-            "Vulnerable to compromised upstream maintainer accounts",
-            "Dramatically expands application security attack surface"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Open source libraries expand the attack surface and risk footprint.",
-            "highlightSide": "right",
-            "statusBadge": "active"
-          },
-          {
-            "at": "say7",
-            "caption": "Compromised upstream packages make downstream applications vulnerable.",
-            "highlightSide": "right",
-            "statusBadge": "failed"
-          }
-        ],
-        "leftLabel": "First-Party Application Code",
-        "rightLabel": "Third-Party Open Source Supply Chain"
-      }
-    },
-    {
-      "partTitle": "SBOMs and CVEs",
-      "codeHash": "3392f74c887ec495a66ca5c788d312d651ac09ade9fd6b596259aa4c0b1969bf",
-      "spec": {
-        "template": "table",
-        "title": "Software Bill of Materials (SBOM) international governance standards",
-        "columns": [
-          "SBOM Standard",
-          "Governing Body",
-          "Format Ecosystem",
-          "Declared Metadata Attributes"
+        "template": "sequence",
+        "title": "Your code is mostly dependencies",
+        "actors": [
+          "tree",
+          "pkg",
+          "seen"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "An SBOM provides a machine readable inventory of software components.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "A typical application uses dozens of direct dependencies, which bring.",
+            "activeActor": "tree",
+            "messages": [
               {
-                "cells": [
-                  "CycloneDX",
-                  "OWASP Community",
-                  "JSON and XML Schema",
-                  "Package URLs and Cryptographic Hashes"
-                ],
+                "from": "tree",
+                "to": "pkg",
+                "label": {
+                  "var": "tree",
+                  "line": 1,
+                  "hit": 2
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SPDX Specification",
-                  "Linux Foundation",
-                  "ISO International Standard",
-                  "Component Provenance and Licenses"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Syft Cataloger",
-                  "Open Source Tooling",
-                  "Container and Filesystem",
-                  "Automatic Direct Component Catalog"
-                ],
-                "tone": "data"
+                "from": "pkg",
+                "to": "seen",
+                "label": {
+                  "var": "pkg",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "An SBOM query identifies all impacted microservices in seconds.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Every one of them is code written by someone else, running with your.",
+            "activeActor": "pkg",
+            "messages": [
               {
-                "cells": [
-                  "CycloneDX",
-                  "OWASP Community",
-                  "JSON and XML Schema",
-                  "Package URLs and Cryptographic Hashes"
-                ],
+                "from": "tree",
+                "to": "pkg",
+                "label": {
+                  "var": "tree",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SPDX Specification",
-                  "Linux Foundation",
-                  "ISO International Standard",
-                  "Component Provenance and Licenses"
-                ],
+                "from": "pkg",
+                "to": "seen",
+                "label": {
+                  "var": "pkg",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Fewer dependencies mean a smaller attack surface.",
+            "activeActor": "seen",
+            "messages": [
+              {
+                "from": "tree",
+                "to": "pkg",
+                "label": {
+                  "var": "tree",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Syft Cataloger",
-                  "Open Source Tooling",
-                  "Container and Filesystem",
-                  "Automatic Direct Component Catalog"
-                ],
-                "tone": "data"
+                "from": "pkg",
+                "to": "seen",
+                "label": {
+                  "var": "pkg",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Software Bill of Materials (SBOM) international governance standards",
-        "columns": [
-          "SBOM Standard",
-          "Governing Body",
-          "Format Ecosystem",
-          "Declared Metadata Attributes"
+        "template": "sequence",
+        "title": "Your code is mostly dependencies",
+        "actors": [
+          "tree",
+          "pkg",
+          "seen"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "An SBOM provides a machine readable inventory of software components.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "A typical application uses dozens of direct dependencies, which bring.",
+            "messages": [
               {
-                "cells": [
-                  "CycloneDX",
-                  "OWASP Community",
-                  "JSON and XML Schema",
-                  "Package URLs and Cryptographic Hashes"
-                ],
+                "from": "tree",
+                "to": "pkg",
+                "label": "{'my-app': ['web-framework', 'http-clie…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SPDX Specification",
-                  "Linux Foundation",
-                  "ISO International Standard",
-                  "Component Provenance and Licenses"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Syft Cataloger",
-                  "Open Source Tooling",
-                  "Container and Filesystem",
-                  "Automatic Direct Component Catalog"
-                ],
-                "tone": "data"
+                "from": "pkg",
+                "to": "seen",
+                "label": "'my-app'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tree"
           },
           {
-            "at": "say7",
-            "caption": "An SBOM query identifies all impacted microservices in seconds.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Every one of them is code written by someone else, running with your.",
+            "messages": [
               {
-                "cells": [
-                  "CycloneDX",
-                  "OWASP Community",
-                  "JSON and XML Schema",
-                  "Package URLs and Cryptographic Hashes"
-                ],
+                "from": "tree",
+                "to": "pkg",
+                "label": "{'my-app': ['web-framework', 'http-clie…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SPDX Specification",
-                  "Linux Foundation",
-                  "ISO International Standard",
-                  "Component Provenance and Licenses"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Syft Cataloger",
-                  "Open Source Tooling",
-                  "Container and Filesystem",
-                  "Automatic Direct Component Catalog"
-                ],
-                "tone": "data"
+                "from": "pkg",
+                "to": "seen",
+                "label": "'my-app'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pkg"
+          },
+          {
+            "at": "say10",
+            "caption": "Fewer dependencies mean a smaller attack surface.",
+            "messages": [
+              {
+                "from": "tree",
+                "to": "pkg",
+                "label": "{'my-app': ['web-framework', 'http-clie…",
+                "tone": "data"
+              },
+              {
+                "from": "pkg",
+                "to": "seen",
+                "label": "'my-app'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seen"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "SBOMs and CVEs",
+      "codeHash": "3392f74c887ec495a66ca5c788d312d651ac09ade9fd6b596259aa4c0b1969bf",
+      "spec": {
+        "template": "states",
+        "title": "SBOMs and CVEs",
+        "states": [
+          {
+            "id": "sbom",
+            "label": "sbom"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A software bill of materials (SBOM) lists every component in.",
+            "currentState": "sbom",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Standard formats include CycloneDX and SPDX.",
+            "currentState": "c",
+            "transition": {
+              "from": "sbom",
+              "to": "c",
+              "label": {
+                "var": "c",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "SBOMs and CVEs",
+        "states": [
+          {
+            "id": "sbom",
+            "label": "sbom"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A software bill of materials (SBOM) lists every component in.",
+            "currentState": "sbom",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Standard formats include CycloneDX and SPDX.",
+            "currentState": "c",
+            "transition": {
+              "from": "sbom",
+              "to": "c",
+              "label": "{'name': 'web-framework', 'version': '4…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -253,202 +247,106 @@
       "partTitle": "Comparing versions correctly",
       "codeHash": "387c2bc7500c7587e6058d97f804737176cd372292525190ffb761d3a8abad6c",
       "spec": {
-        "template": "table",
-        "title": "Common Vulnerability Scoring System (CVSS) severity scoring tiers",
-        "columns": [
-          "CVSS Severity Tier",
-          "Score Range Interval",
-          "Typical Impact Vector",
-          "CI/CD Build Policy"
+        "template": "states",
+        "title": "Comparing versions correctly",
+        "states": [
+          {
+            "id": "pairs",
+            "label": "pairs"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Scores are categorized into qualitative severity tiers for assessment.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Critical Severity",
-                  "Nine to Ten Points",
-                  "Remote Code Execution Zero Day",
-                  "Fail Build Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "High Severity",
-                  "Seven to Eight Points",
-                  "Privilege Escalation Exploit",
-                  "Fail Build If Patch Available"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Medium Severity",
-                  "Four to Six Points",
-                  "Information Disclosure Vulnerability",
-                  "Emit Warning and Remediation Ticket"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Low Severity",
-                  "Zero to Three Points",
-                  "Minor Security Bypass Vector",
-                  "Log Advisory for Regular Patch Cycle"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Versions like 1.",
+            "currentState": "pairs",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Build gates enforce policies that fail builds when critical CVEs are found.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Critical Severity",
-                  "Nine to Ten Points",
-                  "Remote Code Execution Zero Day",
-                  "Fail Build Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "High Severity",
-                  "Seven to Eight Points",
-                  "Privilege Escalation Exploit",
-                  "Fail Build If Patch Available"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Medium Severity",
-                  "Four to Six Points",
-                  "Information Disclosure Vulnerability",
-                  "Emit Warning and Remediation Ticket"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Low Severity",
-                  "Zero to Three Points",
-                  "Minor Security Bypass Vector",
-                  "Log Advisory for Regular Patch Cycle"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how converting updates tuples during execution.",
+            "currentState": "a",
+            "transition": {
+              "from": "pairs",
+              "to": "a",
+              "label": {
+                "var": "a",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Major version updates may change behaviour, so they need more testing.",
+            "currentState": "b",
+            "transition": {
+              "from": "a",
+              "to": "b",
+              "label": {
+                "var": "b",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Common Vulnerability Scoring System (CVSS) severity scoring tiers",
-        "columns": [
-          "CVSS Severity Tier",
-          "Score Range Interval",
-          "Typical Impact Vector",
-          "CI/CD Build Policy"
+        "template": "states",
+        "title": "Comparing versions correctly",
+        "states": [
+          {
+            "id": "pairs",
+            "label": "pairs"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Scores are categorized into qualitative severity tiers for assessment.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Critical Severity",
-                  "Nine to Ten Points",
-                  "Remote Code Execution Zero Day",
-                  "Fail Build Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "High Severity",
-                  "Seven to Eight Points",
-                  "Privilege Escalation Exploit",
-                  "Fail Build If Patch Available"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Medium Severity",
-                  "Four to Six Points",
-                  "Information Disclosure Vulnerability",
-                  "Emit Warning and Remediation Ticket"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Low Severity",
-                  "Zero to Three Points",
-                  "Minor Security Bypass Vector",
-                  "Log Advisory for Regular Patch Cycle"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Versions like 1.",
+            "currentState": "pairs",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Build gates enforce policies that fail builds when critical CVEs are found.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Critical Severity",
-                  "Nine to Ten Points",
-                  "Remote Code Execution Zero Day",
-                  "Fail Build Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "High Severity",
-                  "Seven to Eight Points",
-                  "Privilege Escalation Exploit",
-                  "Fail Build If Patch Available"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Medium Severity",
-                  "Four to Six Points",
-                  "Information Disclosure Vulnerability",
-                  "Emit Warning and Remediation Ticket"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Low Severity",
-                  "Zero to Three Points",
-                  "Minor Security Bypass Vector",
-                  "Log Advisory for Regular Patch Cycle"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how converting updates tuples during execution.",
+            "currentState": "a",
+            "transition": {
+              "from": "pairs",
+              "to": "a",
+              "label": "'1.10.0'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Major version updates may change behaviour, so they need more testing.",
+            "currentState": "b",
+            "transition": {
+              "from": "a",
+              "to": "b",
+              "label": "'3.1.1'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -458,73 +356,71 @@
       "codeHash": "3575f248e99f3122d1324193fb25824b66b91ceda40e6d21e2f8623c485ad18c",
       "spec": {
         "template": "states",
-        "title": "Typosquatting package detection and private namespace isolation stages",
+        "title": "Licences",
         "states": [
           {
-            "id": "packageRequested",
-            "label": "Developer Requests Package Installation"
+            "id": "licences",
+            "label": "licences"
           },
           {
-            "id": "distanceCalculated",
-            "label": "Levenshtein Distance Calculated"
-          },
-          {
-            "id": "squattingDetected",
-            "label": "Adversarial Counterfeit Detected"
-          },
-          {
-            "id": "registryEnforced",
-            "label": "Scoped Namespace Blocks Public Registry"
+            "id": "counts",
+            "label": "counts"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Typosquatting occurs when an attacker publishes an adversarial package.",
-            "activeStateId": "squattingDetected",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Every open-source dependency has a licence that sets the rules for using it.",
+            "currentState": "licences",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Security tools calculate edit distances against catalogs of package names.",
-            "activeStateId": "distanceCalculated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Copyleft licences (GPL, AGPL) can require you to publish your own source.",
+            "currentState": "counts",
+            "transition": {
+              "from": "licences",
+              "to": "counts",
+              "label": {
+                "var": "counts",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Typosquatting package detection and private namespace isolation stages",
+        "title": "Licences",
         "states": [
           {
-            "id": "packageRequested",
-            "label": "Developer Requests Package Installation"
+            "id": "licences",
+            "label": "licences"
           },
           {
-            "id": "distanceCalculated",
-            "label": "Levenshtein Distance Calculated"
-          },
-          {
-            "id": "squattingDetected",
-            "label": "Adversarial Counterfeit Detected"
-          },
-          {
-            "id": "registryEnforced",
-            "label": "Scoped Namespace Blocks Public Registry"
+            "id": "counts",
+            "label": "counts"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Typosquatting occurs when an attacker publishes an adversarial package.",
-            "activeStateId": "squattingDetected",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Every open-source dependency has a licence that sets the rules for using it.",
+            "currentState": "licences",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Security tools calculate edit distances against catalogs of package names.",
-            "activeStateId": "distanceCalculated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Copyleft licences (GPL, AGPL) can require you to publish your own source.",
+            "currentState": "counts",
+            "transition": {
+              "from": "licences",
+              "to": "counts",
+              "label": "{'AGPL-3.0': 1, 'Apache-2.0': 1, 'BSD-3…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -533,128 +429,194 @@
       "partTitle": "Updating safely",
       "codeHash": "b6792d98a5e603e06a7faae6e4c6c72f6c3a56cec2a91bda9408dce4422d843d",
       "spec": {
-        "template": "flow",
-        "title": "Transitive dependency graph traversal revealing deeply buried vulnerabilities",
-        "nodes": [
+        "template": "boxes",
+        "title": "Updating safely",
+        "boxes": [
           {
-            "id": "appRoot",
-            "label": "Top-Level Web Application",
-            "tappable": false
+            "id": "findings",
+            "label": "findings"
           },
           {
-            "id": "directDep",
-            "label": "Direct Express Framework Dependency",
-            "tappable": false
+            "id": "rank",
+            "label": "rank"
           },
           {
-            "id": "transitiveOne",
-            "label": "Transitive Cookie Parsing Module",
-            "tappable": false
+            "id": "f",
+            "label": "f"
           },
           {
-            "id": "vulnerableDeep",
-            "label": "Vulnerable Nested Dependency",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "appRoot",
-            "to": "directDep",
-            "label": "Imports"
-          },
-          {
-            "from": "directDep",
-            "to": "transitiveOne",
-            "label": "Requires"
-          },
-          {
-            "from": "transitiveOne",
-            "to": "vulnerableDeep",
-            "label": "Chains"
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Transitive dependencies form a deep directed acyclic graph.",
-            "activeNodes": [
-              "appRoot",
-              "directDep"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Tools such as Dependabot and Renovate open pull requests automatically.",
+            "values": {
+              "findings": {
+                "var": "findings",
+                "line": 1,
+                "hit": 1
+              },
+              "rank": {
+                "var": "rank",
+                "line": 2,
+                "hit": 1
+              },
+              "f": {
+                "var": "f",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "findings": "data",
+              "rank": "data",
+              "f": "data",
+              "name": "data"
+            }
           },
           {
-            "at": "say8",
-            "caption": "Scanners recursively traverse the entire graph to identify vulnerabilities.",
-            "activeNodes": [
-              "transitiveOne",
-              "vulnerableDeep"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Good tests make updates safe to merge.",
+            "values": {
+              "findings": {
+                "var": "findings",
+                "line": 2,
+                "hit": 1
+              },
+              "rank": {
+                "var": "rank",
+                "line": 3,
+                "hit": 5
+              },
+              "f": {
+                "var": "f",
+                "line": 3,
+                "hit": 2
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "findings": "data",
+              "rank": "data",
+              "f": "data",
+              "name": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Private package mirrors let organisations vet packages before developers.",
+            "values": {
+              "findings": {
+                "var": "findings",
+                "line": 3,
+                "hit": 5
+              },
+              "rank": {
+                "var": "rank",
+                "line": 4,
+                "hit": 1
+              },
+              "f": {
+                "var": "f",
+                "line": 3,
+                "hit": 3
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 6
+              }
+            },
+            "tones": {
+              "findings": "ok",
+              "rank": "ok",
+              "f": "ok",
+              "name": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Transitive dependency graph traversal revealing deeply buried vulnerabilities",
-        "nodes": [
+        "template": "boxes",
+        "title": "Updating safely",
+        "boxes": [
           {
-            "id": "appRoot",
-            "label": "Top-Level Web Application",
-            "tappable": false
+            "id": "findings",
+            "label": "findings"
           },
           {
-            "id": "directDep",
-            "label": "Direct Express Framework Dependency",
-            "tappable": false
+            "id": "rank",
+            "label": "rank"
           },
           {
-            "id": "transitiveOne",
-            "label": "Transitive Cookie Parsing Module",
-            "tappable": false
+            "id": "f",
+            "label": "f"
           },
           {
-            "id": "vulnerableDeep",
-            "label": "Vulnerable Nested Dependency",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "appRoot",
-            "to": "directDep",
-            "label": "Imports"
-          },
-          {
-            "from": "directDep",
-            "to": "transitiveOne",
-            "label": "Requires"
-          },
-          {
-            "from": "transitiveOne",
-            "to": "vulnerableDeep",
-            "label": "Chains"
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Transitive dependencies form a deep directed acyclic graph.",
-            "activeNodes": [
-              "appRoot",
-              "directDep"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Tools such as Dependabot and Renovate open pull requests automatically.",
+            "values": {
+              "findings": "[['image-lib', 'HIGH', True], ['templat…",
+              "rank": "{'CRITICAL': 0, 'HIGH': 1, 'MEDIUM': 2,…",
+              "f": "['image-lib', 'HIGH', True]",
+              "name": "'zip-lib'"
+            },
+            "tones": {
+              "findings": "data",
+              "rank": "data",
+              "f": "data",
+              "name": "data"
+            }
           },
           {
-            "at": "say8",
-            "caption": "Scanners recursively traverse the entire graph to identify vulnerabilities.",
-            "activeNodes": [
-              "transitiveOne",
-              "vulnerableDeep"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Good tests make updates safe to merge.",
+            "values": {
+              "findings": "[['image-lib', 'HIGH', True], ['templat…",
+              "rank": "{'CRITICAL': 0, 'HIGH': 1, 'MEDIUM': 2,…",
+              "f": "['templating', 'MEDIUM', False]",
+              "name": "'zip-lib'"
+            },
+            "tones": {
+              "findings": "data",
+              "rank": "data",
+              "f": "data",
+              "name": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Private package mirrors let organisations vet packages before developers.",
+            "values": {
+              "findings": "[['image-lib', 'HIGH', True], ['templat…",
+              "rank": "{'CRITICAL': 0, 'HIGH': 1, 'MEDIUM': 2,…",
+              "f": "['zip-lib', 'CRITICAL', True]",
+              "name": "'image-lib'"
+            },
+            "tones": {
+              "findings": "ok",
+              "rank": "ok",
+              "f": "ok",
+              "name": "ok"
+            }
           }
         ]
       }
@@ -664,110 +626,161 @@
       "codeHash": "ef327e7c7d833b63283ed7157d9ffb591eda3dccaee04c093284b7af46aa52b5",
       "spec": {
         "template": "flow",
-        "title": "Cryptographic Package Integrity Verification ... — Execution Pipeline",
+        "title": "Practice time: CVEs and licences",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sbom",
+            "label": "sbom"
           },
           {
-            "id": "proc",
-            "label": "2. Cryptographic Packa...",
-            "tappable": true
+            "id": "advisories",
+            "label": "advisories"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "version",
+            "label": "version"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cryptographic Package Integrity Verifica.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cryptographic Packa... [D.Psix.Stwo].",
+            "caption": "Vulnerable(sbom, advisories).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "sbom": {
+                "var": "sbom",
+                "line": 4,
+                "hit": 1
+              },
+              "advisories": {
+                "var": "advisories",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "sbom": "data",
+              "advisories": "data",
+              "name": "data",
+              "version": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sbom",
+                "advisories"
               ],
               [
-                "proc",
-                "out"
+                "advisories",
+                "name"
+              ],
+              [
+                "name",
+                "version"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include a vulnerable old version, a component exactly at.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "sbom": {
+                "var": "sbom",
+                "line": 5,
+                "hit": 1
+              },
+              "advisories": {
+                "var": "advisories",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "sbom": "data",
+              "advisories": "data",
+              "name": "data",
+              "version": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "sbom",
+                "advisories"
+              ],
+              [
+                "advisories",
+                "name"
+              ],
+              [
+                "name",
+                "version"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cryptographic Package Integrity V.",
+            "at": "say9",
+            "caption": "Knowing your dependencies turns a scary headline CVE into a quick, calm check.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "sbom": {
+                "var": "sbom",
+                "line": 6,
+                "hit": 1
+              },
+              "advisories": {
+                "var": "advisories",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "sbom": "ok",
+              "advisories": "ok",
+              "name": "ok",
+              "version": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sbom",
+                "advisories"
               ],
               [
-                "proc",
-                "out"
+                "advisories",
+                "name"
+              ],
+              [
+                "name",
+                "version"
               ]
             ]
           }
@@ -775,110 +788,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Cryptographic Package Integrity Verification ... — Execution Pipeline",
+        "title": "Practice time: CVEs and licences",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sbom",
+            "label": "sbom"
           },
           {
-            "id": "proc",
-            "label": "2. Cryptographic Packa...",
-            "tappable": true
+            "id": "advisories",
+            "label": "advisories"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "version",
+            "label": "version"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cryptographic Package Integrity Verifica.. [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cryptographic Packa... [D19.P6.S2].",
+            "caption": "Vulnerable(sbom, advisories).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "sbom": "[['httpkit', '2.9.0'], ['yamlkit', '1.1…",
+              "advisories": "{'httpkit': '2.31.0', 'yamlkit': '1.9.2…",
+              "name": "'httpkit'",
+              "version": "'2.9.0'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "sbom": "data",
+              "advisories": "data",
+              "name": "data",
+              "version": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sbom",
+                "advisories"
               ],
               [
-                "proc",
-                "out"
+                "advisories",
+                "name"
+              ],
+              [
+                "name",
+                "version"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include a vulnerable old version, a component exactly at.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "sbom": "[['httpkit', '2.9.0'], ['yamlkit', '1.1…",
+              "advisories": "{'httpkit': '2.31.0', 'yamlkit': '1.9.2…",
+              "name": "'httpkit'",
+              "version": "'2.9.0'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "sbom": "data",
+              "advisories": "data",
+              "name": "data",
+              "version": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "sbom",
+                "advisories"
+              ],
+              [
+                "advisories",
+                "name"
+              ],
+              [
+                "name",
+                "version"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cryptographic Package Integrity V.. [D19.P6.S4].",
+            "at": "say9",
+            "caption": "Knowing your dependencies turns a scary headline CVE into a quick, calm check.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "sbom": "[['httpkit', '2.9.0'], ['yamlkit', '1.1…",
+              "advisories": "{'httpkit': '2.31.0', 'yamlkit': '1.9.2…",
+              "name": "'httpkit'",
+              "version": "'2.9.0'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "sbom": "ok",
+              "advisories": "ok",
+              "name": "ok",
+              "version": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sbom",
+                "advisories"
               ],
               [
-                "proc",
-                "out"
+                "advisories",
+                "name"
+              ],
+              [
+                "name",
+                "version"
               ]
             ]
           }

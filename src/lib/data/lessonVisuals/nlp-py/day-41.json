@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 41,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Anatomy of SFT: From Pre-Trained Base Models to Instruction Followers",
       "codeHash": "7dece87de2b98c88f9bc943ad4e202ae13dcf897f49aff4937651f157770f4a5",
       "spec": {
-        "template": "flow",
-        "title": "Anatomy of SFT: From Pre-Trained Base Models ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Anatomy of SFT: Fro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Anatomy of SFT: From Pre-Trained Base Models to Instruction Foll",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Anatomy of SFT: From Pre-Trained Base Mo...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Anatomy of SFT: Fro....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Post-Training Alignment, Preference Optimization & Instruction Tuning.",
+            "bars": [
+              {
+                "label": "max_l",
+                "value": {
+                  "var": "max_l",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sum_exp",
+                "value": {
+                  "var": "sum_exp",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "loss_base",
+                "value": {
+                  "var": "loss_base",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Supervised Fine-Tuning (SFT) is the transformative post-training stage.",
+            "bars": [
+              {
+                "label": "max_l",
+                "value": {
+                  "var": "max_l",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sum_exp",
+                "value": {
+                  "var": "sum_exp",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "loss_base",
+                "value": {
+                  "var": "loss_base",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Anatomy of SFT: From Pre-Trained ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "By mastering the anatomy of SFT, machine learning systems engineers bridge.",
+            "bars": [
+              {
+                "label": "max_l",
+                "value": {
+                  "var": "max_l",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 12,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sum_exp",
+                "value": {
+                  "var": "sum_exp",
+                  "line": 14,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "loss_base",
+                "value": {
+                  "var": "loss_base",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Anatomy of SFT: From Pre-Trained Base Models ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Anatomy of SFT: Fro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Anatomy of SFT: From Pre-Trained Base Models to Instruction Foll",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Anatomy of SFT: From Pre-Trained Base Mo...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Anatomy of SFT: Fro....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Post-Training Alignment, Preference Optimization & Instruction Tuning.",
+            "bars": [
+              {
+                "label": "max_l",
+                "value": 3.8,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1.2,
+                "tone": "data"
+              },
+              {
+                "label": "sum_exp",
+                "value": 1.2569571022670687,
+                "tone": "data"
+              },
+              {
+                "label": "loss_base",
+                "value": 2.8286938019510415,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Supervised Fine-Tuning (SFT) is the transformative post-training stage.",
+            "bars": [
+              {
+                "label": "max_l",
+                "value": 3.8,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 3.8,
+                "tone": "ok"
+              },
+              {
+                "label": "sum_exp",
+                "value": 1.2569571022670687,
+                "tone": "ok"
+              },
+              {
+                "label": "loss_base",
+                "value": 2.8286938019510415,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Anatomy of SFT: From Pre-Trained ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "By mastering the anatomy of SFT, machine learning systems engineers bridge.",
+            "bars": [
+              {
+                "label": "max_l",
+                "value": 3.8,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 2.1,
+                "tone": "ok"
+              },
+              {
+                "label": "sum_exp",
+                "value": 1.2569571022670687,
+                "tone": "ok"
+              },
+              {
+                "label": "loss_base",
+                "value": 2.8286938019510415,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,110 +230,161 @@
       "codeHash": "9e98ffa245eee9425210cf976c2e85ac01effa78ce33fb6b1064bf1b87196b4d",
       "spec": {
         "template": "flow",
-        "title": "Chat Templates & Tokenization Protocols: Chat... — Execution Pipeline",
+        "title": "Chat Templates & Tokenization Protocols: ChatML, Alpaca & LLaMA-",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "dialogue",
+            "label": "dialogue"
           },
           {
-            "id": "proc",
-            "label": "2. Chat Templates & To...",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "messages",
+            "label": "messages"
+          },
+          {
+            "id": "rendered",
+            "label": "rendered"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Chat Templates & Tokenization Protocols:...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Chat Templates & To....",
+            "caption": "In order for an autoregressive language model to participate in multi-turn.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "dialogue": {
+                "var": "dialogue",
+                "line": 18,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 24,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 5,
+                "hit": 1
+              },
+              "rendered": {
+                "var": "rendered",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "dialogue": "data",
+              "engine": "data",
+              "messages": "data",
+              "rendered": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "dialogue",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "messages"
+              ],
+              [
+                "messages",
+                "rendered"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To solve this serialization problem, the natural language processing.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "dialogue": {
+                "var": "dialogue",
+                "line": 24,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 25,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 6,
+                "hit": 1
+              },
+              "rendered": {
+                "var": "rendered",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "dialogue": "data",
+              "engine": "data",
+              "messages": "data",
+              "rendered": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "dialogue",
+                "engine"
+              ],
+              [
+                "engine",
+                "messages"
+              ],
+              [
+                "messages",
+                "rendered"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Chat Templates & Tokenization Pro...",
+            "at": "say11",
+            "caption": "In the following Python script, we implement the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "dialogue": {
+                "var": "dialogue",
+                "line": 25,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 26,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 7,
+                "hit": 1
+              },
+              "rendered": {
+                "var": "rendered",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "dialogue": "ok",
+              "engine": "ok",
+              "messages": "ok",
+              "rendered": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "dialogue",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "messages"
+              ],
+              [
+                "messages",
+                "rendered"
               ]
             ]
           }
@@ -347,110 +392,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Chat Templates & Tokenization Protocols: Chat... — Execution Pipeline",
+        "title": "Chat Templates & Tokenization Protocols: ChatML, Alpaca & LLaMA-",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "dialogue",
+            "label": "dialogue"
           },
           {
-            "id": "proc",
-            "label": "2. Chat Templates & To...",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "messages",
+            "label": "messages"
+          },
+          {
+            "id": "rendered",
+            "label": "rendered"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Chat Templates & Tokenization Protocols:...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Chat Templates & To....",
+            "caption": "In order for an autoregressive language model to participate in multi-turn.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "dialogue": "[{'role': 'system', 'content': 'You are…",
+              "engine": "<ChatTemplateEngine>",
+              "messages": "[{'role': 'system', 'content': 'You are…",
+              "rendered": "''"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "dialogue": "data",
+              "engine": "data",
+              "messages": "data",
+              "rendered": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "dialogue",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "messages"
+              ],
+              [
+                "messages",
+                "rendered"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To solve this serialization problem, the natural language processing.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "dialogue": "[{'role': 'system', 'content': 'You are…",
+              "engine": "<ChatTemplateEngine>",
+              "messages": "[{'role': 'system', 'content': 'You are…",
+              "rendered": "''"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "dialogue": "data",
+              "engine": "data",
+              "messages": "data",
+              "rendered": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "dialogue",
+                "engine"
+              ],
+              [
+                "engine",
+                "messages"
+              ],
+              [
+                "messages",
+                "rendered"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Chat Templates & Tokenization Pro...",
+            "at": "say11",
+            "caption": "In the following Python script, we implement the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "dialogue": "[{'role': 'system', 'content': 'You are…",
+              "engine": "<ChatTemplateEngine>",
+              "messages": "[{'role': 'system', 'content': 'You are…",
+              "rendered": "'<|im_start|>system\nYou are a sovereign…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "dialogue": "ok",
+              "engine": "ok",
+              "messages": "ok",
+              "rendered": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "dialogue",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "messages"
+              ],
+              [
+                "messages",
+                "rendered"
               ]
             ]
           }
@@ -462,110 +510,161 @@
       "codeHash": "8ae0f1a37ad3cc31e278fb4f2ca6fd0e6fba9a834ce6a29d06f827d8f47f4bf1",
       "spec": {
         "template": "flow",
-        "title": "Prompt Loss Masking & Selective Cross-Entropy... — Execution Pipeline",
+        "title": "Prompt Loss Masking & Selective Cross-Entropy with ignore_index=",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Prompt Loss Masking...",
-            "tappable": true
+            "id": "ignore_index",
+            "label": "ignore_index"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Prompt Loss Masking & Selective Cross-En...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Prompt Loss Masking....",
+            "caption": "Now that you understand chat template serialization, we must examine.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "ignore_index": {
+                "var": "ignore_index",
+                "line": 5,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 35,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 38,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "ignore_index": "data",
+              "engine": "data",
+              "tokens": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "ignore_index"
               ],
               [
-                "proc",
-                "out"
+                "ignore_index",
+                "engine"
+              ],
+              [
+                "engine",
+                "tokens"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Consider what happens if an SFT model is penalized for the tokens in.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 9,
+                "hit": 1
+              },
+              "ignore_index": {
+                "var": "ignore_index",
+                "line": 5,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 38,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 39,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "ignore_index": "data",
+              "engine": "data",
+              "tokens": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "ignore_index"
+              ],
+              [
+                "ignore_index",
+                "engine"
+              ],
+              [
+                "engine",
+                "tokens"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Prompt Loss Masking & Selective C...",
+            "at": "say8",
+            "caption": "In the following Python script, we construct the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 11,
+                "hit": 1
+              },
+              "ignore_index": {
+                "var": "ignore_index",
+                "line": 5,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 39,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "ignore_index": "ok",
+              "engine": "ok",
+              "tokens": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "ignore_index"
               ],
               [
-                "proc",
-                "out"
+                "ignore_index",
+                "engine"
+              ],
+              [
+                "engine",
+                "tokens"
               ]
             ]
           }
@@ -573,110 +672,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Prompt Loss Masking & Selective Cross-Entropy... — Execution Pipeline",
+        "title": "Prompt Loss Masking & Selective Cross-Entropy with ignore_index=",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Prompt Loss Masking...",
-            "tappable": true
+            "id": "ignore_index",
+            "label": "ignore_index"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Prompt Loss Masking & Selective Cross-En...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Prompt Loss Masking....",
+            "caption": "Now that you understand chat template serialization, we must examine.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<PromptLossMaskingEngine>",
+              "ignore_index": "-100",
+              "engine": "<PromptLossMaskingEngine>",
+              "tokens": "[10, 25, 42, 88, 105, 202, 305]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "ignore_index": "data",
+              "engine": "data",
+              "tokens": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "ignore_index"
               ],
               [
-                "proc",
-                "out"
+                "ignore_index",
+                "engine"
+              ],
+              [
+                "engine",
+                "tokens"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Consider what happens if an SFT model is penalized for the tokens in.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<PromptLossMaskingEngine>",
+              "ignore_index": "-100",
+              "engine": "<PromptLossMaskingEngine>",
+              "tokens": "[10, 25, 42, 88, 105, 202, 305]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "ignore_index": "data",
+              "engine": "data",
+              "tokens": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "ignore_index"
+              ],
+              [
+                "ignore_index",
+                "engine"
+              ],
+              [
+                "engine",
+                "tokens"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Prompt Loss Masking & Selective C...",
+            "at": "say8",
+            "caption": "In the following Python script, we construct the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<PromptLossMaskingEngine>",
+              "ignore_index": "-100",
+              "engine": "<PromptLossMaskingEngine>",
+              "tokens": "[10, 25, 42, 88, 105, 202, 305]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "ignore_index": "ok",
+              "engine": "ok",
+              "tokens": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "ignore_index"
               ],
               [
-                "proc",
-                "out"
+                "ignore_index",
+                "engine"
+              ],
+              [
+                "engine",
+                "tokens"
               ]
             ]
           }
@@ -687,223 +789,122 @@
       "partTitle": "Data Mixture Balancing, Sample Packing & Packing Efficiency",
       "codeHash": "20266a5a41cee2f6b2cf1c1d6b391f86d9de9874fd3d70faff1a6b2c626890b4",
       "spec": {
-        "template": "flow",
-        "title": "Data Mixture Balancing, Sample Packing & Pack... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Data Mixture Balanc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Data Mixture Balancing, Sample Packing & Packing Efficiency",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Data Mixture Balancing, Sample Packing &...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Data Mixture Balanc....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "In production SFT campaigns, model performance depends not only on loss.",
+            "items": {
+              "var": "packed_tokens",
+              "line": 11,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The Padding Inefficiency Problem.",
+            "items": {
+              "var": "packed_tokens",
+              "line": 11,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Data Mixture Balancing, Sample Pa...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete.",
+            "items": {
+              "var": "packed_tokens",
+              "line": 10,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Data Mixture Balancing, Sample Packing & Pack... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Data Mixture Balanc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Data Mixture Balancing, Sample Packing & Packing Efficiency",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Data Mixture Balancing, Sample Packing &...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data Mixture Balanc....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In production SFT campaigns, model performance depends not only on loss.",
+            "items": [
+              "101",
+              "102",
+              "103",
+              "104"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Padding Inefficiency Problem.",
+            "items": [
+              "101",
+              "102",
+              "103",
+              "104",
+              "201",
+              "202",
+              "203",
+              "204",
+              "205"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data Mixture Balancing, Sample Pa...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete.",
+            "items": [
+              "101",
+              "102",
+              "103",
+              "104",
+              "201",
+              "202",
+              "203",
+              "204",
+              "205"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +914,118 @@
       "partTitle": "Diagnostic Outages: Mode Collapse, Repetition Penalties & Overfitting vs Generalization",
       "codeHash": "a788d1db5707d5be0b92c3e127b461200a0b2eb02364188cacd6c3f70524b38c",
       "spec": {
-        "template": "flow",
-        "title": "Diagnostic Outages: Mode Collapse, Repetition... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Diagnostic Outages:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Diagnostic Outages: Mode Collapse, Repetition Penalties & Overfi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Diagnostic Outages: Mode Collapse, Repet...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Diagnostic Outages:....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "The final dimension of production Supervised Fine-Tuning is monitoring.",
+            "items": {
+              "var": "context",
+              "line": 27,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Overfitting and Mode Collapse.",
+            "items": {
+              "var": "context",
+              "line": 38,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Diagnostic Outages: Mode Collapse...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete.",
+            "items": {
+              "var": "context",
+              "line": 43,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Diagnostic Outages: Mode Collapse, Repetition... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Diagnostic Outages:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Diagnostic Outages: Mode Collapse, Repetition Penalties & Overfi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Diagnostic Outages: Mode Collapse, Repet...",
-            "values": {
-              "in": "Day 41 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Diagnostic Outages:....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The final dimension of production Supervised Fine-Tuning is monitoring.",
+            "items": [
+              "'The'",
+              "'system'",
+              "'is'",
+              "'secure'",
+              "'and'",
+              "'secure'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Overfitting and Mode Collapse.",
+            "items": [
+              "'The'",
+              "'system'",
+              "'is'",
+              "'secure'",
+              "'and'",
+              "'secure'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Diagnostic Outages: Mode Collapse...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete.",
+            "items": [
+              "'The'",
+              "'system'",
+              "'is'",
+              "'secure'",
+              "'and'",
+              "'secure'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

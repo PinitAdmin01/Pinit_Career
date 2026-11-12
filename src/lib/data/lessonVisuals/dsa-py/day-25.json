@@ -2,50 +2,84 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 25,
-  "promptSha": "8e79e64e6542af4723b9e607082441a5e107b60880c6353b80787baa1a1cc7b6",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What dynamic programming is",
       "codeHash": "fae41d57bd868dc40bef70d6860bc5417718468c2322b2b8216b4cd665b24ee4",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "What dynamic programming is",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The dynamic concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Dynamic programming (DP) solves a problem by breaking it into smaller.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "What"
-                  },
-                  {
-                    "text": "dynamic"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The warning logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "It works when two things are true.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "programming"
-                  },
-                  {
-                    "text": "dynamic"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Dynamic programming applies exclusively to problems exhibiting two.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "What dynamic programming is",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The dynamic concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Dynamic programming (DP) solves a problem by breaking it into smaller.",
+            "bars": [
               {
-                "cells": [
-                  "What",
-                  "dynamic"
-                ],
+                "label": "calls",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 10,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The warning logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "It works when two things are true.",
+            "bars": [
               {
-                "cells": [
-                  "programming",
-                  "dynamic"
-                ],
+                "label": "calls",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Dynamic programming applies exclusively to problems exhibiting two.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 10,
                 "tone": "ok"
               }
             ]
@@ -96,21 +148,36 @@
         "template": "table",
         "title": "Memoization: top-down DP",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The memoization concept establishes the core structural baseline.",
+            "caption": "Memoization keeps the recursive code but stores each answer in a dict (the.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Memoization"
+                    "text": "memo"
                   },
                   {
-                    "text": "top"
+                    "var": "memo",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "n"
+                  },
+                  {
+                    "var": "n",
+                    "line": 5,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -118,16 +185,59 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "This is top-down.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "down"
+                    "text": "memo"
                   },
                   {
-                    "text": "top"
+                    "var": "memo",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "n"
+                  },
+                  {
+                    "var": "n",
+                    "line": 7,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Memoization is often the easiest way to start a DP problem.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -140,31 +250,65 @@
         "template": "table",
         "title": "Memoization: top-down DP",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The memoization concept establishes the core structural baseline.",
+            "caption": "Memoization keeps the recursive code but stores each answer in a dict (the.",
             "rows": [
               {
                 "cells": [
-                  "Memoization",
-                  "top"
+                  "memo",
+                  "{}"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "n",
+                  "50"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "This is top-down.",
             "rows": [
               {
                 "cells": [
-                  "down",
-                  "top"
+                  "memo",
+                  "{}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "n",
+                  "50"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Memoization is often the easiest way to start a DP problem.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "12586269025 12586269025"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "answers stored: 49"
                 ],
                 "tone": "ok"
               }
@@ -180,21 +324,21 @@
         "template": "table",
         "title": "Tabulation: bottom-up DP",
         "columns": [
-          "Stage",
-          "Concept"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tabulation concept establishes the core structural baseline.",
+            "caption": "Tabulation fills a table from the smallest subproblems upwards, with.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Tabulation"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "bottom"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -202,16 +346,16 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tabulation logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Building a staircase from the ground up.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Tabulation"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "bottom"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -224,31 +368,31 @@
         "template": "table",
         "title": "Tabulation: bottom-up DP",
         "columns": [
-          "Stage",
-          "Concept"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tabulation concept establishes the core structural baseline.",
+            "caption": "Tabulation fills a table from the smallest subproblems upwards, with.",
             "rows": [
               {
                 "cells": [
-                  "Tabulation",
-                  "bottom"
+                  "Line 1",
+                  "832040 832040 2880067194370816120"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tabulation logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Building a staircase from the ground up.",
             "rows": [
               {
                 "cells": [
-                  "Tabulation",
-                  "bottom"
+                  "Line 1",
+                  "832040 832040 2880067194370816120"
                 ],
                 "tone": "ok"
               }
@@ -261,43 +405,104 @@
       "partTitle": "Climbing stairs",
       "codeHash": "deff1ae77d5ab53fe761de21b23868f348f3af78437eaee9aa43da1795139bfb",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Climbing stairs",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "How many different ways can you climb n stairs taking 1 or 2 steps at a time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Climbing"
-                  },
-                  {
-                    "text": "stairs"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "two_below",
+                "value": {
+                  "var": "two_below",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "one_below",
+                "value": {
+                  "var": "one_below",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The base logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think about the last move.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Climbing"
-                  },
-                  {
-                    "text": "stairs"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "two_below",
+                "value": {
+                  "var": "two_below",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "one_below",
+                "value": {
+                  "var": "one_below",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "With two variables, the solution is O(N) time and O(1) space.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "two_below",
+                "value": {
+                  "var": "two_below",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "one_below",
+                "value": {
+                  "var": "one_below",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +510,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Climbing stairs",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "How many different ways can you climb n stairs taking 1 or 2 steps at a time.",
+            "bars": [
               {
-                "cells": [
-                  "Climbing",
-                  "stairs"
-                ],
+                "label": "n",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "two_below",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "one_below",
+                "value": 2,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The base logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think about the last move.",
+            "bars": [
               {
-                "cells": [
-                  "Climbing",
-                  "stairs"
-                ],
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "two_below",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "one_below",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "With two variables, the solution is O(N) time and O(1) space.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "two_below",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "one_below",
+                "value": 3,
                 "tone": "ok"
               }
             ]
@@ -345,80 +583,114 @@
       "partTitle": "House robber: choose or skip",
       "codeHash": "7e851a1a81a5468bdf89e0af87c9a77e0368d8d0a014458aceecd8bc53d4abc3",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "House robber: choose or skip",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Houses in a row hold some money, and you cannot take from two neighbouring.",
+            "items": {
+              "var": "money",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "House"
-                  },
-                  {
-                    "text": "robber"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The best logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "At each house there are two choices.",
+            "items": {
+              "var": "money",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "choose"
-                  },
-                  {
-                    "text": "skip"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Always test the edge cases.",
+            "items": {
+              "var": "money",
+              "line": 3,
+              "hit": 6
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "House robber: choose or skip",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Houses in a row hold some money, and you cannot take from two neighbouring.",
+            "items": [
+              "2",
+              "7",
+              "9",
+              "3",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "House",
-                  "robber"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The best logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "At each house there are two choices.",
+            "items": [
+              "2",
+              "7",
+              "9",
+              "3",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "choose",
-                  "skip"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Always test the edge cases.",
+            "items": [
+              "2",
+              "7",
+              "9",
+              "3",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,80 +701,115 @@
       "partTitle": "A recipe for DP problems",
       "codeHash": "1b70c0619f07ef4659ea60fd92cbca43051337760f0959a1077b5329fd5b2c15",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "A recipe for DP problems",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The problems concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Most DP problems can be solved with the same five steps.",
+            "items": {
+              "var": "cost",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "recipe"
-                  },
-                  {
-                    "text": "for"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The check logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Write the recurrence, how dp[i] comes from smaller entries.",
+            "items": {
+              "var": "cost",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "problems"
-                  },
-                  {
-                    "text": "for"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow you will use this recipe on coin change and the knapsack problem.",
+            "items": {
+              "var": "cost",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "A recipe for DP problems",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The problems concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Most DP problems can be solved with the same five steps.",
+            "items": [
+              "10",
+              "15",
+              "20"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "recipe",
-                  "for"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The check logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Write the recurrence, how dp[i] comes from smaller entries.",
+            "items": [
+              "10",
+              "15",
+              "20"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "problems",
-                  "for"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow you will use this recipe on coin change and the knapsack problem.",
+            "items": [
+              "1",
+              "100",
+              "1",
+              "1",
+              "1",
+              "100",
+              "1",
+              "1",
+              "100",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

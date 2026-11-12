@@ -2,1335 +2,689 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 49,
-  "promptSha": "6e6c2b04616dfcb6e0fe4eac6a895354c018f6e7e52defe6267946f96ab8a927",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Classifiers — Foundations & Mathematical Invariants",
-      "codeHash": "765b832ba78bbb018c0da90befed5fef24dc40c95829dbb710c9340d21572dbf",
+      "partTitle": "DNS Exfiltration & DGA Classifiers — Foundations & Mathematical Invariants",
+      "codeHash": "78344215219cc03fabd34026009d8e72bff6129e8f995a97dcf0b173a315fee6",
       "spec": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "DNS Exfiltration & DGA Classifiers — Foundations & Mathematical ",
+        "actors": [
+          "DNS_THREAT_TAXONOMY",
+          "category",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Domain Name System (DNS) is foundational to internet operations.",
+            "activeActor": "DNS_THREAT_TAXONOMY",
+            "messages": [
+              {
+                "from": "DNS_THREAT_TAXONOMY",
+                "to": "category",
+                "label": {
+                  "var": "DNS_THREAT_TAXONOMY",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "category",
+                "to": "desc",
+                "label": {
+                  "var": "category",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because virtually all networked systems require DNS to function, network.",
+            "activeActor": "category",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "DNS_THREAT_TAXONOMY",
+                "to": "category",
+                "label": {
+                  "var": "DNS_THREAT_TAXONOMY",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "category",
+                "to": "desc",
+                "label": {
+                  "var": "category",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "DNS inspection remains a critical perimeter security discipline because.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "DNS_THREAT_TAXONOMY",
+                "to": "category",
+                "label": {
+                  "var": "DNS_THREAT_TAXONOMY",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "category",
+                "to": "desc",
+                "label": {
+                  "var": "category",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "DNS Exfiltration & DGA Classifiers — Foundations & Mathematical ",
+        "actors": [
+          "DNS_THREAT_TAXONOMY",
+          "category",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Domain Name System (DNS) is foundational to internet operations.",
+            "messages": [
+              {
+                "from": "DNS_THREAT_TAXONOMY",
+                "to": "category",
+                "label": "{'DGA_ALGORITHM': 'Pseudo-random domain…",
+                "tone": "data"
+              },
+              {
+                "from": "category",
+                "to": "desc",
+                "label": "'DGA_ALGORITHM'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "DNS_THREAT_TAXONOMY"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because virtually all networked systems require DNS to function, network.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "DNS_THREAT_TAXONOMY",
+                "to": "category",
+                "label": "{'DGA_ALGORITHM': 'Pseudo-random domain…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "category",
+                "to": "desc",
+                "label": "'DGA_ALGORITHM'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "category"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "DNS inspection remains a critical perimeter security discipline because.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "DNS_THREAT_TAXONOMY",
+                "to": "category",
+                "label": "{'DGA_ALGORITHM': 'Pseudo-random domain…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "category",
+                "to": "desc",
+                "label": "'DNS_REBINDING'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "desc"
           }
         ]
       }
     },
     {
-      "partTitle": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Classifiers — Core Algorithm & State Representation",
-      "codeHash": "4e7c847faf3c0a906afbf13980a5a7addf6c74ed27684b05831115fa31661fcc",
+      "partTitle": "DNS Exfiltration & DGA Classifiers — Core Algorithm & State Representation",
+      "codeHash": "eea1d807b9d8509cb757ae40f16004f0d4467ecaf5e55bac1380f4fa9e21f0b3",
       "spec": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "states",
+        "title": "DNS Exfiltration & DGA Classifiers — Core Algorithm & State Repr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "clean_domain",
+            "label": "clean_domain"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dga_domain",
+            "label": "dga_domain"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fqdn",
+            "label": "fqdn"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The first line of defense against DNS exfiltration and DGA botnets.",
+            "currentState": "clean_domain",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Legitimate internet domain namessuch as corporate websites, CDN endpoints.",
+            "currentState": "dga_domain",
+            "transition": {
+              "from": "clean_domain",
+              "to": "dga_domain",
+              "label": {
+                "var": "dga_domain",
+                "line": 21,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "High-throughput entropy classification filters millions of domain queries.",
+            "currentState": "fqdn",
+            "transition": {
+              "from": "dga_domain",
+              "to": "fqdn",
+              "label": {
+                "var": "fqdn",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "states",
+        "title": "DNS Exfiltration & DGA Classifiers — Core Algorithm & State Repr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "clean_domain",
+            "label": "clean_domain"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dga_domain",
+            "label": "dga_domain"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fqdn",
+            "label": "fqdn"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The first line of defense against DNS exfiltration and DGA botnets.",
+            "currentState": "clean_domain",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Legitimate internet domain namessuch as corporate websites, CDN endpoints.",
+            "currentState": "dga_domain",
+            "transition": {
+              "from": "clean_domain",
+              "to": "dga_domain",
+              "label": "'x7q9b81mz4p02wlk94.evilbotnet.net'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "High-throughput entropy classification filters millions of domain queries.",
+            "currentState": "fqdn",
+            "transition": {
+              "from": "dga_domain",
+              "to": "fqdn",
+              "label": "'auth.google.com'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Classifiers — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "233ee503c3770c2f8ed3574bf1783ce3d981131d24d2f82d1c2522b0c6f997df",
+      "partTitle": "DNS Exfiltration & DGA Classifiers — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "00a05d879dd0335619fc068583e00bf49e948df4c4d5900b6ca817301c9ca19a",
       "spec": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "states",
+        "title": "DNS Exfiltration & DGA Classifiers — Throughput Optimization & E",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "normal_label",
+            "label": "normal_label"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dga_label",
+            "label": "dga_label"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Shannon entropy is effective, sophisticated DGAs can lower character.",
+            "currentState": "normal_label",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "To counter evasion techniques, secondary classifiers evaluate linguistic.",
+            "currentState": "dga_label",
+            "transition": {
+              "from": "normal_label",
+              "to": "dga_label",
+              "label": {
+                "var": "dga_label",
+                "line": 19,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Phonetic frequency analysis catches evasive algorithmically generated.",
+            "currentState": "text",
+            "transition": {
+              "from": "dga_label",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "states",
+        "title": "DNS Exfiltration & DGA Classifiers — Throughput Optimization & E",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "normal_label",
+            "label": "normal_label"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dga_label",
+            "label": "dga_label"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Shannon entropy is effective, sophisticated DGAs can lower character.",
+            "currentState": "normal_label",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "To counter evasion techniques, secondary classifiers evaluate linguistic.",
+            "currentState": "dga_label",
+            "transition": {
+              "from": "normal_label",
+              "to": "dga_label",
+              "label": "'zqxfjbqwk'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Phonetic frequency analysis catches evasive algorithmically generated.",
+            "currentState": "text",
+            "transition": {
+              "from": "dga_label",
+              "to": "text",
+              "label": "'microsoft'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Classifiers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "fd7ea76180adb44df9a76bf1b4b6b7b7e857345be8f9c288fe57fbbaba8e0f00",
+      "partTitle": "DNS Exfiltration & DGA Classifiers — Resilience Guardrails & Failure Recovery",
+      "codeHash": "38c690354855e2a59f9518d6f5fefc011581890d0aa9ac716d37434c35b2ec28",
       "spec": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "states",
+        "title": "DNS Exfiltration & DGA Classifiers — Resilience Guardrails & Fai",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dns_queries",
+            "label": "dns_queries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query_subdomains",
+            "label": "query_subdomains"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When investigating active DNS exfiltration incidents, incident response.",
+            "currentState": "dns_queries",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Data exfiltration protocols typically prepend a chunk sequence number.",
+            "currentState": "x",
+            "transition": {
+              "from": "dns_queries",
+              "to": "x",
+              "label": {
+                "var": "x",
+                "line": 7,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Forensic payload reconstruction provides incident responders.",
+            "currentState": "query_subdomains",
+            "transition": {
+              "from": "x",
+              "to": "query_subdomains",
+              "label": {
+                "var": "query_subdomains",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "states",
+        "title": "DNS Exfiltration & DGA Classifiers — Resilience Guardrails & Fai",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dns_queries",
+            "label": "dns_queries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query_subdomains",
+            "label": "query_subdomains"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When investigating active DNS exfiltration incidents, incident response.",
+            "currentState": "dns_queries",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Data exfiltration protocols typically prepend a chunk sequence number.",
+            "currentState": "x",
+            "transition": {
+              "from": "dns_queries",
+              "to": "x",
+              "label": "'01-aGVsbG8g'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Forensic payload reconstruction provides incident responders.",
+            "currentState": "query_subdomains",
+            "transition": {
+              "from": "x",
+              "to": "query_subdomains",
+              "label": "['02-d29ybGQ=', '01-aGVsbG8g']"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Classifiers — Production Telemetry & Verification Audit",
-      "codeHash": "344fd2099e2e3ea5cbd664c732014ebcc588900836ec0608a9f5cf476cabad8d",
+      "partTitle": "DNS Exfiltration & DGA Classifiers — Production Telemetry & Verification Audit",
+      "codeHash": "160032ce35eabbba3ac7645a1287a8fa5abf6dbd1b83e26231f1595a7b8581a4",
       "spec": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "boxes",
+        "title": "DNS Exfiltration & DGA Classifiers — Production Telemetry & Veri",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entropy_filter_active",
+            "label": "entropy_filter_active"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vowel_ratio_active",
+            "label": "vowel_ratio_active"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tunnel_reassembler_ready",
+            "label": "tunnel_reassembler_ready"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dga_rules_loaded",
+            "label": "dga_rules_loaded"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing DNS defense requires comprehensive observability.",
+            "values": {
+              "entropy_filter_active": {
+                "var": "entropy_filter_active",
+                "line": 5,
+                "hit": 1
+              },
+              "vowel_ratio_active": {
+                "var": "vowel_ratio_active",
+                "line": 5,
+                "hit": 1
+              },
+              "tunnel_reassembler_ready": {
+                "var": "tunnel_reassembler_ready",
+                "line": 5,
+                "hit": 1
+              },
+              "dga_rules_loaded": {
+                "var": "dga_rules_loaded",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "entropy_filter_active": "data",
+              "vowel_ratio_active": "data",
+              "tunnel_reassembler_ready": "data",
+              "dga_rules_loaded": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A DNS defense certification auditor evaluates the operational status.",
+            "values": {
+              "entropy_filter_active": {
+                "var": "entropy_filter_active",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "vowel_ratio_active": {
+                "var": "vowel_ratio_active",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "tunnel_reassembler_ready": {
+                "var": "tunnel_reassembler_ready",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "dga_rules_loaded": {
+                "var": "dga_rules_loaded",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "entropy_filter_active": "data",
+              "vowel_ratio_active": "data",
+              "tunnel_reassembler_ready": "data",
+              "dga_rules_loaded": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous DNS defense auditing asserts that all classification algorithms.",
+            "values": {
+              "entropy_filter_active": {
+                "var": "entropy_filter_active",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "vowel_ratio_active": {
+                "var": "vowel_ratio_active",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "tunnel_reassembler_ready": {
+                "var": "tunnel_reassembler_ready",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "dga_rules_loaded": {
+                "var": "dga_rules_loaded",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "entropy_filter_active": "ok",
+              "vowel_ratio_active": "ok",
+              "tunnel_reassembler_ready": "ok",
+              "dga_rules_loaded": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DNS Exfiltration & DGA (Domain Generation Algorithm) N-Gram Entropy Cl",
-        "nodes": [
+        "template": "boxes",
+        "title": "DNS Exfiltration & DGA Classifiers — Production Telemetry & Veri",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entropy_filter_active",
+            "label": "entropy_filter_active"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vowel_ratio_active",
+            "label": "vowel_ratio_active"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tunnel_reassembler_ready",
+            "label": "tunnel_reassembler_ready"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dga_rules_loaded",
+            "label": "dga_rules_loaded"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing DNS defense requires comprehensive observability.",
+            "values": {
+              "entropy_filter_active": "True",
+              "vowel_ratio_active": "True",
+              "tunnel_reassembler_ready": "True",
+              "dga_rules_loaded": "True"
+            },
+            "tones": {
+              "entropy_filter_active": "data",
+              "vowel_ratio_active": "data",
+              "tunnel_reassembler_ready": "data",
+              "dga_rules_loaded": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A DNS defense certification auditor evaluates the operational status.",
+            "values": {
+              "entropy_filter_active": "True",
+              "vowel_ratio_active": "True",
+              "tunnel_reassembler_ready": "True",
+              "dga_rules_loaded": "True"
+            },
+            "tones": {
+              "entropy_filter_active": "data",
+              "vowel_ratio_active": "data",
+              "tunnel_reassembler_ready": "data",
+              "dga_rules_loaded": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Continuous DNS defense auditing asserts that all classification algorithms.",
+            "values": {
+              "entropy_filter_active": "True",
+              "vowel_ratio_active": "True",
+              "tunnel_reassembler_ready": "True",
+              "dga_rules_loaded": "True"
+            },
+            "tones": {
+              "entropy_filter_active": "ok",
+              "vowel_ratio_active": "ok",
+              "tunnel_reassembler_ready": "ok",
+              "dga_rules_loaded": "ok"
+            }
           }
         ]
       }

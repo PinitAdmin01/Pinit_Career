@@ -2,87 +2,124 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 40,
-  "promptSha": "cde59175afd1dddd09dde841bdbc8645345c355fe77c7b29d3ee811310f5c866",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "System Architecture: Decomposing Resilience, Cycles & Global Distance",
       "codeHash": "ef3c2db422e85afdb8b06b9ee9f8f309812cf094c232c8e7575947bea547eb94",
       "spec": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "System Architecture: Decomposing Resilience, Cycles & Global Dis",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Welcome to Milestone 8.",
+            "items": {
+              "var": "nodes",
+              "line": 28,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "System"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The milestone step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Notice that no single graph algorithm solves all three challenges alone.",
+            "items": {
+              "var": "nodes",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Decomposing"
-                  },
-                  {
-                    "text": "Resilience"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In Part 1, let us implement the shared normalized graph representation.",
+            "items": {
+              "var": "nodes",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "System Architecture: Decomposing Resilience, Cycles & Global Dis",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Welcome to Milestone 8.",
+            "items": [
+              "'edge-a'",
+              "'core-1'",
+              "'core-2'",
+              "'core-3'",
+              "'dist-x'",
+              "'dist-y'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "System",
-                  "Architecture"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The milestone step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Notice that no single graph algorithm solves all three challenges alone.",
+            "items": [
+              "'edge-a'",
+              "'core-1'",
+              "'core-2'",
+              "'core-3'",
+              "'dist-x'",
+              "'dist-y'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Decomposing",
-                  "Resilience"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In Part 1, let us implement the shared normalized graph representation.",
+            "items": [
+              "'edge-a'",
+              "'core-1'",
+              "'core-2'",
+              "'core-3'",
+              "'dist-x'",
+              "'dist-y'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,82 +130,88 @@
       "partTitle": "Stage 1: Directed Control-Plane SCCs & Physical Layer Cut-Vertex Audit",
       "codeHash": "2fc7e3af41d25573259565f11c0389ffa8d34d6c5e21492c66ae30d75a7447dd",
       "spec": {
-        "template": "table",
-        "title": "Stage 1: Directed Control-Plane SCCs & Physical Layer",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Directed Control-Plane SCCs & Physical Layer Cut-Vertex",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Directed"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 of our Milestone 8 engine runs two complementary Tarjan passes.",
+            "items": {
+              "var": "nodes",
+              "line": 83,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The meanwhile step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Control"
-                  },
-                  {
-                    "text": "Plane"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Why run both Tarjan flavors on the same network.",
+            "items": {
+              "var": "nodes",
+              "line": 84,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run Stage 1 cleanly in Pyodide below using our self-contained.",
+            "items": {
+              "var": "nodes",
+              "line": 6,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 1: Directed Control-Plane SCCs & Physical Layer",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Directed Control-Plane SCCs & Physical Layer Cut-Vertex",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Stage",
-                  "Directed"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 of our Milestone 8 engine runs two complementary Tarjan passes.",
+            "mode": "stack",
+            "items": [
+              "'edge-a'",
+              "'core-1'",
+              "'core-2'",
+              "'core-3'",
+              "'dist-x'",
+              "'dist-y'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The meanwhile step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Control",
-                  "Plane"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Why run both Tarjan flavors on the same network.",
+            "mode": "stack",
+            "items": [
+              "'edge-a'",
+              "'core-1'",
+              "'core-2'",
+              "'core-3'",
+              "'dist-x'",
+              "'dist-y'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run Stage 1 cleanly in Pyodide below using our self-contained.",
+            "mode": "stack",
+            "items": [
+              "'edge-a'",
+              "'core-1'",
+              "'core-2'",
+              "'core-3'",
+              "'dist-x'",
+              "'dist-y'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +220,85 @@
       "partTitle": "Stage 2: SPFA Policy Cost Solver with Sub-Millisecond Cycle Trapping",
       "codeHash": "73214129da78a985cf8f66be9391ede3e722a2874d437d0cc2a19777e8813252",
       "spec": {
-        "template": "table",
-        "title": "Stage 2: SPFA Policy Cost Solver with Sub-Millisecond Cycle",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 2: SPFA Policy Cost Solver with Sub-Millisecond Cycle Trap",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The provisioning design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "SPFA"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Before provisioning an All-Pairs Shortest Path forwarding table, our.",
+            "items": {
+              "var": "nodes",
+              "line": 55,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The stage step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Policy"
-                  },
-                  {
-                    "text": "Cost"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Routing engineers often apply negative edge bonuses to encode preferred.",
+            "items": {
+              "var": "nodes",
+              "line": 56,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Test Stage 2 below on both a clean weighted policy configuration and.",
+            "items": {
+              "var": "nodes",
+              "line": 8,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 2: SPFA Policy Cost Solver with Sub-Millisecond Cycle",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 2: SPFA Policy Cost Solver with Sub-Millisecond Cycle Trap",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The provisioning design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Stage",
-                  "SPFA"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Before provisioning an All-Pairs Shortest Path forwarding table, our.",
+            "mode": "queue",
+            "items": [
+              "'gw'",
+              "'r1'",
+              "'r2'",
+              "'r3'",
+              "'dc'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The stage step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Policy",
-                  "Cost"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Routing engineers often apply negative edge bonuses to encode preferred.",
+            "mode": "queue",
+            "items": [
+              "'gw'",
+              "'r1'",
+              "'r2'",
+              "'r3'",
+              "'dc'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Test Stage 2 below on both a clean weighted policy configuration and.",
+            "mode": "queue",
+            "items": [
+              "'gw'",
+              "'r1'",
+              "'r2'",
+              "'r3'",
+              "'dc'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,80 +307,114 @@
       "partTitle": "Stage 3: Condensed APSP Matrix & Fault-Tolerant Failover Hub Selection",
       "codeHash": "c675083d7ec6befeff366722e8249f90bbbd9abee8aa4ba238c6cdf960c0e2ed",
       "spec": {
-        "template": "table",
-        "title": "Stage 3: Condensed APSP Matrix & Fault-Tolerant Failover Hub",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Condensed APSP Matrix & Fault-Tolerant Failover Hub Sel",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Trace how once updates stage during execution.",
+            "items": {
+              "var": "nodes",
+              "line": 49,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Condensed"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The maintaining step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Why pair Floyd-Warshall with hub eccentricity ranking here.",
+            "items": {
+              "var": "nodes",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "APSP"
-                  },
-                  {
-                    "text": "Matrix"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how stage updates below during execution.",
+            "items": {
+              "var": "nodes",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 3: Condensed APSP Matrix & Fault-Tolerant Failover Hub",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Condensed APSP Matrix & Fault-Tolerant Failover Hub Sel",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Trace how once updates stage during execution.",
+            "items": [
+              "'hub-a'",
+              "'hub-b'",
+              "'hub-c'",
+              "'hub-d'",
+              "'hub-e'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Condensed"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The maintaining step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Why pair Floyd-Warshall with hub eccentricity ranking here.",
+            "items": [
+              "'hub-a'",
+              "'hub-b'",
+              "'hub-c'",
+              "'hub-d'",
+              "'hub-e'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "APSP",
-                  "Matrix"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how stage updates below during execution.",
+            "items": [
+              "'hub-a'",
+              "'hub-b'",
+              "'hub-c'",
+              "'hub-d'",
+              "'hub-e'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +425,91 @@
       "partTitle": "Complete Milestone 8 Capstone: End-to-End Network Health & Routing Audit",
       "codeHash": "5285a8171f723be815d538e7530f7014e53d5361d030406357180f88525da20e",
       "spec": {
-        "template": "table",
-        "title": "Complete Milestone 8 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 8 Capstone: End-to-End Network Health & Routi",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The integrate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Milestone"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now we integrate all three stages Structural Inspection (Tarjan SCC &.",
+            "items": {
+              "var": "nodes",
+              "line": 149,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The critical step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Capstone"
-                  },
-                  {
-                    "text": "Network"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think of how cleanly each algorithm reinforces the others in a layered.",
+            "items": {
+              "var": "nodes",
+              "line": 150,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Executing this capstone confirms complete mastery over all of Block 8's.",
+            "items": {
+              "var": "nodes",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Complete Milestone 8 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 8 Capstone: End-to-End Network Health & Routi",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The integrate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Complete",
-                  "Milestone"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now we integrate all three stages Structural Inspection (Tarjan SCC &.",
+            "mode": "queue",
+            "items": [
+              "'dc-east'",
+              "'dc-core'",
+              "'dc-west'",
+              "'eu-gw'",
+              "'eu-app'",
+              "'eu-db'",
+              "'edge-lon'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The critical step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Capstone",
-                  "Network"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think of how cleanly each algorithm reinforces the others in a layered.",
+            "mode": "queue",
+            "items": [
+              "'dc-east'",
+              "'dc-core'",
+              "'dc-west'",
+              "'eu-gw'",
+              "'eu-app'",
+              "'eu-db'",
+              "'edge-lon'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Executing this capstone confirms complete mastery over all of Block 8's.",
+            "mode": "queue",
+            "items": [
+              "'dc-east'",
+              "'dc-core'",
+              "'dc-west'",
+              "'eu-gw'",
+              "'eu-app'",
+              "'eu-db'",
+              "'edge-lon'"
+            ],
+            "action": "idle"
           }
         ]
       }

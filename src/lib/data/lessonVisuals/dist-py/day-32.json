@@ -2,1335 +2,769 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 32,
-  "promptSha": "5d01a55ebb4db35c1ddb8e0b063ae4687638fc6d150b230a1e7d67451c7c8932",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Vector Clocks & Causality Violation Detection Across Replicas — Foundations & Mathematical Invariants",
-      "codeHash": "7b883d71fbe99c44a020279c496d4378c6ab231812a4e15ab86e1117c2dd18a6",
+      "partTitle": "Capturing Both Equivalence and Concurrency Exactly",
+      "codeHash": "000e99a0c25643ef412f4e3e752977c4d7aefbf2ca9e3eacf412b01513bc9c3c",
       "spec": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Founda",
-        "nodes": [
+        "template": "states",
+        "title": "Capturing Both Equivalence and Concurrency Exactly",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "va",
+            "label": "va"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vb",
+            "label": "vb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "vc",
+            "label": "vc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scalar Lamport clocks tell us a -> b implies L(a) < L(b), yet they throw.",
+            "currentState": "va",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Distributed key-value databases like Amazon Dynamo and Riak need exact.",
+            "currentState": "vb",
+            "transition": {
+              "from": "va",
+              "to": "vb",
+              "label": {
+                "var": "vb",
+                "line": 15,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Trace the vector increment, element-wise merge, and partial-order relation.",
+            "currentState": "vc",
+            "transition": {
+              "from": "vb",
+              "to": "vc",
+              "label": {
+                "var": "vc",
+                "line": 17,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Founda",
-        "nodes": [
+        "template": "states",
+        "title": "Capturing Both Equivalence and Concurrency Exactly",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "va",
+            "label": "va"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vb",
+            "label": "vb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "vc",
+            "label": "vc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scalar Lamport clocks tell us a -> b implies L(a) < L(b), yet they throw.",
+            "currentState": "va",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Distributed key-value databases like Amazon Dynamo and Riak need exact.",
+            "currentState": "vb",
+            "transition": {
+              "from": "va",
+              "to": "vb",
+              "label": "{'n1': 1, 'n2': 2}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Trace the vector increment, element-wise merge, and partial-order relation.",
+            "currentState": "vc",
+            "transition": {
+              "from": "vb",
+              "to": "vc",
+              "label": "{'n1': 2, 'n2': 2}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Vector Clocks & Causality Violation Detection Across Replicas — Core Algorithm & State Representation",
-      "codeHash": "e05f5f43df070d2c8c79368fd4cca9152310cf96f74d723738f582c2d5ba36ac",
+      "partTitle": "Sibling Preservation and Client Context Merging",
+      "codeHash": "128b2734398a63d7cd54541cc8a421733f16c6b627d30e0d287ff7a0fb3e502e",
       "spec": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Core A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Sibling Preservation and Client Context Merging",
+        "actors": [
+          "siblings",
+          "coord_id",
+          "client_ctx"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once a storage replica detects that incoming write W2's context vector.",
+            "activeActor": "siblings",
+            "messages": [
+              {
+                "from": "siblings",
+                "to": "coord_id",
+                "label": {
+                  "var": "siblings",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": {
+                  "var": "coord_id",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Instead, the storage coordinator retains both versions as conflicting siblings.",
+            "activeActor": "coord_id",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "siblings",
+                "to": "coord_id",
+                "label": {
+                  "var": "siblings",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": {
+                  "var": "coord_id",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Run the replica put-reconciliation loop below showing automatic pruning.",
+            "activeActor": "client_ctx",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "siblings",
+                "to": "coord_id",
+                "label": {
+                  "var": "siblings",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": {
+                  "var": "coord_id",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Core A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Sibling Preservation and Client Context Merging",
+        "actors": [
+          "siblings",
+          "coord_id",
+          "client_ctx"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once a storage replica detects that incoming write W2's context vector.",
+            "messages": [
+              {
+                "from": "siblings",
+                "to": "coord_id",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": "'n1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "siblings"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Instead, the storage coordinator retains both versions as conflicting siblings.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "siblings",
+                "to": "coord_id",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": "'n1'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "coord_id"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Run the replica put-reconciliation loop below showing automatic pruning.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "siblings",
+                "to": "coord_id",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "coord_id",
+                "to": "client_ctx",
+                "label": "'n1'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "client_ctx"
           }
         ]
       }
     },
     {
-      "partTitle": "Vector Clocks & Causality Violation Detection Across Replicas — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "d88c3a7d3a1dbbb8714eae490ce810108fdce70137ee39fd90cd2296ddebf26e",
+      "partTitle": "Controlling Metadata Bloat with Vector Pruning & Dotted Version Vectors",
+      "codeHash": "0d8688ad3ac3580d5523affcd680c7e1fba67ea4aee37a39099b80553f6783bf",
       "spec": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Throug",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Controlling Metadata Bloat with Vector Pruning & Dotted Version ",
+        "actors": [
+          "v",
+          "entries",
+          "max_actors"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when keyed by storage servers, transient node replacements, rolling.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "v",
+                "to": "entries",
+                "label": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "max_actors",
+                "label": {
+                  "var": "entries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Two complementary production techniques prevent runaway vector growth.",
+            "activeActor": "entries",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "v",
+                "to": "entries",
+                "label": {
+                  "var": "v",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "entries",
+                "to": "max_actors",
+                "label": {
+                  "var": "entries",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Inspect the LRU actor pruning helper below bounding vector metadata size.",
+            "activeActor": "max_actors",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "v",
+                "to": "entries",
+                "label": {
+                  "var": "v",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "entries",
+                "to": "max_actors",
+                "label": {
+                  "var": "entries",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Throug",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Controlling Metadata Bloat with Vector Pruning & Dotted Version ",
+        "actors": [
+          "v",
+          "entries",
+          "max_actors"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when keyed by storage servers, transient node replacements, rolling.",
+            "messages": [
+              {
+                "from": "v",
+                "to": "entries",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "max_actors",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Two complementary production techniques prevent runaway vector growth.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "v",
+                "to": "entries",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "entries",
+                "to": "max_actors",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "entries"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Inspect the LRU actor pruning helper below bounding vector metadata size.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "v",
+                "to": "entries",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "entries",
+                "to": "max_actors",
+                "label": "{'n1': [12, 100], 'n2': [8, 500], 'n3':…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "max_actors"
           }
         ]
       }
     },
     {
-      "partTitle": "Vector Clocks & Causality Violation Detection Across Replicas — Resilience Guardrails & Failure Recovery",
-      "codeHash": "70c2f28cd263f97113a7f87a1215683ab0a670064113b04b4aec2ddacf5ef366",
+      "partTitle": "Out-of-Order Message Buffers & Causal Delivery Guarantees",
+      "codeHash": "528422f17cac333d6f482ef1622e6747e45dfaa807fedfef629b2cebc9855162",
       "spec": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Resili",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Out-of-Order Message Buffers & Causal Delivery Guarantees",
+        "actors": [
+          "self",
+          "pid",
+          "charlie"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Application chats, multiplayer state syncs, and collaborative editing.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pid",
+                "to": "charlie",
+                "label": {
+                  "var": "pid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "TCP only orders bytes inside one single sender-receiver socket.",
+            "activeActor": "pid",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pid",
+                "to": "charlie",
+                "label": {
+                  "var": "pid",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how Charlie's causal delivery buffer holds Bob's premature reply.",
+            "activeActor": "charlie",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "pid",
+                "to": "charlie",
+                "label": {
+                  "var": "pid",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Resili",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Out-of-Order Message Buffers & Causal Delivery Guarantees",
+        "actors": [
+          "self",
+          "pid",
+          "charlie"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Application chats, multiplayer state syncs, and collaborative editing.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<CausalDeliverNode>",
+                "tone": "data"
+              },
+              {
+                "from": "pid",
+                "to": "charlie",
+                "label": "'C'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "TCP only orders bytes inside one single sender-receiver socket.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "pid",
+                "label": "<CausalDeliverNode>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pid",
+                "to": "charlie",
+                "label": "'C'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pid"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how Charlie's causal delivery buffer holds Bob's premature reply.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "pid",
+                "label": "<CausalDeliverNode>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pid",
+                "to": "charlie",
+                "label": "'C'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "charlie"
           }
         ]
       }
     },
     {
-      "partTitle": "Vector Clocks & Causality Violation Detection Across Replicas — Production Telemetry & Verification Audit",
-      "codeHash": "71eabf6cc804112099d39ed830706b396247c9a19102168b137ff78006ad1bf2",
+      "partTitle": "Measuring Causality Violations Under Reordered Network Delivery",
+      "codeHash": "f5cb2f84d42eb6dc04cbba8581ab5432d1de28e6287463980c618fce37201e2a",
       "spec": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Produc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Measuring Causality Violations Under Reordered Network Delivery",
+        "actors": [
+          "raw_arrival",
+          "causal_order",
+          "delivered_vcs"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "During chaos testing or shard failover drills, engineers must quantify.",
+            "activeActor": "raw_arrival",
+            "messages": [
+              {
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": {
+                  "var": "raw_arrival",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": {
+                  "var": "causal_order",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Suppose distributed trace logs record application read observations.",
+            "activeActor": "causal_order",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": {
+                  "var": "raw_arrival",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": {
+                  "var": "causal_order",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect the causality violation detector below comparing naive FIFO raw.",
+            "activeActor": "delivered_vcs",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": {
+                  "var": "raw_arrival",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": {
+                  "var": "causal_order",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Vector Clocks & Causality Violation Detection Across Replicas — Produc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Measuring Causality Violations Under Reordered Network Delivery",
+        "actors": [
+          "raw_arrival",
+          "causal_order",
+          "delivered_vcs"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "During chaos testing or shard failover drills, engineers must quantify.",
+            "messages": [
+              {
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": "[{'A': 1, 'B': 1}, {'A': 1}, {'A': 2, '…",
+                "tone": "data"
+              },
+              {
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": "[{'A': 1}, {'A': 1, 'B': 1}, {'A': 2, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw_arrival"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Suppose distributed trace logs record application read observations.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": "[{'A': 1, 'B': 1}, {'A': 1}, {'A': 2, '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": "[{'A': 1}, {'A': 1, 'B': 1}, {'A': 2, '…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "causal_order"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect the causality violation detector below comparing naive FIFO raw.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "raw_arrival",
+                "to": "causal_order",
+                "label": "[{'A': 1, 'B': 1}, {'A': 1}, {'A': 2, '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "causal_order",
+                "to": "delivered_vcs",
+                "label": "[{'A': 1}, {'A': 1, 'B': 1}, {'A': 2, '…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "delivered_vcs"
           }
         ]
       }

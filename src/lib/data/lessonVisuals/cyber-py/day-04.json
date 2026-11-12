@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 4,
-  "promptSha": "2e69ec2cb5a363a5fd02a452452fe9679d3e3407980ee551724674259c33987f",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "How CSRF works",
       "codeHash": "d1f87b5a0efd2f815bee026aaffc14afb7d31722e33ecb68974b81fbb6c3856e",
       "spec": {
-        "template": "sequence",
-        "title": "Cross-site request forgery ambient credential exploitation sequence",
-        "actors": [
+        "template": "states",
+        "title": "How CSRF works",
+        "states": [
           {
-            "id": "victim",
-            "label": "Victim Browser"
+            "id": "session_cookie",
+            "label": "session_cookie"
           },
           {
-            "id": "evilSite",
-            "label": "Malicious External Site"
+            "id": "cookie",
+            "label": "cookie"
           },
           {
-            "id": "bankApi",
-            "label": "Banking Server"
-          }
-        ],
-        "messages": [
-          {
-            "from": "victim",
-            "to": "evilSite",
-            "label": "Visit External Site in Separate Tab",
-            "tone": "data"
-          },
-          {
-            "from": "evilSite",
-            "to": "bankApi",
-            "label": "Submit Hidden Form Targeting Transfer API",
-            "tone": "error"
-          },
-          {
-            "from": "victim",
-            "to": "bankApi",
-            "label": "Browser Automatically Attaches Ambient Cookies",
-            "tone": "error"
-          },
-          {
-            "from": "bankApi",
-            "to": "victim",
-            "label": "Transfer Executes Unintentionally on Behalf of User",
-            "tone": "error"
+            "id": "to",
+            "label": "to"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Browsers automatically attach cookies to requests targeting a domain.",
-            "activeMessageIndex": 2,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Browsers automatically attach cookies for a site to every request to.",
+            "currentState": "session_cookie",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "A csrf attack cannot directly read responses due to same origin policy.",
-            "activeMessageIndex": 3,
-            "statusBadge": "active"
+            "at": "say2",
+            "caption": "Cross-site request forgery (CSRF) exploits this.",
+            "currentState": "cookie",
+            "transition": {
+              "from": "session_cookie",
+              "to": "cookie",
+              "label": {
+                "var": "cookie",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "APIs that accept cookies for authentication are just as exposed.",
+            "currentState": "to",
+            "transition": {
+              "from": "cookie",
+              "to": "to",
+              "label": {
+                "var": "to",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Cross-site request forgery ambient credential exploitation sequence",
-        "actors": [
+        "template": "states",
+        "title": "How CSRF works",
+        "states": [
           {
-            "id": "victim",
-            "label": "Victim Browser"
+            "id": "session_cookie",
+            "label": "session_cookie"
           },
           {
-            "id": "evilSite",
-            "label": "Malicious External Site"
+            "id": "cookie",
+            "label": "cookie"
           },
           {
-            "id": "bankApi",
-            "label": "Banking Server"
-          }
-        ],
-        "messages": [
-          {
-            "from": "victim",
-            "to": "evilSite",
-            "label": "Visit External Site in Separate Tab",
-            "tone": "data"
-          },
-          {
-            "from": "evilSite",
-            "to": "bankApi",
-            "label": "Submit Hidden Form Targeting Transfer API",
-            "tone": "error"
-          },
-          {
-            "from": "victim",
-            "to": "bankApi",
-            "label": "Browser Automatically Attaches Ambient Cookies",
-            "tone": "error"
-          },
-          {
-            "from": "bankApi",
-            "to": "victim",
-            "label": "Transfer Executes Unintentionally on Behalf of User",
-            "tone": "error"
+            "id": "to",
+            "label": "to"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Browsers automatically attach cookies to requests targeting a domain.",
-            "activeMessageIndex": 2,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Browsers automatically attach cookies for a site to every request to.",
+            "currentState": "session_cookie",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "A csrf attack cannot directly read responses due to same origin policy.",
-            "activeMessageIndex": 3,
-            "statusBadge": "active"
+            "at": "say2",
+            "caption": "Cross-site request forgery (CSRF) exploits this.",
+            "currentState": "cookie",
+            "transition": {
+              "from": "session_cookie",
+              "to": "cookie",
+              "label": "{'user': 'asha'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "APIs that accept cookies for authentication are just as exposed.",
+            "currentState": "to",
+            "transition": {
+              "from": "cookie",
+              "to": "to",
+              "label": "'attacker'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,74 +117,130 @@
       "partTitle": "Synchroniser tokens",
       "codeHash": "6cd069a6dc6744b8e80c8715d89f4dac26427a3a2127aa9a623d1118eaa65f55",
       "spec": {
-        "template": "states",
-        "title": "Automated CSRF form submission and state modification states",
-        "states": [
+        "template": "boxes",
+        "title": "Synchroniser tokens",
+        "boxes": [
           {
-            "id": "pageLoads",
-            "label": "Victim Navigates to Decoy Website"
+            "id": "form_ok",
+            "label": "form_ok"
           },
           {
-            "id": "formAutoSubmits",
-            "label": "Hidden Form Auto-Submits via JavaScript"
-          },
-          {
-            "id": "sessionAttached",
-            "label": "Ambient Session Cookie Attached"
-          },
-          {
-            "id": "stateMutated",
-            "label": "Unauthorized Transaction Executed on Server"
+            "id": "form_forged",
+            "label": "form_forged"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "An image tag causes the browser to issue authenticated requests.",
-            "activeStateId": "sessionAttached",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "The classic defence is a CSRF token.",
+            "values": {
+              "form_ok": {
+                "var": "form_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "form_forged": {
+                "var": "form_forged",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "form_ok": "data",
+              "form_forged": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "The malicious page automatically calls submit when the page finishes loading.",
-            "activeStateId": "formAutoSubmits",
-            "statusBadge": "active"
+            "at": "say2",
+            "caption": "When the form is submitted, the server checks that the submitted token.",
+            "values": {
+              "form_ok": {
+                "var": "form_ok",
+                "line": 6,
+                "hit": 1
+              },
+              "form_forged": {
+                "var": "form_forged",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "form_ok": "data",
+              "form_forged": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Single-page apps often send the token in a custom header, which cross-site.",
+            "values": {
+              "form_ok": {
+                "var": "form_ok",
+                "line": 7,
+                "hit": 1
+              },
+              "form_forged": {
+                "var": "form_forged",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "form_ok": "ok",
+              "form_forged": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Automated CSRF form submission and state modification states",
-        "states": [
+        "template": "boxes",
+        "title": "Synchroniser tokens",
+        "boxes": [
           {
-            "id": "pageLoads",
-            "label": "Victim Navigates to Decoy Website"
+            "id": "form_ok",
+            "label": "form_ok"
           },
           {
-            "id": "formAutoSubmits",
-            "label": "Hidden Form Auto-Submits via JavaScript"
-          },
-          {
-            "id": "sessionAttached",
-            "label": "Ambient Session Cookie Attached"
-          },
-          {
-            "id": "stateMutated",
-            "label": "Unauthorized Transaction Executed on Server"
+            "id": "form_forged",
+            "label": "form_forged"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "An image tag causes the browser to issue authenticated requests.",
-            "activeStateId": "sessionAttached",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "The classic defence is a CSRF token.",
+            "values": {
+              "form_ok": "True",
+              "form_forged": "False"
+            },
+            "tones": {
+              "form_ok": "data",
+              "form_forged": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "The malicious page automatically calls submit when the page finishes loading.",
-            "activeStateId": "formAutoSubmits",
-            "statusBadge": "active"
+            "at": "say2",
+            "caption": "When the form is submitted, the server checks that the submitted token.",
+            "values": {
+              "form_ok": "True",
+              "form_forged": "False"
+            },
+            "tones": {
+              "form_ok": "data",
+              "form_forged": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Single-page apps often send the token in a custom header, which cross-site.",
+            "values": {
+              "form_ok": "True",
+              "form_forged": "False"
+            },
+            "tones": {
+              "form_ok": "ok",
+              "form_forged": "ok"
+            }
           }
         ]
       }
@@ -205,118 +249,278 @@
       "partTitle": "SameSite cookies",
       "codeHash": "e6d055cabf054d92e1f92e4a866099fb232fefcc1dad17af0c9f8904f479af4a",
       "spec": {
-        "template": "sequence",
-        "title": "Synchronizer token pattern generation and validation sequence",
-        "actors": [
+        "template": "flow",
+        "title": "SameSite cookies",
+        "nodes": [
           {
-            "id": "browser",
-            "label": "User Browser"
+            "id": "mode",
+            "label": "mode"
           },
           {
-            "id": "appServer",
-            "label": "Application Server"
+            "id": "same_site",
+            "label": "same_site"
           },
           {
-            "id": "sessionDb",
-            "label": "Session Store"
-          }
-        ],
-        "messages": [
-          {
-            "from": "appServer",
-            "to": "sessionDb",
-            "label": "Generate Cryptographic CSRF Secret in Session",
-            "tone": "ok"
+            "id": "cross_site",
+            "label": "cross_site"
           },
           {
-            "from": "appServer",
-            "to": "browser",
-            "label": "Embed Unique CSRF Token in Hidden HTML Input",
-            "tone": "data"
-          },
-          {
-            "from": "browser",
-            "to": "appServer",
-            "label": "Submit Form with Embedded Anti-Forgery Token",
-            "tone": "data"
-          },
-          {
-            "from": "appServer",
-            "to": "sessionDb",
-            "label": "Validate Token Match Before Mutating State",
-            "tone": "ok"
+            "id": "top_level_get",
+            "label": "top_level_get"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The server generates a cryptographically random unguessable token.",
-            "activeMessageIndex": 0,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The SameSite cookie attribute tells the browser whether to send a cookie.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 6,
+                "hit": 1
+              },
+              "same_site": {
+                "var": "same_site",
+                "line": 2,
+                "hit": 1
+              },
+              "cross_site": {
+                "var": "cross_site",
+                "line": 2,
+                "hit": 1
+              },
+              "top_level_get": {
+                "var": "top_level_get",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mode": "data",
+              "same_site": "data",
+              "cross_site": "data",
+              "top_level_get": "data"
+            },
+            "arrows": [
+              [
+                "mode",
+                "same_site"
+              ],
+              [
+                "same_site",
+                "cross_site"
+              ],
+              [
+                "cross_site",
+                "top_level_get"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "If the tokens match the request is approved across session checks.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Strict never sends it cross-site.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 7,
+                "hit": 1
+              },
+              "same_site": {
+                "var": "same_site",
+                "line": 4,
+                "hit": 1
+              },
+              "cross_site": {
+                "var": "cross_site",
+                "line": 4,
+                "hit": 1
+              },
+              "top_level_get": {
+                "var": "top_level_get",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mode": "data",
+              "same_site": "data",
+              "cross_site": "data",
+              "top_level_get": "data"
+            },
+            "arrows": [
+              [
+                "mode",
+                "same_site"
+              ],
+              [
+                "same_site",
+                "cross_site"
+              ],
+              [
+                "cross_site",
+                "top_level_get"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Strict suits highly sensitive cookies, such as an admin session, where.",
+            "values": {
+              "mode": {
+                "var": "mode",
+                "line": 6,
+                "hit": 2
+              },
+              "same_site": {
+                "var": "same_site",
+                "line": 2,
+                "hit": 2
+              },
+              "cross_site": {
+                "var": "cross_site",
+                "line": 2,
+                "hit": 2
+              },
+              "top_level_get": {
+                "var": "top_level_get",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "mode": "ok",
+              "same_site": "ok",
+              "cross_site": "ok",
+              "top_level_get": "ok"
+            },
+            "arrows": [
+              [
+                "mode",
+                "same_site"
+              ],
+              [
+                "same_site",
+                "cross_site"
+              ],
+              [
+                "cross_site",
+                "top_level_get"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Synchronizer token pattern generation and validation sequence",
-        "actors": [
+        "template": "flow",
+        "title": "SameSite cookies",
+        "nodes": [
           {
-            "id": "browser",
-            "label": "User Browser"
+            "id": "mode",
+            "label": "mode"
           },
           {
-            "id": "appServer",
-            "label": "Application Server"
+            "id": "same_site",
+            "label": "same_site"
           },
           {
-            "id": "sessionDb",
-            "label": "Session Store"
-          }
-        ],
-        "messages": [
-          {
-            "from": "appServer",
-            "to": "sessionDb",
-            "label": "Generate Cryptographic CSRF Secret in Session",
-            "tone": "ok"
+            "id": "cross_site",
+            "label": "cross_site"
           },
           {
-            "from": "appServer",
-            "to": "browser",
-            "label": "Embed Unique CSRF Token in Hidden HTML Input",
-            "tone": "data"
-          },
-          {
-            "from": "browser",
-            "to": "appServer",
-            "label": "Submit Form with Embedded Anti-Forgery Token",
-            "tone": "data"
-          },
-          {
-            "from": "appServer",
-            "to": "sessionDb",
-            "label": "Validate Token Match Before Mutating State",
-            "tone": "ok"
+            "id": "top_level_get",
+            "label": "top_level_get"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The server generates a cryptographically random unguessable token.",
-            "activeMessageIndex": 0,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The SameSite cookie attribute tells the browser whether to send a cookie.",
+            "values": {
+              "mode": "'Strict'",
+              "same_site": "'Strict'",
+              "cross_site": "True",
+              "top_level_get": "False"
+            },
+            "tones": {
+              "mode": "data",
+              "same_site": "data",
+              "cross_site": "data",
+              "top_level_get": "data"
+            },
+            "arrows": [
+              [
+                "mode",
+                "same_site"
+              ],
+              [
+                "same_site",
+                "cross_site"
+              ],
+              [
+                "cross_site",
+                "top_level_get"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "If the tokens match the request is approved across session checks.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Strict never sends it cross-site.",
+            "values": {
+              "mode": "'Strict'",
+              "same_site": "'Strict'",
+              "cross_site": "True",
+              "top_level_get": "False"
+            },
+            "tones": {
+              "mode": "data",
+              "same_site": "data",
+              "cross_site": "data",
+              "top_level_get": "data"
+            },
+            "arrows": [
+              [
+                "mode",
+                "same_site"
+              ],
+              [
+                "same_site",
+                "cross_site"
+              ],
+              [
+                "cross_site",
+                "top_level_get"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Strict suits highly sensitive cookies, such as an admin session, where.",
+            "values": {
+              "mode": "'Lax'",
+              "same_site": "'Strict'",
+              "cross_site": "True",
+              "top_level_get": "True"
+            },
+            "tones": {
+              "mode": "ok",
+              "same_site": "ok",
+              "cross_site": "ok",
+              "top_level_get": "ok"
+            },
+            "arrows": [
+              [
+                "mode",
+                "same_site"
+              ],
+              [
+                "same_site",
+                "cross_site"
+              ],
+              [
+                "cross_site",
+                "top_level_get"
+              ]
+            ]
           }
         ]
       }
@@ -325,242 +529,270 @@
       "partTitle": "Secure and HttpOnly",
       "codeHash": "ac99956a10a675a9a12706bf1eb31e4ea1d815da5477dbeffccb531dcd6579f5",
       "spec": {
-        "template": "compare",
-        "title": "Synchronizer session token pattern versus stateless double-submit cookie pattern",
-        "left": {
-          "title": "Synchronizer Token Pattern",
-          "items": [
-            "Requires server-side session memory or Redis store",
-            "Tokens tied to active authenticated session state",
-            "Best suited for traditional monolith web apps"
-          ]
-        },
-        "right": {
-          "title": "Double-Submit Cookie Pattern",
-          "items": [
-            "Zero server-side session storage overhead",
-            "Cookie value mirrored into custom HTTP request header",
-            "Ideal for distributed stateless microservice APIs"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The double submit cookie pattern keeps verification entirely stateless.",
-            "highlightSide": "right",
-            "statusBadge": "active"
-          },
-          {
-            "at": "say8",
-            "caption": "Forged requests arrive without matching headers and are rejected.",
-            "highlightSide": "left",
-            "statusBadge": "completed"
-          }
-        ],
-        "leftLabel": "Synchronizer Token Pattern",
-        "rightLabel": "Double-Submit Cookie Pattern"
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Synchronizer session token pattern versus stateless double-submit cookie pattern",
-        "left": {
-          "title": "Synchronizer Token Pattern",
-          "items": [
-            "Requires server-side session memory or Redis store",
-            "Tokens tied to active authenticated session state",
-            "Best suited for traditional monolith web apps"
-          ]
-        },
-        "right": {
-          "title": "Double-Submit Cookie Pattern",
-          "items": [
-            "Zero server-side session storage overhead",
-            "Cookie value mirrored into custom HTTP request header",
-            "Ideal for distributed stateless microservice APIs"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The double submit cookie pattern keeps verification entirely stateless.",
-            "highlightSide": "right",
-            "statusBadge": "active"
-          },
-          {
-            "at": "say8",
-            "caption": "Forged requests arrive without matching headers and are rejected.",
-            "highlightSide": "left",
-            "statusBadge": "completed"
-          }
-        ],
-        "leftLabel": "Synchronizer Token Pattern",
-        "rightLabel": "Double-Submit Cookie Pattern"
-      }
-    },
-    {
-      "partTitle": "Which requests need protection",
-      "codeHash": "8204124628c66f3003a82b525d826f1573e59dc2e0d1028d0cc75a9769d9d24d",
-      "spec": {
-        "template": "table",
-        "title": "Browser SameSite cookie attribute modes and cross-site transmission rules",
-        "columns": [
-          "SameSite Mode",
-          "Top-Level GET",
-          "Cross-Site POST Forms",
-          "Default Browser Behavior"
+        "template": "sequence",
+        "title": "Secure and HttpOnly",
+        "actors": [
+          "name",
+          "value",
+          "same_site"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Strict mode never sends cookies in cross site requests.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "Secure means the cookie is only sent over HTTPS, so it cannot be read.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  "Strict",
-                  "Withheld",
-                  "Withheld",
-                  "Maximum Protection (No cross-site cookies)"
-                ],
+                "from": "name",
+                "to": "value",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Lax",
-                  "Sent with Request",
-                  "Withheld",
-                  "Modern Browser Default for Session Cookies"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "None",
-                  "Sent with Request",
-                  "Sent with Request",
-                  "Requires Secure Flag over HTTPS Only"
-                ],
-                "tone": "data"
+                "from": "value",
+                "to": "same_site",
+                "label": {
+                  "var": "value",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Lax is the default behavior in modern browsers when unspecified.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "HttpOnly means JavaScript cannot read it, which protects session cookies.",
+            "activeActor": "value",
+            "messages": [
               {
-                "cells": [
-                  "Strict",
-                  "Withheld",
-                  "Withheld",
-                  "Maximum Protection (No cross-site cookies)"
-                ],
+                "from": "name",
+                "to": "value",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Lax",
-                  "Sent with Request",
-                  "Withheld",
-                  "Modern Browser Default for Session Cookies"
-                ],
+                "from": "value",
+                "to": "same_site",
+                "label": {
+                  "var": "value",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Remember to set the same flags when you delete or refresh a cookie, or.",
+            "activeActor": "same_site",
+            "messages": [
+              {
+                "from": "name",
+                "to": "value",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "None",
-                  "Sent with Request",
-                  "Sent with Request",
-                  "Requires Secure Flag over HTTPS Only"
-                ],
-                "tone": "data"
+                "from": "value",
+                "to": "same_site",
+                "label": {
+                  "var": "value",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Browser SameSite cookie attribute modes and cross-site transmission rules",
-        "columns": [
-          "SameSite Mode",
-          "Top-Level GET",
-          "Cross-Site POST Forms",
-          "Default Browser Behavior"
+        "template": "sequence",
+        "title": "Secure and HttpOnly",
+        "actors": [
+          "name",
+          "value",
+          "same_site"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Strict mode never sends cookies in cross site requests.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "Secure means the cookie is only sent over HTTPS, so it cannot be read.",
+            "messages": [
               {
-                "cells": [
-                  "Strict",
-                  "Withheld",
-                  "Withheld",
-                  "Maximum Protection (No cross-site cookies)"
-                ],
+                "from": "name",
+                "to": "value",
+                "label": "'session'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Lax",
-                  "Sent with Request",
-                  "Withheld",
-                  "Modern Browser Default for Session Cookies"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "None",
-                  "Sent with Request",
-                  "Sent with Request",
-                  "Requires Secure Flag over HTTPS Only"
-                ],
-                "tone": "data"
+                "from": "value",
+                "to": "same_site",
+                "label": "'c9f2a1'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say7",
-            "caption": "Lax is the default behavior in modern browsers when unspecified.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "HttpOnly means JavaScript cannot read it, which protects session cookies.",
+            "messages": [
               {
-                "cells": [
-                  "Strict",
-                  "Withheld",
-                  "Withheld",
-                  "Maximum Protection (No cross-site cookies)"
-                ],
+                "from": "name",
+                "to": "value",
+                "label": "'session'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Lax",
-                  "Sent with Request",
-                  "Withheld",
-                  "Modern Browser Default for Session Cookies"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "None",
-                  "Sent with Request",
-                  "Sent with Request",
-                  "Requires Secure Flag over HTTPS Only"
-                ],
-                "tone": "data"
+                "from": "value",
+                "to": "same_site",
+                "label": "'c9f2a1'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "value"
+          },
+          {
+            "at": "say9",
+            "caption": "Remember to set the same flags when you delete or refresh a cookie, or.",
+            "messages": [
+              {
+                "from": "name",
+                "to": "value",
+                "label": "'session'",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "same_site",
+                "label": "'c9f2a1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "same_site"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Which requests need protection",
+      "codeHash": "8204124628c66f3003a82b525d826f1573e59dc2e0d1028d0cc75a9769d9d24d",
+      "spec": {
+        "template": "states",
+        "title": "Which requests need protection",
+        "states": [
+          {
+            "id": "routes",
+            "label": "routes"
+          },
+          {
+            "id": "method",
+            "label": "method"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Safe methods (GET, HEAD, OPTIONS) should never change state.",
+            "currentState": "routes",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "State-changing methods (POST, PUT, PATCH, DELETE) must carry a CSRF token.",
+            "currentState": "method",
+            "transition": {
+              "from": "routes",
+              "to": "method",
+              "label": {
+                "var": "method",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Listing routes with their methods, as in the example, is a quick way.",
+            "currentState": "path",
+            "transition": {
+              "from": "method",
+              "to": "path",
+              "label": {
+                "var": "path",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Which requests need protection",
+        "states": [
+          {
+            "id": "routes",
+            "label": "routes"
+          },
+          {
+            "id": "method",
+            "label": "method"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Safe methods (GET, HEAD, OPTIONS) should never change state.",
+            "currentState": "routes",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "State-changing methods (POST, PUT, PATCH, DELETE) must carry a CSRF token.",
+            "currentState": "method",
+            "transition": {
+              "from": "routes",
+              "to": "method",
+              "label": "'GET'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Listing routes with their methods, as in the example, is a quick way.",
+            "currentState": "path",
+            "transition": {
+              "from": "method",
+              "to": "path",
+              "label": "'/products'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -569,224 +801,106 @@
       "partTitle": "Practice time: tokens and cookies",
       "codeHash": "065bd0c3561c699eeaa0c262c5aa7d8b1b5d06c197aed1e5b48b11aa306d34fe",
       "spec": {
-        "template": "flow",
-        "title": "Building an Enterprise CSRF Defense & Cookie ... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: tokens and cookies",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "session",
+            "label": "session"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Enterpr...",
-            "tappable": true
+            "id": "label",
+            "label": "label"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "submitted",
+            "label": "submitted"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building an Enterprise CSRF Defense & Co.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building an Enterpr... [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Return False unless both are non-empty strings.",
+            "currentState": "session",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include matching tokens, a one-character difference, empty.",
+            "currentState": "label",
+            "transition": {
+              "from": "session",
+              "to": "label",
+              "label": {
+                "var": "label",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building an Enterprise CSRF Defen.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Combining tokens with SameSite means an attacker must defeat two.",
+            "currentState": "submitted",
+            "transition": {
+              "from": "label",
+              "to": "submitted",
+              "label": {
+                "var": "submitted",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Building an Enterprise CSRF Defense & Cookie ... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: tokens and cookies",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "session",
+            "label": "session"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Enterpr...",
-            "tappable": true
+            "id": "label",
+            "label": "label"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "submitted",
+            "label": "submitted"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Enterprise CSRF Defense & Co.. [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Return False unless both are non-empty strings.",
+            "currentState": "session",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include matching tokens, a one-character difference, empty.",
+            "currentState": "label",
+            "transition": {
+              "from": "session",
+              "to": "label",
+              "label": "'genuine form'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Enterprise CSRF Defen.. [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Combining tokens with SameSite means an attacker must defeat two.",
+            "currentState": "submitted",
+            "transition": {
+              "from": "label",
+              "to": "submitted",
+              "label": "'7d2e9a41c0'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

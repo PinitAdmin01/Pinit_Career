@@ -2,165 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Meaning as a list of numbers",
       "codeHash": "f547b69542886a7c7372ef7ad23e971114774749e985a901c9d312dec1104dc1",
       "spec": {
-        "template": "table",
-        "title": "Semantic text phrases mapped to embedding vector coordinates",
-        "columns": [
-          "text_phrase",
-          "vector_representation",
-          "semantic_cluster"
+        "template": "sequence",
+        "title": "Meaning as a list of numbers",
+        "actors": [
+          "vectors",
+          "text",
+          "v"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Texts with similar meaning get vectors pointing in similar directions.",
-            "rows": [
+            "at": "say1",
+            "caption": "An embedding is a list of numbers (a vector) that represents the meaning.",
+            "activeActor": "vectors",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "reset my password"
-                  },
-                  {
-                    "text": "[0.9, 0.1, 0.0]"
-                  },
-                  {
-                    "text": "auth"
-                  }
-                ],
-                "tone": "ok"
+                "from": "vectors",
+                "to": "text",
+                "label": {
+                  "var": "vectors",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "forgot my login"
-                  },
-                  {
-                    "text": "[0.8, 0.2, 0.1]"
-                  },
-                  {
-                    "text": "auth"
-                  }
-                ],
+                "from": "text",
+                "to": "v",
+                "label": {
+                  "var": "text",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Embedding text allows finding the closest vectors during search.",
-            "rows": [
+            "at": "say2",
+            "caption": "Texts with similar meaning get vectors that point in similar directions.",
+            "activeActor": "text",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "reset my password"
-                  },
-                  {
-                    "text": "[0.9, 0.1, 0.0]"
-                  },
-                  {
-                    "text": "auth"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "forgot my login"
-                  },
-                  {
-                    "text": "[0.8, 0.2, 0.1]"
-                  },
-                  {
-                    "text": "auth"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "best biryani in town"
-                  },
-                  {
-                    "text": "[0.0, 0.1, 0.95]"
-                  },
-                  {
-                    "text": "food"
-                  }
-                ],
+                "from": "vectors",
+                "to": "text",
+                "label": {
+                  "var": "vectors",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "v",
+                "label": {
+                  "var": "text",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Embeddings power semantic search, recommendations, duplicate detection.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "vectors",
+                "to": "text",
+                "label": {
+                  "var": "vectors",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "v",
+                "label": {
+                  "var": "text",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Semantic text phrases mapped to embedding vector coordinates",
-        "columns": [
-          "text_phrase",
-          "vector_representation",
-          "semantic_cluster"
+        "template": "sequence",
+        "title": "Meaning as a list of numbers",
+        "actors": [
+          "vectors",
+          "text",
+          "v"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Texts with similar meaning get vectors pointing in similar directions.",
-            "rows": [
+            "at": "say1",
+            "caption": "An embedding is a list of numbers (a vector) that represents the meaning.",
+            "messages": [
               {
-                "cells": [
-                  "reset my password",
-                  "[0.9, 0.1, 0.0]",
-                  "auth"
-                ],
-                "tone": "ok"
+                "from": "vectors",
+                "to": "text",
+                "label": "{'reset my password': [0.9, 0.1, 0], 'f…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "forgot my login",
-                  "[0.8, 0.2, 0.1]",
-                  "auth"
-                ],
+                "from": "text",
+                "to": "v",
+                "label": "'reset my password'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "vectors"
           },
           {
-            "at": "say4",
-            "caption": "Embedding text allows finding the closest vectors during search.",
-            "rows": [
+            "at": "say2",
+            "caption": "Texts with similar meaning get vectors that point in similar directions.",
+            "messages": [
               {
-                "cells": [
-                  "reset my password",
-                  "[0.9, 0.1, 0.0]",
-                  "auth"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "forgot my login",
-                  "[0.8, 0.2, 0.1]",
-                  "auth"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "best biryani in town",
-                  "[0.0, 0.1, 0.95]",
-                  "food"
-                ],
+                "from": "vectors",
+                "to": "text",
+                "label": "{'reset my password': [0.9, 0.1, 0], 'f…",
                 "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "v",
+                "label": "'reset my password'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "text"
+          },
+          {
+            "at": "say6",
+            "caption": "Embeddings power semantic search, recommendations, duplicate detection.",
+            "messages": [
+              {
+                "from": "vectors",
+                "to": "text",
+                "label": "{'reset my password': [0.9, 0.1, 0], 'f…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "v",
+                "label": "'forgot my login'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }
@@ -169,224 +173,160 @@
       "partTitle": "Vector length",
       "codeHash": "7325b23065483cc1803e998af22067479a7bc933f9fc6af85442adf4be798172",
       "spec": {
-        "template": "flow",
-        "title": "Vector length — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Vector length",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Vector length",
+        "actors": [
+          "x",
+          "v"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Vector length [Dseven.Ptwo.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Vector length [Dseven.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Vector_norm(v) returns the length of a vector.",
+            "activeActor": "x",
+            "messages": [
+              {
+                "from": "x",
+                "to": "v",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "x",
+                "label": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how length updates sqrt during execution.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "x",
+                "to": "v",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "x",
+                "label": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 9
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Vector length [Dseven.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "A vector of all zeros has length 0.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "x",
+                "to": "v",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "x",
+                "label": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 14
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Vector length — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Vector length",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Vector length",
+        "actors": [
+          "x",
+          "v"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Vector length [D7.P2.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Vector length [D7.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Vector_norm(v) returns the length of a vector.",
+            "messages": [
+              {
+                "from": "x",
+                "to": "v",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "x",
+                "label": "[3, 4]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "x"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how length updates sqrt during execution.",
+            "messages": [
+              {
+                "from": "x",
+                "to": "v",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "x",
+                "label": "[1, 2, 2]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Vector length [D7.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "A vector of all zeros has length 0.",
+            "messages": [
+              {
+                "from": "x",
+                "to": "v",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "x",
+                "label": "[0, 0, 0]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }
@@ -395,94 +335,162 @@
       "partTitle": "Cosine similarity",
       "codeHash": "97277e8f70d73f8b925f7fd34361df9e33ef0a21800122a92fcad15c2f0a36b8",
       "spec": {
-        "template": "compare",
-        "title": "Geometric orientation comparison in vector space",
-        "leftLabel": "Orthogonal Vectors",
-        "rightLabel": "Aligned Vectors",
+        "template": "sequence",
+        "title": "Cosine similarity",
+        "actors": [
+          ".0",
+          "x",
+          "y"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine similarity measures the angle between two vectors ignoring length.",
-            "left": {
-              "code": "cosine([1, 0], [0, 1])",
-              "result": {
-                "text": "perpendicular (0.0)"
+            "caption": "Cosine_similarity(a, b) = dot(a, b) / (|a| x |b|), rounded to 4 decimals.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "x",
+                "label": {
+                  "var": ".0",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "cosine([1, 0], [2, 0])",
-              "result": {
-                "text": "identical angle (1.0)"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Scores approaching maximum indicate strongly shared similar meaning.",
-            "left": {
-              "code": "unrelated directions",
-              "result": {
-                "text": "score near zero"
+            "caption": "The result runs from -1 to 1.",
+            "activeActor": "x",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "x",
+                "label": {
+                  "var": ".0",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "similar text embeddings",
-              "result": {
-                "text": "score near one"
+              {
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "This single function is the heart of semantic search.",
+            "activeActor": "y",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "x",
+                "label": {
+                  "var": ".0",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Geometric orientation comparison in vector space",
-        "leftLabel": "Orthogonal Vectors",
-        "rightLabel": "Aligned Vectors",
+        "template": "sequence",
+        "title": "Cosine similarity",
+        "actors": [
+          ".0",
+          "x",
+          "y"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine similarity measures the angle between two vectors ignoring length.",
-            "left": {
-              "code": "cosine([1, 0], [0, 1])",
-              "result": "perpendicular (0.0)",
-              "tone": "data",
-              "checks": [
-                "perpendicular (0.0)"
-              ]
-            },
-            "right": {
-              "code": "cosine([1, 0], [2, 0])",
-              "result": "identical angle (1.0)",
-              "tone": "ok",
-              "checks": [
-                "identical angle (1.0)"
-              ]
-            }
+            "caption": "Cosine_similarity(a, b) = dot(a, b) / (|a| x |b|), rounded to 4 decimals.",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "x",
+                "label": "{'__other__': 'zip'}",
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           },
           {
             "at": "say2",
-            "caption": "Scores approaching maximum indicate strongly shared similar meaning.",
-            "left": {
-              "code": "unrelated directions",
-              "result": "score near zero",
-              "tone": "error",
-              "checks": [
-                "score near zero"
-              ]
-            },
-            "right": {
-              "code": "similar text embeddings",
-              "result": "score near one",
-              "tone": "ok",
-              "checks": [
-                "score near one"
-              ]
-            }
+            "caption": "The result runs from -1 to 1.",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "x",
+                "label": "{'__other__': 'zip'}",
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "x"
+          },
+          {
+            "at": "say6",
+            "caption": "This single function is the heart of semantic search.",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "x",
+                "label": "{'__other__': 'zip'}",
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "y"
           }
         ]
       }
@@ -491,98 +499,194 @@
       "partTitle": "Ranking documents by meaning",
       "codeHash": "0b00b6d586e38529368bf6a5679910fa25cfd010adb788436d902bdf59ae7980",
       "spec": {
-        "template": "bars",
-        "title": "Query vector similarity ranking across document store",
+        "template": "boxes",
+        "title": "Ranking documents by meaning",
+        "boxes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Semantic search computes similarity against document vectors and sorts them.",
-            "bars": [
-              {
-                "label": "reset password",
-                "value": {
-                  "text": "98"
-                },
-                "tone": "ok"
+            "caption": "Semantic search is now simple.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "label": "two-step login",
-                "value": {
-                  "text": "85"
-                },
-                "tone": "ok"
+              "question": {
+                "var": "question",
+                "line": 13,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "docs": "data",
+              "question": "data",
+              ".0": "data",
+              "x": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Top results show highest relevance while items below cutoff are excluded.",
-            "bars": [
-              {
-                "label": "reset password",
-                "value": {
-                  "text": "98"
-                },
-                "tone": "ok"
+            "caption": "Show the top few results with their scores.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "label": "two-step login",
-                "value": {
-                  "text": "85"
-                },
-                "tone": "ok"
+              "question": {
+                "var": "question",
+                "line": 14,
+                "hit": 5
               },
-              {
-                "label": "refund policy",
-                "value": {
-                  "text": "25"
-                },
-                "tone": "error"
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "docs": "data",
+              "question": "data",
+              ".0": "data",
+              "x": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "In a real app, the document vectors are computed once and stored.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 14,
+                "hit": 5
+              },
+              "question": {
+                "var": "question",
+                "line": 15,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "docs": "ok",
+              "question": "ok",
+              ".0": "ok",
+              "x": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Query vector similarity ranking across document store",
+        "template": "boxes",
+        "title": "Ranking documents by meaning",
+        "boxes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Semantic search computes similarity against document vectors and sorts them.",
-            "bars": [
-              {
-                "label": "reset password",
-                "value": 98,
-                "tone": "ok"
-              },
-              {
-                "label": "two-step login",
-                "value": 85,
-                "tone": "ok"
-              }
-            ]
+            "caption": "Semantic search is now simple.",
+            "values": {
+              "docs": "{'How to reset your password': [0.9, 0.…",
+              "question": "[0.85, 0.2, 0.05]",
+              ".0": "{'__other__': 'zip'}",
+              "x": "0.85"
+            },
+            "tones": {
+              "docs": "data",
+              "question": "data",
+              ".0": "data",
+              "x": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Top results show highest relevance while items below cutoff are excluded.",
-            "bars": [
-              {
-                "label": "reset password",
-                "value": 98,
-                "tone": "ok"
-              },
-              {
-                "label": "two-step login",
-                "value": 85,
-                "tone": "ok"
-              },
-              {
-                "label": "refund policy",
-                "value": 25,
-                "tone": "error"
-              }
-            ]
+            "caption": "Show the top few results with their scores.",
+            "values": {
+              "docs": "{'How to reset your password': [0.9, 0.…",
+              "question": "[0.85, 0.2, 0.05]",
+              ".0": "{'__other__': 'zip'}",
+              "x": "0.2"
+            },
+            "tones": {
+              "docs": "data",
+              "question": "data",
+              ".0": "data",
+              "x": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "In a real app, the document vectors are computed once and stored.",
+            "values": {
+              "docs": "{'How to reset your password': [0.9, 0.…",
+              "question": "[0.85, 0.2, 0.05]",
+              ".0": "{'__other__': 'zip'}",
+              "x": "0.05"
+            },
+            "tones": {
+              "docs": "ok",
+              "question": "ok",
+              ".0": "ok",
+              "x": "ok"
+            }
           }
         ]
       }
@@ -591,158 +695,194 @@
       "partTitle": "Normalising vectors",
       "codeHash": "f13993729e89c67a1b4847fb989bafc1077633604705a4d7a2c8de3346971ad2",
       "spec": {
-        "template": "table",
-        "title": "Unit vector normalization preserving spatial direction",
-        "columns": [
-          "vector_name",
-          "components",
-          "magnitude"
+        "template": "boxes",
+        "title": "Normalising vectors",
+        "boxes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scaling vectors to unit length simplifies cosine calculations to dot product.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "original a"
-                  },
-                  {
-                    "text": "[3, 4]"
-                  },
-                  {
-                    "text": "five"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Trace how vector updates scaled during execution.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "normalised a"
-                  },
-                  {
-                    "text": "[0.6, 0.8]"
-                  },
-                  {
-                    "text": "one"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 7,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "v": "data",
+              "n": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Storing normalised embeddings makes subsequent searches faster and simpler.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "original a"
-                  },
-                  {
-                    "text": "[3, 4]"
-                  },
-                  {
-                    "text": "five"
-                  }
-                ],
-                "tone": "data"
+            "caption": "That is why many systems normalise embeddings when storing them.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "normalised a"
-                  },
-                  {
-                    "text": "[0.6, 0.8]"
-                  },
-                  {
-                    "text": "one"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "normalised b"
-                  },
-                  {
-                    "text": "[0.6, 0.8]"
-                  },
-                  {
-                    "text": "one"
-                  }
-                ],
-                "tone": "ok"
+              "v": {
+                "var": "v",
+                "line": 5,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "v": "data",
+              "n": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Dot product, cosine and Euclidean distance give the same ranking.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 9,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 9,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 5,
+                "hit": 2
+              },
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "v": "ok",
+              "n": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unit vector normalization preserving spatial direction",
-        "columns": [
-          "vector_name",
-          "components",
-          "magnitude"
+        "template": "boxes",
+        "title": "Normalising vectors",
+        "boxes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scaling vectors to unit length simplifies cosine calculations to dot product.",
-            "rows": [
-              {
-                "cells": [
-                  "original a",
-                  "[3, 4]",
-                  "five"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "normalised a",
-                  "[0.6, 0.8]",
-                  "one"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Trace how vector updates scaled during execution.",
+            "values": {
+              "a": "[3, 4]",
+              "b": "[6, 8]",
+              "v": "[3, 4]",
+              "n": "5"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "v": "data",
+              "n": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Storing normalised embeddings makes subsequent searches faster and simpler.",
-            "rows": [
-              {
-                "cells": [
-                  "original a",
-                  "[3, 4]",
-                  "five"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "normalised a",
-                  "[0.6, 0.8]",
-                  "one"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "normalised b",
-                  "[0.6, 0.8]",
-                  "one"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "That is why many systems normalise embeddings when storing them.",
+            "values": {
+              "a": "[3, 4]",
+              "b": "[6, 8]",
+              "v": "[3, 4]",
+              "n": "5"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "v": "data",
+              "n": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Dot product, cosine and Euclidean distance give the same ranking.",
+            "values": {
+              "a": "[3, 4]",
+              "b": "[6, 8]",
+              "v": "[3, 4]",
+              "n": "5"
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "v": "ok",
+              "n": "ok"
+            }
           }
         ]
       }
@@ -752,110 +892,161 @@
       "codeHash": "eb2e9a10cb60b375ed14afa9dc810f0623501cc84934fe11c5d7e542c9f350a3",
       "spec": {
         "template": "flow",
-        "title": "Embeddings in practice — Execution Pipeline",
+        "title": "Embeddings in practice",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "chunks",
+            "label": "chunks"
           },
           {
-            "id": "proc",
-            "label": "2. Embeddings in practice",
-            "tappable": true
+            "id": "items",
+            "label": "items"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "size",
+            "label": "size"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Embeddings in practice [Dseven.Psix.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Embeddings in practice [Dseven.Psix.Stwo].",
+            "caption": "Use the same embedding model for documents and questions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 251
+              },
+              "items": {
+                "var": "items",
+                "line": 2,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "chunks": "data",
+              "items": "data",
+              "size": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "chunks",
+                "items"
               ],
               [
-                "proc",
-                "out"
+                "items",
+                "size"
+              ],
+              [
+                "size",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "If you change embedding models, re-embed every document.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "chunks": {
+                "var": "chunks",
+                "line": 6,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 3,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "chunks": "data",
+              "items": "data",
+              "size": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "chunks",
+                "items"
+              ],
+              [
+                "items",
+                "size"
+              ],
+              [
+                "size",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Embeddings in practice.",
+            "at": "say6",
+            "caption": "Storing and searching millions of vectors quickly with a vector database.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "chunks": {
+                "var": "chunks",
+                "line": 7,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 2,
+                "hit": 2
+              },
+              "size": {
+                "var": "size",
+                "line": 2,
+                "hit": 2
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "chunks": "ok",
+              "items": "ok",
+              "size": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "chunks",
+                "items"
               ],
               [
-                "proc",
-                "out"
+                "items",
+                "size"
+              ],
+              [
+                "size",
+                "i"
               ]
             ]
           }
@@ -863,110 +1054,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Embeddings in practice — Execution Pipeline",
+        "title": "Embeddings in practice",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "chunks",
+            "label": "chunks"
           },
           {
-            "id": "proc",
-            "label": "2. Embeddings in practice",
-            "tappable": true
+            "id": "items",
+            "label": "items"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "size",
+            "label": "size"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Embeddings in practice [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Embeddings in practice [D7.P6.S2].",
+            "caption": "Use the same embedding model for documents and questions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "chunks": "['chunk 1', 'chunk 2', 'chunk 3', 'chun…",
+              "items": "['chunk 1', 'chunk 2', 'chunk 3', 'chun…",
+              "size": "100",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "chunks": "data",
+              "items": "data",
+              "size": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "chunks",
+                "items"
               ],
               [
-                "proc",
-                "out"
+                "items",
+                "size"
+              ],
+              [
+                "size",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
+            "at": "say2",
+            "caption": "If you change embedding models, re-embed every document.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "chunks": "['chunk 1', 'chunk 2', 'chunk 3', 'chun…",
+              "items": "['chunk 1', 'chunk 2', 'chunk 3', 'chun…",
+              "size": "100",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "chunks": "data",
+              "items": "data",
+              "size": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "chunks",
+                "items"
+              ],
+              [
+                "items",
+                "size"
+              ],
+              [
+                "size",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Embeddings in practice [D7.P6.S4].",
+            "at": "say6",
+            "caption": "Storing and searching millions of vectors quickly with a vector database.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "chunks": "['chunk 1', 'chunk 2', 'chunk 3', 'chun…",
+              "items": "['chunk 1', 'chunk 2', 'chunk 3', 'chun…",
+              "size": "100",
+              "i": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "chunks": "ok",
+              "items": "ok",
+              "size": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "chunks",
+                "items"
               ],
               [
-                "proc",
-                "out"
+                "items",
+                "size"
+              ],
+              [
+                "size",
+                "i"
               ]
             ]
           }

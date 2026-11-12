@@ -2,269 +2,387 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 49,
-  "promptSha": "c613f45d6cdb351ce1243ea9cc44497a06aadb0a8ef9c39149bdbbe7112aa1a5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Curation — Foundations & Mathematical Invariants",
-      "codeHash": "813c521f8cb09fe4d4b49864dd78d5efa56252b74c13459646ef9eb1e7a0400d",
+      "partTitle": "Why DPO Replaced Complex Multi-Model PPO RLHF Pipelines",
+      "codeHash": "92bacdba8f8bc410ea1132055c2163befb1ee032755d0d7a22e29c007a4a1c77",
       "spec": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why DPO Replaced Complex Multi-Model PPO RLHF Pipelines",
+        "actors": [
+          "specs",
+          "name",
+          "cfg"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Classic RLHF with Proximal Policy Optimization (PPO) orchestrates **four.",
+            "activeActor": "specs",
+            "messages": [
+              {
+                "from": "specs",
+                "to": "name",
+                "label": {
+                  "var": "specs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "cfg",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "**Direct Preference Optimization (DPO)** eliminates the standalone Reward.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "specs",
+                "to": "name",
+                "label": {
+                  "var": "specs",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "cfg",
+                "label": {
+                  "var": "name",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect compare_rlhf_pipelines() contrasting VRAM footprint, component.",
+            "activeActor": "cfg",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "specs",
+                "to": "name",
+                "label": {
+                  "var": "specs",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "cfg",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why DPO Replaced Complex Multi-Model PPO RLHF Pipelines",
+        "actors": [
+          "specs",
+          "name",
+          "cfg"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Classic RLHF with Proximal Policy Optimization (PPO) orchestrates **four.",
+            "messages": [
+              {
+                "from": "specs",
+                "to": "name",
+                "label": "{'PPO_RLHF': {'active_models': 4, 'onli…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "cfg",
+                "label": "'PPO_RLHF'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "specs"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "**Direct Preference Optimization (DPO)** eliminates the standalone Reward.",
+            "messages": [
+              {
+                "from": "specs",
+                "to": "name",
+                "label": "{'PPO_RLHF': {'active_models': 4, 'onli…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "cfg",
+                "label": "'PPO_RLHF'",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "name"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect compare_rlhf_pipelines() contrasting VRAM footprint, component.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "specs",
+                "to": "name",
+                "label": "{'PPO_RLHF': {'active_models': 4, 'onli…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "from": "name",
+                "to": "cfg",
+                "label": "'DPO'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cfg"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "DPO Implicit Reward Margin and Log-Sigmoid Loss Math",
+      "codeHash": "9ee3b76b0711673029a830c753f9c98fe71be19a3cfde6109eca8dd7f6ff667e",
+      "spec": {
+        "template": "bars",
+        "title": "DPO Implicit Reward Margin and Log-Sigmoid Loss Math",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Look closely inside the exact mathematical engine making DPO click.",
+            "bars": [
+              {
+                "label": "logp_w",
+                "value": {
+                  "var": "logp_w",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "logp_ref_w",
+                "value": {
+                  "var": "logp_ref_w",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "logp_l",
+                "value": {
+                  "var": "logp_l",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "logp_ref_l",
+                "value": {
+                  "var": "logp_ref_l",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Specifically, define implicit reward difference `margin = beta * [(logp_w.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "logp_w",
+                "value": {
+                  "var": "logp_w",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "logp_ref_w",
+                "value": {
+                  "var": "logp_ref_w",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "logp_l",
+                "value": {
+                  "var": "logp_l",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "logp_ref_l",
+                "value": {
+                  "var": "logp_ref_l",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run dpo_loss_and_margin() watching sharp penalty decay cleanly as chosen.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "logp_w",
+                "value": {
+                  "var": "logp_w",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "logp_ref_w",
+                "value": {
+                  "var": "logp_ref_w",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "logp_l",
+                "value": {
+                  "var": "logp_l",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "logp_ref_l",
+                "value": {
+                  "var": "logp_ref_l",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "DPO Implicit Reward Margin and Log-Sigmoid Loss Math",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Look closely inside the exact mathematical engine making DPO click.",
+            "bars": [
+              {
+                "label": "logp_w",
+                "value": -10,
+                "tone": "data"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": -10,
+                "tone": "data"
+              },
+              {
+                "label": "logp_l",
+                "value": -10,
+                "tone": "data"
+              },
+              {
+                "label": "logp_ref_l",
+                "value": -10,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Specifically, define implicit reward difference `margin = beta * [(logp_w.",
+            "bars": [
+              {
+                "label": "logp_w",
+                "value": -10,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": -10,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_l",
+                "value": -10,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_l",
+                "value": -10,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Run dpo_loss_and_margin() watching sharp penalty decay cleanly as chosen.",
+            "bars": [
+              {
+                "label": "logp_w",
+                "value": -10,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": -10,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_l",
+                "value": -10,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_l",
+                "value": -10,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +390,557 @@
       }
     },
     {
-      "partTitle": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Curation — Core Algorithm & State Representation",
-      "codeHash": "87c41a721ab32aff2a8ce6f581dd247dfd15471c0a6c94a970ef5f7d0a317ab1",
+      "partTitle": "Controlling KL Divergence With Beta Against Logit Collapse",
+      "codeHash": "672079ed8337d43ef413edcddb1a59850a89c8c0d58d08fb1105c3b5bbb6dac8",
       "spec": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Controlling KL Divergence With Beta Against Logit Collapse",
+        "actors": [
+          "beta",
+          "avg_margin",
+          "chosen_logp_delta"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tuning hyperparameter **`beta`** sets the elastic leash anchoring.",
+            "activeActor": "beta",
+            "messages": [
+              {
+                "from": "beta",
+                "to": "avg_margin",
+                "label": {
+                  "var": "beta",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "avg_margin",
+                "to": "chosen_logp_delta",
+                "label": {
+                  "var": "avg_margin",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Watch out for DPO's classic failure trap when `beta` drops too small.",
+            "activeActor": "avg_margin",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "beta",
+                "to": "avg_margin",
+                "label": {
+                  "var": "beta",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "avg_margin",
+                "to": "chosen_logp_delta",
+                "label": {
+                  "var": "avg_margin",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run inspect_beta_regime() evaluating healthy moderate constraints against.",
+            "activeActor": "chosen_logp_delta",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "beta",
+                "to": "avg_margin",
+                "label": {
+                  "var": "beta",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "avg_margin",
+                "to": "chosen_logp_delta",
+                "label": {
+                  "var": "avg_margin",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Controlling KL Divergence With Beta Against Logit Collapse",
+        "actors": [
+          "beta",
+          "avg_margin",
+          "chosen_logp_delta"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tuning hyperparameter **`beta`** sets the elastic leash anchoring.",
+            "messages": [
+              {
+                "from": "beta",
+                "to": "avg_margin",
+                "label": "0.01",
+                "tone": "data"
+              },
+              {
+                "from": "avg_margin",
+                "to": "chosen_logp_delta",
+                "label": "2.8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "beta"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Watch out for DPO's classic failure trap when `beta` drops too small.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "beta",
+                "to": "avg_margin",
+                "label": "0.01",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "avg_margin",
+                "to": "chosen_logp_delta",
+                "label": "2.8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "avg_margin"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run inspect_beta_regime() evaluating healthy moderate constraints against.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "beta",
+                "to": "avg_margin",
+                "label": "0.8",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "avg_margin",
+                "to": "chosen_logp_delta",
+                "label": "0.02",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "chosen_logp_delta"
           }
         ]
       }
     },
     {
-      "partTitle": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Curation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "a0d29ff1e21cf8299062251ef88f869442ac8885c95b64a0acd63fa23d0bfe68",
+      "partTitle": "Curating Clean Preference Pairs: Length Bias & Tie Filtering",
+      "codeHash": "fc50de7aff68d01b4bb11dfc7e24851597f97e4f9ca115f1eea3a2297c31b4a7",
       "spec": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
+        "template": "boxes",
+        "title": "Curating Clean Preference Pairs: Length Bias & Tie Filtering",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "samples",
+            "label": "samples"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pair",
+            "label": "pair"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_score_gap",
+            "label": "min_score_gap"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Garbage-in-garbage-out strikes DPO dramatically faster than standard.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 13,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 18,
+                "hit": 1
+              },
+              "pair": {
+                "var": "pair",
+                "line": 2,
+                "hit": 1
+              },
+              "min_score_gap": {
+                "var": "min_score_gap",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "pair": "data",
+              "min_score_gap": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Consider what unfolds silently if your human or judge curators.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "s": {
+                "var": "s",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "pair": {
+                "var": "pair",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_score_gap": {
+                "var": "min_score_gap",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "pair": "data",
+              "min_score_gap": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Trace clean_preference_pair() rejecting noisy ties and bloated padding.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "s": {
+                "var": "s",
+                "line": 18,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "pair": {
+                "var": "pair",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_score_gap": {
+                "var": "min_score_gap",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "pair": "ok",
+              "min_score_gap": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
+        "template": "boxes",
+        "title": "Curating Clean Preference Pairs: Length Bias & Tie Filtering",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "samples",
+            "label": "samples"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pair",
+            "label": "pair"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_score_gap",
+            "label": "min_score_gap"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Garbage-in-garbage-out strikes DPO dramatically faster than standard.",
+            "values": {
+              "samples": "[{'chosen': 'Use keyed upsert to overwr…",
+              "s": "{'chosen': 'Use keyed upsert to overwri…",
+              "pair": "{'chosen': 'Use keyed upsert to overwri…",
+              "min_score_gap": "0.5"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "pair": "data",
+              "min_score_gap": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Consider what unfolds silently if your human or judge curators.",
+            "values": {
+              "samples": "[{'chosen': 'Use keyed upsert to overwr…",
+              "s": "{'chosen': 'Use keyed upsert to overwri…",
+              "pair": "{'chosen': 'Use keyed upsert to overwri…",
+              "min_score_gap": "0.5"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "pair": "data",
+              "min_score_gap": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Trace clean_preference_pair() rejecting noisy ties and bloated padding.",
+            "values": {
+              "samples": "[{'chosen': 'Use keyed upsert to overwr…",
+              "s": "{'chosen': 'Solid step.', 'rejected': '…",
+              "pair": "{'chosen': 'Use keyed upsert to overwri…",
+              "min_score_gap": "0.5"
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "pair": "ok",
+              "min_score_gap": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Curation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "93567bc3ce394d0155c73e1e7b80762be487dbe7126de2e603d46a4a0361ef24",
+      "partTitle": "Tracking Validation Reward Margins and Win-Rate Telemetry",
+      "codeHash": "a57ad623a98c191835bc956817dc2c7878e763906688fc1316709e9597a4e6d6",
       "spec": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
+        "template": "boxes",
+        "title": "Tracking Validation Reward Margins and Win-Rate Telemetry",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "eval_margins",
+            "label": "eval_margins"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "core_bench_before",
+            "label": "core_bench_before"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simply watching training DPO cross-entropy loss tick downward across steps.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 2,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 1
+              },
+              "eval_margins": {
+                "var": "eval_margins",
+                "line": 2,
+                "hit": 7
+              },
+              "core_bench_before": {
+                "var": "core_bench_before",
+                "line": 2,
+                "hit": 7
+              }
+            },
+            "tones": {
+              ".0": "data",
+              "m": "data",
+              "eval_margins": "data",
+              "core_bench_before": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Tracking validation **Reward Accuracy** (`fraction of held-out triplets.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "eval_margins": {
+                "var": "eval_margins",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "core_bench_before": {
+                "var": "core_bench_before",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              ".0": "data",
+              "m": "data",
+              "eval_margins": "data",
+              "core_bench_before": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect summarize_dpo_eval() reporting clean validation accuracy.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "eval_margins": {
+                "var": "eval_margins",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "core_bench_before": {
+                "var": "core_bench_before",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              ".0": "ok",
+              "m": "ok",
+              "eval_margins": "ok",
+              "core_bench_before": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
+        "template": "boxes",
+        "title": "Tracking Validation Reward Margins and Win-Rate Telemetry",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "eval_margins",
+            "label": "eval_margins"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "core_bench_before",
+            "label": "core_bench_before"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Simply watching training DPO cross-entropy loss tick downward across steps.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "m": "0.4",
+              "eval_margins": "[0.4, 0.9, -0.1, 0.7, 0.5]",
+              "core_bench_before": "0.86"
+            },
+            "tones": {
+              ".0": "data",
+              "m": "data",
+              "eval_margins": "data",
+              "core_bench_before": "data"
+            }
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Curation — Production Telemetry & Verification Audit",
-      "codeHash": "b226c1380bbfb5ad9646341bb5e553e1933fda3f5e73f714f2c79ba474574a76",
-      "spec": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Tracking validation **Reward Accuracy** (`fraction of held-out triplets.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "m": "0.9",
+              "eval_margins": "[0.4, 0.9, -0.1, 0.7, 0.5]",
+              "core_bench_before": "0.86"
+            },
+            "tones": {
+              ".0": "data",
+              "m": "data",
+              "eval_margins": "data",
+              "core_bench_before": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Direct Preference Optimization (DPO) Margin Loss & Preference Pair Cur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Inspect summarize_dpo_eval() reporting clean validation accuracy.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "m": "-0.1",
+              "eval_margins": "[0.4, 0.9, -0.1, 0.7, 0.5]",
+              "core_bench_before": "0.86"
+            },
+            "tones": {
+              ".0": "ok",
+              "m": "ok",
+              "eval_margins": "ok",
+              "core_bench_before": "ok"
+            }
           }
         ]
       }

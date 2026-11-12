@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Profiling a step",
       "codeHash": "731e15ae062b5f1f42238e028b8da5be8d3ab1ba42c51f8e8579b152f6ac27aa",
       "spec": {
-        "template": "table",
-        "title": "Phase timeline recording data load forward backward and sync",
-        "columns": [
-          "profile",
-          "total",
-          "phase"
-        ],
+        "template": "bars",
+        "title": "Profiling a step",
         "steps": [
           {
             "at": "say1",
-            "caption": "A profiler records how long each part of a step takes in execution.",
-            "rows": [
+            "caption": "A profiler records how long each part of a step takes.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "profile"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "phase"
-                  }
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "profile"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "phase"
-                  }
-                ],
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 6
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The largest phase is usually the best place to look for improvements.",
-            "rows": [
+            "at": "say2",
+            "caption": "PyTorch Profiler and NVIDIA Nsight Systems produce timelines showing every.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "profile"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "phase"
-                  }
-                ],
-                "tone": "data"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "profile"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "profile"
-                  }
-                ],
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Profiling adds a little overhead of its own, so it is usually switched.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 7
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Phase timeline recording data load forward backward and sync",
-        "columns": [
-          "profile",
-          "total",
-          "phase"
-        ],
+        "template": "bars",
+        "title": "Profiling a step",
         "steps": [
           {
             "at": "say1",
-            "caption": "A profiler records how long each part of a step takes in execution.",
-            "rows": [
+            "caption": "A profiler records how long each part of a step takes.",
+            "bars": [
               {
-                "cells": [
-                  "profile",
-                  "total",
-                  "phase"
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": 500,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "profile",
-                  "total",
-                  "phase"
-                ],
+                "label": "ms",
+                "value": 240,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The largest phase is usually the best place to look for improvements.",
-            "rows": [
+            "at": "say2",
+            "caption": "PyTorch Profiler and NVIDIA Nsight Systems produce timelines showing every.",
+            "bars": [
               {
-                "cells": [
-                  "profile",
-                  "total",
-                  "phase"
-                ],
-                "tone": "data"
+                "label": "total",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "profile",
-                  "total",
-                  "profile"
-                ],
+                "label": "ms",
+                "value": 240,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Profiling adds a little overhead of its own, so it is usually switched.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 120,
                 "tone": "ok"
               }
             ]
@@ -147,135 +145,277 @@
       "partTitle": "Three kinds of bottleneck",
       "codeHash": "604252e9f9bf95149f4c2542dced078aa751b5c56c2f7d56b0349bc8c6c8cd48",
       "spec": {
-        "template": "table",
-        "title": "Bottleneck taxonomy categorizing input communication and compute",
-        "columns": [
-          "data",
-          "compute",
-          "comm"
+        "template": "flow",
+        "title": "Three kinds of bottleneck",
+        "nodes": [
+          {
+            "id": "profile",
+            "label": "profile"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "compute",
+            "label": "compute"
+          },
+          {
+            "id": "comm",
+            "label": "comm"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "An input-bound step spends a large share of its time waiting for data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "profile": {
+                "var": "profile",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  }
-                ],
-                "tone": "data"
+              "data": {
+                "var": "data",
+                "line": 2,
+                "hit": 1
+              },
+              "compute": {
+                "var": "compute",
+                "line": 2,
+                "hit": 1
+              },
+              "comm": {
+                "var": "comm",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "profile": "data",
+              "data": "data",
+              "compute": "data",
+              "comm": "data"
+            },
+            "arrows": [
+              [
+                "profile",
+                "data"
+              ],
+              [
+                "data",
+                "compute"
+              ],
+              [
+                "compute",
+                "comm"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A compute-bound step spends most of its time computing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A communication-bound step spends more time in exposed communication than.",
+            "values": {
+              "profile": {
+                "var": "profile",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
-                "tone": "ok"
+              "data": {
+                "var": "data",
+                "line": 3,
+                "hit": 1
+              },
+              "compute": {
+                "var": "compute",
+                "line": 3,
+                "hit": 1
+              },
+              "comm": {
+                "var": "comm",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "profile": "data",
+              "data": "data",
+              "compute": "data",
+              "comm": "data"
+            },
+            "arrows": [
+              [
+                "profile",
+                "data"
+              ],
+              [
+                "data",
+                "compute"
+              ],
+              [
+                "compute",
+                "comm"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "It also makes conversations between researchers and infrastructure.",
+            "values": {
+              "profile": {
+                "var": "profile",
+                "line": 7,
+                "hit": 2
+              },
+              "data": {
+                "var": "data",
+                "line": 4,
+                "hit": 1
+              },
+              "compute": {
+                "var": "compute",
+                "line": 4,
+                "hit": 1
+              },
+              "comm": {
+                "var": "comm",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "profile": "ok",
+              "data": "ok",
+              "compute": "ok",
+              "comm": "ok"
+            },
+            "arrows": [
+              [
+                "profile",
+                "data"
+              ],
+              [
+                "data",
+                "compute"
+              ],
+              [
+                "compute",
+                "comm"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bottleneck taxonomy categorizing input communication and compute",
-        "columns": [
-          "data",
-          "compute",
-          "comm"
+        "template": "flow",
+        "title": "Three kinds of bottleneck",
+        "nodes": [
+          {
+            "id": "profile",
+            "label": "profile"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "compute",
+            "label": "compute"
+          },
+          {
+            "id": "comm",
+            "label": "comm"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "An input-bound step spends a large share of its time waiting for data.",
-            "rows": [
-              {
-                "cells": [
-                  "data",
-                  "compute",
-                  "comm"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "data",
-                  "compute",
-                  "comm"
-                ],
-                "tone": "data"
-              }
+            "values": {
+              "profile": "[50, 100, 30]",
+              "data": "50",
+              "compute": "100",
+              "comm": "30"
+            },
+            "tones": {
+              "profile": "data",
+              "data": "data",
+              "compute": "data",
+              "comm": "data"
+            },
+            "arrows": [
+              [
+                "profile",
+                "data"
+              ],
+              [
+                "data",
+                "compute"
+              ],
+              [
+                "compute",
+                "comm"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A compute-bound step spends most of its time computing.",
-            "rows": [
-              {
-                "cells": [
-                  "data",
-                  "compute",
-                  "comm"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "data",
-                  "compute",
-                  "data"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A communication-bound step spends more time in exposed communication than.",
+            "values": {
+              "profile": "[50, 100, 30]",
+              "data": "50",
+              "compute": "100",
+              "comm": "30"
+            },
+            "tones": {
+              "profile": "data",
+              "data": "data",
+              "compute": "data",
+              "comm": "data"
+            },
+            "arrows": [
+              [
+                "profile",
+                "data"
+              ],
+              [
+                "data",
+                "compute"
+              ],
+              [
+                "compute",
+                "comm"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "It also makes conversations between researchers and infrastructure.",
+            "values": {
+              "profile": "[10, 100, 150]",
+              "data": "50",
+              "compute": "100",
+              "comm": "30"
+            },
+            "tones": {
+              "profile": "ok",
+              "data": "ok",
+              "compute": "ok",
+              "comm": "ok"
+            },
+            "arrows": [
+              [
+                "profile",
+                "data"
+              ],
+              [
+                "data",
+                "compute"
+              ],
+              [
+                "compute",
+                "comm"
+              ]
             ]
           }
         ]
@@ -285,135 +425,221 @@
       "partTitle": "Fixes for each bottleneck",
       "codeHash": "66df97d21ea45f65e8ad4bc700cc5f60318bad2b0630f5bf2d77d936f458c980",
       "spec": {
-        "template": "table",
-        "title": "Systematic remediation strategies targeted to diagnosed bottleneck",
-        "columns": [
-          "fixes",
-          "kind",
-          "fix"
+        "template": "flow",
+        "title": "Fixes for each bottleneck",
+        "nodes": [
+          {
+            "id": "fixes",
+            "label": "fixes"
+          },
+          {
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "fix",
+            "label": "fix"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "For input-bound pipelines engineers add data loader workers and prefetch.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "kind"
-                  },
-                  {
-                    "text": "fix"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Add data loader workers, prefetch, pre-tokenise and pack data, and cache.",
+            "values": {
+              "fixes": {
+                "var": "fixes",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "kind"
-                  },
-                  {
-                    "text": "fix"
-                  }
-                ],
-                "tone": "data"
+              "kind": {
+                "var": "kind",
+                "line": 4,
+                "hit": 1
+              },
+              "fix": {
+                "var": "fix",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "fixes": "data",
+              "kind": "data",
+              "fix": "data"
+            },
+            "arrows": [
+              [
+                "fixes",
+                "kind"
+              ],
+              [
+                "kind",
+                "fix"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Compute-bound stages benefit from mixed precision and fused kernels.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "kind"
-                  },
-                  {
-                    "text": "fix"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Communication-bound.",
+            "values": {
+              "fixes": {
+                "var": "fixes",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "kind"
-                  },
-                  {
-                    "text": "fixes"
-                  }
-                ],
-                "tone": "ok"
+              "kind": {
+                "var": "kind",
+                "line": 5,
+                "hit": 1
+              },
+              "fix": {
+                "var": "fix",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "fixes": "data",
+              "kind": "data",
+              "fix": "data"
+            },
+            "arrows": [
+              [
+                "fixes",
+                "kind"
+              ],
+              [
+                "kind",
+                "fix"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Most of these fixes cost nothing but a configuration change, so they are.",
+            "values": {
+              "fixes": {
+                "var": "fixes",
+                "line": 5,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 4,
+                "hit": 2
+              },
+              "fix": {
+                "var": "fix",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "fixes": "ok",
+              "kind": "ok",
+              "fix": "ok"
+            },
+            "arrows": [
+              [
+                "fixes",
+                "kind"
+              ],
+              [
+                "kind",
+                "fix"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Systematic remediation strategies targeted to diagnosed bottleneck",
-        "columns": [
-          "fixes",
-          "kind",
-          "fix"
+        "template": "flow",
+        "title": "Fixes for each bottleneck",
+        "nodes": [
+          {
+            "id": "fixes",
+            "label": "fixes"
+          },
+          {
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "fix",
+            "label": "fix"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "For input-bound pipelines engineers add data loader workers and prefetch.",
-            "rows": [
-              {
-                "cells": [
-                  "fixes",
-                  "kind",
-                  "fix"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fixes",
-                  "kind",
-                  "fix"
-                ],
-                "tone": "data"
-              }
+            "caption": "Add data loader workers, prefetch, pre-tokenise and pack data, and cache.",
+            "values": {
+              "fixes": "{'INPUT_BOUND': 'add data loader worker…",
+              "kind": "'INPUT_BOUND'",
+              "fix": "'add data loader workers and prefetch'"
+            },
+            "tones": {
+              "fixes": "data",
+              "kind": "data",
+              "fix": "data"
+            },
+            "arrows": [
+              [
+                "fixes",
+                "kind"
+              ],
+              [
+                "kind",
+                "fix"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Compute-bound stages benefit from mixed precision and fused kernels.",
-            "rows": [
-              {
-                "cells": [
-                  "fixes",
-                  "kind",
-                  "fix"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "fixes",
-                  "kind",
-                  "fixes"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Communication-bound.",
+            "values": {
+              "fixes": "{'INPUT_BOUND': 'add data loader worker…",
+              "kind": "'INPUT_BOUND'",
+              "fix": "'add data loader workers and prefetch'"
+            },
+            "tones": {
+              "fixes": "data",
+              "kind": "data",
+              "fix": "data"
+            },
+            "arrows": [
+              [
+                "fixes",
+                "kind"
+              ],
+              [
+                "kind",
+                "fix"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Most of these fixes cost nothing but a configuration change, so they are.",
+            "values": {
+              "fixes": "{'INPUT_BOUND': 'add data loader worker…",
+              "kind": "'COMM_BOUND'",
+              "fix": "'overlap communication or increase batc…"
+            },
+            "tones": {
+              "fixes": "ok",
+              "kind": "ok",
+              "fix": "ok"
+            },
+            "arrows": [
+              [
+                "fixes",
+                "kind"
+              ],
+              [
+                "kind",
+                "fix"
+              ]
             ]
           }
         ]
@@ -423,134 +649,123 @@
       "partTitle": "Stragglers and variation",
       "codeHash": "68e656e3f1f0e6c1cd88d9baf690613a9e77b271af0fc4901621b4f8f866af02",
       "spec": {
-        "template": "table",
-        "title": "Detecting straggler ranks and cross-worker execution skew",
-        "columns": [
-          "rank_ms",
-          "median",
-          "rank_ms"
-        ],
+        "template": "cells",
+        "title": "Stragglers and variation",
         "steps": [
           {
             "at": "say1",
-            "caption": "In synchronous training the slowest GPU sets the pace of every step.",
-            "rows": [
+            "caption": "In synchronous training, the slowest GPU sets the pace of every step.",
+            "items": {
+              "var": "rank_ms",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "rank_ms"
-                  },
-                  {
-                    "text": "median"
-                  },
-                  {
-                    "text": "rank_ms"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "rank_ms"
-                  },
-                  {
-                    "text": "median"
-                  },
-                  {
-                    "text": "rank_ms"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Removing or replacing a straggler can speed up the whole job noticeably.",
-            "rows": [
+            "at": "say2",
+            "caption": "A straggler may be caused by thermal throttling, a failing component,.",
+            "items": {
+              "var": "rank_ms",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "rank_ms"
-                  },
-                  {
-                    "text": "median"
-                  },
-                  {
-                    "text": "rank_ms"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A GPU that becomes slower over days is often about to fail completely, so.",
+            "items": {
+              "var": "rank_ms",
+              "line": 6,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "rank_ms"
-                  },
-                  {
-                    "text": "median"
-                  },
-                  {
-                    "text": "median"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Detecting straggler ranks and cross-worker execution skew",
-        "columns": [
-          "rank_ms",
-          "median",
-          "rank_ms"
-        ],
+        "template": "cells",
+        "title": "Stragglers and variation",
         "steps": [
           {
             "at": "say1",
-            "caption": "In synchronous training the slowest GPU sets the pace of every step.",
-            "rows": [
+            "caption": "In synchronous training, the slowest GPU sets the pace of every step.",
+            "items": [
+              "402",
+              "398",
+              "401",
+              "399",
+              "400",
+              "455",
+              "403",
+              "397"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "rank_ms",
-                  "median",
-                  "rank_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rank_ms",
-                  "median",
-                  "rank_ms"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Removing or replacing a straggler can speed up the whole job noticeably.",
-            "rows": [
+            "at": "say2",
+            "caption": "A straggler may be caused by thermal throttling, a failing component,.",
+            "items": [
+              "402",
+              "398",
+              "401",
+              "399",
+              "400",
+              "455",
+              "403",
+              "397"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "rank_ms",
-                  "median",
-                  "rank_ms"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A GPU that becomes slower over days is often about to fail completely, so.",
+            "items": [
+              "402",
+              "398",
+              "401",
+              "399",
+              "400",
+              "455",
+              "403",
+              "397"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "rank_ms",
-                  "median",
-                  "median"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -561,224 +776,162 @@
       "partTitle": "A profiling workflow",
       "codeHash": "cd04092c3ccbbeff99b2f5cdcc64d00d2a1b46c6efd2ef781269f2c8116ab7d3",
       "spec": {
-        "template": "flow",
-        "title": "A profiling workflow — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A profiling workflow",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "A profiling workflow",
+        "actors": [
+          "state",
+          "fixes",
+          "it"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A profiling workflow [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A profiling workflow [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Measure throughput and MFU for a baseline.",
+            "activeActor": "state",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": {
+                  "var": "state",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": {
+                  "var": "fixes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Profile a few steps and summarise by phase.",
+            "activeActor": "fixes",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": {
+                  "var": "state",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": {
+                  "var": "fixes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A profiling workflow [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Writing each iteration down, with the measured step time before and after.",
+            "activeActor": "it",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": {
+                  "var": "state",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": {
+                  "var": "fixes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A profiling workflow — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A profiling workflow",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "A profiling workflow",
+        "actors": [
+          "state",
+          "fixes",
+          "it"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A profiling workflow [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A profiling workflow [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Measure throughput and MFU for a baseline.",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": "{'data': 60, 'compute': 200, 'comm': 15…",
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": "{'data': ['prefetch', 0.2], 'comm': ['o…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "state"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Profile a few steps and summarise by phase.",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": "{'data': 60, 'compute': 200, 'comm': 15…",
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": "{'data': ['prefetch', 0.2], 'comm': ['o…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fixes"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A profiling workflow [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Writing each iteration down, with the measured step time before and after.",
+            "messages": [
+              {
+                "from": "state",
+                "to": "fixes",
+                "label": "{'data': 60, 'compute': 200, 'comm': 15…",
+                "tone": "data"
+              },
+              {
+                "from": "fixes",
+                "to": "it",
+                "label": "{'data': ['prefetch', 0.2], 'comm': ['o…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "it"
           }
         ]
       }
@@ -787,223 +940,217 @@
       "partTitle": "Practice time: bottlenecks",
       "codeHash": "e3f5902daadf13812370e3f862d289a0793f5960ae79efbee35d801b90b14da6",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: bottlenecks — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: bott...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: bottlenecks",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: bottlenecks [D.Psix.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: bott... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Top_phase(profile).",
+            "bars": [
+              {
+                "label": "data",
+                "value": {
+                  "var": "data",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compute",
+                "value": {
+                  "var": "compute",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "comm",
+                "value": {
+                  "var": "comm",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a five-phase profile, a tie and an empty profile.",
+            "bars": [
+              {
+                "label": "data",
+                "value": {
+                  "var": "data",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compute",
+                "value": {
+                  "var": "compute",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comm",
+                "value": {
+                  "var": "comm",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: bottlenecks.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Boundaries like this are exactly where real classification code tends.",
+            "bars": [
+              {
+                "label": "data",
+                "value": {
+                  "var": "data",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compute",
+                "value": {
+                  "var": "compute",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comm",
+                "value": {
+                  "var": "comm",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: bottlenecks — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: bott...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: bottlenecks",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: bottlenecks [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: bott... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Top_phase(profile).",
+            "bars": [
+              {
+                "label": "data",
+                "value": 80,
+                "tone": "data"
+              },
+              {
+                "label": "compute",
+                "value": 150,
+                "tone": "data"
+              },
+              {
+                "label": "comm",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 290,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a five-phase profile, a tie and an empty profile.",
+            "bars": [
+              {
+                "label": "data",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "compute",
+                "value": 150,
+                "tone": "ok"
+              },
+              {
+                "label": "comm",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 290,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: bottlenecks [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Boundaries like this are exactly where real classification code tends.",
+            "bars": [
+              {
+                "label": "data",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "compute",
+                "value": 150,
+                "tone": "ok"
+              },
+              {
+                "label": "comm",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 290,
+                "tone": "ok"
+              }
             ]
           }
         ]

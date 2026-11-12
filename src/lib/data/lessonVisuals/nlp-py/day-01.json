@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why text needs cleaning",
       "codeHash": "da576676b17aed7ce60cd41c7ad008a495e338eebf1e1939927a494a98947da0",
       "spec": {
-        "template": "table",
-        "title": "Raw text versus cleaned tokens comparison and frequency counts",
-        "columns": [
-          "raw",
-          "clean"
+        "template": "flow",
+        "title": "Why text needs cleaning",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "clean",
+            "label": "clean"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Natural language processing enables computers to work with human language.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Natural language processing (NLP) is about getting computers to work.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 5,
+                "hit": 1
+              },
+              "clean": {
+                "var": "clean",
+                "line": 5,
+                "hit": 36
               }
+            },
+            "tones": {
+              "text": "data",
+              "ch": "data",
+              "clean": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "ch"
+              ],
+              [
+                "ch",
+                "clean"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Computers see characters so case differences create different words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Computers do not see words.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "idle"
+              "ch": {
+                "var": "ch",
+                "line": 5,
+                "hit": 2
+              },
+              "clean": {
+                "var": "clean",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "ch": "data",
+              "clean": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "ch"
+              ],
+              [
+                "ch",
+                "clean"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Counting words without cleaning treats identical words differently.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Good NLP starts with boring, careful cleaning.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 36
               },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "idle"
+              "ch": {
+                "var": "ch",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "error"
+              "clean": {
+                "var": "clean",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A preprocessing pipeline normalises Unicode, lowercases and splits tokens.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "text": "ok",
+              "ch": "ok",
+              "clean": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "ch"
+              ],
+              [
+                "ch",
+                "clean"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Raw text versus cleaned tokens comparison and frequency counts",
-        "columns": [
-          "raw",
-          "clean"
+        "template": "flow",
+        "title": "Why text needs cleaning",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "clean",
+            "label": "clean"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Natural language processing enables computers to work with human language.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "clean"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Natural language processing (NLP) is about getting computers to work.",
+            "values": {
+              "text": "'The cat sat. THE CAT ran! the cat?'",
+              "ch": "'t'",
+              "clean": "'the cat sat  the cat ran  the cat '"
+            },
+            "tones": {
+              "text": "data",
+              "ch": "data",
+              "clean": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "ch"
+              ],
+              [
+                "ch",
+                "clean"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Computers see characters so case differences create different words.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "clean"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "clean"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Computers do not see words.",
+            "values": {
+              "text": "'The cat sat. THE CAT ran! the cat?'",
+              "ch": "'h'",
+              "clean": "'the cat sat  the cat ran  the cat '"
+            },
+            "tones": {
+              "text": "data",
+              "ch": "data",
+              "clean": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "ch"
+              ],
+              [
+                "ch",
+                "clean"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Counting words without cleaning treats identical words differently.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "clean"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "clean"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "The",
-                  "the"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A preprocessing pipeline normalises Unicode, lowercases and splits tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "clean"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "clean"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "The",
-                  "the"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "text",
-                  "clean"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Good NLP starts with boring, careful cleaning.",
+            "values": {
+              "text": "'The cat sat. THE CAT ran! the cat?'",
+              "ch": "'e'",
+              "clean": "'the cat sat  the cat ran  the cat '"
+            },
+            "tones": {
+              "text": "ok",
+              "ch": "ok",
+              "clean": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "ch"
+              ],
+              [
+                "ch",
+                "clean"
+              ]
             ]
           }
         ]
@@ -261,249 +233,165 @@
       "partTitle": "Unicode and normalisation",
       "codeHash": "3f52209a29fd6c3d65bf9bc668434ecb3593f160e6606f579fd3febe49615e5a",
       "spec": {
-        "template": "table",
-        "title": "Unicode string normalization forms and compatibility decompositions",
-        "columns": [
-          "one",
-          "two"
+        "template": "flow",
+        "title": "Unicode and normalisation",
+        "nodes": [
+          {
+            "id": "one",
+            "label": "one"
+          },
+          {
+            "id": "two",
+            "label": "two"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Modern text in Unicode covers writing systems across languages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Modern text is Unicode, which covers every writing system.",
+            "values": {
+              "one": {
+                "var": "one",
+                "line": 3,
+                "hit": 1
+              },
+              "two": {
+                "var": "two",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "one": "data",
+              "two": "data"
+            },
+            "arrows": [
+              [
+                "one",
+                "two"
+              ]
             ]
           },
           {
             "at": "say2",
             "caption": "The same visible character can be stored in more than one way.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "data"
+            "values": {
+              "one": {
+                "var": "one",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "e"
-                  }
-                ],
-                "tone": "idle"
+              "two": {
+                "var": "two",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "one": "data",
+              "two": "data"
+            },
+            "arrows": [
+              [
+                "one",
+                "two"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unicode normalisation turns text into standard forms like NFC and NFD.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "data"
+            "at": "say7",
+            "caption": "The example shows two strings that look identical but are not equal until.",
+            "values": {
+              "one": {
+                "var": "one",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "e"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "NFC"
-                  },
-                  {
-                    "text": "NFD"
-                  }
-                ],
-                "tone": "ok"
+              "two": {
+                "var": "two",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Compatibility forms replace ligature symbols with plain letters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "e"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "NFC"
-                  },
-                  {
-                    "text": "NFD"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "NFKC"
-                  },
-                  {
-                    "text": "NFKD"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "one": "ok",
+              "two": "ok"
+            },
+            "arrows": [
+              [
+                "one",
+                "two"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unicode string normalization forms and compatibility decompositions",
-        "columns": [
-          "one",
-          "two"
+        "template": "flow",
+        "title": "Unicode and normalisation",
+        "nodes": [
+          {
+            "id": "one",
+            "label": "one"
+          },
+          {
+            "id": "two",
+            "label": "two"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Modern text in Unicode covers writing systems across languages.",
-            "rows": [
-              {
-                "cells": [
-                  "one",
-                  "two"
-                ],
-                "tone": "data"
-              }
+            "caption": "Modern text is Unicode, which covers every writing system.",
+            "values": {
+              "one": "'café'",
+              "two": "'café'"
+            },
+            "tones": {
+              "one": "data",
+              "two": "data"
+            },
+            "arrows": [
+              [
+                "one",
+                "two"
+              ]
             ]
           },
           {
             "at": "say2",
             "caption": "The same visible character can be stored in more than one way.",
-            "rows": [
-              {
-                "cells": [
-                  "one",
-                  "two"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "one",
-                  "e"
-                ],
-                "tone": "idle"
-              }
+            "values": {
+              "one": "'café'",
+              "two": "'café'"
+            },
+            "tones": {
+              "one": "data",
+              "two": "data"
+            },
+            "arrows": [
+              [
+                "one",
+                "two"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unicode normalisation turns text into standard forms like NFC and NFD.",
-            "rows": [
-              {
-                "cells": [
-                  "one",
-                  "two"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "one",
-                  "e"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "NFC",
-                  "NFD"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Compatibility forms replace ligature symbols with plain letters.",
-            "rows": [
-              {
-                "cells": [
-                  "one",
-                  "two"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "one",
-                  "e"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "NFC",
-                  "NFD"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "NFKC",
-                  "NFKD"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example shows two strings that look identical but are not equal until.",
+            "values": {
+              "one": "'café'",
+              "two": "'café'"
+            },
+            "tones": {
+              "one": "ok",
+              "two": "ok"
+            },
+            "arrows": [
+              [
+                "one",
+                "two"
+              ]
             ]
           }
         ]
@@ -513,249 +401,221 @@
       "partTitle": "Removing accents",
       "codeHash": "d9913e6a13742143f0c2d7d658a33d1e7f2d9e610e2c4dee8abb7154d5ed6600",
       "spec": {
-        "template": "table",
-        "title": "Stripping combining accent marks from decomposed NFKD characters",
-        "columns": [
-          "text",
-          "word"
+        "template": "flow",
+        "title": "Removing accents",
+        "nodes": [
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Accents become separate combining characters in NFKD form.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "résumé"
-                  },
-                  {
-                    "text": "resume"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Once text is in NFKD form, accents are separate combining characters.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 17
               }
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "ch"
+              ],
+              [
+                "ch",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Combining marks return non-zero values to filter out.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "résumé"
-                  },
-                  {
-                    "text": "resume"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how unicodedata updates combining during execution.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "strip_accents"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "ok"
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 2
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 25
               }
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "ch"
+              ],
+              [
+                "ch",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Stripping accents shrinks the vocabulary and improves search matching.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "résumé"
-                  },
-                  {
-                    "text": "resume"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example strips accents from a few words and also shows the ligature.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "strip_accents"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "ok"
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "cafe"
-                  },
-                  {
-                    "text": "Café"
-                  }
-                ],
-                "tone": "data"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 37
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "In some languages stripping accents changes word meaning.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "résumé"
-                  },
-                  {
-                    "text": "resume"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "strip_accents"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cafe"
-                  },
-                  {
-                    "text": "Café"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "idle"
-              }
+            },
+            "tones": {
+              "word": "ok",
+              "ch": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "word",
+                "ch"
+              ],
+              [
+                "ch",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stripping combining accent marks from decomposed NFKD characters",
-        "columns": [
-          "text",
-          "word"
+        "template": "flow",
+        "title": "Removing accents",
+        "nodes": [
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Accents become separate combining characters in NFKD form.",
-            "rows": [
-              {
-                "cells": [
-                  "résumé",
-                  "resume"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Once text is in NFKD form, accents are separate combining characters.",
+            "values": {
+              "word": "'Crème Brûlée'",
+              "ch": "'C'",
+              "text": "'Crème Brûlée'"
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "ch"
+              ],
+              [
+                "ch",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Combining marks return non-zero values to filter out.",
-            "rows": [
-              {
-                "cells": [
-                  "résumé",
-                  "resume"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "strip_accents",
-                  "word"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how unicodedata updates combining during execution.",
+            "values": {
+              "word": "'Crème Brûlée'",
+              "ch": "'r'",
+              "text": "'naïve'"
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "ch"
+              ],
+              [
+                "ch",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Stripping accents shrinks the vocabulary and improves search matching.",
-            "rows": [
-              {
-                "cells": [
-                  "résumé",
-                  "resume"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "strip_accents",
-                  "word"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cafe",
-                  "Café"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "In some languages stripping accents changes word meaning.",
-            "rows": [
-              {
-                "cells": [
-                  "résumé",
-                  "resume"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "strip_accents",
-                  "word"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cafe",
-                  "Café"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "word"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "The example strips accents from a few words and also shows the ligature.",
+            "values": {
+              "word": "'naïve'",
+              "ch": "'e'",
+              "text": "'São Paulo'"
+            },
+            "tones": {
+              "word": "ok",
+              "ch": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "word",
+                "ch"
+              ],
+              [
+                "ch",
+                "text"
+              ]
             ]
           }
         ]
@@ -766,51 +626,44 @@
       "codeHash": "d78e14d1ce6cafce40a2a7c0d46a008b7e3d53ef28128656d90cec814c413d8d",
       "spec": {
         "template": "table",
-        "title": "Regex tokenization replacing non-word characters and splitting on spaces",
+        "title": "Tokenising with regular expressions",
         "columns": [
-          "text",
-          "tokens"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tokenisation splits text into distinct word units.",
+            "caption": "Tokenisation splits text into units called tokens, usually words.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "fox"
+                    "text": "text"
                   },
                   {
-                    "text": "tokens"
+                    "var": "text",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A regular expression replaces punctuation characters with spaces.",
+            "caption": "A regular expression does better.",
             "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fox"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
               {
                 "cells": [
                   {
                     "text": "text"
                   },
                   {
-                    "text": "tokens"
+                    "var": "text",
+                    "line": 4,
+                    "hit": 1
                   }
                 ],
                 "tone": "ok"
@@ -818,16 +671,16 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Splitting on whitespace ignores extra spaces and prevents empty tokens.",
+            "at": "say7",
+            "caption": "The example compares naive splitting with the regex approach on a tricky.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "fox"
+                    "text": "out 1"
                   },
                   {
-                    "text": "tokens"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -835,10 +688,10 @@
               {
                 "cells": [
                   {
-                    "text": "text"
+                    "text": "out 2"
                   },
                   {
-                    "text": "tokens"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -846,60 +699,10 @@
               {
                 "cells": [
                   {
-                    "text": "split"
+                    "text": "out 3"
                   },
                   {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Findall returns runs of word characters directly from text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fox"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "split"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "findall"
-                  },
-                  {
-                    "text": "tokens"
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -910,101 +713,60 @@
       },
       "filled": {
         "template": "table",
-        "title": "Regex tokenization replacing non-word characters and splitting on spaces",
+        "title": "Tokenising with regular expressions",
         "columns": [
-          "text",
-          "tokens"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tokenisation splits text into distinct word units.",
+            "caption": "Tokenisation splits text into units called tokens, usually words.",
             "rows": [
               {
                 "cells": [
-                  "fox",
-                  "tokens"
+                  "text",
+                  "\"Hello,world! It's  2026 -- NLP is fun.\""
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A regular expression replaces punctuation characters with spaces.",
+            "caption": "A regular expression does better.",
             "rows": [
               {
                 "cells": [
-                  "fox",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
                   "text",
-                  "tokens"
+                  "\"Hello,world! It's  2026 -- NLP is fun.\""
                 ],
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Splitting on whitespace ignores extra spaces and prevents empty tokens.",
+            "at": "say7",
+            "caption": "The example compares naive splitting with the regex approach on a tricky.",
             "rows": [
               {
                 "cells": [
-                  "fox",
-                  "tokens"
+                  "out 1",
+                  "split():    ['Hello,world!', \"It's\", '2026', '--', 'NLP', 'is', 'fun.']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "text",
-                  "tokens"
+                  "out 2",
+                  "regex sub:  ['hello', 'world', 'it', 's', '2026', 'nlp', 'is', 'fun']"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "split",
-                  "tokens"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Findall returns runs of word characters directly from text.",
-            "rows": [
-              {
-                "cells": [
-                  "fox",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "split",
-                  "tokens"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "findall",
-                  "tokens"
+                  "out 3",
+                  "findall:    ['hello', 'world', 'it', 's', '2026', 'nlp', 'is', 'fun']"
                 ],
                 "tone": "ok"
               }
@@ -1017,223 +779,130 @@
       "partTitle": "Stopwords",
       "codeHash": "1ea673e26a8aea8b4f48d90439423cdaa3f91e8bdf72b2a7453c003ff1be4a9f",
       "spec": {
-        "template": "flow",
-        "title": "Stopwords — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Stopwords",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Stopwords",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Stopwords [Done.Pfive.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Stopwords [Done.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Stopwords are very common words that carry little meaning on their own.",
+            "items": {
+              "var": "tokens",
+              "line": 2,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In a search engine or topic model, they add noise.",
+            "items": {
+              "var": "tokens",
+              "line": 3,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Stopwords [Done.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows a sentence before and after removing stopwords.",
+            "items": {
+              "var": "tokens",
+              "line": 3,
+              "hit": 11
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Stopwords — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Stopwords",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Stopwords",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Stopwords [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Stopwords [D1.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Stopwords are very common words that carry little meaning on their own.",
+            "items": [
+              "'the'",
+              "'price'",
+              "'of'",
+              "'the'",
+              "'house'",
+              "'is'",
+              "'at'",
+              "'a'",
+              "'record'",
+              "'high'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In a search engine or topic model, they add noise.",
+            "items": [
+              "'the'",
+              "'price'",
+              "'of'",
+              "'the'",
+              "'house'",
+              "'is'",
+              "'at'",
+              "'a'",
+              "'record'",
+              "'high'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Stopwords [D1.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows a sentence before and after removing stopwords.",
+            "items": [
+              "'the'",
+              "'price'",
+              "'of'",
+              "'the'",
+              "'house'",
+              "'is'",
+              "'at'",
+              "'a'",
+              "'record'",
+              "'high'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +912,118 @@
       "partTitle": "Practice time: the full pipeline",
       "codeHash": "ae526c604a16d5b0d8eb176fee4c106a60c975fc7f114882ea62d3767f6d9262",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: the full pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: the ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: the full pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: the full pipeline.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: the ... [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Practice 1 puts the steps in order.",
+            "items": {
+              "var": "step4",
+              "line": 8,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how step updates unicodedata during execution.",
+            "items": {
+              "var": "step4",
+              "line": 9,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: the full pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example runs the whole pipeline and prints the result after each step.",
+            "items": {
+              "var": "step4",
+              "line": 11,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: the full pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: the ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: the full pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: the full pipeline [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: the ... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Practice 1 puts the steps in order.",
+            "items": [
+              "'cafe'",
+              "'resume'",
+              "'the'",
+              "'quick'",
+              "'brown'",
+              "'fox'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how step updates unicodedata during execution.",
+            "items": [
+              "'cafe'",
+              "'resume'",
+              "'the'",
+              "'quick'",
+              "'brown'",
+              "'fox'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: the full pipeline [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example runs the whole pipeline and prints the result after each step.",
+            "items": [
+              "'cafe'",
+              "'resume'",
+              "'the'",
+              "'quick'",
+              "'brown'",
+              "'fox'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

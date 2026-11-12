@@ -2,198 +2,228 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tokens in practice",
       "codeHash": "807830659b08cc2e1781ff4a8600e4fa5d9cdc7e6aff9389d05c06f520a618a6",
       "spec": {
-        "template": "table",
-        "title": "Text length character ratios and token estimation heuristics",
-        "columns": [
-          "name",
-          "texts",
-          "tokens"
+        "template": "flow",
+        "title": "Tokens in practice",
+        "nodes": [
+          {
+            "id": "texts",
+            "label": "texts"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tokenization translates natural text into discrete token identifiers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "texts"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Every word you send and receive is converted into tokens.",
+            "values": {
+              "texts": {
+                "var": "texts",
+                "line": 3,
+                "hit": 2
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "texts": "data",
+              "name": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "texts",
+                "name"
+              ],
+              [
+                "name",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Heuristic estimates assume roughly four characters per individual token.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "texts"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Other languages, including many Indian languages, often use more tokens.",
+            "values": {
+              "texts": {
+                "var": "texts",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "short question"
-                  },
-                  {
-                    "text": "What is GST?"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "texts": "data",
+              "name": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "texts",
+                "name"
+              ],
+              [
+                "name",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Token volumes govern context capacity budget limits and execution speed.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "texts"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "Numbers, code and unusual symbols often take more tokens than plain words.",
+            "values": {
+              "texts": {
+                "var": "texts",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "short question"
-                  },
-                  {
-                    "text": "What is GST?"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "texts": "ok",
+              "name": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "texts",
+                "name"
+              ],
+              [
+                "name",
+                "t"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Text length character ratios and token estimation heuristics",
-        "columns": [
-          "name",
-          "texts",
-          "tokens"
+        "template": "flow",
+        "title": "Tokens in practice",
+        "nodes": [
+          {
+            "id": "texts",
+            "label": "texts"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tokenization translates natural text into discrete token identifiers.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "texts",
-                  "tokens"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Every word you send and receive is converted into tokens.",
+            "values": {
+              "texts": "{'short question': 'What is GST?', 'ema…",
+              "name": "'short question'",
+              "t": "'What is GST?'"
+            },
+            "tones": {
+              "texts": "data",
+              "name": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "texts",
+                "name"
+              ],
+              [
+                "name",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Heuristic estimates assume roughly four characters per individual token.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "texts",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "short question",
-                  "What is GST?",
-                  "tokens"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Other languages, including many Indian languages, often use more tokens.",
+            "values": {
+              "texts": "{'short question': 'What is GST?', 'ema…",
+              "name": "'short question'",
+              "t": "'What is GST?'"
+            },
+            "tones": {
+              "texts": "data",
+              "name": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "texts",
+                "name"
+              ],
+              [
+                "name",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Token volumes govern context capacity budget limits and execution speed.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "texts",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "short question",
-                  "What is GST?",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "email",
-                  "tokens"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "Numbers, code and unusual symbols often take more tokens than plain words.",
+            "values": {
+              "texts": "{'short question': 'What is GST?', 'ema…",
+              "name": "'email'",
+              "t": "'Hi team, please find the Q3 update att…"
+            },
+            "tones": {
+              "texts": "ok",
+              "name": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "texts",
+                "name"
+              ],
+              [
+                "name",
+                "t"
+              ]
             ]
           }
         ]
@@ -203,131 +233,77 @@
       "partTitle": "The context window",
       "codeHash": "834258f381717636508763fda62d7177f1e5fe57f16aab1e8fbbcbf0c7eefce1",
       "spec": {
-        "template": "table",
-        "title": "Context window allocation and reserve output headroom",
-        "columns": [
-          "system",
-          "document",
-          "total",
-          "window"
-        ],
+        "template": "bars",
+        "title": "The context window",
         "steps": [
           {
             "at": "say1",
-            "caption": "Context window boundaries bound the aggregate tokens a model processes.",
-            "rows": [
+            "caption": "The context window is the maximum number of tokens a model can consider.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "document"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Modern models have windows from tens of thousands to over a million.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompt budgeting reserves sufficient token headroom for the generated reply.",
-            "rows": [
+            "at": "say8",
+            "caption": "Very long prompts can also suffer from the lost-in-the-middle effect.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "document"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "document"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "8000"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Prompt budget checks confirm whether required output allocations fit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "document"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "document"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "8000"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "document"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "128000"
-                  }
-                ],
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -335,83 +311,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Context window allocation and reserve output headroom",
-        "columns": [
-          "system",
-          "document",
-          "total",
-          "window"
-        ],
+        "template": "bars",
+        "title": "The context window",
         "steps": [
           {
             "at": "say1",
-            "caption": "Context window boundaries bound the aggregate tokens a model processes.",
-            "rows": [
+            "caption": "The context window is the maximum number of tokens a model can consider.",
+            "bars": [
               {
-                "cells": [
-                  "system",
-                  "document",
-                  "total",
-                  "window"
-                ],
+                "label": "total",
+                "value": 9013,
+                "tone": "data"
+              },
+              {
+                "label": "window",
+                "value": 8000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Modern models have windows from tens of thousands to over a million.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 9013,
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": 8000,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompt budgeting reserves sufficient token headroom for the generated reply.",
-            "rows": [
+            "at": "say8",
+            "caption": "Very long prompts can also suffer from the lost-in-the-middle effect.",
+            "bars": [
               {
-                "cells": [
-                  "system",
-                  "document",
-                  "total",
-                  "window"
-                ],
+                "label": "total",
+                "value": 9013,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "system",
-                  "document",
-                  "total",
-                  "8000"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Prompt budget checks confirm whether required output allocations fit.",
-            "rows": [
-              {
-                "cells": [
-                  "system",
-                  "document",
-                  "total",
-                  "window"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "system",
-                  "document",
-                  "total",
-                  "8000"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "system",
-                  "document",
-                  "total",
-                  "128000"
-                ],
+                "label": "window",
+                "value": 8000,
                 "tone": "ok"
               }
             ]
@@ -423,150 +369,131 @@
       "partTitle": "What AI costs",
       "codeHash": "bf613cce03219332f79fa8a03d99238fa1464a27e9f4a540763bef995a590dda",
       "spec": {
-        "template": "table",
-        "title": "API token pricing tier expenses across input and output calls",
-        "columns": [
-          "calls",
-          "tin",
-          "tout",
-          "pin",
-          "pout"
-        ],
+        "template": "bars",
+        "title": "What AI costs",
         "steps": [
           {
             "at": "say1",
-            "caption": "Model providers bill separately for prompt input and generated output tokens.",
-            "rows": [
+            "caption": "AI services charge per token, with separate prices for input (what you.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "tin"
-                  },
-                  {
-                    "text": "tout"
-                  },
-                  {
-                    "text": "pin"
-                  },
-                  {
-                    "text": "pout"
-                  }
-                ],
+                "label": "pin",
+                "value": {
+                  "var": "pin",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pout",
+                "value": {
+                  "var": "pout",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tin",
+                "value": {
+                  "var": "tin",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Prices are typically quoted per million tokens, for example $3 per million.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": {
+                  "var": "pin",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pout",
+                "value": {
+                  "var": "pout",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tin",
+                "value": {
+                  "var": "tin",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cumulative call expenses scale with input token volume and token pricing.",
-            "rows": [
+            "at": "say8",
+            "caption": "Many providers also discount repeated prompt prefixes through caching.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "tin"
-                  },
-                  {
-                    "text": "tout"
-                  },
-                  {
-                    "text": "pin"
-                  },
-                  {
-                    "text": "pout"
-                  }
-                ],
+                "label": "pin",
+                "value": {
+                  "var": "pin",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "20_000"
-                  },
-                  {
-                    "text": "1200"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "3.0"
-                  },
-                  {
-                    "text": "15.0"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Optimizing system prompt length yields substantial cost savings at scale.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "tin"
-                  },
-                  {
-                    "text": "tout"
-                  },
-                  {
-                    "text": "pin"
-                  },
-                  {
-                    "text": "pout"
-                  }
-                ],
+                "label": "pout",
+                "value": {
+                  "var": "pout",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "20_000"
-                  },
-                  {
-                    "text": "1200"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "3.0"
-                  },
-                  {
-                    "text": "15.0"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "20_000"
-                  },
-                  {
-                    "text": "1200"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "0.15"
-                  },
-                  {
-                    "text": "0.6"
-                  }
-                ],
+                "label": "tin",
+                "value": {
+                  "var": "tin",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -574,90 +501,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "API token pricing tier expenses across input and output calls",
-        "columns": [
-          "calls",
-          "tin",
-          "tout",
-          "pin",
-          "pout"
-        ],
+        "template": "bars",
+        "title": "What AI costs",
         "steps": [
           {
             "at": "say1",
-            "caption": "Model providers bill separately for prompt input and generated output tokens.",
-            "rows": [
+            "caption": "AI services charge per token, with separate prices for input (what you.",
+            "bars": [
               {
-                "cells": [
-                  "calls",
-                  "tin",
-                  "tout",
-                  "pin",
-                  "pout"
-                ],
+                "label": "pin",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "pout",
+                "value": 15,
+                "tone": "data"
+              },
+              {
+                "label": "calls",
+                "value": 20000,
+                "tone": "data"
+              },
+              {
+                "label": "tin",
+                "value": 1200,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Prices are typically quoted per million tokens, for example $3 per million.",
+            "bars": [
+              {
+                "label": "pin",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "pout",
+                "value": 15,
+                "tone": "ok"
+              },
+              {
+                "label": "calls",
+                "value": 20000,
+                "tone": "ok"
+              },
+              {
+                "label": "tin",
+                "value": 1200,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cumulative call expenses scale with input token volume and token pricing.",
-            "rows": [
+            "at": "say8",
+            "caption": "Many providers also discount repeated prompt prefixes through caching.",
+            "bars": [
               {
-                "cells": [
-                  "calls",
-                  "tin",
-                  "tout",
-                  "pin",
-                  "pout"
-                ],
+                "label": "pin",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "20_000",
-                  "1200",
-                  "300",
-                  "3.0",
-                  "15.0"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Optimizing system prompt length yields substantial cost savings at scale.",
-            "rows": [
-              {
-                "cells": [
-                  "calls",
-                  "tin",
-                  "tout",
-                  "pin",
-                  "pout"
-                ],
+                "label": "pout",
+                "value": 15,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "20_000",
-                  "1200",
-                  "300",
-                  "3.0",
-                  "15.0"
-                ],
+                "label": "calls",
+                "value": 20000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "20_000",
-                  "1200",
-                  "300",
-                  "0.15",
-                  "0.6"
-                ],
+                "label": "tin",
+                "value": 1200,
                 "tone": "ok"
               }
             ]
@@ -669,190 +589,132 @@
       "partTitle": "Trimming prompts",
       "codeHash": "b597a988388ba240638e443b21b6945997a4faaee1aee0eb22506dc5045e5ab0",
       "spec": {
-        "template": "table",
-        "title": "Prompt trimming and verbose token elimination savings",
-        "columns": [
-          "before",
-          "after",
-          "saved"
-        ],
+        "template": "bars",
+        "title": "Trimming prompts",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pruning verbose filler and repetitive instructions improves prompt quality.",
-            "rows": [
+            "caption": "Long prompts are not automatically better.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "saved"
-                  }
-                ],
-                "tone": "ok"
+                "label": "saved",
+                "value": {
+                  "var": "saved",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Targeting concise output specifications lowers overall token expenditure.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep examples short but representative.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "saved"
-                  }
-                ],
+                "label": "saved",
+                "value": {
+                  "var": "saved",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "saved"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Systematic token measurements guide iterative engineering optimization.",
-            "rows": [
+            "caption": "Treat token efficiency like any other engineering optimisation.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "saved"
-                  }
-                ],
+                "label": "saved",
+                "value": {
+                  "var": "saved",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "saved"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "saved"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Prompt trimming and verbose token elimination savings",
-        "columns": [
-          "before",
-          "after",
-          "saved"
-        ],
+        "template": "bars",
+        "title": "Trimming prompts",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pruning verbose filler and repetitive instructions improves prompt quality.",
-            "rows": [
+            "caption": "Long prompts are not automatically better.",
+            "bars": [
               {
-                "cells": [
-                  "before",
-                  "after",
-                  "saved"
-                ],
-                "tone": "ok"
+                "label": "saved",
+                "value": 108,
+                "tone": "data"
+              },
+              {
+                "label": "calls",
+                "value": 1000000,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Targeting concise output specifications lowers overall token expenditure.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep examples short but representative.",
+            "bars": [
               {
-                "cells": [
-                  "before",
-                  "after",
-                  "saved"
-                ],
+                "label": "saved",
+                "value": 108,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "before",
-                  "after",
-                  "saved"
-                ],
+                "label": "calls",
+                "value": 1000000,
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Systematic token measurements guide iterative engineering optimization.",
-            "rows": [
+            "caption": "Treat token efficiency like any other engineering optimisation.",
+            "bars": [
               {
-                "cells": [
-                  "before",
-                  "after",
-                  "saved"
-                ],
+                "label": "saved",
+                "value": 108,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "before",
-                  "after",
-                  "saved"
-                ],
+                "label": "calls",
+                "value": 1000000,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "before",
-                  "after",
-                  "saved"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -863,224 +725,162 @@
       "partTitle": "Putting the week together",
       "codeHash": "4b1123a57efbbaead4bc17da1c0f93ddc03bc9648ab456523ea47dc4dc71c3fc",
       "spec": {
-        "template": "flow",
-        "title": "Putting the week together — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting the week to...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Putting the week together",
+        "actors": [
+          "role",
+          "examples",
+          "question"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting the week together [Dfive.Pfive.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting the week to... [Dfive.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A strong prompt for a real task often combines everything so far.",
+            "activeActor": "role",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": {
+                  "var": "role",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": {
+                  "var": "examples",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Each addition improves quality but costs tokens, so include what the task.",
+            "activeActor": "examples",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": {
+                  "var": "role",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": {
+                  "var": "examples",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting the week together.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "This build, budget, send, extract and validate loop is the pattern for.",
+            "activeActor": "question",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": {
+                  "var": "role",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": {
+                  "var": "examples",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting the week together — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting the week to...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Putting the week together",
+        "actors": [
+          "role",
+          "examples",
+          "question"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting the week together [D5.P5.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting the week to... [D5.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A strong prompt for a real task often combines everything so far.",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": "'You are a patient maths tutor for clas…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": "'Q: 3 pens at 5 each? Steps: 3 x 5 = 15…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "role"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Each addition improves quality but costs tokens, so include what the task.",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": "'You are a patient maths tutor for clas…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": "'Q: 3 pens at 5 each? Steps: 3 x 5 = 15…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "examples"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting the week together [D5.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "This build, budget, send, extract and validate loop is the pattern for.",
+            "messages": [
+              {
+                "from": "role",
+                "to": "examples",
+                "label": "'You are a patient maths tutor for clas…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "question",
+                "label": "'Q: 3 pens at 5 each? Steps: 3 x 5 = 15…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "question"
           }
         ]
       }
@@ -1090,110 +890,161 @@
       "codeHash": "bc2872e8d1003e72d916b8da5c8faf56015b36e851c2e1478c5d1cf0ae090460",
       "spec": {
         "template": "flow",
-        "title": "Milestone practice: budget and cost — Execution Pipeline",
+        "title": "Milestone practice: budget and cost",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "system",
+            "label": "system"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "u",
+            "label": "u"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: budget and cost.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [Dfive.Psix.Stwo].",
+            "caption": "Prompt_budget(system, user, max_context, reserve_output).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "system": {
+                "var": "system",
+                "line": 3,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
+              },
+              "u": {
+                "var": "u",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "system": "data",
+              "user": "data",
+              "s": "data",
+              "u": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "system",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "s"
+              ],
+              [
+                "s",
+                "u"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include a comfortable fit, an overflow with a negative.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "system": {
+                "var": "system",
+                "line": 4,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 1
+              },
+              "u": {
+                "var": "u",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "system": "data",
+              "user": "data",
+              "s": "data",
+              "u": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "system",
+                "user"
+              ],
+              [
+                "user",
+                "s"
+              ],
+              [
+                "s",
+                "u"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: budget and cost.",
+            "at": "say7",
+            "caption": "The example prints a budget report for a planned feature.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "system": {
+                "var": "system",
+                "line": 5,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 5,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
+              },
+              "u": {
+                "var": "u",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "system": "ok",
+              "user": "ok",
+              "s": "ok",
+              "u": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "system",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "s"
+              ],
+              [
+                "s",
+                "u"
               ]
             ]
           }
@@ -1201,110 +1052,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone practice: budget and cost — Execution Pipeline",
+        "title": "Milestone practice: budget and cost",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "system",
+            "label": "system"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "u",
+            "label": "u"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: budget and cost [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D5.P6.S2].",
+            "caption": "Prompt_budget(system, user, max_context, reserve_output).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "system": "'You are a helpful HR assistant.You are…",
+              "user": "'Summarise the leave policy for new joi…",
+              "s": "24",
+              "u": "22"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "system": "data",
+              "user": "data",
+              "s": "data",
+              "u": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "system",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "s"
+              ],
+              [
+                "s",
+                "u"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include a comfortable fit, an overflow with a negative.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "system": "'You are a helpful HR assistant.You are…",
+              "user": "'Summarise the leave policy for new joi…",
+              "s": "24",
+              "u": "22"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "system": "data",
+              "user": "data",
+              "s": "data",
+              "u": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "system",
+                "user"
+              ],
+              [
+                "user",
+                "s"
+              ],
+              [
+                "s",
+                "u"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: budget and cost [D5.P6.S4].",
+            "at": "say7",
+            "caption": "The example prints a budget report for a planned feature.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "system": "'You are a helpful HR assistant.You are…",
+              "user": "'Summarise the leave policy for new joi…",
+              "s": "24",
+              "u": "22"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "system": "ok",
+              "user": "ok",
+              "s": "ok",
+              "u": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "system",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "s"
+              ],
+              [
+                "s",
+                "u"
               ]
             ]
           }

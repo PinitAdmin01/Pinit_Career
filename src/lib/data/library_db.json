@@ -80,9 +80,29 @@
       "copies": 1,
       "available": 0,
       "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1794464189599",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
     }
   ],
   "borrowed": [
+    {
+      "id": "BOR-1794464189604-3CE0AE",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1794464189599",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-11-12T06:16:29.604Z",
+      "dueOn": "2026-11-26T06:16:29.604Z",
+      "returned": false,
+      "fine": 0
+    },
     {
       "id": "BOR-1789725979840-12DBB6",
       "studentId": "stu_lib_1",

@@ -2,1334 +2,940 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 51,
-  "promptSha": "5b80e6bb0f6f828e38906d2a757be4aaed0be445edefb2f2cb66f80e1d4eb986",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Distributed Rate Limiting — Foundations & Mathematical Invariants",
-      "codeHash": "2c298c01b55a64870f7b10cc908b9d04316d3a0359f08458bab5745a5d8ac009",
+      "partTitle": "Fixed Window Boundary Bursts vs Sliding Window Log Precision",
+      "codeHash": "2fa7c50e2c321de437427f0b9d84bbfd71787cf7b2f4c9dec881ecc5b9e72bc5",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fixed Window Boundary Bursts vs Sliding Window Log Precision",
+        "actors": [
+          "self",
+          "limit",
+          "window_ms"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Edge API gateways protect backend clusters from abusive scrapers, infinite.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "limit",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "limit",
+                "to": "window_ms",
+                "label": {
+                  "var": "limit",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Consider a naive **Fixed Window Counter** allowing 100 requests per clock.",
+            "activeActor": "limit",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "limit",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "limit",
+                "to": "window_ms",
+                "label": {
+                  "var": "limit",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Compare exact Fixed Window seam overshoot vs Sliding Window Log.",
+            "activeActor": "window_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "limit",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "limit",
+                "to": "window_ms",
+                "label": {
+                  "var": "limit",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fixed Window Boundary Bursts vs Sliding Window Log Precision",
+        "actors": [
+          "self",
+          "limit",
+          "window_ms"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Edge API gateways protect backend clusters from abusive scrapers, infinite.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "limit",
+                "label": "<SlidingWindowLog>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "limit",
+                "to": "window_ms",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Consider a naive **Fixed Window Counter** allowing 100 requests per clock.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "limit",
+                "label": "<SlidingWindowLog>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "limit",
+                "to": "window_ms",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "limit"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Compare exact Fixed Window seam overshoot vs Sliding Window Log.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "limit",
+                "label": "<SlidingWindowLog>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "limit",
+                "to": "window_ms",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "window_ms"
           }
         ]
       }
     },
     {
-      "partTitle": "Distributed Rate Limiting — Core Algorithm & State Representation",
-      "codeHash": "4ac8abc9eee2de4d789d2b37791e8d989e42823a5a65dd5aa32862d4e9792b17",
+      "partTitle": "Atomic Read-Compute-Write via Redis Lua Scripts & Race Prevention",
+      "codeHash": "e708b96cdc2528ca9ff69b8d4883125d8e7df53aa494499dfa895b3357622c3b",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Atomic Read-Compute-Write via Redis Lua Scripts & Race Preventio",
+        "actors": [
+          "self",
+          "capacity",
+          "refill_per_sec"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Now lift rate limiting out of one Python worker RAM dictionary onto.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Watch the catastrophic distributed race condition if gateway pods perform.",
+            "activeActor": "capacity",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Simulate an atomic Lua-style Token Bucket checking concurrent refills.",
+            "activeActor": "refill_per_sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Atomic Read-Compute-Write via Redis Lua Scripts & Race Preventio",
+        "actors": [
+          "self",
+          "capacity",
+          "refill_per_sec"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Now lift rate limiting out of one Python worker RAM dictionary onto.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "capacity",
+                "label": "<AtomicTokenBucketStore>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Watch the catastrophic distributed race condition if gateway pods perform.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "capacity",
+                "label": "<AtomicTokenBucketStore>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "capacity"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Simulate an atomic Lua-style Token Bucket checking concurrent refills.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "capacity",
+                "label": "<AtomicTokenBucketStore>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "refill_per_sec"
           }
         ]
       }
     },
     {
-      "partTitle": "Distributed Rate Limiting — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "4f55d63409f3955f66cf0b9dca9d9e4cb5695f631b21e137d55e6d1b773f44ea",
+      "partTitle": "Redis Cluster Hash Tags & Distributed Quota Contention",
+      "codeHash": "8ab4c3ca654a24cf1e1e751cbaec9d17405767c17d72519b36d547185ec0e065",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Redis Cluster Hash Tags & Distributed Quota Contention",
+        "actors": [
+          "k1",
+          "k2",
+          "bad1"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying our rate limiter onto multi-shard **Redis Cluster** introduces.",
+            "activeActor": "k1",
+            "messages": [
+              {
+                "from": "k1",
+                "to": "k2",
+                "label": {
+                  "var": "k1",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k2",
+                "to": "bad1",
+                "label": {
+                  "var": "k2",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If a hierarchical tenant needs both a burst bucket key (`limit:u1:burst`).",
+            "activeActor": "k2",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "k1",
+                "to": "k2",
+                "label": {
+                  "var": "k1",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "k2",
+                "to": "bad1",
+                "label": {
+                  "var": "k2",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Demonstrate CRC16-style hash-tag slot alignment AND pod-local batch token.",
+            "activeActor": "bad1",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "k1",
+                "to": "k2",
+                "label": {
+                  "var": "k1",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "k2",
+                "to": "bad1",
+                "label": {
+                  "var": "k2",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Redis Cluster Hash Tags & Distributed Quota Contention",
+        "actors": [
+          "k1",
+          "k2",
+          "bad1"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying our rate limiter onto multi-shard **Redis Cluster** introduces.",
+            "messages": [
+              {
+                "from": "k1",
+                "to": "k2",
+                "label": "'rate:{tenant42}:burst'",
+                "tone": "data"
+              },
+              {
+                "from": "k2",
+                "to": "bad1",
+                "label": "'rate:{tenant42}:daily'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "k1"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If a hierarchical tenant needs both a burst bucket key (`limit:u1:burst`).",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "k1",
+                "to": "k2",
+                "label": "'rate:{tenant42}:burst'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "k2",
+                "to": "bad1",
+                "label": "'rate:{tenant42}:daily'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "k2"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Demonstrate CRC16-style hash-tag slot alignment AND pod-local batch token.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "k1",
+                "to": "k2",
+                "label": "'rate:{tenant42}:burst'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "k2",
+                "to": "bad1",
+                "label": "'rate:{tenant42}:daily'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "bad1"
           }
         ]
       }
     },
     {
-      "partTitle": "Distributed Rate Limiting — Resilience Guardrails & Failure Recovery",
-      "codeHash": "31ef652c5a6dab4ababf7401d0212315ca5f2a85d412ab6d9a6051bdbae788dd",
+      "partTitle": "Fail-Open vs Fail-Closed Under Redis Dependency Outages",
+      "codeHash": "d19dcb5203e199e76706b8f12d9d08a3f56bfb36669316203f8f34b92aa0c1d0",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fail-Open vs Fail-Closed Under Redis Dependency Outages",
+        "actors": [
+          "tier",
+          "redis_up",
+          "endpoint_tier"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "What happens to production API availability if the Redis cluster storing.",
+            "activeActor": "tier",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tier",
+                "to": "redis_up",
+                "label": {
+                  "var": "tier",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "redis_up",
+                "to": "endpoint_tier",
+                "label": {
+                  "var": "redis_up",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Never hang live customer API requests waiting seconds for rate-limiter.",
+            "activeActor": "redis_up",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tier",
+                "to": "redis_up",
+                "label": {
+                  "var": "tier",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "redis_up",
+                "to": "endpoint_tier",
+                "label": {
+                  "var": "redis_up",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Implement fail-open local-degraded vs fail-closed emergency policies.",
+            "activeActor": "endpoint_tier",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tier",
+                "to": "redis_up",
+                "label": {
+                  "var": "tier",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "redis_up",
+                "to": "endpoint_tier",
+                "label": {
+                  "var": "redis_up",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Rate Limiting — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fail-Open vs Fail-Closed Under Redis Dependency Outages",
+        "actors": [
+          "tier",
+          "redis_up",
+          "endpoint_tier"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "What happens to production API availability if the Redis cluster storing.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tier",
+                "to": "redis_up",
+                "label": "'STANDARD_API'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "redis_up",
+                "to": "endpoint_tier",
+                "label": "False",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tier"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Never hang live customer API requests waiting seconds for rate-limiter.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tier",
+                "to": "redis_up",
+                "label": "'STANDARD_API'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "redis_up",
+                "to": "endpoint_tier",
+                "label": "False",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "redis_up"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Implement fail-open local-degraded vs fail-closed emergency policies.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tier",
+                "to": "redis_up",
+                "label": "'EXPENSIVE_OTP_OR_LOGIN'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "redis_up",
+                "to": "endpoint_tier",
+                "label": "False",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "endpoint_tier"
           }
         ]
       }
     },
     {
-      "partTitle": "Distributed Rate Limiting — Production Telemetry & Verification Audit",
-      "codeHash": "a45539a8299fdb6e02c85c2b23517c8deceb2f0fb2f07c0b4b557fc6da63734b",
+      "partTitle": "End-to-End Burst Absorption & Fairness Verification",
+      "codeHash": "0f649cb3cdf8db1ae4fe2b987a74370659478b597aec445c633d923b2859b8f3",
       "spec": {
         "template": "flow",
-        "title": "Distributed Rate Limiting — Production Telemetry & Verification Audit",
+        "title": "End-to-End Burst Absorption & Fairness Verification",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sw",
+            "label": "sw"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tenant",
+            "label": "tenant"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "t_ms",
+            "label": "t_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "limit",
+            "label": "limit"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Validate your rate limiter against three realistic traffic spikes together.",
+            "values": {
+              "sw": {
+                "var": "sw",
+                "line": 4,
+                "hit": 1
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 6,
+                "hit": 1
+              },
+              "t_ms": {
+                "var": "t_ms",
+                "line": 6,
+                "hit": 1
+              },
+              "limit": {
+                "var": "limit",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sw": "data",
+              "tenant": "data",
+              "t_ms": "data",
+              "limit": "data"
+            },
+            "arrows": [
+              [
+                "sw",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "t_ms"
+              ],
+              [
+                "t_ms",
+                "limit"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Measure exact fairness metrics explicitly.",
+            "values": {
+              "sw": {
+                "var": "sw",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tenant": {
+                "var": "tenant",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "t_ms": {
+                "var": "t_ms",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "limit": {
+                "var": "limit",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sw": "data",
+              "tenant": "data",
+              "t_ms": "data",
+              "limit": "data"
+            },
+            "arrows": [
+              [
+                "sw",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "t_ms"
+              ],
+              [
+                "t_ms",
+                "limit"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say3",
+            "caption": "Run the multi-tenant isolation & Retry-After simulation audit below.",
+            "values": {
+              "sw": {
+                "var": "sw",
+                "line": 11,
+                "hit": 8
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tenant": {
+                "var": "tenant",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "t_ms": {
+                "var": "t_ms",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "limit": {
+                "var": "limit",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "sw": "ok",
+              "tenant": "ok",
+              "t_ms": "ok",
+              "limit": "ok"
+            },
+            "arrows": [
+              [
+                "sw",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "t_ms"
+              ],
+              [
+                "t_ms",
+                "limit"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Rate Limiting — Production Telemetry & Verification Audit",
+        "title": "End-to-End Burst Absorption & Fairness Verification",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sw",
+            "label": "sw"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tenant",
+            "label": "tenant"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "t_ms",
+            "label": "t_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "limit",
+            "label": "limit"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Validate your rate limiter against three realistic traffic spikes together.",
+            "values": {
+              "sw": "{}",
+              "tenant": "'noisy_B'",
+              "t_ms": "10",
+              "limit": "3"
+            },
+            "tones": {
+              "sw": "data",
+              "tenant": "data",
+              "t_ms": "data",
+              "limit": "data"
+            },
+            "arrows": [
+              [
+                "sw",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "t_ms"
+              ],
+              [
+                "t_ms",
+                "limit"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Measure exact fairness metrics explicitly.",
+            "values": {
+              "sw": "{}",
+              "tenant": "'noisy_B'",
+              "t_ms": "10",
+              "limit": "3"
+            },
+            "tones": {
+              "sw": "data",
+              "tenant": "data",
+              "t_ms": "data",
+              "limit": "data"
+            },
+            "arrows": [
+              [
+                "sw",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "t_ms"
+              ],
+              [
+                "t_ms",
+                "limit"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say3",
+            "caption": "Run the multi-tenant isolation & Retry-After simulation audit below.",
+            "values": {
+              "sw": "{'noisy_B': {'__other__': 'deque'}}",
+              "tenant": "'noisy_B'",
+              "t_ms": "10",
+              "limit": "3"
+            },
+            "tones": {
+              "sw": "ok",
+              "tenant": "ok",
+              "t_ms": "ok",
+              "limit": "ok"
+            },
+            "arrows": [
+              [
+                "sw",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "t_ms"
+              ],
+              [
+                "t_ms",
+                "limit"
+              ]
             ]
           }
         ]

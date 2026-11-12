@@ -2,231 +2,79 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why keep copies",
       "codeHash": "cbb32d18d1910f7707394d2beefaaa2578c9af0c3a645597a226fde36b437b78",
       "spec": {
-        "template": "flow",
-        "title": "Why keep copies — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Why keep copies",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "replica_a",
+            "label": "replica_a"
           },
           {
-            "id": "proc",
-            "label": "2. Why keep copies",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "replica_b",
+            "label": "replica_b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why keep copies [Dtwo.Pone.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why keep copies [Dtwo.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "To survive machine failures and serve users faster, systems keep several.",
+            "currentState": "replica_a",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Replicas must be kept in sync.",
+            "currentState": "replica_b",
+            "transition": {
+              "from": "replica_a",
+              "to": "replica_b",
+              "label": {
+                "var": "replica_b",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why keep copies [Dtwo.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why keep copies — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Why keep copies",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "replica_a",
+            "label": "replica_a"
           },
           {
-            "id": "proc",
-            "label": "2. Why keep copies",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "replica_b",
+            "label": "replica_b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why keep copies [D2.P1.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why keep copies [D2.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "To survive machine failures and serve users faster, systems keep several.",
+            "currentState": "replica_a",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Replicas must be kept in sync.",
+            "currentState": "replica_b",
+            "transition": {
+              "from": "replica_a",
+              "to": "replica_b",
+              "label": "{'balance': 500}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why keep copies [D2.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -235,132 +83,107 @@
       "partTitle": "The CAP theorem",
       "codeHash": "a9ebe42f898d38d7fc42f4d057dcf2408b2871c29840de77e0544d5be1164a5f",
       "spec": {
-        "template": "compare",
-        "title": "CAP theorem consistency vs availability trade-offs during network partition",
-        "leftLabel": "CP Architecture",
-        "rightLabel": "AP Architecture",
+        "template": "cells",
+        "title": "The CAP theorem",
         "steps": [
           {
             "at": "say1",
-            "caption": "Network partition forces choice between consistency and availability.",
-            "left": {
-              "code": "write(\"CP\", replicas, [\"r1\"])",
-              "result": {
-                "text": "CP"
-              },
-              "tone": "data"
+            "caption": "When a network partition (P) splits replicas apart, a system must choose.",
+            "items": {
+              "var": "reachable",
+              "line": 2,
+              "hit": 2
             },
-            "right": {
-              "code": "write(\"AP\", replicas, [\"r1\"])",
-              "result": {
-                "text": "AP"
-              },
-              "tone": "data"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "CP system refuses requests without majority to prevent conflicts.",
-            "left": {
-              "code": "partition isolated r1 rejects write",
-              "result": {
-                "text": "REJECTED"
-              },
-              "tone": "error"
+            "at": "say2",
+            "caption": "Consistency here means every read sees the latest write, as if there were.",
+            "items": {
+              "var": "reachable",
+              "line": 4,
+              "hit": 2
             },
-            "right": {
-              "code": "partition majority r2+r3 accepts",
-              "result": {
-                "text": "ACCEPTED"
-              },
-              "tone": "ok"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "AP system keeps answering on both sides.",
-            "left": {
-              "code": "minority partition rejects write",
-              "result": {
-                "text": "REJECTED"
-              },
-              "tone": "error"
+            "at": "say6",
+            "caption": "The simulation shows both behaviours for the same partition.",
+            "items": {
+              "var": "reachable",
+              "line": 6,
+              "hit": 1
             },
-            "right": {
-              "code": "AP replica r1 accepts update",
-              "result": {
-                "text": "ACCEPTED"
-              },
-              "tone": "ok"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "CAP theorem consistency vs availability trade-offs during network partition",
-        "leftLabel": "CP Architecture",
-        "rightLabel": "AP Architecture",
+        "template": "cells",
+        "title": "The CAP theorem",
         "steps": [
           {
             "at": "say1",
-            "caption": "Network partition forces choice between consistency and availability.",
-            "left": {
-              "code": "write(\"CP\", replicas, [\"r1\"])",
-              "result": "CP",
-              "tone": "data",
-              "checks": [
-                "CP"
-              ]
-            },
-            "right": {
-              "code": "write(\"AP\", replicas, [\"r1\"])",
-              "result": "AP",
-              "tone": "data",
-              "checks": [
-                "AP"
-              ]
-            }
+            "caption": "When a network partition (P) splits replicas apart, a system must choose.",
+            "items": [
+              "'r2'",
+              "'r3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "CP system refuses requests without majority to prevent conflicts.",
-            "left": {
-              "code": "partition isolated r1 rejects write",
-              "result": "REJECTED",
-              "tone": "error",
-              "checks": [
-                "REJECTED"
-              ]
-            },
-            "right": {
-              "code": "partition majority r2+r3 accepts",
-              "result": "ACCEPTED",
-              "tone": "ok",
-              "checks": [
-                "ACCEPTED"
-              ]
-            }
+            "at": "say2",
+            "caption": "Consistency here means every read sees the latest write, as if there were.",
+            "items": [
+              "'r2'",
+              "'r3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "AP system keeps answering on both sides.",
-            "left": {
-              "code": "minority partition rejects write",
-              "result": "REJECTED",
-              "tone": "error",
-              "checks": [
-                "REJECTED"
-              ]
-            },
-            "right": {
-              "code": "AP replica r1 accepts update",
-              "result": "ACCEPTED",
-              "tone": "ok",
-              "checks": [
-                "ACCEPTED"
-              ]
-            }
+            "at": "say6",
+            "caption": "The simulation shows both behaviours for the same partition.",
+            "items": [
+              "'r2'",
+              "'r3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           }
         ]
       }
@@ -369,112 +192,53 @@
       "partTitle": "PACELC: the trade-off without failures",
       "codeHash": "6259731737348cb4fae18111bbd8977dec9ec4571211461d0ad403d4302749b7",
       "spec": {
-        "template": "table",
-        "title": "PACELC trade-off classification across database engines",
-        "columns": [
-          "partition",
-          "normal",
-          "classification"
-        ],
+        "template": "cells",
+        "title": "PACELC: the trade-off without failures",
         "steps": [
           {
             "at": "say1",
-            "caption": "PACELC evaluates trade-offs during normal operation else latency.",
-            "rows": [
+            "caption": "CAP only talks about partitions.",
+            "items": {
+              "var": "combo",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "AP"
-                  },
-                  {
-                    "text": "EL"
-                  },
-                  {
-                    "text": "CUSTOM"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "System describes choices during partition and normal states.",
-            "rows": [
+            "at": "say2",
+            "caption": "Waiting for every replica to confirm a write makes reads consistent but slower.",
+            "items": {
+              "var": "combo",
+              "line": 10,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "AP"
-                  },
-                  {
-                    "text": "EL"
-                  },
-                  {
-                    "text": "CUSTOM"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CP"
-                  },
-                  {
-                    "text": "EC"
-                  },
-                  {
-                    "text": "CUSTOM"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Function classify_system maps trade-offs to known engines.",
-            "rows": [
+            "at": "say6",
+            "caption": "Many databases let you tune these choices per query, so the labels.",
+            "items": {
+              "var": "combo",
+              "line": 10,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "AP"
-                  },
-                  {
-                    "text": "EL"
-                  },
-                  {
-                    "text": "CUSTOM"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CP"
-                  },
-                  {
-                    "text": "EC"
-                  },
-                  {
-                    "text": "CUSTOM"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CP"
-                  },
-                  {
-                    "text": "EL"
-                  },
-                  {
-                    "text": "CUSTOM"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
@@ -482,76 +246,50 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "PACELC trade-off classification across database engines",
-        "columns": [
-          "partition",
-          "normal",
-          "classification"
-        ],
+        "template": "cells",
+        "title": "PACELC: the trade-off without failures",
         "steps": [
           {
             "at": "say1",
-            "caption": "PACELC evaluates trade-offs during normal operation else latency.",
-            "rows": [
+            "caption": "CAP only talks about partitions.",
+            "items": [
+              "'AP'",
+              "'EL'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "AP",
-                  "EL",
-                  "CUSTOM"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "System describes choices during partition and normal states.",
-            "rows": [
+            "at": "say2",
+            "caption": "Waiting for every replica to confirm a write makes reads consistent but slower.",
+            "items": [
+              "'CP'",
+              "'EL'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "AP",
-                  "EL",
-                  "CUSTOM"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "CP",
-                  "EC",
-                  "CUSTOM"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Function classify_system maps trade-offs to known engines.",
-            "rows": [
+            "at": "say6",
+            "caption": "Many databases let you tune these choices per query, so the labels.",
+            "items": [
+              "'AP'",
+              "'EC'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "AP",
-                  "EL",
-                  "CUSTOM"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "CP",
-                  "EC",
-                  "CUSTOM"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "CP",
-                  "EL",
-                  "CUSTOM"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
@@ -563,112 +301,91 @@
       "partTitle": "Quorums and majorities",
       "codeHash": "884dff53f737fddb003e86cbecdd040e8fe9d2cf2ce2b9b281c6ad12c189e70a",
       "spec": {
-        "template": "table",
-        "title": "Quorum calculation and fault tolerance thresholds",
-        "columns": [
-          "total_nodes",
-          "active_nodes",
-          "majority"
+        "template": "sequence",
+        "title": "Quorums and majorities",
+        "actors": [
+          "total",
+          "need",
+          "active_nodes"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quorum requires strictly more than half of nodes to agree.",
-            "rows": [
+            "caption": "Many CP systems use majorities.",
+            "activeActor": "total",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "total",
+                "to": "need",
+                "label": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "need",
+                "to": "active_nodes",
+                "label": {
+                  "var": "need",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function has_quorum returns True when active nodes exceed half.",
-            "rows": [
+            "caption": "Has_quorum(active_nodes, total_nodes) returns True when active_nodes >.",
+            "activeActor": "need",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "total",
+                "to": "need",
+                "label": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
+                "from": "need",
+                "to": "active_nodes",
+                "label": {
+                  "var": "need",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Strict majority prevents split brain across partitioned sides.",
-            "rows": [
+            "at": "say6",
+            "caption": "You will meet quorums again in leader election (Day 7) and Raft consensus.",
+            "activeActor": "active_nodes",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "total",
+                "to": "need",
+                "label": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "need",
+                "to": "active_nodes",
+                "label": {
+                  "var": "need",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -676,79 +393,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Quorum calculation and fault tolerance thresholds",
-        "columns": [
-          "total_nodes",
-          "active_nodes",
-          "majority"
+        "template": "sequence",
+        "title": "Quorums and majorities",
+        "actors": [
+          "total",
+          "need",
+          "active_nodes"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quorum requires strictly more than half of nodes to agree.",
-            "rows": [
+            "caption": "Many CP systems use majorities.",
+            "messages": [
               {
-                "cells": [
-                  "3",
-                  "2",
-                  "True"
-                ],
+                "from": "total",
+                "to": "need",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "need",
+                "to": "active_nodes",
+                "label": "2",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "total"
           },
           {
             "at": "say2",
-            "caption": "Function has_quorum returns True when active nodes exceed half.",
-            "rows": [
+            "caption": "Has_quorum(active_nodes, total_nodes) returns True when active_nodes >.",
+            "messages": [
               {
-                "cells": [
-                  "3",
-                  "2",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "total",
+                "to": "need",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "4",
-                  "2",
-                  "False"
-                ],
-                "tone": "error"
+                "from": "need",
+                "to": "active_nodes",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "need"
           },
           {
-            "at": "say3",
-            "caption": "Strict majority prevents split brain across partitioned sides.",
-            "rows": [
+            "at": "say6",
+            "caption": "You will meet quorums again in leader election (Day 7) and Raft consensus.",
+            "messages": [
               {
-                "cells": [
-                  "3",
-                  "2",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "total",
+                "to": "need",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "4",
-                  "2",
-                  "False"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "5",
-                  "3",
-                  "True"
-                ],
+                "from": "need",
+                "to": "active_nodes",
+                "label": "2",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "active_nodes"
           }
         ]
       }
@@ -757,132 +465,162 @@
       "partTitle": "Tunable consistency: R + W > N",
       "codeHash": "087f23348430854c1fa4794d3edc745c618097aa8d496706151973b3ef0aabaf",
       "spec": {
-        "template": "compare",
-        "title": "Tunable consistency formula R plus W exceeding total replicas N",
-        "leftLabel": "Consistent Quorum",
-        "rightLabel": "Stale Read Risk",
+        "template": "sequence",
+        "title": "Tunable consistency: R + W > N",
+        "actors": [
+          "N",
+          "W",
+          "R"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Configurable read and write replicas balance speed and consistency.",
-            "left": {
-              "code": "W=2 R=2 on N=3",
-              "result": {
-                "text": "consistent"
+            "caption": "Systems like Cassandra and DynamoDB let you choose, per operation, how.",
+            "activeActor": "N",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": {
+                  "var": "N",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "W=1 R=1 on N=3",
-              "result": {
-                "text": "may be stale"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "W",
+                "to": "R",
+                "label": {
+                  "var": "W",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Overlapping read and write sets guarantee latest write.",
-            "left": {
-              "code": "R + W > N overlap verified",
-              "result": {
-                "text": "consistent"
+            "caption": "If R + W > N, every read set overlaps every write set in at least one.",
+            "activeActor": "W",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": {
+                  "var": "N",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "R + W <= N no overlap",
-              "result": {
-                "text": "may be stale"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "W",
+                "to": "R",
+                "label": {
+                  "var": "W",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Quorum settings give consistent reads while tolerating slow replica.",
-            "left": {
-              "code": "W=2 R=2 tolerates 1 failure",
-              "result": {
-                "text": "consistent"
+            "at": "say6",
+            "caption": "The code lists every combination for N = 3.",
+            "activeActor": "R",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": {
+                  "var": "N",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "W=3 R=1 fails on 1 failure",
-              "result": {
-                "text": "consistent"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "W",
+                "to": "R",
+                "label": {
+                  "var": "W",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Tunable consistency formula R plus W exceeding total replicas N",
-        "leftLabel": "Consistent Quorum",
-        "rightLabel": "Stale Read Risk",
+        "template": "sequence",
+        "title": "Tunable consistency: R + W > N",
+        "actors": [
+          "N",
+          "W",
+          "R"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Configurable read and write replicas balance speed and consistency.",
-            "left": {
-              "code": "W=2 R=2 on N=3",
-              "result": "consistent",
-              "tone": "ok",
-              "checks": [
-                "consistent"
-              ]
-            },
-            "right": {
-              "code": "W=1 R=1 on N=3",
-              "result": "may be stale",
-              "tone": "error",
-              "checks": [
-                "may be stale"
-              ]
-            }
+            "caption": "Systems like Cassandra and DynamoDB let you choose, per operation, how.",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "R",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "N"
           },
           {
             "at": "say2",
-            "caption": "Overlapping read and write sets guarantee latest write.",
-            "left": {
-              "code": "R + W > N overlap verified",
-              "result": "consistent",
-              "tone": "ok",
-              "checks": [
-                "consistent"
-              ]
-            },
-            "right": {
-              "code": "R + W <= N no overlap",
-              "result": "may be stale",
-              "tone": "error",
-              "checks": [
-                "may be stale"
-              ]
-            }
+            "caption": "If R + W > N, every read set overlaps every write set in at least one.",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "R",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "W"
           },
           {
-            "at": "say3",
-            "caption": "Quorum settings give consistent reads while tolerating slow replica.",
-            "left": {
-              "code": "W=2 R=2 tolerates 1 failure",
-              "result": "consistent",
-              "tone": "ok",
-              "checks": [
-                "consistent"
-              ]
-            },
-            "right": {
-              "code": "W=3 R=1 fails on 1 failure",
-              "result": "consistent",
-              "tone": "error",
-              "checks": [
-                "consistent"
-              ]
-            }
+            "at": "say6",
+            "caption": "The code lists every combination for N = 3.",
+            "messages": [
+              {
+                "from": "N",
+                "to": "W",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "R",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "R"
           }
         ]
       }
@@ -892,110 +630,127 @@
       "codeHash": "3124b5138ce6629080e64eb2abd9ddc00c005e861e463b351ea303b76d96183e",
       "spec": {
         "template": "flow",
-        "title": "Choosing for real products — Execution Pipeline",
+        "title": "Choosing for real products",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "kind",
+            "label": "kind"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing for real p...",
-            "tappable": true
+            "id": "data_kind",
+            "label": "data_kind"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "strong",
+            "label": "strong"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing for real products [Dtwo.Psix.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing for real p... [Dtwo.Psix.Stwo].",
+            "caption": "Start from the business cost of each kind of error.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "kind": {
+                "var": "kind",
+                "line": 5,
+                "hit": 1
+              },
+              "data_kind": {
+                "var": "data_kind",
+                "line": 2,
+                "hit": 1
+              },
+              "strong": {
+                "var": "strong",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "kind": "data",
+              "data_kind": "data",
+              "strong": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "kind",
+                "data_kind"
               ],
               [
-                "proc",
-                "out"
+                "data_kind",
+                "strong"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Money, inventory and unique usernames usually need strong consistency.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "kind": {
+                "var": "kind",
+                "line": 6,
+                "hit": 1
+              },
+              "data_kind": {
+                "var": "data_kind",
+                "line": 3,
+                "hit": 1
+              },
+              "strong": {
+                "var": "strong",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "kind": "data",
+              "data_kind": "data",
+              "strong": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "kind",
+                "data_kind"
+              ],
+              [
+                "data_kind",
+                "strong"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing for real products.",
+            "at": "say6",
+            "caption": "Tomorrow you will see how services talk to each other efficiently with RPC.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "kind": {
+                "var": "kind",
+                "line": 5,
+                "hit": 2
+              },
+              "data_kind": {
+                "var": "data_kind",
+                "line": 2,
+                "hit": 2
+              },
+              "strong": {
+                "var": "strong",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "kind": "ok",
+              "data_kind": "ok",
+              "strong": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "kind",
+                "data_kind"
               ],
               [
-                "proc",
-                "out"
+                "data_kind",
+                "strong"
               ]
             ]
           }
@@ -1003,110 +758,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Choosing for real products — Execution Pipeline",
+        "title": "Choosing for real products",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "kind",
+            "label": "kind"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing for real p...",
-            "tappable": true
+            "id": "data_kind",
+            "label": "data_kind"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "strong",
+            "label": "strong"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing for real products [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing for real p... [D2.P6.S2].",
+            "caption": "Start from the business cost of each kind of error.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "kind": "'account balance'",
+              "data_kind": "'account balance'",
+              "strong": "{'account balance', 'seat booking', 'st…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "kind": "data",
+              "data_kind": "data",
+              "strong": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "kind",
+                "data_kind"
               ],
               [
-                "proc",
-                "out"
+                "data_kind",
+                "strong"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "at": "say2",
+            "caption": "Money, inventory and unique usernames usually need strong consistency.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "kind": "'account balance'",
+              "data_kind": "'account balance'",
+              "strong": "{'account balance', 'seat booking', 'st…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "kind": "data",
+              "data_kind": "data",
+              "strong": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "kind",
+                "data_kind"
+              ],
+              [
+                "data_kind",
+                "strong"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing for real products [D2.P6.S4].",
+            "at": "say6",
+            "caption": "Tomorrow you will see how services talk to each other efficiently with RPC.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "kind": "'like count'",
+              "data_kind": "'like count'",
+              "strong": "{'account balance', 'seat booking', 'st…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "kind": "ok",
+              "data_kind": "ok",
+              "strong": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "kind",
+                "data_kind"
               ],
               [
-                "proc",
-                "out"
+                "data_kind",
+                "strong"
               ]
             ]
           }

@@ -2,208 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 18,
-  "promptSha": "0c410a2a4af400000793a7feddfe7c451a568c030522b9572c2cb2bedf92dd21",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Secrets in code",
       "codeHash": "60ef202e25d84e53f66bc442ea073397a17bf653c64f4d1bb3ecd1d5f177de05",
       "spec": {
-        "template": "table",
-        "title": "Shannon entropy measurement benchmarks and secret randomness tiers",
-        "columns": [
-          "String Category",
-          "Entropy Range",
-          "Information Density",
-          "Audit Finding"
+        "template": "flow",
+        "title": "Secrets in code",
+        "nodes": [
+          {
+            "id": "lines",
+            "label": "lines"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "suspicious",
+            "label": "suspicious"
+          }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "Natural languages and programming code exhibit low entropy.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Human Source Code",
-                  "Low Entropy Bits",
-                  "Predictable Natural Language Text",
-                  "Benign Source Code"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Developers sometimes paste API keys, database passwords or tokens directly.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Configuration Names",
-                  "Low Entropy Bits",
-                  "Repetitive Variable Identifiers",
-                  "Benign Identifier"
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Symmetric AES Keys",
-                  "High Entropy Bits",
-                  "Maximum Cryptographic Randomness",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
+              "line": {
+                "var": "line",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Base64 Auth Tokens",
-                  "High Entropy Bits",
-                  "High Random Character Distribution",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
+              "suspicious": {
+                "var": "suspicious",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lines": "data",
+              "i": "data",
+              "line": "data",
+              "suspicious": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "i"
+              ],
+              [
+                "i",
+                "line"
+              ],
+              [
+                "line",
+                "suspicious"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Cryptographic secrets and symmetric keys possess high randomness.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Human Source Code",
-                  "Low Entropy Bits",
-                  "Predictable Natural Language Text",
-                  "Benign Source Code"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Once committed, secrets live forever in version control history, even if.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Configuration Names",
-                  "Low Entropy Bits",
-                  "Repetitive Variable Identifiers",
-                  "Benign Identifier"
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Symmetric AES Keys",
-                  "High Entropy Bits",
-                  "Maximum Cryptographic Randomness",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
+              "line": {
+                "var": "line",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Base64 Auth Tokens",
-                  "High Entropy Bits",
-                  "High Random Character Distribution",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
+              "suspicious": {
+                "var": "suspicious",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lines": "data",
+              "i": "data",
+              "line": "data",
+              "suspicious": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "i"
+              ],
+              [
+                "i",
+                "line"
+              ],
+              [
+                "line",
+                "suspicious"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Pre-commit hooks can scan changes before they ever leave a developer's machine.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              },
+              "suspicious": {
+                "var": "suspicious",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "lines": "ok",
+              "i": "ok",
+              "line": "ok",
+              "suspicious": "ok"
+            },
+            "arrows": [
+              [
+                "lines",
+                "i"
+              ],
+              [
+                "i",
+                "line"
+              ],
+              [
+                "line",
+                "suspicious"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Shannon entropy measurement benchmarks and secret randomness tiers",
-        "columns": [
-          "String Category",
-          "Entropy Range",
-          "Information Density",
-          "Audit Finding"
+        "template": "flow",
+        "title": "Secrets in code",
+        "nodes": [
+          {
+            "id": "lines",
+            "label": "lines"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "suspicious",
+            "label": "suspicious"
+          }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "Natural languages and programming code exhibit low entropy.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Human Source Code",
-                  "Low Entropy Bits",
-                  "Predictable Natural Language Text",
-                  "Benign Source Code"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Configuration Names",
-                  "Low Entropy Bits",
-                  "Repetitive Variable Identifiers",
-                  "Benign Identifier"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Symmetric AES Keys",
-                  "High Entropy Bits",
-                  "Maximum Cryptographic Randomness",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Base64 Auth Tokens",
-                  "High Entropy Bits",
-                  "High Random Character Distribution",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Developers sometimes paste API keys, database passwords or tokens directly.",
+            "values": {
+              "lines": "['DB_HOST = \"db.internal\"', 'DB_PASSWOR…",
+              "i": "1",
+              "line": "'DB_HOST = \"db.internal\"'",
+              "suspicious": "False"
+            },
+            "tones": {
+              "lines": "data",
+              "i": "data",
+              "line": "data",
+              "suspicious": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "i"
+              ],
+              [
+                "i",
+                "line"
+              ],
+              [
+                "line",
+                "suspicious"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Cryptographic secrets and symmetric keys possess high randomness.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Human Source Code",
-                  "Low Entropy Bits",
-                  "Predictable Natural Language Text",
-                  "Benign Source Code"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Configuration Names",
-                  "Low Entropy Bits",
-                  "Repetitive Variable Identifiers",
-                  "Benign Identifier"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Symmetric AES Keys",
-                  "High Entropy Bits",
-                  "Maximum Cryptographic Randomness",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Base64 Auth Tokens",
-                  "High Entropy Bits",
-                  "High Random Character Distribution",
-                  "Critical Secret Leak"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Once committed, secrets live forever in version control history, even if.",
+            "values": {
+              "lines": "['DB_HOST = \"db.internal\"', 'DB_PASSWOR…",
+              "i": "1",
+              "line": "'DB_HOST = \"db.internal\"'",
+              "suspicious": "False"
+            },
+            "tones": {
+              "lines": "data",
+              "i": "data",
+              "line": "data",
+              "suspicious": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "i"
+              ],
+              [
+                "i",
+                "line"
+              ],
+              [
+                "line",
+                "suspicious"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Pre-commit hooks can scan changes before they ever leave a developer's machine.",
+            "values": {
+              "lines": "['DB_HOST = \"db.internal\"', 'DB_PASSWOR…",
+              "i": "1",
+              "line": "'DB_HOST = \"db.internal\"'",
+              "suspicious": "False"
+            },
+            "tones": {
+              "lines": "ok",
+              "i": "ok",
+              "line": "ok",
+              "suspicious": "ok"
+            },
+            "arrows": [
+              [
+                "lines",
+                "i"
+              ],
+              [
+                "i",
+                "line"
+              ],
+              [
+                "line",
+                "suspicious"
+              ]
             ]
           }
         ]
@@ -213,128 +289,162 @@
       "partTitle": "Shannon entropy",
       "codeHash": "60ac40cfd0e8801e1bfcb6b279fe990d77b81445b9d0b6fa58eb97f5b1f84d23",
       "spec": {
-        "template": "flow",
-        "title": "Two-phase secret scanner combining vendor regex patterns with entropy checks",
-        "nodes": [
-          {
-            "id": "sourceInput",
-            "label": "Source Code String Literal",
-            "tappable": false
-          },
-          {
-            "id": "patternMatch",
-            "label": "Vendor Signature Regex Match",
-            "tappable": false
-          },
-          {
-            "id": "entropyFilter",
-            "label": "Shannon Entropy Calculator",
-            "tappable": false
-          },
-          {
-            "id": "secretAlert",
-            "label": "Confirmed Secret Finding Alert",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "sourceInput",
-            "to": "patternMatch",
-            "label": "Scans"
-          },
-          {
-            "from": "patternMatch",
-            "to": "entropyFilter",
-            "label": "Validates"
-          },
-          {
-            "from": "entropyFilter",
-            "to": "secretAlert",
-            "label": "Emits"
-          }
+        "template": "sequence",
+        "title": "Shannon entropy",
+        "actors": [
+          "s",
+          "n",
+          ".0"
         ],
         "steps": [
           {
-            "at": "say7",
-            "caption": "Pattern matchers identify candidate tokens conforming to vendor formats.",
-            "activeNodes": [
-              "sourceInput",
-              "patternMatch"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Real secrets are usually random-looking strings, while ordinary words.",
+            "activeActor": "s",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": {
+                  "var": "s",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": ".0",
+                "label": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say8",
-            "caption": "The entropy calculator verifies that the token exhibits sufficient randomness.",
-            "activeNodes": [
-              "entropyFilter",
-              "secretAlert"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "That difference is measurable, which lets a program find secrets it has.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": ".0",
+                "label": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Password strength meters use related ideas to estimate how hard a password.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": ".0",
+                "label": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-phase secret scanner combining vendor regex patterns with entropy checks",
-        "nodes": [
-          {
-            "id": "sourceInput",
-            "label": "Source Code String Literal",
-            "tappable": false
-          },
-          {
-            "id": "patternMatch",
-            "label": "Vendor Signature Regex Match",
-            "tappable": false
-          },
-          {
-            "id": "entropyFilter",
-            "label": "Shannon Entropy Calculator",
-            "tappable": false
-          },
-          {
-            "id": "secretAlert",
-            "label": "Confirmed Secret Finding Alert",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "sourceInput",
-            "to": "patternMatch",
-            "label": "Scans"
-          },
-          {
-            "from": "patternMatch",
-            "to": "entropyFilter",
-            "label": "Validates"
-          },
-          {
-            "from": "entropyFilter",
-            "to": "secretAlert",
-            "label": "Emits"
-          }
+        "template": "sequence",
+        "title": "Shannon entropy",
+        "actors": [
+          "s",
+          "n",
+          ".0"
         ],
         "steps": [
           {
-            "at": "say7",
-            "caption": "Pattern matchers identify candidate tokens conforming to vendor formats.",
-            "activeNodes": [
-              "sourceInput",
-              "patternMatch"
+            "at": "say1",
+            "caption": "Real secrets are usually random-looking strings, while ordinary words.",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": "'aaaaaaaa'",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": ".0",
+                "label": "8",
+                "tone": "ok"
+              }
             ],
-            "statusBadge": "active"
+            "activeActor": "s"
           },
           {
-            "at": "say8",
-            "caption": "The entropy calculator verifies that the token exhibits sufficient randomness.",
-            "activeNodes": [
-              "entropyFilter",
-              "secretAlert"
+            "at": "say2",
+            "caption": "That difference is measurable, which lets a program find secrets it has.",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": "'aaaaaaaa'",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": ".0",
+                "label": "8",
+                "tone": "ok"
+              }
             ],
-            "statusBadge": "completed"
+            "activeActor": "n"
+          },
+          {
+            "at": "say10",
+            "caption": "Password strength meters use related ideas to estimate how hard a password.",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": "'aaaaaaaa'",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": ".0",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -343,76 +453,108 @@
       "partTitle": "Scanning for secrets",
       "codeHash": "44e0493b8ea264aec19dcf8a81fd7ea1f29de8103ba7f9e6e3c7c67be46e09ae",
       "spec": {
-        "template": "compare",
-        "title": "Unprotected private key commits versus automated PEM signature scanner",
-        "left": {
-          "title": "Unprotected Key Commit",
-          "items": [
-            "Accidentally committed private cryptographic keys",
-            "Attacker instantly authenticates without passwords",
-            "Leaks root developer access to production servers"
-          ]
-        },
-        "right": {
-          "title": "PEM Header Quarantine Scanner",
-          "items": [
-            "Matches unambiguous privacy enhanced mail headers",
-            "Instantly detects private keys with zero false positives",
-            "Halts deployment and triggers emergency revocation"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Scanning for secrets",
+        "states": [
           {
-            "at": "say5",
-            "caption": "Attackers can instantly authenticate on servers without passwords.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "config",
+            "label": "config"
           },
           {
-            "at": "say6",
-            "caption": "Exact headers allow scanners to identify private keys across files.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "line",
+            "label": "line"
           }
         ],
-        "leftLabel": "Unprotected Key Commit",
-        "rightLabel": "PEM Header Quarantine Scanner"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Secret scanners combine patterns for known key formats with entropy checks.",
+            "currentState": "config",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Known formats include AWS access keys (AKIA followed by 16 uppercase.",
+            "currentState": "i",
+            "transition": {
+              "from": "config",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Every confirmed finding needs the same response.",
+            "currentState": "line",
+            "transition": {
+              "from": "i",
+              "to": "line",
+              "label": {
+                "var": "line",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Unprotected private key commits versus automated PEM signature scanner",
-        "left": {
-          "title": "Unprotected Key Commit",
-          "items": [
-            "Accidentally committed private cryptographic keys",
-            "Attacker instantly authenticates without passwords",
-            "Leaks root developer access to production servers"
-          ]
-        },
-        "right": {
-          "title": "PEM Header Quarantine Scanner",
-          "items": [
-            "Matches unambiguous privacy enhanced mail headers",
-            "Instantly detects private keys with zero false positives",
-            "Halts deployment and triggers emergency revocation"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Scanning for secrets",
+        "states": [
           {
-            "at": "say5",
-            "caption": "Attackers can instantly authenticate on servers without passwords.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "config",
+            "label": "config"
           },
           {
-            "at": "say6",
-            "caption": "Exact headers allow scanners to identify private keys across files.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "line",
+            "label": "line"
           }
         ],
-        "leftLabel": "Unprotected Key Commit",
-        "rightLabel": "PEM Header Quarantine Scanner"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Secret scanners combine patterns for known key formats with entropy checks.",
+            "currentState": "config",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Known formats include AWS access keys (AKIA followed by 16 uppercase.",
+            "currentState": "i",
+            "transition": {
+              "from": "config",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Every confirmed finding needs the same response.",
+            "currentState": "line",
+            "transition": {
+              "from": "i",
+              "to": "line",
+              "label": "'region = \"ap-south-1\"'"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
@@ -420,73 +562,105 @@
       "codeHash": "bfa3f702b4e74fe22207a5ee2fddcfa248013953666b2cc3ec2b302dc9827c19",
       "spec": {
         "template": "states",
-        "title": "Git pre-commit shift-left secret prevention and quarantine lifecycle",
+        "title": "Managing secrets properly",
         "states": [
           {
-            "id": "stagedDiff",
-            "label": "Developer Stages Code Modifications"
+            "id": "fake_environment",
+            "label": "fake_environment"
           },
           {
-            "id": "hookTriggered",
-            "label": "Pre-Commit Hook Inspects Diff"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "secretDetected",
-            "label": "High-Entropy Token Signature Found"
-          },
-          {
-            "id": "commitBlocked",
-            "label": "Commit Blocked with Remediation Notice"
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Blocking secrets at developer workstations prevents leaked commits.",
-            "activeStateId": "hookTriggered",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Load secrets at runtime from environment variables or, better, a secrets.",
+            "currentState": "fake_environment",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The hook halts the commit and displays a remediation warning to developers.",
-            "activeStateId": "commitBlocked",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Secrets managers control who can read each secret, log every access,.",
+            "currentState": "name",
+            "transition": {
+              "from": "fake_environment",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Document who owns each secret and how to rotate it, before you need to.",
+            "currentState": "value",
+            "transition": {
+              "from": "name",
+              "to": "value",
+              "label": {
+                "var": "value",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Git pre-commit shift-left secret prevention and quarantine lifecycle",
+        "title": "Managing secrets properly",
         "states": [
           {
-            "id": "stagedDiff",
-            "label": "Developer Stages Code Modifications"
+            "id": "fake_environment",
+            "label": "fake_environment"
           },
           {
-            "id": "hookTriggered",
-            "label": "Pre-Commit Hook Inspects Diff"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "secretDetected",
-            "label": "High-Entropy Token Signature Found"
-          },
-          {
-            "id": "commitBlocked",
-            "label": "Commit Blocked with Remediation Notice"
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Blocking secrets at developer workstations prevents leaked commits.",
-            "activeStateId": "hookTriggered",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Load secrets at runtime from environment variables or, better, a secrets.",
+            "currentState": "fake_environment",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The hook halts the commit and displays a remediation warning to developers.",
-            "activeStateId": "commitBlocked",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Secrets managers control who can read each secret, log every access,.",
+            "currentState": "name",
+            "transition": {
+              "from": "fake_environment",
+              "to": "name",
+              "label": "'DB_HOST'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Document who owns each secret and how to rotate it, before you need to.",
+            "currentState": "value",
+            "transition": {
+              "from": "name",
+              "to": "value",
+              "label": "'db.internal'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -495,166 +669,106 @@
       "partTitle": "When a secret leaks",
       "codeHash": "25da084949800e36b3bd63e6af9a685b22a45d3a24c3dc5712f335a1b5262ee8",
       "spec": {
-        "template": "table",
-        "title": "Alphabet-aware character distribution and calibrated entropy thresholds",
-        "columns": [
-          "Character Set",
-          "Theoretical Maximum",
-          "Calibrated Threshold",
-          "Representative Examples"
+        "template": "states",
+        "title": "When a secret leaks",
+        "states": [
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Hexadecimal strings exhibit lower maximum entropy than base sixty-four.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Hexadecimal Alphabet",
-                  "Four Bits per Symbol",
-                  "Calibrated Low Threshold",
-                  "Git Hashes and UUID Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Base64 Alphabet",
-                  "Six Bits per Symbol",
-                  "Calibrated High Threshold",
-                  "Binary Assets and Web Fonts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Alphanumeric Vendor",
-                  "Medium Bits per Symbol",
-                  "Targeted Vendor Threshold",
-                  "AWS Keys and API Credentials"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Assume any secret that appeared in a repository, log, chat or screenshot.",
+            "currentState": "steps",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Calibrating entropy thresholds eliminates developer alert fatigue.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Hexadecimal Alphabet",
-                  "Four Bits per Symbol",
-                  "Calibrated Low Threshold",
-                  "Git Hashes and UUID Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Base64 Alphabet",
-                  "Six Bits per Symbol",
-                  "Calibrated High Threshold",
-                  "Binary Assets and Web Fonts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Alphanumeric Vendor",
-                  "Medium Bits per Symbol",
-                  "Targeted Vendor Threshold",
-                  "AWS Keys and API Credentials"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The first step is rotation.",
+            "currentState": "i",
+            "transition": {
+              "from": "steps",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Blameless reviews encourage people to report leaks immediately rather than.",
+            "currentState": "step",
+            "transition": {
+              "from": "i",
+              "to": "step",
+              "label": {
+                "var": "step",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Alphabet-aware character distribution and calibrated entropy thresholds",
-        "columns": [
-          "Character Set",
-          "Theoretical Maximum",
-          "Calibrated Threshold",
-          "Representative Examples"
+        "template": "states",
+        "title": "When a secret leaks",
+        "states": [
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Hexadecimal strings exhibit lower maximum entropy than base sixty-four.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Hexadecimal Alphabet",
-                  "Four Bits per Symbol",
-                  "Calibrated Low Threshold",
-                  "Git Hashes and UUID Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Base64 Alphabet",
-                  "Six Bits per Symbol",
-                  "Calibrated High Threshold",
-                  "Binary Assets and Web Fonts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Alphanumeric Vendor",
-                  "Medium Bits per Symbol",
-                  "Targeted Vendor Threshold",
-                  "AWS Keys and API Credentials"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Assume any secret that appeared in a repository, log, chat or screenshot.",
+            "currentState": "steps",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Calibrating entropy thresholds eliminates developer alert fatigue.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Hexadecimal Alphabet",
-                  "Four Bits per Symbol",
-                  "Calibrated Low Threshold",
-                  "Git Hashes and UUID Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Base64 Alphabet",
-                  "Six Bits per Symbol",
-                  "Calibrated High Threshold",
-                  "Binary Assets and Web Fonts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Alphanumeric Vendor",
-                  "Medium Bits per Symbol",
-                  "Targeted Vendor Threshold",
-                  "AWS Keys and API Credentials"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "The first step is rotation.",
+            "currentState": "i",
+            "transition": {
+              "from": "steps",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Blameless reviews encourage people to report leaks immediately rather than.",
+            "currentState": "step",
+            "transition": {
+              "from": "i",
+              "to": "step",
+              "label": "'revoke the leaked key'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -663,224 +777,194 @@
       "partTitle": "Practice time: entropy and scanning",
       "codeHash": "1c6ea55ffd37a51cf59dbf3de772e3b74b13c63bdef62369c1d232f1a4a50c63",
       "spec": {
-        "template": "flow",
-        "title": "Automated Secret Rotation & Centralized Secre... — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Practice time: entropy and scanning",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "proc",
-            "label": "2. Automated Secret Ro...",
-            "tappable": true
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Automated Secret Rotation & Centralized .",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Automated Secret Ro... [D.Psix.Stwo].",
+            "caption": "Otherwise count characters and return the rounded sum of -p log2(p).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "text": {
+                "var": "text",
+                "line": 8,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 9,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 9,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "text": "data",
+              "i": "data",
+              "line": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates character during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "text": {
+                "var": "text",
+                "line": 9,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 10,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 10,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "text": "data",
+              "i": "data",
+              "line": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Automated Secret Rotation & Centr.",
+            "at": "say9",
+            "caption": "Tune thresholds using your own code base, balancing missed secrets against.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 11,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 11,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 9,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "text": "ok",
+              "i": "ok",
+              "line": "ok",
+              "m": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Secret Rotation & Centralized Secre... — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Practice time: entropy and scanning",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "proc",
-            "label": "2. Automated Secret Ro...",
-            "tappable": true
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Automated Secret Rotation & Centralized .. [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Automated Secret Ro... [D18.P6.S2].",
+            "caption": "Otherwise count characters and return the rounded sum of -p log2(p).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "text": "'debug = true\nsecret_key = \"Zx8#qP2!mW7…",
+              "i": "1",
+              "line": "'debug = true'",
+              "m": "None"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "text": "data",
+              "i": "data",
+              "line": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates character during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "text": "'debug = true\nsecret_key = \"Zx8#qP2!mW7…",
+              "i": "1",
+              "line": "'debug = true'",
+              "m": "None"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "text": "data",
+              "i": "data",
+              "line": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Automated Secret Rotation & Centr.. [D18.P6.S4].",
+            "at": "say9",
+            "caption": "Tune thresholds using your own code base, balancing missed secrets against.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "text": "'debug = true\nsecret_key = \"Zx8#qP2!mW7…",
+              "i": "1",
+              "line": "'debug = true'",
+              "m": "None"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "text": "ok",
+              "i": "ok",
+              "line": "ok",
+              "m": "ok"
+            }
           }
         ]
       }

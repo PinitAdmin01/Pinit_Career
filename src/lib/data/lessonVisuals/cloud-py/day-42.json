@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 42,
-  "promptSha": "f996c7188ba6fb420397478aab91627f182fbed65b9caf59dbfc4ae89f5651a9",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Step Functions Express vs Standard Workflows & Saga Error Catchers — Foundations & Mathematical Invariants",
-      "codeHash": "51fde521f25fc798ec9fca0897d91a273ebf08bf10c63f56a014cd54c60df077",
+      "codeHash": "79b5dea23c8e57cb17697d3de3a6eb6cbd01d29144ff2fdb1c63ebab49726c5a",
       "spec": {
         "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — F",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "duration_sec",
+            "label": "duration_sec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "requires_exactly_once",
+            "label": "requires_exactly_once"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "throughput_per_sec",
+            "label": "throughput_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "human_in_loop",
+            "label": "human_in_loop"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In distributed serverless architectures, coordinating multi-step business.",
+            "values": {
+              "duration_sec": {
+                "var": "duration_sec",
+                "line": 6,
+                "hit": 1
+              },
+              "requires_exactly_once": {
+                "var": "requires_exactly_once",
+                "line": 6,
+                "hit": 1
+              },
+              "throughput_per_sec": {
+                "var": "throughput_per_sec",
+                "line": 6,
+                "hit": 1
+              },
+              "human_in_loop": {
+                "var": "human_in_loop",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "duration_sec": "data",
+              "requires_exactly_once": "data",
+              "throughput_per_sec": "data",
+              "human_in_loop": "data"
+            },
+            "arrows": [
+              [
+                "duration_sec",
+                "requires_exactly_once"
+              ],
+              [
+                "requires_exactly_once",
+                "throughput_per_sec"
+              ],
+              [
+                "throughput_per_sec",
+                "human_in_loop"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "AWS Step Functions provides declarative state machine orchestration using.",
+            "values": {
+              "duration_sec": {
+                "var": "duration_sec",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "requires_exactly_once": {
+                "var": "requires_exactly_once",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "throughput_per_sec": {
+                "var": "throughput_per_sec",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "human_in_loop": {
+                "var": "human_in_loop",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "duration_sec": "data",
+              "requires_exactly_once": "data",
+              "throughput_per_sec": "data",
+              "human_in_loop": "data"
+            },
+            "arrows": [
+              [
+                "duration_sec",
+                "requires_exactly_once"
+              ],
+              [
+                "requires_exactly_once",
+                "throughput_per_sec"
+              ],
+              [
+                "throughput_per_sec",
+                "human_in_loop"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Choosing between Standard and Express workflows aligns architectural.",
+            "values": {
+              "duration_sec": {
+                "var": "duration_sec",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "requires_exactly_once": {
+                "var": "requires_exactly_once",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "throughput_per_sec": {
+                "var": "throughput_per_sec",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "human_in_loop": {
+                "var": "human_in_loop",
+                "line": 6,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "duration_sec": "ok",
+              "requires_exactly_once": "ok",
+              "throughput_per_sec": "ok",
+              "human_in_loop": "ok"
+            },
+            "arrows": [
+              [
+                "duration_sec",
+                "requires_exactly_once"
+              ],
+              [
+                "requires_exactly_once",
+                "throughput_per_sec"
+              ],
+              [
+                "throughput_per_sec",
+                "human_in_loop"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — F",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "duration_sec",
+            "label": "duration_sec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "requires_exactly_once",
+            "label": "requires_exactly_once"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "throughput_per_sec",
+            "label": "throughput_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "human_in_loop",
+            "label": "human_in_loop"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In distributed serverless architectures, coordinating multi-step business.",
+            "values": {
+              "duration_sec": "86400",
+              "requires_exactly_once": "True",
+              "throughput_per_sec": "2",
+              "human_in_loop": "True"
+            },
+            "tones": {
+              "duration_sec": "data",
+              "requires_exactly_once": "data",
+              "throughput_per_sec": "data",
+              "human_in_loop": "data"
+            },
+            "arrows": [
+              [
+                "duration_sec",
+                "requires_exactly_once"
+              ],
+              [
+                "requires_exactly_once",
+                "throughput_per_sec"
+              ],
+              [
+                "throughput_per_sec",
+                "human_in_loop"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "AWS Step Functions provides declarative state machine orchestration using.",
+            "values": {
+              "duration_sec": "86400",
+              "requires_exactly_once": "True",
+              "throughput_per_sec": "2",
+              "human_in_loop": "True"
+            },
+            "tones": {
+              "duration_sec": "data",
+              "requires_exactly_once": "data",
+              "throughput_per_sec": "data",
+              "human_in_loop": "data"
+            },
+            "arrows": [
+              [
+                "duration_sec",
+                "requires_exactly_once"
+              ],
+              [
+                "requires_exactly_once",
+                "throughput_per_sec"
+              ],
+              [
+                "throughput_per_sec",
+                "human_in_loop"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Choosing between Standard and Express workflows aligns architectural.",
+            "values": {
+              "duration_sec": "2",
+              "requires_exactly_once": "False",
+              "throughput_per_sec": "5000",
+              "human_in_loop": "False"
+            },
+            "tones": {
+              "duration_sec": "ok",
+              "requires_exactly_once": "ok",
+              "throughput_per_sec": "ok",
+              "human_in_loop": "ok"
+            },
+            "arrows": [
+              [
+                "duration_sec",
+                "requires_exactly_once"
+              ],
+              [
+                "requires_exactly_once",
+                "throughput_per_sec"
+              ],
+              [
+                "throughput_per_sec",
+                "human_in_loop"
+              ]
             ]
           }
         ]
@@ -273,797 +287,551 @@
     },
     {
       "partTitle": "Step Functions Express vs Standard Workflows & Saga Error Catchers — Core Algorithm & State Representation",
-      "codeHash": "5fc0c847faf98d6c27c70817d3d035c56b3d01a2552eef68dd0f6a86ce43f920",
+      "codeHash": "3ef314ac0b3d0998f57ed1fe41667f3ecdace007c889cb02b92903c326e41414",
       "spec": {
-        "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — C",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
+        "actors": [
+          "steps",
+          "self",
+          "saga"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In distributed microservices where each service owns its private database.",
+            "activeActor": "steps",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "self",
+                "label": {
+                  "var": "steps",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "saga",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Saga Pattern coordinates multi-service distributed transactions.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "steps",
+                "to": "self",
+                "label": {
+                  "var": "steps",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "saga",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Backward compensating transactions cleanly undo the semantic side-effects.",
+            "activeActor": "saga",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "steps",
+                "to": "self",
+                "label": {
+                  "var": "steps",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "saga",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — C",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
+        "actors": [
+          "steps",
+          "self",
+          "saga"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In distributed microservices where each service owns its private database.",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "self",
+                "label": "[{'name': 'BookFlight', 'action_fn': {'…",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "saga",
+                "label": "<SagaOrchestrator>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "steps"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Saga Pattern coordinates multi-service distributed transactions.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "steps",
+                "to": "self",
+                "label": "[{'name': 'BookFlight', 'action_fn': {'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "saga",
+                "label": "<SagaOrchestrator>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Backward compensating transactions cleanly undo the semantic side-effects.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "steps",
+                "to": "self",
+                "label": "[{'name': 'BookFlight', 'action_fn': {'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "saga",
+                "label": "<SagaOrchestrator>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "saga"
           }
         ]
       }
     },
     {
       "partTitle": "Step Functions Express vs Standard Workflows & Saga Error Catchers — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "36c8583f6010281ceeeff453346047983c57e1c60b0d3b7ac7686f1a75b11189",
+      "codeHash": "e071ed6ea42ea53a124bf5197a45f35d5b58ae69fd0df4136319fb209b85db5c",
       "spec": {
-        "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — T",
-        "nodes": [
+        "template": "states",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "error_type",
+            "label": "error_type"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "current_attempt",
+            "label": "current_attempt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_retries",
+            "label": "max_retries"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-throughput distributed workflows take advantage of asynchronous.",
+            "currentState": "error_type",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "When designing resilient Step Functions workflows, handling transient.",
+            "currentState": "current_attempt",
+            "transition": {
+              "from": "error_type",
+              "to": "current_attempt",
+              "label": {
+                "var": "current_attempt",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Distinguishing business errors from infrastructure faults ensures.",
+            "currentState": "max_retries",
+            "transition": {
+              "from": "current_attempt",
+              "to": "max_retries",
+              "label": {
+                "var": "max_retries",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — T",
-        "nodes": [
+        "template": "states",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "error_type",
+            "label": "error_type"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "current_attempt",
+            "label": "current_attempt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_retries",
+            "label": "max_retries"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-throughput distributed workflows take advantage of asynchronous.",
+            "currentState": "error_type",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "When designing resilient Step Functions workflows, handling transient.",
+            "currentState": "current_attempt",
+            "transition": {
+              "from": "error_type",
+              "to": "current_attempt",
+              "label": "1"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Distinguishing business errors from infrastructure faults ensures.",
+            "currentState": "max_retries",
+            "transition": {
+              "from": "current_attempt",
+              "to": "max_retries",
+              "label": "3"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Step Functions Express vs Standard Workflows & Saga Error Catchers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "072c9caeb56507b3c9ec4dedabaadec2fe2d3535f86be6b5fa97655b325bc3d2",
+      "codeHash": "2f827e1b1943a6150c4af24b1bc6b2d3f9ed3d926c532d5074b8a6c1cd28bfc6",
       "spec": {
         "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — R",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "comp_mgr",
+            "label": "comp_mgr"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tx_id",
+            "label": "tx_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "amount",
+            "label": "amount"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A classic disaster scenario in distributed Saga transactions is the Broken.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "comp_mgr": {
+                "var": "comp_mgr",
+                "line": 20,
+                "hit": 1
+              },
+              "tx_id": {
+                "var": "tx_id",
+                "line": 8,
+                "hit": 1
+              },
+              "amount": {
+                "var": "amount",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "comp_mgr": "data",
+              "tx_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "comp_mgr"
+              ],
+              [
+                "comp_mgr",
+                "tx_id"
+              ],
+              [
+                "tx_id",
+                "amount"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If a compensating step fails, the system enters an Inconsistent Zombie State.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "comp_mgr": {
+                "var": "comp_mgr",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "tx_id": {
+                "var": "tx_id",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "amount": {
+                "var": "amount",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "comp_mgr": "data",
+              "tx_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "comp_mgr"
+              ],
+              [
+                "comp_mgr",
+                "tx_id"
+              ],
+              [
+                "tx_id",
+                "amount"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Dead-Letter Queue fallbacks capture failed compensations, ensuring.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "comp_mgr": {
+                "var": "comp_mgr",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "tx_id": {
+                "var": "tx_id",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "amount": {
+                "var": "amount",
+                "line": 13,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "comp_mgr": "ok",
+              "tx_id": "ok",
+              "amount": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "comp_mgr"
+              ],
+              [
+                "comp_mgr",
+                "tx_id"
+              ],
+              [
+                "tx_id",
+                "amount"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — R",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "comp_mgr",
+            "label": "comp_mgr"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tx_id",
+            "label": "tx_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "amount",
+            "label": "amount"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A classic disaster scenario in distributed Saga transactions is the Broken.",
+            "values": {
+              "self": "<ResilientCompensationManager>",
+              "comp_mgr": "<ResilientCompensationManager>",
+              "tx_id": "'tx-100'",
+              "amount": "50"
+            },
+            "tones": {
+              "self": "data",
+              "comp_mgr": "data",
+              "tx_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "comp_mgr"
+              ],
+              [
+                "comp_mgr",
+                "tx_id"
+              ],
+              [
+                "tx_id",
+                "amount"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If a compensating step fails, the system enters an Inconsistent Zombie State.",
+            "values": {
+              "self": "<ResilientCompensationManager>",
+              "comp_mgr": "<ResilientCompensationManager>",
+              "tx_id": "'tx-100'",
+              "amount": "50"
+            },
+            "tones": {
+              "self": "data",
+              "comp_mgr": "data",
+              "tx_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "comp_mgr"
+              ],
+              [
+                "comp_mgr",
+                "tx_id"
+              ],
+              [
+                "tx_id",
+                "amount"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Dead-Letter Queue fallbacks capture failed compensations, ensuring.",
+            "values": {
+              "self": "<ResilientCompensationManager>",
+              "comp_mgr": "<ResilientCompensationManager>",
+              "tx_id": "'tx-100'",
+              "amount": "50"
+            },
+            "tones": {
+              "self": "ok",
+              "comp_mgr": "ok",
+              "tx_id": "ok",
+              "amount": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "comp_mgr"
+              ],
+              [
+                "comp_mgr",
+                "tx_id"
+              ],
+              [
+                "tx_id",
+                "amount"
+              ]
             ]
           }
         ]
@@ -1071,264 +839,218 @@
     },
     {
       "partTitle": "Step Functions Express vs Standard Workflows & Saga Error Catchers — Production Telemetry & Verification Audit",
-      "codeHash": "ae3f75d88745e98974825a9ebc1ceec8c774265887d9fdf163f70e16a70816d8",
+      "codeHash": "8291ad87bd2ac2c77c75f6653924eb8be2c3e05fc71fa101aec960705a6bc1c6",
       "spec": {
-        "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — P",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated runbooks monitor Step Functions dead-letter queues, triggering.",
+            "bars": [
+              {
+                "label": "failed",
+                "value": {
+                  "var": "failed",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "timed_out",
+                "value": {
+                  "var": "timed_out",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compensations",
+                "value": {
+                  "var": "compensations",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Operating distributed state machines in production requires continuous.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "failed",
+                "value": {
+                  "var": "failed",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "timed_out",
+                "value": {
+                  "var": "timed_out",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "compensations",
+                "value": {
+                  "var": "compensations",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Monitoring execution durations and state transition latencies ensures.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "failed",
+                "value": {
+                  "var": "failed",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "timed_out",
+                "value": {
+                  "var": "timed_out",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "compensations",
+                "value": {
+                  "var": "compensations",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Step Functions Express vs Standard Workflows & Saga Error Catchers — P",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Step Functions Express vs Standard Workflows & Saga Error Catche",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated runbooks monitor Step Functions dead-letter queues, triggering.",
+            "bars": [
+              {
+                "label": "failed",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "timed_out",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "compensations",
+                "value": 15,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 5000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Operating distributed state machines in production requires continuous.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "failed",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "timed_out",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "compensations",
+                "value": 15,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total",
+                "value": 5000,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Monitoring execution durations and state transition latencies ensures.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "failed",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "timed_out",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "compensations",
+                "value": 15,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total",
+                "value": 5000,
+                "tone": "ok"
               }
             ]
           }

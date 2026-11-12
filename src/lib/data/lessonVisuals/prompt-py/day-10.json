@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "AI search tools",
       "codeHash": "1eebd4de1f2685242770f25efe52ac597452b6b331be326657f25f2320b66883",
       "spec": {
-        "template": "table",
-        "title": "AI research workflow and source verification pipeline",
-        "columns": [
-          "workflow",
-          "step",
-          "source"
+        "template": "flow",
+        "title": "AI search tools",
+        "nodes": [
+          {
+            "id": "workflow",
+            "label": "workflow"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "AI search accelerates research for finding sources and comparing viewpoints.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "AI research tools such as Perplexity, ChatGPT search and Gemini combine.",
+            "values": {
+              "workflow": {
+                "var": "workflow",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "workflow": "data",
+              "i": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "i"
+              ],
+              [
+                "i",
+                "step"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Checking each cited source confirms that claims match the underlying text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "They save enormous time on first-pass research.",
+            "values": {
+              "workflow": {
+                "var": "workflow",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "authors"
-                  }
-                ],
-                "tone": "ok"
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "workflow": "data",
+              "i": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "i"
+              ],
+              [
+                "i",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "For fast-moving topics, check the dates of cited pages.",
+            "values": {
+              "workflow": {
+                "var": "workflow",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 2
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "workflow": "ok",
+              "i": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "i"
+              ],
+              [
+                "i",
+                "step"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AI research workflow and source verification pipeline",
-        "columns": [
-          "workflow",
-          "step",
-          "source"
+        "template": "flow",
+        "title": "AI search tools",
+        "nodes": [
+          {
+            "id": "workflow",
+            "label": "workflow"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "AI search accelerates research for finding sources and comparing viewpoints.",
-            "rows": [
-              {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "source"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "source"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "AI research tools such as Perplexity, ChatGPT search and Gemini combine.",
+            "values": {
+              "workflow": "['Ask a focused question', 'Read the AI…",
+              "i": "1",
+              "step": "'Ask a focused question'"
+            },
+            "tones": {
+              "workflow": "data",
+              "i": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "i"
+              ],
+              [
+                "i",
+                "step"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Checking each cited source confirms that claims match the underlying text.",
-            "rows": [
-              {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "source"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "authors"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "They save enormous time on first-pass research.",
+            "values": {
+              "workflow": "['Ask a focused question', 'Read the AI…",
+              "i": "1",
+              "step": "'Ask a focused question'"
+            },
+            "tones": {
+              "workflow": "data",
+              "i": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "i"
+              ],
+              [
+                "i",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "For fast-moving topics, check the dates of cited pages.",
+            "values": {
+              "workflow": "['Ask a focused question', 'Read the AI…",
+              "i": "2",
+              "step": "'Read the AI summary for orientation'"
+            },
+            "tones": {
+              "workflow": "ok",
+              "i": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "i"
+              ],
+              [
+                "i",
+                "step"
+              ]
             ]
           }
         ]
@@ -147,78 +233,77 @@
       "partTitle": "Evaluating a source",
       "codeHash": "d60cecbfb6aa48752db8c9d809730fe121e49e0d24635f47872871af98d6025a",
       "spec": {
-        "template": "table",
-        "title": "Domain authority and source credibility scoring signals",
-        "columns": [
-          "domain",
-          "author",
-          "cites"
-        ],
+        "template": "bars",
+        "title": "Evaluating a source",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Domain authority indicates credible sites though domain alone is not proof.",
-            "rows": [
+            "at": "say1",
+            "caption": "Before trusting a source, ask.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "domain"
-                  },
-                  {
-                    "text": "author"
-                  },
-                  {
-                    "text": "cites"
-                  }
-                ],
-                "tone": "ok"
+                "label": "days_old",
+                "value": {
+                  "var": "days_old",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "domain"
-                  },
-                  {
-                    "text": "author"
-                  },
-                  {
-                    "text": "cites"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Named authors and original data references raise overall credibility.",
-            "rows": [
+            "at": "say2",
+            "caption": "Government (.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "domain"
-                  },
-                  {
-                    "text": "author"
-                  },
-                  {
-                    "text": "cites"
-                  }
-                ],
-                "tone": "data"
+                "label": "days_old",
+                "value": {
+                  "var": "days_old",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "domain"
-                  },
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "cites"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Lateral reading, opening new tabs to see what others say about a source.",
+            "bars": [
+              {
+                "label": "days_old",
+                "value": {
+                  "var": "days_old",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +311,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Domain authority and source credibility scoring signals",
-        "columns": [
-          "domain",
-          "author",
-          "cites"
-        ],
+        "template": "bars",
+        "title": "Evaluating a source",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Domain authority indicates credible sites though domain alone is not proof.",
-            "rows": [
+            "at": "say1",
+            "caption": "Before trusting a source, ask.",
+            "bars": [
               {
-                "cells": [
-                  "domain",
-                  "author",
-                  "cites"
-                ],
-                "tone": "ok"
+                "label": "days_old",
+                "value": 60,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "domain",
-                  "author",
-                  "cites"
-                ],
+                "label": "s",
+                "value": 3,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Named authors and original data references raise overall credibility.",
-            "rows": [
+            "at": "say2",
+            "caption": "Government (.",
+            "bars": [
               {
-                "cells": [
-                  "domain",
-                  "author",
-                  "cites"
-                ],
-                "tone": "data"
+                "label": "days_old",
+                "value": 60,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "domain",
-                  "score",
-                  "cites"
-                ],
+                "label": "s",
+                "value": 7,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Lateral reading, opening new tabs to see what others say about a source.",
+            "bars": [
+              {
+                "label": "days_old",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 9,
                 "tone": "ok"
               }
             ]
@@ -285,78 +369,91 @@
       "partTitle": "Cross-checking claims",
       "codeHash": "c6bfcc0377f122c400af6afc6a5862669c38cc60af83632539fa76bed0d3a1cf",
       "spec": {
-        "template": "table",
-        "title": "Multi-source consensus and independent claim cross-checking",
-        "columns": [
-          "source",
-          "claims",
-          "support"
+        "template": "sequence",
+        "title": "Cross-checking claims",
+        "actors": [
+          "reports",
+          "support",
+          "source"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent sources must confirm key claims before accepting them as fact.",
-            "rows": [
+            "caption": "A single source can be wrong.",
+            "activeActor": "reports",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "claims"
-                  },
-                  {
-                    "text": "support"
-                  }
-                ],
-                "tone": "ok"
+                "from": "reports",
+                "to": "support",
+                "label": {
+                  "var": "reports",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "claims"
-                  },
-                  {
-                    "text": "support"
-                  }
-                ],
-                "tone": "data"
+                "from": "support",
+                "to": "source",
+                "label": {
+                  "var": "support",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Multiple news articles often repeat one release rather than new findings.",
-            "rows": [
+            "caption": "Many news articles repeat the same press release, so five articles may.",
+            "activeActor": "support",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "claims"
-                  },
-                  {
-                    "text": "support"
-                  }
-                ],
+                "from": "reports",
+                "to": "support",
+                "label": {
+                  "var": "reports",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "reports"
-                  },
-                  {
-                    "text": "claims"
-                  },
-                  {
-                    "text": "support"
-                  }
-                ],
+                "from": "support",
+                "to": "source",
+                "label": {
+                  "var": "support",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Primary sources, such as the original study, the official statistics.",
+            "activeActor": "source",
+            "messages": [
+              {
+                "from": "reports",
+                "to": "support",
+                "label": {
+                  "var": "reports",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "support",
+                "to": "source",
+                "label": {
+                  "var": "support",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +461,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-source consensus and independent claim cross-checking",
-        "columns": [
-          "source",
-          "claims",
-          "support"
+        "template": "sequence",
+        "title": "Cross-checking claims",
+        "actors": [
+          "reports",
+          "support",
+          "source"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent sources must confirm key claims before accepting them as fact.",
-            "rows": [
+            "caption": "A single source can be wrong.",
+            "messages": [
               {
-                "cells": [
-                  "source",
-                  "claims",
-                  "support"
-                ],
-                "tone": "ok"
+                "from": "reports",
+                "to": "support",
+                "label": "{'paper A': ['rain friday', 'roads clos…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "source",
-                  "claims",
-                  "support"
-                ],
-                "tone": "data"
+                "from": "support",
+                "to": "source",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reports"
           },
           {
             "at": "say2",
-            "caption": "Multiple news articles often repeat one release rather than new findings.",
-            "rows": [
+            "caption": "Many news articles repeat the same press release, so five articles may.",
+            "messages": [
               {
-                "cells": [
-                  "source",
-                  "claims",
-                  "support"
-                ],
+                "from": "reports",
+                "to": "support",
+                "label": "{'paper A': ['rain friday', 'roads clos…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "reports",
-                  "claims",
-                  "support"
-                ],
+                "from": "support",
+                "to": "source",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "support"
+          },
+          {
+            "at": "say8",
+            "caption": "Primary sources, such as the original study, the official statistics.",
+            "messages": [
+              {
+                "from": "reports",
+                "to": "support",
+                "label": "{'paper A': ['rain friday', 'roads clos…",
+                "tone": "data"
+              },
+              {
+                "from": "support",
+                "to": "source",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "source"
           }
         ]
       }
@@ -423,78 +533,104 @@
       "partTitle": "Common misinformation patterns",
       "codeHash": "4c084f20f6201c707a96ca42a5d5c36fd5d13fe7753a1b32153361a5fa3823b2",
       "spec": {
-        "template": "table",
-        "title": "Misleading statistics and context distortion detection",
-        "columns": [
-          "headline",
-          "reality",
-          "rate"
-        ],
+        "template": "bars",
+        "title": "Common misinformation patterns",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Correlation presented as causation does not prove that one caused another.",
-            "rows": [
+            "at": "say1",
+            "caption": "Out-of-context numbers.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "headline"
-                  },
-                  {
-                    "text": "reality"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
-                "tone": "idle"
+                "label": "before",
+                "value": {
+                  "var": "before",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "headline"
-                  },
-                  {
-                    "text": "reality"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
+                "label": "after",
+                "value": {
+                  "var": "after",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Emotional framing content spreads fastest and deserves critical scrutiny.",
-            "rows": [
+            "at": "say2",
+            "caption": "Correlation presented as causation.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "headline"
-                  },
-                  {
-                    "text": "reality"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
-                "tone": "data"
+                "label": "before",
+                "value": {
+                  "var": "before",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "before"
-                  },
-                  {
-                    "text": "after"
-                  },
-                  {
-                    "text": "pct"
-                  }
-                ],
+                "label": "after",
+                "value": {
+                  "var": "after",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "AI tools can help here too.",
+            "bars": [
+              {
+                "label": "before",
+                "value": {
+                  "var": "before",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "after",
+                "value": {
+                  "var": "after",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +638,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Misleading statistics and context distortion detection",
-        "columns": [
-          "headline",
-          "reality",
-          "rate"
-        ],
+        "template": "bars",
+        "title": "Common misinformation patterns",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Correlation presented as causation does not prove that one caused another.",
-            "rows": [
+            "at": "say1",
+            "caption": "Out-of-context numbers.",
+            "bars": [
               {
-                "cells": [
-                  "headline",
-                  "reality",
-                  "rate"
-                ],
-                "tone": "idle"
+                "label": "before",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "headline",
-                  "reality",
-                  "rate"
-                ],
+                "label": "after",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "pct",
+                "value": 300,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Emotional framing content spreads fastest and deserves critical scrutiny.",
-            "rows": [
+            "at": "say2",
+            "caption": "Correlation presented as causation.",
+            "bars": [
               {
-                "cells": [
-                  "headline",
-                  "reality",
-                  "rate"
-                ],
-                "tone": "data"
+                "label": "before",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "before",
-                  "after",
-                  "pct"
-                ],
+                "label": "after",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": 300,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "AI tools can help here too.",
+            "bars": [
+              {
+                "label": "before",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "after",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": 300,
                 "tone": "ok"
               }
             ]
@@ -561,224 +711,160 @@
       "partTitle": "Writing up research",
       "codeHash": "a094b8312e92b4b1f6ffe7c3ffa5966919fe984fb2e25f8f8f4157e02f5460ff",
       "spec": {
-        "template": "flow",
-        "title": "Writing up research — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Writing up research",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Writing up research",
+        "actors": [
+          "notes",
+          "n"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Writing up research [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Writing up research [Dten.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Good research notes separate facts (with sources), interpretations,.",
+            "activeActor": "notes",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "n",
+                "label": {
+                  "var": "notes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "notes",
+                "label": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "This separation stops your own opinions from quietly turning into facts.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "n",
+                "label": {
+                  "var": "notes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "notes",
+                "label": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Writing up research [Dten.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "A short \"limitations\" section, listing what you could not verify, makes.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "n",
+                "label": {
+                  "var": "notes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "notes",
+                "label": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Writing up research — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Writing up research",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Writing up research",
+        "actors": [
+          "notes",
+          "n"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Writing up research [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Writing up research [D10.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Good research notes separate facts (with sources), interpretations,.",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "n",
+                "label": "[{'fact': 'Monsoon arrived in Kerala on…",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "notes",
+                "label": "{'fact': 'Monsoon arrived in Kerala on …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "notes"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "This separation stops your own opinions from quietly turning into facts.",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "n",
+                "label": "[{'fact': 'Monsoon arrived in Kerala on…",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "notes",
+                "label": "{'fact': 'Monsoon arrived in Kerala on …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Writing up research [D10.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "A short \"limitations\" section, listing what you could not verify, makes.",
+            "messages": [
+              {
+                "from": "notes",
+                "to": "n",
+                "label": "[{'fact': 'Monsoon arrived in Kerala on…",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "notes",
+                "label": "{'fact': 'Rainfall 8% above normal', 's…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
           }
         ]
       }
@@ -788,110 +874,161 @@
       "codeHash": "183364594361a7e125c18bde82213932b3a46e7fe9eed7b6accabd12bd7df616",
       "spec": {
         "template": "flow",
-        "title": "Practice time: score and cross-check — Execution Pipeline",
+        "title": "Practice time: score and cross-check",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "claims",
+            "label": "claims"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: scor...",
-            "tappable": true
+            "id": "counts",
+            "label": "counts"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "c",
+            "label": "c"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: score and cross-check.",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: scor... [Dten.Psix.Stwo].",
+            "caption": "Add 2 for an author and 2 for citing sources.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "claims": {
+                "var": "claims",
+                "line": 1,
+                "hit": 2
+              },
+              "counts": {
+                "var": "counts",
+                "line": 4,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 5,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 6,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "claims": "data",
+              "counts": "data",
+              "items": "data",
+              "c": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "claims",
+                "counts"
               ],
               [
-                "proc",
-                "out"
+                "counts",
+                "items"
+              ],
+              [
+                "items",
+                "c"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates government during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "claims": {
+                "var": "claims",
+                "line": 4,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 5,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 6,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "claims": "data",
+              "counts": "data",
+              "items": "data",
+              "c": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "claims",
+                "counts"
+              ],
+              [
+                "counts",
+                "items"
+              ],
+              [
+                "items",
+                "c"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: score and cross-ch.",
+            "at": "say8",
+            "caption": "Keep a personal list of sources you have found reliable for your field.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "claims": {
+                "var": "claims",
+                "line": 5,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 6,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 6,
+                "hit": 2
+              },
+              "c": {
+                "var": "c",
+                "line": 6,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "claims": "ok",
+              "counts": "ok",
+              "items": "ok",
+              "c": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "claims",
+                "counts"
               ],
               [
-                "proc",
-                "out"
+                "counts",
+                "items"
+              ],
+              [
+                "items",
+                "c"
               ]
             ]
           }
@@ -899,110 +1036,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: score and cross-check — Execution Pipeline",
+        "title": "Practice time: score and cross-check",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "claims",
+            "label": "claims"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: scor...",
-            "tappable": true
+            "id": "counts",
+            "label": "counts"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "c",
+            "label": "c"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: score and cross-check [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: scor... [D10.P6.S2].",
+            "caption": "Add 2 for an author and 2 for citing sources.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "claims": "{'ministry site': ['Exam on 5 March', '…",
+              "counts": "{}",
+              "items": "['Exam on 5 March', 'Results in May']",
+              "c": "'exam on 5 march'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "claims": "data",
+              "counts": "data",
+              "items": "data",
+              "c": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "claims",
+                "counts"
               ],
               [
-                "proc",
-                "out"
+                "counts",
+                "items"
+              ],
+              [
+                "items",
+                "c"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates government during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "claims": "{'ministry site': ['Exam on 5 March', '…",
+              "counts": "{}",
+              "items": "['Exam on 5 March', 'Results in May']",
+              "c": "'exam on 5 march'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "claims": "data",
+              "counts": "data",
+              "items": "data",
+              "c": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "claims",
+                "counts"
+              ],
+              [
+                "counts",
+                "items"
+              ],
+              [
+                "items",
+                "c"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: score and cross-ch.. [D10.P6.S4].",
+            "at": "say8",
+            "caption": "Keep a personal list of sources you have found reliable for your field.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "claims": "{'ministry site': ['Exam on 5 March', '…",
+              "counts": "{}",
+              "items": "['Exam on 5 March', 'Results in May']",
+              "c": "'results in may'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "claims": "ok",
+              "counts": "ok",
+              "items": "ok",
+              "c": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "claims",
+                "counts"
               ],
               [
-                "proc",
-                "out"
+                "counts",
+                "items"
+              ],
+              [
+                "items",
+                "c"
               ]
             ]
           }

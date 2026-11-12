@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 31,
-  "promptSha": "fd6e75e0276730936ce49e13e133919e352550429c86d4f48f5712b6dbb34c05",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Hybrid RAG Architecture — Foundations & Mathematical Invariants",
-      "codeHash": "f363bd60a82e72dad7f31d9976e0252ba5574454ebc530653336b9011b6beaaf",
+      "partTitle": "BM25 Term Saturation and Document Length Normalization",
+      "codeHash": "50c81cff1a8edbaad77fc6f4cf437c5a7ce5f4847cd3f6d174cfa78bf267c56e",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "BM25 Term Saturation and Document Length Normalization",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Dense embeddings capture paraphrases well, yet they routinely stumble.",
+            "bars": [
+              {
+                "label": "k1",
+                "value": {
+                  "var": "k1",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_dl",
+                "value": {
+                  "var": "avg_dl",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "BM25 solves exact keyword precision without letting a spammy document win.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "k1",
+                "value": {
+                  "var": "k1",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_dl",
+                "value": {
+                  "var": "avg_dl",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace how note updates also during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "k1",
+                "value": {
+                  "var": "k1",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_dl",
+                "value": {
+                  "var": "avg_dl",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "BM25 Term Saturation and Document Length Normalization",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Dense embeddings capture paraphrases well, yet they routinely stumble.",
+            "bars": [
+              {
+                "label": "k1",
+                "value": 1.5,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0.75,
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "avg_dl",
+                "value": 11,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "BM25 solves exact keyword precision without letting a spammy document win.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "k1",
+                "value": 1.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": 0.75,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "N",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_dl",
+                "value": 11,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace how note updates also during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "k1",
+                "value": 1.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": 0.75,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "N",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_dl",
+                "value": 11,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +226,219 @@
       }
     },
     {
-      "partTitle": "Hybrid RAG Architecture — Core Algorithm & State Representation",
-      "codeHash": "040fcf9e47ef256a4a196ef0d4f6bd7d376f0ef771faeff2ee5e80ece5c45277",
+      "partTitle": "Dense Cosine Retrieval and Pre-Normalized Index Storage",
+      "codeHash": "dad15500824a63220f6cdd7e0867fa971112270e466f877664adaa9cbfd5e373",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Dense Cosine Retrieval and Pre-Normalized Index Storage",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Where BM25 nails literal strings, dense embeddings recover semantic.",
+            "bars": [
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Cosine similarity divides the dot product of two vectors by the product.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Top-k ranking outputs ordered IDs with cosine scores so downstream fusion.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 12,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Dense Cosine Retrieval and Pre-Normalized Index Storage",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Where BM25 nails literal strings, dense embeddings recover semantic.",
+            "bars": [
+              {
+                "label": "v",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "norm",
+                "value": 0.9630680142129111,
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0.882596,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Cosine similarity divides the dot product of two vectors by the product.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "v",
+                "value": 0.45,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "norm",
+                "value": 0.9630680142129111,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "top_k",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": 0.467257,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Top-k ranking outputs ordered IDs with cosine scores so downstream fusion.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "v",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "norm",
+                "value": 0.9630680142129111,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "top_k",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": 0.051917,
+                "tone": "ok"
               }
             ]
           }
@@ -538,799 +446,557 @@
       }
     },
     {
-      "partTitle": "Hybrid RAG Architecture — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "319e68479a0f041b4930eb74bb7696217ac8989305f7c9baa888aead2984da8d",
+      "partTitle": "Reciprocal Rank Fusion Without Cross-Metric Scale Drift",
+      "codeHash": "0a3ca03f58871929a2d935cd4bc46690d4e328bb5d597afe5417e557ce635dee",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Reciprocal Rank Fusion Without Cross-Metric Scale Drift",
+        "actors": [
+          "bm25_top",
+          "vec_top",
+          "rankings"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Naively adding raw numbers lets whichever retriever happens to have larger.",
+            "activeActor": "bm25_top",
+            "messages": [
+              {
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": {
+                  "var": "bm25_top",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "vec_top",
+                "to": "rankings",
+                "label": {
+                  "var": "vec_top",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Even min-max normalization within one query fluctuates wildly when the top.",
+            "activeActor": "vec_top",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": {
+                  "var": "bm25_top",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vec_top",
+                "to": "rankings",
+                "label": {
+                  "var": "vec_top",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Observe how 'doc_b' ranks 2nd in both lists yet overtakes 'doc_a' (1st.",
+            "activeActor": "rankings",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": {
+                  "var": "bm25_top",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "vec_top",
+                "to": "rankings",
+                "label": {
+                  "var": "vec_top",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Reciprocal Rank Fusion Without Cross-Metric Scale Drift",
+        "actors": [
+          "bm25_top",
+          "vec_top",
+          "rankings"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Naively adding raw numbers lets whichever retriever happens to have larger.",
+            "messages": [
+              {
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": "['doc_a', 'doc_b', 'doc_c']",
+                "tone": "data"
+              },
+              {
+                "from": "vec_top",
+                "to": "rankings",
+                "label": "['doc_d', 'doc_b', 'doc_e']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bm25_top"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Even min-max normalization within one query fluctuates wildly when the top.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": "['doc_a', 'doc_b', 'doc_c']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vec_top",
+                "to": "rankings",
+                "label": "['doc_d', 'doc_b', 'doc_e']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "vec_top"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Observe how 'doc_b' ranks 2nd in both lists yet overtakes 'doc_a' (1st.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bm25_top",
+                "to": "vec_top",
+                "label": "['doc_a', 'doc_b', 'doc_c']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vec_top",
+                "to": "rankings",
+                "label": "['doc_d', 'doc_b', 'doc_e']",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "rankings"
           }
         ]
       }
     },
     {
-      "partTitle": "Hybrid RAG Architecture — Resilience Guardrails & Failure Recovery",
-      "codeHash": "39ca42391681bb09e009795d46a859f1c7501c575c1165f9620e9695a93842f2",
+      "partTitle": "Pre-Filter Tenant ACLs and Deterministic Tie-Breaking",
+      "codeHash": "c2424df1db8f21f6e3f92001178a21ac66078ced95446be45068423f1b354b17",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Pre-Filter Tenant ACLs and Deterministic Tie-Breaking",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "catalog",
+            "label": "catalog"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tenant",
+            "label": "tenant"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bm25_order",
+            "label": "bm25_order"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Running global search first and stripping unauthorized tenant documents.",
+            "values": {
+              "catalog": {
+                "var": "catalog",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tenant": {
+                "var": "tenant",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "docs": {
+                "var": "docs",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "bm25_order": {
+                "var": "bm25_order",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "catalog": "data",
+              "tenant": "data",
+              "docs": "data",
+              "bm25_order": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Production hybrid engines enforce tenant ACL filters inside both.",
+            "values": {
+              "catalog": {
+                "var": "catalog",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tenant": {
+                "var": "tenant",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "docs": {
+                "var": "docs",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "bm25_order": {
+                "var": "bm25_order",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "catalog": "data",
+              "tenant": "data",
+              "docs": "data",
+              "bm25_order": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Walk through hybrid_acl_search() below.",
+            "values": {
+              "catalog": {
+                "var": "catalog",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "tenant": {
+                "var": "tenant",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "docs": {
+                "var": "docs",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "bm25_order": {
+                "var": "bm25_order",
+                "line": 2,
+                "hit": 3
               }
-            ]
+            },
+            "tones": {
+              "catalog": "ok",
+              "tenant": "ok",
+              "docs": "ok",
+              "bm25_order": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Pre-Filter Tenant ACLs and Deterministic Tie-Breaking",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "catalog",
+            "label": "catalog"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tenant",
+            "label": "tenant"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bm25_order",
+            "label": "bm25_order"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Running global search first and stripping unauthorized tenant documents.",
+            "values": {
+              "catalog": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
+              "tenant": "'acme'",
+              "docs": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
+              "bm25_order": "['d1', 'd2', 'd3']"
+            },
+            "tones": {
+              "catalog": "data",
+              "tenant": "data",
+              "docs": "data",
+              "bm25_order": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Production hybrid engines enforce tenant ACL filters inside both.",
+            "values": {
+              "catalog": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
+              "tenant": "'acme'",
+              "docs": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
+              "bm25_order": "['d1', 'd2', 'd3']"
+            },
+            "tones": {
+              "catalog": "data",
+              "tenant": "data",
+              "docs": "data",
+              "bm25_order": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Walk through hybrid_acl_search() below.",
+            "values": {
+              "catalog": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
+              "tenant": "'acme'",
+              "docs": "[{'id': 'd1', 'tenant': 'globex'}, {'id…",
+              "bm25_order": "['d1', 'd2', 'd3']"
+            },
+            "tones": {
+              "catalog": "ok",
+              "tenant": "ok",
+              "docs": "ok",
+              "bm25_order": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Hybrid RAG Architecture — Production Telemetry & Verification Audit",
-      "codeHash": "cefcbc3829a9e0a52488839ecfd074a14dcc0cfd2ef89e958f523814b69da2af",
+      "partTitle": "Measuring Recall@K and Mean Reciprocal Rank Across Retrievers",
+      "codeHash": "cb3a518e9179c4b1d99a0c8b67443582794e9223096ae44ace1cd13b8db1fc30",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Measuring Recall@K and Mean Reciprocal Rank Across Retrievers",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gold",
+            "label": "gold"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bm25",
+            "label": "bm25"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "vec",
+            "label": "vec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "hyb",
+            "label": "hyb"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Never ship hybrid fusion on intuition alone.",
+            "values": {
+              "gold": {
+                "var": "gold",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bm25": {
+                "var": "bm25",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "vec": {
+                "var": "vec",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "hyb": {
+                "var": "hyb",
+                "line": 18,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "gold": "data",
+              "bm25": "data",
+              "vec": "data",
+              "hyb": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Recall@K asks whether at least one gold relevant document enters the top K.",
+            "values": {
+              "gold": {
+                "var": "gold",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bm25": {
+                "var": "bm25",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "vec": {
+                "var": "vec",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "hyb": {
+                "var": "hyb",
+                "line": 19,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "gold": "data",
+              "bm25": "data",
+              "vec": "data",
+              "hyb": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Hybrid RRF recovers high Recall@2 and jumps MRR across the combined.",
+            "values": {
+              "gold": {
+                "var": "gold",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "bm25": {
+                "var": "bm25",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "vec": {
+                "var": "vec",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "hyb": {
+                "var": "hyb",
+                "line": 20,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "gold": "ok",
+              "bm25": "ok",
+              "vec": "ok",
+              "hyb": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid RAG Architecture — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Measuring Recall@K and Mean Reciprocal Rank Across Retrievers",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gold",
+            "label": "gold"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bm25",
+            "label": "bm25"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "vec",
+            "label": "vec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "hyb",
+            "label": "hyb"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Never ship hybrid fusion on intuition alone.",
+            "values": {
+              "gold": "{'q1': {'id_doc'}, 'q2': {'sem_doc'}, '…",
+              "bm25": "{'q1': ['id_doc', 'other'], 'q2': ['oth…",
+              "vec": "{'q1': ['noise', 'other'], 'q2': ['sem_…",
+              "hyb": "{'q1': ['id_doc', 'noise'], 'q2': ['sem…"
+            },
+            "tones": {
+              "gold": "data",
+              "bm25": "data",
+              "vec": "data",
+              "hyb": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Recall@K asks whether at least one gold relevant document enters the top K.",
+            "values": {
+              "gold": "{'q1': {'id_doc'}, 'q2': {'sem_doc'}, '…",
+              "bm25": "{'q1': ['id_doc', 'other'], 'q2': ['oth…",
+              "vec": "{'q1': ['noise', 'other'], 'q2': ['sem_…",
+              "hyb": "{'q1': ['id_doc', 'noise'], 'q2': ['sem…"
+            },
+            "tones": {
+              "gold": "data",
+              "bm25": "data",
+              "vec": "data",
+              "hyb": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Hybrid RRF recovers high Recall@2 and jumps MRR across the combined.",
+            "values": {
+              "gold": "{'q1': {'id_doc'}, 'q2': {'sem_doc'}, '…",
+              "bm25": "{'q1': ['id_doc', 'other'], 'q2': ['oth…",
+              "vec": "{'q1': ['noise', 'other'], 'q2': ['sem_…",
+              "hyb": "{'q1': ['id_doc', 'noise'], 'q2': ['sem…"
+            },
+            "tones": {
+              "gold": "ok",
+              "bm25": "ok",
+              "vec": "ok",
+              "hyb": "ok"
+            }
           }
         ]
       }

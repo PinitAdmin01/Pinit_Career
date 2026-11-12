@@ -56,6 +56,13 @@
       "assignmentsCompleted": 1,
       "assignmentsPending": 0,
       "warningLevel": "Low"
+    },
+    "advisor_x_1794464189555": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
     }
   }
 }

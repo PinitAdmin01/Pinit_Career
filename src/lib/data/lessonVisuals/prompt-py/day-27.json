@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "High-stakes domains",
       "codeHash": "825b079678d12ba2cac0c52e46ab155cb0e9ff5aaee811193eea2cd7bdce85b6",
       "spec": {
-        "template": "table",
-        "title": "High-stakes domain tasks and required review level",
-        "columns": [
-          "contract",
-          "review",
-          "doctor"
+        "template": "sequence",
+        "title": "High-stakes domains",
+        "actors": [
+          "tasks",
+          "kv",
+          "task"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Medicine and finance require strict regulation due to errors.",
-            "rows": [
+            "caption": "Law, medicine and finance share three features.",
+            "activeActor": "tasks",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "review"
-                  },
-                  {
-                    "text": "doctor"
-                  }
-                ],
-                "tone": "ok"
+                "from": "tasks",
+                "to": "kv",
+                "label": {
+                  "var": "tasks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "review"
-                  },
-                  {
-                    "text": "doctor"
-                  }
-                ],
-                "tone": "data"
+                "from": "kv",
+                "to": "task",
+                "label": {
+                  "var": "kv",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "AI assists professionals in drafting routine documents.",
-            "rows": [
+            "caption": "AI helps professionals draft documents, summarise records, search.",
+            "activeActor": "kv",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "review"
-                  },
-                  {
-                    "text": "doctor"
-                  }
-                ],
+                "from": "tasks",
+                "to": "kv",
+                "label": {
+                  "var": "tasks",
+                  "line": 4,
+                  "hit": 6
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "review"
-                  },
-                  {
-                    "text": "contract"
-                  }
-                ],
+                "from": "kv",
+                "to": "task",
+                "label": {
+                  "var": "kv",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Documenting how AI was used in a piece of work helps colleagues.",
+            "activeActor": "task",
+            "messages": [
+              {
+                "from": "tasks",
+                "to": "kv",
+                "label": {
+                  "var": "tasks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "kv",
+                "to": "task",
+                "label": {
+                  "var": "kv",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-stakes domain tasks and required review level",
-        "columns": [
-          "contract",
-          "review",
-          "doctor"
+        "template": "sequence",
+        "title": "High-stakes domains",
+        "actors": [
+          "tasks",
+          "kv",
+          "task"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Medicine and finance require strict regulation due to errors.",
-            "rows": [
+            "caption": "Law, medicine and finance share three features.",
+            "messages": [
               {
-                "cells": [
-                  "contract",
-                  "review",
-                  "doctor"
-                ],
-                "tone": "ok"
+                "from": "tasks",
+                "to": "kv",
+                "label": "{'summarise a 40-page contract': 'revie…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "contract",
-                  "review",
-                  "doctor"
-                ],
-                "tone": "data"
+                "from": "kv",
+                "to": "task",
+                "label": "['summarise a 40-page contract', 'revie…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tasks"
           },
           {
             "at": "say2",
-            "caption": "AI assists professionals in drafting routine documents.",
-            "rows": [
+            "caption": "AI helps professionals draft documents, summarise records, search.",
+            "messages": [
               {
-                "cells": [
-                  "contract",
-                  "review",
-                  "doctor"
-                ],
+                "from": "tasks",
+                "to": "kv",
+                "label": "{'summarise a 40-page contract': 'revie…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "contract",
-                  "review",
-                  "contract"
-                ],
+                "from": "kv",
+                "to": "task",
+                "label": "['draft a patient discharge summary', '…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "kv"
+          },
+          {
+            "at": "say9",
+            "caption": "Documenting how AI was used in a piece of work helps colleagues.",
+            "messages": [
+              {
+                "from": "tasks",
+                "to": "kv",
+                "label": "{'summarise a 40-page contract': 'revie…",
+                "tone": "data"
+              },
+              {
+                "from": "kv",
+                "to": "task",
+                "label": "['explain what an index fund is', 'ligh…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "task"
           }
         ]
       }
@@ -147,78 +173,91 @@
       "partTitle": "Disclaimers and scope",
       "codeHash": "0486da208aee6adf18e5e6fd1457f16aeb004d03de7ae352e92985e9f4bfc612",
       "spec": {
-        "template": "table",
-        "title": "Disclaimer verification and domain safety policies",
-        "columns": [
-          "medical",
-          "financial",
-          "emergency"
+        "template": "sequence",
+        "title": "Disclaimers and scope",
+        "actors": [
+          "REQUIRED",
+          "answers",
+          "domain"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sensitive domains require clear disclaimers in generated text.",
-            "rows": [
+            "caption": "AI answers in sensitive domains should carry clear disclaimers.",
+            "activeActor": "REQUIRED",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "medical"
-                  },
-                  {
-                    "text": "financial"
-                  },
-                  {
-                    "text": "emergency"
-                  }
-                ],
-                "tone": "ok"
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": {
+                  "var": "REQUIRED",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "medical"
-                  },
-                  {
-                    "text": "financial"
-                  },
-                  {
-                    "text": "emergency"
-                  }
-                ],
-                "tone": "data"
+                "from": "answers",
+                "to": "domain",
+                "label": {
+                  "var": "answers",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Medical answers mention emergency steps to avoid delays in care.",
-            "rows": [
+            "caption": "Medical answers should also mention what to do in an emergency, so no one.",
+            "activeActor": "answers",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "medical"
-                  },
-                  {
-                    "text": "financial"
-                  },
-                  {
-                    "text": "emergency"
-                  }
-                ],
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": {
+                  "var": "REQUIRED",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "medical"
-                  },
-                  {
-                    "text": "financial"
-                  },
-                  {
-                    "text": "medical"
-                  }
-                ],
+                "from": "answers",
+                "to": "domain",
+                "label": {
+                  "var": "answers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "A missing disclaimer can be added automatically before the answer.",
+            "activeActor": "domain",
+            "messages": [
+              {
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": {
+                  "var": "REQUIRED",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "answers",
+                "to": "domain",
+                "label": {
+                  "var": "answers",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disclaimer verification and domain safety policies",
-        "columns": [
-          "medical",
-          "financial",
-          "emergency"
+        "template": "sequence",
+        "title": "Disclaimers and scope",
+        "actors": [
+          "REQUIRED",
+          "answers",
+          "domain"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sensitive domains require clear disclaimers in generated text.",
-            "rows": [
+            "caption": "AI answers in sensitive domains should carry clear disclaimers.",
+            "messages": [
               {
-                "cells": [
-                  "medical",
-                  "financial",
-                  "emergency"
-                ],
-                "tone": "ok"
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": "{'medical': ['consult a doctor', 'emerg…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "medical",
-                  "financial",
-                  "emergency"
-                ],
-                "tone": "data"
+                "from": "answers",
+                "to": "domain",
+                "label": "{'medical': 'Rest and fluids help. Cons…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "REQUIRED"
           },
           {
             "at": "say2",
-            "caption": "Medical answers mention emergency steps to avoid delays in care.",
-            "rows": [
+            "caption": "Medical answers should also mention what to do in an emergency, so no one.",
+            "messages": [
               {
-                "cells": [
-                  "medical",
-                  "financial",
-                  "emergency"
-                ],
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": "{'medical': ['consult a doctor', 'emerg…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "medical",
-                  "financial",
-                  "medical"
-                ],
+                "from": "answers",
+                "to": "domain",
+                "label": "{'medical': 'Rest and fluids help. Cons…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "answers"
+          },
+          {
+            "at": "say9",
+            "caption": "A missing disclaimer can be added automatically before the answer.",
+            "messages": [
+              {
+                "from": "REQUIRED",
+                "to": "answers",
+                "label": "{'medical': ['consult a doctor', 'emerg…",
+                "tone": "data"
+              },
+              {
+                "from": "answers",
+                "to": "domain",
+                "label": "{'medical': 'Rest and fluids help. Cons…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "domain"
           }
         ]
       }
@@ -285,78 +337,91 @@
       "partTitle": "AI in legal work",
       "codeHash": "27a77b82f699ab7b243852374d349577c46198872c55b4b8e0418963f9b0d0ee",
       "spec": {
-        "template": "table",
-        "title": "Legal contract review and risky clause detection",
-        "columns": [
+        "template": "sequence",
+        "title": "AI in legal work",
+        "actors": [
+          "RISKY",
           "contract",
-          "penalty",
-          "lease"
+          "line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Lawyers use tools to summarise contracts and compare clauses.",
-            "rows": [
+            "caption": "Lawyers use AI to summarise contracts, compare versions, find clauses.",
+            "activeActor": "RISKY",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "penalty"
-                  },
-                  {
-                    "text": "lease"
-                  }
-                ],
-                "tone": "ok"
+                "from": "RISKY",
+                "to": "contract",
+                "label": {
+                  "var": "RISKY",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "penalty"
-                  },
-                  {
-                    "text": "lease"
-                  }
-                ],
-                "tone": "data"
+                "from": "contract",
+                "to": "line",
+                "label": {
+                  "var": "contract",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Automated review flags unlimited liability and penalties.",
-            "rows": [
+            "at": "say2",
+            "caption": "Famous cases have shown lawyers submitting AI-invented case citations.",
+            "activeActor": "contract",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "penalty"
-                  },
-                  {
-                    "text": "lease"
-                  }
-                ],
+                "from": "RISKY",
+                "to": "contract",
+                "label": {
+                  "var": "RISKY",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "contract"
-                  },
-                  {
-                    "text": "penalty"
-                  },
-                  {
-                    "text": "contract"
-                  }
-                ],
+                "from": "contract",
+                "to": "line",
+                "label": {
+                  "var": "contract",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Comparing a contract with a standard template highlights unusual clauses.",
+            "activeActor": "line",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "contract",
+                "label": {
+                  "var": "RISKY",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "contract",
+                "to": "line",
+                "label": {
+                  "var": "contract",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +429,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Legal contract review and risky clause detection",
-        "columns": [
+        "template": "sequence",
+        "title": "AI in legal work",
+        "actors": [
+          "RISKY",
           "contract",
-          "penalty",
-          "lease"
+          "line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Lawyers use tools to summarise contracts and compare clauses.",
-            "rows": [
+            "caption": "Lawyers use AI to summarise contracts, compare versions, find clauses.",
+            "messages": [
               {
-                "cells": [
-                  "contract",
-                  "penalty",
-                  "lease"
-                ],
-                "tone": "ok"
+                "from": "RISKY",
+                "to": "contract",
+                "label": "['indemnify', 'unlimited liability', 'a…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "contract",
-                  "penalty",
-                  "lease"
-                ],
-                "tone": "data"
+                "from": "contract",
+                "to": "line",
+                "label": "'1. Rent is due on the 5th.\n2. Late pay…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "RISKY"
           },
           {
-            "at": "say3",
-            "caption": "Automated review flags unlimited liability and penalties.",
-            "rows": [
+            "at": "say2",
+            "caption": "Famous cases have shown lawyers submitting AI-invented case citations.",
+            "messages": [
               {
-                "cells": [
-                  "contract",
-                  "penalty",
-                  "lease"
-                ],
+                "from": "RISKY",
+                "to": "contract",
+                "label": "['indemnify', 'unlimited liability', 'a…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "contract",
-                  "penalty",
-                  "contract"
-                ],
+                "from": "contract",
+                "to": "line",
+                "label": "'1. Rent is due on the 5th.\n2. Late pay…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "contract"
+          },
+          {
+            "at": "say9",
+            "caption": "Comparing a contract with a standard template highlights unusual clauses.",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "contract",
+                "label": "['indemnify', 'unlimited liability', 'a…",
+                "tone": "data"
+              },
+              {
+                "from": "contract",
+                "to": "line",
+                "label": "'1. Rent is due on the 5th.\n2. Late pay…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "line"
           }
         ]
       }
@@ -423,135 +501,277 @@
       "partTitle": "AI in healthcare",
       "codeHash": "08b8a48c7dafdbf4836ee7761a46b80097e14c630bc78da467996bc80b94b3af",
       "spec": {
-        "template": "table",
-        "title": "Healthcare communication and plain language explanation",
-        "columns": [
-          "hypertension",
-          "tachycardia",
-          "benign"
+        "template": "flow",
+        "title": "AI in healthcare",
+        "nodes": [
+          {
+            "id": "plain",
+            "label": "plain"
+          },
+          {
+            "id": "note",
+            "label": "note"
+          },
+          {
+            "id": "term",
+            "label": "term"
+          },
+          {
+            "id": "meaning",
+            "label": "meaning"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Clinicians draft consultation notes and patient explanations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "hypertension"
-                  },
-                  {
-                    "text": "tachycardia"
-                  },
-                  {
-                    "text": "benign"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Clinicians use AI to draft notes from consultations, summarise records.",
+            "values": {
+              "plain": {
+                "var": "plain",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "hypertension"
-                  },
-                  {
-                    "text": "tachycardia"
-                  },
-                  {
-                    "text": "benign"
-                  }
-                ],
-                "tone": "data"
+              "note": {
+                "var": "note",
+                "line": 2,
+                "hit": 1
+              },
+              "term": {
+                "var": "term",
+                "line": 3,
+                "hit": 1
+              },
+              "meaning": {
+                "var": "meaning",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "plain": "data",
+              "note": "data",
+              "term": "data",
+              "meaning": "data"
+            },
+            "arrows": [
+              [
+                "plain",
+                "note"
+              ],
+              [
+                "note",
+                "term"
+              ],
+              [
+                "term",
+                "meaning"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Plain language avoids alarm and directs patients to emergency care.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "hypertension"
-                  },
-                  {
-                    "text": "tachycardia"
-                  },
-                  {
-                    "text": "benign"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Some AI tools are regulated medical devices (for example reading X-rays).",
+            "values": {
+              "plain": {
+                "var": "plain",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "hypertension"
-                  },
-                  {
-                    "text": "tachycardia"
-                  },
-                  {
-                    "text": "benign"
-                  }
-                ],
-                "tone": "ok"
+              "note": {
+                "var": "note",
+                "line": 3,
+                "hit": 1
+              },
+              "term": {
+                "var": "term",
+                "line": 4,
+                "hit": 1
+              },
+              "meaning": {
+                "var": "meaning",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "plain": "data",
+              "note": "data",
+              "term": "data",
+              "meaning": "data"
+            },
+            "arrows": [
+              [
+                "plain",
+                "note"
+              ],
+              [
+                "note",
+                "term"
+              ],
+              [
+                "term",
+                "meaning"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Translations of health information into local languages must be checked.",
+            "values": {
+              "plain": {
+                "var": "plain",
+                "line": 3,
+                "hit": 1
+              },
+              "note": {
+                "var": "note",
+                "line": 4,
+                "hit": 1
+              },
+              "term": {
+                "var": "term",
+                "line": 3,
+                "hit": 2
+              },
+              "meaning": {
+                "var": "meaning",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "plain": "ok",
+              "note": "ok",
+              "term": "ok",
+              "meaning": "ok"
+            },
+            "arrows": [
+              [
+                "plain",
+                "note"
+              ],
+              [
+                "note",
+                "term"
+              ],
+              [
+                "term",
+                "meaning"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Healthcare communication and plain language explanation",
-        "columns": [
-          "hypertension",
-          "tachycardia",
-          "benign"
+        "template": "flow",
+        "title": "AI in healthcare",
+        "nodes": [
+          {
+            "id": "plain",
+            "label": "plain"
+          },
+          {
+            "id": "note",
+            "label": "note"
+          },
+          {
+            "id": "term",
+            "label": "term"
+          },
+          {
+            "id": "meaning",
+            "label": "meaning"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Clinicians draft consultation notes and patient explanations.",
-            "rows": [
-              {
-                "cells": [
-                  "hypertension",
-                  "tachycardia",
-                  "benign"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "hypertension",
-                  "tachycardia",
-                  "benign"
-                ],
-                "tone": "data"
-              }
+            "caption": "Clinicians use AI to draft notes from consultations, summarise records.",
+            "values": {
+              "plain": "{'hypertension': 'high blood pressure',…",
+              "note": "'Patient has hypertension and mild tach…",
+              "term": "'hypertension'",
+              "meaning": "'high blood pressure'"
+            },
+            "tones": {
+              "plain": "data",
+              "note": "data",
+              "term": "data",
+              "meaning": "data"
+            },
+            "arrows": [
+              [
+                "plain",
+                "note"
+              ],
+              [
+                "note",
+                "term"
+              ],
+              [
+                "term",
+                "meaning"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Plain language avoids alarm and directs patients to emergency care.",
-            "rows": [
-              {
-                "cells": [
-                  "hypertension",
-                  "tachycardia",
-                  "benign"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "hypertension",
-                  "tachycardia",
-                  "benign"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Some AI tools are regulated medical devices (for example reading X-rays).",
+            "values": {
+              "plain": "{'hypertension': 'high blood pressure',…",
+              "note": "'Patient has hypertension and mild tach…",
+              "term": "'hypertension'",
+              "meaning": "'high blood pressure'"
+            },
+            "tones": {
+              "plain": "data",
+              "note": "data",
+              "term": "data",
+              "meaning": "data"
+            },
+            "arrows": [
+              [
+                "plain",
+                "note"
+              ],
+              [
+                "note",
+                "term"
+              ],
+              [
+                "term",
+                "meaning"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Translations of health information into local languages must be checked.",
+            "values": {
+              "plain": "{'hypertension': 'high blood pressure',…",
+              "note": "'Patient has hypertension (high blood p…",
+              "term": "'tachycardia'",
+              "meaning": "'a fast heart rate'"
+            },
+            "tones": {
+              "plain": "ok",
+              "note": "ok",
+              "term": "ok",
+              "meaning": "ok"
+            },
+            "arrows": [
+              [
+                "plain",
+                "note"
+              ],
+              [
+                "note",
+                "term"
+              ],
+              [
+                "term",
+                "meaning"
+              ]
             ]
           }
         ]
@@ -561,224 +781,162 @@
       "partTitle": "AI in marketing and finance",
       "codeHash": "1087c726a41b48a45a537f085833919c4fdbbde28dc928cc3e44fa58ffc0e645",
       "spec": {
-        "template": "flow",
-        "title": "AI in marketing and finance — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. AI in marketing and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "AI in marketing and finance",
+        "actors": [
+          "ABSOLUTE",
+          "drafts",
+          "d"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for AI in marketing and finance [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in AI in marketing and... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Marketers use AI for campaign ideas, copy variations, audience personas.",
+            "activeActor": "ABSOLUTE",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": {
+                  "var": "ABSOLUTE",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": {
+                  "var": "drafts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Advertising rules still apply.",
+            "activeActor": "drafts",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": {
+                  "var": "ABSOLUTE",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": {
+                  "var": "drafts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for AI in marketing and finance.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Keeping a library of approved claims and phrases lets AI drafts reuse.",
+            "activeActor": "d",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": {
+                  "var": "ABSOLUTE",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": {
+                  "var": "drafts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "AI in marketing and finance — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. AI in marketing and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "AI in marketing and finance",
+        "actors": [
+          "ABSOLUTE",
+          "drafts",
+          "d"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for AI in marketing and finance [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in AI in marketing and... [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Marketers use AI for campaign ideas, copy variations, audience personas.",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": "['guaranteed', 'best in india', '100% s…",
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": "['Guaranteed returns of 20% every year!…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ABSOLUTE"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Advertising rules still apply.",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": "['guaranteed', 'best in india', '100% s…",
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": "['Guaranteed returns of 20% every year!…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "drafts"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for AI in marketing and finance [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Keeping a library of approved claims and phrases lets AI drafts reuse.",
+            "messages": [
+              {
+                "from": "ABSOLUTE",
+                "to": "drafts",
+                "label": "['guaranteed', 'best in india', '100% s…",
+                "tone": "data"
+              },
+              {
+                "from": "drafts",
+                "to": "d",
+                "label": "['Guaranteed returns of 20% every year!…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "d"
           }
         ]
       }
@@ -787,224 +945,162 @@
       "partTitle": "Practice time: disclaimers and clauses",
       "codeHash": "61f0328992515df4deea72e7ac657c1c18c38b01eae300e66b99e04281719007",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: disclaimers and clauses — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: disc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: disclaimers and clauses",
+        "actors": [
+          "answer",
+          "required",
+          "missing"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: disclaimers and clauses.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: disc... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Disclaimer_check(domain, text).",
+            "activeActor": "answer",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": {
+                  "var": "answer",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": {
+                  "var": "required",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a medical answer missing the emergency phrase,.",
+            "activeActor": "required",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": {
+                  "var": "answer",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": {
+                  "var": "required",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: disclaimers and cl.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "The same pattern, domain rules as data plus a small checker, works for any.",
+            "activeActor": "missing",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": {
+                  "var": "answer",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": {
+                  "var": "required",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: disclaimers and clauses — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: disc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: disclaimers and clauses",
+        "actors": [
+          "answer",
+          "required",
+          "missing"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: disclaimers and clauses [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: disc... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Disclaimer_check(domain, text).",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": "'Clause 4 says the lease will auto-rene…",
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": "['not legal advice']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "answer"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include a medical answer missing the emergency phrase,.",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": "'Clause 4 says the lease will auto-rene…",
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": "['not legal advice']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "required"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: disclaimers and cl.. [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "The same pattern, domain rules as data plus a small checker, works for any.",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "required",
+                "label": "'Clause 4 says the lease will auto-rene…",
+                "tone": "data"
+              },
+              {
+                "from": "required",
+                "to": "missing",
+                "label": "['not legal advice']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "missing"
           }
         ]
       }

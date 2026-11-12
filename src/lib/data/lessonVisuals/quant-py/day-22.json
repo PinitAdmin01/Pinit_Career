@@ -2,173 +2,167 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What alpha means",
       "codeHash": "4c99e3698d0f7d931ad2a17f9b557fea1a77aebbfc02dd13c43f79df4519a7dc",
       "spec": {
-        "template": "table",
-        "title": "Statistical edge and trade volume accumulation",
-        "columns": [
+        "template": "sequence",
+        "title": "What alpha means",
+        "actors": [
           "win_rate",
-          "pnl"
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Alpha signals predict market returns beyond simple benchmark movements.",
-            "rows": [
+            "caption": "Alpha is return that cannot be explained by simply holding the market.",
+            "activeActor": "win_rate",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "win_rate"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Statistical arbitrage aggregates thousands of repeated small edges.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "win_rate"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "0.5"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "High volume execution generates substantial edge above baseline win rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "win_rate"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "0.5"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "0.52"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
+                "from": "win_rate",
+                "to": ".0",
+                "label": {
+                  "var": "win_rate",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "win_rate",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "High-frequency signals use order book data.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "win_rate",
+                "to": ".0",
+                "label": {
+                  "var": "win_rate",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "win_rate",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Measuring edge per trade after costs is the honest test of any signal.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "win_rate",
+                "to": ".0",
+                "label": {
+                  "var": "win_rate",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "win_rate",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Statistical edge and trade volume accumulation",
-        "columns": [
+        "template": "sequence",
+        "title": "What alpha means",
+        "actors": [
           "win_rate",
-          "pnl"
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Alpha signals predict market returns beyond simple benchmark movements.",
-            "rows": [
+            "caption": "Alpha is return that cannot be explained by simply holding the market.",
+            "messages": [
               {
-                "cells": [
-                  "win_rate",
-                  "pnl"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Statistical arbitrage aggregates thousands of repeated small edges.",
-            "rows": [
-              {
-                "cells": [
-                  "win_rate",
-                  "pnl"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "0.5",
-                  "pnl"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "High volume execution generates substantial edge above baseline win rates.",
-            "rows": [
-              {
-                "cells": [
-                  "win_rate",
-                  "pnl"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "0.5",
-                  "pnl"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "0.52",
-                  "pnl"
-                ],
+                "from": "win_rate",
+                "to": ".0",
+                "label": "0.5",
                 "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "win_rate",
+                "label": "{'__other__': 'range_iterator'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "win_rate"
+          },
+          {
+            "at": "say2",
+            "caption": "High-frequency signals use order book data.",
+            "messages": [
+              {
+                "from": "win_rate",
+                "to": ".0",
+                "label": "0.5",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "win_rate",
+                "label": "{'__other__': 'range_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
+          },
+          {
+            "at": "say7",
+            "caption": "Measuring edge per trade after costs is the honest test of any signal.",
+            "messages": [
+              {
+                "from": "win_rate",
+                "to": ".0",
+                "label": "0.5",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "win_rate",
+                "label": "{'__other__': 'range_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -177,112 +171,53 @@
       "partTitle": "Pairs and the spread",
       "codeHash": "b49bfffcf0425526d8d98cee9b21c7338d23ae923486f0c7aca9b2b55940246b",
       "spec": {
-        "template": "table",
-        "title": "Asset pairs regression hedge ratio and spread",
-        "columns": [
-          "mb",
-          "ma",
-          "beta"
-        ],
+        "template": "cells",
+        "title": "Pairs and the spread",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pairs trading identifies correlated asset prices with shared dynamics.",
-            "rows": [
+            "caption": "Pairs trading picks two related assets, such as two banks, two oil.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mb"
-                  },
-                  {
-                    "text": "ma"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The hedge ratio beta determines the historical spread relation.",
-            "rows": [
+            "caption": "Their spread is price_A - beta price_B, where beta is the hedge ratio.",
+            "items": {
+              "var": "a",
+              "line": 7,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mb"
-                  },
-                  {
-                    "text": "ma"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "50.2"
-                  },
-                  {
-                    "text": "101.0"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cointegrated price series mean revert towards stationary equilibrium spreads.",
-            "rows": [
+            "at": "say7",
+            "caption": "Correlation is not enough.",
+            "items": {
+              "var": "a",
+              "line": 7,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mb"
-                  },
-                  {
-                    "text": "ma"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "50.2"
-                  },
-                  {
-                    "text": "101.0"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "52.9"
-                  },
-                  {
-                    "text": "106.1"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
               }
             ]
@@ -290,76 +225,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Asset pairs regression hedge ratio and spread",
-        "columns": [
-          "mb",
-          "ma",
-          "beta"
-        ],
+        "template": "cells",
+        "title": "Pairs and the spread",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pairs trading identifies correlated asset prices with shared dynamics.",
-            "rows": [
+            "caption": "Pairs trading picks two related assets, such as two banks, two oil.",
+            "items": [
+              "101",
+              "102.5",
+              "101.8",
+              "103.9",
+              "104.6",
+              "103.2",
+              "105.8",
+              "106.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mb",
-                  "ma",
-                  "beta"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The hedge ratio beta determines the historical spread relation.",
-            "rows": [
+            "caption": "Their spread is price_A - beta price_B, where beta is the hedge ratio.",
+            "items": [
+              "101",
+              "102.5",
+              "101.8",
+              "103.9",
+              "104.6",
+              "103.2",
+              "105.8",
+              "106.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mb",
-                  "ma",
-                  "beta"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "50.2",
-                  "101.0",
-                  "beta"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cointegrated price series mean revert towards stationary equilibrium spreads.",
-            "rows": [
+            "at": "say7",
+            "caption": "Correlation is not enough.",
+            "items": [
+              "101",
+              "102.5",
+              "101.8",
+              "103.9",
+              "104.6",
+              "103.2",
+              "105.8",
+              "106.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mb",
-                  "ma",
-                  "beta"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "50.2",
-                  "101.0",
-                  "beta"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "52.9",
-                  "106.1",
-                  "beta"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
               }
             ]
@@ -371,216 +298,216 @@
       "partTitle": "Z-score signals",
       "codeHash": "11c199c34699c9299e18da7e2cea9a0ccce755a6ac836bbf976075b801cd59f3",
       "spec": {
-        "template": "table",
-        "title": "Spread standardization and signal trigger thresholds",
-        "columns": [
-          "spread",
-          "mean",
-          "std",
-          "z"
-        ],
+        "template": "bars",
+        "title": "Z-score signals",
         "steps": [
           {
             "at": "say1",
-            "caption": "Standardised z scores normalize spread variations against moving windows.",
-            "rows": [
+            "caption": "To decide when a spread is \"unusually\" wide, standardise it.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "spread"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "std"
-                  },
-                  {
-                    "text": "z"
-                  }
-                ],
-                "tone": "ok"
+                "label": "mean",
+                "value": {
+                  "var": "mean",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "std",
+                "value": {
+                  "var": "std",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "spread",
+                "value": {
+                  "var": "spread",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Threshold boundaries determine long, short or exit trading triggers.",
-            "rows": [
+            "caption": "Trace how typical updates rules during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "spread"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "std"
-                  },
-                  {
-                    "text": "z"
-                  }
-                ],
+                "label": "mean",
+                "value": {
+                  "var": "mean",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "5.0"
-                  },
-                  {
-                    "text": "2.0"
-                  },
-                  {
-                    "text": "1.2"
-                  },
-                  {
-                    "text": "z"
-                  }
-                ],
-                "tone": "idle"
+                "label": "std",
+                "value": {
+                  "var": "std",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "spread",
+                "value": {
+                  "var": "spread",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Elevated spread divergences signal short positions until reversion occurs.",
-            "rows": [
+            "at": "say7",
+            "caption": "Thresholds are parameters to test, not laws.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "spread"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "std"
-                  },
-                  {
-                    "text": "z"
-                  }
-                ],
+                "label": "mean",
+                "value": {
+                  "var": "mean",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "5.0"
-                  },
-                  {
-                    "text": "2.0"
-                  },
-                  {
-                    "text": "1.2"
-                  },
-                  {
-                    "text": "z"
-                  }
-                ],
-                "tone": "idle"
+                "label": "std",
+                "value": {
+                  "var": "std",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "-2.0"
-                  },
-                  {
-                    "text": "2.0"
-                  },
-                  {
-                    "text": "1.2"
-                  },
-                  {
-                    "text": "z"
-                  }
-                ],
-                "tone": "data"
+                "label": "spread",
+                "value": {
+                  "var": "spread",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Spread standardization and signal trigger thresholds",
-        "columns": [
-          "spread",
-          "mean",
-          "std",
-          "z"
-        ],
+        "template": "bars",
+        "title": "Z-score signals",
         "steps": [
           {
             "at": "say1",
-            "caption": "Standardised z scores normalize spread variations against moving windows.",
-            "rows": [
+            "caption": "To decide when a spread is \"unusually\" wide, standardise it.",
+            "bars": [
               {
-                "cells": [
-                  "spread",
-                  "mean",
-                  "std",
-                  "z"
-                ],
-                "tone": "ok"
+                "label": "mean",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "std",
+                "value": 1.2,
+                "tone": "data"
+              },
+              {
+                "label": "spread",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "z",
+                "value": 2.5,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Threshold boundaries determine long, short or exit trading triggers.",
-            "rows": [
+            "caption": "Trace how typical updates rules during execution.",
+            "bars": [
               {
-                "cells": [
-                  "spread",
-                  "mean",
-                  "std",
-                  "z"
-                ],
+                "label": "mean",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "5.0",
-                  "2.0",
-                  "1.2",
-                  "z"
-                ],
-                "tone": "idle"
+                "label": "std",
+                "value": 1.2,
+                "tone": "ok"
+              },
+              {
+                "label": "spread",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "z",
+                "value": 2.5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Elevated spread divergences signal short positions until reversion occurs.",
-            "rows": [
+            "at": "say7",
+            "caption": "Thresholds are parameters to test, not laws.",
+            "bars": [
               {
-                "cells": [
-                  "spread",
-                  "mean",
-                  "std",
-                  "z"
-                ],
+                "label": "mean",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "5.0",
-                  "2.0",
-                  "1.2",
-                  "z"
-                ],
-                "tone": "idle"
+                "label": "std",
+                "value": 1.2,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "-2.0",
-                  "2.0",
-                  "1.2",
-                  "z"
-                ],
-                "tone": "data"
+                "label": "spread",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "z",
+                "value": 2.5,
+                "tone": "ok"
               }
             ]
           }
@@ -591,164 +518,174 @@
       "partTitle": "Mean reversion speed: half-life",
       "codeHash": "c08fb62d15a8455d291e96ba7e67f3cf431643be9321e7eaddc3d75e672d9cc9",
       "spec": {
-        "template": "table",
-        "title": "Ornstein-Uhlenbeck decay and spread half-life",
-        "columns": [
-          "theta",
-          "gap"
-        ],
+        "template": "bars",
+        "title": "Mean reversion speed: half-life",
         "steps": [
           {
             "at": "say1",
-            "caption": "Slowly reverting spreads lock up valuable trading capital and risk limits.",
-            "rows": [
+            "caption": "A spread that reverts slowly ties up capital and risk for a long time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "theta"
-                  },
-                  {
-                    "text": "gap"
-                  }
-                ],
-                "tone": "ok"
+                "label": "theta",
+                "value": {
+                  "var": "theta",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gap",
+                "value": {
+                  "var": "gap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Mean reversion speed parameters model gap shrinkage across intervals.",
-            "rows": [
+            "caption": "The Ornstein-Uhlenbeck model describes mean reversion with a speed theta.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "theta"
-                  },
-                  {
-                    "text": "gap"
-                  }
-                ],
+                "label": "theta",
+                "value": {
+                  "var": "theta",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "0.1"
-                  },
-                  {
-                    "text": "10.0"
-                  }
-                ],
+                "label": "gap",
+                "value": {
+                  "var": "gap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The half life determines required holding duration before mean return.",
-            "rows": [
+            "at": "say7",
+            "caption": "Theta is usually estimated by regressing the change in the spread on its.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "theta"
-                  },
-                  {
-                    "text": "gap"
-                  }
-                ],
+                "label": "theta",
+                "value": {
+                  "var": "theta",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "0.1"
-                  },
-                  {
-                    "text": "10.0"
-                  }
-                ],
+                "label": "gap",
+                "value": {
+                  "var": "gap",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "0.1"
-                  },
-                  {
-                    "text": "gap"
-                  }
-                ],
-                "tone": "data"
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ornstein-Uhlenbeck decay and spread half-life",
-        "columns": [
-          "theta",
-          "gap"
-        ],
+        "template": "bars",
+        "title": "Mean reversion speed: half-life",
         "steps": [
           {
             "at": "say1",
-            "caption": "Slowly reverting spreads lock up valuable trading capital and risk limits.",
-            "rows": [
+            "caption": "A spread that reverts slowly ties up capital and risk for a long time.",
+            "bars": [
               {
-                "cells": [
-                  "theta",
-                  "gap"
-                ],
-                "tone": "ok"
+                "label": "theta",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "gap",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "day",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Mean reversion speed parameters model gap shrinkage across intervals.",
-            "rows": [
+            "caption": "The Ornstein-Uhlenbeck model describes mean reversion with a speed theta.",
+            "bars": [
               {
-                "cells": [
-                  "theta",
-                  "gap"
-                ],
+                "label": "theta",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "0.1",
-                  "10.0"
-                ],
+                "label": "gap",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "day",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The half life determines required holding duration before mean return.",
-            "rows": [
+            "at": "say7",
+            "caption": "Theta is usually estimated by regressing the change in the spread on its.",
+            "bars": [
               {
-                "cells": [
-                  "theta",
-                  "gap"
-                ],
+                "label": "theta",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "0.1",
-                  "10.0"
-                ],
+                "label": "gap",
+                "value": 9,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "0.1",
-                  "gap"
-                ],
-                "tone": "data"
+                "label": "day",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -760,110 +697,161 @@
       "codeHash": "59b1d3dfcc2d5e76d6cc6910893ee950899de903ae96d87ac6aa25622c79ccf2",
       "spec": {
         "template": "flow",
-        "title": "Validating and combining signals — Execution Pipeline",
+        "title": "Validating and combining signals",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "signal",
+            "label": "signal"
           },
           {
-            "id": "proc",
-            "label": "2. Validating and comb...",
-            "tappable": true
+            "id": "next_ret",
+            "label": "next_ret"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ic",
+            "label": "ic"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Validating and combining signals [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Validating and comb... [D.Pfive.Stwo].",
+            "caption": "A signal that looks good on one dataset may be luck.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "signal": {
+                "var": "signal",
+                "line": 3,
+                "hit": 1
+              },
+              "next_ret": {
+                "var": "next_ret",
+                "line": 4,
+                "hit": 1
+              },
+              "ic": {
+                "var": "ic",
+                "line": 5,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "signal": "data",
+              "next_ret": "data",
+              "ic": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "signal",
+                "next_ret"
               ],
               [
-                "proc",
-                "out"
+                "next_ret",
+                "ic"
+              ],
+              [
+                "ic",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "The information coefficient (IC), the correlation between the signal.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "signal": {
+                "var": "signal",
+                "line": 4,
+                "hit": 1
+              },
+              "next_ret": {
+                "var": "next_ret",
+                "line": 5,
+                "hit": 1
+              },
+              "ic": {
+                "var": "ic",
+                "line": 6,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 7,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "signal": "data",
+              "next_ret": "data",
+              "ic": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "signal",
+                "next_ret"
+              ],
+              [
+                "next_ret",
+                "ic"
+              ],
+              [
+                "ic",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Validating and combining signals.",
+            "at": "say8",
+            "caption": "Keep a research log of every test run.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "signal": {
+                "var": "signal",
+                "line": 5,
+                "hit": 1
+              },
+              "next_ret": {
+                "var": "next_ret",
+                "line": 6,
+                "hit": 1
+              },
+              "ic": {
+                "var": "ic",
+                "line": 7,
+                "hit": 12
+              },
+              ".0": {
+                "var": ".0",
+                "line": 7,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "signal": "ok",
+              "next_ret": "ok",
+              "ic": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "signal",
+                "next_ret"
               ],
               [
-                "proc",
-                "out"
+                "next_ret",
+                "ic"
+              ],
+              [
+                "ic",
+                ".0"
               ]
             ]
           }
@@ -871,110 +859,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Validating and combining signals — Execution Pipeline",
+        "title": "Validating and combining signals",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "signal",
+            "label": "signal"
           },
           {
-            "id": "proc",
-            "label": "2. Validating and comb...",
-            "tappable": true
+            "id": "next_ret",
+            "label": "next_ret"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ic",
+            "label": "ic"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Validating and combining signals [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Validating and comb... [D22.P5.S2].",
+            "caption": "A signal that looks good on one dataset may be luck.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "signal": "[0.5, -0.2, 0.8, -0.6, 0.1, -0.9, 0.4, …",
+              "next_ret": "[0.02, -0.01, 0.01, -0.02, 0, -0.01, 0.…",
+              "ic": "0.8218236153807085",
+              ".0": "{'__other__': 'zip'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "signal": "data",
+              "next_ret": "data",
+              "ic": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "signal",
+                "next_ret"
               ],
               [
-                "proc",
-                "out"
+                "next_ret",
+                "ic"
+              ],
+              [
+                "ic",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
+            "at": "say2",
+            "caption": "The information coefficient (IC), the correlation between the signal.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "signal": "[0.5, -0.2, 0.8, -0.6, 0.1, -0.9, 0.4, …",
+              "next_ret": "[0.02, -0.01, 0.01, -0.02, 0, -0.01, 0.…",
+              "ic": "0.8218236153807085",
+              ".0": "{'__other__': 'zip'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "signal": "data",
+              "next_ret": "data",
+              "ic": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "signal",
+                "next_ret"
+              ],
+              [
+                "next_ret",
+                "ic"
+              ],
+              [
+                "ic",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Validating and combining signals [D22.P5.S4].",
+            "at": "say8",
+            "caption": "Keep a research log of every test run.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "signal": "[0.5, -0.2, 0.8, -0.6, 0.1, -0.9, 0.4, …",
+              "next_ret": "[0.02, -0.01, 0.01, -0.02, 0, -0.01, 0.…",
+              "ic": "0.8218236153807085",
+              ".0": "{'__other__': 'zip'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "signal": "ok",
+              "next_ret": "ok",
+              "ic": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "signal",
+                "next_ret"
               ],
               [
-                "proc",
-                "out"
+                "next_ret",
+                "ic"
+              ],
+              [
+                "ic",
+                ".0"
               ]
             ]
           }
@@ -985,224 +976,162 @@
       "partTitle": "Practice time: pairs and half-life",
       "codeHash": "d15c5c6ad988f5fcb3d3d617edae1f6884b4e2a1ed7cdda64b4609a6cee2ff1a",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: pairs and half-life — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pair...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: pairs and half-life",
+        "actors": [
+          "spread",
+          "position",
+          "pnl"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: pairs and half-life.",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: pair... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Pairs_signal(price_a, price_b, beta, mean, std, entry=2.",
+            "activeActor": "spread",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": {
+                  "var": "spread",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": {
+                  "var": "position",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks cover all four signals, including z = -3.",
+            "activeActor": "position",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": {
+                  "var": "spread",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": {
+                  "var": "position",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: pairs and half-life.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The next lesson decides where to send those orders.",
+            "activeActor": "pnl",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": {
+                  "var": "spread",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": {
+                  "var": "position",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: pairs and half-life — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pair...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: pairs and half-life",
+        "actors": [
+          "spread",
+          "position",
+          "pnl"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: pairs and half-life [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pair... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Pairs_signal(price_a, price_b, beta, mean, std, entry=2.",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spread"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks cover all four signals, including z = -3.",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "position"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: pairs and half-life [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The next lesson decides where to send those orders.",
+            "messages": [
+              {
+                "from": "spread",
+                "to": "position",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "position",
+                "to": "pnl",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pnl"
           }
         ]
       }

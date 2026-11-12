@@ -2,101 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why documents are cut into chunks",
       "codeHash": "27556370e30159065c4e84a06cc52936e2661248a29cf797d5e18e770f0790e2",
       "spec": {
-        "template": "compare",
-        "title": "Monolithic document retrieval versus granular chunk indexing",
-        "leftLabel": "Whole Document",
-        "rightLabel": "Focused Chunks",
+        "template": "sequence",
+        "title": "Why documents are cut into chunks",
+        "actors": [
+          "policy",
+          "size",
+          "chunks"
+        ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Oversized chunks mix multiple topics making retrieval vague and expensive.",
-            "left": {
-              "code": "monolithic document",
-              "result": {
-                "text": "vague broad matches"
+            "at": "say1",
+            "caption": "Embedding a whole 50-page policy as one vector blurs every topic together.",
+            "activeActor": "policy",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": {
+                  "var": "policy",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "granular chunk",
-              "result": {
-                "text": "precise topic focus"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Thoughtful chunking represents a critical factor in overall retrieval quality.",
-            "left": {
-              "code": "arbitrary slices",
-              "result": {
-                "text": "degraded retrieval"
+            "at": "say2",
+            "caption": "A chunk is a piece of a document, often a few hundred tokens, that.",
+            "activeActor": "size",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": {
+                  "var": "policy",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "contextual windows",
-              "result": {
-                "text": "high quality answers"
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "We will start with fixed-size chunks and improve from there.",
+            "activeActor": "chunks",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": {
+                  "var": "policy",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Monolithic document retrieval versus granular chunk indexing",
-        "leftLabel": "Whole Document",
-        "rightLabel": "Focused Chunks",
+        "template": "sequence",
+        "title": "Why documents are cut into chunks",
+        "actors": [
+          "policy",
+          "size",
+          "chunks"
+        ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Oversized chunks mix multiple topics making retrieval vague and expensive.",
-            "left": {
-              "code": "monolithic document",
-              "result": "vague broad matches",
-              "tone": "error",
-              "checks": [
-                "vague broad matches"
-              ]
-            },
-            "right": {
-              "code": "granular chunk",
-              "result": "precise topic focus",
-              "tone": "ok",
-              "checks": [
-                "precise topic focus"
-              ]
-            }
+            "at": "say1",
+            "caption": "Embedding a whole 50-page policy as one vector blurs every topic together.",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": "'Refunds: items can be returned within …",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": "50",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "policy"
           },
           {
-            "at": "say5",
-            "caption": "Thoughtful chunking represents a critical factor in overall retrieval quality.",
-            "left": {
-              "code": "arbitrary slices",
-              "result": "degraded retrieval",
-              "tone": "error",
-              "checks": [
-                "degraded retrieval"
-              ]
-            },
-            "right": {
-              "code": "contextual windows",
-              "result": "high quality answers",
-              "tone": "ok",
-              "checks": [
-                "high quality answers"
-              ]
-            }
+            "at": "say2",
+            "caption": "A chunk is a piece of a document, often a few hundred tokens, that.",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": "'Refunds: items can be returned within …",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": "50",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "size"
+          },
+          {
+            "at": "say6",
+            "caption": "We will start with fixed-size chunks and improve from there.",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "size",
+                "label": "'Refunds: items can be returned within …",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "chunks",
+                "label": "50",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chunks"
           }
         ]
       }
@@ -105,98 +173,194 @@
       "partTitle": "Sliding window with overlap",
       "codeHash": "d55380a93bd9a31e6193d44395dd7e2fbe61cebfd08a430aca21ac449d532c27",
       "spec": {
-        "template": "bars",
-        "title": "Sliding window character spans and overlap offsets",
+        "template": "boxes",
+        "title": "Sliding window with overlap",
+        "boxes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "max_chunk",
+            "label": "max_chunk"
+          },
+          {
+            "id": "overlap",
+            "label": "overlap"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Chunk overlap preserves sentence context across window transition edges.",
-            "bars": [
-              {
-                "label": "window_start",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "data"
+            "caption": "A sentence cut at a chunk edge loses its meaning in both chunks.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "label": "window_end",
-                "value": {
-                  "text": "40"
-                },
-                "tone": "ok"
+              "max_chunk": {
+                "var": "max_chunk",
+                "line": 2,
+                "hit": 1
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 2,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "text": "data",
+              "max_chunk": "data",
+              "overlap": "data",
+              "chunks": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Subsequent chunks repeat the configured overlap characters from prior text.",
-            "bars": [
-              {
-                "label": "chunk_one",
-                "value": {
-                  "text": "40"
-                },
-                "tone": "ok"
+            "caption": "Chunk_text(text, max_chunk, overlap).",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "overlap_span",
-                "value": {
-                  "text": "10"
-                },
-                "tone": "data"
+              "max_chunk": {
+                "var": "max_chunk",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "label": "chunk_two",
-                "value": {
-                  "text": "40"
-                },
-                "tone": "ok"
+              "overlap": {
+                "var": "overlap",
+                "line": 3,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "text": "data",
+              "max_chunk": "data",
+              "overlap": "data",
+              "chunks": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Real systems count tokens rather than characters, but the loop is the same.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              },
+              "max_chunk": {
+                "var": "max_chunk",
+                "line": 4,
+                "hit": 1
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 4,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "max_chunk": "ok",
+              "overlap": "ok",
+              "chunks": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Sliding window character spans and overlap offsets",
+        "template": "boxes",
+        "title": "Sliding window with overlap",
+        "boxes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "max_chunk",
+            "label": "max_chunk"
+          },
+          {
+            "id": "overlap",
+            "label": "overlap"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Chunk overlap preserves sentence context across window transition edges.",
-            "bars": [
-              {
-                "label": "window_start",
-                "value": 0,
-                "tone": "data"
-              },
-              {
-                "label": "window_end",
-                "value": 40,
-                "tone": "ok"
-              }
-            ]
+            "caption": "A sentence cut at a chunk edge loses its meaning in both chunks.",
+            "values": {
+              "text": "'The quick brown fox jumps over the laz…",
+              "max_chunk": "40",
+              "overlap": "10",
+              "chunks": "[]"
+            },
+            "tones": {
+              "text": "data",
+              "max_chunk": "data",
+              "overlap": "data",
+              "chunks": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Subsequent chunks repeat the configured overlap characters from prior text.",
-            "bars": [
-              {
-                "label": "chunk_one",
-                "value": 40,
-                "tone": "ok"
-              },
-              {
-                "label": "overlap_span",
-                "value": 10,
-                "tone": "data"
-              },
-              {
-                "label": "chunk_two",
-                "value": 40,
-                "tone": "ok"
-              }
-            ]
+            "caption": "Chunk_text(text, max_chunk, overlap).",
+            "values": {
+              "text": "'The quick brown fox jumps over the laz…",
+              "max_chunk": "40",
+              "overlap": "10",
+              "chunks": "[]"
+            },
+            "tones": {
+              "text": "data",
+              "max_chunk": "data",
+              "overlap": "data",
+              "chunks": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Real systems count tokens rather than characters, but the loop is the same.",
+            "values": {
+              "text": "'The quick brown fox jumps over the laz…",
+              "max_chunk": "40",
+              "overlap": "10",
+              "chunks": "[]"
+            },
+            "tones": {
+              "text": "ok",
+              "max_chunk": "ok",
+              "overlap": "ok",
+              "chunks": "ok"
+            }
           }
         ]
       }
@@ -205,224 +369,194 @@
       "partTitle": "Overlap maths",
       "codeHash": "9181eefa1373caafb085816dae328ab88815e889263b52074c54e2a77f6899fd",
       "spec": {
-        "template": "flow",
-        "title": "Overlap maths — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Overlap maths",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "chunk_size",
+            "label": "chunk_size"
           },
           {
-            "id": "proc",
-            "label": "2. Overlap maths",
-            "tappable": true
+            "id": "overlap",
+            "label": "overlap"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "length",
+            "label": "length"
+          },
+          {
+            "id": "size",
+            "label": "size"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Overlap maths [Dnine.Pthree.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Overlap maths [Dnine.Pthree.Stwo].",
+            "caption": "Overlap_ratio(chunk_size, overlap) returns the overlap as a percentage.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 4,
+                "hit": 1
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 4,
+                "hit": 1
+              },
+              "length": {
+                "var": "length",
+                "line": 7,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "chunk_size": "data",
+              "overlap": "data",
+              "length": "data",
+              "size": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Overlap costs storage and money.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 4,
+                "hit": 2
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 4,
+                "hit": 2
+              },
+              "length": {
+                "var": "length",
+                "line": 7,
+                "hit": 2
+              },
+              "size": {
+                "var": "size",
+                "line": 7,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "chunk_size": "data",
+              "overlap": "data",
+              "length": "data",
+              "size": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Overlap maths [Dnine.Pthree.Sfour].",
+            "at": "say6",
+            "caption": "Doing this arithmetic before indexing a large collection tells you.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 4,
+                "hit": 3
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 4,
+                "hit": 3
+              },
+              "length": {
+                "var": "length",
+                "line": 7,
+                "hit": 3
+              },
+              "size": {
+                "var": "size",
+                "line": 7,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "chunk_size": "ok",
+              "overlap": "ok",
+              "length": "ok",
+              "size": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Overlap maths — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Overlap maths",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "chunk_size",
+            "label": "chunk_size"
           },
           {
-            "id": "proc",
-            "label": "2. Overlap maths",
-            "tappable": true
+            "id": "overlap",
+            "label": "overlap"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "length",
+            "label": "length"
+          },
+          {
+            "id": "size",
+            "label": "size"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Overlap maths [D9.P3.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Overlap maths [D9.P3.S2].",
+            "caption": "Overlap_ratio(chunk_size, overlap) returns the overlap as a percentage.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "chunk_size": "100",
+              "overlap": "20",
+              "length": "100000",
+              "size": "500"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "chunk_size": "data",
+              "overlap": "data",
+              "length": "data",
+              "size": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P3.S3].",
+            "at": "say2",
+            "caption": "Overlap costs storage and money.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "chunk_size": "64",
+              "overlap": "16",
+              "length": "100000",
+              "size": "500"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "chunk_size": "data",
+              "overlap": "data",
+              "length": "data",
+              "size": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Overlap maths [D9.P3.S4].",
+            "at": "say6",
+            "caption": "Doing this arithmetic before indexing a large collection tells you.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "chunk_size": "300",
+              "overlap": "50",
+              "length": "100000",
+              "size": "500"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "chunk_size": "ok",
+              "overlap": "ok",
+              "length": "ok",
+              "size": "ok"
+            }
           }
         ]
       }
@@ -431,157 +565,277 @@
       "partTitle": "Splitting on natural boundaries",
       "codeHash": "2eed35fe29d656a3b00bf8741c864f1b5bc9bd697073b7d5aac81c35a055827e",
       "spec": {
-        "template": "table",
-        "title": "Recursive text splitting hierarchy by natural linguistic units",
-        "columns": [
-          "split_level",
-          "delimiter_target",
-          "semantic_preservation"
+        "template": "flow",
+        "title": "Splitting on natural boundaries",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "max_chars",
+            "label": "max_chars"
+          },
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Splitting on natural boundaries preserves coherent sentences and paragraphs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "paragraph"
-                  },
-                  {
-                    "text": "double newline"
-                  },
-                  {
-                    "text": "high topic unity"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Fixed-size windows cut in the middle of words and sentences.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "punctuation mark"
-                  },
-                  {
-                    "text": "complete thoughts"
-                  }
-                ],
-                "tone": "ok"
+              "max_chars": {
+                "var": "max_chars",
+                "line": 4,
+                "hit": 1
+              },
+              "sentences": {
+                "var": "sentences",
+                "line": 4,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "max_chars": "data",
+              "sentences": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "max_chars"
+              ],
+              [
+                "max_chars",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Keeping ideas intact improves embedding precision and model comprehension.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "paragraph"
-                  },
-                  {
-                    "text": "double newline"
-                  },
-                  {
-                    "text": "high topic unity"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A simple approach.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "punctuation mark"
-                  },
-                  {
-                    "text": "complete thoughts"
-                  }
-                ],
-                "tone": "ok"
+              "max_chars": {
+                "var": "max_chars",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "whitespace boundary"
-                  },
-                  {
-                    "text": "fallback boundary"
-                  }
-                ],
-                "tone": "data"
+              "sentences": {
+                "var": "sentences",
+                "line": 5,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "max_chars": "data",
+              "sentences": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "max_chars"
+              ],
+              [
+                "max_chars",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Libraries offer \"recursive\" splitters that try paragraph, sentence.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "max_chars": {
+                "var": "max_chars",
+                "line": 6,
+                "hit": 1
+              },
+              "sentences": {
+                "var": "sentences",
+                "line": 6,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "max_chars": "ok",
+              "sentences": "ok",
+              "chunks": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "max_chars"
+              ],
+              [
+                "max_chars",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recursive text splitting hierarchy by natural linguistic units",
-        "columns": [
-          "split_level",
-          "delimiter_target",
-          "semantic_preservation"
+        "template": "flow",
+        "title": "Splitting on natural boundaries",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "max_chars",
+            "label": "max_chars"
+          },
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Splitting on natural boundaries preserves coherent sentences and paragraphs.",
-            "rows": [
-              {
-                "cells": [
-                  "paragraph",
-                  "double newline",
-                  "high topic unity"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "punctuation mark",
-                  "complete thoughts"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Fixed-size windows cut in the middle of words and sentences.",
+            "values": {
+              "text": "'Returns are free. You have 30 days to …",
+              "max_chars": "60",
+              "sentences": "['Returns are free.', 'You have 30 days…",
+              "chunks": "[]"
+            },
+            "tones": {
+              "text": "data",
+              "max_chars": "data",
+              "sentences": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "max_chars"
+              ],
+              [
+                "max_chars",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Keeping ideas intact improves embedding precision and model comprehension.",
-            "rows": [
-              {
-                "cells": [
-                  "paragraph",
-                  "double newline",
-                  "high topic unity"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "punctuation mark",
-                  "complete thoughts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "word",
-                  "whitespace boundary",
-                  "fallback boundary"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "A simple approach.",
+            "values": {
+              "text": "'Returns are free. You have 30 days to …",
+              "max_chars": "60",
+              "sentences": "['Returns are free.', 'You have 30 days…",
+              "chunks": "[]"
+            },
+            "tones": {
+              "text": "data",
+              "max_chars": "data",
+              "sentences": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "max_chars"
+              ],
+              [
+                "max_chars",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Libraries offer \"recursive\" splitters that try paragraph, sentence.",
+            "values": {
+              "text": "'Returns are free. You have 30 days to …",
+              "max_chars": "60",
+              "sentences": "['Returns are free.', 'You have 30 days…",
+              "chunks": "[]"
+            },
+            "tones": {
+              "text": "ok",
+              "max_chars": "ok",
+              "sentences": "ok",
+              "chunks": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "max_chars"
+              ],
+              [
+                "max_chars",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ]
             ]
           }
         ]
@@ -591,64 +845,131 @@
       "partTitle": "Chunk metadata for citations",
       "codeHash": "6b0177b3a9265c5595a80a44c07a5cbf0dafbebede11cbe5220960146feb7c74",
       "spec": {
-        "template": "table",
-        "title": "Indexed chunk schema with provenance metadata fields",
-        "columns": [
-          "chunk_id",
-          "source_document",
-          "chunk_text"
-        ],
+        "template": "bars",
+        "title": "Chunk metadata for citations",
         "steps": [
           {
             "at": "say1",
-            "caption": "Storing metadata alongside chunks enables traceable document citations.",
-            "rows": [
+            "caption": "Store each chunk with metadata.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "policy-7#0"
-                  },
-                  {
-                    "text": "Refund Policy"
-                  },
-                  {
-                    "text": "Items can be returned"
-                  }
-                ],
-                "tone": "ok"
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Rich chunk metadata facilitates accurate citations and targeted filtering.",
-            "rows": [
+            "caption": "Trace how metadata updates lets during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "policy-7#0"
-                  },
-                  {
-                    "text": "Refund Policy"
-                  },
-                  {
-                    "text": "Items can be returned"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "policy-7#1"
-                  },
-                  {
-                    "text": "Refund Policy"
-                  },
-                  {
-                    "text": "within thirty days"
-                  }
-                ],
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "A chunk without metadata is a sentence without a source, which is hard.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -656,46 +977,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Indexed chunk schema with provenance metadata fields",
-        "columns": [
-          "chunk_id",
-          "source_document",
-          "chunk_text"
-        ],
+        "template": "bars",
+        "title": "Chunk metadata for citations",
         "steps": [
           {
             "at": "say1",
-            "caption": "Storing metadata alongside chunks enables traceable document citations.",
-            "rows": [
+            "caption": "Store each chunk with metadata.",
+            "bars": [
               {
-                "cells": [
-                  "policy-7#0",
-                  "Refund Policy",
-                  "Items can be returned"
-                ],
-                "tone": "ok"
+                "label": "size",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Rich chunk metadata facilitates accurate citations and targeted filtering.",
-            "rows": [
+            "caption": "Trace how metadata updates lets during execution.",
+            "bars": [
               {
-                "cells": [
-                  "policy-7#0",
-                  "Refund Policy",
-                  "Items can be returned"
-                ],
+                "label": "size",
+                "value": 40,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "policy-7#1",
-                  "Refund Policy",
-                  "within thirty days"
-                ],
+                "label": "overlap",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "A chunk without metadata is a sentence without a source, which is hard.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -707,223 +1065,217 @@
       "partTitle": "Choosing a chunk size",
       "codeHash": "d2c074ad1a290d9645e283d472880fb98b5246527bb120e9f450c4d011b22873",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a chunk size — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a chunk size",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Choosing a chunk size",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a chunk size [Dnine.Psix.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a chunk size [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "There is no single best size.",
+            "bars": [
+              {
+                "label": "chunk_tokens",
+                "value": {
+                  "var": "chunk_tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "question_token",
+                "value": {
+                  "var": "question_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "system_tokens",
+                "value": {
+                  "var": "system_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Tables, code and lists need special care.",
+            "bars": [
+              {
+                "label": "chunk_tokens",
+                "value": {
+                  "var": "chunk_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "question_token",
+                "value": {
+                  "var": "question_tokens",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "system_tokens",
+                "value": {
+                  "var": "system_tokens",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a chunk size [Dnine.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Tomorrow you will combine vector search with keyword search, because.",
+            "bars": [
+              {
+                "label": "chunk_tokens",
+                "value": {
+                  "var": "chunk_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "question_token",
+                "value": {
+                  "var": "question_tokens",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "system_tokens",
+                "value": {
+                  "var": "system_tokens",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a chunk size — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a chunk size",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Choosing a chunk size",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a chunk size [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a chunk size [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "There is no single best size.",
+            "bars": [
+              {
+                "label": "chunk_tokens",
+                "value": 200,
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "question_token",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "system_tokens",
+                "value": 200,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Tables, code and lists need special care.",
+            "bars": [
+              {
+                "label": "chunk_tokens",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "top_k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "question_token",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "system_tokens",
+                "value": 200,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a chunk size [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Tomorrow you will combine vector search with keyword search, because.",
+            "bars": [
+              {
+                "label": "chunk_tokens",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "top_k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "question_token",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "system_tokens",
+                "value": 200,
+                "tone": "ok"
+              }
             ]
           }
         ]

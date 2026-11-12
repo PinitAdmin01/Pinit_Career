@@ -2,1334 +2,770 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 44,
-  "promptSha": "260f03a9008751377968565f7c80fd4b2cc22e01fbcf4625239ce225b2d3df9e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE Graph Scoring — Foundations & Mathematical Invariants",
-      "codeHash": "741be3ae5331da065be86732ce78bdd2285bc43d1917ed47d18b0451707c3f2f",
+      "partTitle": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Foundations & Mathematical Invariants",
+      "codeHash": "1d3bb28b76a3daa74152195fa617c47930acd57efcdb7238f190e095850aaeb2",
       "spec": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "states",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Foundati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern software applications are constructed predominantly.",
+            "currentState": "s",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "This reliance creates an extensive supply chain attack surface,.",
+            "currentState": "desc",
+            "transition": {
+              "from": "s",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "states",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Foundati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern software applications are constructed predominantly.",
+            "currentState": "s",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "This reliance creates an extensive supply chain attack surface,.",
+            "currentState": "desc",
+            "transition": {
+              "from": "s",
+              "to": "desc",
+              "label": "'Lightweight OWASP standard optimized f…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE Graph Scoring — Core Algorithm & State Representation",
-      "codeHash": "22a645c9e3dec415362115f7d3004f89b473994d789d50b6d7aceaa8bfb3fa39",
+      "partTitle": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Core Algorithm & State Representation",
+      "codeHash": "fc0d2dd72603acb661b6aec845ad491d192cf937587eecf84c806911e57c3692",
       "spec": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "states",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Core Alg",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_bom",
+            "label": "sample_bom"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cyclonedx_json_dict",
+            "label": "cyclonedx_json_dict"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "components",
+            "label": "components"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Parsing a CycloneDX SBOM requires traversing structured JSON or XML.",
+            "currentState": "sample_bom",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The component model captures package names, versions, package URLs (purl).",
+            "currentState": "cyclonedx_json_dict",
+            "transition": {
+              "from": "sample_bom",
+              "to": "cyclonedx_json_dict",
+              "label": {
+                "var": "cyclonedx_json_dict",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Integrating SBOM parsers with internal dependency management portals.",
+            "currentState": "components",
+            "transition": {
+              "from": "cyclonedx_json_dict",
+              "to": "components",
+              "label": {
+                "var": "components",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "states",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Core Alg",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_bom",
+            "label": "sample_bom"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cyclonedx_json_dict",
+            "label": "cyclonedx_json_dict"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "components",
+            "label": "components"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Parsing a CycloneDX SBOM requires traversing structured JSON or XML.",
+            "currentState": "sample_bom",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The component model captures package names, versions, package URLs (purl).",
+            "currentState": "cyclonedx_json_dict",
+            "transition": {
+              "from": "sample_bom",
+              "to": "cyclonedx_json_dict",
+              "label": "{'bomFormat': 'CycloneDX', 'specVersion…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Integrating SBOM parsers with internal dependency management portals.",
+            "currentState": "components",
+            "transition": {
+              "from": "cyclonedx_json_dict",
+              "to": "components",
+              "label": "[]"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE Graph Scoring — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "986b2e5d47905fef43e8099beb744027017730a7dc5fc77f6200117c90535a57",
+      "partTitle": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "01177d9dd9c2a0f6b2e380b53586c7488e20f78e1855cbcb593b4d9e9becdaa5",
       "spec": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "states",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Throughp",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cve_catalog",
+            "label": "cve_catalog"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "deps",
+            "label": "deps"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "self",
+            "label": "self"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scoring vulnerability risk across complex dependency trees requires.",
+            "currentState": "cve_catalog",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A direct dependency might appear secure while relying on a deeply nested.",
+            "currentState": "deps",
+            "transition": {
+              "from": "cve_catalog",
+              "to": "deps",
+              "label": {
+                "var": "deps",
+                "line": 37,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Automated risk scoring pipelines trigger deployment blocking gates when.",
+            "currentState": "self",
+            "transition": {
+              "from": "deps",
+              "to": "self",
+              "label": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "states",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Throughp",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cve_catalog",
+            "label": "cve_catalog"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "deps",
+            "label": "deps"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "self",
+            "label": "self"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scoring vulnerability risk across complex dependency trees requires.",
+            "currentState": "cve_catalog",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A direct dependency might appear secure while relying on a deeply nested.",
+            "currentState": "deps",
+            "transition": {
+              "from": "cve_catalog",
+              "to": "deps",
+              "label": "{'my-app@1.0.0': ['requests@2.25.1'], '…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Automated risk scoring pipelines trigger deployment blocking gates when.",
+            "currentState": "self",
+            "transition": {
+              "from": "deps",
+              "to": "self",
+              "label": "<TransitiveVulnerabilityScorer>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE Graph Scoring — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d4985dbc425b82b716a1d7df33e061d9cadd34858eae4ca47ed0cadf4cd7e7b7",
+      "partTitle": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Resilience Guardrails & Failure Recovery",
+      "codeHash": "a7dd22bbdf5cda299d60195cd69fc9a992888e6bc35eba073a56cdf117e6b753",
       "spec": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "boxes",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Resilien",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "comps_safe",
+            "label": "comps_safe"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "comps_violating",
+            "label": "comps_violating"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "components",
+            "label": "components"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Supply chain governance encompasses legal compliance alongside.",
+            "values": {
+              "comps_safe": {
+                "var": "comps_safe",
+                "line": 15,
+                "hit": 1
+              },
+              "comps_violating": {
+                "var": "comps_violating",
+                "line": 16,
+                "hit": 1
+              },
+              "components": {
+                "var": "components",
+                "line": 6,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "comps_safe": "data",
+              "comps_violating": "data",
+              "components": "data",
+              "violations": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Copyleft licenses (such as GPL v3 and AGPL v3) require proprietary.",
+            "values": {
+              "comps_safe": {
+                "var": "comps_safe",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "comps_violating": {
+                "var": "comps_violating",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "components": {
+                "var": "components",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "comps_safe": "data",
+              "comps_violating": "data",
+              "components": "data",
+              "violations": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Legal and security teams should review license exception requests through.",
+            "values": {
+              "comps_safe": {
+                "var": "comps_safe",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "comps_violating": {
+                "var": "comps_violating",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "components": {
+                "var": "components",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "comps_safe": "ok",
+              "comps_violating": "ok",
+              "components": "ok",
+              "violations": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
-        "nodes": [
+        "template": "boxes",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Resilien",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "comps_safe",
+            "label": "comps_safe"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "comps_violating",
+            "label": "comps_violating"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "components",
+            "label": "components"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Supply chain governance encompasses legal compliance alongside.",
+            "values": {
+              "comps_safe": "[{'name': 'fastapi', 'license': 'MIT'}]",
+              "comps_violating": "[{'name': 'copyleft_lib', 'license': 'G…",
+              "components": "[{'name': 'fastapi', 'license': 'MIT'}]",
+              "violations": "[]"
+            },
+            "tones": {
+              "comps_safe": "data",
+              "comps_violating": "data",
+              "components": "data",
+              "violations": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Copyleft licenses (such as GPL v3 and AGPL v3) require proprietary.",
+            "values": {
+              "comps_safe": "[{'name': 'fastapi', 'license': 'MIT'}]",
+              "comps_violating": "[{'name': 'copyleft_lib', 'license': 'G…",
+              "components": "[{'name': 'fastapi', 'license': 'MIT'}]",
+              "violations": "[]"
+            },
+            "tones": {
+              "comps_safe": "data",
+              "comps_violating": "data",
+              "components": "data",
+              "violations": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Legal and security teams should review license exception requests through.",
+            "values": {
+              "comps_safe": "[{'name': 'fastapi', 'license': 'MIT'}]",
+              "comps_violating": "[{'name': 'copyleft_lib', 'license': 'G…",
+              "components": "[{'name': 'fastapi', 'license': 'MIT'}]",
+              "violations": "[]"
+            },
+            "tones": {
+              "comps_safe": "ok",
+              "comps_violating": "ok",
+              "components": "ok",
+              "violations": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE Graph Scoring — Production Telemetry & Verification Audit",
-      "codeHash": "fc12f91ca90fc768fb039b3a2f0f42dbe3bed1ab1e40c5c4a487d09268abadbc",
+      "partTitle": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Production Telemetry & Verification Audit",
+      "codeHash": "3cc180b708f8017e4573bbdb961dcdd21340b241f6304c8177b2c0e86ed784e8",
       "spec": {
         "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Producti",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cyclonedx_valid",
+            "label": "cyclonedx_valid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "transitive_cves_scored",
+            "label": "transitive_cves_scored"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "license_compliant",
+            "label": "license_compliant"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "critical_cve_blocked",
+            "label": "critical_cve_blocked"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing supply chain defense requires automated certification.",
+            "values": {
+              "cyclonedx_valid": {
+                "var": "cyclonedx_valid",
+                "line": 5,
+                "hit": 1
+              },
+              "transitive_cves_scored": {
+                "var": "transitive_cves_scored",
+                "line": 5,
+                "hit": 1
+              },
+              "license_compliant": {
+                "var": "license_compliant",
+                "line": 5,
+                "hit": 1
+              },
+              "critical_cve_blocked": {
+                "var": "critical_cve_blocked",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "cyclonedx_valid": "data",
+              "transitive_cves_scored": "data",
+              "license_compliant": "data",
+              "critical_cve_blocked": "data"
+            },
+            "arrows": [
+              [
+                "cyclonedx_valid",
+                "transitive_cves_scored"
+              ],
+              [
+                "transitive_cves_scored",
+                "license_compliant"
+              ],
+              [
+                "license_compliant",
+                "critical_cve_blocked"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A supply chain verification auditor executes comprehensive checks.",
+            "values": {
+              "cyclonedx_valid": {
+                "var": "cyclonedx_valid",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "transitive_cves_scored": {
+                "var": "transitive_cves_scored",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "license_compliant": {
+                "var": "license_compliant",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "critical_cve_blocked": {
+                "var": "critical_cve_blocked",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cyclonedx_valid": "data",
+              "transitive_cves_scored": "data",
+              "license_compliant": "data",
+              "critical_cve_blocked": "data"
+            },
+            "arrows": [
+              [
+                "cyclonedx_valid",
+                "transitive_cves_scored"
+              ],
+              [
+                "transitive_cves_scored",
+                "license_compliant"
+              ],
+              [
+                "license_compliant",
+                "critical_cve_blocked"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Engineering organizations that enforce automated supply chain verification.",
+            "values": {
+              "cyclonedx_valid": {
+                "var": "cyclonedx_valid",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "transitive_cves_scored": {
+                "var": "transitive_cves_scored",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "license_compliant": {
+                "var": "license_compliant",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "critical_cve_blocked": {
+                "var": "critical_cve_blocked",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "cyclonedx_valid": "ok",
+              "transitive_cves_scored": "ok",
+              "license_compliant": "ok",
+              "critical_cve_blocked": "ok"
+            },
+            "arrows": [
+              [
+                "cyclonedx_valid",
+                "transitive_cves_scored"
+              ],
+              [
+                "transitive_cves_scored",
+                "license_compliant"
+              ],
+              [
+                "license_compliant",
+                "critical_cve_blocked"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Software Bill of Materials (SBOM) CycloneDX Parsers & Transitive CVE G",
+        "title": "SBOM CycloneDX Parsers & Transitive CVE Graph Scoring — Producti",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cyclonedx_valid",
+            "label": "cyclonedx_valid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "transitive_cves_scored",
+            "label": "transitive_cves_scored"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "license_compliant",
+            "label": "license_compliant"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "critical_cve_blocked",
+            "label": "critical_cve_blocked"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing supply chain defense requires automated certification.",
+            "values": {
+              "cyclonedx_valid": "True",
+              "transitive_cves_scored": "True",
+              "license_compliant": "True",
+              "critical_cve_blocked": "True"
+            },
+            "tones": {
+              "cyclonedx_valid": "data",
+              "transitive_cves_scored": "data",
+              "license_compliant": "data",
+              "critical_cve_blocked": "data"
+            },
+            "arrows": [
+              [
+                "cyclonedx_valid",
+                "transitive_cves_scored"
+              ],
+              [
+                "transitive_cves_scored",
+                "license_compliant"
+              ],
+              [
+                "license_compliant",
+                "critical_cve_blocked"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A supply chain verification auditor executes comprehensive checks.",
+            "values": {
+              "cyclonedx_valid": "True",
+              "transitive_cves_scored": "True",
+              "license_compliant": "True",
+              "critical_cve_blocked": "True"
+            },
+            "tones": {
+              "cyclonedx_valid": "data",
+              "transitive_cves_scored": "data",
+              "license_compliant": "data",
+              "critical_cve_blocked": "data"
+            },
+            "arrows": [
+              [
+                "cyclonedx_valid",
+                "transitive_cves_scored"
+              ],
+              [
+                "transitive_cves_scored",
+                "license_compliant"
+              ],
+              [
+                "license_compliant",
+                "critical_cve_blocked"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Engineering organizations that enforce automated supply chain verification.",
+            "values": {
+              "cyclonedx_valid": "True",
+              "transitive_cves_scored": "True",
+              "license_compliant": "True",
+              "critical_cve_blocked": "True"
+            },
+            "tones": {
+              "cyclonedx_valid": "ok",
+              "transitive_cves_scored": "ok",
+              "license_compliant": "ok",
+              "critical_cve_blocked": "ok"
+            },
+            "arrows": [
+              [
+                "cyclonedx_valid",
+                "transitive_cves_scored"
+              ],
+              [
+                "transitive_cves_scored",
+                "license_compliant"
+              ],
+              [
+                "license_compliant",
+                "critical_cve_blocked"
+              ]
             ]
           }
         ]

@@ -2,231 +2,201 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Models do not remember",
       "codeHash": "f6ebbfa26c4a6c41f76e5bd31d3089f3db2d4c3cb00719bff564cca86432c2f8",
       "spec": {
-        "template": "flow",
-        "title": "Models do not remember — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Models do not remember",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "proc",
-            "label": "2. Models do not remember",
-            "tappable": true
+            "id": "turn",
+            "label": "turn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "user_text",
+            "label": "user_text"
+          },
+          {
+            "id": "reply",
+            "label": "reply"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Models do not remember [Dsixteen.Pone.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Models do not remember [Dsixteen.Pone.Stwo].",
+            "caption": "Every API call is independent.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "history": {
+                "var": "history",
+                "line": 1,
+                "hit": 1
+              },
+              "turn": {
+                "var": "turn",
+                "line": 9,
+                "hit": 1
+              },
+              "user_text": {
+                "var": "user_text",
+                "line": 3,
+                "hit": 1
+              },
+              "reply": {
+                "var": "reply",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "turn": "data",
+              "user_text": "data",
+              "reply": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "That makes \"memory\" your job.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "history": {
+                "var": "history",
+                "line": 2,
+                "hit": 1
+              },
+              "turn": {
+                "var": "turn",
+                "line": 10,
+                "hit": 1
+              },
+              "user_text": {
+                "var": "user_text",
+                "line": 4,
+                "hit": 1
+              },
+              "reply": {
+                "var": "reply",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "turn": "data",
+              "user_text": "data",
+              "reply": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Models do not remember.",
+            "at": "say7",
+            "caption": "Today covers the two classic strategies, sliding windows and summary.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "history": {
+                "var": "history",
+                "line": 9,
+                "hit": 1
+              },
+              "turn": {
+                "var": "turn",
+                "line": 9,
+                "hit": 2
+              },
+              "user_text": {
+                "var": "user_text",
+                "line": 5,
+                "hit": 1
+              },
+              "reply": {
+                "var": "reply",
+                "line": 6,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "ok",
+              "turn": "ok",
+              "user_text": "ok",
+              "reply": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Models do not remember — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Models do not remember",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "proc",
-            "label": "2. Models do not remember",
-            "tappable": true
+            "id": "turn",
+            "label": "turn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "user_text",
+            "label": "user_text"
+          },
+          {
+            "id": "reply",
+            "label": "reply"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Models do not remember [D16.P1.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Models do not remember [D16.P1.S2].",
+            "caption": "Every API call is independent.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "history": "[]",
+              "turn": "'Hi, I am Asha'",
+              "user_text": "'Hi, I am Asha'",
+              "reply": "'(reply to: Hi, I am Asha)'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "turn": "data",
+              "user_text": "data",
+              "reply": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P1.S3].",
+            "at": "say2",
+            "caption": "That makes \"memory\" your job.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "history": "[]",
+              "turn": "'Hi, I am Asha'",
+              "user_text": "'Hi, I am Asha'",
+              "reply": "'(reply to: Hi, I am Asha)'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "data",
+              "turn": "data",
+              "user_text": "data",
+              "reply": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Models do not remember [D16.P1.S4].",
+            "at": "say7",
+            "caption": "Today covers the two classic strategies, sliding windows and summary.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "history": "[]",
+              "turn": "'I want to book a trip to Goa'",
+              "user_text": "'Hi, I am Asha'",
+              "reply": "'(reply to: Hi, I am Asha)'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "history": "ok",
+              "turn": "ok",
+              "user_text": "ok",
+              "reply": "ok"
+            }
           }
         ]
       }
@@ -235,157 +205,194 @@
       "partTitle": "Sliding window memory",
       "codeHash": "44fbd1601593fe7b2464f9cf3fe40eb872ffaa99b31e28ca425237bc622b4237",
       "spec": {
-        "template": "flow",
-        "title": "Sliding window retains recent messages and drops older turns",
-        "nodes": [
+        "template": "boxes",
+        "title": "Sliding window memory",
+        "boxes": [
           {
             "id": "conversation",
             "label": "conversation"
           },
           {
-            "id": "window",
-            "label": "window"
+            "id": "system",
+            "label": "system"
           },
           {
-            "id": "kept",
-            "label": "kept"
-          }
-        ],
-        "edges": [
-          {
-            "from": "conversation",
-            "to": "window"
+            "id": "messages",
+            "label": "messages"
           },
           {
-            "from": "window",
-            "to": "kept"
+            "id": "max_messages",
+            "label": "max_messages"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The window sliding along the conversation keeps recent messages.",
+            "caption": "The simplest strategy keeps only the last N messages (or the last N tokens).",
             "values": {
               "conversation": {
-                "text": "conversation"
+                "var": "conversation",
+                "line": 4,
+                "hit": 10
               },
-              "window": {
-                "text": "window"
+              "system": {
+                "var": "system",
+                "line": 5,
+                "hit": 1
               },
-              "kept": {
-                "text": "kept"
+              "messages": {
+                "var": "messages",
+                "line": 2,
+                "hit": 1
+              },
+              "max_messages": {
+                "var": "max_messages",
+                "line": 2,
+                "hit": 1
               }
             },
             "tones": {
               "conversation": "data",
-              "window": "idle",
-              "kept": "idle"
+              "system": "data",
+              "messages": "data",
+              "max_messages": "data"
             }
           },
           {
-            "at": "say4",
-            "caption": "The weakness is sudden forgetting when older messages drop.",
+            "at": "say2",
+            "caption": "It is cheap, predictable and easy to code.",
             "values": {
               "conversation": {
-                "text": "conversation"
+                "var": "conversation",
+                "line": 5,
+                "hit": 1
               },
-              "window": {
-                "text": "window"
+              "system": {
+                "var": "system",
+                "line": 6,
+                "hit": 1
               },
-              "kept": {
-                "text": "kept"
+              "messages": {
+                "var": "messages",
+                "line": 2,
+                "hit": 1
+              },
+              "max_messages": {
+                "var": "max_messages",
+                "line": 2,
+                "hit": 1
               }
             },
             "tones": {
               "conversation": "data",
-              "window": "data",
-              "kept": "idle"
+              "system": "data",
+              "messages": "data",
+              "max_messages": "data"
             }
           },
           {
-            "at": "say5",
-            "caption": "Always keep system prompt outside window so rules never drop.",
+            "at": "say7",
+            "caption": "Counting in tokens rather than messages is safer, because one pasted.",
             "values": {
               "conversation": {
-                "text": "conversation"
+                "var": "conversation",
+                "line": 6,
+                "hit": 1
               },
-              "window": {
-                "text": "window"
+              "system": {
+                "var": "system",
+                "line": 7,
+                "hit": 1
               },
-              "kept": {
-                "text": "kept"
+              "messages": {
+                "var": "messages",
+                "line": 2,
+                "hit": 1
+              },
+              "max_messages": {
+                "var": "max_messages",
+                "line": 2,
+                "hit": 1
               }
             },
             "tones": {
               "conversation": "ok",
-              "window": "ok",
-              "kept": "ok"
+              "system": "ok",
+              "messages": "ok",
+              "max_messages": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sliding window retains recent messages and drops older turns",
-        "nodes": [
+        "template": "boxes",
+        "title": "Sliding window memory",
+        "boxes": [
           {
             "id": "conversation",
             "label": "conversation"
           },
           {
-            "id": "window",
-            "label": "window"
+            "id": "system",
+            "label": "system"
           },
           {
-            "id": "kept",
-            "label": "kept"
+            "id": "messages",
+            "label": "messages"
+          },
+          {
+            "id": "max_messages",
+            "label": "max_messages"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The window sliding along the conversation keeps recent messages.",
+            "caption": "The simplest strategy keeps only the last N messages (or the last N tokens).",
             "values": {
-              "conversation": "conversation",
-              "window": "window",
-              "kept": "kept"
+              "conversation": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
+              "system": "'You are a travel helper.'",
+              "messages": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
+              "max_messages": "4"
             },
             "tones": {
               "conversation": "data",
-              "window": "idle",
-              "kept": "idle"
-            },
-            "arrows": []
+              "system": "data",
+              "messages": "data",
+              "max_messages": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The weakness is sudden forgetting when older messages drop.",
+            "at": "say2",
+            "caption": "It is cheap, predictable and easy to code.",
             "values": {
-              "conversation": "conversation",
-              "window": "window",
-              "kept": "kept"
+              "conversation": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
+              "system": "'You are a travel helper.'",
+              "messages": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
+              "max_messages": "4"
             },
             "tones": {
               "conversation": "data",
-              "window": "data",
-              "kept": "idle"
-            },
-            "arrows": []
+              "system": "data",
+              "messages": "data",
+              "max_messages": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Always keep system prompt outside window so rules never drop.",
+            "at": "say7",
+            "caption": "Counting in tokens rather than messages is safer, because one pasted.",
             "values": {
-              "conversation": "conversation",
-              "window": "window",
-              "kept": "kept"
+              "conversation": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
+              "system": "'You are a travel helper.'",
+              "messages": "['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm…",
+              "max_messages": "4"
             },
             "tones": {
               "conversation": "ok",
-              "window": "ok",
-              "kept": "ok"
-            },
-            "arrows": []
+              "system": "ok",
+              "messages": "ok",
+              "max_messages": "ok"
+            }
           }
         ]
       }
@@ -394,132 +401,278 @@
       "partTitle": "Summary buffer memory",
       "codeHash": "20de9403bed7b9d57f071f31bd6611960029d32f015c3e53c59400a3322fe4dc",
       "spec": {
-        "template": "compare",
-        "title": "Summary buffer replaces older turns with system summary",
-        "leftLabel": "Full Conversation",
-        "rightLabel": "Summary Buffer",
+        "template": "flow",
+        "title": "Summary buffer memory",
+        "nodes": [
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "new_turn",
+            "label": "new_turn"
+          },
+          {
+            "id": "max_tokens",
+            "label": "max_tokens"
+          },
+          {
+            "id": "messages",
+            "label": "messages"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A summary buffer keeps recent messages and replaces older ones.",
-            "left": {
-              "code": "messages[:-2] exceeding budget",
-              "result": {
-                "text": "flights"
+            "caption": "A summary buffer keeps the most recent messages word for word and replaces.",
+            "values": {
+              "history": {
+                "var": "history",
+                "line": 9,
+                "hit": 1
               },
-              "tone": "data"
+              "new_turn": {
+                "var": "new_turn",
+                "line": 2,
+                "hit": 1
+              },
+              "max_tokens": {
+                "var": "max_tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 2,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "summary = {role: system, topic: summary}",
-              "result": {
-                "text": "summary"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "history": "data",
+              "new_turn": "data",
+              "max_tokens": "data",
+              "messages": "data"
+            },
+            "arrows": [
+              [
+                "history",
+                "new_turn"
+              ],
+              [
+                "new_turn",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "messages"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Add turn and check if total tokens exceed budget with summarized status.",
-            "left": {
-              "code": "sum(m[\"tokens\"] for m in messages)",
-              "result": {
-                "text": "tokens"
+            "caption": "Update_memory(history, new_turn, max_tokens).",
+            "values": {
+              "history": {
+                "var": "history",
+                "line": 2,
+                "hit": 1
               },
-              "tone": "data"
+              "new_turn": {
+                "var": "new_turn",
+                "line": 3,
+                "hit": 6
+              },
+              "max_tokens": {
+                "var": "max_tokens",
+                "line": 3,
+                "hit": 6
+              },
+              "messages": {
+                "var": "messages",
+                "line": 3,
+                "hit": 6
+              }
             },
-            "right": {
-              "code": "update_memory(history, new_turn)",
-              "result": {
-                "text": "hotels"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "history": "data",
+              "new_turn": "data",
+              "max_tokens": "data",
+              "messages": "data"
+            },
+            "arrows": [
+              [
+                "history",
+                "new_turn"
+              ],
+              [
+                "new_turn",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "messages"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Summaries keep gist of long conversations at fixed cost.",
-            "left": {
-              "code": "messages = history + [new_turn]",
-              "result": {
-                "text": "history"
+            "at": "say7",
+            "caption": "A summary loses details.",
+            "values": {
+              "history": {
+                "var": "history",
+                "line": 3,
+                "hit": 6
               },
-              "tone": "idle"
+              "new_turn": {
+                "var": "new_turn",
+                "line": 5,
+                "hit": 1
+              },
+              "max_tokens": {
+                "var": "max_tokens",
+                "line": 5,
+                "hit": 1
+              },
+              "messages": {
+                "var": "messages",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "memory = [summary] + recent",
-              "result": {
-                "text": "memory"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "history": "ok",
+              "new_turn": "ok",
+              "max_tokens": "ok",
+              "messages": "ok"
+            },
+            "arrows": [
+              [
+                "history",
+                "new_turn"
+              ],
+              [
+                "new_turn",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "messages"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Summary buffer replaces older turns with system summary",
-        "leftLabel": "Full Conversation",
-        "rightLabel": "Summary Buffer",
+        "template": "flow",
+        "title": "Summary buffer memory",
+        "nodes": [
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "new_turn",
+            "label": "new_turn"
+          },
+          {
+            "id": "max_tokens",
+            "label": "max_tokens"
+          },
+          {
+            "id": "messages",
+            "label": "messages"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A summary buffer keeps recent messages and replaces older ones.",
-            "left": {
-              "code": "messages[:-2] exceeding budget",
-              "result": "flights",
-              "tone": "data",
-              "checks": [
-                "flights"
-              ]
+            "caption": "A summary buffer keeps the most recent messages word for word and replaces.",
+            "values": {
+              "history": "[{'role': 'user', 'text': '...', 'topic…",
+              "new_turn": "{'role': 'assistant', 'text': '...', 't…",
+              "max_tokens": "100",
+              "messages": "[{'role': 'user', 'text': '...', 'topic…"
             },
-            "right": {
-              "code": "summary = {role: system, topic: summary}",
-              "result": "summary",
-              "tone": "ok",
-              "checks": [
-                "summary"
+            "tones": {
+              "history": "data",
+              "new_turn": "data",
+              "max_tokens": "data",
+              "messages": "data"
+            },
+            "arrows": [
+              [
+                "history",
+                "new_turn"
+              ],
+              [
+                "new_turn",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "messages"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Add turn and check if total tokens exceed budget with summarized status.",
-            "left": {
-              "code": "sum(m[\"tokens\"] for m in messages)",
-              "result": "tokens",
-              "tone": "data",
-              "checks": [
-                "tokens"
-              ]
+            "caption": "Update_memory(history, new_turn, max_tokens).",
+            "values": {
+              "history": "[{'role': 'user', 'text': '...', 'topic…",
+              "new_turn": "{'role': 'assistant', 'text': '...', 't…",
+              "max_tokens": "100",
+              "messages": "[{'role': 'user', 'text': '...', 'topic…"
             },
-            "right": {
-              "code": "update_memory(history, new_turn)",
-              "result": "hotels",
-              "tone": "ok",
-              "checks": [
-                "hotels"
+            "tones": {
+              "history": "data",
+              "new_turn": "data",
+              "max_tokens": "data",
+              "messages": "data"
+            },
+            "arrows": [
+              [
+                "history",
+                "new_turn"
+              ],
+              [
+                "new_turn",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "messages"
               ]
-            }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Summaries keep gist of long conversations at fixed cost.",
-            "left": {
-              "code": "messages = history + [new_turn]",
-              "result": "history",
-              "tone": "idle",
-              "checks": [
-                "history"
-              ]
+            "at": "say7",
+            "caption": "A summary loses details.",
+            "values": {
+              "history": "[{'role': 'user', 'text': '...', 'topic…",
+              "new_turn": "{'role': 'assistant', 'text': '...', 't…",
+              "max_tokens": "100",
+              "messages": "[{'role': 'user', 'text': '...', 'topic…"
             },
-            "right": {
-              "code": "memory = [summary] + recent",
-              "result": "memory",
-              "tone": "ok",
-              "checks": [
-                "memory"
+            "tones": {
+              "history": "ok",
+              "new_turn": "ok",
+              "max_tokens": "ok",
+              "messages": "ok"
+            },
+            "arrows": [
+              [
+                "history",
+                "new_turn"
+              ],
+              [
+                "new_turn",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "messages"
               ]
-            }
+            ]
           }
         ]
       }
@@ -528,24 +681,36 @@
       "partTitle": "Counting messages by role",
       "codeHash": "0dd68560c511370cef9f43432e78491ce9b08107f8fbe35546cd9ae93e6cc4ec",
       "spec": {
-        "template": "bars",
-        "title": "Message counts by role for dialogue analytics and triggers",
+        "template": "sequence",
+        "title": "Counting messages by role",
+        "actors": [
+          "msgs",
+          "messages",
+          "counts"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Count roles returns user and assistant message totals.",
-            "bars": [
+            "caption": "Count_roles(messages) returns {\"user\".",
+            "activeActor": "msgs",
+            "messages": [
               {
-                "label": "user",
-                "value": {
-                  "text": "0"
+                "from": "msgs",
+                "to": "messages",
+                "label": {
+                  "var": "msgs",
+                  "line": 8,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "assistant",
-                "value": {
-                  "text": "0"
+                "from": "messages",
+                "to": "counts",
+                "label": {
+                  "var": "messages",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -553,39 +718,53 @@
           },
           {
             "at": "say2",
-            "caption": "Simple counts are useful signals across conversation turns.",
-            "bars": [
+            "caption": "Simple counts are useful signals.",
+            "activeActor": "messages",
+            "messages": [
               {
-                "label": "user",
-                "value": {
-                  "text": "1"
+                "from": "msgs",
+                "to": "messages",
+                "label": {
+                  "var": "msgs",
+                  "line": 9,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "assistant",
-                "value": {
-                  "text": "0"
+                "from": "messages",
+                "to": "counts",
+                "label": {
+                  "var": "messages",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Starting result with both keys set to zero guarantees presence.",
-            "bars": [
+            "at": "say7",
+            "caption": "Small helper functions like this make analytics dashboards straightforward.",
+            "activeActor": "counts",
+            "messages": [
               {
-                "label": "user",
-                "value": {
-                  "text": "1"
+                "from": "msgs",
+                "to": "messages",
+                "label": {
+                  "var": "msgs",
+                  "line": 10,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "assistant",
-                "value": {
-                  "text": "0"
+                "from": "messages",
+                "to": "counts",
+                "label": {
+                  "var": "messages",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -594,56 +773,70 @@
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Message counts by role for dialogue analytics and triggers",
+        "template": "sequence",
+        "title": "Counting messages by role",
+        "actors": [
+          "msgs",
+          "messages",
+          "counts"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Count roles returns user and assistant message totals.",
-            "bars": [
+            "caption": "Count_roles(messages) returns {\"user\".",
+            "messages": [
               {
-                "label": "user",
-                "value": 0,
-                "tone": "ok"
+                "from": "msgs",
+                "to": "messages",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "data"
               },
               {
-                "label": "assistant",
-                "value": 0,
+                "from": "messages",
+                "to": "counts",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "msgs"
           },
           {
             "at": "say2",
-            "caption": "Simple counts are useful signals across conversation turns.",
-            "bars": [
+            "caption": "Simple counts are useful signals.",
+            "messages": [
               {
-                "label": "user",
-                "value": 1,
-                "tone": "ok"
+                "from": "msgs",
+                "to": "messages",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "data"
               },
               {
-                "label": "assistant",
-                "value": 0,
+                "from": "messages",
+                "to": "counts",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "messages"
           },
           {
-            "at": "say6",
-            "caption": "Starting result with both keys set to zero guarantees presence.",
-            "bars": [
+            "at": "say7",
+            "caption": "Small helper functions like this make analytics dashboards straightforward.",
+            "messages": [
               {
-                "label": "user",
-                "value": 1,
-                "tone": "ok"
+                "from": "msgs",
+                "to": "messages",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
+                "tone": "data"
               },
               {
-                "label": "assistant",
-                "value": 0,
+                "from": "messages",
+                "to": "counts",
+                "label": "[{'role': 'system'}, {'role': 'user'}, …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "counts"
           }
         ]
       }
@@ -652,236 +845,162 @@
       "partTitle": "Long-term memory: facts worth keeping",
       "codeHash": "8cd7aa29e850da821a88ae396ee60784f8582d6539b040eb6fbff361659faf20",
       "spec": {
-        "template": "table",
-        "title": "Long-term profile memory key allowlist validation",
-        "columns": [
-          "profile_key",
-          "fact_value",
-          "store_status"
+        "template": "sequence",
+        "title": "Long-term memory: facts worth keeping",
+        "actors": [
+          "profile",
+          "ALLOWED",
+          "user_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Important user facts outlive a single conversation.",
-            "rows": [
+            "caption": "Some things should outlive a single conversation.",
+            "activeActor": "profile",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "diet"
-                  },
-                  {
-                    "text": "vegetarian"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
-                "tone": "ok"
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": {
+                  "var": "profile",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "seat"
-                  },
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": {
+                  "var": "ALLOWED",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Long-term memory stores facts outside chat for future prompts.",
-            "rows": [
+            "caption": "Long-term memory stores such facts outside the chat, often as small.",
+            "activeActor": "ALLOWED",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "diet"
-                  },
-                  {
-                    "text": "vegetarian"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
-                "tone": "ok"
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": {
+                  "var": "profile",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "seat"
-                  },
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": {
+                  "var": "ALLOWED",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "card_number"
-                  },
-                  {
-                    "text": "4111..."
-                  },
-                  {
-                    "text": "ALLOWED"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Decide carefully what to store and never store sensitive data.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keep each fact short and dated, so newer facts can replace older ones.",
+            "activeActor": "user_id",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "diet"
-                  },
-                  {
-                    "text": "vegetarian"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
-                "tone": "ok"
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": {
+                  "var": "profile",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "seat"
-                  },
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": {
+                  "var": "ALLOWED",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "card_number"
-                  },
-                  {
-                    "text": "4111..."
-                  },
-                  {
-                    "text": "ALLOWED"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Long-term profile memory key allowlist validation",
-        "columns": [
-          "profile_key",
-          "fact_value",
-          "store_status"
+        "template": "sequence",
+        "title": "Long-term memory: facts worth keeping",
+        "actors": [
+          "profile",
+          "ALLOWED",
+          "user_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Important user facts outlive a single conversation.",
-            "rows": [
+            "caption": "Some things should outlive a single conversation.",
+            "messages": [
               {
-                "cells": [
-                  "diet",
-                  "vegetarian",
-                  "stored"
-                ],
-                "tone": "ok"
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "seat",
-                  "window",
-                  "stored"
-                ],
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": "{'city', 'diet', 'name', 'seat'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "profile"
           },
           {
             "at": "say2",
-            "caption": "Long-term memory stores facts outside chat for future prompts.",
-            "rows": [
+            "caption": "Long-term memory stores such facts outside the chat, often as small.",
+            "messages": [
               {
-                "cells": [
-                  "diet",
-                  "vegetarian",
-                  "stored"
-                ],
-                "tone": "ok"
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "seat",
-                  "window",
-                  "stored"
-                ],
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": "{'city', 'diet', 'name', 'seat'}",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "card_number",
-                  "4111...",
-                  "ALLOWED"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "ALLOWED"
           },
           {
-            "at": "say3",
-            "caption": "Decide carefully what to store and never store sensitive data.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keep each fact short and dated, so newer facts can replace older ones.",
+            "messages": [
               {
-                "cells": [
-                  "diet",
-                  "vegetarian",
-                  "stored"
-                ],
-                "tone": "ok"
+                "from": "profile",
+                "to": "ALLOWED",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "seat",
-                  "window",
-                  "stored"
-                ],
+                "from": "ALLOWED",
+                "to": "user_id",
+                "label": "{'city', 'diet', 'name', 'seat'}",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "card_number",
-                  "4111...",
-                  "ALLOWED"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "user_id"
           }
         ]
       }
@@ -890,224 +1009,162 @@
       "partTitle": "Choosing a memory strategy",
       "codeHash": "e1e1be55336c38f398d1ae7ffaca4e06b9c0fde5cef4ec87180fca20d215cc1d",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a memory strategy — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a memory s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Choosing a memory strategy",
+        "actors": [
+          "facts",
+          "summary",
+          "recent"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a memory strategy [Dsixteen.Psix.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a memory s... [Dsixteen.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Short task chats.",
+            "activeActor": "facts",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": {
+                  "var": "facts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": {
+                  "var": "summary",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Long, flowing chats (coaching, tutoring).",
+            "activeActor": "summary",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": {
+                  "var": "facts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": {
+                  "var": "summary",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a memory strategy.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will give the assistant the ability to act in steps with tools.",
+            "activeActor": "recent",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": {
+                  "var": "facts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": {
+                  "var": "summary",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a memory strategy — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a memory s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Choosing a memory strategy",
+        "actors": [
+          "facts",
+          "summary",
+          "recent"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a memory strategy [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a memory s... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Short task chats.",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": "['name: Asha', 'diet: vegetarian']",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": "'discussed Goa trip in December'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "facts"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Long, flowing chats (coaching, tutoring).",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": "['name: Asha', 'diet: vegetarian']",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": "'discussed Goa trip in December'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "summary"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a memory strategy [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will give the assistant the ability to act in steps with tools.",
+            "messages": [
+              {
+                "from": "facts",
+                "to": "summary",
+                "label": "['name: Asha', 'diet: vegetarian']",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "recent",
+                "label": "'discussed Goa trip in December'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "recent"
           }
         ]
       }

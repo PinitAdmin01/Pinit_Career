@@ -2,1335 +2,689 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 55,
-  "promptSha": "4970667eb18e295ce25907a1cd46091fda3af0b1973ae83d08c62aef1d795601",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 11 — Foundations & Mathematical Invariants",
-      "codeHash": "98b788a53be41a827ada2df8a28e1d8a377d8d1f51285f06a2e7780466285c66",
+      "codeHash": "04758b33bbc2dceec18a94d8fd5ae5d6266bb6ea137c36acf038e6be5a670847",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 11 — Foundations & Mathematical Invariants",
+        "actors": [
+          "MILESTONE_11_PILLARS",
+          "name",
+          "overview"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates synthesizes during execution.",
+            "activeActor": "MILESTONE_11_PILLARS",
+            "messages": [
+              {
+                "from": "MILESTONE_11_PILLARS",
+                "to": "name",
+                "label": {
+                  "var": "MILESTONE_11_PILLARS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "overview",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Modern cloud workloads operate as distributed containers orchestrated.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "MILESTONE_11_PILLARS",
+                "to": "name",
+                "label": {
+                  "var": "MILESTONE_11_PILLARS",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "overview",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Integrated cloud defense suites unite container runtime isolation.",
+            "activeActor": "overview",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "MILESTONE_11_PILLARS",
+                "to": "name",
+                "label": {
+                  "var": "MILESTONE_11_PILLARS",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "overview",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 11 — Foundations & Mathematical Invariants",
+        "actors": [
+          "MILESTONE_11_PILLARS",
+          "name",
+          "overview"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates synthesizes during execution.",
+            "messages": [
+              {
+                "from": "MILESTONE_11_PILLARS",
+                "to": "name",
+                "label": "{'CONTAINER_HARDENING': 'Enforcing non-…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "overview",
+                "label": "'CONTAINER_HARDENING'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "MILESTONE_11_PILLARS"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Modern cloud workloads operate as distributed containers orchestrated.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "MILESTONE_11_PILLARS",
+                "to": "name",
+                "label": "{'CONTAINER_HARDENING': 'Enforcing non-…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "overview",
+                "label": "'CONTAINER_HARDENING'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Integrated cloud defense suites unite container runtime isolation.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "MILESTONE_11_PILLARS",
+                "to": "name",
+                "label": "{'CONTAINER_HARDENING': 'Enforcing non-…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "overview",
+                "label": "'IAM_GRAPH_PATHFINDER'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "overview"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 11 — Core Algorithm & State Representation",
-      "codeHash": "0bd154ce29ff2a4ecf4170431fc453ad6a601e49d9f5b94e40df33d086e3eca0",
+      "codeHash": "b807607960e8da210da76130775c8dc470bd2999b315fea8cb5a469937cfe61f",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 11 — Core Algorithm & State Representation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "workload1",
+            "label": "workload1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "container_spec",
+            "label": "container_spec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "iam_permissions",
+            "label": "iam_permissions"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core cloud security engine inspects both container runtime.",
+            "currentState": "workload1",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "For container workloads, the engine asserts that `runAsNonRoot.",
+            "currentState": "container_spec",
+            "transition": {
+              "from": "workload1",
+              "to": "container_spec",
+              "label": {
+                "var": "container_spec",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Unified security engines evaluate container security contexts and cloud.",
+            "currentState": "iam_permissions",
+            "transition": {
+              "from": "container_spec",
+              "to": "iam_permissions",
+              "label": {
+                "var": "iam_permissions",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 11 — Core Algorithm & State Representation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "workload1",
+            "label": "workload1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "container_spec",
+            "label": "container_spec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "iam_permissions",
+            "label": "iam_permissions"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core cloud security engine inspects both container runtime.",
+            "currentState": "workload1",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "For container workloads, the engine asserts that `runAsNonRoot.",
+            "currentState": "container_spec",
+            "transition": {
+              "from": "workload1",
+              "to": "container_spec",
+              "label": "{'runAsNonRoot': True, 'dropCaps': ['AL…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Unified security engines evaluate container security contexts and cloud.",
+            "currentState": "iam_permissions",
+            "transition": {
+              "from": "container_spec",
+              "to": "iam_permissions",
+              "label": "['s3:GetObject']"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ce56c89d589a62d1fbd700e5272f8013ba15e8b7425f18e39f4c9192f324e217",
+      "codeHash": "d1264bd7761d019ff2a1536aa5a593aae7341bceda167d7c13d724aadf244f01",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hops",
+            "label": "hops"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "path_hops",
+            "label": "path_hops"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "contains_wildcard_iam",
+            "label": "contains_wildcard_iam"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When an IAM attack-path analyzer discovers multiple privilege escalation.",
+            "currentState": "hops",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The attack path risk scorer computes an objective numerical risk score (0.",
+            "currentState": "path_hops",
+            "transition": {
+              "from": "hops",
+              "to": "path_hops",
+              "label": {
+                "var": "path_hops",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Attack path risk scoring enables engineering teams to prioritize.",
+            "currentState": "contains_wildcard_iam",
+            "transition": {
+              "from": "path_hops",
+              "to": "contains_wildcard_iam",
+              "label": {
+                "var": "contains_wildcard_iam",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hops",
+            "label": "hops"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "path_hops",
+            "label": "path_hops"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "contains_wildcard_iam",
+            "label": "contains_wildcard_iam"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When an IAM attack-path analyzer discovers multiple privilege escalation.",
+            "currentState": "hops",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The attack path risk scorer computes an objective numerical risk score (0.",
+            "currentState": "path_hops",
+            "transition": {
+              "from": "hops",
+              "to": "path_hops",
+              "label": "['user:app', 'role:lambda_runner', 'rol…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Attack path risk scoring enables engineering teams to prioritize.",
+            "currentState": "contains_wildcard_iam",
+            "transition": {
+              "from": "path_hops",
+              "to": "contains_wildcard_iam",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 11 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "2e4d7f028385c047cb8addaa5ae0acb7e225f81a8558eacb5b8af46e2b56fc7a",
+      "codeHash": "217ab1c704140842f0aed222f1ad5b9b01f5775f0e8714cc67bf4dbffa813b0c",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 11 — Resilience Guardrails & Failure Recovery",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "raw_perms",
+            "label": "raw_perms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "identity_id",
+            "label": "identity_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "current_perms",
+            "label": "current_perms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Discovering a dangerous IAM escalation path requires rapid remediation.",
+            "currentState": "raw_perms",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The automated policy remediator inspects permission sets for known 'toxic.",
+            "currentState": "identity_id",
+            "transition": {
+              "from": "raw_perms",
+              "to": "identity_id",
+              "label": {
+                "var": "identity_id",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Automated policy remediators sever toxic permission combinations in real.",
+            "currentState": "current_perms",
+            "transition": {
+              "from": "identity_id",
+              "to": "current_perms",
+              "label": {
+                "var": "current_perms",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 11 — Resilience Guardrails & Failure Recovery",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "raw_perms",
+            "label": "raw_perms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "identity_id",
+            "label": "identity_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "current_perms",
+            "label": "current_perms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Discovering a dangerous IAM escalation path requires rapid remediation.",
+            "currentState": "raw_perms",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The automated policy remediator inspects permission sets for known 'toxic.",
+            "currentState": "identity_id",
+            "transition": {
+              "from": "raw_perms",
+              "to": "identity_id",
+              "label": "'role:dev_test'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Automated policy remediators sever toxic permission combinations in real.",
+            "currentState": "current_perms",
+            "transition": {
+              "from": "identity_id",
+              "to": "current_perms",
+              "label": "['s3:GetObject', 'iam:PassRole', 'lambd…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 11 — Production Telemetry & Verification Audit",
-      "codeHash": "b145676f595379cf30086466ed987b6e342a118ac72cd9bbce1384d1da6276c0",
+      "codeHash": "ff8a1c315173a8b236b558b735a96d8a51f0584e4f28cafa3da813385205eb49",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Milestone 11 — Production Telemetry & Verification Audit",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "all_passed",
+            "label": "all_passed"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "passed",
+            "label": "passed"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "g",
+            "label": "g"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Milestone 11 verification confirms that all container runtime sandboxes.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 4,
+                "hit": 1
+              },
+              "all_passed": {
+                "var": "all_passed",
+                "line": 11,
+                "hit": 1
+              },
+              "passed": {
+                "var": "passed",
+                "line": 14,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "gates": "data",
+              "all_passed": "data",
+              "passed": "data",
+              "g": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A Milestone 11 certification auditor evaluates the operational status.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "all_passed": {
+                "var": "all_passed",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "passed": {
+                "var": "passed",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "g": {
+                "var": "g",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "gates": "data",
+              "all_passed": "data",
+              "passed": "data",
+              "g": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Milestone 11 certification guarantees that all enterprise container.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "all_passed": {
+                "var": "all_passed",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "passed": {
+                "var": "passed",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "g": {
+                "var": "g",
+                "line": 16,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "gates": "ok",
+              "all_passed": "ok",
+              "passed": "ok",
+              "g": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Milestone 11 — Production Telemetry & Verification Audit",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "all_passed",
+            "label": "all_passed"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "passed",
+            "label": "passed"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "g",
+            "label": "g"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Milestone 11 verification confirms that all container runtime sandboxes.",
+            "values": {
+              "gates": "{'GATE_1_CONTAINER_ROOTLESS': True, 'GA…",
+              "all_passed": "True",
+              "passed": "True",
+              "g": "'GATE_1_CONTAINER_ROOTLESS'"
+            },
+            "tones": {
+              "gates": "data",
+              "all_passed": "data",
+              "passed": "data",
+              "g": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A Milestone 11 certification auditor evaluates the operational status.",
+            "values": {
+              "gates": "{'GATE_1_CONTAINER_ROOTLESS': True, 'GA…",
+              "all_passed": "True",
+              "passed": "True",
+              "g": "'GATE_1_CONTAINER_ROOTLESS'"
+            },
+            "tones": {
+              "gates": "data",
+              "all_passed": "data",
+              "passed": "data",
+              "g": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Milestone 11 certification guarantees that all enterprise container.",
+            "values": {
+              "gates": "{'GATE_1_CONTAINER_ROOTLESS': True, 'GA…",
+              "all_passed": "True",
+              "passed": "True",
+              "g": "'GATE_2_CONTAINER_SECCOMP'"
+            },
+            "tones": {
+              "gates": "ok",
+              "all_passed": "ok",
+              "passed": "ok",
+              "g": "ok"
+            }
           }
         ]
       }

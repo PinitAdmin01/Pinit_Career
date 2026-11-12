@@ -2,135 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 28,
-  "promptSha": "ccc31bddfb0612aed989fef3f31949e99cb19c42ea69f3081768199ae96f6a61",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Shared responsibility",
       "codeHash": "f8f4ec4a1862f238aa16090be18d377ced4285cddf72a73b045af99270cceff5",
       "spec": {
-        "template": "flow",
-        "title": "AWS IAM deterministic policy evaluation logic and explicit deny precedence",
-        "nodes": [
+        "template": "states",
+        "title": "Shared responsibility",
+        "states": [
           {
-            "id": "request",
-            "label": "IAM API Request",
-            "tappable": false
+            "id": "responsibilities",
+            "label": "responsibilities"
           },
           {
-            "id": "explicitDeny",
-            "label": "Evaluate Explicit Deny Statements",
-            "tappable": false
+            "id": "item",
+            "label": "item"
           },
           {
-            "id": "explicitAllow",
-            "label": "Evaluate Explicit Allow Statements",
-            "tappable": false
-          },
-          {
-            "id": "finalDecision",
-            "label": "Final Request Authorization Verdict",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "request",
-            "to": "explicitDeny",
-            "label": "Check Policies"
-          },
-          {
-            "from": "explicitDeny",
-            "to": "explicitAllow",
-            "label": "No Deny Found"
-          },
-          {
-            "from": "explicitAllow",
-            "to": "finalDecision",
-            "label": "Allow or Deny"
+            "id": "owner",
+            "label": "owner"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Explicit deny statements unconditionally override all policy allow statements.",
-            "activeNodes": [
-              "request",
-              "explicitDeny"
-            ],
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Cloud providers secure the underlying infrastructure.",
+            "currentState": "responsibilities",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The principle of least privilege restricts permissions to required tasks.",
-            "activeNodes": [
-              "explicitAllow",
-              "finalDecision"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "This is the shared responsibility model.",
+            "currentState": "item",
+            "transition": {
+              "from": "responsibilities",
+              "to": "item",
+              "label": {
+                "var": "item",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Read the provider documentation for each service you use, because.",
+            "currentState": "owner",
+            "transition": {
+              "from": "item",
+              "to": "owner",
+              "label": {
+                "var": "owner",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "AWS IAM deterministic policy evaluation logic and explicit deny precedence",
-        "nodes": [
+        "template": "states",
+        "title": "Shared responsibility",
+        "states": [
           {
-            "id": "request",
-            "label": "IAM API Request",
-            "tappable": false
+            "id": "responsibilities",
+            "label": "responsibilities"
           },
           {
-            "id": "explicitDeny",
-            "label": "Evaluate Explicit Deny Statements",
-            "tappable": false
+            "id": "item",
+            "label": "item"
           },
           {
-            "id": "explicitAllow",
-            "label": "Evaluate Explicit Allow Statements",
-            "tappable": false
-          },
-          {
-            "id": "finalDecision",
-            "label": "Final Request Authorization Verdict",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "request",
-            "to": "explicitDeny",
-            "label": "Check Policies"
-          },
-          {
-            "from": "explicitDeny",
-            "to": "explicitAllow",
-            "label": "No Deny Found"
-          },
-          {
-            "from": "explicitAllow",
-            "to": "finalDecision",
-            "label": "Allow or Deny"
+            "id": "owner",
+            "label": "owner"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Explicit deny statements unconditionally override all policy allow statements.",
-            "activeNodes": [
-              "request",
-              "explicitDeny"
-            ],
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Cloud providers secure the underlying infrastructure.",
+            "currentState": "responsibilities",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The principle of least privilege restricts permissions to required tasks.",
-            "activeNodes": [
-              "explicitAllow",
-              "finalDecision"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "This is the shared responsibility model.",
+            "currentState": "item",
+            "transition": {
+              "from": "responsibilities",
+              "to": "item",
+              "label": "'physical data centre'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Read the provider documentation for each service you use, because.",
+            "currentState": "owner",
+            "transition": {
+              "from": "item",
+              "to": "owner",
+              "label": "'provider'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -139,184 +117,194 @@
       "partTitle": "IAM policies",
       "codeHash": "55d3b891e83ff5f5cec699684ec6272100b81da7a44177b217326e98a1db39c4",
       "spec": {
-        "template": "table",
-        "title": "Amazon S3 public access block settings and protection scopes",
-        "columns": [
-          "Block Setting",
-          "Protection Scope",
-          "Enforcement Impact"
+        "template": "boxes",
+        "title": "IAM policies",
+        "boxes": [
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "st",
+            "label": "st"
+          },
+          {
+            "id": "actions",
+            "label": "actions"
+          },
+          {
+            "id": "risky",
+            "label": "risky"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Public access block settings protect cloud storage buckets from data leaks.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "BlockPublicAcls",
-                  "Bucket and Object ACLs",
-                  "Rejects New Public ACL Permissions"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Cloud identity and access management (IAM) policies are JSON documents.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  "IgnorePublicAcls",
-                  "Existing Public ACLs",
-                  "Disables All System Public ACLs"
-                ],
-                "tone": "data"
+              "st": {
+                "var": "st",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "BlockPublicPolicy",
-                  "Resource Bucket Policies",
-                  "Rejects Public Bucket Policy Rules"
-                ],
-                "tone": "data"
+              "actions": {
+                "var": "actions",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "RestrictPublicBuckets",
-                  "Cross Account Access",
-                  "Restricts Access to Account Users"
-                ],
-                "tone": "data"
+              "risky": {
+                "var": "risky",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "policy": "data",
+              "st": "data",
+              "actions": "data",
+              "risky": "data"
+            }
           },
           {
-            "at": "say7",
-            "caption": "Bucket policies mandate transport encryption to protect sensitive archives.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "BlockPublicAcls",
-                  "Bucket and Object ACLs",
-                  "Rejects New Public ACL Permissions"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Allow s3:GetObject on arn:aws:s3:::reports/* lets a role read objects.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "IgnorePublicAcls",
-                  "Existing Public ACLs",
-                  "Disables All System Public ACLs"
-                ],
-                "tone": "data"
+              "st": {
+                "var": "st",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "BlockPublicPolicy",
-                  "Resource Bucket Policies",
-                  "Rejects Public Bucket Policy Rules"
-                ],
-                "tone": "data"
+              "actions": {
+                "var": "actions",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "RestrictPublicBuckets",
-                  "Cross Account Access",
-                  "Restricts Access to Account Users"
-                ],
-                "tone": "data"
+              "risky": {
+                "var": "risky",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "policy": "data",
+              "st": "data",
+              "actions": "data",
+              "risky": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Policies generated from actual usage logs help tighten permissions to what.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 5,
+                "hit": 1
+              },
+              "st": {
+                "var": "st",
+                "line": 6,
+                "hit": 1
+              },
+              "actions": {
+                "var": "actions",
+                "line": 7,
+                "hit": 1
+              },
+              "risky": {
+                "var": "risky",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "policy": "ok",
+              "st": "ok",
+              "actions": "ok",
+              "risky": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Amazon S3 public access block settings and protection scopes",
-        "columns": [
-          "Block Setting",
-          "Protection Scope",
-          "Enforcement Impact"
+        "template": "boxes",
+        "title": "IAM policies",
+        "boxes": [
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "st",
+            "label": "st"
+          },
+          {
+            "id": "actions",
+            "label": "actions"
+          },
+          {
+            "id": "risky",
+            "label": "risky"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Public access block settings protect cloud storage buckets from data leaks.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "BlockPublicAcls",
-                  "Bucket and Object ACLs",
-                  "Rejects New Public ACL Permissions"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "IgnorePublicAcls",
-                  "Existing Public ACLs",
-                  "Disables All System Public ACLs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "BlockPublicPolicy",
-                  "Resource Bucket Policies",
-                  "Rejects Public Bucket Policy Rules"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RestrictPublicBuckets",
-                  "Cross Account Access",
-                  "Restricts Access to Account Users"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Cloud identity and access management (IAM) policies are JSON documents.",
+            "values": {
+              "policy": "{'Statement': [{'Sid': 'ReadReports', '…",
+              "st": "{'Sid': 'ReadReports', 'Effect': 'Allow…",
+              "actions": "['s3:GetObject']",
+              "risky": "False"
+            },
+            "tones": {
+              "policy": "data",
+              "st": "data",
+              "actions": "data",
+              "risky": "data"
+            }
           },
           {
-            "at": "say7",
-            "caption": "Bucket policies mandate transport encryption to protect sensitive archives.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "BlockPublicAcls",
-                  "Bucket and Object ACLs",
-                  "Rejects New Public ACL Permissions"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "IgnorePublicAcls",
-                  "Existing Public ACLs",
-                  "Disables All System Public ACLs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "BlockPublicPolicy",
-                  "Resource Bucket Policies",
-                  "Rejects Public Bucket Policy Rules"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RestrictPublicBuckets",
-                  "Cross Account Access",
-                  "Restricts Access to Account Users"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Allow s3:GetObject on arn:aws:s3:::reports/* lets a role read objects.",
+            "values": {
+              "policy": "{'Statement': [{'Sid': 'ReadReports', '…",
+              "st": "{'Sid': 'ReadReports', 'Effect': 'Allow…",
+              "actions": "['s3:GetObject']",
+              "risky": "False"
+            },
+            "tones": {
+              "policy": "data",
+              "st": "data",
+              "actions": "data",
+              "risky": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Policies generated from actual usage logs help tighten permissions to what.",
+            "values": {
+              "policy": "{'Statement': [{'Sid': 'ReadReports', '…",
+              "st": "{'Sid': 'ReadReports', 'Effect': 'Allow…",
+              "actions": "['s3:GetObject']",
+              "risky": "False"
+            },
+            "tones": {
+              "policy": "ok",
+              "st": "ok",
+              "actions": "ok",
+              "risky": "ok"
+            }
           }
         ]
       }
@@ -325,106 +313,222 @@
       "partTitle": "Public storage buckets",
       "codeHash": "24bd21348ff058974058db775f999cbb77381d2e9d050a2fbaad5c5f1d30fe78",
       "spec": {
-        "template": "sequence",
-        "title": "Envelope encryption lifecycle with KMS customer master keys and local data keys",
-        "actors": [
+        "template": "flow",
+        "title": "Public storage buckets",
+        "nodes": [
           {
-            "id": "application",
-            "label": "Application Service"
+            "id": "buckets",
+            "label": "buckets"
           },
           {
-            "id": "kmsHsm",
-            "label": "AWS KMS HSM"
+            "id": "b",
+            "label": "b"
           },
           {
-            "id": "localStorage",
-            "label": "Encrypted Cloud Storage"
-          }
-        ],
-        "messages": [
-          {
-            "from": "application",
-            "to": "kmsHsm",
-            "label": "Call GenerateDataKey API",
-            "tone": "data"
-          },
-          {
-            "from": "kmsHsm",
-            "to": "application",
-            "label": "Return Plaintext and Ciphertext DEK",
-            "tone": "data"
-          },
-          {
-            "from": "application",
-            "to": "localStorage",
-            "label": "Store Encrypted Data and Ciphertext DEK",
-            "tone": "success"
+            "id": "public",
+            "label": "public"
           }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "KMS returns plaintext and ciphertext copies of the data encryption key.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Object storage buckets (S3, Google Cloud Storage, Azure Blob) have leaked.",
+            "values": {
+              "buckets": {
+                "var": "buckets",
+                "line": 1,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
+              },
+              "public": {
+                "var": "public",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data",
+              "public": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ],
+              [
+                "b",
+                "public"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The application wipes plaintext keys from memory after encrypting data.",
-            "activeMessageIndex": 2,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A bucket can become public through its access control list (ACL.",
+            "values": {
+              "buckets": {
+                "var": "buckets",
+                "line": 4,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 1
+              },
+              "public": {
+                "var": "public",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data",
+              "public": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ],
+              [
+                "b",
+                "public"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Access logging on sensitive buckets records every read, which is vital.",
+            "values": {
+              "buckets": {
+                "var": "buckets",
+                "line": 5,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 6,
+                "hit": 1
+              },
+              "public": {
+                "var": "public",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "buckets": "ok",
+              "b": "ok",
+              "public": "ok"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ],
+              [
+                "b",
+                "public"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Envelope encryption lifecycle with KMS customer master keys and local data keys",
-        "actors": [
+        "template": "flow",
+        "title": "Public storage buckets",
+        "nodes": [
           {
-            "id": "application",
-            "label": "Application Service"
+            "id": "buckets",
+            "label": "buckets"
           },
           {
-            "id": "kmsHsm",
-            "label": "AWS KMS HSM"
+            "id": "b",
+            "label": "b"
           },
           {
-            "id": "localStorage",
-            "label": "Encrypted Cloud Storage"
-          }
-        ],
-        "messages": [
-          {
-            "from": "application",
-            "to": "kmsHsm",
-            "label": "Call GenerateDataKey API",
-            "tone": "data"
-          },
-          {
-            "from": "kmsHsm",
-            "to": "application",
-            "label": "Return Plaintext and Ciphertext DEK",
-            "tone": "data"
-          },
-          {
-            "from": "application",
-            "to": "localStorage",
-            "label": "Store Encrypted Data and Ciphertext DEK",
-            "tone": "success"
+            "id": "public",
+            "label": "public"
           }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "KMS returns plaintext and ciphertext copies of the data encryption key.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Object storage buckets (S3, Google Cloud Storage, Azure Blob) have leaked.",
+            "values": {
+              "buckets": "[{'name': 'website-assets', 'block': Fa…",
+              "b": "{'name': 'website-assets', 'block': Fal…",
+              "public": "True"
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data",
+              "public": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ],
+              [
+                "b",
+                "public"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The application wipes plaintext keys from memory after encrypting data.",
-            "activeMessageIndex": 2,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A bucket can become public through its access control list (ACL.",
+            "values": {
+              "buckets": "[{'name': 'website-assets', 'block': Fa…",
+              "b": "{'name': 'website-assets', 'block': Fal…",
+              "public": "True"
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data",
+              "public": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ],
+              [
+                "b",
+                "public"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Access logging on sensitive buckets records every read, which is vital.",
+            "values": {
+              "buckets": "[{'name': 'website-assets', 'block': Fa…",
+              "b": "{'name': 'website-assets', 'block': Fal…",
+              "public": "True"
+            },
+            "tones": {
+              "buckets": "ok",
+              "b": "ok",
+              "public": "ok"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ],
+              [
+                "b",
+                "public"
+              ]
+            ]
           }
         ]
       }
@@ -433,224 +537,162 @@
       "partTitle": "Keys and encryption",
       "codeHash": "5e360020d3d5522acf9bd5eb7589618f1c4960d64432d5b175f70644b59ad47c",
       "spec": {
-        "template": "flow",
-        "title": "Immutable Cloud Auditing & AWS CloudTrail Ing... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Immutable Cloud Aud...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Keys and encryption",
+        "actors": [
+          "steps",
+          "i",
+          "s"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Immutable Cloud Auditing & AWS CloudTrai.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Immutable Cloud Aud... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Cloud key management services (AWS KMS, Google Cloud KMS, Azure Key Vault).",
+            "activeActor": "steps",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "i",
+                "label": {
+                  "var": "steps",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Encryption at rest protects storage, databases and backups.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "i",
+                "label": {
+                  "var": "steps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Immutable Cloud Auditing & AWS Cl.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Customer-managed keys give organisations more control, at the cost of more.",
+            "activeActor": "s",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "i",
+                "label": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Immutable Cloud Auditing & AWS CloudTrail Ing... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Immutable Cloud Aud...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Keys and encryption",
+        "actors": [
+          "steps",
+          "i",
+          "s"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Immutable Cloud Auditing & AWS CloudTrai.. [D28.P4.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Immutable Cloud Aud... [D28.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Cloud key management services (AWS KMS, Google Cloud KMS, Azure Key Vault).",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "i",
+                "label": "['generate a data key (KMS returns plai…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "steps"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Encryption at rest protects storage, databases and backups.",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "i",
+                "label": "['generate a data key (KMS returns plai…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Immutable Cloud Auditing & AWS Cl.. [D28.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Customer-managed keys give organisations more control, at the cost of more.",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "i",
+                "label": "['generate a data key (KMS returns plai…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "s"
           }
         ]
       }
@@ -659,80 +701,108 @@
       "partTitle": "Logging and guardrails",
       "codeHash": "c21b99affcd7ebe8d2b52cb3a8606c3cee2a2c7b5605eeed6e64ae46d0f92753",
       "spec": {
-        "template": "compare",
-        "title": "Cross-account trust policies without external ID versus hardened delegation",
-        "left": {
-          "title": "Vulnerable Trust Policy",
-          "items": [
-            "Lacks sts:ExternalId condition",
-            "Vulnerable to confused deputy exploitation",
-            "Shared third party SaaS roles reused across tenants",
-            "Adversary can access arbitrary customer cloud accounts"
-          ]
-        },
-        "right": {
-          "title": "Hardened Trust Policy",
-          "items": [
-            "Mandates unique secret sts:ExternalId key",
-            "Mathematically prevents confused deputy replay",
-            "Binds third party role assumption to specific client",
-            "Audit logging tracks exact cross account session"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Logging and guardrails",
+        "states": [
           {
-            "at": "say7",
-            "caption": "External identifier conditions prevent confused deputy attacks on roles.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "SENSITIVE",
+            "label": "SENSITIVE"
           },
           {
-            "at": "say8",
-            "caption": "Shared external secrets ensure third parties only access designated resources.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
-        "leftLabel": "Vulnerable Trust Policy",
-        "rightLabel": "Hardened Trust Policy"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Cloud audit logs (AWS CloudTrail, Google Cloud Audit Logs, Azure Activity.",
+            "currentState": "SENSITIVE",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Enable them for all regions and accounts, store them in a separate.",
+            "currentState": "events",
+            "transition": {
+              "from": "SENSITIVE",
+              "to": "events",
+              "label": {
+                "var": "events",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Budgets and billing alerts detect abuse such as crypto-mining with stolen keys.",
+            "currentState": "t",
+            "transition": {
+              "from": "events",
+              "to": "t",
+              "label": {
+                "var": "t",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Cross-account trust policies without external ID versus hardened delegation",
-        "left": {
-          "title": "Vulnerable Trust Policy",
-          "items": [
-            "Lacks sts:ExternalId condition",
-            "Vulnerable to confused deputy exploitation",
-            "Shared third party SaaS roles reused across tenants",
-            "Adversary can access arbitrary customer cloud accounts"
-          ]
-        },
-        "right": {
-          "title": "Hardened Trust Policy",
-          "items": [
-            "Mandates unique secret sts:ExternalId key",
-            "Mathematically prevents confused deputy replay",
-            "Binds third party role assumption to specific client",
-            "Audit logging tracks exact cross account session"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Logging and guardrails",
+        "states": [
           {
-            "at": "say7",
-            "caption": "External identifier conditions prevent confused deputy attacks on roles.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "SENSITIVE",
+            "label": "SENSITIVE"
           },
           {
-            "at": "say8",
-            "caption": "Shared external secrets ensure third parties only access designated resources.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
-        "leftLabel": "Vulnerable Trust Policy",
-        "rightLabel": "Hardened Trust Policy"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Cloud audit logs (AWS CloudTrail, Google Cloud Audit Logs, Azure Activity.",
+            "currentState": "SENSITIVE",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Enable them for all regions and accounts, store them in a separate.",
+            "currentState": "events",
+            "transition": {
+              "from": "SENSITIVE",
+              "to": "events",
+              "label": "[['09:01', 'ravi', 'GetObject'], ['09:0…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Budgets and billing alerts detect abuse such as crypto-mining with stolen keys.",
+            "currentState": "t",
+            "transition": {
+              "from": "events",
+              "to": "t",
+              "label": "'09:05'"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
@@ -740,73 +810,105 @@
       "codeHash": "4853574b5c03a3b663e6ea4c035dde5d78ea140aa472482307ba922d19839b86",
       "spec": {
         "template": "states",
-        "title": "Cloud security posture management compliance scanning and automated drift remediation",
+        "title": "Practice time: IAM and buckets",
         "states": [
           {
-            "id": "baseline",
-            "label": "Compliant Security Baseline"
+            "id": "policy",
+            "label": "policy"
           },
           {
-            "id": "drift",
-            "label": "Unapproved Configuration Drift"
+            "id": "bucket",
+            "label": "bucket"
           },
           {
-            "id": "detected",
-            "label": "CSPM Rule Violation Detected"
-          },
-          {
-            "id": "remediated",
-            "label": "Automated Serverless Remediation"
+            "id": "sid",
+            "label": "sid"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Configuration drift detection flags unapproved cloud infrastructure changes.",
-            "activeStateId": "drift",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Iam_findings(policy).",
+            "currentState": "policy",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Automated remediation functions close open ports within seconds of drift.",
-            "activeStateId": "remediated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The checks include a narrow statement, a full wildcard, a service wildcard.",
+            "currentState": "bucket",
+            "transition": {
+              "from": "policy",
+              "to": "bucket",
+              "label": {
+                "var": "bucket",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Scanning configurations continuously catches drift when someone changes.",
+            "currentState": "sid",
+            "transition": {
+              "from": "bucket",
+              "to": "sid",
+              "label": {
+                "var": "sid",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Cloud security posture management compliance scanning and automated drift remediation",
+        "title": "Practice time: IAM and buckets",
         "states": [
           {
-            "id": "baseline",
-            "label": "Compliant Security Baseline"
+            "id": "policy",
+            "label": "policy"
           },
           {
-            "id": "drift",
-            "label": "Unapproved Configuration Drift"
+            "id": "bucket",
+            "label": "bucket"
           },
           {
-            "id": "detected",
-            "label": "CSPM Rule Violation Detected"
-          },
-          {
-            "id": "remediated",
-            "label": "Automated Serverless Remediation"
+            "id": "sid",
+            "label": "sid"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Configuration drift detection flags unapproved cloud infrastructure changes.",
-            "activeStateId": "drift",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Iam_findings(policy).",
+            "currentState": "policy",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Automated remediation functions close open ports within seconds of drift.",
-            "activeStateId": "remediated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The checks include a narrow statement, a full wildcard, a service wildcard.",
+            "currentState": "bucket",
+            "transition": {
+              "from": "policy",
+              "to": "bucket",
+              "label": "{'block': False, 'acl': 'private', 'pri…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Scanning configurations continuously catches drift when someone changes.",
+            "currentState": "sid",
+            "transition": {
+              "from": "bucket",
+              "to": "sid",
+              "label": "'AppRead'"
+            },
+            "tone": "ok"
           }
         ]
       }

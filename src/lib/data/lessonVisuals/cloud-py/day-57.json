@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 57,
-  "promptSha": "5c366fe5edc359ffa57540a87513f0bd4b249d6c9f06cc8f43aac90dc0a302c1",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fleet Mixing — Foundations & Mathematical Invariants",
-      "codeHash": "cbcdd4e32082a2875e2a1c4de302b2e2934ffdbd33b7781ce3baf95aedf251df",
+      "codeHash": "2d76529bbf5f7aa380f793c7e9eb72af50abf01d894b687f75e6917c0878fa39",
       "spec": {
-        "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Commitment pricing models reward predictable baseline compute consumption.",
+            "bars": [
+              {
+                "label": "on_demand_rate",
+                "value": {
+                  "var": "on_demand_rate",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "discounted_rat",
+                "value": {
+                  "var": "discounted_rate",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "commitment_ter",
+                "value": {
+                  "var": "commitment_term_hours",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_commitme",
+                "value": {
+                  "var": "total_commitment_cost",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Calculating breakeven utilization thresholds ensures that engineering.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "on_demand_rate",
+                "value": {
+                  "var": "on_demand_rate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "discounted_rat",
+                "value": {
+                  "var": "discounted_rate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "commitment_ter",
+                "value": {
+                  "var": "commitment_term_hours",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total_commitme",
+                "value": {
+                  "var": "total_commitment_cost",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Mastering commitment discount mathematics allows cloud platform architects.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "on_demand_rate",
+                "value": {
+                  "var": "on_demand_rate",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "discounted_rat",
+                "value": {
+                  "var": "discounted_rate",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "commitment_ter",
+                "value": {
+                  "var": "commitment_term_hours",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total_commitme",
+                "value": {
+                  "var": "total_commitment_cost",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Commitment pricing models reward predictable baseline compute consumption.",
+            "bars": [
+              {
+                "label": "on_demand_rate",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "discounted_rat",
+                "value": 0.06,
+                "tone": "data"
+              },
+              {
+                "label": "commitment_ter",
+                "value": 8760,
+                "tone": "data"
+              },
+              {
+                "label": "total_commitme",
+                "value": 525.6,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Calculating breakeven utilization thresholds ensures that engineering.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "on_demand_rate",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "discounted_rat",
+                "value": 0.06,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "commitment_ter",
+                "value": 8760,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total_commitme",
+                "value": 525.6,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Mastering commitment discount mathematics allows cloud platform architects.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "on_demand_rate",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "discounted_rat",
+                "value": 0.06,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "commitment_ter",
+                "value": 8760,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total_commitme",
+                "value": 525.6,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fleet Mixing — Core Algorithm & State Representation",
-      "codeHash": "01042f92fd4b51b197fda3d5ba36b7635484ee22e7cf50901f9af24ff4a7e77c",
+      "codeHash": "1aee808032895e764e8d3528535e2611eb44539ca3d154cc27d06598b01abaf7",
       "spec": {
-        "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating commitment portfolios against long-term product roadmaps.",
+            "bars": [
+              {
+                "label": "target_coverag",
+                "value": {
+                  "var": "target_coverage_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "baseline_index",
+                "value": {
+                  "var": "baseline_index",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "baseline_hourl",
+                "value": {
+                  "var": "baseline_hourly_spend",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Tiered commitment modeling targets persistent baseline spend while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "target_coverag",
+                "value": {
+                  "var": "target_coverage_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "baseline_index",
+                "value": {
+                  "var": "baseline_index",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "baseline_hourl",
+                "value": {
+                  "var": "baseline_hourly_spend",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Regular monthly commitment reviews ensure that commitments scale smoothly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "target_coverag",
+                "value": {
+                  "var": "target_coverage_pct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "baseline_index",
+                "value": {
+                  "var": "baseline_index",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "baseline_hourl",
+                "value": {
+                  "var": "baseline_hourly_spend",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating commitment portfolios against long-term product roadmaps.",
+            "bars": [
+              {
+                "label": "target_coverag",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 168,
+                "tone": "data"
+              },
+              {
+                "label": "baseline_index",
+                "value": 33,
+                "tone": "data"
+              },
+              {
+                "label": "baseline_hourl",
+                "value": 60,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Tiered commitment modeling targets persistent baseline spend while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "target_coverag",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "n",
+                "value": 168,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "baseline_index",
+                "value": 33,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "baseline_hourl",
+                "value": 60,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Regular monthly commitment reviews ensure that commitments scale smoothly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "target_coverag",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "n",
+                "value": 168,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "baseline_index",
+                "value": 33,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "baseline_hourl",
+                "value": 60,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +447,279 @@
     },
     {
       "partTitle": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fleet Mixing — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "fd466b2f7faa733fdcee3725a524789405d510cbfff07837c202f066a76cd20b",
+      "codeHash": "9b580baa317e46d6691b9f6dee82cbca70e14f13139f7519cddee3f8257c7c8f",
       "spec": {
         "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "target_capacity_units",
+            "label": "target_capacity_units"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "on_demand_base_pct",
+            "label": "on_demand_base_pct"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "spot_pools",
+            "label": "spot_pools"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "on_demand_units",
+            "label": "on_demand_units"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Diversifying spot instance allocations across multiple instance families.",
+            "values": {
+              "target_capacity_units": {
+                "var": "target_capacity_units",
+                "line": 4,
+                "hit": 1
+              },
+              "on_demand_base_pct": {
+                "var": "on_demand_base_pct",
+                "line": 4,
+                "hit": 1
+              },
+              "spot_pools": {
+                "var": "spot_pools",
+                "line": 4,
+                "hit": 1
+              },
+              "on_demand_units": {
+                "var": "on_demand_units",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "target_capacity_units": "data",
+              "on_demand_base_pct": "data",
+              "spot_pools": "data",
+              "on_demand_units": "data"
+            },
+            "arrows": [
+              [
+                "target_capacity_units",
+                "on_demand_base_pct"
+              ],
+              [
+                "on_demand_base_pct",
+                "spot_pools"
+              ],
+              [
+                "spot_pools",
+                "on_demand_units"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Pairing an on-demand base capacity with price-capacity-optimized spot.",
+            "values": {
+              "target_capacity_units": {
+                "var": "target_capacity_units",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "on_demand_base_pct": {
+                "var": "on_demand_base_pct",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "spot_pools": {
+                "var": "spot_pools",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "on_demand_units": {
+                "var": "on_demand_units",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "target_capacity_units": "data",
+              "on_demand_base_pct": "data",
+              "spot_pools": "data",
+              "on_demand_units": "data"
+            },
+            "arrows": [
+              [
+                "target_capacity_units",
+                "on_demand_base_pct"
+              ],
+              [
+                "on_demand_base_pct",
+                "spot_pools"
+              ],
+              [
+                "spot_pools",
+                "on_demand_units"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Trace how diversifying updates across during execution.",
+            "values": {
+              "target_capacity_units": {
+                "var": "target_capacity_units",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "on_demand_base_pct": {
+                "var": "on_demand_base_pct",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "spot_pools": {
+                "var": "spot_pools",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "on_demand_units": {
+                "var": "on_demand_units",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "target_capacity_units": "ok",
+              "on_demand_base_pct": "ok",
+              "spot_pools": "ok",
+              "on_demand_units": "ok"
+            },
+            "arrows": [
+              [
+                "target_capacity_units",
+                "on_demand_base_pct"
+              ],
+              [
+                "on_demand_base_pct",
+                "spot_pools"
+              ],
+              [
+                "spot_pools",
+                "on_demand_units"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "target_capacity_units",
+            "label": "target_capacity_units"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "on_demand_base_pct",
+            "label": "on_demand_base_pct"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "spot_pools",
+            "label": "spot_pools"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "on_demand_units",
+            "label": "on_demand_units"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Diversifying spot instance allocations across multiple instance families.",
+            "values": {
+              "target_capacity_units": "100",
+              "on_demand_base_pct": "0.3",
+              "spot_pools": "None",
+              "on_demand_units": "30"
+            },
+            "tones": {
+              "target_capacity_units": "data",
+              "on_demand_base_pct": "data",
+              "spot_pools": "data",
+              "on_demand_units": "data"
+            },
+            "arrows": [
+              [
+                "target_capacity_units",
+                "on_demand_base_pct"
+              ],
+              [
+                "on_demand_base_pct",
+                "spot_pools"
+              ],
+              [
+                "spot_pools",
+                "on_demand_units"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Pairing an on-demand base capacity with price-capacity-optimized spot.",
+            "values": {
+              "target_capacity_units": "100",
+              "on_demand_base_pct": "0.3",
+              "spot_pools": "['c6g.xlarge', 'c6i.xlarge', 'm6g.xlarg…",
+              "on_demand_units": "30"
+            },
+            "tones": {
+              "target_capacity_units": "data",
+              "on_demand_base_pct": "data",
+              "spot_pools": "data",
+              "on_demand_units": "data"
+            },
+            "arrows": [
+              [
+                "target_capacity_units",
+                "on_demand_base_pct"
+              ],
+              [
+                "on_demand_base_pct",
+                "spot_pools"
+              ],
+              [
+                "spot_pools",
+                "on_demand_units"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Trace how diversifying updates across during execution.",
+            "values": {
+              "target_capacity_units": "100",
+              "on_demand_base_pct": "0.3",
+              "spot_pools": "['c6g.xlarge', 'c6i.xlarge', 'm6g.xlarg…",
+              "on_demand_units": "30"
+            },
+            "tones": {
+              "target_capacity_units": "ok",
+              "on_demand_base_pct": "ok",
+              "spot_pools": "ok",
+              "on_demand_units": "ok"
+            },
+            "arrows": [
+              [
+                "target_capacity_units",
+                "on_demand_base_pct"
+              ],
+              [
+                "on_demand_base_pct",
+                "spot_pools"
+              ],
+              [
+                "spot_pools",
+                "on_demand_units"
+              ]
             ]
           }
         ]
@@ -805,265 +727,279 @@
     },
     {
       "partTitle": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fleet Mixing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "cc1015ad19664a0baa6dfd4968856683d403175a76057eb79ceab42aed41c73e",
+      "codeHash": "263172282a8ac1a390fcac5902eda5eb3a2d92d9ec7a600c8c9d97f8957d892b",
       "spec": {
         "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mock_event",
+            "label": "mock_event"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "event",
+            "label": "event"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "detail",
+            "label": "detail"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "instance_id",
+            "label": "instance_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Testing graceful container termination under spot interruptions certifies.",
+            "values": {
+              "mock_event": {
+                "var": "mock_event",
+                "line": 24,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 4,
+                "hit": 1
+              },
+              "detail": {
+                "var": "detail",
+                "line": 4,
+                "hit": 1
+              },
+              "instance_id": {
+                "var": "instance_id",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mock_event": "data",
+              "event": "data",
+              "detail": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "mock_event",
+                "event"
+              ],
+              [
+                "event",
+                "detail"
+              ],
+              [
+                "detail",
+                "instance_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Automated spot interruption handling intercepts two-minute advance.",
+            "values": {
+              "mock_event": {
+                "var": "mock_event",
+                "line": 33,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "event": {
+                "var": "event",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "detail": {
+                "var": "detail",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "instance_id": {
+                "var": "instance_id",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "mock_event": "data",
+              "event": "data",
+              "detail": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "mock_event",
+                "event"
+              ],
+              [
+                "event",
+                "detail"
+              ],
+              [
+                "detail",
+                "instance_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous testing of spot interruption workflows verifies.",
+            "values": {
+              "mock_event": {
+                "var": "mock_event",
+                "line": 34,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "event": {
+                "var": "event",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "detail": {
+                "var": "detail",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "instance_id": {
+                "var": "instance_id",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "mock_event": "ok",
+              "event": "ok",
+              "detail": "ok",
+              "instance_id": "ok"
+            },
+            "arrows": [
+              [
+                "mock_event",
+                "event"
+              ],
+              [
+                "event",
+                "detail"
+              ],
+              [
+                "detail",
+                "instance_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mock_event",
+            "label": "mock_event"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "event",
+            "label": "event"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "detail",
+            "label": "detail"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "instance_id",
+            "label": "instance_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Testing graceful container termination under spot interruptions certifies.",
+            "values": {
+              "mock_event": "{'source': 'aws.ec2', 'detail-type': 'E…",
+              "event": "{'source': 'aws.ec2', 'detail-type': 'E…",
+              "detail": "{'instance-id': 'i-0a1b2c3d4e5f67890', …",
+              "instance_id": "'i-0a1b2c3d4e5f67890'"
+            },
+            "tones": {
+              "mock_event": "data",
+              "event": "data",
+              "detail": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "mock_event",
+                "event"
+              ],
+              [
+                "event",
+                "detail"
+              ],
+              [
+                "detail",
+                "instance_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Automated spot interruption handling intercepts two-minute advance.",
+            "values": {
+              "mock_event": "{'source': 'aws.ec2', 'detail-type': 'E…",
+              "event": "{'source': 'aws.ec2', 'detail-type': 'E…",
+              "detail": "{'instance-id': 'i-0a1b2c3d4e5f67890', …",
+              "instance_id": "'i-0a1b2c3d4e5f67890'"
+            },
+            "tones": {
+              "mock_event": "data",
+              "event": "data",
+              "detail": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "mock_event",
+                "event"
+              ],
+              [
+                "event",
+                "detail"
+              ],
+              [
+                "detail",
+                "instance_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous testing of spot interruption workflows verifies.",
+            "values": {
+              "mock_event": "{'source': 'aws.ec2', 'detail-type': 'E…",
+              "event": "{'source': 'aws.ec2', 'detail-type': 'E…",
+              "detail": "{'instance-id': 'i-0a1b2c3d4e5f67890', …",
+              "instance_id": "'i-0a1b2c3d4e5f67890'"
+            },
+            "tones": {
+              "mock_event": "ok",
+              "event": "ok",
+              "detail": "ok",
+              "instance_id": "ok"
+            },
+            "arrows": [
+              [
+                "mock_event",
+                "event"
+              ],
+              [
+                "event",
+                "detail"
+              ],
+              [
+                "detail",
+                "instance_id"
+              ]
             ]
           }
         ]
@@ -1071,266 +1007,164 @@
     },
     {
       "partTitle": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fleet Mixing — Production Telemetry & Verification Audit",
-      "codeHash": "21f230c1fa8287be41e41a1957c0c4268cae7a70bbcbb8f8d6576da1ac241b1f",
+      "codeHash": "17b478ad02b6167c5ea84fd5572bd33e453b4baa6cab5a9e3f83c5a50674f004",
       "spec": {
-        "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
+        "actors": [
+          "coverage_pct",
+          "utilization_pct",
+          "spot_interruption_rate_pct"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous telemetry audits give platform leaders verifiable confirmation.",
+            "activeActor": "coverage_pct",
+            "messages": [
+              {
+                "from": "coverage_pct",
+                "to": "utilization_pct",
+                "label": {
+                  "var": "coverage_pct",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "utilization_pct",
+                "to": "spot_interruption_rate_pct",
+                "label": {
+                  "var": "utilization_pct",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Monitoring commitment coverage and utilization metrics ensures.",
+            "activeActor": "utilization_pct",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "coverage_pct",
+                "to": "utilization_pct",
+                "label": {
+                  "var": "coverage_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "utilization_pct",
+                "to": "spot_interruption_rate_pct",
+                "label": {
+                  "var": "utilization_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Tracking spot interruption frequency per instance family informs dynamic.",
+            "activeActor": "spot_interruption_rate_pct",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "coverage_pct",
+                "to": "utilization_pct",
+                "label": {
+                  "var": "coverage_pct",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "utilization_pct",
+                "to": "spot_interruption_rate_pct",
+                "label": {
+                  "var": "utilization_pct",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Spot Fle",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Savings Plans vs Reserved Instances Commitment Optimization & Sp",
+        "actors": [
+          "coverage_pct",
+          "utilization_pct",
+          "spot_interruption_rate_pct"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous telemetry audits give platform leaders verifiable confirmation.",
+            "messages": [
+              {
+                "from": "coverage_pct",
+                "to": "utilization_pct",
+                "label": "82.5",
+                "tone": "data"
+              },
+              {
+                "from": "utilization_pct",
+                "to": "spot_interruption_rate_pct",
+                "label": "98.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "coverage_pct"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Monitoring commitment coverage and utilization metrics ensures.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "coverage_pct",
+                "to": "utilization_pct",
+                "label": "82.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "utilization_pct",
+                "to": "spot_interruption_rate_pct",
+                "label": "98.2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "utilization_pct"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Tracking spot interruption frequency per instance family informs dynamic.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "coverage_pct",
+                "to": "utilization_pct",
+                "label": "82.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "utilization_pct",
+                "to": "spot_interruption_rate_pct",
+                "label": "98.2",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "spot_interruption_rate_pct"
           }
         ]
       }

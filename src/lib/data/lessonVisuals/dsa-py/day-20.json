@@ -2,89 +2,201 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 20,
-  "promptSha": "91acec28a1e27f19f9cba33034cb5f7b7a9b2e1e50b5790a6759fe521af3d3c2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Graphs and how to store them",
       "codeHash": "49e8c3a9d977128a3d663c7aecd3b5a88ecea2b92953b015c59aac495fb1511e",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Graphs and how to store them",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "station",
+            "label": "station"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The graph concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Graphs"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A graph is a set of nodes (also called vertices) connected by edges.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 1
+              },
+              "station": {
+                "var": "station",
+                "line": 9,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "station": "data",
+              "n": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The usual logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "how"
-                  },
-                  {
-                    "text": "store"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Edges can be undirected (a friendship goes both ways) or directed (a.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 6,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 6,
+                "hit": 1
+              },
+              "station": {
+                "var": "station",
+                "line": 10,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 13,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "station": "data",
+              "n": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Building the adjacency list from a list of edges is the first step.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 7,
+                "hit": 1
+              },
+              "station": {
+                "var": "station",
+                "line": 9,
+                "hit": 2
+              },
+              "n": {
+                "var": "n",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "station": "ok",
+              "n": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Graphs and how to store them",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "station",
+            "label": "station"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The graph concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Graphs",
-                  "and"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A graph is a set of nodes (also called vertices) connected by edges.",
+            "values": {
+              "a": "'Majestic'",
+              "b": "'MG Road'",
+              "station": "'Baiyappanahalli'",
+              "n": "5"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "station": "data",
+              "n": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The usual logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "how",
-                  "store"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Edges can be undirected (a friendship goes both ways) or directed (a.",
+            "values": {
+              "a": "'Majestic'",
+              "b": "'MG Road'",
+              "station": "'Baiyappanahalli'",
+              "n": "5"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "station": "data",
+              "n": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Building the adjacency list from a list of edges is the first step.",
+            "values": {
+              "a": "'Majestic'",
+              "b": "'MG Road'",
+              "station": "'Indiranagar'",
+              "n": "5"
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "station": "ok",
+              "n": "ok"
+            }
           }
         ]
       }
@@ -93,82 +205,194 @@
       "partTitle": "BFS: shortest path in steps",
       "codeHash": "fda0a3564371b781623522b6e69d5d261d1644eac8dc06afeab6227e159ca24f",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "BFS: shortest path in steps",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "dist",
+            "label": "dist"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "BFS"
-                  },
-                  {
-                    "text": "shortest"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Practice 1 finds the fewest edges between two nodes in an unweighted graph.",
+            "values": {
+              "start": {
+                "var": "start",
+                "line": 4,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 4,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 7,
+                "hit": 1
+              },
+              "dist": {
+                "var": "dist",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "start": "data",
+              "target": "data",
+              "node": "data",
+              "dist": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The mark logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "path"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Use a queue of (node, distance) pairs and a visited set.",
+            "values": {
+              "start": {
+                "var": "start",
+                "line": 5,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 5,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 8,
+                "hit": 1
+              },
+              "dist": {
+                "var": "dist",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "start": "data",
+              "target": "data",
+              "node": "data",
+              "dist": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "BFS visits every node and edge at most once.",
+            "values": {
+              "start": {
+                "var": "start",
+                "line": 6,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 6,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 10,
+                "hit": 1
+              },
+              "dist": {
+                "var": "dist",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "start": "ok",
+              "target": "ok",
+              "node": "ok",
+              "dist": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "BFS: shortest path in steps",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "dist",
+            "label": "dist"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "BFS",
-                  "shortest"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 1 finds the fewest edges between two nodes in an unweighted graph.",
+            "values": {
+              "start": "'A'",
+              "target": "'F'",
+              "node": "'A'",
+              "dist": "0"
+            },
+            "tones": {
+              "start": "data",
+              "target": "data",
+              "node": "data",
+              "dist": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The mark logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "path",
-                  "steps"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Use a queue of (node, distance) pairs and a visited set.",
+            "values": {
+              "start": "'A'",
+              "target": "'F'",
+              "node": "'A'",
+              "dist": "0"
+            },
+            "tones": {
+              "start": "data",
+              "target": "data",
+              "node": "data",
+              "dist": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "BFS visits every node and edge at most once.",
+            "values": {
+              "start": "'A'",
+              "target": "'F'",
+              "node": "'A'",
+              "dist": "0"
+            },
+            "tones": {
+              "start": "ok",
+              "target": "ok",
+              "node": "ok",
+              "dist": "ok"
+            }
           }
         ]
       }
@@ -177,82 +401,73 @@
       "partTitle": "DFS: going deep",
       "codeHash": "825a5ba180d192d4bfb8664181e5de002b1bee654bb30aa8d711aa628e4c43b7",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "DFS: going deep",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The depth concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "DFS"
-                  },
-                  {
-                    "text": "going"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Depth-first search follows one path as far as it can before backing up.",
+            "items": {
+              "var": "visited",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The visited logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "deep"
-                  },
-                  {
-                    "text": "going"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "DFS does not find shortest paths, but it is ideal for \"can I reach this.",
+            "items": {
+              "var": "visited",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Both BFS and DFS are O(V + E).",
+            "items": {
+              "var": "visited",
+              "line": 5,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "DFS: going deep",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The depth concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "DFS",
-                  "going"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Depth-first search follows one path as far as it can before backing up.",
+            "mode": "queue",
+            "items": [
+              "None"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The visited logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "deep",
-                  "going"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "DFS does not find shortest paths, but it is ideal for \"can I reach this.",
+            "mode": "queue",
+            "items": [],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Both BFS and DFS are O(V + E).",
+            "mode": "queue",
+            "items": [
+              "'A'",
+              "'B'",
+              "'D'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,43 +476,131 @@
       "partTitle": "Counting connected components",
       "codeHash": "027acbe37683dcaae101deae1694954ea0000c8774eb60f5c03b17c17c7f3bba",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Counting connected components",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 counts how many separate groups (connected components).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "connected"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Build the adjacency list.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "components"
-                  },
-                  {
-                    "text": "connected"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Component counting finds friend circles, separate islands on a map,.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +608,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Counting connected components",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 counts how many separate groups (connected components).",
+            "bars": [
               {
-                "cells": [
-                  "Counting",
-                  "connected"
-                ],
+                "label": "n",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Build the adjacency list.",
+            "bars": [
               {
-                "cells": [
-                  "components",
-                  "connected"
-                ],
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Component counting finds friend circles, separate islands on a map,.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -345,82 +696,82 @@
       "partTitle": "Grids are graphs too",
       "codeHash": "1f5fcddb217aefac6c511cdb2f4ef91330cb901396f0288474feb4dccb28209e",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Grids are graphs too",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The grid concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Grids"
-                  },
-                  {
-                    "text": "are"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A grid, like a map of land and water, is a graph in disguise.",
+            "items": {
+              "var": "grid",
+              "line": 20,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The counting logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "graphs"
-                  },
-                  {
-                    "text": "too"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "You do not need to build an adjacency list.",
+            "items": {
+              "var": "grid",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Grid problems are among the most common graph questions in interviews, so.",
+            "items": {
+              "var": "grid",
+              "line": 12,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Grids are graphs too",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The grid concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Grids",
-                  "are"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A grid, like a map of land and water, is a graph in disguise.",
+            "mode": "queue",
+            "items": [
+              "'11000'",
+              "'11000'",
+              "'00100'",
+              "'00011'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The counting logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "graphs",
-                  "too"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "You do not need to build an adjacency list.",
+            "mode": "queue",
+            "items": [
+              "'11000'",
+              "'11000'",
+              "'00100'",
+              "'00011'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Grid problems are among the most common graph questions in interviews, so.",
+            "mode": "queue",
+            "items": [
+              "'11000'",
+              "'11000'",
+              "'00100'",
+              "'00011'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -429,43 +780,77 @@
       "partTitle": "Choosing BFS or DFS and planning a graph solution",
       "codeHash": "67d374f1c22cca0ffbebacd3353c760374d467526dd2dbb670c88b964cff372e",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Choosing BFS or DFS and planning a graph solution",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The graph concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "For any graph problem, first decide what the nodes and edges are.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Choosing"
-                  },
-                  {
-                    "text": "BFS"
-                  }
-                ],
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The always logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then pick the search.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "DFS"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Next week builds on this.",
+            "bars": [
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -473,35 +858,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Choosing BFS or DFS and planning a graph solution",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The graph concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "For any graph problem, first decide what the nodes and edges are.",
+            "bars": [
               {
-                "cells": [
-                  "Choosing",
-                  "BFS"
-                ],
+                "label": "steps",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The always logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then pick the search.",
+            "bars": [
               {
-                "cells": [
-                  "DFS",
-                  "and"
-                ],
+                "label": "steps",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Next week builds on this.",
+            "bars": [
+              {
+                "label": "steps",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
               }
             ]

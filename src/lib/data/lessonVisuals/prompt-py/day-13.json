@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "AI as a brainstorming partner",
       "codeHash": "8500b0451e52c1c8ef23ac576abb1842b359751a79fad7cd8b9ea4b658e788d8",
       "spec": {
-        "template": "table",
-        "title": "Perspective multi-angle prompts for creative divergence",
-        "columns": [
+        "template": "sequence",
+        "title": "AI as a brainstorming partner",
+        "actors": [
           "product",
           "angles",
-          "line"
+          "who"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Research on brainstorming shows that ideation volume yields superior solutions.",
-            "rows": [
+            "at": "say1",
+            "caption": "AI can produce many ideas quickly, in any field, without getting tired.",
+            "activeActor": "product",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "angles"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "ok"
+                "from": "product",
+                "to": "angles",
+                "label": {
+                  "var": "product",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "angles"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "data"
+                "from": "angles",
+                "to": "who",
+                "label": {
+                  "var": "angles",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Prompting from different angles produces variety across user personas.",
-            "rows": [
+            "at": "say2",
+            "caption": "Research on brainstorming shows that the number of ideas generated.",
+            "activeActor": "angles",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "angles"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
+                "from": "product",
+                "to": "angles",
+                "label": {
+                  "var": "product",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "angles"
-                  },
-                  {
-                    "text": "product"
-                  }
-                ],
+                "from": "angles",
+                "to": "who",
+                "label": {
+                  "var": "angles",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Asking for ideas in a numbered list with one line each makes them easy.",
+            "activeActor": "who",
+            "messages": [
+              {
+                "from": "product",
+                "to": "angles",
+                "label": {
+                  "var": "product",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "angles",
+                "to": "who",
+                "label": {
+                  "var": "angles",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Perspective multi-angle prompts for creative divergence",
-        "columns": [
+        "template": "sequence",
+        "title": "AI as a brainstorming partner",
+        "actors": [
           "product",
           "angles",
-          "line"
+          "who"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Research on brainstorming shows that ideation volume yields superior solutions.",
-            "rows": [
+            "at": "say1",
+            "caption": "AI can produce many ideas quickly, in any field, without getting tired.",
+            "messages": [
               {
-                "cells": [
-                  "product",
-                  "angles",
-                  "line"
-                ],
-                "tone": "ok"
+                "from": "product",
+                "to": "angles",
+                "label": "'a reusable water bottle'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "product",
-                  "angles",
-                  "line"
-                ],
-                "tone": "data"
+                "from": "angles",
+                "to": "who",
+                "label": "['a busy nurse', 'a mountain trekker', …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "product"
           },
           {
-            "at": "say4",
-            "caption": "Prompting from different angles produces variety across user personas.",
-            "rows": [
+            "at": "say2",
+            "caption": "Research on brainstorming shows that the number of ideas generated.",
+            "messages": [
               {
-                "cells": [
-                  "product",
-                  "angles",
-                  "line"
-                ],
+                "from": "product",
+                "to": "angles",
+                "label": "'a reusable water bottle'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "product",
-                  "angles",
-                  "product"
-                ],
+                "from": "angles",
+                "to": "who",
+                "label": "['a busy nurse', 'a mountain trekker', …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "angles"
+          },
+          {
+            "at": "say10",
+            "caption": "Asking for ideas in a numbered list with one line each makes them easy.",
+            "messages": [
+              {
+                "from": "product",
+                "to": "angles",
+                "label": "'a reusable water bottle'",
+                "tone": "data"
+              },
+              {
+                "from": "angles",
+                "to": "who",
+                "label": "['a busy nurse', 'a mountain trekker', …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "who"
           }
         ]
       }
@@ -147,78 +173,90 @@
       "partTitle": "The SCAMPER technique",
       "codeHash": "2a152a31499ad8167985cb83367df8b462a6c43314ac57eb5075f9a60067bdd9",
       "spec": {
-        "template": "table",
-        "title": "SCAMPER lateral thinking transformations",
-        "columns": [
-          "templates",
-          "bag",
-          "templates"
+        "template": "sequence",
+        "title": "The SCAMPER technique",
+        "actors": [
+          "TEMPLATES",
+          "t"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SCAMPER applies a systematic checklist for improving any product or process.",
-            "rows": [
+            "caption": "SCAMPER is a checklist of seven questions for improving any product or process.",
+            "activeActor": "TEMPLATES",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "templates"
-                  },
-                  {
-                    "text": "bag"
-                  },
-                  {
-                    "text": "templates"
-                  }
-                ],
-                "tone": "ok"
+                "from": "TEMPLATES",
+                "to": "t",
+                "label": {
+                  "var": "TEMPLATES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "templates"
-                  },
-                  {
-                    "text": "bag"
-                  },
-                  {
-                    "text": "templates"
-                  }
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "TEMPLATES",
+                "label": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Questions ask what to substitute, combine, adapt, or borrow from another field.",
-            "rows": [
+            "caption": "What could replace a part.",
+            "activeActor": "t",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "templates"
-                  },
-                  {
-                    "text": "bag"
-                  },
-                  {
-                    "text": "templates"
-                  }
-                ],
+                "from": "TEMPLATES",
+                "to": "t",
+                "label": {
+                  "var": "TEMPLATES",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "templates"
-                  },
-                  {
-                    "text": "bag"
-                  },
-                  {
-                    "text": "bag"
-                  }
-                ],
+                "from": "t",
+                "to": "TEMPLATES",
+                "label": {
+                  "var": "t",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "You do not need ideas from every letter.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "TEMPLATES",
+                "to": "t",
+                "label": {
+                  "var": "TEMPLATES",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "TEMPLATES",
+                "label": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +264,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SCAMPER lateral thinking transformations",
-        "columns": [
-          "templates",
-          "bag",
-          "templates"
+        "template": "sequence",
+        "title": "The SCAMPER technique",
+        "actors": [
+          "TEMPLATES",
+          "t"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SCAMPER applies a systematic checklist for improving any product or process.",
-            "rows": [
+            "caption": "SCAMPER is a checklist of seven questions for improving any product or process.",
+            "messages": [
               {
-                "cells": [
-                  "templates",
-                  "bag",
-                  "templates"
-                ],
-                "tone": "ok"
+                "from": "TEMPLATES",
+                "to": "t",
+                "label": "['Substitute: What could replace a part…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "templates",
-                  "bag",
-                  "templates"
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "TEMPLATES",
+                "label": "'Substitute: What could replace a part …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "TEMPLATES"
           },
           {
             "at": "say2",
-            "caption": "Questions ask what to substitute, combine, adapt, or borrow from another field.",
-            "rows": [
+            "caption": "What could replace a part.",
+            "messages": [
               {
-                "cells": [
-                  "templates",
-                  "bag",
-                  "templates"
-                ],
+                "from": "TEMPLATES",
+                "to": "t",
+                "label": "['Substitute: What could replace a part…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "templates",
-                  "bag",
-                  "bag"
-                ],
+                "from": "t",
+                "to": "TEMPLATES",
+                "label": "'Substitute: What could replace a part …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "t"
+          },
+          {
+            "at": "say9",
+            "caption": "You do not need ideas from every letter.",
+            "messages": [
+              {
+                "from": "TEMPLATES",
+                "to": "t",
+                "label": "['Substitute: What could replace a part…",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "TEMPLATES",
+                "label": "'Combine: What could {p} be combined wi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }
@@ -285,135 +335,221 @@
       "partTitle": "Devil's advocate and critics",
       "codeHash": "aff1f87dca25de67cfbf113a8ddbfba2579a454a874db76079e09c50950b266e",
       "spec": {
-        "template": "table",
-        "title": "Adversarial critique and persona objections",
-        "columns": [
-          "idea",
-          "critics",
-          "objection"
+        "template": "flow",
+        "title": "Devil's advocate and critics",
+        "nodes": [
+          {
+            "id": "idea",
+            "label": "idea"
+          },
+          {
+            "id": "critics",
+            "label": "critics"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Asking for the strongest objections to an idea reveals hidden risks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "idea"
-                  },
-                  {
-                    "text": "critics"
-                  },
-                  {
-                    "text": "objection"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "After generating ideas, switch roles.",
+            "values": {
+              "idea": {
+                "var": "idea",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "idea"
-                  },
-                  {
-                    "text": "critics"
-                  },
-                  {
-                    "text": "objection"
-                  }
-                ],
-                "tone": "data"
+              "critics": {
+                "var": "critics",
+                "line": 2,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "idea": "data",
+              "critics": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "idea",
+                "critics"
+              ],
+              [
+                "critics",
+                "c"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A devil advocate exposes weak assumptions when changes are still cheap.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "idea"
-                  },
-                  {
-                    "text": "critics"
-                  },
-                  {
-                    "text": "objection"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A devil's advocate exposes weak assumptions early, when changes are cheap.",
+            "values": {
+              "idea": {
+                "var": "idea",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "idea"
-                  },
-                  {
-                    "text": "critics"
-                  },
-                  {
-                    "text": "idea"
-                  }
-                ],
-                "tone": "ok"
+              "critics": {
+                "var": "critics",
+                "line": 3,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "idea": "data",
+              "critics": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "idea",
+                "critics"
+              ],
+              [
+                "critics",
+                "c"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Asking for the strongest arguments on both sides is also a good way.",
+            "values": {
+              "idea": {
+                "var": "idea",
+                "line": 3,
+                "hit": 1
+              },
+              "critics": {
+                "var": "critics",
+                "line": 4,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "idea": "ok",
+              "critics": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "idea",
+                "critics"
+              ],
+              [
+                "critics",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Adversarial critique and persona objections",
-        "columns": [
-          "idea",
-          "critics",
-          "objection"
+        "template": "flow",
+        "title": "Devil's advocate and critics",
+        "nodes": [
+          {
+            "id": "idea",
+            "label": "idea"
+          },
+          {
+            "id": "critics",
+            "label": "critics"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Asking for the strongest objections to an idea reveals hidden risks.",
-            "rows": [
-              {
-                "cells": [
-                  "idea",
-                  "critics",
-                  "objection"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "idea",
-                  "critics",
-                  "objection"
-                ],
-                "tone": "data"
-              }
+            "caption": "After generating ideas, switch roles.",
+            "values": {
+              "idea": "'a subscription service delivering heal…",
+              "critics": "['a cautious finance manager', 'a busy …",
+              "c": "'a cautious finance manager'"
+            },
+            "tones": {
+              "idea": "data",
+              "critics": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "idea",
+                "critics"
+              ],
+              [
+                "critics",
+                "c"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A devil advocate exposes weak assumptions when changes are still cheap.",
-            "rows": [
-              {
-                "cells": [
-                  "idea",
-                  "critics",
-                  "objection"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "idea",
-                  "critics",
-                  "idea"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A devil's advocate exposes weak assumptions early, when changes are cheap.",
+            "values": {
+              "idea": "'a subscription service delivering heal…",
+              "critics": "['a cautious finance manager', 'a busy …",
+              "c": "'a cautious finance manager'"
+            },
+            "tones": {
+              "idea": "data",
+              "critics": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "idea",
+                "critics"
+              ],
+              [
+                "critics",
+                "c"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Asking for the strongest arguments on both sides is also a good way.",
+            "values": {
+              "idea": "'a subscription service delivering heal…",
+              "critics": "['a cautious finance manager', 'a busy …",
+              "c": "'a busy office worker'"
+            },
+            "tones": {
+              "idea": "ok",
+              "critics": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "idea",
+                "critics"
+              ],
+              [
+                "critics",
+                "c"
+              ]
             ]
           }
         ]
@@ -423,78 +559,91 @@
       "partTitle": "Cleaning up the idea list",
       "codeHash": "3c97160306533311e6d57b1046ba5d4e1cdeef5c925bb55854cbf4884e81e326",
       "spec": {
-        "template": "table",
-        "title": "Fuzzy deduplication and canonical set filtering",
-        "columns": [
+        "template": "sequence",
+        "title": "Cleaning up the idea list",
+        "actors": [
           "ideas",
-          "kept",
-          "removed"
+          "seen",
+          "kept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Brainstorming produces duplicates that differ only in casing or punctuation.",
-            "rows": [
+            "caption": "Brainstorming produces duplicates.",
+            "activeActor": "ideas",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ideas"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "removed"
-                  }
-                ],
-                "tone": "ok"
+                "from": "ideas",
+                "to": "seen",
+                "label": {
+                  "var": "ideas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ideas"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "removed"
-                  }
-                ],
-                "tone": "data"
+                "from": "seen",
+                "to": "kept",
+                "label": {
+                  "var": "seen",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "String normalisation catches duplicates before voting begins on candidates.",
-            "rows": [
+            "caption": "A simple normalisation, lower-casing, replacing punctuation with spaces.",
+            "activeActor": "seen",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ideas"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "removed"
-                  }
-                ],
+                "from": "ideas",
+                "to": "seen",
+                "label": {
+                  "var": "ideas",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ideas"
-                  },
-                  {
-                    "text": "seen"
-                  },
-                  {
-                    "text": "removed"
-                  }
-                ],
+                "from": "seen",
+                "to": "kept",
+                "label": {
+                  "var": "seen",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keep the removed duplicates in a log if you want to know which ideas came.",
+            "activeActor": "kept",
+            "messages": [
+              {
+                "from": "ideas",
+                "to": "seen",
+                "label": {
+                  "var": "ideas",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "kept",
+                "label": {
+                  "var": "seen",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +651,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fuzzy deduplication and canonical set filtering",
-        "columns": [
+        "template": "sequence",
+        "title": "Cleaning up the idea list",
+        "actors": [
           "ideas",
-          "kept",
-          "removed"
+          "seen",
+          "kept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Brainstorming produces duplicates that differ only in casing or punctuation.",
-            "rows": [
+            "caption": "Brainstorming produces duplicates.",
+            "messages": [
               {
-                "cells": [
-                  "ideas",
-                  "kept",
-                  "removed"
-                ],
-                "tone": "ok"
+                "from": "ideas",
+                "to": "seen",
+                "label": "['Add a built-in filter', 'add a built …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "ideas",
-                  "kept",
-                  "removed"
-                ],
-                "tone": "data"
+                "from": "seen",
+                "to": "kept",
+                "label": "set()",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ideas"
           },
           {
             "at": "say2",
-            "caption": "String normalisation catches duplicates before voting begins on candidates.",
-            "rows": [
+            "caption": "A simple normalisation, lower-casing, replacing punctuation with spaces.",
+            "messages": [
               {
-                "cells": [
-                  "ideas",
-                  "kept",
-                  "removed"
-                ],
+                "from": "ideas",
+                "to": "seen",
+                "label": "['Add a built-in filter', 'add a built …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "ideas",
-                  "seen",
-                  "removed"
-                ],
+                "from": "seen",
+                "to": "kept",
+                "label": "set()",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "seen"
+          },
+          {
+            "at": "say9",
+            "caption": "Keep the removed duplicates in a log if you want to know which ideas came.",
+            "messages": [
+              {
+                "from": "ideas",
+                "to": "seen",
+                "label": "['Add a built-in filter', 'add a built …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "kept",
+                "label": "set()",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "kept"
           }
         ]
       }
@@ -561,223 +723,175 @@
       "partTitle": "Selecting the best ideas",
       "codeHash": "12aa568d34d1b765aaae27b9ebb2864287d7a132f4ae166eee314727501a28da",
       "spec": {
-        "template": "flow",
-        "title": "Selecting the best ideas — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Selecting the best ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Selecting the best ideas",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Selecting the best ideas [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Selecting the best ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After generating and cleaning, score ideas against criteria such.",
+            "bars": [
+              {
+                "label": "impact",
+                "value": {
+                  "var": "impact",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "effort",
+                "value": {
+                  "var": "effort",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A simple weighted score (for example impact 2 minus cost minus effort).",
+            "bars": [
+              {
+                "label": "impact",
+                "value": {
+                  "var": "impact",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "effort",
+                "value": {
+                  "var": "effort",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Selecting the best ideas [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Revisit the weights if the ranking feels wrong.",
+            "bars": [
+              {
+                "label": "impact",
+                "value": {
+                  "var": "impact",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "effort",
+                "value": {
+                  "var": "effort",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Selecting the best ideas — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Selecting the best ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Selecting the best ideas",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Selecting the best ideas [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Selecting the best ... [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After generating and cleaning, score ideas against criteria such.",
+            "bars": [
+              {
+                "label": "impact",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "effort",
+                "value": 3,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A simple weighted score (for example impact 2 minus cost minus effort).",
+            "bars": [
+              {
+                "label": "impact",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "effort",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Selecting the best ideas [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Revisit the weights if the ranking feels wrong.",
+            "bars": [
+              {
+                "label": "impact",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "effort",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,224 +901,162 @@
       "partTitle": "Practice time: SCAMPER and de-duplication",
       "codeHash": "bed5337e897295e9db077c05e13cf9c0a19ad9ffb873d59f1096f19335b268a3",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: SCAMPER and de-duplication — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: SCAM...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: SCAMPER and de-duplication",
+        "actors": [
+          "answers",
+          "seen",
+          "final"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: SCAMPER and de-duplication.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: SCAM... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Scamper_prompts(product).",
+            "activeActor": "answers",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": {
+                  "var": "answers",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": {
+                  "var": "seen",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks confirm there are seven prompts, test specific ones, and check.",
+            "activeActor": "seen",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": {
+                  "var": "answers",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": {
+                  "var": "seen",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: SCAMPER and de-dup.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The same de-duplication trick works for survey answers, feedback forms.",
+            "activeActor": "final",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": {
+                  "var": "answers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": {
+                  "var": "seen",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: SCAMPER and de-duplication — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: SCAM...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: SCAMPER and de-duplication",
+        "actors": [
+          "answers",
+          "seen",
+          "final"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: SCAMPER and de-duplication [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: SCAM... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Scamper_prompts(product).",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": "{'Substitute': ['Bamboo body', 'bamboo …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": "set()",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "answers"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks confirm there are seven prompts, test specific ones, and check.",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": "{'Substitute': ['Bamboo body', 'bamboo …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": "set()",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seen"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: SCAMPER and de-dup.. [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The same de-duplication trick works for survey answers, feedback forms.",
+            "messages": [
+              {
+                "from": "answers",
+                "to": "seen",
+                "label": "{'Substitute': ['Bamboo body', 'bamboo …",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "final",
+                "label": "set()",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "final"
           }
         ]
       }

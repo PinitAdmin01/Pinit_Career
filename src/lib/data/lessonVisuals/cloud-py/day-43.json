@@ -2,801 +2,495 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 43,
-  "promptSha": "3b4c7b4b7b29e2e84c400b0a75793c183e40e60a864d2b0e369ec8aa0674a678",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "EventBridge Schema Registries, Content-Based Filtering & Archive Replay — Foundations & Mathematical Invariants",
-      "codeHash": "066b068019f244ef90d78ba19ccfc7346318609e2159730e207c97ee52e087e7",
+      "codeHash": "3a08eea413ff6a75fdadc431e7a57f874b758f6acfd5db041db809cacfbd21b1",
       "spec": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
+        "actors": [
+          "source",
+          "detail_type",
+          "detail_payload"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise event-driven platforms, establishing strict contract.",
+            "activeActor": "source",
+            "messages": [
+              {
+                "from": "source",
+                "to": "detail_type",
+                "label": {
+                  "var": "source",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": {
+                  "var": "detail_type",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Schema discovery continuously analyzes high-throughput event buses.",
+            "activeActor": "detail_type",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "source",
+                "to": "detail_type",
+                "label": {
+                  "var": "source",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": {
+                  "var": "detail_type",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Analyze the formal event envelope structure and schema validation model below.",
+            "activeActor": "detail_payload",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "source",
+                "to": "detail_type",
+                "label": {
+                  "var": "source",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": {
+                  "var": "detail_type",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
+        "actors": [
+          "source",
+          "detail_type",
+          "detail_payload"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise event-driven platforms, establishing strict contract.",
+            "messages": [
+              {
+                "from": "source",
+                "to": "detail_type",
+                "label": "'com.ecommerce.orders'",
+                "tone": "data"
+              },
+              {
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": "'OrderPlaced'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "source"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Schema discovery continuously analyzes high-throughput event buses.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "source",
+                "to": "detail_type",
+                "label": "'com.ecommerce.orders'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": "'OrderPlaced'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "detail_type"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Analyze the formal event envelope structure and schema validation model below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "source",
+                "to": "detail_type",
+                "label": "'com.ecommerce.orders'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "detail_type",
+                "to": "detail_payload",
+                "label": "'OrderPlaced'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "detail_payload"
           }
         ]
       }
     },
     {
       "partTitle": "EventBridge Schema Registries, Content-Based Filtering & Archive Replay — Core Algorithm & State Representation",
-      "codeHash": "c5526769fde72bab7e09b6e415a5ce72d4ed853832e01888a58c5e6d13458020",
+      "codeHash": "d0cebb59bfb02a622ce5d3262faa77a3070739de7b3c8d13b5549e0382172f4a",
       "spec": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
+        "template": "states",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "event_order",
+            "label": "event_order"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rule_vip",
+            "label": "rule_vip"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rule_free",
+            "label": "rule_free"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "By offloading complex message routing logic directly to the serverless.",
+            "currentState": "event_order",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Evaluating nested JSON pattern filters with short-circuiting Boolean logic.",
+            "currentState": "rule_vip",
+            "transition": {
+              "from": "event_order",
+              "to": "rule_vip",
+              "label": {
+                "var": "rule_vip",
+                "line": 25,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Implement the declarative content-based event pattern matching engine below.",
+            "currentState": "rule_free",
+            "transition": {
+              "from": "rule_vip",
+              "to": "rule_free",
+              "label": {
+                "var": "rule_free",
+                "line": 28,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
+        "template": "states",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "event_order",
+            "label": "event_order"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rule_vip",
+            "label": "rule_vip"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rule_free",
+            "label": "rule_free"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "By offloading complex message routing logic directly to the serverless.",
+            "currentState": "event_order",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Evaluating nested JSON pattern filters with short-circuiting Boolean logic.",
+            "currentState": "rule_vip",
+            "transition": {
+              "from": "event_order",
+              "to": "rule_vip",
+              "label": "{'source': ['com.ecommerce.orders'], 'd…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Implement the declarative content-based event pattern matching engine below.",
+            "currentState": "rule_free",
+            "transition": {
+              "from": "rule_vip",
+              "to": "rule_free",
+              "label": "{'source': ['com.ecommerce.orders'], 'd…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "EventBridge Schema Registries, Content-Based Filtering & Archive Replay — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "e8a57fbdf8eccbdead7218a812238c2684008ed763c01b190795075e1831380d",
+      "codeHash": "9509ce46c0be67486ea7b9d30391551a1738aac2ef93d636295896f097c050ea",
       "spec": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
         "steps": [
           {
+            "at": "say1",
+            "caption": "EventBridge achieves ultra-low latency routing by evaluating thousands.",
+            "bars": [
+              {
+                "label": "timestamp",
+                "value": {
+                  "var": "timestamp",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start_time",
+                "value": {
+                  "var": "start_time",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "end_time",
+                "value": {
+                  "var": "end_time",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Managing rule quotas and dead-letter queues at the bus level guarantees.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "timestamp",
+                "value": {
+                  "var": "timestamp",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "start_time",
+                "value": {
+                  "var": "start_time",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "end_time",
+                "value": {
+                  "var": "end_time",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Implement the EventBridge archive store and historical replay generator below.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "timestamp",
+                "value": {
+                  "var": "timestamp",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "start_time",
+                "value": {
+                  "var": "start_time",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "end_time",
+                "value": {
+                  "var": "end_time",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
         "steps": [
           {
+            "at": "say1",
+            "caption": "EventBridge achieves ultra-low latency routing by evaluating thousands.",
+            "bars": [
+              {
+                "label": "timestamp",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "start_time",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "end_time",
+                "value": 180,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 100,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Managing rule quotas and dead-letter queues at the bus level guarantees.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "timestamp",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "start_time",
+                "value": 50,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "end_time",
+                "value": 180,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "t",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Implement the EventBridge archive store and historical replay generator below.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "timestamp",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "start_time",
+                "value": 50,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "end_time",
+                "value": 180,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "t",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +499,134 @@
     },
     {
       "partTitle": "EventBridge Schema Registries, Content-Based Filtering & Archive Replay — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9e3292fcb0a48b87abab006e9a16bc400016d4a5ff683a2ef6bfc45628ff51f9",
+      "codeHash": "fcc681ec164ea236c196e37608f9f3a7b48144f88767584ed8bf78210de141f6",
       "spec": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated circuit breakers between EventBridge buses.",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "attempts",
+                "value": {
+                  "var": "attempts",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Event archive replay capabilities empower site reliability engineers.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "attempts",
+                "value": {
+                  "var": "attempts",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate the EventBridge target delivery retry policy and automated DLQ.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "attempts",
+                "value": {
+                  "var": "attempts",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated circuit breakers between EventBridge buses.",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "attempts",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Event archive replay capabilities empower site reliability engineers.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_retries",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "attempts",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate the EventBridge target delivery retry policy and automated DLQ.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_retries",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "attempts",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +635,279 @@
     },
     {
       "partTitle": "EventBridge Schema Registries, Content-Based Filtering & Archive Replay — Production Telemetry & Verification Audit",
-      "codeHash": "ca6d131f41927ed4cae9ab56efe378d0afb54e581c0d12af99a2f1ed1c864d40",
+      "codeHash": "d4afbc60fdcd978eeaab35114c66cae6443283f0776957693d4f4404601cdb0a",
       "spec": {
         "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded",
+            "label": "degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bus_telemetry",
+            "label": "bus_telemetry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "invocations",
+            "label": "invocations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Synthetic test events injected continuously through production pipelines.",
+            "values": {
+              "healthy": {
+                "var": "healthy",
+                "line": 19,
+                "hit": 1
+              },
+              "degraded": {
+                "var": "degraded",
+                "line": 20,
+                "hit": 1
+              },
+              "bus_telemetry": {
+                "var": "bus_telemetry",
+                "line": 2,
+                "hit": 1
+              },
+              "invocations": {
+                "var": "invocations",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "bus_telemetry": "data",
+              "invocations": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "bus_telemetry"
+              ],
+              [
+                "bus_telemetry",
+                "invocations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "CloudWatch metrics tracking Invocations, FailedInvocations,.",
+            "values": {
+              "healthy": {
+                "var": "healthy",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "degraded": {
+                "var": "degraded",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "bus_telemetry": {
+                "var": "bus_telemetry",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "invocations": {
+                "var": "invocations",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "bus_telemetry": "data",
+              "invocations": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "bus_telemetry"
+              ],
+              [
+                "bus_telemetry",
+                "invocations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Run the automated EventBridge telemetry auditor below to detect routing.",
+            "values": {
+              "healthy": {
+                "var": "healthy",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "degraded": {
+                "var": "degraded",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "bus_telemetry": {
+                "var": "bus_telemetry",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "invocations": {
+                "var": "invocations",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "healthy": "ok",
+              "degraded": "ok",
+              "bus_telemetry": "ok",
+              "invocations": "ok"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "bus_telemetry"
+              ],
+              [
+                "bus_telemetry",
+                "invocations"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive Repla",
+        "title": "EventBridge Schema Registries, Content-Based Filtering & Archive",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded",
+            "label": "degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bus_telemetry",
+            "label": "bus_telemetry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "invocations",
+            "label": "invocations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Synthetic test events injected continuously through production pipelines.",
+            "values": {
+              "healthy": "{'Invocations': 50000, 'FailedInvocatio…",
+              "degraded": "{'Invocations': 12000, 'FailedInvocatio…",
+              "bus_telemetry": "{'Invocations': 50000, 'FailedInvocatio…",
+              "invocations": "50000"
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "bus_telemetry": "data",
+              "invocations": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "bus_telemetry"
+              ],
+              [
+                "bus_telemetry",
+                "invocations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "CloudWatch metrics tracking Invocations, FailedInvocations,.",
+            "values": {
+              "healthy": "{'Invocations': 50000, 'FailedInvocatio…",
+              "degraded": "{'Invocations': 12000, 'FailedInvocatio…",
+              "bus_telemetry": "{'Invocations': 50000, 'FailedInvocatio…",
+              "invocations": "50000"
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "bus_telemetry": "data",
+              "invocations": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "bus_telemetry"
+              ],
+              [
+                "bus_telemetry",
+                "invocations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Run the automated EventBridge telemetry auditor below to detect routing.",
+            "values": {
+              "healthy": "{'Invocations': 50000, 'FailedInvocatio…",
+              "degraded": "{'Invocations': 12000, 'FailedInvocatio…",
+              "bus_telemetry": "{'Invocations': 50000, 'FailedInvocatio…",
+              "invocations": "50000"
+            },
+            "tones": {
+              "healthy": "ok",
+              "degraded": "ok",
+              "bus_telemetry": "ok",
+              "invocations": "ok"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "bus_telemetry"
+              ],
+              [
+                "bus_telemetry",
+                "invocations"
+              ]
             ]
           }
         ]

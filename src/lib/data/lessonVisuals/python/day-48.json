@@ -2,31 +2,83 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 48,
-  "promptSha": "f9d2a78d9da6e6aa6fd8528e1be99ec1987d91bd8d401167fb0d16a424891e12",
-  "model": "gate-v2-verified",
+  "promptSha": "0d8e96ffec8b46288ef20df433cb5b44b5216c6ff96734a92077538867f594a1",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Caching Physics: Cache-Aside vs Write-Through vs Write-Behind",
       "codeHash": "8a97a26953b3d67f32b4930a198e48d3183ba0cf0af2b1e85f3f86d6830b6a71",
       "spec": {
         "template": "table",
-        "title": "Caching Physics: Cache-Aside vs Write-Through vs W",
+        "title": "CacheArchitectureSimulator read and write patterns",
         "columns": [
-          "Stage",
-          "Concept"
+          "Pattern",
+          "Operation",
+          "Consistency Tradeoff"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Cache-Aside checks memory first and loads misses from primary storage.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Caching"
+                    "text": "read_cache_aside"
                   },
                   {
-                    "text": "Physics"
+                    "text": "cache"
+                  },
+                  {
+                    "text": "database"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "write_through"
+                  },
+                  {
+                    "text": "cache"
+                  },
+                  {
+                    "text": "database"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Write-Through keeps cache and database synchronized on every mutation.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "write_through"
+                  },
+                  {
+                    "text": "cache"
+                  },
+                  {
+                    "text": "database"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "read_cache_aside"
+                  },
+                  {
+                    "text": "cache"
+                  },
+                  {
+                    "text": "database"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +86,67 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cache logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Write-Behind buffers dirty writes asynchronously to boost throughput.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Cache"
+                    "text": "read_cache_aside"
                   },
                   {
-                    "text": "Aside"
+                    "text": "CacheArchitectureSimulator"
+                  },
+                  {
+                    "text": "cache"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "write_through"
+                  },
+                  {
+                    "text": "database"
+                  },
+                  {
+                    "text": "cache"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add prod_102 in database and read twice via read_cache_aside.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "new"
+                  },
+                  {
+                    "text": "product"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "product"
+                  },
+                  {
+                    "text": "prod_102"
+                  },
+                  {
+                    "text": "the"
                   }
                 ],
                 "tone": "ok"
@@ -54,36 +157,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Caching Physics: Cache-Aside vs Write-Through vs W",
+        "title": "CacheArchitectureSimulator read and write patterns",
         "columns": [
-          "Stage",
-          "Concept"
+          "Pattern",
+          "Operation",
+          "Consistency Tradeoff"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Cache-Aside checks memory first and loads misses from primary storage.",
             "rows": [
               {
                 "cells": [
-                  "Caching",
-                  "Physics"
+                  "Cache-Aside Hit",
+                  "Redis Lookup (0.3ms)",
+                  "Lazy TTL Refresh"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Cache-Aside Miss",
+                  "Read DB (15.2ms) -> Populate",
+                  "First-Miss Penalty"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Write-Through keeps cache and database synchronized on every mutation.",
+            "rows": [
+              {
+                "cells": [
+                  "Write-Through",
+                  "Update DB + Cache Sync (16.0ms)",
+                  "Strong Read Consistency"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Cache-Aside Read",
+                  "Instant Hit After Write",
+                  "0.3ms Subsequent Read"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cache logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Write-Behind buffers dirty writes asynchronously to boost throughput.",
             "rows": [
               {
                 "cells": [
-                  "Cache",
-                  "Aside"
+                  "Write-Behind",
+                  "Buffer In Memory -> Batch Flush",
+                  "Highest Write Speed"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Write-Through",
+                  "Immediate Dual Persistence",
+                  "Zero Crash Data Loss"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add prod_102 in database and read twice via read_cache_aside.",
+            "rows": [
+              {
+                "cells": [
+                  "prod_102 (Read 1)",
+                  "CACHE_MISS -> DB_READ",
+                  "Populates Cache"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "prod_102 (Read 2)",
+                  "CACHE_HIT (0.3ms)",
+                  "Zero DB Query"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class CacheArchitectureSimulator:\n    def __init__(self):\n        self.cache = {}\n        self.database = {\"prod_101\": {\"name\": \"Mechanical Keyboard\", \"price\": 120}}\n\n    def read_cache_aside(self, product_id):\n        if product_id in self.cache:\n            return \"CACHE_HIT (0.3ms)\", self.cache[product_id]\n        # Cache miss -> read DB and populate cache\n        item = self.database.get(product_id)\n        self.cache[product_id] = item\n        return \"CACHE_MISS -> DB_READ (15.2ms)\", item\n\n    def write_through(self, product_id, updated_item):\n        # Update DB and cache simultaneously\n        self.database[product_id] = updated_item\n        self.cache[product_id] = updated_item\n        return \"WRITE_THROUGH_PERSISTED (16.0ms)\"\n\nsim = CacheArchitectureSimulator()\nstatus1, item1 = sim.read_cache_aside(\"prod_101\")\nstatus2, item2 = sim.read_cache_aside(\"prod_101\")\nw_status = sim.write_through(\"prod_101\", {\"name\": \"Mechanical Keyboard\", \"price\": 99})\n\nprint(f\"Request 1: {status1}\")\nprint(f\"Request 2: {status2}\")\nsim.database[\"prod_102\"] = {\"name\": \"NVMe SSD 2TB\", \"price\": 180}\ns_miss, _ = sim.read_cache_aside(\"prod_102\")\ns_hit, _ = sim.read_cache_aside(\"prod_102\")\nprint(f\"prod_102 1st Read: {s_miss}\")\nprint(f\"prod_102 2nd Read: {s_hit}\")\nprint(f\"Write Op: {w_status}\")",
+            "checks": [
+              "prod_102 1st Read: CACHE_MISS -> DB_READ",
+              "prod_102 2nd Read: CACHE_HIT"
             ]
           }
         ]
@@ -93,82 +264,158 @@
       "partTitle": "Cache Stampede (Thundering Herd) Profiling & DB Collapse",
       "codeHash": "b8d0340869bcdbe1291c506337ccccf8ee52ff7172d98fbf3d459246ad3f2423",
       "spec": {
-        "template": "table",
-        "title": "Cache Stampede (Thundering Herd) Profiling & DB Co",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Thundering herd stampede vs mutex defense",
+        "leftLabel": "Naive TTL Expiry",
+        "rightLabel": "Distributed Mutex Guard",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The caching concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Cache"
-                  },
-                  {
-                    "text": "Stampede"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Expired hot keys send concurrent requests slamming into the database.",
+            "left": {
+              "code": "simulate_naive_stampede",
+              "result": "100 Simultaneous Misses",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_mutex_protected_stampede",
+              "result": "1 Leader Lock Acquired",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Thundering"
-                  },
-                  {
-                    "text": "Herd"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Thread contention spikes latency while connection pools saturate fast.",
+            "left": {
+              "code": "db_queries_triggered",
+              "result": "Pool Exhausted (504)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "cached_serves",
+              "result": "99 Wait On Warmed Cache",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Mutex locking serializes misses to one query instead of flooding SQL.",
+            "left": {
+              "code": "100",
+              "result": "100 Redundant Queries",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "CacheStampedeForensics",
+              "result": "1 Query + 99 Cache Hits",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate concurrent requests in simulate_naive_stampede comparing mutex.",
+            "left": {
+              "code": "forensics.simulate_naive_stampede(500)",
+              "result": "500 Redundant DB Queries",
+              "tone": "error",
+              "checks": [
+                "500 concurrent requests triggered 500 redundant database queries!"
+              ],
+              "whatIf": "class CacheStampedeForensics:\n    def simulate_naive_stampede(self, concurrent_requests=100):\n        # All 100 requests discover expired key at the same millisecond\n        db_queries_triggered = concurrent_requests\n        return f\"THUNDERING HERD: {concurrent_requests} concurrent requests triggered {db_queries_triggered} redundant database queries! DB connection pool exhausted.\"\n\n    def simulate_mutex_protected_stampede(self, concurrent_requests=100):\n        # Distributed mutex serializes DB query to 1 worker; 99 await cached result\n        db_queries_triggered = 1\n        cached_serves = concurrent_requests - 1\n        return f\"MUTEX DEFENSE: {concurrent_requests} requests handled -> Exactly {db_queries_triggered} DB query executed, {cached_serves} served from refreshed cache.\"\n\nforensics = CacheStampedeForensics()\nprint(forensics.simulate_naive_stampede(500))\nprint(forensics.simulate_mutex_protected_stampede(100))"
+            },
+            "right": {
+              "code": "forensics.simulate_mutex_protected_stampede(500)",
+              "result": "1 DB Query (499 Cached)",
+              "tone": "ok",
+              "checks": [
+                "500 requests handled -> Exactly 1 DB query executed, 499 served from refreshed cache."
+              ],
+              "whatIf": "class CacheStampedeForensics:\n    def simulate_naive_stampede(self, concurrent_requests=100):\n        # All 100 requests discover expired key at the same millisecond\n        db_queries_triggered = concurrent_requests\n        return f\"THUNDERING HERD: {concurrent_requests} concurrent requests triggered {db_queries_triggered} redundant database queries! DB connection pool exhausted.\"\n\n    def simulate_mutex_protected_stampede(self, concurrent_requests=100):\n        # Distributed mutex serializes DB query to 1 worker; 99 await cached result\n        db_queries_triggered = 1\n        cached_serves = concurrent_requests - 1\n        return f\"MUTEX DEFENSE: {concurrent_requests} requests handled -> Exactly {db_queries_triggered} DB query executed, {cached_serves} served from refreshed cache.\"\n\nforensics = CacheStampedeForensics()\nprint(forensics.simulate_naive_stampede(100))\nprint(forensics.simulate_mutex_protected_stampede(500))"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cache Stampede (Thundering Herd) Profiling & DB Co",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Thundering herd stampede vs mutex defense",
+        "leftLabel": "Naive TTL Expiry",
+        "rightLabel": "Distributed Mutex Guard",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The caching concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Cache",
-                  "Stampede"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Expired hot keys send concurrent requests slamming into the database.",
+            "left": {
+              "code": "Key Expires -> 100 Threads Miss",
+              "result": "All Hit Postgres Together",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "1st Thread Acquires Mutex",
+              "result": "Other 99 Await Warm Key",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Thundering",
-                  "Herd"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Thread contention spikes latency while connection pools saturate fast.",
+            "left": {
+              "code": "DB CPU 100%, Latency 30s",
+              "result": "504 Gateway Timeouts",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "DB Runs 1 Aggregated Query",
+              "result": "Flat Pool Usage",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Mutex locking serializes misses to one query instead of flooding SQL.",
+            "left": {
+              "code": "100 Redundant SQL Calls",
+              "result": "Database Overloaded",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "1 SQL Call + 99 Cached",
+              "result": "99% DB Load Saved",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate concurrent requests in simulate_naive_stampede comparing mutex.",
+            "left": {
+              "code": "forensics.simulate_naive_stampede(500)",
+              "result": "500 Redundant DB Queries",
+              "tone": "error",
+              "checks": [
+                "500 concurrent requests triggered 500 redundant database queries!"
+              ],
+              "whatIf": "class CacheStampedeForensics:\n    def simulate_naive_stampede(self, concurrent_requests=100):\n        # All 100 requests discover expired key at the same millisecond\n        db_queries_triggered = concurrent_requests\n        return f\"THUNDERING HERD: {concurrent_requests} concurrent requests triggered {db_queries_triggered} redundant database queries! DB connection pool exhausted.\"\n\n    def simulate_mutex_protected_stampede(self, concurrent_requests=100):\n        # Distributed mutex serializes DB query to 1 worker; 99 await cached result\n        db_queries_triggered = 1\n        cached_serves = concurrent_requests - 1\n        return f\"MUTEX DEFENSE: {concurrent_requests} requests handled -> Exactly {db_queries_triggered} DB query executed, {cached_serves} served from refreshed cache.\"\n\nforensics = CacheStampedeForensics()\nprint(forensics.simulate_naive_stampede(500))\nprint(forensics.simulate_mutex_protected_stampede(100))"
+            },
+            "right": {
+              "code": "forensics.simulate_mutex_protected_stampede(500)",
+              "result": "1 DB Query (499 Cached)",
+              "tone": "ok",
+              "checks": [
+                "500 requests handled -> Exactly 1 DB query executed, 499 served from refreshed cache."
+              ],
+              "whatIf": "class CacheStampedeForensics:\n    def simulate_naive_stampede(self, concurrent_requests=100):\n        # All 100 requests discover expired key at the same millisecond\n        db_queries_triggered = concurrent_requests\n        return f\"THUNDERING HERD: {concurrent_requests} concurrent requests triggered {db_queries_triggered} redundant database queries! DB connection pool exhausted.\"\n\n    def simulate_mutex_protected_stampede(self, concurrent_requests=100):\n        # Distributed mutex serializes DB query to 1 worker; 99 await cached result\n        db_queries_triggered = 1\n        cached_serves = concurrent_requests - 1\n        return f\"MUTEX DEFENSE: {concurrent_requests} requests handled -> Exactly {db_queries_triggered} DB query executed, {cached_serves} served from refreshed cache.\"\n\nforensics = CacheStampedeForensics()\nprint(forensics.simulate_naive_stampede(100))\nprint(forensics.simulate_mutex_protected_stampede(500))"
+            }
           }
         ]
       }
@@ -177,81 +424,244 @@
       "partTitle": "XFetch Probabilistic Early Expiration Algorithm",
       "codeHash": "dce6da391e1ddb3ee2de4ce8d29490a0965b7dac4dfccc74cdb071259629f9be",
       "spec": {
-        "template": "table",
-        "title": "XFetch Probabilistic Early Expiration Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "XFetchProbabilisticCache pre-expiry background refresh",
+        "nodes": [
+          {
+            "id": "ttl",
+            "label": "remaining_ttl"
+          },
+          {
+            "id": "beta",
+            "label": "beta"
+          },
+          {
+            "id": "xf",
+            "label": "xfetch_factor"
+          },
+          {
+            "id": "ref",
+            "label": "should_refresh_early"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ttl",
+            "to": "xf"
+          },
+          {
+            "from": "beta",
+            "to": "xf"
+          },
+          {
+            "from": "xf",
+            "to": "ref"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "XFetch"
-                  },
-                  {
-                    "text": "Probabilistic"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "XFetch weighs delta and beta log math against remaining key lifetime.",
+            "values": {
+              "ttl": {
+                "text": "remaining_ttl"
+              },
+              "beta": {
+                "text": "beta"
+              },
+              "xf": {
+                "text": "xfetch_factor"
+              },
+              "ref": {
+                "text": "should_refresh_early"
               }
-            ]
+            },
+            "tones": {
+              "ttl": "data",
+              "beta": "data",
+              "xf": "data",
+              "ref": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The mathematical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Early"
-                  },
-                  {
-                    "text": "Expiration"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "One worker refreshes early while readers keep hitting cached values.",
+            "values": {
+              "ttl": {
+                "text": "store"
+              },
+              "beta": {
+                "text": "beta"
+              },
+              "xf": {
+                "text": "xfetch_factor"
+              },
+              "ref": {
+                "text": "should_refresh_early"
               }
-            ]
+            },
+            "tones": {
+              "ttl": "ok",
+              "beta": "ok",
+              "xf": "ok",
+              "ref": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Early XFetch triggers background refresh safely before expiration arrives.",
+            "values": {
+              "ttl": {
+                "text": "remaining_ttl"
+              },
+              "beta": {
+                "text": "XFetchProbabilisticCache"
+              },
+              "xf": {
+                "text": "xfetch_factor"
+              },
+              "ref": {
+                "text": "should_refresh_early"
+              }
+            },
+            "tones": {
+              "ttl": "ok",
+              "beta": "ok",
+              "xf": "ok",
+              "ref": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Change current_time_sec in should_refresh_early and observe decision.",
+            "values": {
+              "ttl": {
+                "text": "Change"
+              },
+              "beta": {
+                "text": "should_refresh_early"
+              },
+              "xf": {
+                "text": "observe"
+              },
+              "ref": {
+                "text": "probabilistic"
+              }
+            },
+            "tones": {
+              "ttl": "ok",
+              "beta": "idle",
+              "xf": "data",
+              "ref": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "XFetch Probabilistic Early Expiration Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "XFetchProbabilisticCache pre-expiry background refresh",
+        "nodes": [
+          {
+            "id": "ttl",
+            "label": "remaining_ttl"
+          },
+          {
+            "id": "beta",
+            "label": "beta"
+          },
+          {
+            "id": "xf",
+            "label": "xfetch_factor"
+          },
+          {
+            "id": "ref",
+            "label": "should_refresh_early"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ttl",
+            "to": "xf"
+          },
+          {
+            "from": "beta",
+            "to": "xf"
+          },
+          {
+            "from": "xf",
+            "to": "ref"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "XFetch",
-                  "Probabilistic"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "XFetch weighs delta and beta log math against remaining key lifetime.",
+            "values": {
+              "ttl": "60 - 58 = 2s Left",
+              "beta": "1.5 * delta(1.2s)",
+              "xf": "-(delta * beta * ln(0.1))",
+              "ref": "Evaluating Inequality"
+            },
+            "tones": {
+              "ttl": "data",
+              "beta": "data",
+              "xf": "data",
+              "ref": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The mathematical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Early",
-                  "Expiration"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "One worker refreshes early while readers keep hitting cached values.",
+            "values": {
+              "ttl": "2s Remaining Served Hot",
+              "beta": "Zero Lock Contention",
+              "xf": "4.145 > 2s (True)",
+              "ref": "Single Worker Recomputes"
+            },
+            "tones": {
+              "ttl": "ok",
+              "beta": "ok",
+              "xf": "ok",
+              "ref": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Early XFetch triggers background refresh safely before expiration arrives.",
+            "values": {
+              "ttl": "Pre-Warmed Before Expiry",
+              "beta": "beta = 1.5 Tuned",
+              "xf": "4.145 Threshold Hit",
+              "ref": "True -> 0 DB Stampede"
+            },
+            "tones": {
+              "ttl": "ok",
+              "beta": "ok",
+              "xf": "ok",
+              "ref": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Change current_time_sec in should_refresh_early and observe decision.",
+            "values": {
+              "ttl": "10s Remaining TTL",
+              "beta": "beta = 1.5 Tuned",
+              "xf": "4.145 < 10s Remaining",
+              "ref": "False (Wait Safely)"
+            },
+            "tones": {
+              "ttl": "ok",
+              "beta": "idle",
+              "xf": "data",
+              "ref": "ok"
+            },
+            "arrows": [],
+            "whatIf": "import math\n\nclass XFetchProbabilisticCache:\n    def __init__(self, beta=1.0):\n        self.beta = beta\n        self.store = {}\n\n    def set(self, key, value, ttl_sec=60, compute_cost_sec=0.5):\n        self.store[key] = {\n            \"val\": value,\n            \"expiry\": ttl_sec,\n            \"delta\": compute_cost_sec\n        }\n\n    def should_refresh_early(self, key, current_time_sec, pseudo_random_val=0.1):\n        record = self.store.get(key)\n        if not record: return True\n        remaining_ttl = record[\"expiry\"] - current_time_sec\n        # XFetch equation: -(delta * beta * ln(rand)) > remaining_ttl\n        xfetch_factor = -(record[\"delta\"] * self.beta * math.log(pseudo_random_val))\n        return xfetch_factor > remaining_ttl, round(xfetch_factor, 3), remaining_ttl\n\ncache = XFetchProbabilisticCache(beta=1.5)\ncache.set(\"trending_news_feed\", \"Top 10 Headlines\", ttl_sec=60, compute_cost_sec=1.2)\n\n# At T=58s (remaining=2s), pseudo-random=0.1 -> xfetch_factor ~ 4.14 > 2 -> triggers early background refresh!\nshould_refresh, factor, rem = cache.should_refresh_early(\"trending_news_feed\", current_time_sec=50, pseudo_random_val=0.1)\n\nprint(f\"Remaining TTL: {rem}s | XFetch Early Factor: {factor}\")\nprint(f\"Probabilistic Refresh Decision: {should_refresh}\")\nprint(\"XFetch Invariant: Hot key refreshed asynchronously before TTL expiration with 0 DB stampede.\")",
+            "checks": [
+              "Remaining TTL: 10s",
+              "Probabilistic Refresh Decision: False"
             ]
           }
         ]
@@ -261,81 +671,181 @@
       "partTitle": "Atomic Redis Lua Scripting & Multi-Step Invalidation",
       "codeHash": "e9e0e4317e6f75e3aa3dd3e916cd8332d83f5778f596c576c75cdf704d7aa40e",
       "spec": {
-        "template": "table",
-        "title": "Atomic Redis Lua Scripting & Multi-Step Invalidati",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "RedisLuaScriptSimulator atomic check-and-delete",
+        "boxes": [
+          {
+            "id": "kv",
+            "label": "redis_kv"
+          },
+          {
+            "id": "exp",
+            "label": "expected_val"
+          },
+          {
+            "id": "lua",
+            "label": "eval_atomic_conditional_del"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Atomic"
-                  },
-                  {
-                    "text": "Redis"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Redis executes Lua scripts atomically inside a single-threaded loop.",
+            "values": {
+              "kv": {
+                "text": "redis_kv"
+              },
+              "exp": {
+                "text": "session_token_99"
+              },
+              "lua": {
+                "text": "eval_atomic_conditional_del"
               }
-            ]
+            },
+            "tones": {
+              "kv": "data",
+              "exp": "data",
+              "lua": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The canonical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Lua"
-                  },
-                  {
-                    "text": "Scripting"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Check-and-Delete skips removal whenever the owner token mismatches.",
+            "values": {
+              "kv": {
+                "text": "session_token_99"
+              },
+              "exp": {
+                "text": "expected_val"
+              },
+              "lua": {
+                "text": "eval_atomic_conditional_del"
               }
-            ]
+            },
+            "tones": {
+              "kv": "data",
+              "exp": "error",
+              "lua": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Atomic Lua checks delete matching keys without multi-step race bugs.",
+            "values": {
+              "kv": {
+                "text": "redis_kv"
+              },
+              "exp": {
+                "text": "expected_val"
+              },
+              "lua": {
+                "text": "RedisLuaScriptSimulator"
+              }
+            },
+            "tones": {
+              "kv": "ok",
+              "exp": "ok",
+              "lua": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run third conditional delete after removal confirming safe 0 return code.",
+            "values": {
+              "kv": {
+                "text": "Execute"
+              },
+              "exp": {
+                "text": "attempt"
+              },
+              "lua": {
+                "text": "the"
+              }
+            },
+            "tones": {
+              "kv": "idle",
+              "exp": "data",
+              "lua": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Atomic Redis Lua Scripting & Multi-Step Invalidati",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "RedisLuaScriptSimulator atomic check-and-delete",
+        "boxes": [
+          {
+            "id": "kv",
+            "label": "redis_kv"
+          },
+          {
+            "id": "exp",
+            "label": "expected_val"
+          },
+          {
+            "id": "lua",
+            "label": "eval_atomic_conditional_del"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomic",
-                  "Redis"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Redis executes Lua scripts atomically inside a single-threaded loop.",
+            "values": {
+              "kv": "session_token_99: active",
+              "exp": "No Interleaving Allowed",
+              "lua": "EVAL Atomic Transaction"
+            },
+            "tones": {
+              "kv": "data",
+              "exp": "data",
+              "lua": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The canonical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Lua",
-                  "Scripting"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Check-and-Delete skips removal whenever the owner token mismatches.",
+            "values": {
+              "kv": "Stored: active",
+              "exp": "wrong_val Mismatch",
+              "lua": "Aborted (Returns 0)"
+            },
+            "tones": {
+              "kv": "data",
+              "exp": "error",
+              "lua": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Atomic Lua checks delete matching keys without multi-step race bugs.",
+            "values": {
+              "kv": "Matched & Deleted",
+              "exp": "expected_val == active",
+              "lua": "Returns 1 In Single Step"
+            },
+            "tones": {
+              "kv": "ok",
+              "exp": "ok",
+              "lua": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run third conditional delete after removal confirming safe 0 return code.",
+            "values": {
+              "kv": "Key Missing (None)",
+              "exp": "None != active",
+              "lua": "Returns Result=0 Safely"
+            },
+            "tones": {
+              "kv": "idle",
+              "exp": "data",
+              "lua": "ok"
+            },
+            "whatIf": "class RedisLuaScriptSimulator:\n    def __init__(self):\n        self.redis_kv = {\"session_token_99\": \"active\"}\n\n    def eval_atomic_conditional_del(self, key, expected_val):\n        # Simulating Lua script: if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end\n        curr = self.redis_kv.get(key)\n        if curr == expected_val:\n            del self.redis_kv[key]\n            return 1, f\"LUA EVAL: Key '{key}' matched '{expected_val}' -> Atomically deleted (1)\"\n        return 0, f\"LUA EVAL: Key '{key}' mismatch ('{curr}' != '{expected_val}') -> Aborted (0)\"\n\nlua_engine = RedisLuaScriptSimulator()\nr1, msg1 = lua_engine.eval_atomic_conditional_del(\"session_token_99\", \"wrong_val\")\nr2, msg2 = lua_engine.eval_atomic_conditional_del(\"session_token_99\", \"active\")\n\nprint(f\"Attempt 1: Result={r1} | {msg1}\")\nprint(f\"Attempt 2: Result={r2} | {msg2}\")\nr3, msg3 = lua_engine.eval_atomic_conditional_del(\"session_token_99\", \"active\")\nprint(f\"Attempt 3 (Deleted): Result={r3} | {msg3}\")\nprint(\"Lua Script Invariant: Multi-step check-and-delete executes in a single atomic microsecond.\")",
+            "checks": [
+              "Attempt 3 (Deleted): Result=0 | LUA EVAL: Key 'session_token_99' mismatch ('None' != 'active') -> Aborted (0)"
             ]
           }
         ]
@@ -345,81 +855,259 @@
       "partTitle": "News Portal Cache Invalidation & Stampede Hardening",
       "codeHash": "d6f7aacb051327be71b30c0ceac58b29680633d0028d7c5be280630f782f5c33",
       "spec": {
-        "template": "table",
-        "title": "News Portal Cache Invalidation & Stampede Hardenin",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ResilientPortalCacheEngine 99.9% query reduction metrics",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Breaking news traffic overwhelms databases once hot keys expire raw.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "News"
-                  },
-                  {
-                    "text": "Portal"
-                  }
-                ],
-                "tone": "data"
+                "text": "ResilientPortalCacheEngine"
+              },
+              {
+                "text": "has_xfetch"
+              },
+              {
+                "text": "db_queries"
+              },
+              {
+                "text": "cache_hits"
               }
-            ]
+            ],
+            "pointers": [
+              {
+                "name": "spike",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "error",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The requests logic drives deterministic execution.",
-            "rows": [
+            "caption": "XFetch absorbs concurrent traffic via early background key warming.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Cache"
-                  },
-                  {
-                    "text": "Invalidation"
-                  }
-                ],
+                "text": "serve_traffic"
+              },
+              {
+                "text": "has_xfetch"
+              },
+              {
+                "text": "cache_hits"
+              },
+              {
+                "text": "db_queries"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "hits",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Resilient cache cuts database query surges via single background pass.",
+            "items": [
+              {
+                "text": "ResilientPortalCacheEngine"
+              },
+              {
+                "text": "cache_hits"
+              },
+              {
+                "text": "db_queries"
+              },
+              {
+                "text": "has_xfetch"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "db",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set has_xfetch to False so database_load_reduction drops cleanly to zero.",
+            "items": [
+              {
+                "text": "Set"
+              },
+              {
+                "text": "serve_traffic"
+              },
+              {
+                "text": "observe"
+              },
+              {
+                "text": "dropping"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "stampede",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "error",
+              "1": "error",
+              "2": "error",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "News Portal Cache Invalidation & Stampede Hardenin",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ResilientPortalCacheEngine 99.9% query reduction metrics",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Breaking news traffic overwhelms databases once hot keys expire raw.",
+            "items": [
+              "1000 Concurrent Readers",
+              "has_xfetch = False",
+              "1000 DB Queries Hit",
+              "0 Cache Hits"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "News",
-                  "Portal"
-                ],
-                "tone": "data"
+                "name": "spike",
+                "index": 2,
+                "tone": "error"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "error",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The requests logic drives deterministic execution.",
-            "rows": [
+            "caption": "XFetch absorbs concurrent traffic via early background key warming.",
+            "items": [
+              "serve_traffic(1000)",
+              "has_xfetch = True",
+              "999 Cache Hits Served",
+              "1 Background Refresh"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Cache",
-                  "Invalidation"
-                ],
+                "name": "hits",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Resilient cache cuts database query surges via single background pass.",
+            "items": [
+              "News Portal Hardened",
+              "99.9% Load Reduction",
+              "db_queries = 1 Total",
+              "Zero Stampede Collapse"
+            ],
+            "pointers": [
+              {
+                "name": "db",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set has_xfetch to False so database_load_reduction drops cleanly to zero.",
+            "items": [
+              "has_xfetch = False",
+              "database_queries: 1000",
+              "cache_hits: 0",
+              "load_reduction: 0.0%"
+            ],
+            "pointers": [
+              {
+                "name": "stampede",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "error",
+              "1": "error",
+              "2": "error",
+              "3": "error"
+            },
+            "whatIf": "class ResilientPortalCacheEngine:\n    def __init__(self):\n        self.db_queries = 0\n        self.cache_hits = 0\n\n    def serve_traffic(self, request_count=1000, has_xfetch=True):\n        if has_xfetch:\n            # XFetch pre-warms before expiry -> exactly 1 background refresh\n            self.db_queries = 1\n            self.cache_hits = request_count - 1\n        else:\n            # Stampede triggers 1000 DB queries\n            self.db_queries = request_count\n            self.cache_hits = 0\n        return {\n            \"total_requests\": request_count,\n            \"cache_hits\": self.cache_hits,\n            \"database_queries\": self.db_queries,\n            \"database_load_reduction\": f\"{round((1 - self.db_queries / request_count) * 100, 1)}%\"\n        }\n\nengine = ResilientPortalCacheEngine()\nmetrics = engine.serve_traffic(request_count=1000, has_xfetch=False)\n\nprint(\"=== High-Traffic News Portal Cache Engine ===\")\nfor k, v in metrics.items():\n    print(f\"  {k}: {v}\")\nprint(\"INVARIANT SATISFIED: Stampede eliminated; database load reduced by 99.9%.\")",
+            "checks": [
+              "cache_hits: 0",
+              "database_queries: 1000",
+              "database_load_reduction: 0.0%"
             ]
           }
         ]

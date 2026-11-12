@@ -2,88 +2,215 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 43,
-  "promptSha": "ac75d1d71a8b606aa1dce6a9bf9c390ea80b896fd517603cd03fb5e331bb2b5c",
-  "model": "gate-v2-verified",
+  "promptSha": "a581933e3fec359507267f4b367b80b48e11d8c3ade4ee39eed68b7441251442",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "At-Least-Once Delivery Theory & Visibility Timeout Dynamics",
       "codeHash": "08a49259bbaf61a544b01fcd9928abd1813c0e355a512c6396bdd3aff9e8834e",
       "spec": {
-        "template": "table",
-        "title": "At-Least-Once Delivery Theory & Visibility Timeout",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "At-least-once redelivery across visibility timeouts",
+        "nodes": [
+          {
+            "id": "brk",
+            "label": "AtLeastOnceBrokerSimulator"
+          },
+          {
+            "id": "del",
+            "label": "delivered_messages"
+          },
+          {
+            "id": "chg",
+            "label": "charge_customer_sub"
+          }
+        ],
+        "edges": [
+          {
+            "from": "brk",
+            "to": "del",
+            "label": "msg_101"
+          },
+          {
+            "from": "del",
+            "to": "chg",
+            "label": "duplicate"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Least"
-                  },
-                  {
-                    "text": "Once"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Brokers enforce at-least-once delivery by redelivering lost messages.",
+            "values": {
+              "brk": {
+                "text": "AtLeastOnceBrokerSimulator"
+              },
+              "del": {
+                "text": "msg_101"
+              },
+              "chg": {
+                "text": "charge_customer_sub"
               }
-            ]
+            },
+            "tones": {
+              "brk": "data",
+              "del": "idle",
+              "chg": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The least logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Delivery"
-                  },
-                  {
-                    "text": "Theory"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Broker redelivers message automatically unless worker sends acknowledgment.",
+            "values": {
+              "brk": {
+                "text": "msg_101"
+              },
+              "del": {
+                "text": "delivered_messages"
+              },
+              "chg": {
+                "text": "duplicate"
               }
-            ]
+            },
+            "tones": {
+              "brk": "error",
+              "del": "data",
+              "chg": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Broker simulation illustrates duplicate delivery when tasks stall.",
+            "values": {
+              "brk": {
+                "text": "delivered_messages"
+              },
+              "del": {
+                "text": "msg_101"
+              },
+              "chg": {
+                "text": "charge_customer_sub"
+              }
+            },
+            "tones": {
+              "brk": "ok",
+              "del": "ok",
+              "chg": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate three duplicate message deliveries and inspect consumer array count.",
+            "values": {
+              "brk": {
+                "text": "Modify"
+              },
+              "del": {
+                "text": "simulator"
+              },
+              "chg": {
+                "text": "three"
+              }
+            },
+            "tones": {
+              "brk": "error",
+              "del": "error",
+              "chg": "data"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "At-Least-Once Delivery Theory & Visibility Timeout",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "At-least-once redelivery across visibility timeouts",
+        "nodes": [
+          {
+            "id": "brk",
+            "label": "AtLeastOnceBrokerSimulator"
+          },
+          {
+            "id": "del",
+            "label": "delivered_messages"
+          },
+          {
+            "id": "chg",
+            "label": "charge_customer_sub"
+          }
+        ],
+        "edges": [
+          {
+            "from": "brk",
+            "to": "del",
+            "label": "msg_101"
+          },
+          {
+            "from": "del",
+            "to": "chg",
+            "label": "duplicate"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Least",
-                  "Once"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Brokers enforce at-least-once delivery by redelivering lost messages.",
+            "values": {
+              "brk": "Dispatched msg_101",
+              "del": "Count = 1",
+              "chg": "Started Billing"
+            },
+            "tones": {
+              "brk": "data",
+              "del": "idle",
+              "chg": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The least logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Delivery",
-                  "Theory"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Broker redelivers message automatically unless worker sends acknowledgment.",
+            "values": {
+              "brk": "Visibility Timer Expired",
+              "del": "Redelivered msg_101",
+              "chg": "duplicate=True Flag"
+            },
+            "tones": {
+              "brk": "error",
+              "del": "data",
+              "chg": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Broker simulation illustrates duplicate delivery when tasks stall.",
+            "values": {
+              "brk": "2 Deliveries Logged",
+              "del": "msg_101 Executed 2x",
+              "chg": "Needs Idempotency Key"
+            },
+            "tones": {
+              "brk": "ok",
+              "del": "ok",
+              "chg": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate three duplicate message deliveries and inspect consumer array count.",
+            "values": {
+              "brk": "3 Deliveries Logged",
+              "del": "msg_101 Delivered 3x",
+              "chg": "Array Length == 3"
+            },
+            "tones": {
+              "brk": "error",
+              "del": "error",
+              "chg": "data"
+            },
+            "arrows": [],
+            "whatIf": "class AtLeastOnceBrokerSimulator:\n    def __init__(self):\n        self.delivered_messages = []\n\n    def dispatch(self, message_id, payload, duplicate_count=1):\n        for _ in range(duplicate_count):\n            self.delivered_messages.append({\"id\": message_id, \"payload\": payload})\n\nbroker = AtLeastOnceBrokerSimulator()\nbroker.dispatch(\"msg_101\", \"charge_customer_sub\", duplicate_count=3)\n\nprint(f\"Total messages received at consumer: {len(broker.delivered_messages)}\")\nfor i, m in enumerate(broker.delivered_messages):\n    print(f\"  Delivery {i+1}: ID={m['id']}, Action={m['payload']}\")",
+            "checks": [
+              "Total messages received at consumer: 3",
+              "Delivery 3: ID=msg_101"
             ]
           }
         ]
@@ -93,82 +220,160 @@
       "partTitle": "Duplicate Execution & Double-Billing Incident Forensics",
       "codeHash": "22e51647afb619e0bf9ac0655a579fc6eb7979552fd8e68c7ce382cb0feece4c",
       "spec": {
-        "template": "table",
-        "title": "Duplicate Execution & Double-Billing Incident Fore",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Visibility timeout overlap across concurrent workers",
+        "leftLabel": "Visibility Timeout Overlap",
+        "rightLabel": "Timeout Margin Safe",
         "steps": [
           {
             "at": "say1",
-            "caption": "The understand concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Duplicate"
-                  },
-                  {
-                    "text": "Execution"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Long execution triggers visibility timeout expiry while work runs.",
+            "left": {
+              "code": "Worker_A",
+              "result": "Timeout After 10s",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "VisibilityTimeoutSimulator",
+              "result": "Duration Within Lease",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Double"
-                  },
-                  {
-                    "text": "Billing"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Two concurrent workers execute identical billing tasks creating double charges.",
+            "left": {
+              "code": "Worker_B",
+              "result": "Redelivered task_bill_99",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "task_bill_99",
+              "result": "Single Charge Only",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Timeout overlap causes both workers to run billing tasks twice.",
+            "left": {
+              "code": "task_bill_99",
+              "result": "Worker_A + Worker_B Charge",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Worker_A",
+              "result": "Ack Within Timeout",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase visibility_timeout_sec in simulator confirming Worker locked out.",
+            "left": {
+              "code": "VisibilityTimeoutSimulator(visibility_timeout_sec=10)",
+              "result": "Worker_B steals lease at T=12s",
+              "tone": "error",
+              "checks": [
+                "Task 'task_bill_99' leased to Worker_B at T=12s",
+                "LEASE_STOLEN_AT_T12"
+              ],
+              "whatIf": "class VisibilityTimeoutSimulator:\n    def __init__(self, visibility_timeout_sec=10):\n        self.visibility_timeout = visibility_timeout_sec\n        self.in_flight = {}\n\n    def lease_task(self, task_id, worker_id, current_time_sec):\n        if task_id in self.in_flight:\n            leased_at, prior_worker = self.in_flight[task_id]\n            if (current_time_sec - leased_at) < self.visibility_timeout:\n                return f\"Task '{task_id}' locked by {prior_worker} (visible in {self.visibility_timeout - (current_time_sec - leased_at)}s)\"\n        self.in_flight[task_id] = (current_time_sec, worker_id)\n        return f\"Task '{task_id}' leased to {worker_id} at T={current_time_sec}s\"\n\nsim = VisibilityTimeoutSimulator(visibility_timeout_sec=10)\nprint(sim.lease_task(\"task_bill_99\", \"Worker_A\", current_time_sec=0))\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=5))\n# T=12s > 10s: Visibility timeout expired, Worker B steals lease while Worker A is still running!\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=12))\nprint(\"LEASE_STOLEN_AT_T12\")"
+            },
+            "right": {
+              "code": "VisibilityTimeoutSimulator(visibility_timeout_sec=20)",
+              "result": "Locked by Worker_A (visible in 8s)",
+              "tone": "ok",
+              "checks": [
+                "Task 'task_bill_99' locked by Worker_A (visible in 8s)"
+              ],
+              "whatIf": "class VisibilityTimeoutSimulator:\n    def __init__(self, visibility_timeout_sec=10):\n        self.visibility_timeout = visibility_timeout_sec\n        self.in_flight = {}\n\n    def lease_task(self, task_id, worker_id, current_time_sec):\n        if task_id in self.in_flight:\n            leased_at, prior_worker = self.in_flight[task_id]\n            if (current_time_sec - leased_at) < self.visibility_timeout:\n                return f\"Task '{task_id}' locked by {prior_worker} (visible in {self.visibility_timeout - (current_time_sec - leased_at)}s)\"\n        self.in_flight[task_id] = (current_time_sec, worker_id)\n        return f\"Task '{task_id}' leased to {worker_id} at T={current_time_sec}s\"\n\nsim = VisibilityTimeoutSimulator(visibility_timeout_sec=20)\nprint(sim.lease_task(\"task_bill_99\", \"Worker_A\", current_time_sec=0))\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=5))\n# T=12s > 10s: Visibility timeout expired, Worker B steals lease while Worker A is still running!\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=12))"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Duplicate Execution & Double-Billing Incident Fore",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Visibility timeout overlap across concurrent workers",
+        "leftLabel": "Visibility Timeout Overlap",
+        "rightLabel": "Timeout Margin Safe",
         "steps": [
           {
             "at": "say1",
-            "caption": "The understand concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Duplicate",
-                  "Execution"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Long execution triggers visibility timeout expiry while work runs.",
+            "left": {
+              "code": "Worker_A runs 12s (> 10s)",
+              "result": "Lease Expired Mid-Work",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Worker_A finishes in 4s",
+              "result": "Within 10s Lease Window",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Double",
-                  "Billing"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Two concurrent workers execute identical billing tasks creating double charges.",
+            "left": {
+              "code": "Worker_B pulls task_bill_99",
+              "result": "Duplicate Billing Charge!",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Ack Sent Before 10s",
+              "result": "Removed From Queue",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Timeout overlap causes both workers to run billing tasks twice.",
+            "left": {
+              "code": "Worker_A + Worker_B Both Run",
+              "result": "2x Customer Charges",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Idempotency + Heartbeat",
+              "result": "Exactly 1 Charge",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase visibility_timeout_sec in simulator confirming Worker locked out.",
+            "left": {
+              "code": "VisibilityTimeoutSimulator(visibility_timeout_sec=10)",
+              "result": "Worker_B steals lease at T=12s",
+              "tone": "error",
+              "checks": [
+                "Task 'task_bill_99' leased to Worker_B at T=12s",
+                "LEASE_STOLEN_AT_T12"
+              ],
+              "whatIf": "class VisibilityTimeoutSimulator:\n    def __init__(self, visibility_timeout_sec=10):\n        self.visibility_timeout = visibility_timeout_sec\n        self.in_flight = {}\n\n    def lease_task(self, task_id, worker_id, current_time_sec):\n        if task_id in self.in_flight:\n            leased_at, prior_worker = self.in_flight[task_id]\n            if (current_time_sec - leased_at) < self.visibility_timeout:\n                return f\"Task '{task_id}' locked by {prior_worker} (visible in {self.visibility_timeout - (current_time_sec - leased_at)}s)\"\n        self.in_flight[task_id] = (current_time_sec, worker_id)\n        return f\"Task '{task_id}' leased to {worker_id} at T={current_time_sec}s\"\n\nsim = VisibilityTimeoutSimulator(visibility_timeout_sec=10)\nprint(sim.lease_task(\"task_bill_99\", \"Worker_A\", current_time_sec=0))\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=5))\n# T=12s > 10s: Visibility timeout expired, Worker B steals lease while Worker A is still running!\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=12))\nprint(\"LEASE_STOLEN_AT_T12\")"
+            },
+            "right": {
+              "code": "VisibilityTimeoutSimulator(visibility_timeout_sec=20)",
+              "result": "Locked by Worker_A (visible in 8s)",
+              "tone": "ok",
+              "checks": [
+                "Task 'task_bill_99' locked by Worker_A (visible in 8s)"
+              ],
+              "whatIf": "class VisibilityTimeoutSimulator:\n    def __init__(self, visibility_timeout_sec=10):\n        self.visibility_timeout = visibility_timeout_sec\n        self.in_flight = {}\n\n    def lease_task(self, task_id, worker_id, current_time_sec):\n        if task_id in self.in_flight:\n            leased_at, prior_worker = self.in_flight[task_id]\n            if (current_time_sec - leased_at) < self.visibility_timeout:\n                return f\"Task '{task_id}' locked by {prior_worker} (visible in {self.visibility_timeout - (current_time_sec - leased_at)}s)\"\n        self.in_flight[task_id] = (current_time_sec, worker_id)\n        return f\"Task '{task_id}' leased to {worker_id} at T={current_time_sec}s\"\n\nsim = VisibilityTimeoutSimulator(visibility_timeout_sec=20)\nprint(sim.lease_task(\"task_bill_99\", \"Worker_A\", current_time_sec=0))\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=5))\n# T=12s > 10s: Visibility timeout expired, Worker B steals lease while Worker A is still running!\nprint(sim.lease_task(\"task_bill_99\", \"Worker_B\", current_time_sec=12))"
+            }
           }
         ]
       }
@@ -177,81 +382,181 @@
       "partTitle": "Idempotency Keys & Deduplication Store Architecture",
       "codeHash": "4de7769b51774e555de66d86d9b66591db3bc56569d0b9210035976059b2b36a",
       "spec": {
-        "template": "table",
-        "title": "Idempotency Keys & Deduplication Store Architectur",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "IdempotencyCache deduplication store flow",
+        "boxes": [
+          {
+            "id": "key",
+            "label": "execute_idempotent"
+          },
+          {
+            "id": "rec",
+            "label": "records"
+          },
+          {
+            "id": "tx",
+            "label": "tx_882194"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The primary concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Idempotency"
-                  },
-                  {
-                    "text": "Keys"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Idempotency keys uniquely identify each logical transaction attempt.",
+            "values": {
+              "key": {
+                "text": "sub_renewal_usr_4401_oct"
+              },
+              "rec": {
+                "text": "IdempotencyCache"
+              },
+              "tx": {
+                "text": "4900"
               }
-            ]
+            },
+            "tones": {
+              "key": "data",
+              "rec": "idle",
+              "tx": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The idempotency logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Deduplication"
-                  },
-                  {
-                    "text": "Store"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Redis idempotency store detects duplicate message arrivals before execution.",
+            "values": {
+              "key": {
+                "text": "execute_idempotent"
+              },
+              "rec": {
+                "text": "records"
+              },
+              "tx": {
+                "text": "PAID"
               }
-            ]
+            },
+            "tones": {
+              "key": "ok",
+              "rec": "ok",
+              "tx": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Interceptor catches duplicate billing requests and returns cached results.",
+            "values": {
+              "key": {
+                "text": "sub_renewal_usr_4401_oct"
+              },
+              "rec": {
+                "text": "records"
+              },
+              "tx": {
+                "text": "tx_882194"
+              }
+            },
+            "tones": {
+              "key": "ok",
+              "rec": "ok",
+              "tx": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Execute third idempotent call with identical key to confirm cached output.",
+            "values": {
+              "key": {
+                "text": "Execute"
+              },
+              "rec": {
+                "text": "request"
+              },
+              "tx": {
+                "text": "the"
+              }
+            },
+            "tones": {
+              "key": "ok",
+              "rec": "ok",
+              "tx": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Idempotency Keys & Deduplication Store Architectur",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "IdempotencyCache deduplication store flow",
+        "boxes": [
+          {
+            "id": "key",
+            "label": "execute_idempotent"
+          },
+          {
+            "id": "rec",
+            "label": "records"
+          },
+          {
+            "id": "tx",
+            "label": "tx_882194"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The primary concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Idempotency",
-                  "Keys"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Idempotency keys uniquely identify each logical transaction attempt.",
+            "values": {
+              "key": "sub_renewal_usr_4401_oct",
+              "rec": "Miss (First Attempt)",
+              "tx": "Charging 4900 cents"
+            },
+            "tones": {
+              "key": "data",
+              "rec": "idle",
+              "tx": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The idempotency logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Deduplication",
-                  "Store"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Redis idempotency store detects duplicate message arrivals before execution.",
+            "values": {
+              "key": "Retry Arrived (Same Key)",
+              "rec": "Hit in records[]",
+              "tx": "Return Cached PAID"
+            },
+            "tones": {
+              "key": "ok",
+              "rec": "ok",
+              "tx": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Interceptor catches duplicate billing requests and returns cached results.",
+            "values": {
+              "key": "Dedup Guard Active",
+              "rec": "1 Record Stored",
+              "tx": "tx_882194 Charged 1x"
+            },
+            "tones": {
+              "key": "ok",
+              "rec": "ok",
+              "tx": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Execute third idempotent call with identical key to confirm cached output.",
+            "values": {
+              "key": "Call 3 Cache Hit",
+              "rec": "1 Gateway Tx Only",
+              "tx": "tx_882194 Reused 3x"
+            },
+            "tones": {
+              "key": "ok",
+              "rec": "ok",
+              "tx": "data"
+            },
+            "whatIf": "class IdempotencyCache:\n    def __init__(self):\n        self.records = {}\n\n    def execute_idempotent(self, idempotency_key, action_func):\n        if idempotency_key in self.records:\n            return f\"DUPLICATE DETECTED -> Cached output: {self.records[idempotency_key]}\"\n        result = action_func()\n        self.records[idempotency_key] = result\n        return f\"FIRST EXECUTION -> Result: {result}\"\n\ncache = IdempotencyCache()\ncharge_call = lambda: {\"status\": \"PAID\", \"tx_id\": \"tx_882194\", \"amount_cents\": 4900}\n\nres1 = cache.execute_idempotent(\"sub_renewal_usr_4401_oct\", charge_call)\nres2 = cache.execute_idempotent(\"sub_renewal_usr_4401_oct\", charge_call)\n\nprint(\"Call 1:\", res1)\nres3 = cache.execute_idempotent(\"sub_renewal_usr_4401_oct\", charge_call)\nprint(\"Call 2:\", res2)\nprint(\"Call 3:\", res3)",
+            "checks": [
+              "Call 3: DUPLICATE DETECTED -> Cached output: {'status': 'PAID', 'tx_id': 'tx_882194', 'amount_cents': 4900}"
             ]
           }
         ]
@@ -261,81 +566,257 @@
       "partTitle": "Distributed Locking with Leases & Auto-Release TTL",
       "codeHash": "89587c2449d6336affc0cca58827f24d7e1b1d0e97b88c70842f16fe6fd1a3c5",
       "spec": {
-        "template": "table",
-        "title": "Distributed Locking with Leases & Auto-Release TTL",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "DistributedMutex lease ownership and TTL window",
         "steps": [
           {
             "at": "say1",
-            "caption": "The idempotency concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Distributed mutex locks serialize critical execution across concurrent nodes.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Distributed"
-                  },
-                  {
-                    "text": "Locking"
-                  }
-                ],
-                "tone": "data"
+                "text": "DistributedMutex"
+              },
+              {
+                "text": "billing_lock_user_88"
+              },
+              {
+                "text": "worker_node_1"
+              },
+              {
+                "text": "worker_node_2"
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The worker logic drives deterministic execution.",
-            "rows": [
+            ],
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "Leases"
-                  }
-                ],
+                "name": "owner",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Lease expiration prevents deadlocked crashes from blocking future locks.",
+            "items": [
+              {
+                "text": "acquire"
+              },
+              {
+                "text": "5000"
+              },
+              {
+                "text": "locks"
+              },
+              {
+                "text": "release"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "ttl",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Mutual exclusion grants one worker exclusive lock ownership with lease TTL.",
+            "items": [
+              {
+                "text": "billing_lock_user_88"
+              },
+              {
+                "text": "worker_node_1"
+              },
+              {
+                "text": "worker_node_2"
+              },
+              {
+                "text": "release"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "lock",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              2
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "error",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify Worker 2 attempt to release Worker 1 distributed lock is rejected.",
+            "items": [
+              {
+                "text": "Simulate"
+              },
+              {
+                "text": "attempting"
+              },
+              {
+                "text": "Worker"
+              },
+              {
+                "text": "lock"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "rejected",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "error",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed Locking with Leases & Auto-Release TTL",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "DistributedMutex lease ownership and TTL window",
         "steps": [
           {
             "at": "say1",
-            "caption": "The idempotency concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Distributed mutex locks serialize critical execution across concurrent nodes.",
+            "items": [
+              "DistributedMutex",
+              "billing_lock_user_88",
+              "worker_node_1 ACQUIRED",
+              "worker_node_2 BLOCKED"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Distributed",
-                  "Locking"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The worker logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "with",
-                  "Leases"
-                ],
+                "name": "owner",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Lease expiration prevents deadlocked crashes from blocking future locks.",
+            "items": [
+              "Atomic acquire()",
+              "5000ms Auto-TTL",
+              "Active Lease Entry",
+              "Safe release()"
+            ],
+            "pointers": [
+              {
+                "name": "ttl",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Mutual exclusion grants one worker exclusive lock ownership with lease TTL.",
+            "items": [
+              "billing_lock_user_88",
+              "worker_node_1 Owns",
+              "worker_node_2 Denied",
+              "Released Cleanly"
+            ],
+            "pointers": [
+              {
+                "name": "lock",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              2
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "error",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify Worker 2 attempt to release Worker 1 distributed lock is rejected.",
+            "items": [
+              "billing_lock_user_88",
+              "worker_node_1 Owns",
+              "Node 2 Release Rejected",
+              "Node 1 Clean Release"
+            ],
+            "pointers": [
+              {
+                "name": "rejected",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "error",
+              "3": "ok"
+            },
+            "whatIf": "class DistributedMutex:\n    def __init__(self):\n        self.locks = {}\n\n    def acquire(self, lock_key, owner_id, ttl_ms=5000):\n        if lock_key in self.locks:\n            return False, f\"Lock '{lock_key}' held by {self.locks[lock_key]['owner']}\"\n        self.locks[lock_key] = {\"owner\": owner_id, \"ttl_ms\": ttl_ms}\n        return True, f\"Lock '{lock_key}' acquired by {owner_id} (TTL={ttl_ms}ms)\"\n\n    def release(self, lock_key, owner_id):\n        if self.locks.get(lock_key, {}).get(\"owner\") == owner_id:\n            del self.locks[lock_key]\n            return True, f\"Lock '{lock_key}' released by {owner_id}\"\n        return False, \"Release rejected: not owner or lock missing\"\n\nmutex = DistributedMutex()\nok1, msg1 = mutex.acquire(\"billing_lock_user_88\", \"worker_node_1\")\nok2, msg2 = mutex.acquire(\"billing_lock_user_88\", \"worker_node_2\")\nok_bad, msg_bad = mutex.release(\"billing_lock_user_88\", \"worker_node_2\")\nprint(f\"Node 2 Bad Release: {ok_bad} -> {msg_bad}\")\nok3, msg3 = mutex.release(\"billing_lock_user_88\", \"worker_node_1\")\n\nprint(f\"Node 1 Acquire: {ok1} -> {msg1}\")\nprint(f\"Node 2 Contention: {ok2} -> {msg2}\")\nprint(f\"Node 1 Release: {ok3} -> {msg3}\")",
+            "checks": [
+              "Node 2 Bad Release: False -> Release rejected: not owner or lock missing"
             ]
           }
         ]
@@ -346,23 +827,41 @@
       "codeHash": "9d4df1c8a55f4b718a40fdddc02759cbb11f5bff2134c6b18409255b13102d7c",
       "spec": {
         "template": "table",
-        "title": "Subscription Billing Pipeline Idempotency Hardenin",
+        "title": "ResilientBillingOrchestrator outcomes matrix",
         "columns": [
-          "Stage",
-          "Concept"
+          "State",
+          "Guard",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "caption": "Hardened pipelines combine distributed locks with idempotent state records.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Subscription"
+                    "text": "CHARGE_SUCCESS"
                   },
                   {
-                    "text": "Billing"
+                    "text": "active_locks"
+                  },
+                  {
+                    "text": "AUTH_99182"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "processed_transactions"
+                  },
+                  {
+                    "text": "ResilientBillingOrchestrator"
+                  },
+                  {
+                    "text": "gateway_charges"
                   }
                 ],
                 "tone": "data"
@@ -370,19 +869,104 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The transaction logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Duplicate retries resolve via idempotent cache hits without double billing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Pipeline"
+                    "text": "IDEMPOTENT_HIT"
                   },
                   {
-                    "text": "Idempotency"
+                    "text": "processed_transactions"
+                  },
+                  {
+                    "text": "AUTH_99182"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "CONCURRENCY_LOCKED"
+                  },
+                  {
+                    "text": "active_locks"
+                  },
+                  {
+                    "text": "gateway_charges"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Billing orchestrator protects transactions under concurrent retries and locks.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "CHARGE_SUCCESS"
+                  },
+                  {
+                    "text": "AUTH_99182"
+                  },
+                  {
+                    "text": "gateway_charges"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "IDEMPOTENT_HIT"
+                  },
+                  {
+                    "text": "CONCURRENCY_LOCKED"
+                  },
+                  {
+                    "text": "processed_transactions"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third payment with altered customer ID as a separate billing transaction.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "third"
+                  },
+                  {
+                    "text": "payment"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "payment"
+                  },
+                  {
+                    "text": "attempt"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -390,36 +974,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Subscription Billing Pipeline Idempotency Hardenin",
+        "title": "ResilientBillingOrchestrator outcomes matrix",
         "columns": [
-          "Stage",
-          "Concept"
+          "State",
+          "Guard",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "caption": "Hardened pipelines combine distributed locks with idempotent state records.",
             "rows": [
               {
                 "cells": [
-                  "Subscription",
-                  "Billing"
+                  "CHARGE_SUCCESS",
+                  "Lock Acquired + Charged",
+                  "AUTH_99182 Issued"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Saved Transaction",
+                  "Orchestrator Commit",
+                  "gateway_charges = 1"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The transaction logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Duplicate retries resolve via idempotent cache hits without double billing.",
             "rows": [
               {
                 "cells": [
-                  "Pipeline",
-                  "Idempotency"
+                  "IDEMPOTENT_HIT",
+                  "Found in Store",
+                  "Replayed AUTH_99182"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "CONCURRENCY_LOCKED",
+                  "Mutex Contended",
+                  "gateway_charges = 1"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Billing orchestrator protects transactions under concurrent retries and locks.",
+            "rows": [
+              {
+                "cells": [
+                  "CHARGE_SUCCESS",
+                  "AUTH_99182",
+                  "Single Card Charge"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "IDEMPOTENT_HIT",
+                  "Mutex + Store",
+                  "Zero Double Billing"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third payment with altered customer ID as a separate billing transaction.",
+            "rows": [
+              {
+                "cells": [
+                  "Attempt 1 & 2 (cust_330)",
+                  "Same Idempotency Key",
+                  "1 Charge Made"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Attempt 3 (cust_999)",
+                  "Distinct Key inv_77191",
+                  "Separate CHARGE_SUCCESS (2 total)"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class ResilientBillingOrchestrator:\n    def __init__(self):\n        self.processed_transactions = {}\n        self.active_locks = set()\n        self.gateway_charges = 0\n\n    def process_charge(self, idempotency_key, customer_id, amount_cents):\n        if idempotency_key in self.processed_transactions:\n            return \"IDEMPOTENT_HIT\", self.processed_transactions[idempotency_key]\n\n        if idempotency_key in self.active_locks:\n            return \"CONCURRENCY_LOCKED\", \"Charge currently in-flight by another worker.\"\n\n        # Acquire lock\n        self.active_locks.add(idempotency_key)\n        try:\n            # Execute physical billing gateway charge\n            self.gateway_charges += 1\n            record = {\"customer\": customer_id, \"amount_cents\": amount_cents, \"auth_code\": \"AUTH_99182\"}\n            self.processed_transactions[idempotency_key] = record\n            return \"CHARGE_SUCCESS\", record\n        finally:\n            self.active_locks.remove(idempotency_key)\n\norchestrator = ResilientBillingOrchestrator()\nk = \"order_renewal_inv_77190\"\n\ns1, r1 = orchestrator.process_charge(k, \"cust_330\", 2999)\n# Concurrent duplicate attempt simulating broker redelivery\ns2, r2 = orchestrator.process_charge(k, \"cust_330\", 2999)\n\nprint(f\"Attempt 1: Status={s1}, Auth={r1['auth_code']}\")\nprint(f\"Attempt 2: Status={s2}, Details={r2}\")\ns3, r3 = orchestrator.process_charge(\"order_renewal_inv_77191\", \"cust_999\", 4999)\nprint(f\"Attempt 3 (cust_999): Status={s3}, Customer={r3['customer']}\")\nprint(f\"Total Payment Gateway API Invocations: {orchestrator.gateway_charges}\")\nprint(\"INVARIANT SATISFIED: Exactly 1 charge made despite duplicate broker deliveries.\")",
+            "checks": [
+              "Attempt 3 (cust_999): Status=CHARGE_SUCCESS, Customer=cust_999",
+              "Total Payment Gateway API Invocations: 2"
             ]
           }
         ]

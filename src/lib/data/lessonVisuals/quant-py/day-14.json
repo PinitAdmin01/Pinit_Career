@@ -2,256 +2,172 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Single instruction, multiple data",
       "codeHash": "25c2ace1e6e224352332074b3d4a5d8ea4536b9f7fdd5ec1b2ba4c4ef4c71df9",
       "spec": {
-        "template": "table",
-        "title": "SIMD register architectures and parallel vector lane capacities",
-        "columns": [
-          "name",
-          "bits"
+        "template": "flow",
+        "title": "Single instruction, multiple data",
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "bits",
+            "label": "bits"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SIMD execution applies one CPU instruction across parallel register lanes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "SIMD (single instruction, multiple data) lets one CPU instruction operate.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 1,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 1,
+                "hit": 1
               }
+            },
+            "tones": {
+              "name": "data",
+              "bits": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "bits"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Modern CPUs include dedicated vector hardware with wide registers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Intel and AMD CPUs have 128-bit SSE, 256-bit AVX2 and 512-bit AVX-512.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "SSE"
-                  },
-                  {
-                    "text": "AVX2"
-                  }
-                ],
-                "tone": "ok"
+              "bits": {
+                "var": "bits",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "name": "data",
+              "bits": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "bits"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vector registers pack single precision floats and double precision numbers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Python does not expose SIMD directly, but NumPy uses it under the hood.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "SSE"
-                  },
-                  {
-                    "text": "AVX2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "AVX-512"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
+              "bits": {
+                "var": "bits",
+                "line": 1,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows lane counts across register widths for floats and doubles.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SSE"
-                  },
-                  {
-                    "text": "AVX2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "AVX-512"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "name": "ok",
+              "bits": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "bits"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SIMD register architectures and parallel vector lane capacities",
-        "columns": [
-          "name",
-          "bits"
+        "template": "flow",
+        "title": "Single instruction, multiple data",
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "bits",
+            "label": "bits"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SIMD execution applies one CPU instruction across parallel register lanes.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "bits"
-                ],
-                "tone": "ok"
-              }
+            "caption": "SIMD (single instruction, multiple data) lets one CPU instruction operate.",
+            "values": {
+              "name": "'SSE'",
+              "bits": "128"
+            },
+            "tones": {
+              "name": "data",
+              "bits": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "bits"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Modern CPUs include dedicated vector hardware with wide registers.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "bits"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SSE",
-                  "AVX2"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Intel and AMD CPUs have 128-bit SSE, 256-bit AVX2 and 512-bit AVX-512.",
+            "values": {
+              "name": "'SSE'",
+              "bits": "128"
+            },
+            "tones": {
+              "name": "data",
+              "bits": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "bits"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vector registers pack single precision floats and double precision numbers.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "bits"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SSE",
-                  "AVX2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "AVX-512",
-                  "print"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows lane counts across register widths for floats and doubles.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "bits"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SSE",
-                  "AVX2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "AVX-512",
-                  "print"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Python does not expose SIMD directly, but NumPy uses it under the hood.",
+            "values": {
+              "name": "'AVX2'",
+              "bits": "256"
+            },
+            "tones": {
+              "name": "ok",
+              "bits": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "bits"
+              ]
             ]
           }
         ]
@@ -261,143 +177,91 @@
       "partTitle": "Chunks and the scalar tail",
       "codeHash": "25321f85a85a497a797347f517d74e532605c61cde984732ac1f9e45f7cfe167",
       "spec": {
-        "template": "table",
-        "title": "SIMD batch chunking and scalar remainder tail processing",
-        "columns": [
+        "template": "sequence",
+        "title": "Chunks and the scalar tail",
+        "actors": [
           "width",
+          "n",
           "full"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vectorized loops partition uniform array data into fixed width chunks.",
-            "rows": [
+            "caption": "A vectorised loop processes the data in chunks of the vector width.",
+            "activeActor": "width",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "full"
-                  }
-                ],
+                "from": "width",
+                "to": "n",
+                "label": {
+                  "var": "width",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Scalar tail loops process leftover elements sequentially after batch sweeps.",
-            "rows": [
+            "caption": "Those leftovers are handled one at a time by ordinary scalar code, called.",
+            "activeActor": "n",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "full"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Vectorization changes execution speed while producing identical arithmetic.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "full"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
+                "from": "width",
+                "to": "n",
+                "label": {
+                  "var": "width",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows the chunk boundaries for varying array lengths.",
-            "rows": [
+            "caption": "The example shows the chunk boundaries for a few lengths.",
+            "activeActor": "full",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "full"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
+                "from": "width",
+                "to": "n",
+                "label": {
+                  "var": "width",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
+                "from": "n",
+                "to": "full",
+                "label": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,106 +269,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SIMD batch chunking and scalar remainder tail processing",
-        "columns": [
+        "template": "sequence",
+        "title": "Chunks and the scalar tail",
+        "actors": [
           "width",
+          "n",
           "full"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vectorized loops partition uniform array data into fixed width chunks.",
-            "rows": [
+            "caption": "A vectorised loop processes the data in chunks of the vector width.",
+            "messages": [
               {
-                "cells": [
-                  "width",
-                  "full"
-                ],
+                "from": "width",
+                "to": "n",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": "8",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "width"
           },
           {
             "at": "say2",
-            "caption": "Scalar tail loops process leftover elements sequentially after batch sweeps.",
-            "rows": [
+            "caption": "Those leftovers are handled one at a time by ordinary scalar code, called.",
+            "messages": [
               {
-                "cells": [
-                  "width",
-                  "full"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "range"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Vectorization changes execution speed while producing identical arithmetic.",
-            "rows": [
-              {
-                "cells": [
-                  "width",
-                  "full"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "range"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print",
-                  "list"
-                ],
+                "from": "width",
+                "to": "n",
+                "label": "8",
                 "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "full",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n"
           },
           {
             "at": "say7",
-            "caption": "The example shows the chunk boundaries for varying array lengths.",
-            "rows": [
+            "caption": "The example shows the chunk boundaries for a few lengths.",
+            "messages": [
               {
-                "cells": [
-                  "width",
-                  "full"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "range"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print",
-                  "list"
-                ],
+                "from": "width",
+                "to": "n",
+                "label": "8",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "width",
-                  "chunks"
-                ],
+                "from": "n",
+                "to": "full",
+                "label": "8",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "full"
           }
         ]
       }
@@ -513,248 +341,111 @@
       "partTitle": "Amdahl's law",
       "codeHash": "560e35bd8eab740627f5d7b4c4cc24a950ffc6a683c95e61d450af2e68b5319f",
       "spec": {
-        "template": "table",
-        "title": "Amdahl law parallel acceleration limits and serial bottlenecks",
-        "columns": [
-          "width",
-          "p"
-        ],
+        "template": "cells",
+        "title": "Amdahl's law",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vectorising parts of code limits overall gains when serial code remains.",
-            "rows": [
+            "caption": "Vectorising part of a program speeds up only that part.",
+            "items": {
+              "var": "row",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "p"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Amdahl formula models overall speedup from parallel fraction and width.",
-            "rows": [
+            "caption": "If a fraction p of the work gets a speedup of s (here, the vector width).",
+            "items": {
+              "var": "row",
+              "line": 5,
+              "hit": 9
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "p"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "row"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Serial bottlenecks limit returns regardless of additional parallel hardware.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "p"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "row"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "amdahl"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example prints speedup projections across fractions and vector widths.",
-            "rows": [
+            "at": "say7",
+            "caption": "Even infinite width cannot beat 1 / (1 - p).",
+            "items": {
+              "var": "row",
+              "line": 5,
+              "hit": 12
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "p"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "row"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "amdahl"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "width"
-                  },
-                  {
-                    "text": "amdahl"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Amdahl law parallel acceleration limits and serial bottlenecks",
-        "columns": [
-          "width",
-          "p"
-        ],
+        "template": "cells",
+        "title": "Amdahl's law",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vectorising parts of code limits overall gains when serial code remains.",
-            "rows": [
+            "caption": "Vectorising part of a program speeds up only that part.",
+            "items": [
+              "1.6",
+              "1.78",
+              "1.88",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "width",
-                  "p"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Amdahl formula models overall speedup from parallel fraction and width.",
-            "rows": [
+            "caption": "If a fraction p of the work gets a speedup of s (here, the vector width).",
+            "items": [
+              "1.6",
+              "1.78",
+              "1.88",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "width",
-                  "p"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "row",
-                  "round"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Serial bottlenecks limit returns regardless of additional parallel hardware.",
-            "rows": [
-              {
-                "cells": [
-                  "width",
-                  "p"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "row",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amdahl",
-                  "print"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example prints speedup projections across fractions and vector widths.",
-            "rows": [
+            "at": "say7",
+            "caption": "Even infinite width cannot beat 1 / (1 - p).",
+            "items": [
+              "3.08",
+              "4.71",
+              "6.4",
+              "9.91"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "width",
-                  "p"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "row",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amdahl",
-                  "print"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "width",
-                  "amdahl"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,248 +456,114 @@
       "partTitle": "What vectorises well in finance",
       "codeHash": "5161ff8e7e110580e80a6526a13b39529c74dca27bb8a22ae110ea3eb191fd0c",
       "spec": {
-        "template": "table",
-        "title": "Branch-free execution, masking and SIMD pricing pipelines",
-        "columns": [
-          "branchy",
-          "blended"
-        ],
+        "template": "cells",
+        "title": "What vectorises well in finance",
         "steps": [
           {
             "at": "say1",
-            "caption": "Uniform pricing operations across independent contracts vectorise efficiently.",
-            "rows": [
+            "caption": "SIMD shines when the same simple operation runs over many independent numbers.",
+            "items": {
+              "var": "pnl",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "branchy"
-                  },
-                  {
-                    "text": "blended"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Conditional branches disrupt vectorisation across parallel execution lanes.",
-            "rows": [
+            "caption": "Branches (if statements) inside a loop hurt vectorisation, because lanes.",
+            "items": {
+              "var": "pnl",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "branchy"
-                  },
-                  {
-                    "text": "blended"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares branchy logic against branch-free masking operations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "branchy"
-                  },
-                  {
-                    "text": "blended"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "append"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Branch-free arithmetic prevents branch prediction penalties on CPUs.",
-            "rows": [
+            "caption": "Branch-free thinking is a useful skill even outside SIMD, since.",
+            "items": {
+              "var": "pnl",
+              "line": 4,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "branchy"
-                  },
-                  {
-                    "text": "blended"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "append"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mask"
-                  },
-                  {
-                    "text": "blended"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Branch-free execution, masking and SIMD pricing pipelines",
-        "columns": [
-          "branchy",
-          "blended"
-        ],
+        "template": "cells",
+        "title": "What vectorises well in finance",
         "steps": [
           {
             "at": "say1",
-            "caption": "Uniform pricing operations across independent contracts vectorise efficiently.",
-            "rows": [
+            "caption": "SIMD shines when the same simple operation runs over many independent numbers.",
+            "items": [
+              "120",
+              "-40",
+              "15",
+              "-300",
+              "80"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "branchy",
-                  "blended"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Conditional branches disrupt vectorisation across parallel execution lanes.",
-            "rows": [
+            "caption": "Branches (if statements) inside a loop hurt vectorisation, because lanes.",
+            "items": [
+              "120",
+              "-40",
+              "15",
+              "-300",
+              "80"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "branchy",
-                  "blended"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pnl",
-                  "mask"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares branchy logic against branch-free masking operations.",
-            "rows": [
-              {
-                "cells": [
-                  "branchy",
-                  "blended"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pnl",
-                  "mask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "append",
-                  "zip"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Branch-free arithmetic prevents branch prediction penalties on CPUs.",
-            "rows": [
+            "caption": "Branch-free thinking is a useful skill even outside SIMD, since.",
+            "items": [
+              "120",
+              "-40",
+              "15",
+              "-300",
+              "80"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "branchy",
-                  "blended"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pnl",
-                  "mask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "append",
-                  "zip"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "mask",
-                  "blended"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +574,165 @@
       "partTitle": "Measuring before optimising",
       "codeHash": "1349c52c525f40d3e1c033c27f1d8b5a6187a11a205b00350adca24206a22d04",
       "spec": {
-        "template": "flow",
-        "title": "Measuring before optimising — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring before op...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Measuring before optimising",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Measuring before optimising [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Measuring before op... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Optimisation without measurement is guesswork.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Use profilers (perf, VTune, or cProfile in Python) to find the hottest.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Measuring before optimising.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In Python, the biggest wins usually come from moving loops into optimised.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Measuring before optimising — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring before op...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Measuring before optimising",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Measuring before optimising [D14.P5.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Measuring before op... [D14.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Optimisation without measurement is guesswork.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "same result: True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "timed both versions: True"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Use profilers (perf, VTune, or cProfile in Python) to find the hottest.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "same result: True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "timed both versions: True"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Measuring before optimising [D14.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In Python, the biggest wins usually come from moving loops into optimised.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "same result: True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "timed both versions: True"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +742,133 @@
       "partTitle": "Practice time: vectors and speedups",
       "codeHash": "6fdbed7c47253ed60d8f570ad52222d4d048f854f522e64d5a2c8c1388256c88",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: vectors and speedups — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vect...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: vectors and speedups",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: vectors and speedups.",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: vect... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Simd_dot(a, b, width=8).",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "width",
+                "value": {
+                  "var": "width",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how return updates product during execution.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": {
+                  "var": "width",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: vectors and speedups.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example prints that decision table.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": {
+                  "var": "width",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: vectors and speedups — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vect...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: vectors and speedups",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: vectors and speedups [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: vect... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Simd_dot(a, b, width=8).",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.3,
+                "tone": "data"
+              },
+              {
+                "label": "width",
+                "value": 8,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how return updates product during execution.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: vectors and speedups [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example prints that decision table.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": 8,
+                "tone": "ok"
+              }
             ]
           }
         ]

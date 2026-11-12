@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Events, producers and consumers",
       "codeHash": "af7e185f362e72e396dedc9cc007aabc768885341c12fa63492a61220096c7aa",
       "spec": {
-        "template": "flow",
-        "title": "Events, producers and consumers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Events, producers a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Events, producers and consumers",
+        "actors": [
+          "topic",
+          "e",
+          "event"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Events, producers and consumers.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Events, producers a... [Dtwelve.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In event-driven systems, services publish events (\"OrderPlaced\".",
+            "activeActor": "topic",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "e",
+                "label": {
+                  "var": "topic",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": {
+                  "var": "e",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Producers write events to a topic.",
+            "activeActor": "e",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "e",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Events, producers and consumers.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The rest of the lesson explains how Kafka splits a topic for scale without.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "e",
+                "label": {
+                  "var": "topic",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": {
+                  "var": "e",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Events, producers and consumers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Events, producers a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Events, producers and consumers",
+        "actors": [
+          "topic",
+          "e",
+          "event"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Events, producers and consumers [D12.P1.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Events, producers a... [D12.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In event-driven systems, services publish events (\"OrderPlaced\".",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "e",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": "'OrderPlaced #1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "topic"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Producers write events to a topic.",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "e",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": "'OrderPlaced #1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "e"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Events, producers and consumers [D12.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The rest of the lesson explains how Kafka splits a topic for scale without.",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "e",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": "'OrderPlaced #2'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           }
         ]
       }
@@ -235,235 +173,277 @@
       "partTitle": "Partitions and ordering by key",
       "codeHash": "fdfa96a4a6409e3ef2ed17ce56d8d8df1262ac664d0f35e94f25bc7df984b331",
       "spec": {
-        "template": "table",
-        "title": "Kafka partition key hashing and intra-partition message ordering",
-        "columns": [
-          "key",
-          "what",
-          "items"
+        "template": "flow",
+        "title": "Partitions and ordering by key",
+        "nodes": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "partitions",
+            "label": "partitions"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A topic splits into partitions spread across brokers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "order-7"
-                  },
-                  {
-                    "text": "placed"
-                  },
-                  {
-                    "text": "placed"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "One log on one machine cannot handle huge traffic, so a topic is split.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 7,
+                "hit": 1
+              },
+              "partitions": {
+                "var": "partitions",
+                "line": 8,
+                "hit": 4
+              },
+              "key": {
+                "var": "key",
+                "line": 9,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "events": "data",
+              "partitions": "data",
+              "key": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "partitions"
+              ],
+              [
+                "partitions",
+                "key"
+              ],
+              [
+                "key",
+                "what"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Events for one order go to the same partition to guarantee order.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "order-7"
-                  },
-                  {
-                    "text": "placed"
-                  },
-                  {
-                    "text": "placed"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Order is guaranteed only within a partition.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "order-7"
-                  },
-                  {
-                    "text": "paid"
-                  },
-                  {
-                    "text": "paid"
-                  }
-                ],
-                "tone": "ok"
+              "partitions": {
+                "var": "partitions",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "order-9"
-                  },
-                  {
-                    "text": "placed"
-                  },
-                  {
-                    "text": "placed"
-                  }
-                ],
-                "tone": "idle"
+              "key": {
+                "var": "key",
+                "line": 2,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "events": "data",
+              "partitions": "data",
+              "key": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "partitions"
+              ],
+              [
+                "partitions",
+                "key"
+              ],
+              [
+                "key",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Producers choose partition by hashing the message key.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "order-7"
-                  },
-                  {
-                    "text": "placed"
-                  },
-                  {
-                    "text": "placed"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example routes events for three orders and shows each order's events.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "order-7"
-                  },
-                  {
-                    "text": "paid"
-                  },
-                  {
-                    "text": "paid"
-                  }
-                ],
-                "tone": "ok"
+              "partitions": {
+                "var": "partitions",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "order-7"
-                  },
-                  {
-                    "text": "shipped"
-                  },
-                  {
-                    "text": "shipped"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "order-9"
-                  },
-                  {
-                    "text": "placed"
-                  },
-                  {
-                    "text": "placed"
-                  }
-                ],
-                "tone": "idle"
+              "what": {
+                "var": "what",
+                "line": 9,
+                "hit": 2
               }
+            },
+            "tones": {
+              "events": "ok",
+              "partitions": "ok",
+              "key": "ok",
+              "what": "ok"
+            },
+            "arrows": [
+              [
+                "events",
+                "partitions"
+              ],
+              [
+                "partitions",
+                "key"
+              ],
+              [
+                "key",
+                "what"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Kafka partition key hashing and intra-partition message ordering",
-        "columns": [
-          "key",
-          "what",
-          "items"
+        "template": "flow",
+        "title": "Partitions and ordering by key",
+        "nodes": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "partitions",
+            "label": "partitions"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A topic splits into partitions spread across brokers.",
-            "rows": [
-              {
-                "cells": [
-                  "order-7",
-                  "placed",
-                  "placed"
-                ],
-                "tone": "ok"
-              }
+            "caption": "One log on one machine cannot handle huge traffic, so a topic is split.",
+            "values": {
+              "events": "[['order-7', 'placed'], ['order-9', 'pl…",
+              "partitions": "{0: [], 1: [], 2: []}",
+              "key": "'order-7'",
+              "what": "'placed'"
+            },
+            "tones": {
+              "events": "data",
+              "partitions": "data",
+              "key": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "partitions"
+              ],
+              [
+                "partitions",
+                "key"
+              ],
+              [
+                "key",
+                "what"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Events for one order go to the same partition to guarantee order.",
-            "rows": [
-              {
-                "cells": [
-                  "order-7",
-                  "placed",
-                  "placed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "order-7",
-                  "paid",
-                  "paid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "order-9",
-                  "placed",
-                  "placed"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Order is guaranteed only within a partition.",
+            "values": {
+              "events": "[['order-7', 'placed'], ['order-9', 'pl…",
+              "partitions": "{0: [], 1: [], 2: []}",
+              "key": "'order-7'",
+              "what": "'placed'"
+            },
+            "tones": {
+              "events": "data",
+              "partitions": "data",
+              "key": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "partitions"
+              ],
+              [
+                "partitions",
+                "key"
+              ],
+              [
+                "key",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Producers choose partition by hashing the message key.",
-            "rows": [
-              {
-                "cells": [
-                  "order-7",
-                  "placed",
-                  "placed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "order-7",
-                  "paid",
-                  "paid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "order-7",
-                  "shipped",
-                  "shipped"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "order-9",
-                  "placed",
-                  "placed"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "The example routes events for three orders and shows each order's events.",
+            "values": {
+              "events": "[['order-7', 'placed'], ['order-9', 'pl…",
+              "partitions": "{0: [], 1: [], 2: ['order-7:placed']}",
+              "key": "'order-7'",
+              "what": "'placed'"
+            },
+            "tones": {
+              "events": "ok",
+              "partitions": "ok",
+              "key": "ok",
+              "what": "ok"
+            },
+            "arrows": [
+              [
+                "events",
+                "partitions"
+              ],
+              [
+                "partitions",
+                "key"
+              ],
+              [
+                "key",
+                "what"
+              ]
             ]
           }
         ]
@@ -473,220 +453,106 @@
       "partTitle": "Consumer groups",
       "codeHash": "8eeafcebe14f9e750ea0e7704c50eced168e6c9af7a23d62ec29b558c4896160",
       "spec": {
-        "template": "table",
-        "title": "Kafka consumer group partition assignment and parallel processing",
-        "columns": [
-          "consumers",
-          "num_partitions"
+        "template": "states",
+        "title": "Consumer groups",
+        "states": [
+          {
+            "id": "num_partitions",
+            "label": "num_partitions"
+          },
+          {
+            "id": "consumers",
+            "label": "consumers"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Several consumers form a consumer group to share partitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "c1"
-                  },
-                  {
-                    "text": "6"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "6"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "To process a busy topic faster, several consumers form a consumer group.",
+            "currentState": "num_partitions",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Function assign_partitions assigns each partition to a consumer.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "c1"
-                  },
-                  {
-                    "text": "6"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "6"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c3"
-                  },
-                  {
-                    "text": "6"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c4"
-                  },
-                  {
-                    "text": "6"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "So partitions are the unit of parallelism.",
+            "currentState": "consumers",
+            "transition": {
+              "from": "num_partitions",
+              "to": "consumers",
+              "label": {
+                "var": "consumers",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Different groups each receive all messages from the same topic.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "c1"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c3"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Trace how example updates assigns during execution.",
+            "currentState": "c",
+            "transition": {
+              "from": "consumers",
+              "to": "c",
+              "label": {
+                "var": "c",
+                "line": 2,
+                "hit": 3
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Kafka consumer group partition assignment and parallel processing",
-        "columns": [
-          "consumers",
-          "num_partitions"
+        "template": "states",
+        "title": "Consumer groups",
+        "states": [
+          {
+            "id": "num_partitions",
+            "label": "num_partitions"
+          },
+          {
+            "id": "consumers",
+            "label": "consumers"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Several consumers form a consumer group to share partitions.",
-            "rows": [
-              {
-                "cells": [
-                  "c1",
-                  "6"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c2",
-                  "6"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "To process a busy topic faster, several consumers form a consumer group.",
+            "currentState": "num_partitions",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Function assign_partitions assigns each partition to a consumer.",
-            "rows": [
-              {
-                "cells": [
-                  "c1",
-                  "6"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c2",
-                  "6"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c3",
-                  "6"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c4",
-                  "6"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "So partitions are the unit of parallelism.",
+            "currentState": "consumers",
+            "transition": {
+              "from": "num_partitions",
+              "to": "consumers",
+              "label": "['c1', 'c2', 'c3', 'c4']"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Different groups each receive all messages from the same topic.",
-            "rows": [
-              {
-                "cells": [
-                  "c1",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c2",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c3",
-                  "2"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "at": "say7",
+            "caption": "Trace how example updates assigns during execution.",
+            "currentState": "c",
+            "transition": {
+              "from": "consumers",
+              "to": "c",
+              "label": "'c3'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -695,223 +561,112 @@
       "partTitle": "Rebalancing",
       "codeHash": "85ffd4edc9ed19c13635b868d8be06b64976357b4446d6d5c7243602c42e7305",
       "spec": {
-        "template": "flow",
-        "title": "Rebalancing — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Rebalancing",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Rebalancing",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Rebalancing [Dtwelve.Pfour.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Rebalancing [Dtwelve.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "When a consumer joins, leaves or crashes, the group rebalances.",
+            "items": {
+              "var": "consumers",
+              "line": 2,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "During a rebalance, consumption pauses briefly.",
+            "items": {
+              "var": "consumers",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Rebalancing [Dtwelve.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Keep processing per message short, and heartbeats regular, to avoid.",
+            "items": {
+              "var": "consumers",
+              "line": 3,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Rebalancing — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Rebalancing",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Rebalancing",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Rebalancing [D12.P4.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rebalancing [D12.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "When a consumer joins, leaves or crashes, the group rebalances.",
+            "items": [
+              "'c1'",
+              "'c2'",
+              "'c3'",
+              "'c4'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "During a rebalance, consumption pauses briefly.",
+            "items": [
+              "'c1'",
+              "'c2'",
+              "'c3'",
+              "'c4'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rebalancing [D12.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Keep processing per message short, and heartbeats regular, to avoid.",
+            "items": [
+              "'c1'",
+              "'c2'",
+              "'c3'",
+              "'c4'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -921,132 +676,116 @@
       "partTitle": "Offsets and commits",
       "codeHash": "8a51486e9ca96db3c56a4f5adba8e9fca5a957d4c9e20bc77787ccb1b9d4abd8",
       "spec": {
-        "template": "compare",
-        "title": "Kafka offset commit timing crash semantics and replay behavior",
-        "leftLabel": "Clean Normal Processing",
-        "rightLabel": "Crash Before Offset Commit",
+        "template": "cells",
+        "title": "Offsets and commits",
         "steps": [
           {
             "at": "say1",
-            "caption": "Each message in a partition has an offset position number.",
-            "left": {
-              "code": "reading next message",
-              "result": {
-                "text": "m0"
-              },
-              "tone": "ok"
+            "caption": "Each message in a partition has an offset, its position number.",
+            "items": {
+              "var": "partition",
+              "line": 1,
+              "hit": 1
             },
-            "right": {
-              "code": "reading next message",
-              "result": {
-                "text": "m0"
-              },
-              "tone": "ok"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Crash between processing and committing reprocesses messages.",
-            "left": {
-              "code": "process and advance offset",
-              "result": {
-                "text": "done"
-              },
-              "tone": "ok"
+            "at": "say2",
+            "caption": "After a restart or rebalance, reading resumes from the committed offset.",
+            "items": {
+              "var": "partition",
+              "line": 5,
+              "hit": 1
             },
-            "right": {
-              "code": "crash before commit",
-              "result": {
-                "text": "crashed"
-              },
-              "tone": "error"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say7",
             "caption": "The simulation shows a crash between processing and committing.",
-            "left": {
-              "code": "normal offset progression",
-              "result": {
-                "text": "done"
-              },
-              "tone": "ok"
+            "items": {
+              "var": "partition",
+              "line": 16,
+              "hit": 1
             },
-            "right": {
-              "code": "message reprocessed upon restart",
-              "result": {
-                "text": "m2"
-              },
-              "tone": "idle"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Kafka offset commit timing crash semantics and replay behavior",
-        "leftLabel": "Clean Normal Processing",
-        "rightLabel": "Crash Before Offset Commit",
+        "template": "cells",
+        "title": "Offsets and commits",
         "steps": [
           {
             "at": "say1",
-            "caption": "Each message in a partition has an offset position number.",
-            "left": {
-              "code": "reading next message",
-              "result": "m0",
-              "tone": "ok",
-              "checks": [
-                "m0"
-              ]
-            },
-            "right": {
-              "code": "reading next message",
-              "result": "m0",
-              "tone": "ok",
-              "checks": [
-                "m0"
-              ]
-            }
+            "caption": "Each message in a partition has an offset, its position number.",
+            "items": [
+              "'m0'",
+              "'m1'",
+              "'m2'",
+              "'m3'",
+              "'m4'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Crash between processing and committing reprocesses messages.",
-            "left": {
-              "code": "process and advance offset",
-              "result": "done",
-              "tone": "ok",
-              "checks": [
-                "done"
-              ]
-            },
-            "right": {
-              "code": "crash before commit",
-              "result": "crashed",
-              "tone": "error",
-              "checks": [
-                "crashed"
-              ]
-            }
+            "at": "say2",
+            "caption": "After a restart or rebalance, reading resumes from the committed offset.",
+            "items": [
+              "'m0'",
+              "'m1'",
+              "'m2'",
+              "'m3'",
+              "'m4'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say7",
             "caption": "The simulation shows a crash between processing and committing.",
-            "left": {
-              "code": "normal offset progression",
-              "result": "done",
-              "tone": "ok",
-              "checks": [
-                "done"
-              ]
-            },
-            "right": {
-              "code": "message reprocessed upon restart",
-              "result": "m2",
-              "tone": "idle",
-              "checks": [
-                "m2"
-              ]
-            }
+            "items": [
+              "'m0'",
+              "'m1'",
+              "'m2'",
+              "'m3'",
+              "'m4'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
           }
         ]
       }
@@ -1055,202 +794,162 @@
       "partTitle": "Consumer lag and scaling",
       "codeHash": "a4af184e11f6f33833a779038c7569aedfe0f4bd2234a51aedfd141600ea72f1",
       "spec": {
-        "template": "table",
-        "title": "Kafka consumer lag metrics and hot partition identification",
-        "columns": [
+        "template": "sequence",
+        "title": "Consumer lag and scaling",
+        "actors": [
           "latest",
-          "committed"
+          "committed",
+          "p"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consumer lag is the latest offset minus the committed offset.",
-            "rows": [
+            "caption": "Consumer lag is the latest offset in a partition minus the group's.",
+            "activeActor": "latest",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1500"
-                  },
-                  {
-                    "text": "1490"
-                  }
-                ],
+                "from": "latest",
+                "to": "committed",
+                "label": {
+                  "var": "latest",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "committed",
+                "to": "p",
+                "label": {
+                  "var": "committed",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Rising lag means consumers cannot keep up with incoming traffic.",
-            "rows": [
+            "caption": "Rising lag means consumers cannot keep up.",
+            "activeActor": "committed",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1500"
-                  },
-                  {
-                    "text": "1490"
-                  }
-                ],
-                "tone": "ok"
+                "from": "latest",
+                "to": "committed",
+                "label": {
+                  "var": "latest",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1480"
-                  },
-                  {
-                    "text": "1480"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1510"
-                  },
-                  {
-                    "text": "1500"
-                  }
-                ],
+                "from": "committed",
+                "to": "p",
+                "label": {
+                  "var": "committed",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Hot keys cause uneven lag when one partition receives most events.",
-            "rows": [
+            "at": "say7",
+            "caption": "Making sure each message has its effect exactly once, even though it may.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1500"
-                  },
-                  {
-                    "text": "1490"
-                  }
-                ],
-                "tone": "ok"
+                "from": "latest",
+                "to": "committed",
+                "label": {
+                  "var": "latest",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1480"
-                  },
-                  {
-                    "text": "1480"
-                  }
-                ],
+                "from": "committed",
+                "to": "p",
+                "label": {
+                  "var": "committed",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1510"
-                  },
-                  {
-                    "text": "1500"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "9200"
-                  },
-                  {
-                    "text": "3100"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Kafka consumer lag metrics and hot partition identification",
-        "columns": [
+        "template": "sequence",
+        "title": "Consumer lag and scaling",
+        "actors": [
           "latest",
-          "committed"
+          "committed",
+          "p"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consumer lag is the latest offset minus the committed offset.",
-            "rows": [
+            "caption": "Consumer lag is the latest offset in a partition minus the group's.",
+            "messages": [
               {
-                "cells": [
-                  "1500",
-                  "1490"
-                ],
+                "from": "latest",
+                "to": "committed",
+                "label": "{0: 1500, 1: 1480, 2: 9200, 3: 1510}",
+                "tone": "data"
+              },
+              {
+                "from": "committed",
+                "to": "p",
+                "label": "{0: 1490, 1: 1480, 2: 3100, 3: 1500}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "latest"
           },
           {
             "at": "say2",
-            "caption": "Rising lag means consumers cannot keep up with incoming traffic.",
-            "rows": [
+            "caption": "Rising lag means consumers cannot keep up.",
+            "messages": [
               {
-                "cells": [
-                  "1500",
-                  "1490"
-                ],
-                "tone": "ok"
+                "from": "latest",
+                "to": "committed",
+                "label": "{0: 1500, 1: 1480, 2: 9200, 3: 1510}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1480",
-                  "1480"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1510",
-                  "1500"
-                ],
+                "from": "committed",
+                "to": "p",
+                "label": "{0: 1490, 1: 1480, 2: 3100, 3: 1500}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "committed"
           },
           {
-            "at": "say4",
-            "caption": "Hot keys cause uneven lag when one partition receives most events.",
-            "rows": [
+            "at": "say7",
+            "caption": "Making sure each message has its effect exactly once, even though it may.",
+            "messages": [
               {
-                "cells": [
-                  "1500",
-                  "1490"
-                ],
-                "tone": "ok"
+                "from": "latest",
+                "to": "committed",
+                "label": "{0: 1500, 1: 1480, 2: 9200, 3: 1510}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1480",
-                  "1480"
-                ],
+                "from": "committed",
+                "to": "p",
+                "label": "{0: 1490, 1: 1480, 2: 3100, 3: 1500}",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1510",
-                  "1500"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "9200",
-                  "3100"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "p"
           }
         ]
       }

@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tone and audience",
       "codeHash": "4baad8f3535d0e9c28240d8d3f227923cc7e3adcbec3cdffac7ac8e5bd7ce1ad",
       "spec": {
-        "template": "table",
-        "title": "Audience-specific tone shifting and phrasing adaptation",
-        "columns": [
-          "audience",
-          "manager",
-          "client"
+        "template": "sequence",
+        "title": "Tone and audience",
+        "actors": [
+          "message",
+          "versions",
+          "audience"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Audience expectations dictate different wording for a senior manager.",
-            "rows": [
+            "caption": "The same message needs different wording for a close colleague, a senior.",
+            "activeActor": "message",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "manager"
-                  },
-                  {
-                    "text": "client"
-                  }
-                ],
-                "tone": "ok"
+                "from": "message",
+                "to": "versions",
+                "label": {
+                  "var": "message",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "manager"
-                  },
-                  {
-                    "text": "client"
-                  }
-                ],
-                "tone": "data"
+                "from": "versions",
+                "to": "audience",
+                "label": {
+                  "var": "versions",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Tone dimensions include formality, warmth, directness, and target length.",
-            "rows": [
+            "caption": "Tone covers formality (casual to formal), warmth (friendly to neutral).",
+            "activeActor": "versions",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "manager"
-                  },
-                  {
-                    "text": "client"
-                  }
-                ],
+                "from": "message",
+                "to": "versions",
+                "label": {
+                  "var": "message",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "manager"
-                  },
-                  {
-                    "text": "friend"
-                  }
-                ],
+                "from": "versions",
+                "to": "audience",
+                "label": {
+                  "var": "versions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Cultural norms matter too.",
+            "activeActor": "audience",
+            "messages": [
+              {
+                "from": "message",
+                "to": "versions",
+                "label": {
+                  "var": "message",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "audience",
+                "label": {
+                  "var": "versions",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Audience-specific tone shifting and phrasing adaptation",
-        "columns": [
-          "audience",
-          "manager",
-          "client"
+        "template": "sequence",
+        "title": "Tone and audience",
+        "actors": [
+          "message",
+          "versions",
+          "audience"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Audience expectations dictate different wording for a senior manager.",
-            "rows": [
+            "caption": "The same message needs different wording for a close colleague, a senior.",
+            "messages": [
               {
-                "cells": [
-                  "audience",
-                  "manager",
-                  "client"
-                ],
-                "tone": "ok"
+                "from": "message",
+                "to": "versions",
+                "label": "'The report will be late'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "audience",
-                  "manager",
-                  "client"
-                ],
-                "tone": "data"
+                "from": "versions",
+                "to": "audience",
+                "label": "{'friend': 'Hey, heads up, the report i…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "message"
           },
           {
             "at": "say2",
-            "caption": "Tone dimensions include formality, warmth, directness, and target length.",
-            "rows": [
+            "caption": "Tone covers formality (casual to formal), warmth (friendly to neutral).",
+            "messages": [
               {
-                "cells": [
-                  "audience",
-                  "manager",
-                  "client"
-                ],
+                "from": "message",
+                "to": "versions",
+                "label": "'The report will be late'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "audience",
-                  "manager",
-                  "friend"
-                ],
+                "from": "versions",
+                "to": "audience",
+                "label": "{'friend': 'Hey, heads up, the report i…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "versions"
+          },
+          {
+            "at": "say9",
+            "caption": "Cultural norms matter too.",
+            "messages": [
+              {
+                "from": "message",
+                "to": "versions",
+                "label": "'The report will be late'",
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "audience",
+                "label": "{'friend': 'Hey, heads up, the report i…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "audience"
           }
         ]
       }
@@ -147,78 +173,77 @@
       "partTitle": "Measuring formality",
       "codeHash": "e029aabc630616f818f46235e070a9b286afb2f943d8d1b5f6a511e2c7d6de87",
       "spec": {
-        "template": "table",
-        "title": "Formality score metrics and register classification",
-        "columns": [
-          "words",
-          "hits",
-          "score"
-        ],
+        "template": "bars",
+        "title": "Measuring formality",
         "steps": [
           {
             "at": "say1",
-            "caption": "Heuristic rules estimate formality using contractions and casual words.",
-            "rows": [
+            "caption": "You can estimate formality with simple signals.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 4,
+                  "hit": 7
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Counting informal signals labels text as formal, neutral, or casual.",
-            "rows": [
+            "caption": "Trace how practice updates formality during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "data"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 5,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "formality"
-                  }
-                ],
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "You can tune the word list for your organisation.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +251,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Formality score metrics and register classification",
-        "columns": [
-          "words",
-          "hits",
-          "score"
-        ],
+        "template": "bars",
+        "title": "Measuring formality",
         "steps": [
           {
             "at": "say1",
-            "caption": "Heuristic rules estimate formality using contractions and casual words.",
-            "rows": [
+            "caption": "You can estimate formality with simple signals.",
+            "bars": [
               {
-                "cells": [
-                  "words",
-                  "hits",
-                  "score"
-                ],
-                "tone": "ok"
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "words",
-                  "hits",
-                  "score"
-                ],
+                "label": "score",
+                "value": 100,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Counting informal signals labels text as formal, neutral, or casual.",
-            "rows": [
+            "caption": "Trace how practice updates formality during execution.",
+            "bars": [
               {
-                "cells": [
-                  "words",
-                  "hits",
-                  "score"
-                ],
-                "tone": "data"
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "words",
-                  "hits",
-                  "formality"
-                ],
+                "label": "score",
+                "value": 100,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "You can tune the word list for your organisation.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 50,
                 "tone": "ok"
               }
             ]
@@ -285,78 +309,91 @@
       "partTitle": "Executive memos",
       "codeHash": "597c510ba29c01a56597d7748362347b41c50440e2aef4557c794fcdf61eeccb",
       "spec": {
-        "template": "table",
-        "title": "Structured executive memo formatting and point layout",
-        "columns": [
+        "template": "sequence",
+        "title": "Executive memos",
+        "actors": [
+          "to",
           "sender",
-          "subject",
-          "points"
+          "subject"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An executive memo organizes recipient, sender, subject, and key points.",
-            "rows": [
+            "caption": "An executive memo is short and structured.",
+            "activeActor": "to",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "sender"
-                  },
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "ok"
+                "from": "to",
+                "to": "sender",
+                "label": {
+                  "var": "to",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "sender"
-                  },
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "data"
+                "from": "sender",
+                "to": "subject",
+                "label": {
+                  "var": "sender",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Leading with the key decision needed gives immediate clarity on next steps.",
-            "rows": [
+            "caption": "Trace how lead updates conclusion during execution.",
+            "activeActor": "sender",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "sender"
-                  },
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
+                "from": "to",
+                "to": "sender",
+                "label": {
+                  "var": "to",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "sender"
-                  },
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
+                "from": "sender",
+                "to": "subject",
+                "label": {
+                  "var": "sender",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "A memo that fits on one screen is far more likely to be read in full than.",
+            "activeActor": "subject",
+            "messages": [
+              {
+                "from": "to",
+                "to": "sender",
+                "label": {
+                  "var": "to",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "subject",
+                "label": {
+                  "var": "sender",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +401,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Structured executive memo formatting and point layout",
-        "columns": [
+        "template": "sequence",
+        "title": "Executive memos",
+        "actors": [
+          "to",
           "sender",
-          "subject",
-          "points"
+          "subject"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An executive memo organizes recipient, sender, subject, and key points.",
-            "rows": [
+            "caption": "An executive memo is short and structured.",
+            "messages": [
               {
-                "cells": [
-                  "sender",
-                  "subject",
-                  "points"
-                ],
-                "tone": "ok"
+                "from": "to",
+                "to": "sender",
+                "label": "'Leadership'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "sender",
-                  "subject",
-                  "points"
-                ],
-                "tone": "data"
+                "from": "sender",
+                "to": "subject",
+                "label": "'Finance'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "to"
           },
           {
             "at": "say2",
-            "caption": "Leading with the key decision needed gives immediate clarity on next steps.",
-            "rows": [
+            "caption": "Trace how lead updates conclusion during execution.",
+            "messages": [
               {
-                "cells": [
-                  "sender",
-                  "subject",
-                  "points"
-                ],
+                "from": "to",
+                "to": "sender",
+                "label": "'Leadership'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "sender",
-                  "subject",
-                  "lines"
-                ],
+                "from": "sender",
+                "to": "subject",
+                "label": "'Finance'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sender"
+          },
+          {
+            "at": "say9",
+            "caption": "A memo that fits on one screen is far more likely to be read in full than.",
+            "messages": [
+              {
+                "from": "to",
+                "to": "sender",
+                "label": "'Leadership'",
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "subject",
+                "label": "'Finance'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "subject"
           }
         ]
       }
@@ -423,135 +473,165 @@
       "partTitle": "Emails with AI",
       "codeHash": "a0b13f75ce7a1988fc7b856bd9b92b446b87056ea9ca5c2996ec6e93dc56aeb4",
       "spec": {
-        "template": "table",
-        "title": "Goal-driven email prompting with strict parameters",
-        "columns": [
-          "recipient",
-          "goal",
-          "offer"
+        "template": "flow",
+        "title": "Emails with AI",
+        "nodes": [
+          {
+            "id": "facts",
+            "label": "facts"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Specifying the facts, recipient, and goal produces clear business emails.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "recipient"
-                  },
-                  {
-                    "text": "goal"
-                  },
-                  {
-                    "text": "offer"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For emails, give the AI the facts, the recipient, your goal and any.",
+            "values": {
+              "facts": {
+                "var": "facts",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "recipient"
-                  },
-                  {
-                    "text": "goal"
-                  },
-                  {
-                    "text": "offer"
-                  }
-                ],
-                "tone": "data"
+              "prompt": {
+                "var": "prompt",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "facts": "data",
+              "prompt": "data"
+            },
+            "arrows": [
+              [
+                "facts",
+                "prompt"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A clear subject line ensures that recipient emails are opened promptly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "recipient"
-                  },
-                  {
-                    "text": "goal"
-                  },
-                  {
-                    "text": "offer"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Ask for a subject line too.",
+            "values": {
+              "facts": {
+                "var": "facts",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "recipient"
-                  },
-                  {
-                    "text": "goal"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "ok"
+              "prompt": {
+                "var": "prompt",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "facts": "data",
+              "prompt": "data"
+            },
+            "arrows": [
+              [
+                "facts",
+                "prompt"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "For replies, paste the message you are answering.",
+            "values": {
+              "facts": {
+                "var": "facts",
+                "line": 4,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "facts": "ok",
+              "prompt": "ok"
+            },
+            "arrows": [
+              [
+                "facts",
+                "prompt"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Goal-driven email prompting with strict parameters",
-        "columns": [
-          "recipient",
-          "goal",
-          "offer"
+        "template": "flow",
+        "title": "Emails with AI",
+        "nodes": [
+          {
+            "id": "facts",
+            "label": "facts"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Specifying the facts, recipient, and goal produces clear business emails.",
-            "rows": [
-              {
-                "cells": [
-                  "recipient",
-                  "goal",
-                  "offer"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "recipient",
-                  "goal",
-                  "offer"
-                ],
-                "tone": "data"
-              }
+            "caption": "For emails, give the AI the facts, the recipient, your goal and any.",
+            "values": {
+              "facts": "{'recipient': 'Mr Sharma, vendor accoun…",
+              "prompt": "'Write an email to Mr Sharma, vendor ac…"
+            },
+            "tones": {
+              "facts": "data",
+              "prompt": "data"
+            },
+            "arrows": [
+              [
+                "facts",
+                "prompt"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A clear subject line ensures that recipient emails are opened promptly.",
-            "rows": [
-              {
-                "cells": [
-                  "recipient",
-                  "goal",
-                  "offer"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "recipient",
-                  "goal",
-                  "prompt"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Ask for a subject line too.",
+            "values": {
+              "facts": "{'recipient': 'Mr Sharma, vendor accoun…",
+              "prompt": "'Write an email to Mr Sharma, vendor ac…"
+            },
+            "tones": {
+              "facts": "data",
+              "prompt": "data"
+            },
+            "arrows": [
+              [
+                "facts",
+                "prompt"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "For replies, paste the message you are answering.",
+            "values": {
+              "facts": "{'recipient': 'Mr Sharma, vendor accoun…",
+              "prompt": "'Write an email to Mr Sharma, vendor ac…"
+            },
+            "tones": {
+              "facts": "ok",
+              "prompt": "ok"
+            },
+            "arrows": [
+              [
+                "facts",
+                "prompt"
+              ]
             ]
           }
         ]
@@ -561,224 +641,162 @@
       "partTitle": "Editing and proofreading",
       "codeHash": "5b10396ac8d9e4bcebd872c5f5651fe30123dc98bec79a5c57b0191dc620533a",
       "spec": {
-        "template": "flow",
-        "title": "Editing and proofreading — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Editing and proofre...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Editing and proofreading",
+        "actors": [
+          "before",
+          "after",
+          "text"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Editing and proofreading [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Editing and proofre... [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "AI is a strong editor.",
+            "activeActor": "before",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": {
+                  "var": "after",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Be specific about the edit.",
+            "activeActor": "after",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": {
+                  "var": "after",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Editing and proofreading.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "For non-native writers, AI editing can remove small grammar errors.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": {
+                  "var": "after",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Editing and proofreading — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Editing and proofre...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Editing and proofreading",
+        "actors": [
+          "before",
+          "after",
+          "text"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Editing and proofreading [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Editing and proofre... [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "AI is a strong editor.",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": "'In light of the fact that the vendor h…",
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": "'The vendor delivered the parts late. W…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "before"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Be specific about the edit.",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": "'In light of the fact that the vendor h…",
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": "'The vendor delivered the parts late. W…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "after"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Editing and proofreading [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "For non-native writers, AI editing can remove small grammar errors.",
+            "messages": [
+              {
+                "from": "before",
+                "to": "after",
+                "label": "'In light of the fact that the vendor h…",
+                "tone": "data"
+              },
+              {
+                "from": "after",
+                "to": "text",
+                "label": "'The vendor delivered the parts late. W…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }
@@ -787,223 +805,175 @@
       "partTitle": "Practice time: tone and memos",
       "codeHash": "c85768db3ad6fd8d2a870a4e007811e6672a935a2ca0ce6166d23e27d0624b98",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: tone and memos — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: tone...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: tone and memos",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: tone and memos.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: tone... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Formality(text).",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 5,
+                  "hit": 27
+                },
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: tone and memos.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Try both on your own recent emails.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: tone and memos — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: tone...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: tone and memos",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: tone and memos [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: tone... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Formality(text).",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": 70,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 70,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: tone and memos [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Try both on your own recent emails.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 70,
+                "tone": "ok"
+              }
             ]
           }
         ]

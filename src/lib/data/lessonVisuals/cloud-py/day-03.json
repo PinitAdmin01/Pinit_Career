@@ -2,230 +2,176 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Your own private network: the VPC",
       "codeHash": "c23f83d7dd7348c67fe411ab9a05383ca8d69e43d49a8ec45a2d542a1dfdb2ff",
       "spec": {
-        "template": "flow",
-        "title": "Your own private network: the VPC — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your own private ne...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Your own private network: the VPC",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Your own private network: the VPC.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Your own private ne... [Dthree.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A Virtual Private Cloud (VPC) is your own isolated network inside an AWS.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "vpc"
+                  },
+                  {
+                    "var": "vpc",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Every server in the VPC gets a private IP address from that range.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "vpc"
+                  },
+                  {
+                    "var": "vpc",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Your own private network: the VPC.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example uses Python's built-in ipaddress module to look at a VPC range.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Your own private network: the VPC — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your own private ne...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Your own private network: the VPC",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your own private network: the VPC [D3.P1.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your own private ne... [D3.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A Virtual Private Cloud (VPC) is your own isolated network inside an AWS.",
+            "rows": [
+              {
+                "cells": [
+                  "vpc",
+                  "<IPv4Network>"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Every server in the VPC gets a private IP address from that range.",
+            "rows": [
+              {
+                "cells": [
+                  "vpc",
+                  "<IPv4Network>"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your own private network: the VPC [D3.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example uses Python's built-in ipaddress module to look at a VPC range.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "VPC range: 10.0.0.0/16"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "First address: 10.0.0.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "Last address: 10.0.255.255"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "Total addresses: 65536"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,164 +181,132 @@
       "partTitle": "Reading CIDR notation",
       "codeHash": "b3a834d97ac45f40e09d11055d4501cad8bd01a478d6e820bd1587e1691eb1c9",
       "spec": {
-        "template": "table",
-        "title": "IPv4 CIDR prefix lengths and available IP host address space",
-        "columns": [
-          "prefix",
-          "addresses"
-        ],
+        "template": "bars",
+        "title": "Reading CIDR notation",
         "steps": [
           {
             "at": "say1",
-            "caption": "CIDR notation specifies fixed network bits and variable host bits.",
-            "rows": [
+            "caption": "An IPv4 address has 32 bits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "addresses"
-                  }
-                ],
+                "label": "prefix",
+                "value": {
+                  "var": "prefix",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The slash number says how many of those bits are fixed (the network part).",
+            "bars": [
+              {
+                "label": "prefix",
+                "value": {
+                  "var": "prefix",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Larger slash numbers leave fewer free bits yielding smaller networks.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints the size for several prefix lengths using 2 ** (32.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "addresses"
-                  }
-                ],
+                "label": "prefix",
+                "value": {
+                  "var": "prefix",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "24"
-                  },
-                  {
-                    "text": "addresses"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 1,
+                  "hit": 2
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Cloud VPC sizes range between sixteen and twenty-eight prefix limits.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "addresses"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "24"
-                  },
-                  {
-                    "text": "addresses"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "28"
-                  },
-                  {
-                    "text": "addresses"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "IPv4 CIDR prefix lengths and available IP host address space",
-        "columns": [
-          "prefix",
-          "addresses"
-        ],
+        "template": "bars",
+        "title": "Reading CIDR notation",
         "steps": [
           {
             "at": "say1",
-            "caption": "CIDR notation specifies fixed network bits and variable host bits.",
-            "rows": [
+            "caption": "An IPv4 address has 32 bits.",
+            "bars": [
               {
-                "cells": [
-                  "16",
-                  "addresses"
-                ],
+                "label": "prefix",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 65536,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The slash number says how many of those bits are fixed (the network part).",
+            "bars": [
+              {
+                "label": "prefix",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 65536,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Larger slash numbers leave fewer free bits yielding smaller networks.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints the size for several prefix lengths using 2 ** (32.",
+            "bars": [
               {
-                "cells": [
-                  "16",
-                  "addresses"
-                ],
+                "label": "prefix",
+                "value": 16,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "24",
-                  "addresses"
-                ],
+                "label": "size",
+                "value": 65536,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Cloud VPC sizes range between sixteen and twenty-eight prefix limits.",
-            "rows": [
-              {
-                "cells": [
-                  "16",
-                  "addresses"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "24",
-                  "addresses"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "28",
-                  "addresses"
-                ],
-                "tone": "idle"
               }
             ]
           }
@@ -403,165 +317,221 @@
       "partTitle": "The five addresses AWS keeps",
       "codeHash": "8b9da98aa62f32bbeefb7cb6260c2b3d12ce14a478e070abfaec58259594277a",
       "spec": {
-        "template": "table",
-        "title": "Subnet prefix masks and usable host IP capacity excluding reservations",
-        "columns": [
-          "mask",
-          "subnet"
+        "template": "flow",
+        "title": "The five addresses AWS keeps",
+        "nodes": [
+          {
+            "id": "subnet",
+            "label": "subnet"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "mask",
+            "label": "mask"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS reserves five addresses in every subnet for networking functions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "24"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In every subnet, AWS reserves five addresses that you cannot give to servers.",
+            "values": {
+              "subnet": {
+                "var": "subnet",
+                "line": 8,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 10,
+                "hit": 1
+              },
+              "mask": {
+                "var": "mask",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "subnet": "data",
+              "m": "data",
+              "mask": "data"
+            },
+            "arrows": [
+              [
+                "subnet",
+                "m"
+              ],
+              [
+                "m",
+                "mask"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Usable addresses are reduced by reserved allocations when sizing subnets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "24"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how those updates network during execution.",
+            "values": {
+              "subnet": {
+                "var": "subnet",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "28"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 11,
+                "hit": 1
+              },
+              "mask": {
+                "var": "mask",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "subnet": "data",
+              "m": "data",
+              "mask": "data"
+            },
+            "arrows": [
+              [
+                "subnet",
+                "m"
+              ],
+              [
+                "m",
+                "mask"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Guard clauses return zero for subnet masks outside permitted cloud bounds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "24"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example lists the reserved addresses of a real subnet with ipaddress.",
+            "values": {
+              "subnet": {
+                "var": "subnet",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "28"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "30"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "error"
+              "mask": {
+                "var": "mask",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "subnet": "ok",
+              "m": "ok",
+              "mask": "ok"
+            },
+            "arrows": [
+              [
+                "subnet",
+                "m"
+              ],
+              [
+                "m",
+                "mask"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Subnet prefix masks and usable host IP capacity excluding reservations",
-        "columns": [
-          "mask",
-          "subnet"
+        "template": "flow",
+        "title": "The five addresses AWS keeps",
+        "nodes": [
+          {
+            "id": "subnet",
+            "label": "subnet"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "mask",
+            "label": "mask"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS reserves five addresses in every subnet for networking functions.",
-            "rows": [
-              {
-                "cells": [
-                  "24",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              }
+            "caption": "In every subnet, AWS reserves five addresses that you cannot give to servers.",
+            "values": {
+              "subnet": "[{'__other__': 'IPv4Address'}, {'__othe…",
+              "m": "24",
+              "mask": "24"
+            },
+            "tones": {
+              "subnet": "data",
+              "m": "data",
+              "mask": "data"
+            },
+            "arrows": [
+              [
+                "subnet",
+                "m"
+              ],
+              [
+                "m",
+                "mask"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Usable addresses are reduced by reserved allocations when sizing subnets.",
-            "rows": [
-              {
-                "cells": [
-                  "24",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "28",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how those updates network during execution.",
+            "values": {
+              "subnet": "[{'__other__': 'IPv4Address'}, {'__othe…",
+              "m": "24",
+              "mask": "24"
+            },
+            "tones": {
+              "subnet": "data",
+              "m": "data",
+              "mask": "data"
+            },
+            "arrows": [
+              [
+                "subnet",
+                "m"
+              ],
+              [
+                "m",
+                "mask"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Guard clauses return zero for subnet masks outside permitted cloud bounds.",
-            "rows": [
-              {
-                "cells": [
-                  "24",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "28",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "30",
-                  "10.0.1.0/24"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "The example lists the reserved addresses of a real subnet with ipaddress.",
+            "values": {
+              "subnet": "[{'__other__': 'IPv4Address'}, {'__othe…",
+              "m": "28",
+              "mask": "28"
+            },
+            "tones": {
+              "subnet": "ok",
+              "m": "ok",
+              "mask": "ok"
+            },
+            "arrows": [
+              [
+                "subnet",
+                "m"
+              ],
+              [
+                "m",
+                "mask"
+              ]
             ]
           }
         ]
@@ -571,165 +541,277 @@
       "partTitle": "Splitting a VPC into subnets",
       "codeHash": "6bd8c251a4459c180360ea1c2db903f01a8da32cbd8aabb310bf156570a5df98",
       "spec": {
-        "template": "table",
-        "title": "VPC subnet planning allocating non-overlapping CIDR blocks per zone",
-        "columns": [
-          "name",
-          "block"
+        "template": "flow",
+        "title": "Splitting a VPC into subnets",
+        "nodes": [
+          {
+            "id": "vpc",
+            "label": "vpc"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          },
+          {
+            "id": "plan",
+            "label": "plan"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Carving VPC ranges into subnets provides dedicated address allocations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public-a"
-                  },
-                  {
-                    "text": "10.0.0.0/16"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Once you have a VPC range, you carve it into subnets.",
+            "values": {
+              "vpc": {
+                "var": "vpc",
+                "line": 3,
+                "hit": 1
+              },
+              "blocks": {
+                "var": "blocks",
+                "line": 4,
+                "hit": 1
+              },
+              "plan": {
+                "var": "plan",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vpc": "data",
+              "blocks": "data",
+              "plan": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "blocks"
+              ],
+              [
+                "blocks",
+                "plan"
+              ],
+              [
+                "plan",
+                "name"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Subnets must never overlap to prevent routing packet confusion.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public-a"
-                  },
-                  {
-                    "text": "10.0.0.0/16"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Subnets must not overlap.",
+            "values": {
+              "vpc": {
+                "var": "vpc",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "public-b"
-                  },
-                  {
-                    "text": "10.0.0.0/16"
-                  }
-                ],
-                "tone": "ok"
+              "blocks": {
+                "var": "blocks",
+                "line": 5,
+                "hit": 1
+              },
+              "plan": {
+                "var": "plan",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vpc": "data",
+              "blocks": "data",
+              "plan": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "blocks"
+              ],
+              [
+                "blocks",
+                "plan"
+              ],
+              [
+                "plan",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Structured naming schemes distinguish public and private subnets across zones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public-a"
-                  },
-                  {
-                    "text": "10.0.0.0/16"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Trace how will updates check during execution.",
+            "values": {
+              "vpc": {
+                "var": "vpc",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "public-b"
-                  },
-                  {
-                    "text": "10.0.0.0/16"
-                  }
-                ],
-                "tone": "ok"
+              "blocks": {
+                "var": "blocks",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "private-a"
-                  },
-                  {
-                    "text": "10.0.0.0/16"
-                  }
-                ],
-                "tone": "ok"
+              "plan": {
+                "var": "plan",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "vpc": "ok",
+              "blocks": "ok",
+              "plan": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "blocks"
+              ],
+              [
+                "blocks",
+                "plan"
+              ],
+              [
+                "plan",
+                "name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "VPC subnet planning allocating non-overlapping CIDR blocks per zone",
-        "columns": [
-          "name",
-          "block"
+        "template": "flow",
+        "title": "Splitting a VPC into subnets",
+        "nodes": [
+          {
+            "id": "vpc",
+            "label": "vpc"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          },
+          {
+            "id": "plan",
+            "label": "plan"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Carving VPC ranges into subnets provides dedicated address allocations.",
-            "rows": [
-              {
-                "cells": [
-                  "public-a",
-                  "10.0.0.0/16"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Once you have a VPC range, you carve it into subnets.",
+            "values": {
+              "vpc": "<IPv4Network>",
+              "blocks": "{'__other__': 'generator'}",
+              "plan": "['public-a', 'public-b', 'private-a', '…",
+              "name": "'public-a'"
+            },
+            "tones": {
+              "vpc": "data",
+              "blocks": "data",
+              "plan": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "blocks"
+              ],
+              [
+                "blocks",
+                "plan"
+              ],
+              [
+                "plan",
+                "name"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Subnets must never overlap to prevent routing packet confusion.",
-            "rows": [
-              {
-                "cells": [
-                  "public-a",
-                  "10.0.0.0/16"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public-b",
-                  "10.0.0.0/16"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Subnets must not overlap.",
+            "values": {
+              "vpc": "<IPv4Network>",
+              "blocks": "{'__other__': 'generator'}",
+              "plan": "['public-a', 'public-b', 'private-a', '…",
+              "name": "'public-a'"
+            },
+            "tones": {
+              "vpc": "data",
+              "blocks": "data",
+              "plan": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "blocks"
+              ],
+              [
+                "blocks",
+                "plan"
+              ],
+              [
+                "plan",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Structured naming schemes distinguish public and private subnets across zones.",
-            "rows": [
-              {
-                "cells": [
-                  "public-a",
-                  "10.0.0.0/16"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public-b",
-                  "10.0.0.0/16"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "private-a",
-                  "10.0.0.0/16"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Trace how will updates check during execution.",
+            "values": {
+              "vpc": "<IPv4Network>",
+              "blocks": "{'__other__': 'generator'}",
+              "plan": "['public-a', 'public-b', 'private-a', '…",
+              "name": "'public-b'"
+            },
+            "tones": {
+              "vpc": "ok",
+              "blocks": "ok",
+              "plan": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "blocks"
+              ],
+              [
+                "blocks",
+                "plan"
+              ],
+              [
+                "plan",
+                "name"
+              ]
             ]
           }
         ]
@@ -739,132 +821,162 @@
       "partTitle": "Public and private subnets: it is all in the route table",
       "codeHash": "011b546182c8df30d13428f6125ecd759fe60f532df99d8b85466012870af601",
       "spec": {
-        "template": "compare",
-        "title": "Route table rules distinguishing public and private subnets",
-        "leftLabel": "Public Subnet Route",
-        "rightLabel": "Private Subnet Route",
+        "template": "sequence",
+        "title": "Public and private subnets: it is all in the route table",
+        "actors": [
+          "public_rt",
+          "private_rt",
+          ".0"
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Here is a fact that surprises many people.",
+            "activeActor": "public_rt",
+            "messages": [
+              {
+                "from": "public_rt",
+                "to": "private_rt",
+                "label": {
+                  "var": "public_rt",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "private_rt",
+                "to": ".0",
+                "label": {
+                  "var": "private_rt",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Route tables map destination IP ranges to designated network gateways.",
-            "left": {
-              "code": "public_rt[1][\"target\"]",
-              "result": {
-                "text": "igw-0abc"
+            "caption": "A route table is a list of rules.",
+            "activeActor": "private_rt",
+            "messages": [
+              {
+                "from": "public_rt",
+                "to": "private_rt",
+                "label": {
+                  "var": "public_rt",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "private_rt[1][\"target\"]",
-              "result": {
-                "text": "nat-0def"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "private_rt",
+                "to": ".0",
+                "label": {
+                  "var": "private_rt",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Public subnets route default traffic to an attached internet gateway.",
-            "left": {
-              "code": "destination",
-              "result": {
-                "text": "0.0.0.0/0"
+            "at": "say7",
+            "caption": "The example checks two route tables with any() and a generator expression.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "public_rt",
+                "to": "private_rt",
+                "label": {
+                  "var": "public_rt",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "destination",
-              "result": {
-                "text": "0.0.0.0/0"
-              },
-              "tone": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Private subnets route outbound traffic through a NAT gateway.",
-            "left": {
-              "code": "target",
-              "result": {
-                "text": "igw-0abc"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "target",
-              "result": {
-                "text": "nat-0def"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "private_rt",
+                "to": ".0",
+                "label": {
+                  "var": "private_rt",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Route table rules distinguishing public and private subnets",
-        "leftLabel": "Public Subnet Route",
-        "rightLabel": "Private Subnet Route",
+        "template": "sequence",
+        "title": "Public and private subnets: it is all in the route table",
+        "actors": [
+          "public_rt",
+          "private_rt",
+          ".0"
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Here is a fact that surprises many people.",
+            "messages": [
+              {
+                "from": "public_rt",
+                "to": "private_rt",
+                "label": "[{'destination': '10.0.0.0/16', 'target…",
+                "tone": "data"
+              },
+              {
+                "from": "private_rt",
+                "to": ".0",
+                "label": "[{'destination': '10.0.0.0/16', 'target…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "public_rt"
+          },
+          {
             "at": "say2",
-            "caption": "Route tables map destination IP ranges to designated network gateways.",
-            "left": {
-              "code": "public_rt[1][\"target\"]",
-              "result": "igw-0abc",
-              "tone": "ok",
-              "checks": [
-                "igw-0abc"
-              ]
-            },
-            "right": {
-              "code": "private_rt[1][\"target\"]",
-              "result": "nat-0def",
-              "tone": "idle",
-              "checks": [
-                "nat-0def"
-              ]
-            }
+            "caption": "A route table is a list of rules.",
+            "messages": [
+              {
+                "from": "public_rt",
+                "to": "private_rt",
+                "label": "[{'destination': '10.0.0.0/16', 'target…",
+                "tone": "data"
+              },
+              {
+                "from": "private_rt",
+                "to": ".0",
+                "label": "[{'destination': '10.0.0.0/16', 'target…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "private_rt"
           },
           {
-            "at": "say4",
-            "caption": "Public subnets route default traffic to an attached internet gateway.",
-            "left": {
-              "code": "destination",
-              "result": "0.0.0.0/0",
-              "tone": "ok",
-              "checks": [
-                "0.0.0.0/0"
-              ]
-            },
-            "right": {
-              "code": "destination",
-              "result": "0.0.0.0/0",
-              "tone": "data",
-              "checks": [
-                "0.0.0.0/0"
-              ]
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Private subnets route outbound traffic through a NAT gateway.",
-            "left": {
-              "code": "target",
-              "result": "igw-0abc",
-              "tone": "ok",
-              "checks": [
-                "igw-0abc"
-              ]
-            },
-            "right": {
-              "code": "target",
-              "result": "nat-0def",
-              "tone": "idle",
-              "checks": [
-                "nat-0def"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example checks two route tables with any() and a generator expression.",
+            "messages": [
+              {
+                "from": "public_rt",
+                "to": "private_rt",
+                "label": "[{'destination': '10.0.0.0/16', 'target…",
+                "tone": "data"
+              },
+              {
+                "from": "private_rt",
+                "to": ".0",
+                "label": "[{'destination': '10.0.0.0/16', 'target…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -873,224 +985,106 @@
       "partTitle": "Practice time: sizes and routes",
       "codeHash": "fb9a187892c38c80d3900dde42ce32e97e1b7af51550f68c32835f0823bcdaa2",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: sizes and routes — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: sizes and routes",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "routes",
+            "label": "routes"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: size...",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: sizes and routes.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: size... [Dthree.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Usable_subnet_ips(mask).",
+            "currentState": "routes",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how test updates yourself during execution.",
+            "currentState": ".0",
+            "transition": {
+              "from": "routes",
+              "to": ".0",
+              "label": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: sizes and routes.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows the difference between the correct check and.",
+            "currentState": "r",
+            "transition": {
+              "from": ".0",
+              "to": "r",
+              "label": {
+                "var": "r",
+                "line": 4,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: sizes and routes — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: sizes and routes",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "routes",
+            "label": "routes"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: size...",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: sizes and routes [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: size... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Usable_subnet_ips(mask).",
+            "currentState": "routes",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how test updates yourself during execution.",
+            "currentState": ".0",
+            "transition": {
+              "from": "routes",
+              "to": ".0",
+              "label": "{'__other__': 'list_iterator'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: sizes and routes [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows the difference between the correct check and.",
+            "currentState": "r",
+            "transition": {
+              "from": ".0",
+              "to": "r",
+              "label": "{'destination': '10.9.0.0/16', 'target'…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

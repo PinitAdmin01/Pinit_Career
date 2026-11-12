@@ -2,1334 +2,804 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 38,
-  "promptSha": "d93776ceacea3be7f0a0fab2341ad65c69aa85cc28e1619cbad38d57735208b2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Foundations & Mathematical Invariants",
-      "codeHash": "743aa1de2317c789eb3b73055f043e002624a3384421be6c1eacc1615837d8bd",
+      "partTitle": "ReBAC & ABAC Policy Evaluation Engines — Foundations & Mathematical Invariants",
+      "codeHash": "52d4c60fccfde413dfcbaaa06ed585c33994c2439f76e2394d78b1f39f11da2f",
       "spec": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Fo",
-        "nodes": [
+        "template": "states",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Foundations & Mathemati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "namespace",
+            "label": "namespace"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "object_id",
+            "label": "object_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern distributed enterprise applications manage complex, multi-tenant.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "RBAC assigns permissions to static roles, leading to severe 'role.",
+            "currentState": "namespace",
+            "transition": {
+              "from": "self",
+              "to": "namespace",
+              "label": {
+                "var": "namespace",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Relational access tuples serve as the mathematical foundation for modern.",
+            "currentState": "object_id",
+            "transition": {
+              "from": "namespace",
+              "to": "object_id",
+              "label": {
+                "var": "object_id",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Fo",
-        "nodes": [
+        "template": "states",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Foundations & Mathemati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "namespace",
+            "label": "namespace"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "object_id",
+            "label": "object_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern distributed enterprise applications manage complex, multi-tenant.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "RBAC assigns permissions to static roles, leading to severe 'role.",
+            "currentState": "namespace",
+            "transition": {
+              "from": "self",
+              "to": "namespace",
+              "label": "'document'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Relational access tuples serve as the mathematical foundation for modern.",
+            "currentState": "object_id",
+            "transition": {
+              "from": "namespace",
+              "to": "object_id",
+              "label": "'doc_101'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Core Algorithm & State Representation",
-      "codeHash": "14c2f4e421e0c3ef74957720f7c7b39cbc8ccdcd24edadcb901312c25f5d7b61",
+      "partTitle": "ReBAC & ABAC Policy Evaluation Engines — Core Algorithm & State Representation",
+      "codeHash": "2c62f70604117b8f365c5077d475005746276635f3028f664bcf8508439859d0",
       "spec": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Co",
-        "nodes": [
+        "template": "states",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Core Algorithm & State ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rebac",
+            "label": "rebac"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "namespace",
+            "label": "namespace"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Zanzibar authorization engine evaluates queries of the form.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "When a query arrives, the engine inspects its local tuple store for direct.",
+            "currentState": "rebac",
+            "transition": {
+              "from": "self",
+              "to": "rebac",
+              "label": {
+                "var": "rebac",
+                "line": 24,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Recursive graph traversal algorithms must maintain strictly bounded.",
+            "currentState": "namespace",
+            "transition": {
+              "from": "rebac",
+              "to": "namespace",
+              "label": {
+                "var": "namespace",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Co",
-        "nodes": [
+        "template": "states",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Core Algorithm & State ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rebac",
+            "label": "rebac"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "namespace",
+            "label": "namespace"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Zanzibar authorization engine evaluates queries of the form.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "When a query arrives, the engine inspects its local tuple store for direct.",
+            "currentState": "rebac",
+            "transition": {
+              "from": "self",
+              "to": "rebac",
+              "label": "<ZanzibarReBACEngine>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Recursive graph traversal algorithms must maintain strictly bounded.",
+            "currentState": "namespace",
+            "transition": {
+              "from": "rebac",
+              "to": "namespace",
+              "label": "'group'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "b57ee399a2be4398f7cf9a051f853a95ef3c218dbdc95db2e920fe9a1cf9ccdf",
+      "partTitle": "ReBAC & ABAC Policy Evaluation Engines — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "eb248e641d1105ffd6a18057b4cf6cfc0f97395a35fe19836cda30ad7cd344ba",
       "spec": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Th",
-        "nodes": [
+        "template": "states",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Throughput Optimization",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cyclic_graph",
+            "label": "cyclic_graph"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "adj_list",
+            "label": "adj_list"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "node",
+            "label": "node"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large enterprise deployments with millions of users and nested groups.",
+            "currentState": "cyclic_graph",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "For example, Group A can be a member of Group B, while Group B.",
+            "currentState": "adj_list",
+            "transition": {
+              "from": "cyclic_graph",
+              "to": "adj_list",
+              "label": {
+                "var": "adj_list",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Topological ordering and memoization enable relationship engines.",
+            "currentState": "node",
+            "transition": {
+              "from": "adj_list",
+              "to": "node",
+              "label": {
+                "var": "node",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Th",
-        "nodes": [
+        "template": "states",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Throughput Optimization",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cyclic_graph",
+            "label": "cyclic_graph"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "adj_list",
+            "label": "adj_list"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "node",
+            "label": "node"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large enterprise deployments with millions of users and nested groups.",
+            "currentState": "cyclic_graph",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "For example, Group A can be a member of Group B, while Group B.",
+            "currentState": "adj_list",
+            "transition": {
+              "from": "cyclic_graph",
+              "to": "adj_list",
+              "label": "{'A': ['B'], 'B': ['C'], 'C': ['A']}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Topological ordering and memoization enable relationship engines.",
+            "currentState": "node",
+            "transition": {
+              "from": "adj_list",
+              "to": "node",
+              "label": "'A'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "e78be41d3720a61592d1d950af89a6e81387f4a7cd6456dae5c88ae185b77ef4",
+      "partTitle": "ReBAC & ABAC Policy Evaluation Engines — Resilience Guardrails & Failure Recovery",
+      "codeHash": "ad7e6ff1bd8abc97c245dae196d89ec52cf474959fb41cad05c138461f693df3",
       "spec": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Re",
-        "nodes": [
+        "template": "boxes",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Resilience Guardrails &",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ctx_safe",
+            "label": "ctx_safe"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ctx_risky",
+            "label": "ctx_risky"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "context",
+            "label": "context"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "allowed_subnets",
+            "label": "allowed_subnets"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While ReBAC verifies structural relationships, zero-trust architectures.",
+            "values": {
+              "ctx_safe": {
+                "var": "ctx_safe",
+                "line": 12,
+                "hit": 1
+              },
+              "ctx_risky": {
+                "var": "ctx_risky",
+                "line": 13,
+                "hit": 1
+              },
+              "context": {
+                "var": "context",
+                "line": 4,
+                "hit": 1
+              },
+              "allowed_subnets": {
+                "var": "allowed_subnets",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ctx_safe": "data",
+              "ctx_risky": "data",
+              "context": "data",
+              "allowed_subnets": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "An authorized employee whose credentials are compromised could attempt.",
+            "values": {
+              "ctx_safe": {
+                "var": "ctx_safe",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ctx_risky": {
+                "var": "ctx_risky",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "context": {
+                "var": "context",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "allowed_subnets": {
+                "var": "allowed_subnets",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "ctx_safe": "data",
+              "ctx_risky": "data",
+              "context": "data",
+              "allowed_subnets": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Contextual policy evaluation guarantees that administrative privileges.",
+            "values": {
+              "ctx_safe": {
+                "var": "ctx_safe",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ctx_risky": {
+                "var": "ctx_risky",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "context": {
+                "var": "context",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "allowed_subnets": {
+                "var": "allowed_subnets",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "ctx_safe": "ok",
+              "ctx_risky": "ok",
+              "context": "ok",
+              "allowed_subnets": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Re",
-        "nodes": [
+        "template": "boxes",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Resilience Guardrails &",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ctx_safe",
+            "label": "ctx_safe"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ctx_risky",
+            "label": "ctx_risky"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "context",
+            "label": "context"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "allowed_subnets",
+            "label": "allowed_subnets"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While ReBAC verifies structural relationships, zero-trust architectures.",
+            "values": {
+              "ctx_safe": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "ctx_risky": "{'ip': '198.51.100.4', 'risk_score': 85}",
+              "context": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "allowed_subnets": "['10.0.']"
+            },
+            "tones": {
+              "ctx_safe": "data",
+              "ctx_risky": "data",
+              "context": "data",
+              "allowed_subnets": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "An authorized employee whose credentials are compromised could attempt.",
+            "values": {
+              "ctx_safe": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "ctx_risky": "{'ip': '198.51.100.4', 'risk_score': 85}",
+              "context": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "allowed_subnets": "['10.0.']"
+            },
+            "tones": {
+              "ctx_safe": "data",
+              "ctx_risky": "data",
+              "context": "data",
+              "allowed_subnets": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Contextual policy evaluation guarantees that administrative privileges.",
+            "values": {
+              "ctx_safe": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "ctx_risky": "{'ip': '198.51.100.4', 'risk_score': 85}",
+              "context": "{'ip': '10.0.4.15', 'risk_score': 25}",
+              "allowed_subnets": "['10.0.']"
+            },
+            "tones": {
+              "ctx_safe": "ok",
+              "ctx_risky": "ok",
+              "context": "ok",
+              "allowed_subnets": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Production Telemetry & Verification Audit",
-      "codeHash": "8bb782d12c8781f868ffe099fbddca4a82f475c90a40b87fc78155d5d4ac02ed",
+      "partTitle": "ReBAC & ABAC Policy Evaluation Engines — Production Telemetry & Verification Audit",
+      "codeHash": "e46d0736677c41d4197b36744d0016f756c6c56a7475ed8a4c75d36bd6fc67b6",
       "spec": {
         "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Pr",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Production Telemetry & ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rebac_hierarchical",
+            "label": "rebac_hierarchical"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cycle_prevented",
+            "label": "cycle_prevented"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "abac_context_enforced",
+            "label": "abac_context_enforced"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "default_deny",
+            "label": "default_deny"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating mission-critical authorization infrastructure demands continuous.",
+            "values": {
+              "rebac_hierarchical": {
+                "var": "rebac_hierarchical",
+                "line": 5,
+                "hit": 1
+              },
+              "cycle_prevented": {
+                "var": "cycle_prevented",
+                "line": 5,
+                "hit": 1
+              },
+              "abac_context_enforced": {
+                "var": "abac_context_enforced",
+                "line": 5,
+                "hit": 1
+              },
+              "default_deny": {
+                "var": "default_deny",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rebac_hierarchical": "data",
+              "cycle_prevented": "data",
+              "abac_context_enforced": "data",
+              "default_deny": "data"
+            },
+            "arrows": [
+              [
+                "rebac_hierarchical",
+                "cycle_prevented"
+              ],
+              [
+                "cycle_prevented",
+                "abac_context_enforced"
+              ],
+              [
+                "abac_context_enforced",
+                "default_deny"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Telemetry systems track evaluation latency percentiles (targeting P99 <.",
+            "values": {
+              "rebac_hierarchical": {
+                "var": "rebac_hierarchical",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cycle_prevented": {
+                "var": "cycle_prevented",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "abac_context_enforced": {
+                "var": "abac_context_enforced",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "default_deny": {
+                "var": "default_deny",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rebac_hierarchical": "data",
+              "cycle_prevented": "data",
+              "abac_context_enforced": "data",
+              "default_deny": "data"
+            },
+            "arrows": [
+              [
+                "rebac_hierarchical",
+                "cycle_prevented"
+              ],
+              [
+                "cycle_prevented",
+                "abac_context_enforced"
+              ],
+              [
+                "abac_context_enforced",
+                "default_deny"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous automated verification audits validate that enterprise policy.",
+            "values": {
+              "rebac_hierarchical": {
+                "var": "rebac_hierarchical",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cycle_prevented": {
+                "var": "cycle_prevented",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "abac_context_enforced": {
+                "var": "abac_context_enforced",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "default_deny": {
+                "var": "default_deny",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "rebac_hierarchical": "ok",
+              "cycle_prevented": "ok",
+              "abac_context_enforced": "ok",
+              "default_deny": "ok"
+            },
+            "arrows": [
+              [
+                "rebac_hierarchical",
+                "cycle_prevented"
+              ],
+              [
+                "cycle_prevented",
+                "abac_context_enforced"
+              ],
+              [
+                "abac_context_enforced",
+                "default_deny"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "ReBAC & ABAC Policy Evaluation Engines (Zanzibar Relation Tuples) — Pr",
+        "title": "ReBAC & ABAC Policy Evaluation Engines — Production Telemetry & ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rebac_hierarchical",
+            "label": "rebac_hierarchical"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cycle_prevented",
+            "label": "cycle_prevented"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "abac_context_enforced",
+            "label": "abac_context_enforced"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "default_deny",
+            "label": "default_deny"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating mission-critical authorization infrastructure demands continuous.",
+            "values": {
+              "rebac_hierarchical": "True",
+              "cycle_prevented": "True",
+              "abac_context_enforced": "True",
+              "default_deny": "True"
+            },
+            "tones": {
+              "rebac_hierarchical": "data",
+              "cycle_prevented": "data",
+              "abac_context_enforced": "data",
+              "default_deny": "data"
+            },
+            "arrows": [
+              [
+                "rebac_hierarchical",
+                "cycle_prevented"
+              ],
+              [
+                "cycle_prevented",
+                "abac_context_enforced"
+              ],
+              [
+                "abac_context_enforced",
+                "default_deny"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Telemetry systems track evaluation latency percentiles (targeting P99 <.",
+            "values": {
+              "rebac_hierarchical": "True",
+              "cycle_prevented": "True",
+              "abac_context_enforced": "True",
+              "default_deny": "True"
+            },
+            "tones": {
+              "rebac_hierarchical": "data",
+              "cycle_prevented": "data",
+              "abac_context_enforced": "data",
+              "default_deny": "data"
+            },
+            "arrows": [
+              [
+                "rebac_hierarchical",
+                "cycle_prevented"
+              ],
+              [
+                "cycle_prevented",
+                "abac_context_enforced"
+              ],
+              [
+                "abac_context_enforced",
+                "default_deny"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous automated verification audits validate that enterprise policy.",
+            "values": {
+              "rebac_hierarchical": "True",
+              "cycle_prevented": "True",
+              "abac_context_enforced": "True",
+              "default_deny": "True"
+            },
+            "tones": {
+              "rebac_hierarchical": "ok",
+              "cycle_prevented": "ok",
+              "abac_context_enforced": "ok",
+              "default_deny": "ok"
+            },
+            "arrows": [
+              [
+                "rebac_hierarchical",
+                "cycle_prevented"
+              ],
+              [
+                "cycle_prevented",
+                "abac_context_enforced"
+              ],
+              [
+                "abac_context_enforced",
+                "default_deny"
+              ]
             ]
           }
         ]

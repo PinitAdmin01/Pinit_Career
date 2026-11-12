@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 56,
-  "promptSha": "00e4a90d16343f6b4f99fb4e6a15ef1783b262680a6cd3c075964b7f8876eb44",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircuts — Foundations & Mathematical Invariants",
-      "codeHash": "02c019a6ddc91e327b94210147e8f1177c1f865c65f9f773cea20ed6ecbf9e2b",
+      "codeHash": "6fde5a1f42665a6ce66469d05f8328134e0511f903a580836923893d11e5c2d0",
       "spec": {
         "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trials",
+            "label": "trials"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "n_trials",
+            "label": "n_trials"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "var_sharpe",
+            "label": "var_sharpe"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bar",
+            "label": "bar"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern quantitative finance, researchers deploy automated genetic.",
+            "values": {
+              "trials": {
+                "var": "trials",
+                "line": 18,
+                "hit": 1
+              },
+              "n_trials": {
+                "var": "n_trials",
+                "line": 10,
+                "hit": 1
+              },
+              "var_sharpe": {
+                "var": "var_sharpe",
+                "line": 10,
+                "hit": 1
+              },
+              "bar": {
+                "var": "bar",
+                "line": 19,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "trials": "data",
+              "n_trials": "data",
+              "var_sharpe": "data",
+              "bar": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "n_trials"
+              ],
+              [
+                "n_trials",
+                "var_sharpe"
+              ],
+              [
+                "var_sharpe",
+                "bar"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Even if all candidate strategies have zero true alpha, random noise.",
+            "values": {
+              "trials": {
+                "var": "trials",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "n_trials": {
+                "var": "n_trials",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "var_sharpe": {
+                "var": "var_sharpe",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "bar": {
+                "var": "bar",
+                "line": 20,
+                "hit": 1
               }
+            },
+            "tones": {
+              "trials": "data",
+              "n_trials": "data",
+              "var_sharpe": "data",
+              "bar": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "n_trials"
+              ],
+              [
+                "n_trials",
+                "var_sharpe"
+              ],
+              [
+                "var_sharpe",
+                "bar"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Mathematical false discovery haircuts protect investment funds.",
+            "values": {
+              "trials": {
+                "var": "trials",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "n_trials": {
+                "var": "n_trials",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "var_sharpe": {
+                "var": "var_sharpe",
+                "line": 10,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "bar": {
+                "var": "bar",
+                "line": 18,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "trials": "ok",
+              "n_trials": "ok",
+              "var_sharpe": "ok",
+              "bar": "ok"
+            },
+            "arrows": [
+              [
+                "trials",
+                "n_trials"
+              ],
+              [
+                "n_trials",
+                "var_sharpe"
+              ],
+              [
+                "var_sharpe",
+                "bar"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trials",
+            "label": "trials"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "n_trials",
+            "label": "n_trials"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "var_sharpe",
+            "label": "var_sharpe"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bar",
+            "label": "bar"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern quantitative finance, researchers deploy automated genetic.",
+            "values": {
+              "trials": "1",
+              "n_trials": "1",
+              "var_sharpe": "1",
+              "bar": "0"
+            },
+            "tones": {
+              "trials": "data",
+              "n_trials": "data",
+              "var_sharpe": "data",
+              "bar": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "n_trials"
+              ],
+              [
+                "n_trials",
+                "var_sharpe"
+              ],
+              [
+                "var_sharpe",
+                "bar"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Even if all candidate strategies have zero true alpha, random noise.",
+            "values": {
+              "trials": "1",
+              "n_trials": "1",
+              "var_sharpe": "1",
+              "bar": "0"
+            },
+            "tones": {
+              "trials": "data",
+              "n_trials": "data",
+              "var_sharpe": "data",
+              "bar": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "n_trials"
+              ],
+              [
+                "n_trials",
+                "var_sharpe"
+              ],
+              [
+                "var_sharpe",
+                "bar"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Mathematical false discovery haircuts protect investment funds.",
+            "values": {
+              "trials": "1",
+              "n_trials": "10",
+              "var_sharpe": "1",
+              "bar": "0"
+            },
+            "tones": {
+              "trials": "ok",
+              "n_trials": "ok",
+              "var_sharpe": "ok",
+              "bar": "ok"
+            },
+            "arrows": [
+              [
+                "trials",
+                "n_trials"
+              ],
+              [
+                "n_trials",
+                "var_sharpe"
+              ],
+              [
+                "var_sharpe",
+                "bar"
+              ]
             ]
           }
         ]
@@ -273,530 +287,382 @@
     },
     {
       "partTitle": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircuts — Core Algorithm & State Representation",
-      "codeHash": "2d1cf78d6f2ea00262e756b4fb3813b98bb6b79aa508474f5f29b0ac17a1ccca",
+      "codeHash": "472b7d8069dc8edd9c2be03d55990462ff534f56b250a6e2daccafab99846afa",
       "spec": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
+        "actors": [
+          "observed_sr",
+          "t_samples",
+          "n_trials"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core Deflated Sharpe Ratio algorithm evaluates the standard normal.",
+            "activeActor": "observed_sr",
+            "messages": [
+              {
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": {
+                  "var": "observed_sr",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": {
+                  "var": "t_samples",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "First, the standard Sharpe ratio is annualized.",
+            "activeActor": "t_samples",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": {
+                  "var": "observed_sr",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": {
+                  "var": "t_samples",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Standardized DSR reporting provides fiduciary transparency during.",
+            "activeActor": "n_trials",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": {
+                  "var": "observed_sr",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": {
+                  "var": "t_samples",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
+        "actors": [
+          "observed_sr",
+          "t_samples",
+          "n_trials"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core Deflated Sharpe Ratio algorithm evaluates the standard normal.",
+            "messages": [
+              {
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": "2.5",
+                "tone": "data"
+              },
+              {
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": "252",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "observed_sr"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "First, the standard Sharpe ratio is annualized.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": "2.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": "252",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "t_samples"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Standardized DSR reporting provides fiduciary transparency during.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "observed_sr",
+                "to": "t_samples",
+                "label": "2.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "t_samples",
+                "to": "n_trials",
+                "label": "252",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "n_trials"
           }
         ]
       }
     },
     {
       "partTitle": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircuts — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3bf7dae7fb17d50aef238d21e7b505d5d79523b5cdbe6d4a6c31db1145700d91",
+      "codeHash": "90b03ec926b40db8cd01bc50e800109d51ea63ef179bc423d4008a4eb331965e",
       "spec": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise quantitative research platforms evaluate DSR across thousands.",
+            "bars": [
+              {
+                "label": "nom_trials",
+                "value": {
+                  "var": "nom_trials",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "nominal_trials",
+                "value": {
+                  "var": "nominal_trials",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_correlatio",
+                "value": {
+                  "var": "avg_correlation",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_eff",
+                "value": {
+                  "var": "n_eff",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Computing numerical integration or iterative root finding for every.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "nom_trials",
+                "value": {
+                  "var": "nom_trials",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nominal_trials",
+                "value": {
+                  "var": "nominal_trials",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "avg_correlatio",
+                "value": {
+                  "var": "avg_correlation",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "n_eff",
+                "value": {
+                  "var": "n_eff",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization guarantees that research evaluation remains.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "nom_trials",
+                "value": {
+                  "var": "nom_trials",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nominal_trials",
+                "value": {
+                  "var": "nominal_trials",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "avg_correlatio",
+                "value": {
+                  "var": "avg_correlation",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "n_eff",
+                "value": {
+                  "var": "n_eff",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise quantitative research platforms evaluate DSR across thousands.",
+            "bars": [
+              {
+                "label": "nom_trials",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "nominal_trials",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "avg_correlatio",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "n_eff",
+                "value": 50.89999999999999,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Computing numerical integration or iterative root finding for every.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "nom_trials",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nominal_trials",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "avg_correlatio",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "n_eff",
+                "value": 50.89999999999999,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization guarantees that research evaluation remains.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "nom_trials",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nominal_trials",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "avg_correlatio",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "n_eff",
+                "value": 450.1,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +671,176 @@
     },
     {
       "partTitle": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircuts — Resilience Guardrails & Failure Recovery",
-      "codeHash": "cd3cfcf97a36902e36865744984cfc3f4b475fc6d56fedf1f51cc7357f69d9a7",
+      "codeHash": "2c3bcab8bca757ceeac294821d74428273e005fb69bd333a69e5dd2c862c4a62",
       "spec": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantitative investment committees enforce strict institutional guardrails.",
+            "bars": [
+              {
+                "label": "dsr_probabilit",
+                "value": {
+                  "var": "dsr_probability",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "track_record_d",
+                "value": {
+                  "var": "track_record_days",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_days",
+                "value": {
+                  "var": "min_days",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most critical operational risk is P-Hacking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "dsr_probabilit",
+                "value": {
+                  "var": "dsr_probability",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "track_record_d",
+                "value": {
+                  "var": "track_record_days",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_days",
+                "value": {
+                  "var": "min_days",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated audit trails protect the fund against researcher selection bias.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "dsr_probabilit",
+                "value": {
+                  "var": "dsr_probability",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "track_record_d",
+                "value": {
+                  "var": "track_record_days",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_days",
+                "value": {
+                  "var": "min_days",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantitative investment committees enforce strict institutional guardrails.",
+            "bars": [
+              {
+                "label": "dsr_probabilit",
+                "value": 0.98,
+                "tone": "data"
+              },
+              {
+                "label": "track_record_d",
+                "value": 756,
+                "tone": "data"
+              },
+              {
+                "label": "min_days",
+                "value": 504,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most critical operational risk is P-Hacking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "dsr_probabilit",
+                "value": 0.98,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "track_record_d",
+                "value": 756,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_days",
+                "value": 504,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated audit trails protect the fund against researcher selection bias.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "dsr_probabilit",
+                "value": 0.98,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "track_record_d",
+                "value": 756,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_days",
+                "value": 504,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +849,218 @@
     },
     {
       "partTitle": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircuts — Production Telemetry & Verification Audit",
-      "codeHash": "828de2f6ed662e6c51414544523c78bcc0d7c6cb1e749044635feff8a46af0be",
+      "codeHash": "d793960cb3e612e221746db4ae049b24cfef45d47f5d6c3f1d36f0c5425b20eb",
       "spec": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for quantitative research requires tracking.",
+            "bars": [
+              {
+                "label": "backtest_sr",
+                "value": {
+                  "var": "backtest_sr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "live_sr",
+                "value": {
+                  "var": "live_sr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "live_trading_d",
+                "value": {
+                  "var": "live_trading_days",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sdr",
+                "value": {
+                  "var": "sdr",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes the Sharpe Degradation Ratio.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "backtest_sr",
+                "value": {
+                  "var": "backtest_sr",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "live_sr",
+                "value": {
+                  "var": "live_sr",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "live_trading_d",
+                "value": {
+                  "var": "live_trading_days",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "sdr",
+                "value": {
+                  "var": "sdr",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "backtest_sr",
+                "value": {
+                  "var": "backtest_sr",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "live_sr",
+                "value": {
+                  "var": "live_sr",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "live_trading_d",
+                "value": {
+                  "var": "live_trading_days",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "sdr",
+                "value": {
+                  "var": "sdr",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery Haircut",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Deflated Sharpe Ratio (DSR) & Multiple-Testing False Discovery H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for quantitative research requires tracking.",
+            "bars": [
+              {
+                "label": "backtest_sr",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "live_sr",
+                "value": 1.3,
+                "tone": "data"
+              },
+              {
+                "label": "live_trading_d",
+                "value": 180,
+                "tone": "data"
+              },
+              {
+                "label": "sdr",
+                "value": 0.65,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes the Sharpe Degradation Ratio.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "backtest_sr",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "live_sr",
+                "value": 1.3,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "live_trading_d",
+                "value": 180,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "sdr",
+                "value": 0.65,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "backtest_sr",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "live_sr",
+                "value": 1.3,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "live_trading_d",
+                "value": 180,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "sdr",
+                "value": 0.65,
+                "tone": "ok"
               }
             ]
           }

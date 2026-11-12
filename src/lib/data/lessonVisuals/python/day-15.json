@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 15,
+  "promptSha": "49e251d534a70ffece5be0fe27294d1df9b412042814c30f11acb691b26eac43",
+  "model": "hand-verified-day15",
   "entries": [
     {
       "partTitle": "What a module is and how to import it",

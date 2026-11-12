@@ -2,49 +2,33 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "AI coding assistants",
       "codeHash": "564f251c2881479846e3c68a61ed62b61bc3e46d80d59be7c3367d38f2e45277",
       "spec": {
         "template": "table",
-        "title": "Coding assistant trade-offs and edge case detection",
+        "title": "AI coding assistants",
         "columns": [
-          "average",
-          "values",
-          "average"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Coding assistants suggest code functions and explain unfamiliar error messages.",
+            "caption": "Tools such as GitHub Copilot, Cursor, Claude Code and ChatGPT suggest code.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "average"
-                  },
-                  {
                     "text": "values"
                   },
                   {
-                    "text": "average"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "average"
-                  },
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "average"
+                    "var": "values",
+                    "line": 2,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -52,33 +36,46 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "AI code can produce subtle bugs and ignore critical boundary edge cases.",
+            "at": "say2",
+            "caption": "They are fastest at boilerplate, common patterns, tests, documentation.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "average"
-                  },
-                  {
                     "text": "values"
                   },
                   {
-                    "text": "average"
+                    "var": "values",
+                    "line": 2,
+                    "hit": 2
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Beginners gain the most by asking assistants to explain code line by line.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "average"
+                    "text": "out 2"
                   },
                   {
-                    "text": "values"
-                  },
-                  {
-                    "text": "values"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -89,52 +86,53 @@
       },
       "filled": {
         "template": "table",
-        "title": "Coding assistant trade-offs and edge case detection",
+        "title": "AI coding assistants",
         "columns": [
-          "average",
-          "values",
-          "average"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Coding assistants suggest code functions and explain unfamiliar error messages.",
+            "caption": "Tools such as GitHub Copilot, Cursor, Claude Code and ChatGPT suggest code.",
             "rows": [
               {
                 "cells": [
-                  "average",
                   "values",
-                  "average"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "average",
-                  "values",
-                  "average"
+                  "[4, 8, 6]"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "AI code can produce subtle bugs and ignore critical boundary edge cases.",
+            "at": "say2",
+            "caption": "They are fastest at boilerplate, common patterns, tests, documentation.",
             "rows": [
               {
                 "cells": [
-                  "average",
                   "values",
-                  "average"
+                  "[]"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Beginners gain the most by asking assistants to explain code line by line.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "6.0"
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "average",
-                  "values",
-                  "values"
+                  "out 2",
+                  "bug: an empty list crashes the function"
                 ],
                 "tone": "ok"
               }
@@ -147,78 +145,91 @@
       "partTitle": "Prompting for code",
       "codeHash": "2543e8a91e853297028f9e5e19b0851bb730ce62a77a0b0148e6e97d6cb8a569",
       "spec": {
-        "template": "table",
-        "title": "Specification-driven prompt templates for code generation",
-        "columns": [
+        "template": "sequence",
+        "title": "Prompting for code",
+        "actors": [
           "spec",
-          "prompt",
-          "spec"
+          "k",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Providing explicit constraints and outputs guides coding assistants accurately.",
-            "rows": [
+            "caption": "Give coding assistants the same things you would give a colleague.",
+            "activeActor": "spec",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "spec"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "spec"
-                  }
-                ],
-                "tone": "ok"
+                "from": "spec",
+                "to": "k",
+                "label": {
+                  "var": "spec",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "spec"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "spec"
-                  }
-                ],
-                "tone": "data"
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompts must explicitly handle edge cases and invalid input requirements.",
-            "rows": [
+            "at": "say2",
+            "caption": "Specify the language and version, libraries you want (or want to avoid).",
+            "activeActor": "k",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "spec"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "spec"
-                  }
-                ],
+                "from": "spec",
+                "to": "k",
+                "label": {
+                  "var": "spec",
+                  "line": 5,
+                  "hit": 7
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "spec"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Pasting the exact error message and the relevant code, rather than.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "spec",
+                "to": "k",
+                "label": {
+                  "var": "spec",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +237,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Specification-driven prompt templates for code generation",
-        "columns": [
+        "template": "sequence",
+        "title": "Prompting for code",
+        "actors": [
           "spec",
-          "prompt",
-          "spec"
+          "k",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Providing explicit constraints and outputs guides coding assistants accurately.",
-            "rows": [
+            "caption": "Give coding assistants the same things you would give a colleague.",
+            "messages": [
               {
-                "cells": [
-                  "spec",
-                  "prompt",
-                  "spec"
-                ],
-                "tone": "ok"
+                "from": "spec",
+                "to": "k",
+                "label": "{'function': 'median(values)', 'languag…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "spec",
-                  "prompt",
-                  "spec"
-                ],
-                "tone": "data"
+                "from": "k",
+                "to": "v",
+                "label": "'function'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "spec"
           },
           {
-            "at": "say3",
-            "caption": "Prompts must explicitly handle edge cases and invalid input requirements.",
-            "rows": [
+            "at": "say2",
+            "caption": "Specify the language and version, libraries you want (or want to avoid).",
+            "messages": [
               {
-                "cells": [
-                  "spec",
-                  "prompt",
-                  "spec"
-                ],
+                "from": "spec",
+                "to": "k",
+                "label": "{'function': 'median(values)', 'languag…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "spec",
-                  "prompt",
-                  "prompt"
-                ],
+                "from": "k",
+                "to": "v",
+                "label": "'language'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "k"
+          },
+          {
+            "at": "say9",
+            "caption": "Pasting the exact error message and the relevant code, rather than.",
+            "messages": [
+              {
+                "from": "spec",
+                "to": "k",
+                "label": "{'function': 'median(values)', 'languag…",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": "'behaviour'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }
@@ -285,78 +309,91 @@
       "partTitle": "Generating tests from examples",
       "codeHash": "78d4b30b99774d2dd202c1e6ddb18473927dd36597ec9ed3fd71642c835741bc",
       "spec": {
-        "template": "table",
-        "title": "Automated test synthesis and assertion suites",
-        "columns": [
+        "template": "sequence",
+        "title": "Generating tests from examples",
+        "actors": [
           "cases",
-          "name",
-          "cases"
+          "a",
+          "args"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unit tests turn concrete examples into automatic verification checks.",
-            "rows": [
+            "caption": "Tests turn examples into automatic checks.",
+            "activeActor": "cases",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "cases"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "cases"
-                  }
-                ],
-                "tone": "ok"
+                "from": "cases",
+                "to": "a",
+                "label": {
+                  "var": "cases",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cases"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "cases"
-                  }
-                ],
-                "tone": "data"
+                "from": "a",
+                "to": "args",
+                "label": {
+                  "var": "a",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Generating assert lines turns example test cases into executable suites.",
-            "rows": [
+            "at": "say2",
+            "caption": "AI assistants are good at writing tests, and you can also generate simple.",
+            "activeActor": "a",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "cases"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "cases"
-                  }
-                ],
+                "from": "cases",
+                "to": "a",
+                "label": {
+                  "var": "cases",
+                  "line": 2,
+                  "hit": 8
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cases"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "from": "a",
+                "to": "args",
+                "label": {
+                  "var": "a",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Good test tables include ordinary cases, boundary cases and invalid.",
+            "activeActor": "args",
+            "messages": [
+              {
+                "from": "cases",
+                "to": "a",
+                "label": {
+                  "var": "cases",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "args",
+                "label": {
+                  "var": "a",
+                  "line": 2,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +401,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated test synthesis and assertion suites",
-        "columns": [
+        "template": "sequence",
+        "title": "Generating tests from examples",
+        "actors": [
           "cases",
-          "name",
-          "cases"
+          "a",
+          "args"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unit tests turn concrete examples into automatic verification checks.",
-            "rows": [
+            "caption": "Tests turn examples into automatic checks.",
+            "messages": [
               {
-                "cells": [
-                  "cases",
-                  "name",
-                  "cases"
-                ],
-                "tone": "ok"
+                "from": "cases",
+                "to": "a",
+                "label": "[[['hello world'], 'Hello World'], [[''…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "cases",
-                  "name",
-                  "cases"
-                ],
-                "tone": "data"
+                "from": "a",
+                "to": "args",
+                "label": "'hello world'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cases"
           },
           {
-            "at": "say3",
-            "caption": "Generating assert lines turns example test cases into executable suites.",
-            "rows": [
+            "at": "say2",
+            "caption": "AI assistants are good at writing tests, and you can also generate simple.",
+            "messages": [
               {
-                "cells": [
-                  "cases",
-                  "name",
-                  "cases"
-                ],
+                "from": "cases",
+                "to": "a",
+                "label": "[[['hello world'], 'Hello World'], [[''…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "cases",
-                  "name",
-                  "name"
-                ],
+                "from": "a",
+                "to": "args",
+                "label": "'hello world'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "a"
+          },
+          {
+            "at": "say9",
+            "caption": "Good test tables include ordinary cases, boundary cases and invalid.",
+            "messages": [
+              {
+                "from": "cases",
+                "to": "a",
+                "label": "[[['hello world'], 'Hello World'], [[''…",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "args",
+                "label": "''",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "args"
           }
         ]
       }
@@ -423,135 +473,277 @@
       "partTitle": "Automated code review with ast",
       "codeHash": "ff59f4b15ed1940842a7f0a36054b38076af02aa171b1ceb7225a0e5e4b28870",
       "spec": {
-        "template": "table",
-        "title": "AST static analysis and linting rule checks",
-        "columns": [
-          "tree",
-          "node",
-          "source"
+        "template": "flow",
+        "title": "Automated code review with ast",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "tree",
+            "label": "tree"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The ast module parses source code into a hierarchical tree of syntax nodes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tree"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Python can read its own code as data.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tree"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "data"
+              "tree": {
+                "var": "tree",
+                "line": 11,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 12,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "tree": "data",
+              "node": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "tree"
+              ],
+              [
+                "tree",
+                "node"
+              ],
+              [
+                "node",
+                "d"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Walking the tree lets linters check code safely without executing it.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tree"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Walking the tree lets you check for common problems without running.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tree"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "tree"
-                  }
-                ],
-                "tone": "ok"
+              "tree": {
+                "var": "tree",
+                "line": 12,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 13,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "tree": "data",
+              "node": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "tree"
+              ],
+              [
+                "tree",
+                "node"
+              ],
+              [
+                "node",
+                "d"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Parsing is also a quick first check.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 12,
+                "hit": 1
+              },
+              "tree": {
+                "var": "tree",
+                "line": 13,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 12,
+                "hit": 2
+              },
+              "d": {
+                "var": "d",
+                "line": 14,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "source": "ok",
+              "tree": "ok",
+              "node": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "tree"
+              ],
+              [
+                "tree",
+                "node"
+              ],
+              [
+                "node",
+                "d"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AST static analysis and linting rule checks",
-        "columns": [
-          "tree",
-          "node",
-          "source"
+        "template": "flow",
+        "title": "Automated code review with ast",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "tree",
+            "label": "tree"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The ast module parses source code into a hierarchical tree of syntax nodes.",
-            "rows": [
-              {
-                "cells": [
-                  "tree",
-                  "node",
-                  "source"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tree",
-                  "node",
-                  "source"
-                ],
-                "tone": "data"
-              }
+            "caption": "Python can read its own code as data.",
+            "values": {
+              "source": "'\ndef total(items=[]):\n    return sum(i…",
+              "tree": "<Module>",
+              "node": "<Module>",
+              "d": "<List>"
+            },
+            "tones": {
+              "source": "data",
+              "tree": "data",
+              "node": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "tree"
+              ],
+              [
+                "tree",
+                "node"
+              ],
+              [
+                "node",
+                "d"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Walking the tree lets linters check code safely without executing it.",
-            "rows": [
-              {
-                "cells": [
-                  "tree",
-                  "node",
-                  "source"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "tree",
-                  "node",
-                  "tree"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Walking the tree lets you check for common problems without running.",
+            "values": {
+              "source": "'\ndef total(items=[]):\n    return sum(i…",
+              "tree": "<Module>",
+              "node": "<Module>",
+              "d": "<List>"
+            },
+            "tones": {
+              "source": "data",
+              "tree": "data",
+              "node": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "tree"
+              ],
+              [
+                "tree",
+                "node"
+              ],
+              [
+                "node",
+                "d"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Parsing is also a quick first check.",
+            "values": {
+              "source": "'\ndef total(items=[]):\n    return sum(i…",
+              "tree": "<Module>",
+              "node": "<FunctionDef>",
+              "d": "<List>"
+            },
+            "tones": {
+              "source": "ok",
+              "tree": "ok",
+              "node": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "tree"
+              ],
+              [
+                "tree",
+                "node"
+              ],
+              [
+                "node",
+                "d"
+              ]
             ]
           }
         ]
@@ -561,224 +753,162 @@
       "partTitle": "Reviewing AI code: a checklist",
       "codeHash": "891dc0b937b097743f2b82a9aade34bd7d1056a864a3612aecb2c716eda0f2b8",
       "spec": {
-        "template": "flow",
-        "title": "Reviewing AI code: a checklist — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reviewing AI code: ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Reviewing AI code: a checklist",
+        "actors": [
+          "snippet",
+          "checks",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reviewing AI code: a checklist [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reviewing AI code: ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Does it do what was asked for normal inputs and edge cases.",
+            "activeActor": "snippet",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": {
+                  "var": "snippet",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Does it handle untrusted input safely, avoid hard-coded secrets, and use.",
+            "activeActor": "checks",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": {
+                  "var": "snippet",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reviewing AI code: a checklist.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Reviewing AI code also teaches you.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": {
+                  "var": "snippet",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reviewing AI code: a checklist — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reviewing AI code: ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Reviewing AI code: a checklist",
+        "actors": [
+          "snippet",
+          "checks",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reviewing AI code: a checklist [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reviewing AI code: ... [D22.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Does it do what was asked for normal inputs and edge cases.",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": "\"import requests_plus\nAPI_KEY = 'sk-123…",
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": "{'no hard-coded secrets': False, 'known…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "snippet"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Does it handle untrusted input safely, avoid hard-coded secrets, and use.",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": "\"import requests_plus\nAPI_KEY = 'sk-123…",
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": "{'no hard-coded secrets': False, 'known…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "checks"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reviewing AI code: a checklist [D22.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Reviewing AI code also teaches you.",
+            "messages": [
+              {
+                "from": "snippet",
+                "to": "checks",
+                "label": "\"import requests_plus\nAPI_KEY = 'sk-123…",
+                "tone": "data"
+              },
+              {
+                "from": "checks",
+                "to": "name",
+                "label": "{'no hard-coded secrets': False, 'known…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -787,224 +917,162 @@
       "partTitle": "Practice time: tests and review",
       "codeHash": "ab9e44b0fa73a9847781f9b2cfcda1d953daf64e17ea6ab512b661a96ae74075",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: tests and review — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: test...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: tests and review",
+        "actors": [
+          "source",
+          "issues",
+          "node"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: tests and review [D.Psix.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: test... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Make_tests(func_name, cases).",
+            "activeActor": "source",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": {
+                  "var": "source",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": {
+                  "var": "issues",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include integer, string, empty and list arguments, and three.",
+            "activeActor": "issues",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": {
+                  "var": "source",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": {
+                  "var": "issues",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: tests and review.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two functions show how much careful checking you can automate.",
+            "activeActor": "node",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": {
+                  "var": "source",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": {
+                  "var": "issues",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: tests and review — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: test...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: tests and review",
+        "actors": [
+          "source",
+          "issues",
+          "node"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: tests and review [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: test... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Make_tests(func_name, cases).",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": "'def load(path, cache={}):\n    try:\n   …",
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "source"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include integer, string, empty and list arguments, and three.",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": "'def load(path, cache={}):\n    try:\n   …",
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "issues"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: tests and review [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "These two functions show how much careful checking you can automate.",
+            "messages": [
+              {
+                "from": "source",
+                "to": "issues",
+                "label": "'def load(path, cache={}):\n    try:\n   …",
+                "tone": "data"
+              },
+              {
+                "from": "issues",
+                "to": "node",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "node"
           }
         ]
       }

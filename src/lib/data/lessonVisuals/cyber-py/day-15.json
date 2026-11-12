@@ -2,155 +2,177 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 15,
-  "promptSha": "a6d35351d81dcdc1f32aa0fb582b99e193956731cdb1755593f451b836ad70fc",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The login flow",
       "codeHash": "b5d14e62feea83a6bd22f3ab0cf1f9c07c487af1001a133654fb02979f0b8cf5",
       "spec": {
-        "template": "flow",
-        "title": "Milestone two enterprise defense-in-depth identity pipeline architecture",
-        "nodes": [
-          {
-            "id": "pkiStage",
-            "label": "TLS Transport Verification",
-            "tappable": false
-          },
-          {
-            "id": "argonStage",
-            "label": "Argon2id Memory-Hard Credential",
-            "tappable": false
-          },
-          {
-            "id": "totpStage",
-            "label": "RFC TOTP Second Factor",
-            "tappable": false
-          },
-          {
-            "id": "jwtStage",
-            "label": "Hardened RS256 JWT Token",
-            "tappable": false
-          },
-          {
-            "id": "aeadStage",
-            "label": "AES-GCM Envelope Encryption",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "pkiStage",
-            "to": "argonStage",
-            "label": "Passes"
-          },
-          {
-            "from": "argonStage",
-            "to": "totpStage",
-            "label": "Authenticates"
-          },
-          {
-            "from": "totpStage",
-            "to": "jwtStage",
-            "label": "Verifies"
-          },
-          {
-            "from": "jwtStage",
-            "to": "aeadStage",
-            "label": "Secures"
-          }
+        "template": "table",
+        "title": "The login flow",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Identity verification begins with strict transport validation of PKI chains.",
-            "activeNodes": [
-              "pkiStage",
-              "argonStage"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A secure login checks, in order.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "flow"
+                  },
+                  {
+                    "var": "flow",
+                    "line": 1,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "The identity engine enforces second factor authentication using passwords.",
-            "activeNodes": [
-              "argonStage",
-              "totpStage"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Checking the lockout first means a locked account cannot be used to test.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "flow"
+                  },
+                  {
+                    "var": "flow",
+                    "line": 5,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "A clear, testable flow is easier to secure than one with special cases.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone two enterprise defense-in-depth identity pipeline architecture",
-        "nodes": [
-          {
-            "id": "pkiStage",
-            "label": "TLS Transport Verification",
-            "tappable": false
-          },
-          {
-            "id": "argonStage",
-            "label": "Argon2id Memory-Hard Credential",
-            "tappable": false
-          },
-          {
-            "id": "totpStage",
-            "label": "RFC TOTP Second Factor",
-            "tappable": false
-          },
-          {
-            "id": "jwtStage",
-            "label": "Hardened RS256 JWT Token",
-            "tappable": false
-          },
-          {
-            "id": "aeadStage",
-            "label": "AES-GCM Envelope Encryption",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "pkiStage",
-            "to": "argonStage",
-            "label": "Passes"
-          },
-          {
-            "from": "argonStage",
-            "to": "totpStage",
-            "label": "Authenticates"
-          },
-          {
-            "from": "totpStage",
-            "to": "jwtStage",
-            "label": "Verifies"
-          },
-          {
-            "from": "jwtStage",
-            "to": "aeadStage",
-            "label": "Secures"
-          }
+        "template": "table",
+        "title": "The login flow",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Identity verification begins with strict transport validation of PKI chains.",
-            "activeNodes": [
-              "pkiStage",
-              "argonStage"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A secure login checks, in order.",
+            "rows": [
+              {
+                "cells": [
+                  "flow",
+                  "['1. account locked?        -> stop wit…"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "The identity engine enforces second factor authentication using passwords.",
-            "activeNodes": [
-              "argonStage",
-              "totpStage"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Checking the lockout first means a locked account cannot be used to test.",
+            "rows": [
+              {
+                "cells": [
+                  "flow",
+                  "['1. account locked?        -> stop wit…"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "A clear, testable flow is easier to secure than one with special cases.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "1. account locked?        -> stop with LOCKED"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "2. password hash matches? -> otherwise BAD_PASSWORD"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "3. TOTP code valid?       -> otherwise BAD_CODE"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "4. issue session, reset failure counter -> OK"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -160,73 +182,71 @@
       "codeHash": "722e9af26fa80682afacc72c40761600fef079fae179d5d2c1013af53a6cd81f",
       "spec": {
         "template": "states",
-        "title": "Authenticated envelope encryption and nonce collision prevention states",
+        "title": "What to tell the user",
         "states": [
           {
-            "id": "nonceGenerated",
-            "label": "Unique Nonce Vector Generated"
+            "id": "shown",
+            "label": "shown"
           },
           {
-            "id": "auditChecked",
-            "label": "Auditor Verifies Nonce Uniqueness"
-          },
-          {
-            "id": "aeadEncrypted",
-            "label": "AES-GCM Produces Tagged Payload"
-          },
-          {
-            "id": "replayHalted",
-            "label": "Duplicate Nonce Halts Pipeline"
+            "id": "result",
+            "label": "result"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The module incorporates an auditor to prevent catastrophic nonce reuse.",
-            "activeStateId": "auditChecked",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Internally, the engine distinguishes BAD_PASSWORD and BAD_CODE for logging.",
+            "currentState": "shown",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "A duplicate nonce halts the encryption pipeline to eliminate collisions.",
-            "activeStateId": "replayHalted",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Externally, the user interface should say something general, such.",
+            "currentState": "result",
+            "transition": {
+              "from": "shown",
+              "to": "result",
+              "label": {
+                "var": "result",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Authenticated envelope encryption and nonce collision prevention states",
+        "title": "What to tell the user",
         "states": [
           {
-            "id": "nonceGenerated",
-            "label": "Unique Nonce Vector Generated"
+            "id": "shown",
+            "label": "shown"
           },
           {
-            "id": "auditChecked",
-            "label": "Auditor Verifies Nonce Uniqueness"
-          },
-          {
-            "id": "aeadEncrypted",
-            "label": "AES-GCM Produces Tagged Payload"
-          },
-          {
-            "id": "replayHalted",
-            "label": "Duplicate Nonce Halts Pipeline"
+            "id": "result",
+            "label": "result"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The module incorporates an auditor to prevent catastrophic nonce reuse.",
-            "activeStateId": "auditChecked",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Internally, the engine distinguishes BAD_PASSWORD and BAD_CODE for logging.",
+            "currentState": "shown",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "A duplicate nonce halts the encryption pipeline to eliminate collisions.",
-            "activeStateId": "replayHalted",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Externally, the user interface should say something general, such.",
+            "currentState": "result",
+            "transition": {
+              "from": "shown",
+              "to": "result",
+              "label": "'OK'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -235,194 +255,410 @@
       "partTitle": "Progressive lockout",
       "codeHash": "ebfabec89864be60edf4546656ba86c1d89af3d2dd13b6e6c006bfafa4414055",
       "spec": {
-        "template": "compare",
-        "title": "Standard fast hash verification versus memory-hard constant-time defense",
-        "left": {
-          "title": "Standard Fast Hash Verification",
-          "items": [
-            "Vulnerable to parallel graphics card cracking clusters",
-            "Calculates matching characters with variable timing",
-            "Microsecond leaks reveal credential prefixes over network"
-          ]
-        },
-        "right": {
-          "title": "Argon2id Constant-Time Guard",
-          "items": [
-            "High memory cost and multi pass compute requirements",
-            "Compares every byte unconditionally using bitwise XOR",
-            "Eliminates timing leaks across password verification"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Progressive lockout",
+        "boxes": [
           {
-            "at": "say2",
-            "caption": "The module strictly enforces memory cost and time cost parameters.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "n",
+            "label": "n"
           },
           {
-            "at": "say6",
-            "caption": "Constant time verification compares every byte using bitwise operations.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "failed",
+            "label": "failed"
           }
         ],
-        "leftLabel": "Standard Fast Hash Verification",
-        "rightLabel": "Argon2id Constant-Time Guard"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Lockouts slow down online password guessing, but permanent lockouts let.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "failed": {
+                "var": "failed",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "n": "data",
+              "failed": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Progressive lockouts increase the waiting time with each failure.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              "failed": {
+                "var": "failed",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "n": "data",
+              "failed": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Monitoring many lockouts across accounts reveals large-scale attacks early.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 2
+              },
+              "failed": {
+                "var": "failed",
+                "line": 2,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "n": "ok",
+              "failed": "ok"
+            }
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Standard fast hash verification versus memory-hard constant-time defense",
-        "left": {
-          "title": "Standard Fast Hash Verification",
-          "items": [
-            "Vulnerable to parallel graphics card cracking clusters",
-            "Calculates matching characters with variable timing",
-            "Microsecond leaks reveal credential prefixes over network"
-          ]
-        },
-        "right": {
-          "title": "Argon2id Constant-Time Guard",
-          "items": [
-            "High memory cost and multi pass compute requirements",
-            "Compares every byte unconditionally using bitwise XOR",
-            "Eliminates timing leaks across password verification"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Progressive lockout",
+        "boxes": [
           {
-            "at": "say2",
-            "caption": "The module strictly enforces memory cost and time cost parameters.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "n",
+            "label": "n"
           },
           {
-            "at": "say6",
-            "caption": "Constant time verification compares every byte using bitwise operations.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "failed",
+            "label": "failed"
           }
         ],
-        "leftLabel": "Standard Fast Hash Verification",
-        "rightLabel": "Argon2id Constant-Time Guard"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Lockouts slow down online password guessing, but permanent lockouts let.",
+            "values": {
+              "n": "0",
+              "failed": "0"
+            },
+            "tones": {
+              "n": "data",
+              "failed": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Progressive lockouts increase the waiting time with each failure.",
+            "values": {
+              "n": "0",
+              "failed": "1"
+            },
+            "tones": {
+              "n": "data",
+              "failed": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Monitoring many lockouts across accounts reveals large-scale attacks early.",
+            "values": {
+              "n": "1",
+              "failed": "2"
+            },
+            "tones": {
+              "n": "ok",
+              "failed": "ok"
+            }
+          }
+        ]
       }
     },
     {
       "partTitle": "Putting the pieces together",
       "codeHash": "2a722e5eed53144e177f210056f11df3d3ee5a5b4251b5f19354c35f86921704",
       "spec": {
-        "template": "sequence",
-        "title": "Public key infrastructure certificate trust resolution and verification",
-        "actors": [
+        "template": "flow",
+        "title": "Putting the pieces together",
+        "nodes": [
           {
-            "id": "service",
-            "label": "Client Service"
+            "id": "failed",
+            "label": "failed"
           },
           {
-            "id": "validator",
-            "label": "PKI Validator"
+            "id": "pw_ok",
+            "label": "pw_ok"
           },
           {
-            "id": "trustRoot",
-            "label": "Enterprise CA Root"
-          }
-        ],
-        "messages": [
-          {
-            "from": "service",
-            "to": "validator",
-            "label": "Present X.509 Peer Certificate",
-            "tone": "data"
+            "id": "code_ok",
+            "label": "code_ok"
           },
           {
-            "from": "validator",
-            "to": "validator",
-            "label": "Verify Subject Alternative Name and Dates",
-            "tone": "ok"
-          },
-          {
-            "from": "validator",
-            "to": "trustRoot",
-            "label": "Resolve Signature to Trusted Root Authority",
-            "tone": "ok"
-          },
-          {
-            "from": "validator",
-            "to": "service",
-            "label": "Authorize Mutual TLS Encrypted Channel",
-            "tone": "ok"
+            "id": "user",
+            "label": "user"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The validator inspects chain of trust resolution to an authorized root.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The login engine reuses earlier pieces.",
+            "values": {
+              "failed": {
+                "var": "failed",
+                "line": 10,
+                "hit": 1
+              },
+              "pw_ok": {
+                "var": "pw_ok",
+                "line": 10,
+                "hit": 1
+              },
+              "code_ok": {
+                "var": "code_ok",
+                "line": 10,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "failed": "data",
+              "pw_ok": "data",
+              "code_ok": "data",
+              "user": "data"
+            },
+            "arrows": [
+              [
+                "failed",
+                "pw_ok"
+              ],
+              [
+                "pw_ok",
+                "code_ok"
+              ],
+              [
+                "code_ok",
+                "user"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Untrusted or expired certificates cause the module to terminate connections.",
-            "activeMessageIndex": 2,
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Keeping each piece as a small, tested helper function makes the combined.",
+            "values": {
+              "failed": {
+                "var": "failed",
+                "line": 11,
+                "hit": 1
+              },
+              "pw_ok": {
+                "var": "pw_ok",
+                "line": 2,
+                "hit": 1
+              },
+              "code_ok": {
+                "var": "code_ok",
+                "line": 2,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "failed": "data",
+              "pw_ok": "data",
+              "code_ok": "data",
+              "user": "data"
+            },
+            "arrows": [
+              [
+                "failed",
+                "pw_ok"
+              ],
+              [
+                "pw_ok",
+                "code_ok"
+              ],
+              [
+                "code_ok",
+                "user"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Audit logs of logins, failures and lockouts are the raw material.",
+            "values": {
+              "failed": {
+                "var": "failed",
+                "line": 10,
+                "hit": 2
+              },
+              "pw_ok": {
+                "var": "pw_ok",
+                "line": 4,
+                "hit": 1
+              },
+              "code_ok": {
+                "var": "code_ok",
+                "line": 4,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "failed": "ok",
+              "pw_ok": "ok",
+              "code_ok": "ok",
+              "user": "ok"
+            },
+            "arrows": [
+              [
+                "failed",
+                "pw_ok"
+              ],
+              [
+                "pw_ok",
+                "code_ok"
+              ],
+              [
+                "code_ok",
+                "user"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Public key infrastructure certificate trust resolution and verification",
-        "actors": [
+        "template": "flow",
+        "title": "Putting the pieces together",
+        "nodes": [
           {
-            "id": "service",
-            "label": "Client Service"
+            "id": "failed",
+            "label": "failed"
           },
           {
-            "id": "validator",
-            "label": "PKI Validator"
+            "id": "pw_ok",
+            "label": "pw_ok"
           },
           {
-            "id": "trustRoot",
-            "label": "Enterprise CA Root"
-          }
-        ],
-        "messages": [
-          {
-            "from": "service",
-            "to": "validator",
-            "label": "Present X.509 Peer Certificate",
-            "tone": "data"
+            "id": "code_ok",
+            "label": "code_ok"
           },
           {
-            "from": "validator",
-            "to": "validator",
-            "label": "Verify Subject Alternative Name and Dates",
-            "tone": "ok"
-          },
-          {
-            "from": "validator",
-            "to": "trustRoot",
-            "label": "Resolve Signature to Trusted Root Authority",
-            "tone": "ok"
-          },
-          {
-            "from": "validator",
-            "to": "service",
-            "label": "Authorize Mutual TLS Encrypted Channel",
-            "tone": "ok"
+            "id": "user",
+            "label": "user"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The validator inspects chain of trust resolution to an authorized root.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The login engine reuses earlier pieces.",
+            "values": {
+              "failed": "0",
+              "pw_ok": "True",
+              "code_ok": "True",
+              "user": "{'failed': 0}"
+            },
+            "tones": {
+              "failed": "data",
+              "pw_ok": "data",
+              "code_ok": "data",
+              "user": "data"
+            },
+            "arrows": [
+              [
+                "failed",
+                "pw_ok"
+              ],
+              [
+                "pw_ok",
+                "code_ok"
+              ],
+              [
+                "code_ok",
+                "user"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Untrusted or expired certificates cause the module to terminate connections.",
-            "activeMessageIndex": 2,
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Keeping each piece as a small, tested helper function makes the combined.",
+            "values": {
+              "failed": "0",
+              "pw_ok": "True",
+              "code_ok": "True",
+              "user": "{'failed': 0}"
+            },
+            "tones": {
+              "failed": "data",
+              "pw_ok": "data",
+              "code_ok": "data",
+              "user": "data"
+            },
+            "arrows": [
+              [
+                "failed",
+                "pw_ok"
+              ],
+              [
+                "pw_ok",
+                "code_ok"
+              ],
+              [
+                "code_ok",
+                "user"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Audit logs of logins, failures and lockouts are the raw material.",
+            "values": {
+              "failed": "0",
+              "pw_ok": "True",
+              "code_ok": "True",
+              "user": "{'failed': 0}"
+            },
+            "tones": {
+              "failed": "ok",
+              "pw_ok": "ok",
+              "code_ok": "ok",
+              "user": "ok"
+            },
+            "arrows": [
+              [
+                "failed",
+                "pw_ok"
+              ],
+              [
+                "pw_ok",
+                "code_ok"
+              ],
+              [
+                "code_ok",
+                "user"
+              ]
+            ]
           }
         ]
       }
@@ -431,202 +667,162 @@
       "partTitle": "Threat model of the login page",
       "codeHash": "f01df04e5f6c91e0890d38b1d8cb008627040bae43b2a83bbc05c6bc18094cc5",
       "spec": {
-        "template": "table",
-        "title": "Zero-trust JSON Web Token claim inspection and signature bypass defense",
-        "columns": [
-          "Verification Check",
-          "Expected Standard",
-          "Observed Payload",
-          "Validation Verdict"
+        "template": "sequence",
+        "title": "Threat model of the login page",
+        "actors": [
+          "controls",
+          "threat",
+          "control"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The validator enforces an allowlist strictly rejecting algorithm bypass.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how applying updates stride during execution.",
+            "activeActor": "controls",
+            "messages": [
               {
-                "cells": [
-                  "Cryptographic Algorithm",
-                  "Asymmetric RS256 Only",
-                  "Alg Claim Matches None",
-                  "Rejected Signature Exploit"
-                ],
+                "from": "controls",
+                "to": "threat",
+                "label": {
+                  "var": "controls",
+                  "line": 1,
+                  "hit": 2
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Issuer Claim",
-                  "Trusted Auth Authority",
-                  "Matches Enterprise Issuer",
-                  "Verified Issuer Authority"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Audience Claim",
-                  "Target API Identifier",
-                  "Matches Production Gateway",
-                  "Verified Audience Scope"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Token Revocation",
-                  "Active Unrevoked Session",
-                  "Blacklist Store Inspection",
-                  "Verified Active Credential"
-                ],
-                "tone": "data"
+                "from": "threat",
+                "to": "control",
+                "label": {
+                  "var": "threat",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The validator checks that the token does not appear in a revocation list.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Stolen passwords, countered by hashing, MFA and breach checks.",
+            "activeActor": "threat",
+            "messages": [
               {
-                "cells": [
-                  "Cryptographic Algorithm",
-                  "Asymmetric RS256 Only",
-                  "Alg Claim Matches None",
-                  "Rejected Signature Exploit"
-                ],
+                "from": "controls",
+                "to": "threat",
+                "label": {
+                  "var": "controls",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Issuer Claim",
-                  "Trusted Auth Authority",
-                  "Matches Enterprise Issuer",
-                  "Verified Issuer Authority"
-                ],
+                "from": "threat",
+                "to": "control",
+                "label": {
+                  "var": "threat",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "The same exercise works for any important feature, such as payments.",
+            "activeActor": "control",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "threat",
+                "label": {
+                  "var": "controls",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Audience Claim",
-                  "Target API Identifier",
-                  "Matches Production Gateway",
-                  "Verified Audience Scope"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Token Revocation",
-                  "Active Unrevoked Session",
-                  "Blacklist Store Inspection",
-                  "Verified Active Credential"
-                ],
-                "tone": "data"
+                "from": "threat",
+                "to": "control",
+                "label": {
+                  "var": "threat",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Zero-trust JSON Web Token claim inspection and signature bypass defense",
-        "columns": [
-          "Verification Check",
-          "Expected Standard",
-          "Observed Payload",
-          "Validation Verdict"
+        "template": "sequence",
+        "title": "Threat model of the login page",
+        "actors": [
+          "controls",
+          "threat",
+          "control"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The validator enforces an allowlist strictly rejecting algorithm bypass.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how applying updates stride during execution.",
+            "messages": [
               {
-                "cells": [
-                  "Cryptographic Algorithm",
-                  "Asymmetric RS256 Only",
-                  "Alg Claim Matches None",
-                  "Rejected Signature Exploit"
-                ],
+                "from": "controls",
+                "to": "threat",
+                "label": "{'Spoofing': 'salted slow hashes + TOTP…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Issuer Claim",
-                  "Trusted Auth Authority",
-                  "Matches Enterprise Issuer",
-                  "Verified Issuer Authority"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Audience Claim",
-                  "Target API Identifier",
-                  "Matches Production Gateway",
-                  "Verified Audience Scope"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Token Revocation",
-                  "Active Unrevoked Session",
-                  "Blacklist Store Inspection",
-                  "Verified Active Credential"
-                ],
-                "tone": "data"
+                "from": "threat",
+                "to": "control",
+                "label": "'Spoofing'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "controls"
           },
           {
-            "at": "say6",
-            "caption": "The validator checks that the token does not appear in a revocation list.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Stolen passwords, countered by hashing, MFA and breach checks.",
+            "messages": [
               {
-                "cells": [
-                  "Cryptographic Algorithm",
-                  "Asymmetric RS256 Only",
-                  "Alg Claim Matches None",
-                  "Rejected Signature Exploit"
-                ],
+                "from": "controls",
+                "to": "threat",
+                "label": "{'Spoofing': 'salted slow hashes + TOTP…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Issuer Claim",
-                  "Trusted Auth Authority",
-                  "Matches Enterprise Issuer",
-                  "Verified Issuer Authority"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Audience Claim",
-                  "Target API Identifier",
-                  "Matches Production Gateway",
-                  "Verified Audience Scope"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Token Revocation",
-                  "Active Unrevoked Session",
-                  "Blacklist Store Inspection",
-                  "Verified Active Credential"
-                ],
-                "tone": "data"
+                "from": "threat",
+                "to": "control",
+                "label": "'Spoofing'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "threat"
+          },
+          {
+            "at": "say9",
+            "caption": "The same exercise works for any important feature, such as payments.",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "threat",
+                "label": "{'Spoofing': 'salted slow hashes + TOTP…",
+                "tone": "data"
+              },
+              {
+                "from": "threat",
+                "to": "control",
+                "label": "'Tampering'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "control"
           }
         ]
       }
@@ -635,224 +831,106 @@
       "partTitle": "Milestone practice: login and lockout",
       "codeHash": "ed66add67e33db2c73e253699486aaf51d441935bbdb36a4482cabf90414ce99",
       "spec": {
-        "template": "flow",
-        "title": "Milestone Capstone: End-to-End Multi-Factor A... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: login and lockout",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "total_wait",
+            "label": "total_wait"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone Capstone:...",
-            "tappable": true
+            "id": "failed",
+            "label": "failed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "attempt",
+            "label": "attempt"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone Capstone: End-to-End Multi-Fac.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone Capstone:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Login(user, password, code, t).",
+            "currentState": "total_wait",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks build a real hash and real codes, then test success, a wrong.",
+            "currentState": "failed",
+            "transition": {
+              "from": "total_wait",
+              "to": "failed",
+              "label": {
+                "var": "failed",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone Capstone: End-to-End Mu.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Understanding every step means you can configure real identity providers.",
+            "currentState": "attempt",
+            "transition": {
+              "from": "failed",
+              "to": "attempt",
+              "label": {
+                "var": "attempt",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone Capstone: End-to-End Multi-Factor A... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: login and lockout",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "total_wait",
+            "label": "total_wait"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone Capstone:...",
-            "tappable": true
+            "id": "failed",
+            "label": "failed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "attempt",
+            "label": "attempt"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone Capstone: End-to-End Multi-Fac.. [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone Capstone:... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Login(user, password, code, t).",
+            "currentState": "total_wait",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks build a real hash and real codes, then test success, a wrong.",
+            "currentState": "failed",
+            "transition": {
+              "from": "total_wait",
+              "to": "failed",
+              "label": "0"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone Capstone: End-to-End Mu.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Understanding every step means you can configure real identity providers.",
+            "currentState": "attempt",
+            "transition": {
+              "from": "failed",
+              "to": "attempt",
+              "label": "1"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

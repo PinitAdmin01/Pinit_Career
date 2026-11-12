@@ -2,1334 +2,804 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 32,
-  "promptSha": "933cbe4f341c45de61e02ac7336dfb6e5dbc44d6661467096c970ff9914f1dae",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Authenticated Encryption (AES-GCM) — Foundations & Mathematical Invariants",
-      "codeHash": "6a9542d0bdbe835fffc2d12166879a0a486b5f00a3e66e14a1e982d50eb2634e",
+      "codeHash": "05c81cb11db510d9058a1f723d0ddc14d711bc5609e519c7a56540f1eec21019",
       "spec": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Foundations & Mathematical Invari",
-        "nodes": [
+        "template": "states",
+        "title": "Authenticated Encryption (AES-GCM) — Foundations & Mathematical ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "h_key",
+            "label": "h_key"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "block",
+            "label": "block"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "a_int",
+            "label": "a_int"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern network and storage security demands both confidentiality to hide.",
+            "currentState": "h_key",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Prior to AEAD standards, combining separate encryption algorithms like.",
+            "currentState": "block",
+            "transition": {
+              "from": "h_key",
+              "to": "block",
+              "label": {
+                "var": "block",
+                "line": 19,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "In modern zero-trust microservice meshes, authenticated encryption ensures.",
+            "currentState": "a_int",
+            "transition": {
+              "from": "block",
+              "to": "a_int",
+              "label": {
+                "var": "a_int",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Foundations & Mathematical Invari",
-        "nodes": [
+        "template": "states",
+        "title": "Authenticated Encryption (AES-GCM) — Foundations & Mathematical ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "h_key",
+            "label": "h_key"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "block",
+            "label": "block"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "a_int",
+            "label": "a_int"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern network and storage security demands both confidentiality to hide.",
+            "currentState": "h_key",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Prior to AEAD standards, combining separate encryption algorithms like.",
+            "currentState": "block",
+            "transition": {
+              "from": "h_key",
+              "to": "block",
+              "label": "4698274276341916077299333525606170232"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "In modern zero-trust microservice meshes, authenticated encryption ensures.",
+            "currentState": "a_int",
+            "transition": {
+              "from": "block",
+              "to": "a_int",
+              "label": "4698274276341916077299333525606170232"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Authenticated Encryption (AES-GCM) — Core Algorithm & State Representation",
-      "codeHash": "ecde23a875a27fd74ad6ac4cb7e704ce437745615d42f150e9ecec0572d83506",
+      "codeHash": "11a231e7b5d98793fb19049630cb5a4ee0897a790240c35ba7af43155d6d92b9",
       "spec": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Core Algorithm & State Representa",
-        "nodes": [
+        "template": "states",
+        "title": "Authenticated Encryption (AES-GCM) — Core Algorithm & State Repr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "key_bytes",
+            "label": "key_bytes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "aes",
+            "label": "aes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing a resilient AES-GCM pipeline requires strict state management.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The encryption protocol generates a unique keystream by incrementing.",
+            "currentState": "key_bytes",
+            "transition": {
+              "from": "self",
+              "to": "key_bytes",
+              "label": {
+                "var": "key_bytes",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "The mathematical properties of GHASH polynomial evaluation allow hardware.",
+            "currentState": "aes",
+            "transition": {
+              "from": "key_bytes",
+              "to": "aes",
+              "label": {
+                "var": "aes",
+                "line": 21,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Core Algorithm & State Representa",
-        "nodes": [
+        "template": "states",
+        "title": "Authenticated Encryption (AES-GCM) — Core Algorithm & State Repr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "key_bytes",
+            "label": "key_bytes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "aes",
+            "label": "aes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing a resilient AES-GCM pipeline requires strict state management.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The encryption protocol generates a unique keystream by incrementing.",
+            "currentState": "key_bytes",
+            "transition": {
+              "from": "self",
+              "to": "key_bytes",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "The mathematical properties of GHASH polynomial evaluation allow hardware.",
+            "currentState": "aes",
+            "transition": {
+              "from": "key_bytes",
+              "to": "aes",
+              "label": "<AESGCMProtocol>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Authenticated Encryption (AES-GCM) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "7a4ed57517497e17149d0c28a2b8702c7b11d210e1fc11ff1149d03fa8890e7a",
+      "codeHash": "95b5a47e5dc6bc4b35f770a01a7b315c6b3f007e2970ad3e308a20fd7c75cf5e",
       "spec": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Throughput Optimization & Edge-Ca",
-        "nodes": [
+        "template": "states",
+        "title": "Authenticated Encryption (AES-GCM) — Throughput Optimization & E",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "stream",
+            "label": "stream"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "nonce",
+            "label": "nonce"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-performance cloud storage and network gateways process gigabytes.",
+            "currentState": "stream",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Encrypting massive files as a single monolithic AES-GCM stream creates.",
+            "currentState": "key",
+            "transition": {
+              "from": "stream",
+              "to": "key",
+              "label": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Chunked AEAD streaming architectures prevent memory exhaustion.",
+            "currentState": "nonce",
+            "transition": {
+              "from": "key",
+              "to": "nonce",
+              "label": {
+                "var": "nonce",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Throughput Optimization & Edge-Ca",
-        "nodes": [
+        "template": "states",
+        "title": "Authenticated Encryption (AES-GCM) — Throughput Optimization & E",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "stream",
+            "label": "stream"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "nonce",
+            "label": "nonce"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-performance cloud storage and network gateways process gigabytes.",
+            "currentState": "stream",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Encrypting massive files as a single monolithic AES-GCM stream creates.",
+            "currentState": "key",
+            "transition": {
+              "from": "stream",
+              "to": "key",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Chunked AEAD streaming architectures prevent memory exhaustion.",
+            "currentState": "nonce",
+            "transition": {
+              "from": "key",
+              "to": "nonce",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Authenticated Encryption (AES-GCM) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "ed09d08158755c7c22a4354429de75aaba7c91aaab092ed5352eebc977e17aa6",
+      "codeHash": "413ba8ca6580940c95b027c0b25a981c5bf25a29ad2777fa2f1d5747bf5169cd",
       "spec": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Resilience Guardrails & Failure R",
-        "nodes": [
+        "template": "boxes",
+        "title": "Authenticated Encryption (AES-GCM) — Resilience Guardrails & Fai",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "key_id",
+            "label": "key_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "guard",
+            "label": "guard"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "nonce",
+            "label": "nonce"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production AEAD systems require autonomous guardrails to prevent.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "key_id": {
+                "var": "key_id",
+                "line": 5,
+                "hit": 1
+              },
+              "guard": {
+                "var": "guard",
+                "line": 17,
+                "hit": 1
+              },
+              "nonce": {
+                "var": "nonce",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "key_id": "data",
+              "guard": "data",
+              "nonce": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how under updates nist during execution.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "key_id": {
+                "var": "key_id",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "guard": {
+                "var": "guard",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "nonce": {
+                "var": "nonce",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "self": "data",
+              "key_id": "data",
+              "guard": "data",
+              "nonce": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Key invocation counters must be maintained in persistent distributed.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "key_id": {
+                "var": "key_id",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "guard": {
+                "var": "guard",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "nonce": {
+                "var": "nonce",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "self": "ok",
+              "key_id": "ok",
+              "guard": "ok",
+              "nonce": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Resilience Guardrails & Failure R",
-        "nodes": [
+        "template": "boxes",
+        "title": "Authenticated Encryption (AES-GCM) — Resilience Guardrails & Fai",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "key_id",
+            "label": "key_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "guard",
+            "label": "guard"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "nonce",
+            "label": "nonce"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production AEAD systems require autonomous guardrails to prevent.",
+            "values": {
+              "self": "<NonceExhaustionGuard>",
+              "key_id": "'KEY_PROD_2026'",
+              "guard": "<NonceExhaustionGuard>",
+              "nonce": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "self": "data",
+              "key_id": "data",
+              "guard": "data",
+              "nonce": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how under updates nist during execution.",
+            "values": {
+              "self": "<NonceExhaustionGuard>",
+              "key_id": "'KEY_PROD_2026'",
+              "guard": "<NonceExhaustionGuard>",
+              "nonce": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "self": "data",
+              "key_id": "data",
+              "guard": "data",
+              "nonce": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Key invocation counters must be maintained in persistent distributed.",
+            "values": {
+              "self": "<NonceExhaustionGuard>",
+              "key_id": "'KEY_PROD_2026'",
+              "guard": "<NonceExhaustionGuard>",
+              "nonce": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "self": "ok",
+              "key_id": "ok",
+              "guard": "ok",
+              "nonce": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Authenticated Encryption (AES-GCM) — Production Telemetry & Verification Audit",
-      "codeHash": "fe12e00de3dd1676949337e3e6cced8d034e3b0f8afeb381aaa34bfb08777cc5",
+      "codeHash": "24d6c6841689d23a49c81e5f80a73df7b03dec983e84732f91effac705d86430",
       "spec": {
         "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Production Telemetry & Verificati",
+        "title": "Authenticated Encryption (AES-GCM) — Production Telemetry & Veri",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "key_rotated",
+            "label": "key_rotated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nonce_collision_detected",
+            "label": "nonce_collision_detected"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "forged_tag_rejected",
+            "label": "forged_tag_rejected"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gates",
+            "label": "gates"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous telemetry and rigorous verification audits are critical.",
+            "values": {
+              "key_rotated": {
+                "var": "key_rotated",
+                "line": 5,
+                "hit": 1
+              },
+              "nonce_collision_detected": {
+                "var": "nonce_collision_detected",
+                "line": 5,
+                "hit": 1
+              },
+              "forged_tag_rejected": {
+                "var": "forged_tag_rejected",
+                "line": 5,
+                "hit": 1
+              },
+              "gates": {
+                "var": "gates",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "key_rotated": "data",
+              "nonce_collision_detected": "data",
+              "forged_tag_rejected": "data",
+              "gates": "data"
+            },
+            "arrows": [
+              [
+                "key_rotated",
+                "nonce_collision_detected"
+              ],
+              [
+                "nonce_collision_detected",
+                "forged_tag_rejected"
+              ],
+              [
+                "forged_tag_rejected",
+                "gates"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Production metrics monitor encryption and decryption throughput, tracking.",
+            "values": {
+              "key_rotated": {
+                "var": "key_rotated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nonce_collision_detected": {
+                "var": "nonce_collision_detected",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "forged_tag_rejected": {
+                "var": "forged_tag_rejected",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "gates": {
+                "var": "gates",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "key_rotated": "data",
+              "nonce_collision_detected": "data",
+              "forged_tag_rejected": "data",
+              "gates": "data"
+            },
+            "arrows": [
+              [
+                "key_rotated",
+                "nonce_collision_detected"
+              ],
+              [
+                "nonce_collision_detected",
+                "forged_tag_rejected"
+              ],
+              [
+                "forged_tag_rejected",
+                "gates"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Constant-time comparison algorithms eliminate microarchitectural.",
+            "values": {
+              "key_rotated": {
+                "var": "key_rotated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nonce_collision_detected": {
+                "var": "nonce_collision_detected",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "forged_tag_rejected": {
+                "var": "forged_tag_rejected",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "gates": {
+                "var": "gates",
+                "line": 12,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "key_rotated": "ok",
+              "nonce_collision_detected": "ok",
+              "forged_tag_rejected": "ok",
+              "gates": "ok"
+            },
+            "arrows": [
+              [
+                "key_rotated",
+                "nonce_collision_detected"
+              ],
+              [
+                "nonce_collision_detected",
+                "forged_tag_rejected"
+              ],
+              [
+                "forged_tag_rejected",
+                "gates"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Authenticated Encryption (AES-GCM) — Production Telemetry & Verificati",
+        "title": "Authenticated Encryption (AES-GCM) — Production Telemetry & Veri",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "key_rotated",
+            "label": "key_rotated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nonce_collision_detected",
+            "label": "nonce_collision_detected"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "forged_tag_rejected",
+            "label": "forged_tag_rejected"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gates",
+            "label": "gates"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous telemetry and rigorous verification audits are critical.",
+            "values": {
+              "key_rotated": "True",
+              "nonce_collision_detected": "False",
+              "forged_tag_rejected": "True",
+              "gates": "{'GATE_1_NONCE_UNIQUENESS': True, 'GATE…"
+            },
+            "tones": {
+              "key_rotated": "data",
+              "nonce_collision_detected": "data",
+              "forged_tag_rejected": "data",
+              "gates": "data"
+            },
+            "arrows": [
+              [
+                "key_rotated",
+                "nonce_collision_detected"
+              ],
+              [
+                "nonce_collision_detected",
+                "forged_tag_rejected"
+              ],
+              [
+                "forged_tag_rejected",
+                "gates"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Production metrics monitor encryption and decryption throughput, tracking.",
+            "values": {
+              "key_rotated": "True",
+              "nonce_collision_detected": "False",
+              "forged_tag_rejected": "True",
+              "gates": "{'GATE_1_NONCE_UNIQUENESS': True, 'GATE…"
+            },
+            "tones": {
+              "key_rotated": "data",
+              "nonce_collision_detected": "data",
+              "forged_tag_rejected": "data",
+              "gates": "data"
+            },
+            "arrows": [
+              [
+                "key_rotated",
+                "nonce_collision_detected"
+              ],
+              [
+                "nonce_collision_detected",
+                "forged_tag_rejected"
+              ],
+              [
+                "forged_tag_rejected",
+                "gates"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Constant-time comparison algorithms eliminate microarchitectural.",
+            "values": {
+              "key_rotated": "True",
+              "nonce_collision_detected": "False",
+              "forged_tag_rejected": "True",
+              "gates": "{'GATE_1_NONCE_UNIQUENESS': True, 'GATE…"
+            },
+            "tones": {
+              "key_rotated": "ok",
+              "nonce_collision_detected": "ok",
+              "forged_tag_rejected": "ok",
+              "gates": "ok"
+            },
+            "arrows": [
+              [
+                "key_rotated",
+                "nonce_collision_detected"
+              ],
+              [
+                "nonce_collision_detected",
+                "forged_tag_rejected"
+              ],
+              [
+                "forged_tag_rejected",
+                "gates"
+              ]
             ]
           }
         ]

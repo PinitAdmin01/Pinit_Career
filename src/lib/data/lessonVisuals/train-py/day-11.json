@@ -2,141 +2,112 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Matrix multiplication recap",
       "codeHash": "58fd1e9b66870f17856c14ac8815b96a59d14f50964b600b106b61bc1e4e2ed4",
       "spec": {
-        "template": "table",
-        "title": "Matrix multiplication foundation and linear layer computation",
-        "columns": [
-          "range",
-          "len",
-          "sum"
-        ],
+        "template": "cells",
+        "title": "Matrix multiplication recap",
         "steps": [
           {
             "at": "say1",
-            "caption": "Linear layers perform matrix multiplication across transformer models.",
-            "rows": [
+            "caption": "Most of a transformer's computation is matrix multiplication in linear layers.",
+            "items": {
+              "var": "x",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Tensor parallelism splits multiplications across distinct device partitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "A linear layer computes y = xW, where x is an input vector and W is.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The key question for any split is how the partial results must be combined.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Matrix multiplication foundation and linear layer computation",
-        "columns": [
-          "range",
-          "len",
-          "sum"
-        ],
+        "template": "cells",
+        "title": "Matrix multiplication recap",
         "steps": [
           {
             "at": "say1",
-            "caption": "Linear layers perform matrix multiplication across transformer models.",
-            "rows": [
+            "caption": "Most of a transformer's computation is matrix multiplication in linear layers.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "range",
-                  "len",
-                  "sum"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "len",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Tensor parallelism splits multiplications across distinct device partitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "A linear layer computes y = xW, where x is an input vector and W is.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "range",
-                  "len",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The key question for any split is how the partial results must be combined.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "range",
-                  "len",
-                  "range"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -147,78 +118,131 @@
       "partTitle": "Column parallelism",
       "codeHash": "173c8e287a969dc75dc722428d845086b83a625921654047faac413b111af8af",
       "spec": {
-        "template": "table",
-        "title": "Column-parallel decomposition and output concatenation",
-        "columns": [
-          "parts",
-          "cols",
-          "piece"
-        ],
+        "template": "bars",
+        "title": "Column parallelism",
         "steps": [
           {
             "at": "say1",
-            "caption": "In column parallelism weight columns are split into independent groups.",
-            "rows": [
+            "caption": "In column parallelism, the columns of W are split into groups, and each.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "cols"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
-                "tone": "ok"
+                "label": "parts",
+                "value": {
+                  "var": "parts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "cols"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Partial outputs are concatenated together to form the complete tensor.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every device receives the full input x and computes the output values.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "cols"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
-                "tone": "data"
+                "label": "parts",
+                "value": {
+                  "var": "parts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "cols"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Column-parallel outputs can feed directly into a row-parallel layer.",
+            "bars": [
+              {
+                "label": "parts",
+                "value": {
+                  "var": "parts",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 7,
+                  "hit": 8
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +250,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Column-parallel decomposition and output concatenation",
-        "columns": [
-          "parts",
-          "cols",
-          "piece"
-        ],
+        "template": "bars",
+        "title": "Column parallelism",
         "steps": [
           {
             "at": "say1",
-            "caption": "In column parallelism weight columns are split into independent groups.",
-            "rows": [
+            "caption": "In column parallelism, the columns of W are split into groups, and each.",
+            "bars": [
               {
-                "cells": [
-                  "parts",
-                  "cols",
-                  "piece"
-                ],
-                "tone": "ok"
+                "label": "parts",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "parts",
-                  "cols",
-                  "piece"
-                ],
+                "label": "cols",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Partial outputs are concatenated together to form the complete tensor.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every device receives the full input x and computes the output values.",
+            "bars": [
               {
-                "cells": [
-                  "parts",
-                  "cols",
-                  "piece"
-                ],
-                "tone": "data"
+                "label": "parts",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "parts",
-                  "cols",
-                  "parts"
-                ],
+                "label": "cols",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Column-parallel outputs can feed directly into a row-parallel layer.",
+            "bars": [
+              {
+                "label": "parts",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -285,135 +338,277 @@
       "partTitle": "Row parallelism",
       "codeHash": "7db4f55566ffc92e990f14d1b7bf64d5beb1db59454fa01823eeafb6ec4555cc",
       "spec": {
-        "template": "table",
-        "title": "Row-parallel decomposition and all-reduce partial summation",
-        "columns": [
-          "parts",
-          "rows",
-          "partials"
+        "template": "flow",
+        "title": "Row parallelism",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "W",
+            "label": "W"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "rows",
+            "label": "rows"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In row parallelism matrix rows are split alongside sliced input vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "partials"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In row parallelism, the rows of W are split, and each device holds some.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "partials"
-                  }
-                ],
-                "tone": "data"
+              "W": {
+                "var": "W",
+                "line": 2,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 3,
+                "hit": 1
+              },
+              "rows": {
+                "var": "rows",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "W": "data",
+              "parts": "data",
+              "rows": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ],
+              [
+                "W",
+                "parts"
+              ],
+              [
+                "parts",
+                "rows"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "An all-reduce combines distributed partial results into the final output.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "partials"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Each device multiplies its slice of x by its rows, producing a full-length.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "ok"
+              "W": {
+                "var": "W",
+                "line": 3,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 4,
+                "hit": 1
+              },
+              "rows": {
+                "var": "rows",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "W": "data",
+              "parts": "data",
+              "rows": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ],
+              [
+                "W",
+                "parts"
+              ],
+              [
+                "parts",
+                "rows"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The all-reduce happens inside every layer, which is why the links must be.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 3,
+                "hit": 1
+              },
+              "W": {
+                "var": "W",
+                "line": 4,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 5,
+                "hit": 1
+              },
+              "rows": {
+                "var": "rows",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x": "ok",
+              "W": "ok",
+              "parts": "ok",
+              "rows": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ],
+              [
+                "W",
+                "parts"
+              ],
+              [
+                "parts",
+                "rows"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Row-parallel decomposition and all-reduce partial summation",
-        "columns": [
-          "parts",
-          "rows",
-          "partials"
+        "template": "flow",
+        "title": "Row parallelism",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "W",
+            "label": "W"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "rows",
+            "label": "rows"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In row parallelism matrix rows are split alongside sliced input vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "parts",
-                  "rows",
-                  "partials"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "parts",
-                  "rows",
-                  "partials"
-                ],
-                "tone": "data"
-              }
+            "caption": "In row parallelism, the rows of W are split, and each device holds some.",
+            "values": {
+              "x": "[1, 2, 3, 4]",
+              "W": "[[1, 0], [0, 1], [1, 1], [2, 0]]",
+              "parts": "2",
+              "rows": "2"
+            },
+            "tones": {
+              "x": "data",
+              "W": "data",
+              "parts": "data",
+              "rows": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ],
+              [
+                "W",
+                "parts"
+              ],
+              [
+                "parts",
+                "rows"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "An all-reduce combines distributed partial results into the final output.",
-            "rows": [
-              {
-                "cells": [
-                  "parts",
-                  "rows",
-                  "partials"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "parts",
-                  "rows",
-                  "parts"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Each device multiplies its slice of x by its rows, producing a full-length.",
+            "values": {
+              "x": "[1, 2, 3, 4]",
+              "W": "[[1, 0], [0, 1], [1, 1], [2, 0]]",
+              "parts": "2",
+              "rows": "2"
+            },
+            "tones": {
+              "x": "data",
+              "W": "data",
+              "parts": "data",
+              "rows": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ],
+              [
+                "W",
+                "parts"
+              ],
+              [
+                "parts",
+                "rows"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The all-reduce happens inside every layer, which is why the links must be.",
+            "values": {
+              "x": "[1, 2, 3, 4]",
+              "W": "[[1, 0], [0, 1], [1, 1], [2, 0]]",
+              "parts": "2",
+              "rows": "2"
+            },
+            "tones": {
+              "x": "ok",
+              "W": "ok",
+              "parts": "ok",
+              "rows": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "W"
+              ],
+              [
+                "W",
+                "parts"
+              ],
+              [
+                "parts",
+                "rows"
+              ]
             ]
           }
         ]
@@ -423,134 +618,105 @@
       "partTitle": "The Megatron MLP pattern",
       "codeHash": "4a03a8d8688d77852e787ddffa306e769cff1e2fb7fbe112b18ee420d24e4df9",
       "spec": {
-        "template": "table",
-        "title": "Megatron MLP column-row pairing and activation placement",
-        "columns": [
-          "relu",
-          "full",
-          "dev"
-        ],
+        "template": "cells",
+        "title": "The Megatron MLP pattern",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Megatron splits the first layer by columns to form hidden representations.",
-            "rows": [
+            "at": "say1",
+            "caption": "A transformer MLP block has two linear layers with an activation function.",
+            "items": {
+              "var": "x",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "relu"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "dev"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "relu"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "dev"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A single all-reduce sums partial outputs across communicating devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Megatron splits the first layer by columns, so each device produces part.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 16
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "relu"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "dev"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Sequence parallelism, a later refinement, splits other operations such.",
+            "items": {
+              "var": "x",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "relu"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "relu"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Megatron MLP column-row pairing and activation placement",
-        "columns": [
-          "relu",
-          "full",
-          "dev"
-        ],
+        "template": "cells",
+        "title": "The Megatron MLP pattern",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Megatron splits the first layer by columns to form hidden representations.",
-            "rows": [
+            "at": "say1",
+            "caption": "A transformer MLP block has two linear layers with an activation function.",
+            "items": [
+              "1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "relu",
-                  "full",
-                  "dev"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "relu",
-                  "full",
-                  "dev"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A single all-reduce sums partial outputs across communicating devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Megatron splits the first layer by columns, so each device produces part.",
+            "items": [
+              "1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "relu",
-                  "full",
-                  "dev"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Sequence parallelism, a later refinement, splits other operations such.",
+            "items": [
+              "1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "relu",
-                  "full",
-                  "relu"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -561,224 +727,162 @@
       "partTitle": "Where tensor parallelism fits",
       "codeHash": "716324e1bfaea4affe1bf4b35b2e682fef876ffcc52569ba89f01be34795ab01",
       "spec": {
-        "template": "flow",
-        "title": "Where tensor parallelism fits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Where tensor parall...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Where tensor parallelism fits",
+        "actors": [
+          "links",
+          "size_gb",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Where tensor parallelism fits.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Where tensor parall... [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Tensor parallelism divides both memory and computation of each layer.",
+            "activeActor": "links",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": {
+                  "var": "links",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": {
+                  "var": "size_gb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "But it needs an all-reduce inside every layer, forward and backward,.",
+            "activeActor": "size_gb",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": {
+                  "var": "links",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": {
+                  "var": "size_gb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Where tensor parallelism fits.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Choosing the degree is about balancing memory savings with communication.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": {
+                  "var": "links",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": {
+                  "var": "size_gb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Where tensor parallelism fits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Where tensor parall...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Where tensor parallelism fits",
+        "actors": [
+          "links",
+          "size_gb",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Where tensor parallelism fits [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Where tensor parall... [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Tensor parallelism divides both memory and computation of each layer.",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": "{'NVLink (within a server)': 900, 'Infi…",
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "links"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "But it needs an all-reduce inside every layer, forward and backward,.",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": "{'NVLink (within a server)': 900, 'Infi…",
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "size_gb"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Where tensor parallelism fits [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Choosing the degree is about balancing memory savings with communication.",
+            "messages": [
+              {
+                "from": "links",
+                "to": "size_gb",
+                "label": "{'NVLink (within a server)': 900, 'Infi…",
+                "tone": "data"
+              },
+              {
+                "from": "size_gb",
+                "to": "name",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -787,224 +891,162 @@
       "partTitle": "Practice time: splitting layers",
       "codeHash": "675df17449e671adecc98a7b22dabb0739b6829179d71e02671a798870172c7a",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: splitting layers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: spli...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: splitting layers",
+        "actors": [
+          "x",
+          "W",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: splitting layers.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: spli... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Col_parallel_matmul(x, W, parts).",
+            "activeActor": "x",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": ".0",
+                "label": {
+                  "var": "W",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks use a 2 4 matrix with 1, 2 and 4 devices and always expect.",
+            "activeActor": "W",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": ".0",
+                "label": {
+                  "var": "W",
+                  "line": 2,
+                  "hit": 6
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: splitting layers.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your output is wrong, print each device's piece or partial vector.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": ".0",
+                "label": {
+                  "var": "W",
+                  "line": 2,
+                  "hit": 12
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: splitting layers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: spli...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: splitting layers",
+        "actors": [
+          "x",
+          "W",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: splitting layers [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: spli... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Col_parallel_matmul(x, W, parts).",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2, 3, 4]",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": ".0",
+                "label": "[[1, 0, 2, 1], [0, 1, 1, 3], [2, 2, 0, …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "x"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks use a 2 4 matrix with 1, 2 and 4 devices and always expect.",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2, 3, 4]",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": ".0",
+                "label": "[[1, 0, 2, 1], [0, 1, 1, 3], [2, 2, 0, …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "W"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: splitting layers [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "If your output is wrong, print each device's piece or partial vector.",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2, 3, 4]",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": ".0",
+                "label": "[[1, 0, 2, 1], [0, 1, 1, 3], [2, 2, 0, …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }

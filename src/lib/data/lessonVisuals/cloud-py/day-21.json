@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The shop as independent services",
       "codeHash": "27cdce29e4de7f192dbc63edf11c8760fa404c6cd40234cb8ad6310ad4cee3a1",
       "spec": {
-        "template": "table",
-        "title": "E-commerce microservice event choreography mappings",
-        "columns": [
-          "event",
-          "services"
+        "template": "flow",
+        "title": "The shop as independent services",
+        "nodes": [
+          {
+            "id": "subscriptions",
+            "label": "subscriptions"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "services",
+            "label": "services"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Online store microservices operate as independent teams.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "OrderCreated"
-                  },
-                  {
-                    "text": "inventory"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A growing online shop is usually split into services owned by different teams.",
+            "values": {
+              "subscriptions": {
+                "var": "subscriptions",
+                "line": 1,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 7,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 7,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 16
               }
+            },
+            "tones": {
+              "subscriptions": "data",
+              "event": "data",
+              "services": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "subscriptions",
+                "event"
+              ],
+              [
+                "event",
+                "services"
+              ],
+              [
+                "services",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The order service publishes events directly to the event bus.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "OrderCreated"
-                  },
-                  {
-                    "text": "inventory"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "If the order service called each of the others directly, one slow email.",
+            "values": {
+              "subscriptions": {
+                "var": "subscriptions",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "PaymentSucceeded"
-                  },
-                  {
-                    "text": "shipping"
-                  }
-                ],
-                "tone": "ok"
+              "event": {
+                "var": "event",
+                "line": 8,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 8,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 17
               }
+            },
+            "tones": {
+              "subscriptions": "data",
+              "event": "data",
+              "services": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "subscriptions",
+                "event"
+              ],
+              [
+                "event",
+                "services"
+              ],
+              [
+                "services",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Downstream services react by publishing corresponding events.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "OrderCreated"
-                  },
-                  {
-                    "text": "inventory"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example lists which services react to which events, as data.",
+            "values": {
+              "subscriptions": {
+                "var": "subscriptions",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "PaymentSucceeded"
-                  },
-                  {
-                    "text": "shipping"
-                  }
-                ],
-                "tone": "ok"
+              "event": {
+                "var": "event",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "PaymentFailed"
-                  },
-                  {
-                    "text": "email"
-                  }
-                ],
-                "tone": "error"
+              "services": {
+                "var": "services",
+                "line": 7,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 18
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Event choreography coordinates services without central control.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "OrderCreated"
-                  },
-                  {
-                    "text": "inventory"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PaymentSucceeded"
-                  },
-                  {
-                    "text": "shipping"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PaymentFailed"
-                  },
-                  {
-                    "text": "email"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "OrderShipped"
-                  },
-                  {
-                    "text": "analytics"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "subscriptions": "ok",
+              "event": "ok",
+              "services": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "subscriptions",
+                "event"
+              ],
+              [
+                "event",
+                "services"
+              ],
+              [
+                "services",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "E-commerce microservice event choreography mappings",
-        "columns": [
-          "event",
-          "services"
+        "template": "flow",
+        "title": "The shop as independent services",
+        "nodes": [
+          {
+            "id": "subscriptions",
+            "label": "subscriptions"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "services",
+            "label": "services"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Online store microservices operate as independent teams.",
-            "rows": [
-              {
-                "cells": [
-                  "OrderCreated",
-                  "inventory"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A growing online shop is usually split into services owned by different teams.",
+            "values": {
+              "subscriptions": "{'OrderCreated': ['inventory', 'payment…",
+              "event": "'OrderCreated'",
+              "services": "['inventory', 'payments', 'email', 'ana…",
+              "v": "['inventory', 'payments', 'email', 'ana…"
+            },
+            "tones": {
+              "subscriptions": "data",
+              "event": "data",
+              "services": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "subscriptions",
+                "event"
+              ],
+              [
+                "event",
+                "services"
+              ],
+              [
+                "services",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The order service publishes events directly to the event bus.",
-            "rows": [
-              {
-                "cells": [
-                  "OrderCreated",
-                  "inventory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PaymentSucceeded",
-                  "shipping"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "If the order service called each of the others directly, one slow email.",
+            "values": {
+              "subscriptions": "{'OrderCreated': ['inventory', 'payment…",
+              "event": "'OrderCreated'",
+              "services": "['inventory', 'payments', 'email', 'ana…",
+              "v": "['shipping', 'email', 'analytics']"
+            },
+            "tones": {
+              "subscriptions": "data",
+              "event": "data",
+              "services": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "subscriptions",
+                "event"
+              ],
+              [
+                "event",
+                "services"
+              ],
+              [
+                "services",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Downstream services react by publishing corresponding events.",
-            "rows": [
-              {
-                "cells": [
-                  "OrderCreated",
-                  "inventory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PaymentSucceeded",
-                  "shipping"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PaymentFailed",
-                  "email"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Event choreography coordinates services without central control.",
-            "rows": [
-              {
-                "cells": [
-                  "OrderCreated",
-                  "inventory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PaymentSucceeded",
-                  "shipping"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PaymentFailed",
-                  "email"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "OrderShipped",
-                  "analytics"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example lists which services react to which events, as data.",
+            "values": {
+              "subscriptions": "{'OrderCreated': ['inventory', 'payment…",
+              "event": "'PaymentSucceeded'",
+              "services": "['shipping', 'email', 'analytics']",
+              "v": "['inventory', 'email']"
+            },
+            "tones": {
+              "subscriptions": "ok",
+              "event": "ok",
+              "services": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "subscriptions",
+                "event"
+              ],
+              [
+                "event",
+                "services"
+              ],
+              [
+                "services",
+                "v"
+              ]
             ]
           }
         ]
@@ -261,230 +289,174 @@
       "partTitle": "Routing events to service queues",
       "codeHash": "03e0afb8ee4a37cc79131798497cf58a6451bd21c24473f602ee66e606e6cc3c",
       "spec": {
-        "template": "table",
-        "title": "EventBridge rule evaluation and queue fan-out routing",
-        "columns": [
-          "target",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Routing events to service queues",
         "steps": [
           {
             "at": "say1",
-            "caption": "Routing rules match event attributes against registered criteria.",
-            "rows": [
+            "caption": "Practice 1 is route_event(event, rules, queues).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "inventory-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
-                "tone": "ok"
+                "label": "matched",
+                "value": {
+                  "var": "matched",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dead",
+                "value": {
+                  "var": "dead",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "delivered",
+                "value": {
+                  "var": "delivered",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Matching events fan out into corresponding target queues.",
-            "rows": [
+            "caption": "For every matching rule, append the event to queues[target].",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "inventory-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
+                "label": "matched",
+                "value": {
+                  "var": "matched",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "email-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
+                "label": "dead",
+                "value": {
+                  "var": "dead",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "delivered",
+                "value": {
+                  "var": "delivered",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rules pointing to missing queues record dead letter entries.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is a tiny model of what EventBridge rules with SQS targets do for you.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "inventory-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
+                "label": "matched",
+                "value": {
+                  "var": "matched",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "email-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
+                "label": "dead",
+                "value": {
+                  "var": "dead",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "loyalty-q"
-                  },
-                  {
-                    "text": "NO_MATCH"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The router reports delivery status alongside dead letters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "inventory-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
+                "label": "delivered",
+                "value": {
+                  "var": "delivered",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email-q"
-                  },
-                  {
-                    "text": "ROUTED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "loyalty-q"
-                  },
-                  {
-                    "text": "NO_MATCH"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "EventBridge rule evaluation and queue fan-out routing",
-        "columns": [
-          "target",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Routing events to service queues",
         "steps": [
           {
             "at": "say1",
-            "caption": "Routing rules match event attributes against registered criteria.",
-            "rows": [
+            "caption": "Practice 1 is route_event(event, rules, queues).",
+            "bars": [
               {
-                "cells": [
-                  "inventory-q",
-                  "ROUTED"
-                ],
-                "tone": "ok"
+                "label": "matched",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "dead",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "delivered",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Matching events fan out into corresponding target queues.",
-            "rows": [
+            "caption": "For every matching rule, append the event to queues[target].",
+            "bars": [
               {
-                "cells": [
-                  "inventory-q",
-                  "ROUTED"
-                ],
+                "label": "matched",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "email-q",
-                  "ROUTED"
-                ],
+                "label": "dead",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "delivered",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rules pointing to missing queues record dead letter entries.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is a tiny model of what EventBridge rules with SQS targets do for you.",
+            "bars": [
               {
-                "cells": [
-                  "inventory-q",
-                  "ROUTED"
-                ],
+                "label": "matched",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "email-q",
-                  "ROUTED"
-                ],
+                "label": "dead",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "loyalty-q",
-                  "NO_MATCH"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The router reports delivery status alongside dead letters.",
-            "rows": [
-              {
-                "cells": [
-                  "inventory-q",
-                  "ROUTED"
-                ],
+                "label": "delivered",
+                "value": 0,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email-q",
-                  "ROUTED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "loyalty-q",
-                  "NO_MATCH"
-                ],
-                "tone": "idle"
               }
             ]
           }
@@ -495,231 +467,277 @@
       "partTitle": "Poison messages and dead-letter queues",
       "codeHash": "dd9aa18f29384ae89c60db715a354a4601c926641297caf488bd05f6ec020f76",
       "spec": {
-        "template": "table",
-        "title": "Dead-letter queue isolation for poison messages",
-        "columns": [
-          "id",
-          "poison"
+        "template": "flow",
+        "title": "Poison messages and dead-letter queues",
+        "nodes": [
+          {
+            "id": "MAX_RECEIVES",
+            "label": "MAX_RECEIVES"
+          },
+          {
+            "id": "queue",
+            "label": "queue"
+          },
+          {
+            "id": "dlq",
+            "label": "dlq"
+          },
+          {
+            "id": "done",
+            "label": "done"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Poison messages repeatedly fail normal consumer processing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ok-1"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Sometimes a message can never be processed.",
+            "values": {
+              "MAX_RECEIVES": {
+                "var": "MAX_RECEIVES",
+                "line": 1,
+                "hit": 1
+              },
+              "queue": {
+                "var": "queue",
+                "line": 2,
+                "hit": 2
+              },
+              "dlq": {
+                "var": "dlq",
+                "line": 4,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "MAX_RECEIVES": "data",
+              "queue": "data",
+              "dlq": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "MAX_RECEIVES",
+                "queue"
+              ],
+              [
+                "queue",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "done"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A poison message returns after every visibility timeout.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ok-1"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Without protection, a poison message comes back after every visibility.",
+            "values": {
+              "MAX_RECEIVES": {
+                "var": "MAX_RECEIVES",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bad-7"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "error"
+              "queue": {
+                "var": "queue",
+                "line": 4,
+                "hit": 1
+              },
+              "dlq": {
+                "var": "dlq",
+                "line": 5,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "MAX_RECEIVES": "data",
+              "queue": "data",
+              "dlq": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "MAX_RECEIVES",
+                "queue"
+              ],
+              [
+                "queue",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "done"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Redrive policies isolate failing messages into a dead-letter queue.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ok-1"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example processes a queue containing one poison message and shows it.",
+            "values": {
+              "MAX_RECEIVES": {
+                "var": "MAX_RECEIVES",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bad-7"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "error"
+              "queue": {
+                "var": "queue",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ok-2"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
+              "dlq": {
+                "var": "dlq",
+                "line": 6,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Engineers inspect failed messages and redrive them after fixes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ok-1"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bad-7"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ok-2"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "MAX_RECEIVES": "ok",
+              "queue": "ok",
+              "dlq": "ok",
+              "done": "ok"
+            },
+            "arrows": [
+              [
+                "MAX_RECEIVES",
+                "queue"
+              ],
+              [
+                "queue",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "done"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dead-letter queue isolation for poison messages",
-        "columns": [
-          "id",
-          "poison"
+        "template": "flow",
+        "title": "Poison messages and dead-letter queues",
+        "nodes": [
+          {
+            "id": "MAX_RECEIVES",
+            "label": "MAX_RECEIVES"
+          },
+          {
+            "id": "queue",
+            "label": "queue"
+          },
+          {
+            "id": "dlq",
+            "label": "dlq"
+          },
+          {
+            "id": "done",
+            "label": "done"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Poison messages repeatedly fail normal consumer processing.",
-            "rows": [
-              {
-                "cells": [
-                  "ok-1",
-                  "False"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Sometimes a message can never be processed.",
+            "values": {
+              "MAX_RECEIVES": "3",
+              "queue": "[{'id': 'ok-1', 'receives': 0, 'poison'…",
+              "dlq": "[]",
+              "done": "[]"
+            },
+            "tones": {
+              "MAX_RECEIVES": "data",
+              "queue": "data",
+              "dlq": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "MAX_RECEIVES",
+                "queue"
+              ],
+              [
+                "queue",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "done"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A poison message returns after every visibility timeout.",
-            "rows": [
-              {
-                "cells": [
-                  "ok-1",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bad-7",
-                  "True"
-                ],
-                "tone": "error"
-              }
+            "caption": "Without protection, a poison message comes back after every visibility.",
+            "values": {
+              "MAX_RECEIVES": "3",
+              "queue": "[{'id': 'ok-1', 'receives': 0, 'poison'…",
+              "dlq": "[]",
+              "done": "[]"
+            },
+            "tones": {
+              "MAX_RECEIVES": "data",
+              "queue": "data",
+              "dlq": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "MAX_RECEIVES",
+                "queue"
+              ],
+              [
+                "queue",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "done"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Redrive policies isolate failing messages into a dead-letter queue.",
-            "rows": [
-              {
-                "cells": [
-                  "ok-1",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bad-7",
-                  "True"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "ok-2",
-                  "False"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Engineers inspect failed messages and redrive them after fixes.",
-            "rows": [
-              {
-                "cells": [
-                  "ok-1",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bad-7",
-                  "True"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ok-2",
-                  "False"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example processes a queue containing one poison message and shows it.",
+            "values": {
+              "MAX_RECEIVES": "3",
+              "queue": "[{'id': 'ok-1', 'receives': 0, 'poison'…",
+              "dlq": "[]",
+              "done": "[]"
+            },
+            "tones": {
+              "MAX_RECEIVES": "ok",
+              "queue": "ok",
+              "dlq": "ok",
+              "done": "ok"
+            },
+            "arrows": [
+              [
+                "MAX_RECEIVES",
+                "queue"
+              ],
+              [
+                "queue",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "done"
+              ]
             ]
           }
         ]
@@ -729,177 +747,277 @@
       "partTitle": "Idempotent consumers and exactly-once effects",
       "codeHash": "3d66760742eaffe63d0c864430c7ab2b48e796b91ff56b4ea9c8b17342747fbc",
       "spec": {
-        "template": "table",
-        "title": "Consumer idempotency check via conditional key persistence",
-        "columns": [
-          "id",
-          "status"
+        "template": "flow",
+        "title": "Idempotent consumers and exactly-once effects",
+        "nodes": [
+          {
+            "id": "processed_ids",
+            "label": "processed_ids"
+          },
+          {
+            "id": "charges",
+            "label": "charges"
+          },
+          {
+            "id": "ev",
+            "label": "ev"
+          },
+          {
+            "id": "event_id",
+            "label": "event_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At least once delivery requires strictly idempotent consumers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "evt-555"
-                  },
-                  {
-                    "text": "charged"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "SQS standard queues and EventBridge deliver at least once, and redrive.",
+            "values": {
+              "processed_ids": {
+                "var": "processed_ids",
+                "line": 1,
+                "hit": 1
+              },
+              "charges": {
+                "var": "charges",
+                "line": 2,
+                "hit": 1
+              },
+              "ev": {
+                "var": "ev",
+                "line": 16,
+                "hit": 1
+              },
+              "event_id": {
+                "var": "event_id",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "processed_ids": "data",
+              "charges": "data",
+              "ev": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "processed_ids",
+                "charges"
+              ],
+              [
+                "charges",
+                "ev"
+              ],
+              [
+                "ev",
+                "event_id"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Payment services must prevent duplicate customer card charges.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "evt-555"
-                  },
-                  {
-                    "text": "charged"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The payment service is the classic case.",
+            "values": {
+              "processed_ids": {
+                "var": "processed_ids",
+                "line": 2,
+                "hit": 1
+              },
+              "charges": {
+                "var": "charges",
+                "line": 4,
+                "hit": 1
+              },
+              "ev": {
+                "var": "ev",
+                "line": 17,
+                "hit": 1
+              },
+              "event_id": {
+                "var": "event_id",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "processed_ids": "data",
+              "charges": "data",
+              "ev": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "processed_ids",
+                "charges"
+              ],
+              [
+                "charges",
+                "ev"
+              ],
+              [
+                "ev",
+                "event_id"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Conditional writes record unique event identifiers before acting.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "evt-555"
-                  },
-                  {
-                    "text": "charged"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Payment providers support the same idea with idempotency keys on their.",
+            "values": {
+              "processed_ids": {
+                "var": "processed_ids",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "evt-555"
-                  },
-                  {
-                    "text": "duplicate ignored"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Idempotency achieves dependable exactly-once processing effects.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "evt-555"
-                  },
-                  {
-                    "text": "charged"
-                  }
-                ],
-                "tone": "ok"
+              "charges": {
+                "var": "charges",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "evt-555"
-                  },
-                  {
-                    "text": "duplicate ignored"
-                  }
-                ],
-                "tone": "data"
+              "ev": {
+                "var": "ev",
+                "line": 17,
+                "hit": 2
+              },
+              "event_id": {
+                "var": "event_id",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "processed_ids": "ok",
+              "charges": "ok",
+              "ev": "ok",
+              "event_id": "ok"
+            },
+            "arrows": [
+              [
+                "processed_ids",
+                "charges"
+              ],
+              [
+                "charges",
+                "ev"
+              ],
+              [
+                "ev",
+                "event_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Consumer idempotency check via conditional key persistence",
-        "columns": [
-          "id",
-          "status"
+        "template": "flow",
+        "title": "Idempotent consumers and exactly-once effects",
+        "nodes": [
+          {
+            "id": "processed_ids",
+            "label": "processed_ids"
+          },
+          {
+            "id": "charges",
+            "label": "charges"
+          },
+          {
+            "id": "ev",
+            "label": "ev"
+          },
+          {
+            "id": "event_id",
+            "label": "event_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "At least once delivery requires strictly idempotent consumers.",
-            "rows": [
-              {
-                "cells": [
-                  "evt-555",
-                  "charged"
-                ],
-                "tone": "ok"
-              }
+            "caption": "SQS standard queues and EventBridge deliver at least once, and redrive.",
+            "values": {
+              "processed_ids": "set()",
+              "charges": "[]",
+              "ev": "{'id': 'evt-555', 'detail': {'order_id'…",
+              "event_id": "'evt-555'"
+            },
+            "tones": {
+              "processed_ids": "data",
+              "charges": "data",
+              "ev": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "processed_ids",
+                "charges"
+              ],
+              [
+                "charges",
+                "ev"
+              ],
+              [
+                "ev",
+                "event_id"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Payment services must prevent duplicate customer card charges.",
-            "rows": [
-              {
-                "cells": [
-                  "evt-555",
-                  "charged"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The payment service is the classic case.",
+            "values": {
+              "processed_ids": "set()",
+              "charges": "[]",
+              "ev": "{'id': 'evt-555', 'detail': {'order_id'…",
+              "event_id": "'evt-555'"
+            },
+            "tones": {
+              "processed_ids": "data",
+              "charges": "data",
+              "ev": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "processed_ids",
+                "charges"
+              ],
+              [
+                "charges",
+                "ev"
+              ],
+              [
+                "ev",
+                "event_id"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Conditional writes record unique event identifiers before acting.",
-            "rows": [
-              {
-                "cells": [
-                  "evt-555",
-                  "charged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "evt-555",
-                  "duplicate ignored"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Idempotency achieves dependable exactly-once processing effects.",
-            "rows": [
-              {
-                "cells": [
-                  "evt-555",
-                  "charged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "evt-555",
-                  "duplicate ignored"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Payment providers support the same idea with idempotency keys on their.",
+            "values": {
+              "processed_ids": "set()",
+              "charges": "[]",
+              "ev": "{'id': 'evt-555', 'detail': {'order_id'…",
+              "event_id": "'evt-555'"
+            },
+            "tones": {
+              "processed_ids": "ok",
+              "charges": "ok",
+              "ev": "ok",
+              "event_id": "ok"
+            },
+            "arrows": [
+              [
+                "processed_ids",
+                "charges"
+              ],
+              [
+                "charges",
+                "ev"
+              ],
+              [
+                "ev",
+                "event_id"
+              ]
             ]
           }
         ]
@@ -909,224 +1027,162 @@
       "partTitle": "Tracing an order through the system",
       "codeHash": "b3e9f69dfb5b779116cce014fc2df9175c65551bb814fc0e2c8692c10460d612",
       "spec": {
-        "template": "flow",
-        "title": "Tracing an order through the system — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Tracing an order th...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Tracing an order through the system",
+        "actors": [
+          "logs",
+          ".0",
+          "l"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Tracing an order through the system.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Tracing an order th... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In a system of many services, \"where is order 981.",
+            "activeActor": "logs",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": {
+                  "var": "logs",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": {
+                  "var": ".0",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Correlation ids solve it.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": {
+                  "var": "logs",
+                  "line": 8,
+                  "hit": 11
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": {
+                  "var": ".0",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Tracing an order through the system.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Trace how will updates query during execution.",
+            "activeActor": "l",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": {
+                  "var": "logs",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": {
+                  "var": ".0",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tracing an order through the system — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Tracing an order th...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Tracing an order through the system",
+        "actors": [
+          "logs",
+          ".0",
+          "l"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Tracing an order through the system [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Tracing an order th... [D21.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In a system of many services, \"where is order 981.",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": "[{'t': 3, 'service': 'payments', 'event…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "logs"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Correlation ids solve it.",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": "[{'t': 3, 'service': 'payments', 'event…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Tracing an order through the system [D21.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Trace how will updates query during execution.",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": "[{'t': 3, 'service': 'payments', 'event…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "l"
           }
         ]
       }
@@ -1135,224 +1191,106 @@
       "partTitle": "Milestone practice: build the backbone",
       "codeHash": "0757f1edbbbf0b9c12ecc3c90bfecb2edf170cb1538af044dc4559f03e989946",
       "spec": {
-        "template": "flow",
-        "title": "Milestone practice: build the backbone — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: build the backbone",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "queues",
+            "label": "queues"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "rules",
+            "label": "rules"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "events",
+            "label": "events"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: build the backbone.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Route_event(event, rules, queues).",
+            "currentState": "queues",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Keep three counters.",
+            "currentState": "rules",
+            "transition": {
+              "from": "queues",
+              "to": "rules",
+              "label": {
+                "var": "rules",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: build the bac.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example runs an end-to-end check.",
+            "currentState": "events",
+            "transition": {
+              "from": "rules",
+              "to": "events",
+              "label": {
+                "var": "events",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone practice: build the backbone — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: build the backbone",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "queues",
+            "label": "queues"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "rules",
+            "label": "rules"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "events",
+            "label": "events"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: build the backbone [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Route_event(event, rules, queues).",
+            "currentState": "queues",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Keep three counters.",
+            "currentState": "rules",
+            "transition": {
+              "from": "queues",
+              "to": "rules",
+              "label": "[['orders', 'OrderCreated', 'inventory-…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: build the bac.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example runs an end-to-end check.",
+            "currentState": "events",
+            "transition": {
+              "from": "rules",
+              "to": "events",
+              "label": "[{'source': 'orders', 'detail-type': 'O…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 47,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Memory-Bound Decoding Wall: Why Memory Bandwidth Bottlenecks LLM Serving",
       "codeHash": "37175ea3665a957860bcc4556383ceb071e3796a1dbdb875c834d4cf037bec30",
       "spec": {
-        "template": "flow",
-        "title": "The Memory-Bound Decoding Wall: Why Memory Ba... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Memory-Bound De...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Memory-Bound Decoding Wall: Why Memory Bandwidth Bottlenecks",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Memory-Bound Decoding Wall: Why Memo...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Memory-Bound De....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In our previous module, we conquered PagedAttention and KV cache.",
+            "bars": [
+              {
+                "label": "speculative_lo",
+                "value": {
+                  "var": "speculative_lookahead_k",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "draft_model_ra",
+                "value": {
+                  "var": "draft_model_ratio",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "weight_gb",
+                "value": {
+                  "var": "weight_gb",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "intensity",
+                "value": {
+                  "var": "intensity",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand why modern LLMs generate text slowly, we must analyze.",
+            "bars": [
+              {
+                "label": "speculative_lo",
+                "value": {
+                  "var": "speculative_lookahead_k",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "draft_model_ra",
+                "value": {
+                  "var": "draft_model_ratio",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "weight_gb",
+                "value": {
+                  "var": "weight_gb",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "intensity",
+                "value": {
+                  "var": "intensity",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Memory-Bound Decoding Wall: W...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a memory-bandwidth latency.",
+            "bars": [
+              {
+                "label": "speculative_lo",
+                "value": {
+                  "var": "speculative_lookahead_k",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "draft_model_ra",
+                "value": {
+                  "var": "draft_model_ratio",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "weight_gb",
+                "value": {
+                  "var": "weight_gb",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "intensity",
+                "value": {
+                  "var": "intensity",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Memory-Bound Decoding Wall: Why Memory Ba... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Memory-Bound De...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Memory-Bound Decoding Wall: Why Memory Bandwidth Bottlenecks",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Memory-Bound Decoding Wall: Why Memo...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Memory-Bound De....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In our previous module, we conquered PagedAttention and KV cache.",
+            "bars": [
+              {
+                "label": "speculative_lo",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "draft_model_ra",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "weight_gb",
+                "value": 140,
+                "tone": "data"
+              },
+              {
+                "label": "intensity",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand why modern LLMs generate text slowly, we must analyze.",
+            "bars": [
+              {
+                "label": "speculative_lo",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "draft_model_ra",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "weight_gb",
+                "value": 140,
+                "tone": "ok"
+              },
+              {
+                "label": "intensity",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Memory-Bound Decoding Wall: W...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a memory-bandwidth latency.",
+            "bars": [
+              {
+                "label": "speculative_lo",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "draft_model_ra",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "weight_gb",
+                "value": 140,
+                "tone": "ok"
+              },
+              {
+                "label": "intensity",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,110 +230,161 @@
       "codeHash": "4d8d9ede63612a4f0647b620960a0913039a554305b8ba35c82560be7b161fb2",
       "spec": {
         "template": "flow",
-        "title": "Target-Draft Rejection Sampling: Mathematical... — Execution Pipeline",
+        "title": "Target-Draft Rejection Sampling: Mathematical Proof of Exact Out",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Target-Draft Reject...",
-            "tappable": true
+            "id": "vocab",
+            "label": "vocab"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "target_dist",
+            "label": "target_dist"
+          },
+          {
+            "id": "draft_dist",
+            "label": "draft_dist"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Target-Draft Rejection Sampling: Mathema...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Target-Draft Reject....",
+            "caption": "While the speedup of speculative decoding is intuitive, engineers often.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": {
+                "var": "rng",
+                "line": 84,
+                "hit": 1
+              },
+              "vocab": {
+                "var": "vocab",
+                "line": 85,
+                "hit": 1
+              },
+              "target_dist": {
+                "var": "target_dist",
+                "line": 86,
+                "hit": 1
+              },
+              "draft_dist": {
+                "var": "draft_dist",
+                "line": 87,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "vocab": "data",
+              "target_dist": "data",
+              "draft_dist": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "vocab"
               ],
               [
-                "proc",
-                "out"
+                "vocab",
+                "target_dist"
+              ],
+              [
+                "target_dist",
+                "draft_dist"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The mathematical miracle of Speculative Decoding is that it is Lossless.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": {
+                "var": "rng",
+                "line": 85,
+                "hit": 1
+              },
+              "vocab": {
+                "var": "vocab",
+                "line": 86,
+                "hit": 1
+              },
+              "target_dist": {
+                "var": "target_dist",
+                "line": 87,
+                "hit": 1
+              },
+              "draft_dist": {
+                "var": "draft_dist",
+                "line": 22,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "vocab": "data",
+              "target_dist": "data",
+              "draft_dist": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "vocab"
+              ],
+              [
+                "vocab",
+                "target_dist"
+              ],
+              [
+                "target_dist",
+                "draft_dist"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Target-Draft Rejection Sampling: ...",
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": {
+                "var": "rng",
+                "line": 86,
+                "hit": 1
+              },
+              "vocab": {
+                "var": "vocab",
+                "line": 87,
+                "hit": 1
+              },
+              "target_dist": {
+                "var": "target_dist",
+                "line": 22,
+                "hit": 1
+              },
+              "draft_dist": {
+                "var": "draft_dist",
+                "line": 23,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "vocab": "ok",
+              "target_dist": "ok",
+              "draft_dist": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "vocab"
               ],
               [
-                "proc",
-                "out"
+                "vocab",
+                "target_dist"
+              ],
+              [
+                "target_dist",
+                "draft_dist"
               ]
             ]
           }
@@ -347,110 +392,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Target-Draft Rejection Sampling: Mathematical... — Execution Pipeline",
+        "title": "Target-Draft Rejection Sampling: Mathematical Proof of Exact Out",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Target-Draft Reject...",
-            "tappable": true
+            "id": "vocab",
+            "label": "vocab"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "target_dist",
+            "label": "target_dist"
+          },
+          {
+            "id": "draft_dist",
+            "label": "draft_dist"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Target-Draft Rejection Sampling: Mathema...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Target-Draft Reject....",
+            "caption": "While the speedup of speculative decoding is intuitive, engineers often.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": "<Random>",
+              "vocab": "['quantum', 'neural', 'compiler', 'tens…",
+              "target_dist": "[0.1, 0.55, 0.15, 0.2]",
+              "draft_dist": "[0.25, 0.35, 0.2, 0.2]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "vocab": "data",
+              "target_dist": "data",
+              "draft_dist": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "vocab"
               ],
               [
-                "proc",
-                "out"
+                "vocab",
+                "target_dist"
+              ],
+              [
+                "target_dist",
+                "draft_dist"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The mathematical miracle of Speculative Decoding is that it is Lossless.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": "<Random>",
+              "vocab": "['quantum', 'neural', 'compiler', 'tens…",
+              "target_dist": "[0.1, 0.55, 0.15, 0.2]",
+              "draft_dist": "[0.25, 0.35, 0.2, 0.2]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "vocab": "data",
+              "target_dist": "data",
+              "draft_dist": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "vocab"
+              ],
+              [
+                "vocab",
+                "target_dist"
+              ],
+              [
+                "target_dist",
+                "draft_dist"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Target-Draft Rejection Sampling: ...",
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": "<Random>",
+              "vocab": "['quantum', 'neural', 'compiler', 'tens…",
+              "target_dist": "[0.1, 0.55, 0.15, 0.2]",
+              "draft_dist": "[0.25, 0.35, 0.2, 0.2]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "vocab": "ok",
+              "target_dist": "ok",
+              "draft_dist": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "vocab"
               ],
               [
-                "proc",
-                "out"
+                "vocab",
+                "target_dist"
+              ],
+              [
+                "target_dist",
+                "draft_dist"
               ]
             ]
           }
@@ -461,223 +509,217 @@
       "partTitle": "Speculative Decoding Speedup Modeling: Acceptance Rate alpha & Cost Ratio gamma",
       "codeHash": "e0aa7a3f4da137c73d4bd07afb94c5bf05e41455c7f7a851ec60d37bc1809bf5",
       "spec": {
-        "template": "flow",
-        "title": "Speculative Decoding Speedup Modeling: Accept... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Speculative Decodin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Speculative Decoding Speedup Modeling: Acceptance Rate alpha & C",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Speculative Decoding Speedup Modeling: A...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Speculative Decodin....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With mathematical correctness established, we now turn to the quantitative.",
+            "bars": [
+              {
+                "label": "t_target_ms",
+                "value": {
+                  "var": "t_target_ms",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t_draft_ms",
+                "value": {
+                  "var": "t_draft_ms",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 60,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Understanding the quantitative speedup equation is essential for systems.",
+            "bars": [
+              {
+                "label": "t_target_ms",
+                "value": {
+                  "var": "t_target_ms",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t_draft_ms",
+                "value": {
+                  "var": "t_draft_ms",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Speculative Decoding Speedup Mode...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "t_target_ms",
+                "value": {
+                  "var": "t_target_ms",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t_draft_ms",
+                "value": {
+                  "var": "t_draft_ms",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Speculative Decoding Speedup Modeling: Accept... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Speculative Decodin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Speculative Decoding Speedup Modeling: Acceptance Rate alpha & C",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Speculative Decoding Speedup Modeling: A...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Speculative Decodin....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With mathematical correctness established, we now turn to the quantitative.",
+            "bars": [
+              {
+                "label": "t_target_ms",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "t_draft_ms",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": 0.85,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Understanding the quantitative speedup equation is essential for systems.",
+            "bars": [
+              {
+                "label": "t_target_ms",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "t_draft_ms",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 0.85,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Speculative Decoding Speedup Mode...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "t_target_ms",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "t_draft_ms",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 0.85,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -687,223 +729,106 @@
       "partTitle": "Self-Speculative Decoding, Medusa Heads & Multi-Token Speculation Trees",
       "codeHash": "74402670f09abe5a4cecdf031e9961f7aaba7b3897e11e636b2e672747b5c8fd",
       "spec": {
-        "template": "flow",
-        "title": "Self-Speculative Decoding, Medusa Heads & Mul... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Self-Speculative De...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Self-Speculative Decoding, Medusa Heads & Multi-Token Speculatio",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Self-Speculative Decoding, Medusa Heads ...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Self-Speculative De....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While standard two-model speculative decoding delivers impressive 2x to 3x.",
+            "items": {
+              "var": "branch",
+              "line": 50,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In this module, we examine the next evolution of speculative inference.",
+            "items": {
+              "var": "branch",
+              "line": 57,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Self-Speculative Decoding, Medusa...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "items": {
+              "var": "branch",
+              "line": 57,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Self-Speculative Decoding, Medusa Heads & Mul... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Self-Speculative De...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Self-Speculative Decoding, Medusa Heads & Multi-Token Speculatio",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Self-Speculative Decoding, Medusa Heads ...",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Self-Speculative De....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While standard two-model speculative decoding delivers impressive 2x to 3x.",
+            "items": [
+              "'return'",
+              "'width'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this module, we examine the next evolution of speculative inference.",
+            "items": [
+              "'return'",
+              "'width'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Self-Speculative Decoding, Medusa...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "items": [
+              "'return'",
+              "'width'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +838,115 @@
       "partTitle": "Masterclass Synthesis: Building the ApexSpeculative Engine",
       "codeHash": "75d265c2407632de1c51617e69435695f3fc3af40741ce35d5351b1d3647389d",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexSpecu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexSpeculative Engine",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Building the ApexSpeculative Engine.",
+            "items": {
+              "var": "t_probs",
+              "line": 57,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position.",
+            "items": {
+              "var": "t_probs",
+              "line": 57,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the cutting edge of modern.",
+            "items": {
+              "var": "t_probs",
+              "line": 54,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexSpecu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexSpeculative Engine",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 47 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexSpeculative Engine.",
+            "items": [
+              "0.85",
+              "0.78",
+              "0.9",
+              "0.65",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position.",
+            "items": [
+              "0.85",
+              "0.78",
+              "0.9",
+              "0.65",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the cutting edge of modern.",
+            "items": [
+              "0.85",
+              "0.78",
+              "0.9",
+              "0.65",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

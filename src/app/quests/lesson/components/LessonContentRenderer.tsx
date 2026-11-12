@@ -740,15 +740,42 @@ export function LessonContentRenderer({
                   )}
 
                   {Array.isArray(slide.codeNotes) && slide.codeNotes.length > 0 && (
+                    // [FIX-STAGE: CodeNotes Union Normalization] Support both { line, note } objects
+                    // and plain string entries from LongLessonPart.codeNotes without rendering "Line undefined:".
                     <div data-testid="lesson-code-notes" style={{ padding: '10px 14px', borderRadius: 12, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
                       <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--t2)', marginBottom: 6 }}>🔎 What the code does</div>
                       <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                        {slide.codeNotes.map((n: { line: number; note: string }, i: number) => (
-                          <li key={i} style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1.5 }}>
-                            <span style={{ fontFamily: 'var(--font-mono)', color: safeTeacher.accent || 'var(--accent)', fontWeight: 800 }}>Line {n.line}:</span>{' '}
-                            {renderWithTappableWords(n.note, tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
-                          </li>
-                        ))}
+                        {slide.codeNotes.map((rawNote: unknown, i: number) => {
+                          let lineNum: number | undefined;
+                          let noteText = '';
+                          if (typeof rawNote === 'string') {
+                            noteText = rawNote.trim();
+                          } else if (rawNote && typeof rawNote === 'object') {
+                            const obj = rawNote as { line?: unknown; note?: unknown; text?: unknown };
+                            if (typeof obj.line === 'number' && Number.isFinite(obj.line)) {
+                              lineNum = obj.line;
+                            }
+                            if (typeof obj.note === 'string') {
+                              noteText = obj.note;
+                            } else if (typeof obj.text === 'string') {
+                              noteText = obj.text;
+                            }
+                          }
+                          if (!noteText) {
+                            console.warn('[PinIT][Fix:LessonRenderer] Skipping empty or malformed codeNote at index', i, rawNote);
+                            return null;
+                          }
+                          return (
+                            <li key={i} style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1.5 }}>
+                              {lineNum !== undefined && (
+                                <span style={{ fontFamily: 'var(--font-mono)', color: safeTeacher.accent || 'var(--accent)', fontWeight: 800 }}>
+                                  Line {lineNum}:{' '}
+                                </span>
+                              )}
+                              {renderWithTappableWords(noteText, tappableLabels, highlightedLabel, handleTriggerHighlight, handleWordHover)}
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   )}

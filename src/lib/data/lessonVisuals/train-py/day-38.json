@@ -2,270 +2,228 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 38,
-  "promptSha": "38d982dc9fb1c56bc959e479b18fb4849f00329f3459ec1b372f35db13b96b6d",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Megatron-LM Tensor Parallelism — Foundations & Mathematical Invariants",
-      "codeHash": "fe1790a0f6acb72d63f2557c609dd7f1597d39be1c3614c8cde9cbfed2926f39",
+      "codeHash": "449e75119d6a69d111009148d1dfa3f26faf36a7d7851aa5d34c96f49315c336",
       "spec": {
         "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Foundations & Mathematical Invariants",
+        "title": "Megatron-LM Tensor Parallelism — Foundations & Mathematical Inva",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MEGATRON_TP_TAXONOMY",
+            "label": "MEGATRON_TP_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When a single transformer layer is too massive to fit in a GPU's memory.",
+            "values": {
+              "MEGATRON_TP_TAXONOMY": {
+                "var": "MEGATRON_TP_TAXONOMY",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "MEGATRON_TP_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MEGATRON_TP_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Tensor Parallelism (TP), pioneered by NVIDIA's Megatron-LM research.",
+            "values": {
+              "MEGATRON_TP_TAXONOMY": {
+                "var": "MEGATRON_TP_TAXONOMY",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "MEGATRON_TP_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MEGATRON_TP_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Megatron-LM dual-layer sharding pairs column-parallel with row-parallel.",
+            "values": {
+              "MEGATRON_TP_TAXONOMY": {
+                "var": "MEGATRON_TP_TAXONOMY",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "MEGATRON_TP_TAXONOMY": "ok",
+              "name": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "MEGATRON_TP_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Foundations & Mathematical Invariants",
+        "title": "Megatron-LM Tensor Parallelism — Foundations & Mathematical Inva",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MEGATRON_TP_TAXONOMY",
+            "label": "MEGATRON_TP_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When a single transformer layer is too massive to fit in a GPU's memory.",
+            "values": {
+              "MEGATRON_TP_TAXONOMY": "{'COLUMN_PARALLEL_LINEAR': 'Shards weig…",
+              "name": "'ATTENTION_TP_PAIR'",
+              "desc": "'ColumnParallel(QKV) followed by RowPar…"
+            },
+            "tones": {
+              "MEGATRON_TP_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MEGATRON_TP_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Tensor Parallelism (TP), pioneered by NVIDIA's Megatron-LM research.",
+            "values": {
+              "MEGATRON_TP_TAXONOMY": "{'COLUMN_PARALLEL_LINEAR': 'Shards weig…",
+              "name": "'ATTENTION_TP_PAIR'",
+              "desc": "'ColumnParallel(QKV) followed by RowPar…"
+            },
+            "tones": {
+              "MEGATRON_TP_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MEGATRON_TP_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Megatron-LM dual-layer sharding pairs column-parallel with row-parallel.",
+            "values": {
+              "MEGATRON_TP_TAXONOMY": "{'COLUMN_PARALLEL_LINEAR': 'Shards weig…",
+              "name": "'COLUMN_PARALLEL_LINEAR'",
+              "desc": "'Shards weight matrix W along columns; …"
+            },
+            "tones": {
+              "MEGATRON_TP_TAXONOMY": "ok",
+              "name": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "MEGATRON_TP_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           }
         ]
@@ -273,264 +231,107 @@
     },
     {
       "partTitle": "Megatron-LM Tensor Parallelism — Core Algorithm & State Representation",
-      "codeHash": "c5679760f2bc067356b7ee1ba52dec60fc26d77a1fddc74c8f6a4f36aaeb7e62",
+      "codeHash": "4f95d5d93ae7da9fa2d795571ce60e41ba2fb0857d5236ddfb608425d849d04f",
       "spec": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Megatron-LM Tensor Parallelism — Core Algorithm & State Represen",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Megatron MLP sharder calculates the partitioned matrix dimensions.",
+            "items": {
+              "var": "col_w1_shape",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In a standard transformer MLP, the first projection maps hidden dimension.",
+            "items": {
+              "var": "col_w1_shape",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Distributed frameworks utilize these formulas to initialize weight tensors.",
+            "items": {
+              "var": "col_w1_shape",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Megatron-LM Tensor Parallelism — Core Algorithm & State Represen",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Megatron MLP sharder calculates the partitioned matrix dimensions.",
+            "items": [
+              "4096",
+              "1376"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "In a standard transformer MLP, the first projection maps hidden dimension.",
+            "items": [
+              "4096",
+              "1376"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say9",
+            "caption": "Distributed frameworks utilize these formulas to initialize weight tensors.",
+            "items": [
+              "4096",
+              "1376"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -539,530 +340,298 @@
     },
     {
       "partTitle": "Megatron-LM Tensor Parallelism — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "cb196f5ce6090ecd372df0100d16859bbe40a316287dea3b65c402f3bbe5ebde",
+      "codeHash": "d04c03687402651f5c463d6d8b9d330696c8f2af35885d5a1033cc315c77a368",
       "spec": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Throughput Optimization & Edge-Case H",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Megatron-LM Tensor Parallelism — Throughput Optimization & Edge-",
+        "actors": [
+          "num_heads",
+          "tp_degree",
+          "heads_per_gpu"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In the Self-Attention block, Tensor Parallelism shards the multi-head.",
+            "activeActor": "num_heads",
+            "messages": [
+              {
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": {
+                  "var": "num_heads",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": {
+                  "var": "tp_degree",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Each GPU in the TP group is assigned an independent subset of the total.",
+            "activeActor": "tp_degree",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": {
+                  "var": "num_heads",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": {
+                  "var": "tp_degree",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Production launch scripts run this validator during job configuration.",
+            "activeActor": "heads_per_gpu",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": {
+                  "var": "num_heads",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": {
+                  "var": "tp_degree",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Throughput Optimization & Edge-Case H",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Megatron-LM Tensor Parallelism — Throughput Optimization & Edge-",
+        "actors": [
+          "num_heads",
+          "tp_degree",
+          "heads_per_gpu"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In the Self-Attention block, Tensor Parallelism shards the multi-head.",
+            "messages": [
+              {
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "num_heads"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Each GPU in the TP group is assigned an independent subset of the total.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": "64",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tp_degree"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Production launch scripts run this validator during job configuration.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "num_heads",
+                "to": "tp_degree",
+                "label": "64",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tp_degree",
+                "to": "heads_per_gpu",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "heads_per_gpu"
           }
         ]
       }
     },
     {
       "partTitle": "Megatron-LM Tensor Parallelism — Resilience Guardrails & Failure Recovery",
-      "codeHash": "432268c7b71a241eed7e637509a4b9d29acd844b242e92b99bfdd941a32a6461",
+      "codeHash": "8e4ea081e4d33c4dbe8d464d046ddf2a420819c35bc83c496a66b49a3e874491",
       "spec": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Resilience Guardrails & Failure Recov",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Megatron-LM Tensor Parallelism — Resilience Guardrails & Failure",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tensor Parallelism executes an All-Reduce operation on every.",
+            "bars": [
+              {
+                "label": "tp_degree",
+                "value": {
+                  "var": "tp_degree",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "intra_node_gpu",
+                "value": {
+                  "var": "intra_node_gpus",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how layer updates model during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tp_degree",
+                "value": {
+                  "var": "tp_degree",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "intra_node_gpu",
+                "value": {
+                  "var": "intra_node_gpus",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enforcing NVLink domain confinement protects training jobs.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tp_degree",
+                "value": {
+                  "var": "tp_degree",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "intra_node_gpu",
+                "value": {
+                  "var": "intra_node_gpus",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Resilience Guardrails & Failure Recov",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Megatron-LM Tensor Parallelism — Resilience Guardrails & Failure",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tensor Parallelism executes an All-Reduce operation on every.",
+            "bars": [
+              {
+                "label": "tp_degree",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "intra_node_gpu",
+                "value": 8,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how layer updates model during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tp_degree",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "intra_node_gpu",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enforcing NVLink domain confinement protects training jobs.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tp_degree",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "intra_node_gpu",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +640,279 @@
     },
     {
       "partTitle": "Megatron-LM Tensor Parallelism — Production Telemetry & Verification Audit",
-      "codeHash": "2e0aad16c8cebacedb53af2a0704db1c1e8f584d9a9e06b347e3f7893689fd68",
+      "codeHash": "8e2249b40094458986b8c8b9f4105fa4ec57fd746bb8f46a7552c24083d8a28a",
       "spec": {
         "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Production Telemetry & Verification A",
+        "title": "Megatron-LM Tensor Parallelism — Production Telemetry & Verifica",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mlp_sharded",
+            "label": "mlp_sharded"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "heads_validated",
+            "label": "heads_validated"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "nvlink_confined",
+            "label": "nvlink_confined"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "controls",
+            "label": "controls"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing Megatron-LM tensor parallelism requires continuous.",
+            "values": {
+              "mlp_sharded": {
+                "var": "mlp_sharded",
+                "line": 5,
+                "hit": 1
+              },
+              "heads_validated": {
+                "var": "heads_validated",
+                "line": 5,
+                "hit": 1
+              },
+              "nvlink_confined": {
+                "var": "nvlink_confined",
+                "line": 5,
+                "hit": 1
+              },
+              "controls": {
+                "var": "controls",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mlp_sharded": "data",
+              "heads_validated": "data",
+              "nvlink_confined": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "mlp_sharded",
+                "heads_validated"
+              ],
+              [
+                "heads_validated",
+                "nvlink_confined"
+              ],
+              [
+                "nvlink_confined",
+                "controls"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A Megatron TP auditor verifies that MLP matrix sharding, attention head.",
+            "values": {
+              "mlp_sharded": {
+                "var": "mlp_sharded",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "heads_validated": {
+                "var": "heads_validated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "nvlink_confined": {
+                "var": "nvlink_confined",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "controls": {
+                "var": "controls",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "mlp_sharded": "data",
+              "heads_validated": "data",
+              "nvlink_confined": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "mlp_sharded",
+                "heads_validated"
+              ],
+              [
+                "heads_validated",
+                "nvlink_confined"
+              ],
+              [
+                "nvlink_confined",
+                "controls"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous tensor parallel auditing ensures that multi-node training.",
+            "values": {
+              "mlp_sharded": {
+                "var": "mlp_sharded",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "heads_validated": {
+                "var": "heads_validated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "nvlink_confined": {
+                "var": "nvlink_confined",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "controls": {
+                "var": "controls",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "mlp_sharded": "ok",
+              "heads_validated": "ok",
+              "nvlink_confined": "ok",
+              "controls": "ok"
+            },
+            "arrows": [
+              [
+                "mlp_sharded",
+                "heads_validated"
+              ],
+              [
+                "heads_validated",
+                "nvlink_confined"
+              ],
+              [
+                "nvlink_confined",
+                "controls"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism — Production Telemetry & Verification A",
+        "title": "Megatron-LM Tensor Parallelism — Production Telemetry & Verifica",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mlp_sharded",
+            "label": "mlp_sharded"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "heads_validated",
+            "label": "heads_validated"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "nvlink_confined",
+            "label": "nvlink_confined"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "controls",
+            "label": "controls"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing Megatron-LM tensor parallelism requires continuous.",
+            "values": {
+              "mlp_sharded": "True",
+              "heads_validated": "True",
+              "nvlink_confined": "True",
+              "controls": "{'MEGATRON_MLP_SHARDING': True, 'ATTENT…"
+            },
+            "tones": {
+              "mlp_sharded": "data",
+              "heads_validated": "data",
+              "nvlink_confined": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "mlp_sharded",
+                "heads_validated"
+              ],
+              [
+                "heads_validated",
+                "nvlink_confined"
+              ],
+              [
+                "nvlink_confined",
+                "controls"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A Megatron TP auditor verifies that MLP matrix sharding, attention head.",
+            "values": {
+              "mlp_sharded": "True",
+              "heads_validated": "True",
+              "nvlink_confined": "True",
+              "controls": "{'MEGATRON_MLP_SHARDING': True, 'ATTENT…"
+            },
+            "tones": {
+              "mlp_sharded": "data",
+              "heads_validated": "data",
+              "nvlink_confined": "data",
+              "controls": "data"
+            },
+            "arrows": [
+              [
+                "mlp_sharded",
+                "heads_validated"
+              ],
+              [
+                "heads_validated",
+                "nvlink_confined"
+              ],
+              [
+                "nvlink_confined",
+                "controls"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous tensor parallel auditing ensures that multi-node training.",
+            "values": {
+              "mlp_sharded": "True",
+              "heads_validated": "True",
+              "nvlink_confined": "True",
+              "controls": "{'MEGATRON_MLP_SHARDING': True, 'ATTENT…"
+            },
+            "tones": {
+              "mlp_sharded": "ok",
+              "heads_validated": "ok",
+              "nvlink_confined": "ok",
+              "controls": "ok"
+            },
+            "arrows": [
+              [
+                "mlp_sharded",
+                "heads_validated"
+              ],
+              [
+                "heads_validated",
+                "nvlink_confined"
+              ],
+              [
+                "nvlink_confined",
+                "controls"
+              ]
             ]
           }
         ]

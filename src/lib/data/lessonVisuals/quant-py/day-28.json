@@ -2,171 +2,118 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Perpetual futures",
       "codeHash": "49acb026db8a2f897eb0cc4aa7be18f98af8a11ee94f95bc6fc95705ce76cb49",
       "spec": {
-        "template": "table",
-        "title": "Perpetual contract basis and spot convergence dynamics",
-        "columns": [
-          "spot",
-          "perp"
-        ],
+        "template": "cells",
+        "title": "Perpetual futures",
         "steps": [
           {
             "at": "say1",
-            "caption": "Spot prices provide the underlying benchmark reference for contracts.",
-            "rows": [
+            "caption": "A normal future has an expiry date.",
+            "items": {
+              "var": "spot",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "spot"
-                  },
-                  {
-                    "text": "perp"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The funding rate anchors perpetual future quotes to underlying spot prices.",
-            "rows": [
+            "at": "say2",
+            "caption": "A perpetual future (perp) never expires.",
+            "items": {
+              "var": "spot",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "spot"
-                  },
-                  {
-                    "text": "perp"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "60000"
-                  },
-                  {
-                    "text": "60120"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Traders use leverage to hedge spot holdings with perps.",
-            "rows": [
+            "at": "say7",
+            "caption": "The mechanics are simple, but the leverage makes the risks severe.",
+            "items": {
+              "var": "spot",
+              "line": 3,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "spot"
-                  },
-                  {
-                    "text": "perp"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "60000"
-                  },
-                  {
-                    "text": "60120"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "60150"
-                  },
-                  {
-                    "text": "60240"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Perpetual contract basis and spot convergence dynamics",
-        "columns": [
-          "spot",
-          "perp"
-        ],
+        "template": "cells",
+        "title": "Perpetual futures",
         "steps": [
           {
             "at": "say1",
-            "caption": "Spot prices provide the underlying benchmark reference for contracts.",
-            "rows": [
+            "caption": "A normal future has an expiry date.",
+            "items": [
+              "60000",
+              "60150",
+              "59900",
+              "60300"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "spot",
-                  "perp"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The funding rate anchors perpetual future quotes to underlying spot prices.",
-            "rows": [
+            "at": "say2",
+            "caption": "A perpetual future (perp) never expires.",
+            "items": [
+              "60000",
+              "60150",
+              "59900",
+              "60300"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "spot",
-                  "perp"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "60000",
-                  "60120"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Traders use leverage to hedge spot holdings with perps.",
-            "rows": [
+            "at": "say7",
+            "caption": "The mechanics are simple, but the leverage makes the risks severe.",
+            "items": [
+              "60000",
+              "60150",
+              "59900",
+              "60300"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "spot",
-                  "perp"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "60000",
-                  "60120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "60150",
-                  "60240"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,216 +124,216 @@
       "partTitle": "Funding payments",
       "codeHash": "31b7599a8d01136fe2bad96ef78be3cf1a518813d2bc1acc617128c865385537",
       "spec": {
-        "template": "table",
-        "title": "Funding rate payment transfers and annualized APR",
-        "columns": [
-          "notional",
-          "rate_8h_pct",
-          "periods",
-          "side"
-        ],
+        "template": "bars",
+        "title": "Funding payments",
         "steps": [
           {
             "at": "say1",
-            "caption": "Longs and shorts exchange a funding payment every interval.",
-            "rows": [
+            "caption": "Trace how funding updates interval during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "rate_8h_pct"
-                  },
-                  {
-                    "text": "periods"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
-                "tone": "ok"
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rate_8h_pct",
+                "value": {
+                  "var": "rate_8h_pct",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "periods",
+                "value": {
+                  "var": "periods",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "amount",
+                "value": {
+                  "var": "amount",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Positive funding transfers capital from longs to shorts across intervals.",
-            "rows": [
+            "caption": "When the rate is positive (perp above spot), longs pay shorts.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "rate_8h_pct"
-                  },
-                  {
-                    "text": "periods"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "100000"
-                  },
-                  {
-                    "text": "0.01"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "LONG"
-                  }
-                ],
+                "label": "rate_8h_pct",
+                "value": {
+                  "var": "rate_8h_pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "periods",
+                "value": {
+                  "var": "periods",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": {
+                  "var": "amount",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "High funding rates create significant holding expenses for positions.",
-            "rows": [
+            "at": "say7",
+            "caption": "Funding makes holding a perp position costly or profitable over time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "rate_8h_pct"
-                  },
-                  {
-                    "text": "periods"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "100000"
-                  },
-                  {
-                    "text": "0.01"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "LONG"
-                  }
-                ],
+                "label": "rate_8h_pct",
+                "value": {
+                  "var": "rate_8h_pct",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "rate_8h_pct"
-                  },
-                  {
-                    "text": "periods"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
-                "tone": "idle"
+                "label": "periods",
+                "value": {
+                  "var": "periods",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": {
+                  "var": "amount",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Funding rate payment transfers and annualized APR",
-        "columns": [
-          "notional",
-          "rate_8h_pct",
-          "periods",
-          "side"
-        ],
+        "template": "bars",
+        "title": "Funding payments",
         "steps": [
           {
             "at": "say1",
-            "caption": "Longs and shorts exchange a funding payment every interval.",
-            "rows": [
+            "caption": "Trace how funding updates interval during execution.",
+            "bars": [
               {
-                "cells": [
-                  "notional",
-                  "rate_8h_pct",
-                  "periods",
-                  "side"
-                ],
-                "tone": "ok"
+                "label": "notional",
+                "value": 100000,
+                "tone": "data"
+              },
+              {
+                "label": "rate_8h_pct",
+                "value": 0.01,
+                "tone": "data"
+              },
+              {
+                "label": "periods",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "amount",
+                "value": 30,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Positive funding transfers capital from longs to shorts across intervals.",
-            "rows": [
+            "caption": "When the rate is positive (perp above spot), longs pay shorts.",
+            "bars": [
               {
-                "cells": [
-                  "notional",
-                  "rate_8h_pct",
-                  "periods",
-                  "side"
-                ],
+                "label": "notional",
+                "value": 100000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "100000",
-                  "0.01",
-                  "3",
-                  "LONG"
-                ],
+                "label": "rate_8h_pct",
+                "value": 0.01,
+                "tone": "ok"
+              },
+              {
+                "label": "periods",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": 30,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "High funding rates create significant holding expenses for positions.",
-            "rows": [
+            "at": "say7",
+            "caption": "Funding makes holding a perp position costly or profitable over time.",
+            "bars": [
               {
-                "cells": [
-                  "notional",
-                  "rate_8h_pct",
-                  "periods",
-                  "side"
-                ],
+                "label": "notional",
+                "value": 100000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "100000",
-                  "0.01",
-                  "3",
-                  "LONG"
-                ],
+                "label": "rate_8h_pct",
+                "value": 0.01,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "notional",
-                  "rate_8h_pct",
-                  "periods",
-                  "side"
-                ],
-                "tone": "idle"
+                "label": "periods",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": 30,
+                "tone": "ok"
               }
             ]
           }
@@ -397,216 +344,216 @@
       "partTitle": "Leverage and margin",
       "codeHash": "5645c47c1ab724e8ad105d67fc87ff6421b039b3ee5ba8cd604c18c390221e53",
       "spec": {
-        "template": "table",
-        "title": "Leverage multiples and maintenance margin liquidation thresholds",
-        "columns": [
-          "entry",
-          "lev",
-          "long_liq",
-          "short_liq"
-        ],
+        "template": "bars",
+        "title": "Leverage and margin",
         "steps": [
           {
             "at": "say1",
-            "caption": "High leverage multiplies market exposure relative to initial deposits.",
-            "rows": [
+            "caption": "Crypto exchanges let traders control positions far larger than their deposit.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "entry"
-                  },
-                  {
-                    "text": "lev"
-                  },
-                  {
-                    "text": "long_liq"
-                  },
-                  {
-                    "text": "short_liq"
-                  }
-                ],
-                "tone": "ok"
+                "label": "entry",
+                "value": {
+                  "var": "entry",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lev",
+                "value": {
+                  "var": "lev",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "long_liq",
+                "value": {
+                  "var": "long_liq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Maintenance margin sets the minimum threshold to prevent liquidation.",
-            "rows": [
+            "caption": "The initial margin is 1 / leverage of the position.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "entry"
-                  },
-                  {
-                    "text": "lev"
-                  },
-                  {
-                    "text": "long_liq"
-                  },
-                  {
-                    "text": "short_liq"
-                  }
-                ],
+                "label": "entry",
+                "value": {
+                  "var": "entry",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "60000"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "long_liq"
-                  },
-                  {
-                    "text": "short_liq"
-                  }
-                ],
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lev",
+                "value": {
+                  "var": "lev",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "long_liq",
+                "value": {
+                  "var": "long_liq",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exchange engines automatically liquidate positions breaching limits.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints liquidation prices for several leverage levels.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "entry"
-                  },
-                  {
-                    "text": "lev"
-                  },
-                  {
-                    "text": "long_liq"
-                  },
-                  {
-                    "text": "short_liq"
-                  }
-                ],
+                "label": "entry",
+                "value": {
+                  "var": "entry",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "60000"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "long_liq"
-                  },
-                  {
-                    "text": "short_liq"
-                  }
-                ],
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "60000"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "long_liq"
-                  },
-                  {
-                    "text": "short_liq"
-                  }
-                ],
-                "tone": "idle"
+                "label": "lev",
+                "value": {
+                  "var": "lev",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "long_liq",
+                "value": {
+                  "var": "long_liq",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Leverage multiples and maintenance margin liquidation thresholds",
-        "columns": [
-          "entry",
-          "lev",
-          "long_liq",
-          "short_liq"
-        ],
+        "template": "bars",
+        "title": "Leverage and margin",
         "steps": [
           {
             "at": "say1",
-            "caption": "High leverage multiplies market exposure relative to initial deposits.",
-            "rows": [
+            "caption": "Crypto exchanges let traders control positions far larger than their deposit.",
+            "bars": [
               {
-                "cells": [
-                  "entry",
-                  "lev",
-                  "long_liq",
-                  "short_liq"
-                ],
-                "tone": "ok"
+                "label": "entry",
+                "value": 60000,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 0.005,
+                "tone": "data"
+              },
+              {
+                "label": "lev",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "long_liq",
+                "value": 30300,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Maintenance margin sets the minimum threshold to prevent liquidation.",
-            "rows": [
+            "caption": "The initial margin is 1 / leverage of the position.",
+            "bars": [
               {
-                "cells": [
-                  "entry",
-                  "lev",
-                  "long_liq",
-                  "short_liq"
-                ],
+                "label": "entry",
+                "value": 60000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "60000",
-                  "10",
-                  "long_liq",
-                  "short_liq"
-                ],
+                "label": "m",
+                "value": 0.005,
+                "tone": "ok"
+              },
+              {
+                "label": "lev",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "long_liq",
+                "value": 30300,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exchange engines automatically liquidate positions breaching limits.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints liquidation prices for several leverage levels.",
+            "bars": [
               {
-                "cells": [
-                  "entry",
-                  "lev",
-                  "long_liq",
-                  "short_liq"
-                ],
+                "label": "entry",
+                "value": 60000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "60000",
-                  "10",
-                  "long_liq",
-                  "short_liq"
-                ],
+                "label": "m",
+                "value": 0.005,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "60000",
-                  "100",
-                  "long_liq",
-                  "short_liq"
-                ],
-                "tone": "idle"
+                "label": "lev",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "long_liq",
+                "value": 30300,
+                "tone": "ok"
               }
             ]
           }
@@ -617,112 +564,131 @@
       "partTitle": "Funding rate arbitrage",
       "codeHash": "95671e8fd12080b0275e3604fb7cb6b68d3ef4c9206ae8bc6730dc6fda28790f",
       "spec": {
-        "template": "table",
-        "title": "Cash-and-carry funding rate arbitrage and fee drag",
-        "columns": [
-          "notional",
-          "income",
-          "fees"
-        ],
+        "template": "bars",
+        "title": "Funding rate arbitrage",
         "steps": [
           {
             "at": "say1",
-            "caption": "Delta neutral cash and carry strategies harvest recurring funding rates.",
-            "rows": [
+            "caption": "The classic funding trade, also called cash-and-carry, buys spot.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "income"
-                  },
-                  {
-                    "text": "fees"
-                  }
-                ],
-                "tone": "ok"
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "income",
+                "value": {
+                  "var": "income",
+                  "line": 3,
+                  "hit": 23
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fees",
+                "value": {
+                  "var": "fees",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Stable funding yields generate passive returns before trading expenses.",
-            "rows": [
+            "caption": "Trace how percent updates hours during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "income"
-                  },
-                  {
-                    "text": "fees"
-                  }
-                ],
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "1_000_000"
-                  },
-                  {
-                    "text": "income"
-                  },
-                  {
-                    "text": "fees"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "income",
+                "value": {
+                  "var": "income",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fees",
+                "value": {
+                  "var": "fees",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Prudent leverage on the short leg guards against abrupt liquidation.",
-            "rows": [
+            "at": "say7",
+            "caption": "It is a real, widely used strategy, but \"risk-free\" it is not.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "income"
-                  },
-                  {
-                    "text": "fees"
-                  }
-                ],
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 3,
+                  "hit": 23
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "1_000_000"
-                  },
-                  {
-                    "text": "income"
-                  },
-                  {
-                    "text": "fees"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "notional"
-                  },
-                  {
-                    "text": "income"
-                  },
-                  {
-                    "text": "fees"
-                  }
-                ],
+                "label": "income",
+                "value": {
+                  "var": "income",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fees",
+                "value": {
+                  "var": "fees",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -730,76 +696,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cash-and-carry funding rate arbitrage and fee drag",
-        "columns": [
-          "notional",
-          "income",
-          "fees"
-        ],
+        "template": "bars",
+        "title": "Funding rate arbitrage",
         "steps": [
           {
             "at": "say1",
-            "caption": "Delta neutral cash and carry strategies harvest recurring funding rates.",
-            "rows": [
+            "caption": "The classic funding trade, also called cash-and-carry, buys spot.",
+            "bars": [
               {
-                "cells": [
-                  "notional",
-                  "income",
-                  "fees"
-                ],
-                "tone": "ok"
+                "label": "notional",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.01,
+                "tone": "data"
+              },
+              {
+                "label": "income",
+                "value": 1830,
+                "tone": "data"
+              },
+              {
+                "label": "fees",
+                "value": 800,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Stable funding yields generate passive returns before trading expenses.",
-            "rows": [
+            "caption": "Trace how percent updates hours during execution.",
+            "bars": [
               {
-                "cells": [
-                  "notional",
-                  "income",
-                  "fees"
-                ],
+                "label": "notional",
+                "value": 1000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "1_000_000",
-                  "income",
-                  "fees"
-                ],
+                "label": "r",
+                "value": 0.012,
+                "tone": "ok"
+              },
+              {
+                "label": "income",
+                "value": 1830,
+                "tone": "ok"
+              },
+              {
+                "label": "fees",
+                "value": 800,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Prudent leverage on the short leg guards against abrupt liquidation.",
-            "rows": [
+            "at": "say7",
+            "caption": "It is a real, widely used strategy, but \"risk-free\" it is not.",
+            "bars": [
               {
-                "cells": [
-                  "notional",
-                  "income",
-                  "fees"
-                ],
+                "label": "notional",
+                "value": 1000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "1_000_000",
-                  "income",
-                  "fees"
-                ],
+                "label": "r",
+                "value": 0.008,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "notional",
-                  "income",
-                  "fees"
-                ],
+                "label": "income",
+                "value": 1830,
+                "tone": "ok"
+              },
+              {
+                "label": "fees",
+                "value": 800,
                 "tone": "ok"
               }
             ]
@@ -812,110 +785,127 @@
       "codeHash": "7d30ba50cb5fdba46e716bced9f4aecfb68f32488d41bf5f7aac62212191190a",
       "spec": {
         "template": "flow",
-        "title": "Liquidation cascades — Execution Pipeline",
+        "title": "Liquidation cascades",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "price",
+            "label": "price"
           },
           {
-            "id": "proc",
-            "label": "2. Liquidation cascades",
-            "tappable": true
+            "id": "liquidation_levels",
+            "label": "liquidation_levels"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "wave",
+            "label": "wave"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Liquidation cascades [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Liquidation cascades [D.Pfive.Stwo].",
+            "caption": "When many leveraged longs are liquidated at once, the exchange sells their.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "price": {
+                "var": "price",
+                "line": 1,
+                "hit": 1
+              },
+              "liquidation_levels": {
+                "var": "liquidation_levels",
+                "line": 2,
+                "hit": 1
+              },
+              "wave": {
+                "var": "wave",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "price": "data",
+              "liquidation_levels": "data",
+              "wave": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "price",
+                "liquidation_levels"
               ],
               [
-                "proc",
-                "out"
+                "liquidation_levels",
+                "wave"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "That lower price triggers more liquidations, which push the price lower again.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "price": {
+                "var": "price",
+                "line": 2,
+                "hit": 1
+              },
+              "liquidation_levels": {
+                "var": "liquidation_levels",
+                "line": 3,
+                "hit": 1
+              },
+              "wave": {
+                "var": "wave",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "price": "data",
+              "liquidation_levels": "data",
+              "wave": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "price",
+                "liquidation_levels"
+              ],
+              [
+                "liquidation_levels",
+                "wave"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Liquidation cascades [D.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "Risk engines for crypto must model these feedback loops, not just normal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "price": {
+                "var": "price",
+                "line": 3,
+                "hit": 1
+              },
+              "liquidation_levels": {
+                "var": "liquidation_levels",
+                "line": 4,
+                "hit": 1
+              },
+              "wave": {
+                "var": "wave",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "price": "ok",
+              "liquidation_levels": "ok",
+              "wave": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "price",
+                "liquidation_levels"
               ],
               [
-                "proc",
-                "out"
+                "liquidation_levels",
+                "wave"
               ]
             ]
           }
@@ -923,110 +913,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Liquidation cascades — Execution Pipeline",
+        "title": "Liquidation cascades",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "price",
+            "label": "price"
           },
           {
-            "id": "proc",
-            "label": "2. Liquidation cascades",
-            "tappable": true
+            "id": "liquidation_levels",
+            "label": "liquidation_levels"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "wave",
+            "label": "wave"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Liquidation cascades [D28.P5.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Liquidation cascades [D28.P5.S2].",
+            "caption": "When many leveraged longs are liquidated at once, the exchange sells their.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "price": "60000",
+              "liquidation_levels": "[58800, 58200, 57500, 56900, 55000]",
+              "wave": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "price": "data",
+              "liquidation_levels": "data",
+              "wave": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "price",
+                "liquidation_levels"
               ],
               [
-                "proc",
-                "out"
+                "liquidation_levels",
+                "wave"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P5.S3].",
+            "at": "say2",
+            "caption": "That lower price triggers more liquidations, which push the price lower again.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "price": "60000",
+              "liquidation_levels": "[58800, 58200, 57500, 56900, 55000]",
+              "wave": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "price": "data",
+              "liquidation_levels": "data",
+              "wave": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "price",
+                "liquidation_levels"
+              ],
+              [
+                "liquidation_levels",
+                "wave"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Liquidation cascades [D28.P5.S4].",
+            "at": "say7",
+            "caption": "Risk engines for crypto must model these feedback loops, not just normal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "price": "58500",
+              "liquidation_levels": "[58800, 58200, 57500, 56900, 55000]",
+              "wave": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "price": "ok",
+              "liquidation_levels": "ok",
+              "wave": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "price",
+                "liquidation_levels"
               ],
               [
-                "proc",
-                "out"
+                "liquidation_levels",
+                "wave"
               ]
             ]
           }
@@ -1037,224 +1008,162 @@
       "partTitle": "Practice time: funding and liquidation",
       "codeHash": "ae6b04f65cbc5826800f52256cb900f3a74a9a856cdb8863125034ffb7e8e620",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: funding and liquidation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fund...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: funding and liquidation",
+        "actors": [
+          "notional",
+          "margin",
+          "daily_funding"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: funding and liquidation.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: fund... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Funding(notional, rate_8h_pct, periods, side=\"LONG\").",
+            "activeActor": "notional",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": {
+                  "var": "notional",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": {
+                  "var": "margin",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates long during execution.",
+            "activeActor": "margin",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": {
+                  "var": "notional",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": {
+                  "var": "margin",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: funding and liquid.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow moves the fastest parts of trading systems out of software.",
+            "activeActor": "daily_funding",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": {
+                  "var": "notional",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": {
+                  "var": "margin",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: funding and liquidation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fund...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: funding and liquidation",
+        "actors": [
+          "notional",
+          "margin",
+          "daily_funding"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: funding and liquidation [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: fund... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Funding(notional, rate_8h_pct, periods, side=\"LONG\").",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": "100000",
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": "10000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "notional"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how checks updates long during execution.",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": "100000",
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": "10000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "margin"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: funding and liquid.. [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow moves the fastest parts of trading systems out of software.",
+            "messages": [
+              {
+                "from": "notional",
+                "to": "margin",
+                "label": "100000",
+                "tone": "data"
+              },
+              {
+                "from": "margin",
+                "to": "daily_funding",
+                "label": "10000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "daily_funding"
           }
         ]
       }

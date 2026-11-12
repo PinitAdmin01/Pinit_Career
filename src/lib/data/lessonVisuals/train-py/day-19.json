@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Data at scale",
       "codeHash": "0fa8c4239ef0844b1fc25f0fd75c302719aa1357e051e9cba6aa94d87c2e7d04",
       "spec": {
-        "template": "table",
-        "title": "High-throughput token ingestion and cluster consumption rate",
-        "columns": [
-          "tokens_per_sec_per_gpu",
-          "gpus",
-          "total"
+        "template": "flow",
+        "title": "Data at scale",
+        "nodes": [
+          {
+            "id": "tokens_per_sec_per_gpu",
+            "label": "tokens_per_sec_per_gpu"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          },
+          {
+            "id": "bytes_per_token",
+            "label": "bytes_per_token"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Large language models train on trillions of tokens stored across files.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens_per_sec_per_gpu"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Large language models train on trillions of tokens stored in thousands.",
+            "values": {
+              "tokens_per_sec_per_gpu": {
+                "var": "tokens_per_sec_per_gpu",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tokens_per_sec_per_gpu"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+              "gpus": {
+                "var": "gpus",
+                "line": 1,
+                "hit": 1
+              },
+              "bytes_per_token": {
+                "var": "bytes_per_token",
+                "line": 1,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens_per_sec_per_gpu": "data",
+              "gpus": "data",
+              "bytes_per_token": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "tokens_per_sec_per_gpu",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "bytes_per_token"
+              ],
+              [
+                "bytes_per_token",
+                "total"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hardware sits idle when the data pipeline cannot keep up with execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens_per_sec_per_gpu"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Data must be read, decoded, tokenised (or loaded pre-tokenised), shuffled.",
+            "values": {
+              "tokens_per_sec_per_gpu": {
+                "var": "tokens_per_sec_per_gpu",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tokens_per_sec_per_gpu"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+              "gpus": {
+                "var": "gpus",
+                "line": 2,
+                "hit": 1
+              },
+              "bytes_per_token": {
+                "var": "bytes_per_token",
+                "line": 2,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens_per_sec_per_gpu": "data",
+              "gpus": "data",
+              "bytes_per_token": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "tokens_per_sec_per_gpu",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "bytes_per_token"
+              ],
+              [
+                "bytes_per_token",
+                "total"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we focus on order and balance, the two things every distributed data.",
+            "values": {
+              "tokens_per_sec_per_gpu": {
+                "var": "tokens_per_sec_per_gpu",
+                "line": 3,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 3,
+                "hit": 1
+              },
+              "bytes_per_token": {
+                "var": "bytes_per_token",
+                "line": 3,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "tokens_per_sec_per_gpu": "ok",
+              "gpus": "ok",
+              "bytes_per_token": "ok",
+              "total": "ok"
+            },
+            "arrows": [
+              [
+                "tokens_per_sec_per_gpu",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "bytes_per_token"
+              ],
+              [
+                "bytes_per_token",
+                "total"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-throughput token ingestion and cluster consumption rate",
-        "columns": [
-          "tokens_per_sec_per_gpu",
-          "gpus",
-          "total"
+        "template": "flow",
+        "title": "Data at scale",
+        "nodes": [
+          {
+            "id": "tokens_per_sec_per_gpu",
+            "label": "tokens_per_sec_per_gpu"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          },
+          {
+            "id": "bytes_per_token",
+            "label": "bytes_per_token"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Large language models train on trillions of tokens stored across files.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens_per_sec_per_gpu",
-                  "gpus",
-                  "total"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens_per_sec_per_gpu",
-                  "gpus",
-                  "total"
-                ],
-                "tone": "data"
-              }
+            "caption": "Large language models train on trillions of tokens stored in thousands.",
+            "values": {
+              "tokens_per_sec_per_gpu": "3000",
+              "gpus": "1024",
+              "bytes_per_token": "2",
+              "total": "3072000"
+            },
+            "tones": {
+              "tokens_per_sec_per_gpu": "data",
+              "gpus": "data",
+              "bytes_per_token": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "tokens_per_sec_per_gpu",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "bytes_per_token"
+              ],
+              [
+                "bytes_per_token",
+                "total"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hardware sits idle when the data pipeline cannot keep up with execution.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens_per_sec_per_gpu",
-                  "gpus",
-                  "total"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "tokens_per_sec_per_gpu",
-                  "gpus",
-                  "total"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Data must be read, decoded, tokenised (or loaded pre-tokenised), shuffled.",
+            "values": {
+              "tokens_per_sec_per_gpu": "3000",
+              "gpus": "1024",
+              "bytes_per_token": "2",
+              "total": "3072000"
+            },
+            "tones": {
+              "tokens_per_sec_per_gpu": "data",
+              "gpus": "data",
+              "bytes_per_token": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "tokens_per_sec_per_gpu",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "bytes_per_token"
+              ],
+              [
+                "bytes_per_token",
+                "total"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we focus on order and balance, the two things every distributed data.",
+            "values": {
+              "tokens_per_sec_per_gpu": "3000",
+              "gpus": "1024",
+              "bytes_per_token": "2",
+              "total": "3072000"
+            },
+            "tones": {
+              "tokens_per_sec_per_gpu": "ok",
+              "gpus": "ok",
+              "bytes_per_token": "ok",
+              "total": "ok"
+            },
+            "arrows": [
+              [
+                "tokens_per_sec_per_gpu",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "bytes_per_token"
+              ],
+              [
+                "bytes_per_token",
+                "total"
+              ]
             ]
           }
         ]
@@ -147,135 +289,277 @@
       "partTitle": "Deterministic shuffling",
       "codeHash": "cce54f243ea956fbe3698161ca4aa888142fc43145f317d0710770291cfcecd6",
       "spec": {
-        "template": "table",
-        "title": "Deterministic epoch-seeded distributed data shuffling",
-        "columns": [
-          "worker_a",
-          "worker_b",
-          "epoch"
+        "template": "flow",
+        "title": "Deterministic shuffling",
+        "nodes": [
+          {
+            "id": "epoch",
+            "label": "epoch"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "seed",
+            "label": "seed"
+          },
+          {
+            "id": "items",
+            "label": "items"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Shuffling data each epoch helps training while remaining reproducible.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "worker_a"
-                  },
-                  {
-                    "text": "worker_b"
-                  },
-                  {
-                    "text": "epoch"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Shuffling data each epoch helps training, but the shuffle must be reproducible.",
+            "values": {
+              "epoch": {
+                "var": "epoch",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "worker_a"
-                  },
-                  {
-                    "text": "worker_b"
-                  },
-                  {
-                    "text": "epoch"
-                  }
-                ],
-                "tone": "data"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 4,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "epoch": "data",
+              "n": "data",
+              "seed": "data",
+              "items": "data"
+            },
+            "arrows": [
+              [
+                "epoch",
+                "n"
+              ],
+              [
+                "n",
+                "seed"
+              ],
+              [
+                "seed",
+                "items"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Every worker must see the same global order to take its own share.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "worker_a"
-                  },
-                  {
-                    "text": "worker_b"
-                  },
-                  {
-                    "text": "epoch"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Every worker must see the same global order, so that each takes its own.",
+            "values": {
+              "epoch": {
+                "var": "epoch",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "worker_a"
-                  },
-                  {
-                    "text": "worker_b"
-                  },
-                  {
-                    "text": "worker_a"
-                  }
-                ],
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 5,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "epoch": "data",
+              "n": "data",
+              "seed": "data",
+              "items": "data"
+            },
+            "arrows": [
+              [
+                "epoch",
+                "n"
+              ],
+              [
+                "n",
+                "seed"
+              ],
+              [
+                "seed",
+                "items"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Forgetting to change the epoch, a common bug, makes every epoch use.",
+            "values": {
+              "epoch": {
+                "var": "epoch",
+                "line": 5,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 6,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 6,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "epoch": "ok",
+              "n": "ok",
+              "seed": "ok",
+              "items": "ok"
+            },
+            "arrows": [
+              [
+                "epoch",
+                "n"
+              ],
+              [
+                "n",
+                "seed"
+              ],
+              [
+                "seed",
+                "items"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deterministic epoch-seeded distributed data shuffling",
-        "columns": [
-          "worker_a",
-          "worker_b",
-          "epoch"
+        "template": "flow",
+        "title": "Deterministic shuffling",
+        "nodes": [
+          {
+            "id": "epoch",
+            "label": "epoch"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "seed",
+            "label": "seed"
+          },
+          {
+            "id": "items",
+            "label": "items"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Shuffling data each epoch helps training while remaining reproducible.",
-            "rows": [
-              {
-                "cells": [
-                  "worker_a",
-                  "worker_b",
-                  "epoch"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "worker_a",
-                  "worker_b",
-                  "epoch"
-                ],
-                "tone": "data"
-              }
+            "caption": "Shuffling data each epoch helps training, but the shuffle must be reproducible.",
+            "values": {
+              "epoch": "0",
+              "n": "10",
+              "seed": "42",
+              "items": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+            },
+            "tones": {
+              "epoch": "data",
+              "n": "data",
+              "seed": "data",
+              "items": "data"
+            },
+            "arrows": [
+              [
+                "epoch",
+                "n"
+              ],
+              [
+                "n",
+                "seed"
+              ],
+              [
+                "seed",
+                "items"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Every worker must see the same global order to take its own share.",
-            "rows": [
-              {
-                "cells": [
-                  "worker_a",
-                  "worker_b",
-                  "epoch"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "worker_a",
-                  "worker_b",
-                  "worker_a"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Every worker must see the same global order, so that each takes its own.",
+            "values": {
+              "epoch": "0",
+              "n": "10",
+              "seed": "42",
+              "items": "[2, 4, 9, 0, 1, 3, 5, 7, 8, 6]"
+            },
+            "tones": {
+              "epoch": "data",
+              "n": "data",
+              "seed": "data",
+              "items": "data"
+            },
+            "arrows": [
+              [
+                "epoch",
+                "n"
+              ],
+              [
+                "n",
+                "seed"
+              ],
+              [
+                "seed",
+                "items"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Forgetting to change the epoch, a common bug, makes every epoch use.",
+            "values": {
+              "epoch": "0",
+              "n": "10",
+              "seed": "42",
+              "items": "[2, 4, 9, 0, 1, 3, 5, 7, 8, 6]"
+            },
+            "tones": {
+              "epoch": "ok",
+              "n": "ok",
+              "seed": "ok",
+              "items": "ok"
+            },
+            "arrows": [
+              [
+                "epoch",
+                "n"
+              ],
+              [
+                "n",
+                "seed"
+              ],
+              [
+                "seed",
+                "items"
+              ]
             ]
           }
         ]
@@ -285,134 +569,117 @@
       "partTitle": "Balancing shards across workers",
       "codeHash": "fc07766b5c53c8b2e176e1657ed6839463450afaf790fa2df7d16374557a28f3",
       "spec": {
-        "template": "table",
-        "title": "Greedy shard allocation balancing load across workers",
-        "columns": [
-          "sizes",
-          "load",
-          "assigned"
-        ],
+        "template": "cells",
+        "title": "Balancing shards across workers",
         "steps": [
           {
             "at": "say1",
-            "caption": "Data files often differ in size creating imbalanced workloads.",
-            "rows": [
+            "caption": "Data files often differ in size, so giving each worker the same number.",
+            "items": {
+              "var": "sizes",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "load"
-                  },
-                  {
-                    "text": "assigned"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "load"
-                  },
-                  {
-                    "text": "assigned"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A greedy balancing method assigns larger files to the least loaded worker.",
-            "rows": [
+            "at": "say2",
+            "caption": "A worker with more data takes longer, and synchronous training waits for it.",
+            "items": {
+              "var": "sizes",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "load"
-                  },
-                  {
-                    "text": "assigned"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Clear tie-breaking rules make the assignment deterministic and testable.",
+            "items": {
+              "var": "sizes",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "load"
-                  },
-                  {
-                    "text": "sizes"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Greedy shard allocation balancing load across workers",
-        "columns": [
-          "sizes",
-          "load",
-          "assigned"
-        ],
+        "template": "cells",
+        "title": "Balancing shards across workers",
         "steps": [
           {
             "at": "say1",
-            "caption": "Data files often differ in size creating imbalanced workloads.",
-            "rows": [
+            "caption": "Data files often differ in size, so giving each worker the same number.",
+            "items": [
+              "10",
+              "7",
+              "5",
+              "4",
+              "3",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sizes",
-                  "load",
-                  "assigned"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sizes",
-                  "load",
-                  "assigned"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A greedy balancing method assigns larger files to the least loaded worker.",
-            "rows": [
+            "at": "say2",
+            "caption": "A worker with more data takes longer, and synchronous training waits for it.",
+            "items": [
+              "10",
+              "7",
+              "5",
+              "4",
+              "3",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sizes",
-                  "load",
-                  "assigned"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Clear tie-breaking rules make the assignment deterministic and testable.",
+            "items": [
+              "10",
+              "7",
+              "5",
+              "4",
+              "3",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sizes",
-                  "load",
-                  "sizes"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,9 +690,9 @@
       "partTitle": "Avoiding input bottlenecks",
       "codeHash": "70155610cd5e510ca2b3f231bdc3e821b32e0d0b4ef67f5d82634b404e78d869",
       "spec": {
-        "template": "table",
-        "title": "Pipeline prefetching and pinned memory overlap",
-        "columns": [
+        "template": "sequence",
+        "title": "Avoiding input bottlenecks",
+        "actors": [
           "load_ms",
           "compute_ms",
           "steps"
@@ -433,68 +700,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Data loaders use several worker processes to prepare batches in parallel.",
-            "rows": [
+            "caption": "Data loaders use several worker processes to read and prepare batches.",
+            "activeActor": "load_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "load_ms"
-                  },
-                  {
-                    "text": "compute_ms"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": {
+                  "var": "load_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "load_ms"
-                  },
-                  {
-                    "text": "compute_ms"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "data"
+                "from": "compute_ms",
+                "to": "steps",
+                "label": {
+                  "var": "compute_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prefetching prepares batches in advance while processors work.",
-            "rows": [
+            "caption": "Prefetching prepares the next batches while the GPU works on the current one.",
+            "activeActor": "compute_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "load_ms"
-                  },
-                  {
-                    "text": "compute_ms"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": {
+                  "var": "load_ms",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "load_ms"
-                  },
-                  {
-                    "text": "compute_ms"
-                  },
-                  {
-                    "text": "load_ms"
-                  }
-                ],
+                "from": "compute_ms",
+                "to": "steps",
+                "label": {
+                  "var": "compute_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how tomorrow updates communication during execution.",
+            "activeActor": "steps",
+            "messages": [
+              {
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": {
+                  "var": "load_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "compute_ms",
+                "to": "steps",
+                "label": {
+                  "var": "compute_ms",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,9 +782,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pipeline prefetching and pinned memory overlap",
-        "columns": [
+        "template": "sequence",
+        "title": "Avoiding input bottlenecks",
+        "actors": [
           "load_ms",
           "compute_ms",
           "steps"
@@ -512,47 +792,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Data loaders use several worker processes to prepare batches in parallel.",
-            "rows": [
+            "caption": "Data loaders use several worker processes to read and prepare batches.",
+            "messages": [
               {
-                "cells": [
-                  "load_ms",
-                  "compute_ms",
-                  "steps"
-                ],
-                "tone": "ok"
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": "60",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "load_ms",
-                  "compute_ms",
-                  "steps"
-                ],
-                "tone": "data"
+                "from": "compute_ms",
+                "to": "steps",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "load_ms"
           },
           {
             "at": "say2",
-            "caption": "Prefetching prepares batches in advance while processors work.",
-            "rows": [
+            "caption": "Prefetching prepares the next batches while the GPU works on the current one.",
+            "messages": [
               {
-                "cells": [
-                  "load_ms",
-                  "compute_ms",
-                  "steps"
-                ],
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": "60",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "load_ms",
-                  "compute_ms",
-                  "load_ms"
-                ],
+                "from": "compute_ms",
+                "to": "steps",
+                "label": "100",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "compute_ms"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how tomorrow updates communication during execution.",
+            "messages": [
+              {
+                "from": "load_ms",
+                "to": "compute_ms",
+                "label": "60",
+                "tone": "data"
+              },
+              {
+                "from": "compute_ms",
+                "to": "steps",
+                "label": "100",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "steps"
           }
         ]
       }
@@ -561,223 +854,217 @@
       "partTitle": "Resuming the data stream",
       "codeHash": "3de833d682d50fe25d82b9fb5ec0d9f1ad58e8c7b532f5127b21a14525e5f51b",
       "spec": {
-        "template": "flow",
-        "title": "Resuming the data stream — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Resuming the data s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Resuming the data stream",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Resuming the data stream [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Resuming the data s... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After a failure, training must continue with the next unseen batch, not.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "epoch",
+                "value": {
+                  "var": "epoch",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "With deterministic shuffling, the position is just the epoch and.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": {
+                  "var": "epoch",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Resuming the data stream [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Testing resumption of the data stream, by stopping a small run mid-epoch.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": {
+                  "var": "epoch",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Resuming the data stream — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Resuming the data s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Resuming the data stream",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Resuming the data stream [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Resuming the data s... [D19.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After a failure, training must continue with the next unseen batch, not.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "epoch",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "batch",
+                "value": 4,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "With deterministic shuffling, the position is just the epoch and.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": 4,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Resuming the data stream [D19.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Testing resumption of the data stream, by stopping a small run mid-epoch.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": 4,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +1074,217 @@
       "partTitle": "Practice time: data pipelines",
       "codeHash": "ba846b44578317c417d2dfd7b35caeb040d20fa695cf3e9511ac76fe506a5c22",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: data pipelines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: data...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: data pipelines",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: data pipelines [D.Psix.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: data... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Epoch_order(n, seed, epoch).",
+            "bars": [
+              {
+                "label": "workers",
+                "value": {
+                  "var": "workers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks confirm it is a permutation, repeatable for the same inputs.",
+            "bars": [
+              {
+                "label": "workers",
+                "value": {
+                  "var": "workers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: data pipelines.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your shuffle check fails, make sure you use a new random.",
+            "bars": [
+              {
+                "label": "workers",
+                "value": {
+                  "var": "workers",
+                  "line": 4,
+                  "hit": 11
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 4,
+                  "hit": 12
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: data pipelines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: data...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: data pipelines",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: data pipelines [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: data... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Epoch_order(n, seed, epoch).",
+            "bars": [
+              {
+                "label": "workers",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks confirm it is a permutation, repeatable for the same inputs.",
+            "bars": [
+              {
+                "label": "workers",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: data pipelines [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your shuffle check fails, make sure you use a new random.",
+            "bars": [
+              {
+                "label": "workers",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

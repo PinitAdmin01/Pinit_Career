@@ -2,51 +2,83 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why brute force stops scaling",
       "codeHash": "2adde10e3bf324a282aa233452f0bdac8b3dbd2f7135b05f3d79be4a8cdf4c63",
       "spec": {
         "template": "bars",
-        "title": "Search compute scaling across database sizes",
+        "title": "Why brute force stops scaling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Brute force search multiplies every document vector causing operations to scale.",
+            "caption": "Checking every vector costs (number of documents) x (dimensions).",
             "bars": [
               {
-                "label": "thousand_docs",
+                "label": "docs",
                 "value": {
-                  "text": "15"
+                  "var": "docs",
+                  "line": 1,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "million_docs",
+                "label": "ops",
                 "value": {
-                  "text": "1500"
+                  "var": "ops",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Approximate neighbour search provides speedups for large scale retrieval.",
+            "at": "say2",
+            "caption": "A vector database stores embeddings with their text and metadata, and uses.",
             "bars": [
               {
-                "label": "brute_force_time",
+                "label": "docs",
                 "value": {
-                  "text": "100"
+                  "var": "docs",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "ok"
               },
               {
-                "label": "approximate_time",
+                "label": "ops",
                 "value": {
-                  "text": "1"
+                  "var": "ops",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Knowing how the index works helps you tune it and explain the trade-off.",
+            "bars": [
+              {
+                "label": "docs",
+                "value": {
+                  "var": "docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ops",
+                "value": {
+                  "var": "ops",
+                  "line": 1,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -56,36 +88,52 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Search compute scaling across database sizes",
+        "title": "Why brute force stops scaling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Brute force search multiplies every document vector causing operations to scale.",
+            "caption": "Checking every vector costs (number of documents) x (dimensions).",
             "bars": [
               {
-                "label": "thousand_docs",
-                "value": 15,
-                "tone": "ok"
+                "label": "docs",
+                "value": 1000,
+                "tone": "data"
               },
               {
-                "label": "million_docs",
-                "value": 1500,
-                "tone": "error"
+                "label": "ops",
+                "value": 1536000,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Approximate neighbour search provides speedups for large scale retrieval.",
+            "at": "say2",
+            "caption": "A vector database stores embeddings with their text and metadata, and uses.",
             "bars": [
               {
-                "label": "brute_force_time",
-                "value": 100,
-                "tone": "error"
+                "label": "docs",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "label": "approximate_time",
-                "value": 1,
+                "label": "ops",
+                "value": 1536000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Knowing how the index works helps you tune it and explain the trade-off.",
+            "bars": [
+              {
+                "label": "docs",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "ops",
+                "value": 1536000,
                 "tone": "ok"
               }
             ]
@@ -97,136 +145,162 @@
       "partTitle": "Search with metadata filters",
       "codeHash": "198755678389d2709c3c61fa183edaa1bc51c207f03146026ca14c7aedc61f47",
       "spec": {
-        "template": "table",
-        "title": "Metadata filtering applied prior to cosine ranking",
-        "columns": [
-          "document_id",
-          "metadata_filter",
-          "cosine_score"
+        "template": "sequence",
+        "title": "Search with metadata filters",
+        "actors": [
+          "docs",
+          "query",
+          "top_k"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vector indexing associates documents with searchable metadata attributes.",
-            "rows": [
+            "caption": "Search_vector_index(query, docs, top_k, filters).",
+            "activeActor": "docs",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "refund-en"
-                  },
-                  {
-                    "text": "lang: en"
-                  },
-                  {
-                    "text": "0.9000"
-                  }
-                ],
-                "tone": "ok"
+                "from": "docs",
+                "to": "query",
+                "label": {
+                  "var": "docs",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "refund-hi"
-                  },
-                  {
-                    "text": "lang: hi"
-                  },
-                  {
-                    "text": "0.8800"
-                  }
-                ],
-                "tone": "data"
+                "from": "query",
+                "to": "top_k",
+                "label": {
+                  "var": "query",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Filtering by metadata keys removes non-matching documents before ranking.",
-            "rows": [
+            "caption": "First keep only docs whose metadata matches every filter key.",
+            "activeActor": "query",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "refund-en"
-                  },
-                  {
-                    "text": "lang: en"
-                  },
-                  {
-                    "text": "0.9000"
-                  }
-                ],
-                "tone": "ok"
+                "from": "docs",
+                "to": "query",
+                "label": {
+                  "var": "docs",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "shipping-en"
-                  },
-                  {
-                    "text": "lang: en"
-                  },
-                  {
-                    "text": "0.2000"
-                  }
-                ],
+                "from": "query",
+                "to": "top_k",
+                "label": {
+                  "var": "query",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how meta updates filters during execution.",
+            "activeActor": "top_k",
+            "messages": [
+              {
+                "from": "docs",
+                "to": "query",
+                "label": {
+                  "var": "docs",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "top_k",
+                "label": {
+                  "var": "query",
+                  "line": 8,
+                  "hit": 4
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Metadata filtering applied prior to cosine ranking",
-        "columns": [
-          "document_id",
-          "metadata_filter",
-          "cosine_score"
+        "template": "sequence",
+        "title": "Search with metadata filters",
+        "actors": [
+          "docs",
+          "query",
+          "top_k"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vector indexing associates documents with searchable metadata attributes.",
-            "rows": [
+            "caption": "Search_vector_index(query, docs, top_k, filters).",
+            "messages": [
               {
-                "cells": [
-                  "refund-en",
-                  "lang: en",
-                  "0.9000"
-                ],
-                "tone": "ok"
+                "from": "docs",
+                "to": "query",
+                "label": "[{'id': 'refund-en', 'embedding': [0.9,…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "refund-hi",
-                  "lang: hi",
-                  "0.8800"
-                ],
-                "tone": "data"
+                "from": "query",
+                "to": "top_k",
+                "label": "[1, 0]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "docs"
           },
           {
             "at": "say2",
-            "caption": "Filtering by metadata keys removes non-matching documents before ranking.",
-            "rows": [
+            "caption": "First keep only docs whose metadata matches every filter key.",
+            "messages": [
               {
-                "cells": [
-                  "refund-en",
-                  "lang: en",
-                  "0.9000"
-                ],
-                "tone": "ok"
+                "from": "docs",
+                "to": "query",
+                "label": "[{'id': 'refund-en', 'embedding': [0.9,…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "shipping-en",
-                  "lang: en",
-                  "0.2000"
-                ],
-                "tone": "data"
+                "from": "query",
+                "to": "top_k",
+                "label": "[1, 0]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "query"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how meta updates filters during execution.",
+            "messages": [
+              {
+                "from": "docs",
+                "to": "query",
+                "label": "[{'id': 'refund-en', 'embedding': [0.9,…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "top_k",
+                "label": "[1, 0]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "top_k"
           }
         ]
       }
@@ -235,158 +309,194 @@
       "partTitle": "Selecting the top k",
       "codeHash": "8e02e325405d84f4fca9ffe805dcbafeffc56c834f6f993e2b807a4785e7fd2d",
       "spec": {
-        "template": "table",
-        "title": "Top k selection extracting highest similarity items",
-        "columns": [
-          "item_id",
-          "similarity_score",
-          "selection_status"
+        "template": "boxes",
+        "title": "Selecting the top k",
+        "boxes": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "it",
+            "label": "it"
+          },
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Selecting top candidates preserves items with highest similarity score.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "b"
-                  },
-                  {
-                    "text": "0.93"
-                  },
-                  {
-                    "text": "top rank"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Top_k(items, k) returns the k items with the highest \"score\", best first.",
+            "values": {
+              "results": {
+                "var": "results",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "d"
-                  },
-                  {
-                    "text": "0.93"
-                  },
-                  {
-                    "text": "top rank"
-                  }
-                ],
-                "tone": "ok"
+              "it": {
+                "var": "it",
+                "line": 4,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 4,
+                "hit": 5
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 5
               }
-            ]
+            },
+            "tones": {
+              "results": "data",
+              "it": "data",
+              "items": "data",
+              "k": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Scanning lists preserves caller input while extracting the highest scores.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "b"
-                  },
-                  {
-                    "text": "0.93"
-                  },
-                  {
-                    "text": "top rank"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how sorted updates returns during execution.",
+            "values": {
+              "results": {
+                "var": "results",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "d"
-                  },
-                  {
-                    "text": "0.93"
-                  },
-                  {
-                    "text": "top rank"
-                  }
-                ],
-                "tone": "ok"
+              "it": {
+                "var": "it",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "c"
-                  },
-                  {
-                    "text": "0.78"
-                  },
-                  {
-                    "text": "unselected"
-                  }
-                ],
-                "tone": "data"
+              "items": {
+                "var": "items",
+                "line": 4,
+                "hit": 5
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 5
               }
-            ]
+            },
+            "tones": {
+              "results": "data",
+              "it": "data",
+              "items": "data",
+              "k": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Top-k selection appears at every stage of retrieval.",
+            "values": {
+              "results": {
+                "var": "results",
+                "line": 8,
+                "hit": 1
+              },
+              "it": {
+                "var": "it",
+                "line": 4,
+                "hit": 3
+              },
+              "items": {
+                "var": "items",
+                "line": 4,
+                "hit": 5
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "results": "ok",
+              "it": "ok",
+              "items": "ok",
+              "k": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Top k selection extracting highest similarity items",
-        "columns": [
-          "item_id",
-          "similarity_score",
-          "selection_status"
+        "template": "boxes",
+        "title": "Selecting the top k",
+        "boxes": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "it",
+            "label": "it"
+          },
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Selecting top candidates preserves items with highest similarity score.",
-            "rows": [
-              {
-                "cells": [
-                  "b",
-                  "0.93",
-                  "top rank"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "d",
-                  "0.93",
-                  "top rank"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Top_k(items, k) returns the k items with the highest \"score\", best first.",
+            "values": {
+              "results": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
+              "it": "{'id': 'a', 'score': 0.61}",
+              "items": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
+              "k": "2"
+            },
+            "tones": {
+              "results": "data",
+              "it": "data",
+              "items": "data",
+              "k": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Scanning lists preserves caller input while extracting the highest scores.",
-            "rows": [
-              {
-                "cells": [
-                  "b",
-                  "0.93",
-                  "top rank"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "d",
-                  "0.93",
-                  "top rank"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c",
-                  "0.78",
-                  "unselected"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Trace how sorted updates returns during execution.",
+            "values": {
+              "results": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
+              "it": "{'id': 'b', 'score': 0.93}",
+              "items": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
+              "k": "2"
+            },
+            "tones": {
+              "results": "data",
+              "it": "data",
+              "items": "data",
+              "k": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Top-k selection appears at every stage of retrieval.",
+            "values": {
+              "results": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
+              "it": "{'id': 'c', 'score': 0.78}",
+              "items": "[{'id': 'a', 'score': 0.61}, {'id': 'b'…",
+              "k": "2"
+            },
+            "tones": {
+              "results": "ok",
+              "it": "ok",
+              "items": "ok",
+              "k": "ok"
+            }
           }
         ]
       }
@@ -395,224 +505,194 @@
       "partTitle": "IVF: search only the nearby buckets",
       "codeHash": "739311b0be70a6adea8465a895c7ae7557c5e3bd77adb9a511380f4ca2e5130a",
       "spec": {
-        "template": "flow",
-        "title": "IVF: search only the nearby buckets — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "IVF: search only the nearby buckets",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "centroids",
+            "label": "centroids"
           },
           {
-            "id": "proc",
-            "label": "2. IVF: search only th...",
-            "tappable": true
+            "id": "points",
+            "label": "points"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "buckets",
+            "label": "buckets"
+          },
+          {
+            "id": "pid",
+            "label": "pid"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for IVF: search only the nearby buckets.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in IVF: search only th... [Deight.Pfour.Stwo].",
+            "caption": "One classic index is IVF (inverted file).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "centroids": {
+                "var": "centroids",
+                "line": 6,
+                "hit": 1
+              },
+              "points": {
+                "var": "points",
+                "line": 7,
+                "hit": 1
+              },
+              "buckets": {
+                "var": "buckets",
+                "line": 8,
+                "hit": 3
+              },
+              "pid": {
+                "var": "pid",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "centroids": "data",
+              "points": "data",
+              "buckets": "data",
+              "pid": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "At search time, find the centroid closest to the query and search only.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "centroids": {
+                "var": "centroids",
+                "line": 7,
+                "hit": 1
+              },
+              "points": {
+                "var": "points",
+                "line": 8,
+                "hit": 1
+              },
+              "buckets": {
+                "var": "buckets",
+                "line": 9,
+                "hit": 1
+              },
+              "pid": {
+                "var": "pid",
+                "line": 10,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "centroids": "data",
+              "points": "data",
+              "buckets": "data",
+              "pid": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for IVF: search only the nearby buckets.",
+            "at": "say6",
+            "caption": "This accuracy-versus-speed knob exists in every ANN index under different.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "centroids": {
+                "var": "centroids",
+                "line": 8,
+                "hit": 1
+              },
+              "points": {
+                "var": "points",
+                "line": 8,
+                "hit": 2
+              },
+              "buckets": {
+                "var": "buckets",
+                "line": 10,
+                "hit": 3
+              },
+              "pid": {
+                "var": "pid",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "centroids": "ok",
+              "points": "ok",
+              "buckets": "ok",
+              "pid": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF: search only the nearby buckets — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "IVF: search only the nearby buckets",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "centroids",
+            "label": "centroids"
           },
           {
-            "id": "proc",
-            "label": "2. IVF: search only th...",
-            "tappable": true
+            "id": "points",
+            "label": "points"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "buckets",
+            "label": "buckets"
+          },
+          {
+            "id": "pid",
+            "label": "pid"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for IVF: search only the nearby buckets [D8.P4.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in IVF: search only th... [D8.P4.S2].",
+            "caption": "One classic index is IVF (inverted file).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "centroids": "{'north': [0, 10], 'south': [0, -10]}",
+              "points": "{'p1': [1, 9], 'p2': [-2, 11], 'p3': [1…",
+              "buckets": "{'north': [], 'south': []}",
+              "pid": "'p1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "centroids": "data",
+              "points": "data",
+              "buckets": "data",
+              "pid": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P4.S3].",
+            "at": "say2",
+            "caption": "At search time, find the centroid closest to the query and search only.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "centroids": "{'north': [0, 10], 'south': [0, -10]}",
+              "points": "{'p1': [1, 9], 'p2': [-2, 11], 'p3': [1…",
+              "buckets": "{'north': [], 'south': []}",
+              "pid": "'p1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "centroids": "data",
+              "points": "data",
+              "buckets": "data",
+              "pid": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for IVF: search only the nearby buckets [D8.P4.S4].",
+            "at": "say6",
+            "caption": "This accuracy-versus-speed knob exists in every ANN index under different.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "centroids": "{'north': [0, 10], 'south': [0, -10]}",
+              "points": "{'p1': [1, 9], 'p2': [-2, 11], 'p3': [1…",
+              "buckets": "{'north': [], 'south': []}",
+              "pid": "'p1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "centroids": "ok",
+              "points": "ok",
+              "buckets": "ok",
+              "pid": "ok"
+            }
           }
         ]
       }
@@ -621,94 +701,278 @@
       "partTitle": "HNSW: a graph you can walk",
       "codeHash": "16c34230a387ef3f0c9fc3c65bd82dd960200ba4557f42268e22c87db0ad7131",
       "spec": {
-        "template": "compare",
-        "title": "Linear document search versus HNSW graph traversal",
-        "leftLabel": "Linear Scan",
-        "rightLabel": "HNSW Graph Walk",
+        "template": "flow",
+        "title": "HNSW: a graph you can walk",
+        "nodes": [
+          {
+            "id": "points",
+            "label": "points"
+          },
+          {
+            "id": "links",
+            "label": "links"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "HNSW links each vector to nearest neighbours forming a navigable graph.",
-            "left": {
-              "code": "compare every node",
-              "result": {
-                "text": "full comparison"
+            "caption": "HNSW (hierarchical navigable small world) is the most popular ANN index today.",
+            "values": {
+              "points": {
+                "var": "points",
+                "line": 3,
+                "hit": 1
               },
-              "tone": "data"
+              "links": {
+                "var": "links",
+                "line": 4,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 7,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "navigate neighbor links",
-              "result": {
-                "text": "graph traversal"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "points": "data",
+              "links": "data",
+              "query": "data",
+              "start": "data"
+            },
+            "arrows": [
+              [
+                "points",
+                "links"
+              ],
+              [
+                "links",
+                "query"
+              ],
+              [
+                "query",
+                "start"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Greedy walks repeatedly step towards closer neighbours until convergence.",
-            "left": {
-              "code": "random search",
-              "result": {
-                "text": "unfocused evaluation"
+            "caption": "To search, start at an entry point and repeatedly move to whichever.",
+            "values": {
+              "points": {
+                "var": "points",
+                "line": 4,
+                "hit": 1
               },
-              "tone": "error"
+              "links": {
+                "var": "links",
+                "line": 6,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 8,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "path: A -> B -> C",
-              "result": {
-                "text": "fast local convergence"
+            "tones": {
+              "points": "data",
+              "links": "data",
+              "query": "data",
+              "start": "data"
+            },
+            "arrows": [
+              [
+                "points",
+                "links"
+              ],
+              [
+                "links",
+                "query"
+              ],
+              [
+                "query",
+                "start"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The greedy walk below is the core idea in a few lines.",
+            "values": {
+              "points": {
+                "var": "points",
+                "line": 6,
+                "hit": 1
               },
-              "tone": "ok"
-            }
+              "links": {
+                "var": "links",
+                "line": 15,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 9,
+                "hit": 3
+              },
+              "start": {
+                "var": "start",
+                "line": 9,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "points": "ok",
+              "links": "ok",
+              "query": "ok",
+              "start": "ok"
+            },
+            "arrows": [
+              [
+                "points",
+                "links"
+              ],
+              [
+                "links",
+                "query"
+              ],
+              [
+                "query",
+                "start"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Linear document search versus HNSW graph traversal",
-        "leftLabel": "Linear Scan",
-        "rightLabel": "HNSW Graph Walk",
+        "template": "flow",
+        "title": "HNSW: a graph you can walk",
+        "nodes": [
+          {
+            "id": "points",
+            "label": "points"
+          },
+          {
+            "id": "links",
+            "label": "links"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "HNSW links each vector to nearest neighbours forming a navigable graph.",
-            "left": {
-              "code": "compare every node",
-              "result": "full comparison",
-              "tone": "data",
-              "checks": [
-                "full comparison"
-              ]
+            "caption": "HNSW (hierarchical navigable small world) is the most popular ANN index today.",
+            "values": {
+              "points": "{'A': [0, 0], 'B': [2, 1], 'C': [4, 2],…",
+              "links": "{'A': ['B', 'F'], 'B': ['A', 'C'], 'C':…",
+              "query": "[6.5, 5]",
+              "start": "'A'"
             },
-            "right": {
-              "code": "navigate neighbor links",
-              "result": "graph traversal",
-              "tone": "ok",
-              "checks": [
-                "graph traversal"
+            "tones": {
+              "points": "data",
+              "links": "data",
+              "query": "data",
+              "start": "data"
+            },
+            "arrows": [
+              [
+                "points",
+                "links"
+              ],
+              [
+                "links",
+                "query"
+              ],
+              [
+                "query",
+                "start"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Greedy walks repeatedly step towards closer neighbours until convergence.",
-            "left": {
-              "code": "random search",
-              "result": "unfocused evaluation",
-              "tone": "error",
-              "checks": [
-                "unfocused evaluation"
-              ]
+            "caption": "To search, start at an entry point and repeatedly move to whichever.",
+            "values": {
+              "points": "{'A': [0, 0], 'B': [2, 1], 'C': [4, 2],…",
+              "links": "{'A': ['B', 'F'], 'B': ['A', 'C'], 'C':…",
+              "query": "[6.5, 5]",
+              "start": "'A'"
             },
-            "right": {
-              "code": "path: A -> B -> C",
-              "result": "fast local convergence",
-              "tone": "ok",
-              "checks": [
-                "fast local convergence"
+            "tones": {
+              "points": "data",
+              "links": "data",
+              "query": "data",
+              "start": "data"
+            },
+            "arrows": [
+              [
+                "points",
+                "links"
+              ],
+              [
+                "links",
+                "query"
+              ],
+              [
+                "query",
+                "start"
               ]
-            }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The greedy walk below is the core idea in a few lines.",
+            "values": {
+              "points": "{'A': [0, 0], 'B': [2, 1], 'C': [4, 2],…",
+              "links": "{'A': ['B', 'F'], 'B': ['A', 'C'], 'C':…",
+              "query": "[6.5, 5]",
+              "start": "'A'"
+            },
+            "tones": {
+              "points": "ok",
+              "links": "ok",
+              "query": "ok",
+              "start": "ok"
+            },
+            "arrows": [
+              [
+                "points",
+                "links"
+              ],
+              [
+                "links",
+                "query"
+              ],
+              [
+                "query",
+                "start"
+              ]
+            ]
           }
         ]
       }
@@ -717,224 +981,162 @@
       "partTitle": "Measuring recall",
       "codeHash": "3754190dd46bde5a9bb05a140e9a3962bef96e502416d1fa3b2d9e9b4736de30",
       "spec": {
-        "template": "flow",
-        "title": "Measuring recall — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring recall",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring recall",
+        "actors": [
+          "samples",
+          "true_top",
+          "found_top"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Measuring recall [Deight.Psix.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Measuring recall [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "How do you know the approximate index is good enough.",
+            "activeActor": "samples",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "true_top",
+                "label": {
+                  "var": "samples",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "true_top",
+                "to": "found_top",
+                "label": {
+                  "var": "true_top",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Run a sample of real questions through both brute force and the index,.",
+            "activeActor": "true_top",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "true_top",
+                "label": {
+                  "var": "samples",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "true_top",
+                "to": "found_top",
+                "label": {
+                  "var": "true_top",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Measuring recall [Deight.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Tomorrow you will decide how to cut documents into chunks before they are.",
+            "activeActor": "found_top",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "true_top",
+                "label": {
+                  "var": "samples",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "true_top",
+                "to": "found_top",
+                "label": {
+                  "var": "true_top",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Measuring recall — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring recall",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring recall",
+        "actors": [
+          "samples",
+          "true_top",
+          "found_top"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Measuring recall [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Measuring recall [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "How do you know the approximate index is good enough.",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "true_top",
+                "label": "[[['d1', 'd2', 'd3'], ['d1', 'd3', 'd9'…",
+                "tone": "data"
+              },
+              {
+                "from": "true_top",
+                "to": "found_top",
+                "label": "['d1', 'd2', 'd3']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "samples"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Run a sample of real questions through both brute force and the index,.",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "true_top",
+                "label": "[[['d1', 'd2', 'd3'], ['d1', 'd3', 'd9'…",
+                "tone": "data"
+              },
+              {
+                "from": "true_top",
+                "to": "found_top",
+                "label": "['d4', 'd5', 'd6']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "true_top"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Measuring recall [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Tomorrow you will decide how to cut documents into chunks before they are.",
+            "messages": [
+              {
+                "from": "samples",
+                "to": "true_top",
+                "label": "[[['d1', 'd2', 'd3'], ['d1', 'd3', 'd9'…",
+                "tone": "data"
+              },
+              {
+                "from": "true_top",
+                "to": "found_top",
+                "label": "['d7', 'd8', 'd2']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "found_top"
           }
         ]
       }

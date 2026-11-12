@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why evaluate",
       "codeHash": "3afd8b839ededd8aaedf47224c258677ff471fdc44b89192832189fa8f3d2470",
       "spec": {
-        "template": "table",
-        "title": "Model evaluation test set and ground truth classes",
-        "columns": [
-          "delivery",
-          "billing",
-          "account"
+        "template": "sequence",
+        "title": "Why evaluate",
+        "actors": [
+          "test_set",
+          "q",
+          "expected"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Public benchmarks differ from classifying real support tickets.",
-            "rows": [
+            "at": "say1",
+            "caption": "There are many capable models, from providers such as Anthropic, OpenAI.",
+            "activeActor": "test_set",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "delivery"
-                  },
-                  {
-                    "text": "billing"
-                  },
-                  {
-                    "text": "account"
-                  }
-                ],
-                "tone": "ok"
+                "from": "test_set",
+                "to": "q",
+                "label": {
+                  "var": "test_set",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "delivery"
-                  },
-                  {
-                    "text": "billing"
-                  },
-                  {
-                    "text": "account"
-                  }
-                ],
-                "tone": "data"
+                "from": "q",
+                "to": "expected",
+                "label": {
+                  "var": "q",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Evaluation runs consistent test inputs across multiple models.",
-            "rows": [
+            "at": "say2",
+            "caption": "Public benchmarks measure general skills, but your task, whether.",
+            "activeActor": "q",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "delivery"
-                  },
-                  {
-                    "text": "billing"
-                  },
-                  {
-                    "text": "account"
-                  }
-                ],
+                "from": "test_set",
+                "to": "q",
+                "label": {
+                  "var": "test_set",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "delivery"
-                  },
-                  {
-                    "text": "billing"
-                  },
-                  {
-                    "text": "delivery"
-                  }
-                ],
+                "from": "q",
+                "to": "expected",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Store the test set in a file so everyone on the team uses exactly the same.",
+            "activeActor": "expected",
+            "messages": [
+              {
+                "from": "test_set",
+                "to": "q",
+                "label": {
+                  "var": "test_set",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "expected",
+                "label": {
+                  "var": "q",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model evaluation test set and ground truth classes",
-        "columns": [
-          "delivery",
-          "billing",
-          "account"
+        "template": "sequence",
+        "title": "Why evaluate",
+        "actors": [
+          "test_set",
+          "q",
+          "expected"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Public benchmarks differ from classifying real support tickets.",
-            "rows": [
+            "at": "say1",
+            "caption": "There are many capable models, from providers such as Anthropic, OpenAI.",
+            "messages": [
               {
-                "cells": [
-                  "delivery",
-                  "billing",
-                  "account"
-                ],
-                "tone": "ok"
+                "from": "test_set",
+                "to": "q",
+                "label": "[[\"Classify: 'Parcel never arrived'\", '…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "delivery",
-                  "billing",
-                  "account"
-                ],
-                "tone": "data"
+                "from": "q",
+                "to": "expected",
+                "label": "\"Classify: 'Parcel never arrived'\"",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "test_set"
           },
           {
-            "at": "say3",
-            "caption": "Evaluation runs consistent test inputs across multiple models.",
-            "rows": [
+            "at": "say2",
+            "caption": "Public benchmarks measure general skills, but your task, whether.",
+            "messages": [
               {
-                "cells": [
-                  "delivery",
-                  "billing",
-                  "account"
-                ],
+                "from": "test_set",
+                "to": "q",
+                "label": "[[\"Classify: 'Parcel never arrived'\", '…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "delivery",
-                  "billing",
-                  "delivery"
-                ],
+                "from": "q",
+                "to": "expected",
+                "label": "\"Classify: 'Parcel never arrived'\"",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "q"
+          },
+          {
+            "at": "say9",
+            "caption": "Store the test set in a file so everyone on the team uses exactly the same.",
+            "messages": [
+              {
+                "from": "test_set",
+                "to": "q",
+                "label": "[[\"Classify: 'Parcel never arrived'\", '…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "expected",
+                "label": "\"Classify: 'Charged twice for one order…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "expected"
           }
         ]
       }
@@ -147,9 +173,9 @@
       "partTitle": "Scoring and leaderboards",
       "codeHash": "38523e78341a627673ae3ae4e868fb2bb203f8cdf5f0a20f46a0a908b4a3d4d7",
       "spec": {
-        "template": "table",
-        "title": "Evaluation leaderboard and per-model accuracy ranking",
-        "columns": [
+        "template": "sequence",
+        "title": "Scoring and leaderboards",
+        "actors": [
           "expected",
           "outputs",
           "rows"
@@ -157,68 +183,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Classification tasks compute accuracy against expected answers.",
-            "rows": [
+            "caption": "For tasks with one correct answer (classification, extraction), score each.",
+            "activeActor": "expected",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "rows"
-                  }
-                ],
-                "tone": "ok"
+                "from": "expected",
+                "to": "outputs",
+                "label": {
+                  "var": "expected",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "rows"
-                  }
-                ],
-                "tone": "data"
+                "from": "outputs",
+                "to": "rows",
+                "label": {
+                  "var": "outputs",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A leaderboard ranks model accuracy percentages from highest to lowest.",
-            "rows": [
+            "caption": "Practice 1 is leaderboard(results), which turns per-model lists of True.",
+            "activeActor": "outputs",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "rows"
-                  }
-                ],
+                "from": "expected",
+                "to": "outputs",
+                "label": {
+                  "var": "expected",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "expected"
-                  }
-                ],
+                "from": "outputs",
+                "to": "rows",
+                "label": {
+                  "var": "outputs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Recording the date, model version and prompt with each result makes later.",
+            "activeActor": "rows",
+            "messages": [
+              {
+                "from": "expected",
+                "to": "outputs",
+                "label": {
+                  "var": "expected",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "rows",
+                "label": {
+                  "var": "outputs",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,9 +265,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Evaluation leaderboard and per-model accuracy ranking",
-        "columns": [
+        "template": "sequence",
+        "title": "Scoring and leaderboards",
+        "actors": [
           "expected",
           "outputs",
           "rows"
@@ -236,47 +275,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Classification tasks compute accuracy against expected answers.",
-            "rows": [
+            "caption": "For tasks with one correct answer (classification, extraction), score each.",
+            "messages": [
               {
-                "cells": [
-                  "expected",
-                  "outputs",
-                  "rows"
-                ],
-                "tone": "ok"
+                "from": "expected",
+                "to": "outputs",
+                "label": "['delivery', 'billing', 'account', 'del…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "expected",
-                  "outputs",
-                  "rows"
-                ],
-                "tone": "data"
+                "from": "outputs",
+                "to": "rows",
+                "label": "{'model-a': ['Delivery', 'billing', 'ac…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "expected"
           },
           {
             "at": "say2",
-            "caption": "A leaderboard ranks model accuracy percentages from highest to lowest.",
-            "rows": [
+            "caption": "Practice 1 is leaderboard(results), which turns per-model lists of True.",
+            "messages": [
               {
-                "cells": [
-                  "expected",
-                  "outputs",
-                  "rows"
-                ],
+                "from": "expected",
+                "to": "outputs",
+                "label": "['delivery', 'billing', 'account', 'del…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "expected",
-                  "outputs",
-                  "expected"
-                ],
+                "from": "outputs",
+                "to": "rows",
+                "label": "{'model-a': ['Delivery', 'billing', 'ac…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "outputs"
+          },
+          {
+            "at": "say9",
+            "caption": "Recording the date, model version and prompt with each result makes later.",
+            "messages": [
+              {
+                "from": "expected",
+                "to": "outputs",
+                "label": "['delivery', 'billing', 'account', 'del…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "rows",
+                "label": "{'model-a': ['Delivery', 'billing', 'ac…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rows"
           }
         ]
       }
@@ -285,135 +337,277 @@
       "partTitle": "Comparing open-ended answers",
       "codeHash": "8a2bc12171c54972d32074d5f8a5c88132452bcb0e2a10e81fcaf2286fb3aa8e",
       "spec": {
-        "template": "table",
-        "title": "Pairwise comparison and open-ended evaluation judgements",
-        "columns": [
-          "points",
-          "games",
-          "alpha"
+        "template": "flow",
+        "title": "Comparing open-ended answers",
+        "nodes": [
+          {
+            "id": "judgements",
+            "label": "judgements"
+          },
+          {
+            "id": "points",
+            "label": "points"
+          },
+          {
+            "id": "games",
+            "label": "games"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Open summaries lack single correct answers and require comparison.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "games"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For open-ended tasks such as summaries or emails, there is no.",
+            "values": {
+              "judgements": {
+                "var": "judgements",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "games"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "data"
+              "points": {
+                "var": "points",
+                "line": 2,
+                "hit": 1
+              },
+              "games": {
+                "var": "games",
+                "line": 2,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "judgements": "data",
+              "points": "data",
+              "games": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "judgements",
+                "points"
+              ],
+              [
+                "points",
+                "games"
+              ],
+              [
+                "games",
+                "a"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Pairwise comparison presents two candidate answers to a judge.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "games"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Pairwise comparison shows a judge two answers to the same prompt and asks.",
+            "values": {
+              "judgements": {
+                "var": "judgements",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "games"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "ok"
+              "points": {
+                "var": "points",
+                "line": 3,
+                "hit": 1
+              },
+              "games": {
+                "var": "games",
+                "line": 3,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "judgements": "data",
+              "points": "data",
+              "games": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "judgements",
+                "points"
+              ],
+              [
+                "points",
+                "games"
+              ],
+              [
+                "games",
+                "a"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Having two judges rate the same pairs, and checking how often they agree.",
+            "values": {
+              "judgements": {
+                "var": "judgements",
+                "line": 3,
+                "hit": 1
+              },
+              "points": {
+                "var": "points",
+                "line": 4,
+                "hit": 1
+              },
+              "games": {
+                "var": "games",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "judgements": "ok",
+              "points": "ok",
+              "games": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "judgements",
+                "points"
+              ],
+              [
+                "points",
+                "games"
+              ],
+              [
+                "games",
+                "a"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pairwise comparison and open-ended evaluation judgements",
-        "columns": [
-          "points",
-          "games",
-          "alpha"
+        "template": "flow",
+        "title": "Comparing open-ended answers",
+        "nodes": [
+          {
+            "id": "judgements",
+            "label": "judgements"
+          },
+          {
+            "id": "points",
+            "label": "points"
+          },
+          {
+            "id": "games",
+            "label": "games"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Open summaries lack single correct answers and require comparison.",
-            "rows": [
-              {
-                "cells": [
-                  "points",
-                  "games",
-                  "alpha"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "points",
-                  "games",
-                  "alpha"
-                ],
-                "tone": "data"
-              }
+            "caption": "For open-ended tasks such as summaries or emails, there is no.",
+            "values": {
+              "judgements": "[['alpha', 'beta', 'alpha'], ['alpha', …",
+              "points": "{}",
+              "games": "{}",
+              "a": "'alpha'"
+            },
+            "tones": {
+              "judgements": "data",
+              "points": "data",
+              "games": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "judgements",
+                "points"
+              ],
+              [
+                "points",
+                "games"
+              ],
+              [
+                "games",
+                "a"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Pairwise comparison presents two candidate answers to a judge.",
-            "rows": [
-              {
-                "cells": [
-                  "points",
-                  "games",
-                  "alpha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "points",
-                  "games",
-                  "points"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Pairwise comparison shows a judge two answers to the same prompt and asks.",
+            "values": {
+              "judgements": "[['alpha', 'beta', 'alpha'], ['alpha', …",
+              "points": "{}",
+              "games": "{}",
+              "a": "'alpha'"
+            },
+            "tones": {
+              "judgements": "data",
+              "points": "data",
+              "games": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "judgements",
+                "points"
+              ],
+              [
+                "points",
+                "games"
+              ],
+              [
+                "games",
+                "a"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Having two judges rate the same pairs, and checking how often they agree.",
+            "values": {
+              "judgements": "[['alpha', 'beta', 'alpha'], ['alpha', …",
+              "points": "{}",
+              "games": "{}",
+              "a": "'alpha'"
+            },
+            "tones": {
+              "judgements": "ok",
+              "points": "ok",
+              "games": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "judgements",
+                "points"
+              ],
+              [
+                "points",
+                "games"
+              ],
+              [
+                "games",
+                "a"
+              ]
             ]
           }
         ]
@@ -423,78 +617,91 @@
       "partTitle": "Quality, cost and speed",
       "codeHash": "f3cc57b6e9f241cd5fd29384d120c54beb6ec4e4a70d476155661f912b881827",
       "spec": {
-        "template": "table",
-        "title": "Cost and latency trade-offs for model selection",
-        "columns": [
-          "large",
-          "medium",
-          "small"
+        "template": "sequence",
+        "title": "Quality, cost and speed",
+        "actors": [
+          "models",
+          "bar",
+          "ok"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Evaluate latency and operational cost alongside overall quality.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how model updates percent during execution.",
+            "activeActor": "models",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "large"
-                  },
-                  {
-                    "text": "medium"
-                  },
-                  {
-                    "text": "small"
-                  }
-                ],
-                "tone": "ok"
+                "from": "models",
+                "to": "bar",
+                "label": {
+                  "var": "models",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "large"
-                  },
-                  {
-                    "text": "medium"
-                  },
-                  {
-                    "text": "small"
-                  }
-                ],
-                "tone": "data"
+                "from": "bar",
+                "to": "ok",
+                "label": {
+                  "var": "bar",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Routing directs simple queries to fast models and complex ones upward.",
-            "rows": [
+            "at": "say2",
+            "caption": "Compare models on cost per task and latency (how long a response takes).",
+            "activeActor": "bar",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "large"
-                  },
-                  {
-                    "text": "medium"
-                  },
-                  {
-                    "text": "small"
-                  }
-                ],
+                "from": "models",
+                "to": "bar",
+                "label": {
+                  "var": "models",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "large"
-                  },
-                  {
-                    "text": "medium"
-                  },
-                  {
-                    "text": "large"
-                  }
-                ],
+                "from": "bar",
+                "to": "ok",
+                "label": {
+                  "var": "bar",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "For batch jobs that run overnight, cheaper and slower models are usually fine.",
+            "activeActor": "ok",
+            "messages": [
+              {
+                "from": "models",
+                "to": "bar",
+                "label": {
+                  "var": "models",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bar",
+                "to": "ok",
+                "label": {
+                  "var": "bar",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +709,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cost and latency trade-offs for model selection",
-        "columns": [
-          "large",
-          "medium",
-          "small"
+        "template": "sequence",
+        "title": "Quality, cost and speed",
+        "actors": [
+          "models",
+          "bar",
+          "ok"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Evaluate latency and operational cost alongside overall quality.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how model updates percent during execution.",
+            "messages": [
               {
-                "cells": [
-                  "large",
-                  "medium",
-                  "small"
-                ],
-                "tone": "ok"
+                "from": "models",
+                "to": "bar",
+                "label": "{'large': {'accuracy': 94, 'cost_per_1k…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "large",
-                  "medium",
-                  "small"
-                ],
-                "tone": "data"
+                "from": "bar",
+                "to": "ok",
+                "label": "90",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "models"
           },
           {
-            "at": "say3",
-            "caption": "Routing directs simple queries to fast models and complex ones upward.",
-            "rows": [
+            "at": "say2",
+            "caption": "Compare models on cost per task and latency (how long a response takes).",
+            "messages": [
               {
-                "cells": [
-                  "large",
-                  "medium",
-                  "small"
-                ],
+                "from": "models",
+                "to": "bar",
+                "label": "{'large': {'accuracy': 94, 'cost_per_1k…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "large",
-                  "medium",
-                  "large"
-                ],
+                "from": "bar",
+                "to": "ok",
+                "label": "90",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bar"
+          },
+          {
+            "at": "say9",
+            "caption": "For batch jobs that run overnight, cheaper and slower models are usually fine.",
+            "messages": [
+              {
+                "from": "models",
+                "to": "bar",
+                "label": "{'large': {'accuracy': 94, 'cost_per_1k…",
+                "tone": "data"
+              },
+              {
+                "from": "bar",
+                "to": "ok",
+                "label": "90",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ok"
           }
         ]
       }
@@ -561,223 +781,175 @@
       "partTitle": "Evaluation pitfalls",
       "codeHash": "e0a298b54c45c4bb347ee9c893bda63c62e146a18cae4e99497589e27a96f2d2",
       "spec": {
-        "template": "flow",
-        "title": "Evaluation pitfalls — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluation pitfalls",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Evaluation pitfalls",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluation pitfalls [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluation pitfalls [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If your test cases appear in public data, models may have memorised them.",
+            "bars": [
+              {
+                "label": "true_accuracy",
+                "value": {
+                  "var": "true_accuracy",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "run",
+                "value": {
+                  "var": "run",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "correct",
+                "value": {
+                  "var": "correct",
+                  "line": 7,
+                  "hit": 22
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A handful of examples can make a lucky model look best.",
+            "bars": [
+              {
+                "label": "true_accuracy",
+                "value": {
+                  "var": "true_accuracy",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "run",
+                "value": {
+                  "var": "run",
+                  "line": 7,
+                  "hit": 22
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "correct",
+                "value": {
+                  "var": "correct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluation pitfalls [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Share results with the people who will use the system.",
+            "bars": [
+              {
+                "label": "true_accuracy",
+                "value": {
+                  "var": "true_accuracy",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "run",
+                "value": {
+                  "var": "run",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "correct",
+                "value": {
+                  "var": "correct",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Evaluation pitfalls — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluation pitfalls",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Evaluation pitfalls",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluation pitfalls [D28.P5.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluation pitfalls [D28.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If your test cases appear in public data, models may have memorised them.",
+            "bars": [
+              {
+                "label": "true_accuracy",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "run",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "correct",
+                "value": 16,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A handful of examples can make a lucky model look best.",
+            "bars": [
+              {
+                "label": "true_accuracy",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "run",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "correct",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluation pitfalls [D28.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Share results with the people who will use the system.",
+            "bars": [
+              {
+                "label": "true_accuracy",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "run",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "correct",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,224 +959,162 @@
       "partTitle": "Practice time: leaderboard and win rates",
       "codeHash": "2a80e3727619c026d06e10ab2336a7ae31ed28a52c0966a76c80281f30a7a660",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: leaderboard and win rates — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: lead...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: leaderboard and win rates",
+        "actors": [
+          "results",
+          ".0",
+          "m"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: leaderboard and win rates.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: lead... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Leaderboard(results).",
+            "activeActor": "results",
+            "messages": [
+              {
+                "from": "results",
+                "to": ".0",
+                "label": {
+                  "var": "results",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "m",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "results",
+                "to": ".0",
+                "label": {
+                  "var": "results",
+                  "line": 2,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "m",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: leaderboard and wi.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Evaluation skills stay valuable whatever models appear next, because.",
+            "activeActor": "m",
+            "messages": [
+              {
+                "from": "results",
+                "to": ".0",
+                "label": {
+                  "var": "results",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "m",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: leaderboard and win rates — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: lead...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: leaderboard and win rates",
+        "actors": [
+          "results",
+          ".0",
+          "m"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: leaderboard and win rates [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: lead... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Leaderboard(results).",
+            "messages": [
+              {
+                "from": "results",
+                "to": ".0",
+                "label": "{'tool-x': [True, True, False, True, Tr…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "m",
+                "label": "{'__other__': 'dict_itemiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "results"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "messages": [
+              {
+                "from": "results",
+                "to": ".0",
+                "label": "{'tool-x': [True, True, False, True, Tr…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "m",
+                "label": "{'__other__': 'dict_itemiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: leaderboard and wi.. [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Evaluation skills stay valuable whatever models appear next, because.",
+            "messages": [
+              {
+                "from": "results",
+                "to": ".0",
+                "label": "{'tool-x': [True, True, False, True, Tr…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "m",
+                "label": "{'__other__': 'dict_itemiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "m"
           }
         ]
       }

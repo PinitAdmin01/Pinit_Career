@@ -2,230 +2,90 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 39,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Anatomy of a Multi-Trillion-Token Pre-Training Corpus: Common Crawl, C4, RefinedWeb & RedPajama",
       "codeHash": "f03004131d44b733755dbdbaf87dd819c10c80d382e4cdca05771de98b5f8dc2",
       "spec": {
-        "template": "flow",
-        "title": "Anatomy of a Multi-Trillion-Token Pre-Trainin... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Anatomy of a Multi-...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Anatomy of a Multi-Trillion-Token Pre-Training Corpus: Common Cr",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Anatomy of a Multi-Trillion-Token Pre-Tr...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Anatomy of a Multi-....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Training a competitive foundation model requires ingesting between 1.",
+            "items": {
+              "var": "words",
+              "line": 2,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To understand where multi-trillion-token datasets originate, we must.",
+            "items": {
+              "var": "words",
+              "line": 2,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Anatomy of a Multi-Trillion-Token...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Anatomy of a Multi-Trillion-Token Pre-Trainin... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Anatomy of a Multi-...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Anatomy of a Multi-Trillion-Token Pre-Training Corpus: Common Cr",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Anatomy of a Multi-Trillion-Token Pre-Tr...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Anatomy of a Multi-....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Training a competitive foundation model requires ingesting between 1.",
+            "items": [
+              "'ASDF'",
+              "'12345'",
+              "'!@#$%'",
+              "'^&*()'",
+              "'QWERTY'",
+              "'99999999999999999999999999999999999999…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Anatomy of a Multi-Trillion-Token...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand where multi-trillion-token datasets originate, we must.",
+            "items": [
+              "'ASDF'",
+              "'12345'",
+              "'!@#$%'",
+              "'^&*()'",
+              "'QWERTY'",
+              "'99999999999999999999999999999999999999…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,223 +95,118 @@
       "partTitle": "Text Quality Filtering: Perplexity Filtering, FastText Heuristics, Line-Level Repetition & PII Redaction",
       "codeHash": "8e6d0d1785cbe433a55921e66225561c968e7d92bb433b88a4fdfd42d7221b83",
       "spec": {
-        "template": "flow",
-        "title": "Text Quality Filtering: Perplexity Filtering,... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Text Quality Filter...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Text Quality Filtering: Perplexity Filtering, FastText Heuristic",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Text Quality Filtering: Perplexity Filte...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Text Quality Filter....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While basic document-level statistics filter out overt gibberish, web text.",
+            "items": {
+              "var": "lines",
+              "line": 17,
+              "hit": 9
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The first major challenge is Line-Level and N-gram Repetition.",
+            "items": {
+              "var": "lines",
+              "line": 23,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Text Quality Filtering: Perplexit...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we will implement an enterprise PII.",
+            "items": {
+              "var": "lines",
+              "line": 22,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Text Quality Filtering: Perplexity Filtering,... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Text Quality Filter...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Text Quality Filtering: Perplexity Filtering, FastText Heuristic",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Text Quality Filtering: Perplexity Filte...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Text Quality Filter....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While basic document-level statistics filter out overt gibberish, web text.",
+            "items": [
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'The core database server is functionin…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The first major challenge is Line-Level and N-gram Repetition.",
+            "items": [
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'The core database server is functionin…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Text Quality Filtering: Perplexit...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we will implement an enterprise PII.",
+            "items": [
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'System Status: Healthy'",
+              "'The core database server is functionin…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +216,127 @@
       "partTitle": "Near-Deduplication at Scale: MinHash Hashing, Jaccard Similarity & Locality-Sensitive Hashing (LSH) Bands",
       "codeHash": "e5ddde76a0f986287aeb3998d652ba495d72e4507a79c2849180199c934c7f28",
       "spec": {
-        "template": "flow",
-        "title": "Near-Deduplication at Scale: MinHash Hashing,... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Near-Deduplication ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Near-Deduplication at Scale: MinHash Hashing, Jaccard Similarity",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Near-Deduplication at Scale: MinHash Has...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Near-Deduplication ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Having cleaned individual documents of gibberish and PII, we face the most.",
+            "items": {
+              "var": "words",
+              "line": 4,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Cryptographic hashing enables Exact Deduplication.",
+            "items": {
+              "var": "words",
+              "line": 5,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Near-Deduplication at Scale: MinH...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we will implement deterministic MinHash.",
+            "items": {
+              "var": "words",
+              "line": 7,
+              "hit": 35
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Near-Deduplication at Scale: MinHash Hashing,... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Near-Deduplication ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Near-Deduplication at Scale: MinHash Hashing, Jaccard Similarity",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Near-Deduplication at Scale: MinHash Has...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Near-Deduplication ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having cleaned individual documents of gibberish and PII, we face the most.",
+            "items": [
+              "'deep'",
+              "'neural'",
+              "'networks'",
+              "'optimize'",
+              "'transformer'",
+              "'attention'",
+              "'with'",
+              "'cuda'",
+              "'acceleration'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Cryptographic hashing enables Exact Deduplication.",
+            "items": [
+              "'deep'",
+              "'neural'",
+              "'networks'",
+              "'optimize'",
+              "'transformer'",
+              "'attention'",
+              "'with'",
+              "'cuda'",
+              "'acceleration'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Near-Deduplication at Scale: MinH...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will implement deterministic MinHash.",
+            "items": [
+              "'deep'",
+              "'neural'",
+              "'networks'",
+              "'optimize'",
+              "'transformer'",
+              "'attention'",
+              "'with'",
+              "'cuda'",
+              "'acceleration'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +346,217 @@
       "partTitle": "Data Mixture Optimization, Domain Curriculum Weighting & High-Quality Synthetic Data Injection",
       "codeHash": "045d9af2e841582bd9e87a6e9e4f0e6f909a919b2655ba9a195df32ffa0359aa",
       "spec": {
-        "template": "flow",
-        "title": "Data Mixture Optimization, Domain Curriculum ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Data Mixture Optimi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Data Mixture Optimization, Domain Curriculum Weighting & High-Qu",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Data Mixture Optimization, Domain Curric...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Data Mixture Optimi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Once a pre-training corpus has been rigorously cleaned of web noise.",
+            "bars": [
+              {
+                "label": "total_target_t",
+                "value": {
+                  "var": "total_target_tokens",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "weight",
+                "value": {
+                  "var": "weight",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_campaign",
+                "value": {
+                  "var": "total_campaign_tokens_trillion",
+                  "line": 3,
+                  "hit": 7
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us analyze the standard Domain Composition Matrix of modern frontier.",
+            "bars": [
+              {
+                "label": "total_target_t",
+                "value": {
+                  "var": "total_target_tokens",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": {
+                  "var": "weight",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_campaign",
+                "value": {
+                  "var": "total_campaign_tokens_trillion",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Data Mixture Optimization, Domain...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we will simulate a multi-domain mixture.",
+            "bars": [
+              {
+                "label": "total_target_t",
+                "value": {
+                  "var": "total_target_tokens",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": {
+                  "var": "weight",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_campaign",
+                "value": {
+                  "var": "total_campaign_tokens_trillion",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Data Mixture Optimization, Domain Curriculum ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Data Mixture Optimi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Data Mixture Optimization, Domain Curriculum Weighting & High-Qu",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Data Mixture Optimization, Domain Curric...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data Mixture Optimi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Once a pre-training corpus has been rigorously cleaned of web noise.",
+            "bars": [
+              {
+                "label": "total_target_t",
+                "value": 15,
+                "tone": "data"
+              },
+              {
+                "label": "pct",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "weight",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "total_campaign",
+                "value": 15,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us analyze the standard Domain Composition Matrix of modern frontier.",
+            "bars": [
+              {
+                "label": "total_target_t",
+                "value": 15,
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": 1.5,
+                "tone": "ok"
+              },
+              {
+                "label": "total_campaign",
+                "value": 15,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data Mixture Optimization, Domain...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we will simulate a multi-domain mixture.",
+            "bars": [
+              {
+                "label": "total_target_t",
+                "value": 15,
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "total_campaign",
+                "value": 15,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -914,110 +567,161 @@
       "codeHash": "4749c9c3e38025008046a201eb02fc8892a03250c2af12cb8efb9f1eff4b8817",
       "spec": {
         "template": "flow",
-        "title": "Building an Industrial MinHash LSH Deduplicat... — Execution Pipeline",
+        "title": "Building an Industrial MinHash LSH Deduplication & Quality Filte",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Industr...",
-            "tappable": true
+            "id": "k_shingle",
+            "label": "k_shingle"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "num_hashes",
+            "label": "num_hashes"
+          },
+          {
+            "id": "jaccard_threshold",
+            "label": "jaccard_threshold"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building an Industrial MinHash LSH Dedup...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building an Industr....",
+            "caption": "The Sovereign WebDataEngine Pipeline.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "k_shingle": {
+                "var": "k_shingle",
+                "line": 6,
+                "hit": 1
+              },
+              "num_hashes": {
+                "var": "num_hashes",
+                "line": 6,
+                "hit": 1
+              },
+              "jaccard_threshold": {
+                "var": "jaccard_threshold",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "k_shingle": "data",
+              "num_hashes": "data",
+              "jaccard_threshold": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "k_shingle"
               ],
               [
-                "proc",
-                "out"
+                "k_shingle",
+                "num_hashes"
+              ],
+              [
+                "num_hashes",
+                "jaccard_threshold"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Let us trace the complete execution lifecycle of our `WebDataEngine`.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
+              "k_shingle": {
+                "var": "k_shingle",
+                "line": 7,
+                "hit": 1
+              },
+              "num_hashes": {
+                "var": "num_hashes",
+                "line": 7,
+                "hit": 1
+              },
+              "jaccard_threshold": {
+                "var": "jaccard_threshold",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "k_shingle": "data",
+              "num_hashes": "data",
+              "jaccard_threshold": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "k_shingle"
+              ],
+              [
+                "k_shingle",
+                "num_hashes"
+              ],
+              [
+                "num_hashes",
+                "jaccard_threshold"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building an Industrial MinHash LS...",
+            "at": "say11",
+            "caption": "In the following comprehensive implementation, we assemble the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 8,
+                "hit": 1
+              },
+              "k_shingle": {
+                "var": "k_shingle",
+                "line": 8,
+                "hit": 1
+              },
+              "num_hashes": {
+                "var": "num_hashes",
+                "line": 8,
+                "hit": 1
+              },
+              "jaccard_threshold": {
+                "var": "jaccard_threshold",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "k_shingle": "ok",
+              "num_hashes": "ok",
+              "jaccard_threshold": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "k_shingle"
               ],
               [
-                "proc",
-                "out"
+                "k_shingle",
+                "num_hashes"
+              ],
+              [
+                "num_hashes",
+                "jaccard_threshold"
               ]
             ]
           }
@@ -1025,110 +729,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Building an Industrial MinHash LSH Deduplicat... — Execution Pipeline",
+        "title": "Building an Industrial MinHash LSH Deduplication & Quality Filte",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Industr...",
-            "tappable": true
+            "id": "k_shingle",
+            "label": "k_shingle"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "num_hashes",
+            "label": "num_hashes"
+          },
+          {
+            "id": "jaccard_threshold",
+            "label": "jaccard_threshold"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Industrial MinHash LSH Dedup...",
-            "values": {
-              "in": "Day 39 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Industr....",
+            "caption": "The Sovereign WebDataEngine Pipeline.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<WebDataEngine>",
+              "k_shingle": "3",
+              "num_hashes": "16",
+              "jaccard_threshold": "0.6"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "k_shingle": "data",
+              "num_hashes": "data",
+              "jaccard_threshold": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "k_shingle"
               ],
               [
-                "proc",
-                "out"
+                "k_shingle",
+                "num_hashes"
+              ],
+              [
+                "num_hashes",
+                "jaccard_threshold"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Let us trace the complete execution lifecycle of our `WebDataEngine`.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<WebDataEngine>",
+              "k_shingle": "3",
+              "num_hashes": "16",
+              "jaccard_threshold": "0.6"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "k_shingle": "data",
+              "num_hashes": "data",
+              "jaccard_threshold": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "k_shingle"
+              ],
+              [
+                "k_shingle",
+                "num_hashes"
+              ],
+              [
+                "num_hashes",
+                "jaccard_threshold"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Industrial MinHash LS...",
+            "at": "say11",
+            "caption": "In the following comprehensive implementation, we assemble the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<WebDataEngine>",
+              "k_shingle": "3",
+              "num_hashes": "16",
+              "jaccard_threshold": "0.6"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "k_shingle": "ok",
+              "num_hashes": "ok",
+              "jaccard_threshold": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "k_shingle"
               ],
               [
-                "proc",
-                "out"
+                "k_shingle",
+                "num_hashes"
+              ],
+              [
+                "num_hashes",
+                "jaccard_threshold"
               ]
             ]
           }

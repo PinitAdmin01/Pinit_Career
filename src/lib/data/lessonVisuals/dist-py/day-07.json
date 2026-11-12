@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why have a leader?",
       "codeHash": "c9992cfc887ff9c62e5206be569729fcaca163eb9f94ff8e33a89858c121271b",
       "spec": {
         "template": "flow",
-        "title": "Why have a leader? — Execution Pipeline",
+        "title": "Why have a leader?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "proc",
-            "label": "2. Why have a leader?",
-            "tappable": true
+            "id": "leader",
+            "label": "leader"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "from_node",
+            "label": "from_node"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why have a leader? [Dseven.Pone.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why have a leader? [Dseven.Pone.Stwo].",
+            "caption": "Many systems are simpler with one coordinator.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "nodes": {
+                "var": "nodes",
+                "line": 1,
+                "hit": 1
+              },
+              "leader": {
+                "var": "leader",
+                "line": 2,
+                "hit": 1
+              },
+              "log": {
+                "var": "log",
+                "line": 3,
+                "hit": 1
+              },
+              "from_node": {
+                "var": "from_node",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "nodes": "data",
+              "leader": "data",
+              "log": "data",
+              "from_node": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nodes",
+                "leader"
               ],
               [
-                "proc",
-                "out"
+                "leader",
+                "log"
+              ],
+              [
+                "log",
+                "from_node"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "With one decision maker there are no conflicts to resolve, because nobody.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "nodes": {
+                "var": "nodes",
+                "line": 2,
+                "hit": 1
+              },
+              "leader": {
+                "var": "leader",
+                "line": 3,
+                "hit": 1
+              },
+              "log": {
+                "var": "log",
+                "line": 5,
+                "hit": 1
+              },
+              "from_node": {
+                "var": "from_node",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "nodes": "data",
+              "leader": "data",
+              "log": "data",
+              "from_node": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "nodes",
+                "leader"
+              ],
+              [
+                "leader",
+                "log"
+              ],
+              [
+                "log",
+                "from_node"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why have a leader? [Dseven.Pone.Sfour].",
+            "at": "say7",
+            "caption": "The example routes writes through a leader so they get a single order.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "nodes": {
+                "var": "nodes",
+                "line": 3,
+                "hit": 1
+              },
+              "leader": {
+                "var": "leader",
+                "line": 5,
+                "hit": 1
+              },
+              "log": {
+                "var": "log",
+                "line": 8,
+                "hit": 1
+              },
+              "from_node": {
+                "var": "from_node",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "nodes": "ok",
+              "leader": "ok",
+              "log": "ok",
+              "from_node": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nodes",
+                "leader"
               ],
               [
-                "proc",
-                "out"
+                "leader",
+                "log"
+              ],
+              [
+                "log",
+                "from_node"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Why have a leader? — Execution Pipeline",
+        "title": "Why have a leader?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "proc",
-            "label": "2. Why have a leader?",
-            "tappable": true
+            "id": "leader",
+            "label": "leader"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "from_node",
+            "label": "from_node"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why have a leader? [D7.P1.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why have a leader? [D7.P1.S2].",
+            "caption": "Many systems are simpler with one coordinator.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "nodes": "['n1', 'n2', 'n3']",
+              "leader": "'n3'",
+              "log": "[]",
+              "from_node": "'n1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "nodes": "data",
+              "leader": "data",
+              "log": "data",
+              "from_node": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nodes",
+                "leader"
               ],
               [
-                "proc",
-                "out"
+                "leader",
+                "log"
+              ],
+              [
+                "log",
+                "from_node"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P1.S3].",
+            "at": "say2",
+            "caption": "With one decision maker there are no conflicts to resolve, because nobody.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "nodes": "['n1', 'n2', 'n3']",
+              "leader": "'n3'",
+              "log": "[]",
+              "from_node": "'n2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "nodes": "data",
+              "leader": "data",
+              "log": "data",
+              "from_node": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "nodes",
+                "leader"
+              ],
+              [
+                "leader",
+                "log"
+              ],
+              [
+                "log",
+                "from_node"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why have a leader? [D7.P1.S4].",
+            "at": "say7",
+            "caption": "The example routes writes through a leader so they get a single order.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "nodes": "['n1', 'n2', 'n3']",
+              "leader": "'n3'",
+              "log": "[[1, 'set x=1', 'via n1 -> ordered by n…",
+              "from_node": "'n2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "nodes": "ok",
+              "leader": "ok",
+              "log": "ok",
+              "from_node": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nodes",
+                "leader"
               ],
               [
-                "proc",
-                "out"
+                "leader",
+                "log"
+              ],
+              [
+                "log",
+                "from_node"
               ]
             ]
           }
@@ -235,192 +289,106 @@
       "partTitle": "Detecting failure with heartbeats",
       "codeHash": "44db6f954ec67f03b3dfd5ae22ef1fe73d58cf014325fe18b59929de8cc6b7a4",
       "spec": {
-        "template": "table",
-        "title": "Heartbeat failure detection and election timeout transitions",
-        "columns": [
-          "now",
-          "last",
-          "status"
+        "template": "states",
+        "title": "Detecting failure with heartbeats",
+        "states": [
+          {
+            "id": "ELECTION_TIMEOUT_MS",
+            "label": "ELECTION_TIMEOUT_MS"
+          },
+          {
+            "id": "heartbeats_at",
+            "label": "heartbeats_at"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leader sends periodic heartbeat messages to all followers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "350"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "The leader sends a small heartbeat message to followers at a regular.",
+            "currentState": "ELECTION_TIMEOUT_MS",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Follower suspects leader failed after election timeout.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "350"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "700"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "If a follower hears nothing for longer than an election timeout,.",
+            "currentState": "heartbeats_at",
+            "transition": {
+              "from": "ELECTION_TIMEOUT_MS",
+              "to": "heartbeats_at",
+              "label": {
+                "var": "heartbeats_at",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Timeout balances detection speed against false alarms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "350"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "700"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "801"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "Trace how covers updates gossip during execution.",
+            "currentState": "now",
+            "transition": {
+              "from": "heartbeats_at",
+              "to": "now",
+              "label": {
+                "var": "now",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Heartbeat failure detection and election timeout transitions",
-        "columns": [
-          "now",
-          "last",
-          "status"
+        "template": "states",
+        "title": "Detecting failure with heartbeats",
+        "states": [
+          {
+            "id": "ELECTION_TIMEOUT_MS",
+            "label": "ELECTION_TIMEOUT_MS"
+          },
+          {
+            "id": "heartbeats_at",
+            "label": "heartbeats_at"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leader sends periodic heartbeat messages to all followers.",
-            "rows": [
-              {
-                "cells": [
-                  "350",
-                  "300",
-                  "False"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "The leader sends a small heartbeat message to followers at a regular.",
+            "currentState": "ELECTION_TIMEOUT_MS",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Follower suspects leader failed after election timeout.",
-            "rows": [
-              {
-                "cells": [
-                  "350",
-                  "300",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "700",
-                  "300",
-                  "False"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "If a follower hears nothing for longer than an election timeout,.",
+            "currentState": "heartbeats_at",
+            "transition": {
+              "from": "ELECTION_TIMEOUT_MS",
+              "to": "heartbeats_at",
+              "label": "[0, 100, 200, 300]"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Timeout balances detection speed against false alarms.",
-            "rows": [
-              {
-                "cells": [
-                  "350",
-                  "300",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "700",
-                  "300",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "801",
-                  "300",
-                  "True"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say7",
+            "caption": "Trace how covers updates gossip during execution.",
+            "currentState": "now",
+            "transition": {
+              "from": "heartbeats_at",
+              "to": "now",
+              "label": "350"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -429,190 +397,110 @@
       "partTitle": "The Bully algorithm",
       "codeHash": "9729ccc559ff83913780a7cac06c790c61cdfab2a8721a280a5659590f98793d",
       "spec": {
-        "template": "table",
-        "title": "Bully election algorithm highest ID candidate resolution",
-        "columns": [
-          "remaining",
-          "failed_leader",
-          "status"
-        ],
+        "template": "cells",
+        "title": "The Bully algorithm",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bully algorithm elects highest active node ID as leader.",
-            "rows": [
+            "caption": "The Bully algorithm is the simplest election.",
+            "items": {
+              "var": "node_ids",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "ELECTED"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Highest active node declares itself leader with coordinator message.",
-            "rows": [
+            "caption": "When a node notices the leader is gone, it asks all higher-id nodes if.",
+            "items": {
+              "var": "node_ids",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "ELECTED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "9"
-                  },
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "ELECTED"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Empty cluster returns NO_ACTIVE_NODES explicitly without error.",
-            "rows": [
+            "caption": "The code handles an empty cluster explicitly rather than crashing on max().",
+            "items": {
+              "var": "node_ids",
+              "line": 2,
+              "hit": 9
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "ELECTED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "9"
-                  },
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "ELECTED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "NO_ACTIVE_NODES"
-                  }
-                ],
-                "tone": "error"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bully election algorithm highest ID candidate resolution",
-        "columns": [
-          "remaining",
-          "failed_leader",
-          "status"
-        ],
+        "template": "cells",
+        "title": "The Bully algorithm",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bully algorithm elects highest active node ID as leader.",
-            "rows": [
+            "caption": "The Bully algorithm is the simplest election.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "5",
-                  "7",
-                  "ELECTED"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Highest active node declares itself leader with coordinator message.",
-            "rows": [
+            "caption": "When a node notices the leader is gone, it asks all higher-id nodes if.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "5",
-                  "7",
-                  "ELECTED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "9",
-                  "4",
-                  "ELECTED"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Empty cluster returns NO_ACTIVE_NODES explicitly without error.",
-            "rows": [
+            "caption": "The code handles an empty cluster explicitly rather than crashing on max().",
+            "items": [
+              "2",
+              "9",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "5",
-                  "7",
-                  "ELECTED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "9",
-                  "4",
-                  "ELECTED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "7",
-                  "7",
-                  "NO_ACTIVE_NODES"
-                ],
-                "tone": "error"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -623,170 +511,162 @@
       "partTitle": "Majorities and terms",
       "codeHash": "dd1807f7b8296a13a04fa29a97551af94e196e42314df4ac311e518d9dd27c2e",
       "spec": {
-        "template": "table",
-        "title": "Raft term majority vote counting and leader declaration",
-        "columns": [
-          "candidate",
-          "votes",
-          "elected"
+        "template": "sequence",
+        "title": "Majorities and terms",
+        "actors": [
+          "votes_by_node",
+          "tally",
+          "voter"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Safe election requires candidate to secure majority votes.",
-            "rows": [
+            "caption": "Safer elections require votes from a majority, as with quorums on Day 2.",
+            "activeActor": "votes_by_node",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n3"
-                  },
-                  {
-                    "text": "votes"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "votes_by_node",
+                "to": "tally",
+                "label": {
+                  "var": "votes_by_node",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tally",
+                "to": "voter",
+                "label": {
+                  "var": "tally",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function has_majority returns True when votes exceed half.",
-            "rows": [
+            "caption": "Has_majority(votes, total) returns True when votes >= total // 2 + 1.",
+            "activeActor": "tally",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n3"
-                  },
-                  {
-                    "text": "votes"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "votes_by_node",
+                "to": "tally",
+                "label": {
+                  "var": "votes_by_node",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "n5"
-                  },
-                  {
-                    "text": "votes"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
+                "from": "tally",
+                "to": "voter",
+                "label": {
+                  "var": "tally",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Terms number elections so nodes vote at most once per term.",
-            "rows": [
+            "at": "say6",
+            "caption": "Trace how code updates counts during execution.",
+            "activeActor": "voter",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n3"
-                  },
-                  {
-                    "text": "votes"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "votes_by_node",
+                "to": "tally",
+                "label": {
+                  "var": "votes_by_node",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "n5"
-                  },
-                  {
-                    "text": "votes"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
+                "from": "tally",
+                "to": "voter",
+                "label": {
+                  "var": "tally",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Raft term majority vote counting and leader declaration",
-        "columns": [
-          "candidate",
-          "votes",
-          "elected"
+        "template": "sequence",
+        "title": "Majorities and terms",
+        "actors": [
+          "votes_by_node",
+          "tally",
+          "voter"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Safe election requires candidate to secure majority votes.",
-            "rows": [
+            "caption": "Safer elections require votes from a majority, as with quorums on Day 2.",
+            "messages": [
               {
-                "cells": [
-                  "n3",
-                  "votes",
-                  "True"
-                ],
+                "from": "votes_by_node",
+                "to": "tally",
+                "label": "{'n1': 'n3', 'n2': 'n3', 'n3': 'n3', 'n…",
+                "tone": "data"
+              },
+              {
+                "from": "tally",
+                "to": "voter",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "votes_by_node"
           },
           {
             "at": "say2",
-            "caption": "Function has_majority returns True when votes exceed half.",
-            "rows": [
+            "caption": "Has_majority(votes, total) returns True when votes >= total // 2 + 1.",
+            "messages": [
               {
-                "cells": [
-                  "n3",
-                  "votes",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "votes_by_node",
+                "to": "tally",
+                "label": "{'n1': 'n3', 'n2': 'n3', 'n3': 'n3', 'n…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "n5",
-                  "votes",
-                  "False"
-                ],
-                "tone": "error"
+                "from": "tally",
+                "to": "voter",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tally"
           },
           {
-            "at": "say3",
-            "caption": "Terms number elections so nodes vote at most once per term.",
-            "rows": [
+            "at": "say6",
+            "caption": "Trace how code updates counts during execution.",
+            "messages": [
               {
-                "cells": [
-                  "n3",
-                  "votes",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "votes_by_node",
+                "to": "tally",
+                "label": "{'n1': 'n3', 'n2': 'n3', 'n3': 'n3', 'n…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "n5",
-                  "votes",
-                  "False"
-                ],
-                "tone": "error"
+                "from": "tally",
+                "to": "voter",
+                "label": "{'n3': 1}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "voter"
           }
         ]
       }
@@ -795,132 +675,162 @@
       "partTitle": "Raft elections with randomised timeouts",
       "codeHash": "7a619e837a8d10883145194a901123bb94ec4c153b82df6fbb9d9b05d25412e2",
       "spec": {
-        "template": "compare",
-        "title": "Raft randomized election timeout split-vote resolution",
-        "leftLabel": "Shortest Timeout (Wins)",
-        "rightLabel": "Slower Followers (Yield)",
+        "template": "sequence",
+        "title": "Raft elections with randomised timeouts",
+        "actors": [
+          "rng",
+          "round_no",
+          "timeouts"
+        ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Randomized timeout between multiple and multiple ms avoids split vote.",
-            "left": {
-              "code": "node with 150 ms timeout",
-              "result": {
-                "text": "150"
+            "at": "say1",
+            "caption": "In Raft, a follower whose election timeout expires becomes a candidate.",
+            "activeActor": "rng",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "node with 300 ms timeout",
-              "result": {
-                "text": "300"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": {
+                  "var": "round_no",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Shortest timeout node starts first winning election cleanly.",
-            "left": {
-              "code": "first candidate initiates vote",
-              "result": {
-                "text": "150"
+            "at": "say2",
+            "caption": "A node grants its vote if it has not voted in this term and.",
+            "activeActor": "round_no",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": {
+                  "var": "rng",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "follower receives heartbeat",
-              "result": {
-                "text": "300"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": {
+                  "var": "round_no",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say7",
-            "caption": "Randomness serves as tool breaking election ties.",
-            "left": {
-              "code": "round 1 election resolved",
-              "result": {
-                "text": "1"
+            "caption": "Randomness here is a tool for breaking ties, as jitter was for retries.",
+            "activeActor": "timeouts",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": {
+                  "var": "rng",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "round 4 timeout cycle",
-              "result": {
-                "text": "4"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": {
+                  "var": "round_no",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Raft randomized election timeout split-vote resolution",
-        "leftLabel": "Shortest Timeout (Wins)",
-        "rightLabel": "Slower Followers (Yield)",
+        "template": "sequence",
+        "title": "Raft elections with randomised timeouts",
+        "actors": [
+          "rng",
+          "round_no",
+          "timeouts"
+        ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Randomized timeout between 150 and 300 ms avoids split vote.",
-            "left": {
-              "code": "node with 150 ms timeout",
-              "result": "150",
-              "tone": "ok",
-              "checks": [
-                "150"
-              ]
-            },
-            "right": {
-              "code": "node with 300 ms timeout",
-              "result": "300",
-              "tone": "idle",
-              "checks": [
-                "300"
-              ]
-            }
+            "at": "say1",
+            "caption": "In Raft, a follower whose election timeout expires becomes a candidate.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rng"
           },
           {
-            "at": "say4",
-            "caption": "Shortest timeout node starts first winning election cleanly.",
-            "left": {
-              "code": "first candidate initiates vote",
-              "result": "150",
-              "tone": "ok",
-              "checks": [
-                "150"
-              ]
-            },
-            "right": {
-              "code": "follower receives heartbeat",
-              "result": "300",
-              "tone": "idle",
-              "checks": [
-                "300"
-              ]
-            }
+            "at": "say2",
+            "caption": "A node grants its vote if it has not voted in this term and.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "round_no"
           },
           {
             "at": "say7",
-            "caption": "Randomness serves as tool breaking election ties.",
-            "left": {
-              "code": "round 1 election resolved",
-              "result": "1",
-              "tone": "ok",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "round 4 timeout cycle",
-              "result": "4",
-              "tone": "idle",
-              "checks": [
-                "4"
-              ]
-            }
+            "caption": "Randomness here is a tool for breaking ties, as jitter was for retries.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "round_no",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "round_no",
+                "to": "timeouts",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "timeouts"
           }
         ]
       }
@@ -929,224 +839,162 @@
       "partTitle": "Safety: at most one leader per term",
       "codeHash": "27436b76aae5162be9233a9b67db2754bfd212c57ad9b452112d321d203908ad",
       "spec": {
-        "template": "flow",
-        "title": "Safety: at most one leader per term — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Safety: at most one...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Safety: at most one leader per term",
+        "actors": [
+          "cluster",
+          "side_a",
+          "side_b"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Safety: at most one leader per term.",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Safety: at most one... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Raft guarantees at most one leader per term.",
+            "activeActor": "cluster",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": {
+                  "var": "cluster",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": {
+                  "var": "side_a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "During a partition, the side with a majority can elect a leader.",
+            "activeActor": "side_a",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": {
+                  "var": "cluster",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": {
+                  "var": "side_a",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Safety: at most one leader per term.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Trace how simulation updates shows during execution.",
+            "activeActor": "side_b",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": {
+                  "var": "cluster",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": {
+                  "var": "side_a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Safety: at most one leader per term — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Safety: at most one...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Safety: at most one leader per term",
+        "actors": [
+          "cluster",
+          "side_a",
+          "side_b"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Safety: at most one leader per term [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Safety: at most one... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Raft guarantees at most one leader per term.",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": "['n3', 'n4', 'n5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cluster"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "During a partition, the side with a majority can elect a leader.",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": "['n3', 'n4', 'n5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "side_a"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Safety: at most one leader per term [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Trace how simulation updates shows during execution.",
+            "messages": [
+              {
+                "from": "cluster",
+                "to": "side_a",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "data"
+              },
+              {
+                "from": "side_a",
+                "to": "side_b",
+                "label": "['n3', 'n4', 'n5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "side_b"
           }
         ]
       }

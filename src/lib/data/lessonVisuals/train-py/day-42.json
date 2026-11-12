@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 42,
-  "promptSha": "88b95e024c83ddb4981791f930cd3b6a64a3cf053e6cd74c32d0d1b3325d35ba",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Interleaved 1F1B Virtual Pipeline Stages & Microbatch Schedule Optimization — Foundations & Mathematical Invariants",
-      "codeHash": "634d3adef13382d043bbe3d6dba652bc29448620763ea832909fe01a180dd8c1",
+      "partTitle": "Interleaved 1F1B — Foundations & Mathematical Invariants",
+      "codeHash": "27b00508ad0c17615728e1caa1c496261c6bd820c27b73373451d55abc841d00",
       "spec": {
-        "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Interleaved 1F1B — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard 1F1B achieves acceptable bubble fractions only when.",
+            "bars": [
+              {
+                "label": "num_stages",
+                "value": {
+                  "var": "num_stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_microbatch",
+                "value": {
+                  "var": "num_microbatches",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "virtual_stages",
+                "value": {
+                  "var": "virtual_stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, in many distributed training scenarios, global batch size.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_stages",
+                "value": {
+                  "var": "num_stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": {
+                  "var": "num_microbatches",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "virtual_stages",
+                "value": {
+                  "var": "virtual_stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This structural advancement enables distributed training pipelines.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_stages",
+                "value": {
+                  "var": "num_stages",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": {
+                  "var": "num_microbatches",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "virtual_stages",
+                "value": {
+                  "var": "virtual_stages",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Interleaved 1F1B — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard 1F1B achieves acceptable bubble fractions only when.",
+            "bars": [
+              {
+                "label": "num_stages",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "num_microbatch",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "virtual_stages",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 8,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, in many distributed training scenarios, global batch size.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_stages",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": 32,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "virtual_stages",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "p",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This structural advancement enables distributed training pipelines.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_stages",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": 32,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "virtual_stages",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "p",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +226,841 @@
       }
     },
     {
-      "partTitle": "Interleaved 1F1B Virtual Pipeline Stages & Microbatch Schedule Optimization — Core Algorithm & State Representation",
-      "codeHash": "f5115e6899fa4367226494f75eaae44a5da3f3e89a0e800bfb00191e36c06dc3",
+      "partTitle": "Interleaved 1F1B — Core Algorithm & State Representation",
+      "codeHash": "83732bb8afd409b5566c415a2abbabb56305314860c238c47b22a7cea4057b47",
       "spec": {
         "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
+        "title": "Interleaved 1F1B — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_layers",
+            "label": "total_layers"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pp_stages",
+            "label": "pp_stages"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "virtual_stages",
+            "label": "virtual_stages"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "layers_per_chunk",
+            "label": "layers_per_chunk"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing Interleaved 1F1B requires structured mapping of transformer.",
+            "values": {
+              "total_layers": {
+                "var": "total_layers",
+                "line": 2,
+                "hit": 1
+              },
+              "pp_stages": {
+                "var": "pp_stages",
+                "line": 2,
+                "hit": 1
+              },
+              "virtual_stages": {
+                "var": "virtual_stages",
+                "line": 2,
+                "hit": 1
+              },
+              "layers_per_chunk": {
+                "var": "layers_per_chunk",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_layers": "data",
+              "pp_stages": "data",
+              "virtual_stages": "data",
+              "layers_per_chunk": "data"
+            },
+            "arrows": [
+              [
+                "total_layers",
+                "pp_stages"
+              ],
+              [
+                "pp_stages",
+                "virtual_stages"
+              ],
+              [
+                "virtual_stages",
+                "layers_per_chunk"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "For a 64-layer model on 8 physical GPUs with virtual stage factor v=2,.",
+            "values": {
+              "total_layers": {
+                "var": "total_layers",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pp_stages": {
+                "var": "pp_stages",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "virtual_stages": {
+                "var": "virtual_stages",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "layers_per_chunk": {
+                "var": "layers_per_chunk",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total_layers": "data",
+              "pp_stages": "data",
+              "virtual_stages": "data",
+              "layers_per_chunk": "data"
+            },
+            "arrows": [
+              [
+                "total_layers",
+                "pp_stages"
+              ],
+              [
+                "pp_stages",
+                "virtual_stages"
+              ],
+              [
+                "virtual_stages",
+                "layers_per_chunk"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "This cyclic execution flow ensures that accelerators remain continuously.",
+            "values": {
+              "total_layers": {
+                "var": "total_layers",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pp_stages": {
+                "var": "pp_stages",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "virtual_stages": {
+                "var": "virtual_stages",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "layers_per_chunk": {
+                "var": "layers_per_chunk",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "total_layers": "ok",
+              "pp_stages": "ok",
+              "virtual_stages": "ok",
+              "layers_per_chunk": "ok"
+            },
+            "arrows": [
+              [
+                "total_layers",
+                "pp_stages"
+              ],
+              [
+                "pp_stages",
+                "virtual_stages"
+              ],
+              [
+                "virtual_stages",
+                "layers_per_chunk"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
+        "title": "Interleaved 1F1B — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_layers",
+            "label": "total_layers"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pp_stages",
+            "label": "pp_stages"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "virtual_stages",
+            "label": "virtual_stages"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "layers_per_chunk",
+            "label": "layers_per_chunk"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing Interleaved 1F1B requires structured mapping of transformer.",
+            "values": {
+              "total_layers": "64",
+              "pp_stages": "8",
+              "virtual_stages": "2",
+              "layers_per_chunk": "4"
+            },
+            "tones": {
+              "total_layers": "data",
+              "pp_stages": "data",
+              "virtual_stages": "data",
+              "layers_per_chunk": "data"
+            },
+            "arrows": [
+              [
+                "total_layers",
+                "pp_stages"
+              ],
+              [
+                "pp_stages",
+                "virtual_stages"
+              ],
+              [
+                "virtual_stages",
+                "layers_per_chunk"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "For a 64-layer model on 8 physical GPUs with virtual stage factor v=2,.",
+            "values": {
+              "total_layers": "64",
+              "pp_stages": "8",
+              "virtual_stages": "2",
+              "layers_per_chunk": "4"
+            },
+            "tones": {
+              "total_layers": "data",
+              "pp_stages": "data",
+              "virtual_stages": "data",
+              "layers_per_chunk": "data"
+            },
+            "arrows": [
+              [
+                "total_layers",
+                "pp_stages"
+              ],
+              [
+                "pp_stages",
+                "virtual_stages"
+              ],
+              [
+                "virtual_stages",
+                "layers_per_chunk"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "This cyclic execution flow ensures that accelerators remain continuously.",
+            "values": {
+              "total_layers": "64",
+              "pp_stages": "8",
+              "virtual_stages": "2",
+              "layers_per_chunk": "4"
+            },
+            "tones": {
+              "total_layers": "ok",
+              "pp_stages": "ok",
+              "virtual_stages": "ok",
+              "layers_per_chunk": "ok"
+            },
+            "arrows": [
+              [
+                "total_layers",
+                "pp_stages"
+              ],
+              [
+                "pp_stages",
+                "virtual_stages"
+              ],
+              [
+                "virtual_stages",
+                "layers_per_chunk"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Interleaved 1F1B Virtual Pipeline Stages & Microbatch Schedule Optimization — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "114dbfa30b022243021f1e25d71f7f2a77dc09049aa5bbf6d86b4bc3854be69c",
+      "partTitle": "Interleaved 1F1B — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "0d072ac8d616b9405a3df93e735c449a64c149c71fdaf378680741613e20f63c",
       "spec": {
         "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
+        "title": "Interleaved 1F1B — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "comm_overhead_ms",
+            "label": "comm_overhead_ms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bubble_reduction_ms",
+            "label": "bubble_reduction_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "net_gain_ms",
+            "label": "net_gain_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "favorable",
+            "label": "favorable"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Interleaved 1F1B reduces the idle bubble fraction, it introduces.",
+            "values": {
+              "comm_overhead_ms": {
+                "var": "comm_overhead_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "bubble_reduction_ms": {
+                "var": "bubble_reduction_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "net_gain_ms": {
+                "var": "net_gain_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "favorable": {
+                "var": "favorable",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "comm_overhead_ms": "data",
+              "bubble_reduction_ms": "data",
+              "net_gain_ms": "data",
+              "favorable": "data"
+            },
+            "arrows": [
+              [
+                "comm_overhead_ms",
+                "bubble_reduction_ms"
+              ],
+              [
+                "bubble_reduction_ms",
+                "net_gain_ms"
+              ],
+              [
+                "net_gain_ms",
+                "favorable"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Because micro-batches must transition between physical GPUs v times.",
+            "values": {
+              "comm_overhead_ms": {
+                "var": "comm_overhead_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bubble_reduction_ms": {
+                "var": "bubble_reduction_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "net_gain_ms": {
+                "var": "net_gain_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "favorable": {
+                "var": "favorable",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "comm_overhead_ms": "data",
+              "bubble_reduction_ms": "data",
+              "net_gain_ms": "data",
+              "favorable": "data"
+            },
+            "arrows": [
+              [
+                "comm_overhead_ms",
+                "bubble_reduction_ms"
+              ],
+              [
+                "bubble_reduction_ms",
+                "net_gain_ms"
+              ],
+              [
+                "net_gain_ms",
+                "favorable"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Quantitative trade-off modeling ensures that virtual stage configurations.",
+            "values": {
+              "comm_overhead_ms": {
+                "var": "comm_overhead_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bubble_reduction_ms": {
+                "var": "bubble_reduction_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "net_gain_ms": {
+                "var": "net_gain_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "favorable": {
+                "var": "favorable",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "comm_overhead_ms": "ok",
+              "bubble_reduction_ms": "ok",
+              "net_gain_ms": "ok",
+              "favorable": "ok"
+            },
+            "arrows": [
+              [
+                "comm_overhead_ms",
+                "bubble_reduction_ms"
+              ],
+              [
+                "bubble_reduction_ms",
+                "net_gain_ms"
+              ],
+              [
+                "net_gain_ms",
+                "favorable"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
+        "title": "Interleaved 1F1B — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "comm_overhead_ms",
+            "label": "comm_overhead_ms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bubble_reduction_ms",
+            "label": "bubble_reduction_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "net_gain_ms",
+            "label": "net_gain_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "favorable",
+            "label": "favorable"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Interleaved 1F1B reduces the idle bubble fraction, it introduces.",
+            "values": {
+              "comm_overhead_ms": "4.2",
+              "bubble_reduction_ms": "18.5",
+              "net_gain_ms": "14.3",
+              "favorable": "True"
+            },
+            "tones": {
+              "comm_overhead_ms": "data",
+              "bubble_reduction_ms": "data",
+              "net_gain_ms": "data",
+              "favorable": "data"
+            },
+            "arrows": [
+              [
+                "comm_overhead_ms",
+                "bubble_reduction_ms"
+              ],
+              [
+                "bubble_reduction_ms",
+                "net_gain_ms"
+              ],
+              [
+                "net_gain_ms",
+                "favorable"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Because micro-batches must transition between physical GPUs v times.",
+            "values": {
+              "comm_overhead_ms": "4.2",
+              "bubble_reduction_ms": "18.5",
+              "net_gain_ms": "14.3",
+              "favorable": "True"
+            },
+            "tones": {
+              "comm_overhead_ms": "data",
+              "bubble_reduction_ms": "data",
+              "net_gain_ms": "data",
+              "favorable": "data"
+            },
+            "arrows": [
+              [
+                "comm_overhead_ms",
+                "bubble_reduction_ms"
+              ],
+              [
+                "bubble_reduction_ms",
+                "net_gain_ms"
+              ],
+              [
+                "net_gain_ms",
+                "favorable"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Quantitative trade-off modeling ensures that virtual stage configurations.",
+            "values": {
+              "comm_overhead_ms": "4.2",
+              "bubble_reduction_ms": "18.5",
+              "net_gain_ms": "14.3",
+              "favorable": "True"
+            },
+            "tones": {
+              "comm_overhead_ms": "ok",
+              "bubble_reduction_ms": "ok",
+              "net_gain_ms": "ok",
+              "favorable": "ok"
+            },
+            "arrows": [
+              [
+                "comm_overhead_ms",
+                "bubble_reduction_ms"
+              ],
+              [
+                "bubble_reduction_ms",
+                "net_gain_ms"
+              ],
+              [
+                "net_gain_ms",
+                "favorable"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Interleaved 1F1B Virtual Pipeline Stages & Microbatch Schedule Optimization — Resilience Guardrails & Failure Recovery",
-      "codeHash": "1d3f5876f7edd57cca44becab2a70b26129cbda079636902621e1cd87350f611",
+      "partTitle": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
+      "codeHash": "94cddd06d33e15c60edae2595ae3192ae7bb59c96efb460ac322d862ef668e21",
       "spec": {
-        "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
+        "actors": [
+          "num_layers",
+          "pp_stages",
+          "virtual_stages"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Virtual pipeline stage allocation requires strict mathematical.",
+            "activeActor": "num_layers",
+            "messages": [
+              {
+                "from": "num_layers",
+                "to": "pp_stages",
+                "label": {
+                  "var": "num_layers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pp_stages",
+                "to": "virtual_stages",
+                "label": {
+                  "var": "pp_stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The total number of transformer layers must be evenly divisible by.",
+            "activeActor": "pp_stages",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "num_layers",
+                "to": "pp_stages",
+                "label": {
+                  "var": "num_layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pp_stages",
+                "to": "virtual_stages",
+                "label": {
+                  "var": "pp_stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Enforcing structural divisibility guarantees balanced computational loads.",
+            "activeActor": "virtual_stages",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "num_layers",
+                "to": "pp_stages",
+                "label": {
+                  "var": "num_layers",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "pp_stages",
+                "to": "virtual_stages",
+                "label": {
+                  "var": "pp_stages",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
+        "actors": [
+          "num_layers",
+          "pp_stages",
+          "virtual_stages"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Virtual pipeline stage allocation requires strict mathematical.",
+            "messages": [
+              {
+                "from": "num_layers",
+                "to": "pp_stages",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "pp_stages",
+                "to": "virtual_stages",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "num_layers"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The total number of transformer layers must be evenly divisible by.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "num_layers",
+                "to": "pp_stages",
+                "label": "80",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pp_stages",
+                "to": "virtual_stages",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pp_stages"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Enforcing structural divisibility guarantees balanced computational loads.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "num_layers",
+                "to": "pp_stages",
+                "label": "80",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pp_stages",
+                "to": "virtual_stages",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "virtual_stages"
           }
         ]
       }
     },
     {
-      "partTitle": "Interleaved 1F1B Virtual Pipeline Stages & Microbatch Schedule Optimization — Production Telemetry & Verification Audit",
-      "codeHash": "80c663a2c3c75549807ec52a23be0b6e8b5f472b3fc4be055f339a30a36a96e7",
+      "partTitle": "Interleaved 1F1B — Production Telemetry & Verification Audit",
+      "codeHash": "9c71a9301bbc123ddc57bad4f001374c6150a1549a8c6211fda804dc48e23b3e",
       "spec": {
-        "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Interleaved 1F1B — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical performance.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "telemetry"
+                  },
+                  {
+                    "var": "telemetry",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record measured bubble fractions, peak activation memory.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "telemetry"
+                  },
+                  {
+                    "var": "telemetry",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This audit completes the verification of Interleaved 1F1B scheduling.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Interleaved FB Virtual Pipeline Stages & Microbatch Schedule Optimizat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Interleaved 1F1B — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical performance.",
+            "rows": [
+              {
+                "cells": [
+                  "telemetry",
+                  "{'status': 'CERTIFIED', 'interleaved_v'…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record measured bubble fractions, peak activation memory.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "telemetry",
+                  "{'status': 'CERTIFIED', 'interleaved_v'…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This audit completes the verification of Interleaved 1F1B scheduling.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Interleaved 1F1B Certified: CERTIFIED (v=2, Bubble=4.12%)"
+                ],
+                "tone": "ok"
               }
             ]
           }

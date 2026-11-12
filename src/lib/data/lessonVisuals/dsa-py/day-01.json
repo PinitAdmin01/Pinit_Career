@@ -2,50 +2,138 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 1,
-  "promptSha": "3b585903bd2e6af45fe10f5c8494162903a9db37649d137dbc6859a8210649a8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why speed depends on the size of the input",
       "codeHash": "5f32e4be72d286373acd7f1af1c26c4be0c336fd5f3a7c21a2d30714907150a5",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Why speed depends on the size of the input",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The algorithm concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "An algorithm is just a recipe.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Why"
-                  },
-                  {
-                    "text": "speed"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The instead logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The time a program takes depends mostly on how much data it has to handle.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "depends"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Today's code counts steps for you.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 10,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Why speed depends on the size of the input",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The algorithm concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "An algorithm is just a recipe.",
+            "bars": [
               {
-                "cells": [
-                  "Why",
-                  "speed"
-                ],
+                "label": "n",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The instead logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The time a program takes depends mostly on how much data it has to handle.",
+            "bars": [
               {
-                "cells": [
-                  "depends",
-                  "the"
-                ],
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Today's code counts steps for you.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -93,43 +229,104 @@
       "partTitle": "Big-O: keep the part that grows fastest",
       "codeHash": "7e737fb4ca1b8fe081db1f9ef69b9ed461cd0fd9edcfe0462eeb49e294cca322",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Big-O: keep the part that grows fastest",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The notation concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Big-O notation writes down the growth in a short form.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Big"
-                  },
-                  {
-                    "text": "keep"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "extra",
+                "value": {
+                  "var": "extra",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "share",
+                "value": {
+                  "var": "share",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "When we write Big-O we drop constant numbers.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "part"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": {
+                  "var": "extra",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "share",
+                "value": {
+                  "var": "share",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Big-O usually describes the worst case.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": {
+                  "var": "extra",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "share",
+                "value": {
+                  "var": "share",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +334,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Big-O: keep the part that grows fastest",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The notation concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Big-O notation writes down the growth in a short form.",
+            "bars": [
               {
-                "cells": [
-                  "Big",
-                  "keep"
-                ],
+                "label": "n",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "extra",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "share",
+                "value": 9.090909090909092,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "When we write Big-O we drop constant numbers.",
+            "bars": [
               {
-                "cells": [
-                  "the",
-                  "part"
-                ],
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "share",
+                "value": 9.090909090909092,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Big-O usually describes the worst case.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "share",
+                "value": 9.090909090909092,
                 "tone": "ok"
               }
             ]
@@ -177,43 +407,104 @@
       "partTitle": "O(1) and O(N): constant and linear time",
       "codeHash": "d0c29db44df3eca3f5c710a8f92728ff3f6ee6be0833c77bab760c433ba7c0f2",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "O(1) and O(N): constant and linear time",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The constant concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "O(1), constant time, means the work does not depend on the size of the data.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "constant"
-                  }
-                ],
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "checks",
+                "value": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The linear logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Looking up a key in a dict is also O(1) on average.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "linear"
-                  }
-                ],
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "checks",
+                "value": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The keyword in is a trap to watch for.",
+            "bars": [
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "checks",
+                "value": {
+                  "var": "checks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +512,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "O(1) and O(N): constant and linear time",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The constant concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "O(1), constant time, means the work does not depend on the size of the data.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "constant"
-                ],
+                "label": "target",
+                "value": 99999,
+                "tone": "data"
+              },
+              {
+                "label": "checks",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The linear logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Looking up a key in a dict is also O(1) on average.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "linear"
-                ],
+                "label": "target",
+                "value": 99999,
+                "tone": "ok"
+              },
+              {
+                "label": "checks",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The keyword in is a trap to watch for.",
+            "bars": [
+              {
+                "label": "target",
+                "value": 99999,
+                "tone": "ok"
+              },
+              {
+                "label": "checks",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,43 +585,77 @@
       "partTitle": "O(log N): halving the problem",
       "codeHash": "409ef69af20fb3b8000335af214db5afb93be7a5dce66cc5a5990b850f145a5f",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "O(log N): halving the problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The logarithmic concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "O(log N), logarithmic time, is the next best thing after O(1).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "log"
-                  },
-                  {
-                    "text": "halving"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The classic logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The numbers are amazing.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "problem"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Whenever you see a loop where n is divided by 2 each time (n = n // 2).",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +663,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "O(log N): halving the problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The logarithmic concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "O(log N), logarithmic time, is the next best thing after O(1).",
+            "bars": [
               {
-                "cells": [
-                  "log",
-                  "halving"
-                ],
+                "label": "n",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The classic logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The numbers are amazing.",
+            "bars": [
               {
-                "cells": [
-                  "the",
-                  "problem"
-                ],
+                "label": "n",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Whenever you see a loop where n is divided by 2 each time (n = n // 2).",
+            "bars": [
+              {
+                "label": "n",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -345,43 +721,77 @@
       "partTitle": "O(N^2) and how to spot it",
       "codeHash": "1b1b54397c2e11374f144da53071a680a72cfddfb3b8a7d5bb62b6e3ecb92d14",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "O(N^2) and how to spot it",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The quadratic concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Trace how quadratic updates time during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "how"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The outer loop is N, and each in check is another N.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "spot"
-                  },
-                  {
-                    "text": "how"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "In the practice today you will write a function that measures step counts.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +799,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "O(N^2) and how to spot it",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The quadratic concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Trace how quadratic updates time during execution.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "how"
-                ],
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The outer loop is N, and each in check is another N.",
+            "bars": [
               {
-                "cells": [
-                  "spot",
-                  "how"
-                ],
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "In the practice today you will write a function that measures step counts.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -429,80 +857,114 @@
       "partTitle": "Space complexity: memory counts too",
       "codeHash": "a280e71efdfcac4e87dfc8e6202c7a140b7af0dfb505bd2fb217bf4c8d9313ba",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Space complexity: memory counts too",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The describes concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Big-O also describes memory, called space complexity.",
+            "items": {
+              "var": "items",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Space"
-                  },
-                  {
-                    "text": "complexity"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The making logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Reversing a list in place with two pointers that swap items needs only.",
+            "items": {
+              "var": "items",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "memory"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "In the fast duplicate check from the last part, the seen set can grow to N.",
+            "items": {
+              "var": "items",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Space complexity: memory counts too",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The describes concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Big-O also describes memory, called space complexity.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Space",
-                  "complexity"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The making logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Reversing a list in place with two pointers that swap items needs only.",
+            "items": [
+              "5",
+              "2",
+              "3",
+              "4",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "memory",
-                  "counts"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "In the fast duplicate check from the last part, the seen set can grow to N.",
+            "items": [
+              "5",
+              "4",
+              "3",
+              "2",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

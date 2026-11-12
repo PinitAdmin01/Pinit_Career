@@ -2,87 +2,115 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 21,
-  "promptSha": "94a5bee30f8bc3d74553883d3eea97027192d1dd5c1eff502fb75a8a25160d48",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What an auto-complete engine must do",
       "codeHash": "55e76dbba751385b0f55b0175e48e2f79bda3c2715875ddc0687fb825b652e37",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "What an auto-complete engine must do",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The type concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "When you type \"pyt\" in a search box, it instantly suggests \"python\".",
+            "items": {
+              "var": "matches",
+              "line": 3,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "What"
-                  },
-                  {
-                    "text": "auto"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The ranking logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Job one is finding.",
+            "items": {
+              "var": "matches",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "complete"
-                  },
-                  {
-                    "text": "engine"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Prefix trees (tries) represent multi-way branching retrieval graphs where.",
+            "items": {
+              "var": "matches",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "What an auto-complete engine must do",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The type concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "When you type \"pyt\" in a search box, it instantly suggests \"python\".",
+            "items": [
+              "'python'",
+              "'pytorch'",
+              "'python course'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "What",
-                  "auto"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The ranking logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Job one is finding.",
+            "items": [
+              "'python'",
+              "'pytorch'",
+              "'python course'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "complete",
-                  "engine"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Prefix trees (tries) represent multi-way branching retrieval graphs where.",
+            "items": [
+              "'python'",
+              "'pytorch'",
+              "'python course'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,82 +121,194 @@
       "partTitle": "Storing frequencies in the trie",
       "codeHash": "ab6bdc9fb5f19c5e66c218a761f988009bb4c69e971cf68481f661489d92e21d",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Storing frequencies in the trie",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "freq",
+            "label": "freq"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The checking concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Storing"
-                  },
-                  {
-                    "text": "frequencies"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Checking every word, as in the last part, is O(N) for each keystroke.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 13,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 8,
+                "hit": 1
+              },
+              "freq": {
+                "var": "freq",
+                "line": 8,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "query": "data",
+              "word": "data",
+              "freq": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "trie"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Add a freq field to each trie node.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 14,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 9,
+                "hit": 1
+              },
+              "freq": {
+                "var": "freq",
+                "line": 9,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "query": "data",
+              "word": "data",
+              "freq": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Adding to an existing count, instead of replacing it, is what Practice 1.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 13,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 10,
+                "hit": 1
+              },
+              "freq": {
+                "var": "freq",
+                "line": 10,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 9,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "query": "ok",
+              "word": "ok",
+              "freq": "ok",
+              "ch": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Storing frequencies in the trie",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "freq",
+            "label": "freq"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The checking concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Storing",
-                  "frequencies"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Checking every word, as in the last part, is O(N) for each keystroke.",
+            "values": {
+              "query": "'pizza'",
+              "word": "'pizza'",
+              "freq": "1",
+              "ch": "'p'"
+            },
+            "tones": {
+              "query": "data",
+              "word": "data",
+              "freq": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "the",
-                  "trie"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Add a freq field to each trie node.",
+            "values": {
+              "query": "'pizza'",
+              "word": "'pizza'",
+              "freq": "1",
+              "ch": "'p'"
+            },
+            "tones": {
+              "query": "data",
+              "word": "data",
+              "freq": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Adding to an existing count, instead of replacing it, is what Practice 1.",
+            "values": {
+              "query": "'pizza'",
+              "word": "'pizza'",
+              "freq": "1",
+              "ch": "'i'"
+            },
+            "tones": {
+              "query": "ok",
+              "word": "ok",
+              "freq": "ok",
+              "ch": "ok"
+            }
           }
         ]
       }
@@ -177,43 +317,77 @@
       "partTitle": "Collecting the matches below a prefix",
       "codeHash": "941c13312e75bbb68ef265da12e553152181a2b48aa25f4f0ea8022dc7aa5e68",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Collecting the matches below a prefix",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The suggest concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "To suggest, first walk down the trie to the prefix node.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Collecting"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "freq",
+                "value": {
+                  "var": "freq",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The wrote logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then run a depth-first search below that node, building each word letter.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "matches"
-                  },
-                  {
-                    "text": "below"
-                  }
-                ],
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "freq",
+                "value": {
+                  "var": "freq",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once you have the matches, the ranking step picks the best k.",
+            "bars": [
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 28,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "freq",
+                "value": {
+                  "var": "freq",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +395,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Collecting the matches below a prefix",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The suggest concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "To suggest, first walk down the trie to the prefix node.",
+            "bars": [
               {
-                "cells": [
-                  "Collecting",
-                  "the"
-                ],
+                "label": "f",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "freq",
+                "value": 100,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The wrote logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then run a depth-first search below that node, building each word letter.",
+            "bars": [
               {
-                "cells": [
-                  "matches",
-                  "below"
-                ],
+                "label": "f",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "freq",
+                "value": 100,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once you have the matches, the ranking step picks the best k.",
+            "bars": [
+              {
+                "label": "f",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "freq",
+                "value": 100,
                 "tone": "ok"
               }
             ]
@@ -261,80 +453,105 @@
       "partTitle": "Picking the top k with a heap",
       "codeHash": "720d2b920c481194e92fe72b28d336b12e24f3b3fe1a7a8b1f4dff0e5f0a2e6b",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Picking the top k with a heap",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sorting concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Sorting every match is O(M log M) for M matches.",
+            "items": {
+              "var": "fw",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Picking"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The key is (-freq, word).",
+            "items": {
+              "var": "fw",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "top"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Combining Trie prefix traversal with a bounded min-heap of capacity k.",
+            "items": {
+              "var": "fw",
+              "line": 5,
+              "hit": 8
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Picking the top k with a heap",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sorting concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Sorting every match is O(M log M) for M matches.",
+            "items": [
+              "100",
+              "'react'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Picking",
-                  "the"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The key is (-freq, word).",
+            "items": [
+              "100",
+              "'react'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "top",
-                  "with"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Combining Trie prefix traversal with a bounded min-heap of capacity k.",
+            "items": [
+              "50",
+              "'redux'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +562,76 @@
       "partTitle": "The complete AutocompleteSystem",
       "codeHash": "dfcaa6c4393cc6c044acecb3cd2d9c03bd643f68c1be721a06d25125300a0288",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "The complete AutocompleteSystem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "complete"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now combine the parts into one class.",
+            "items": {
+              "var": "fw",
+              "line": 37,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The test logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "AutocompleteSystem"
-                  },
-                  {
-                    "text": "complete"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Keep each method small.",
+            "items": {
+              "var": "fw",
+              "line": 37,
+              "hit": 2
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "By inserting candidates into a min-heap of fixed size k, elements.",
+            "items": {
+              "var": "fw",
+              "line": 37,
+              "hit": 8
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "The complete AutocompleteSystem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "The",
-                  "complete"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now combine the parts into one class.",
+            "mode": "stack",
+            "items": [
+              "95",
+              "'pytorch'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The test logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "AutocompleteSystem",
-                  "complete"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Keep each method small.",
+            "mode": "stack",
+            "items": [
+              "120",
+              "'python'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "By inserting candidates into a min-heap of fixed size k, elements.",
+            "mode": "stack",
+            "items": [
+              "80",
+              "'python course'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -429,82 +640,194 @@
       "partTitle": "Making suggestions fast at scale",
       "codeHash": "434328c00d4da97048f6038319131c6dd3de1a5f941222a876f79f2a6f762256",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Making suggestions fast at scale",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "K",
+            "label": "K"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The search concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Making"
-                  },
-                  {
-                    "text": "suggestions"
-                  }
-                ],
-                "tone": "data"
+            "caption": "For a big search engine, running a DFS for every keystroke is too slow.",
+            "values": {
+              "K": {
+                "var": "K",
+                "line": 6,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 24,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 9,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "K": "data",
+              "q": "data",
+              "word": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The cost logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fast"
-                  },
-                  {
-                    "text": "scale"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The standard fix is to store the current top k suggestions at every trie node.",
+            "values": {
+              "K": {
+                "var": "K",
+                "line": 8,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 25,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 10,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "K": "data",
+              "q": "data",
+              "word": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "You will meet more of these trade-offs in the Distributed Systems course.",
+            "values": {
+              "K": {
+                "var": "K",
+                "line": 16,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 24,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 11,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "K": "ok",
+              "q": "ok",
+              "word": "ok",
+              "ch": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Making suggestions fast at scale",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "K",
+            "label": "K"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The search concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Making",
-                  "suggestions"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "For a big search engine, running a DFS for every keystroke is too slow.",
+            "values": {
+              "K": "2",
+              "q": "'maps'",
+              "word": "'maps'",
+              "ch": "'m'"
+            },
+            "tones": {
+              "K": "data",
+              "q": "data",
+              "word": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The cost logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "fast",
-                  "scale"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The standard fix is to store the current top k suggestions at every trie node.",
+            "values": {
+              "K": "2",
+              "q": "'maps'",
+              "word": "'maps'",
+              "ch": "'m'"
+            },
+            "tones": {
+              "K": "data",
+              "q": "data",
+              "word": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "You will meet more of these trade-offs in the Distributed Systems course.",
+            "values": {
+              "K": "2",
+              "q": "'mail'",
+              "word": "'maps'",
+              "ch": "'m'"
+            },
+            "tones": {
+              "K": "ok",
+              "q": "ok",
+              "word": "ok",
+              "ch": "ok"
+            }
           }
         ]
       }

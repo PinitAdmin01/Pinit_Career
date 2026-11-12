@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a language model does",
       "codeHash": "dbdab743935d14282035473e56bb103e2eba4669ddd2e795baa883a5fc9089a1",
       "spec": {
-        "template": "table",
-        "title": "Word sequence probabilities and bigram frequency distributions",
-        "columns": [
-          "tokens",
-          "bigrams"
+        "template": "flow",
+        "title": "What a language model does",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "bigrams",
+            "label": "bigrams"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A language model assigns a probability to a sequence of words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "bigrams": {
+                "var": "bigrams",
+                "line": 4,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "bigrams": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "bigrams"
+              ],
+              [
+                "bigrams",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Counting word co-occurrences identifies which word pairs are more probable.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Your phone keyboard's next-word suggestions, speech recognition choosing.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
+              "bigrams": {
+                "var": "bigrams",
+                "line": 5,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "bigrams": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "bigrams"
+              ],
+              [
+                "bigrams",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "An n-gram represents a sequence where bigrams denote pairs of words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Modern neural models look at thousands of previous words, but the goal.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
+              "bigrams": {
+                "var": "bigrams",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "bigrams"
-                  }
-                ],
-                "tone": "data"
+              "counts": {
+                "var": "counts",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The bigram Markov assumption models words depending on prior context.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "like"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "bigrams"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "bigrams"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "tokens": "ok",
+              "bigrams": "ok",
+              "counts": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "bigrams"
+              ],
+              [
+                "bigrams",
+                "counts"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Word sequence probabilities and bigram frequency distributions",
-        "columns": [
-          "tokens",
-          "bigrams"
+        "template": "flow",
+        "title": "What a language model does",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "bigrams",
+            "label": "bigrams"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A language model assigns a probability to a sequence of words.",
-            "rows": [
-              {
-                "cells": [
-                  "tea",
-                  "like"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "tokens": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
+              "bigrams": "[['<s>', 'i'], ['i', 'like'], ['like', …",
+              "counts": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…"
+            },
+            "tones": {
+              "tokens": "data",
+              "bigrams": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "bigrams"
+              ],
+              [
+                "bigrams",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Counting word co-occurrences identifies which word pairs are more probable.",
-            "rows": [
-              {
-                "cells": [
-                  "tea",
-                  "like"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "coffee",
-                  "like"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Your phone keyboard's next-word suggestions, speech recognition choosing.",
+            "values": {
+              "tokens": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
+              "bigrams": "[['<s>', 'i'], ['i', 'like'], ['like', …",
+              "counts": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…"
+            },
+            "tones": {
+              "tokens": "data",
+              "bigrams": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "bigrams"
+              ],
+              [
+                "bigrams",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "An n-gram represents a sequence where bigrams denote pairs of words.",
-            "rows": [
-              {
-                "cells": [
-                  "tea",
-                  "like"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "coffee",
-                  "like"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "bigrams"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The bigram Markov assumption models words depending on prior context.",
-            "rows": [
-              {
-                "cells": [
-                  "tea",
-                  "like"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "coffee",
-                  "like"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "bigrams"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "counts",
-                  "bigrams"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Modern neural models look at thousands of previous words, but the goal.",
+            "values": {
+              "tokens": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
+              "bigrams": "[['<s>', 'i'], ['i', 'like'], ['like', …",
+              "counts": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…"
+            },
+            "tones": {
+              "tokens": "ok",
+              "bigrams": "ok",
+              "counts": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "bigrams"
+              ],
+              [
+                "bigrams",
+                "counts"
+              ]
             ]
           }
         ]
@@ -261,248 +233,108 @@
       "partTitle": "Maximum likelihood estimates",
       "codeHash": "caebaf28ae4fa2f6a868e0947bddebb3f99671cc451c3bfd3ac5d03e03d839a6",
       "spec": {
-        "template": "table",
-        "title": "Maximum likelihood bigram transition probabilities over corpus",
-        "columns": [
-          "pair",
-          "single"
-        ],
+        "template": "cells",
+        "title": "Maximum likelihood estimates",
         "steps": [
           {
             "at": "say1",
-            "caption": "Maximum likelihood estimation turns empirical counts into probabilities.",
-            "rows": [
+            "caption": "The most direct way to turn counts into probabilities is maximum.",
+            "items": {
+              "var": "words",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Bigram probabilities divide pair counts by single preceding word counts.",
-            "rows": [
+            "caption": "For bigrams, P(word | previous) = count(previous, word) / count(previous).",
+            "items": {
+              "var": "words",
+              "line": 13,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Sentence probability is the product of constituent bigram probabilities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pair"
-                  },
-                  {
-                    "text": "single"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Start and end symbols let the model learn which words begin and end.",
-            "rows": [
+            "at": "say7",
+            "caption": "Multiplying many small probabilities produces tiny numbers.",
+            "items": {
+              "var": "words",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pair"
-                  },
-                  {
-                    "text": "single"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "single"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Maximum likelihood bigram transition probabilities over corpus",
-        "columns": [
-          "pair",
-          "single"
-        ],
+        "template": "cells",
+        "title": "Maximum likelihood estimates",
         "steps": [
           {
             "at": "say1",
-            "caption": "Maximum likelihood estimation turns empirical counts into probabilities.",
-            "rows": [
+            "caption": "The most direct way to turn counts into probabilities is maximum.",
+            "items": [
+              "'i'",
+              "'like'",
+              "'tea'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Bigram probabilities divide pair counts by single preceding word counts.",
-            "rows": [
+            "caption": "For bigrams, P(word | previous) = count(previous, word) / count(previous).",
+            "items": [
+              "'i'",
+              "'like'",
+              "'tea'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "coffee"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Sentence probability is the product of constituent bigram probabilities.",
-            "rows": [
-              {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "coffee"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pair",
-                  "single"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Start and end symbols let the model learn which words begin and end.",
-            "rows": [
+            "at": "say7",
+            "caption": "Multiplying many small probabilities produces tiny numbers.",
+            "items": [
+              "'i'",
+              "'like'",
+              "'tea'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "coffee"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pair",
-                  "single"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "single"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,143 +345,53 @@
       "partTitle": "The zero problem",
       "codeHash": "92ad363a003b5ef0cd0060322d25fb9f1c01aa8130a247f3fec5741e7ef0a5c9",
       "spec": {
-        "template": "table",
-        "title": "Vocabulary sparsity and zero probability penalties for unseen pairs",
-        "columns": [
-          "seen",
-          "possible"
-        ],
+        "template": "cells",
+        "title": "The zero problem",
         "steps": [
           {
             "at": "say1",
-            "caption": "Any word pair never seen in the training text receives zero probability.",
-            "rows": [
+            "caption": "MLE has a serious flaw.",
+            "items": {
+              "var": "vocab",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "One zero probability in a sentence product makes the whole text impossible.",
-            "rows": [
+            "caption": "And because a sentence's probability is a product, one zero makes.",
+            "items": {
+              "var": "vocab",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Data sparsity means most possible word pairs never appear in training text.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example counts how many possible bigrams our tiny corpus has actually.",
+            "items": {
+              "var": "vocab",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "seen"
-                  },
-                  {
-                    "text": "possible"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Smoothing reallocates probability mass from seen events to unseen pairs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "seen"
-                  },
-                  {
-                    "text": "possible"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "possible"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
               }
             ]
@@ -657,103 +399,65 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vocabulary sparsity and zero probability penalties for unseen pairs",
-        "columns": [
-          "seen",
-          "possible"
-        ],
+        "template": "cells",
+        "title": "The zero problem",
         "steps": [
           {
             "at": "say1",
-            "caption": "Any word pair never seen in the training text receives zero probability.",
-            "rows": [
+            "caption": "MLE has a serious flaw.",
+            "items": [
+              "'</s>'",
+              "'<s>'",
+              "'coffee'",
+              "'i'",
+              "'like'",
+              "'tea'",
+              "'you'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "One zero probability in a sentence product makes the whole text impossible.",
-            "rows": [
+            "caption": "And because a sentence's probability is a product, one zero makes.",
+            "items": [
+              "'</s>'",
+              "'<s>'",
+              "'coffee'",
+              "'i'",
+              "'like'",
+              "'tea'",
+              "'you'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "coffee"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Data sparsity means most possible word pairs never appear in training text.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example counts how many possible bigrams our tiny corpus has actually.",
+            "items": [
+              "'</s>'",
+              "'<s>'",
+              "'coffee'",
+              "'i'",
+              "'like'",
+              "'tea'",
+              "'you'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "coffee"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "seen",
-                  "possible"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Smoothing reallocates probability mass from seen events to unseen pairs.",
-            "rows": [
-              {
-                "cells": [
-                  "like",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "coffee"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "seen",
-                  "possible"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "possible"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
               }
             ]
@@ -765,248 +469,216 @@
       "partTitle": "Laplace (add-one) smoothing",
       "codeHash": "4efb94298127a7868aab0e440aab5c4cca6264fb803d94e28acb710801c65c33",
       "spec": {
-        "template": "table",
-        "title": "Laplace smoothing adding uniform count mass across entire vocabulary",
-        "columns": [
-          "bigram_count",
-          "context_count"
-        ],
+        "template": "bars",
+        "title": "Laplace (add-one) smoothing",
         "steps": [
           {
             "at": "say1",
-            "caption": "Laplace smoothing assumes every possible bigram was seen one extra time.",
-            "rows": [
+            "caption": "Laplace smoothing pretends every possible bigram was seen one extra time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "mle"
-                  },
-                  {
-                    "text": "laplace"
-                  }
-                ],
-                "tone": "ok"
+                "label": "V",
+                "value": {
+                  "var": "V",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bigram_count",
+                "value": {
+                  "var": "bigram_count",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "context_count",
+                "value": {
+                  "var": "context_count",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vocab_size",
+                "value": {
+                  "var": "vocab_size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Add-one formula adds vocabulary size V to the context denominator count.",
-            "rows": [
+            "caption": "The formula becomes P(word | previous) = (count(previous, word) + 1) /.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "mle"
-                  },
-                  {
-                    "text": "laplace"
-                  }
-                ],
+                "label": "V",
+                "value": {
+                  "var": "V",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "V"
-                  },
-                  {
-                    "text": "vocab_size"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Adding V to the denominator keeps next word conditional probabilities valid.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mle"
-                  },
-                  {
-                    "text": "laplace"
-                  }
-                ],
+                "label": "bigram_count",
+                "value": {
+                  "var": "bigram_count",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "V"
-                  },
-                  {
-                    "text": "vocab_size"
-                  }
-                ],
-                "tone": "data"
+                "label": "context_count",
+                "value": {
+                  "var": "context_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "bigram_count"
-                  },
-                  {
-                    "text": "context_count"
-                  }
-                ],
+                "label": "vocab_size",
+                "value": {
+                  "var": "vocab_size",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Unseen pairs receive non-zero probabilities while seen pairs yield mass.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares MLE and Laplace probabilities for a seen and.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "mle"
-                  },
-                  {
-                    "text": "laplace"
-                  }
-                ],
+                "label": "V",
+                "value": {
+                  "var": "V",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "V"
-                  },
-                  {
-                    "text": "vocab_size"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bigram_count"
-                  },
-                  {
-                    "text": "context_count"
-                  }
-                ],
+                "label": "bigram_count",
+                "value": {
+                  "var": "bigram_count",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "laplace"
-                  },
-                  {
-                    "text": "V"
-                  }
-                ],
-                "tone": "idle"
+                "label": "context_count",
+                "value": {
+                  "var": "context_count",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "vocab_size",
+                "value": {
+                  "var": "vocab_size",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Laplace smoothing adding uniform count mass across entire vocabulary",
-        "columns": [
-          "bigram_count",
-          "context_count"
-        ],
+        "template": "bars",
+        "title": "Laplace (add-one) smoothing",
         "steps": [
           {
             "at": "say1",
-            "caption": "Laplace smoothing assumes every possible bigram was seen one extra time.",
-            "rows": [
+            "caption": "Laplace smoothing pretends every possible bigram was seen one extra time.",
+            "bars": [
               {
-                "cells": [
-                  "mle",
-                  "laplace"
-                ],
-                "tone": "ok"
+                "label": "V",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "bigram_count",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "context_count",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "vocab_size",
+                "value": 8,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Add-one formula adds vocabulary size V to the context denominator count.",
-            "rows": [
+            "caption": "The formula becomes P(word | previous) = (count(previous, word) + 1) /.",
+            "bars": [
               {
-                "cells": [
-                  "mle",
-                  "laplace"
-                ],
+                "label": "V",
+                "value": 8,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "V",
-                  "vocab_size"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Adding V to the denominator keeps next word conditional probabilities valid.",
-            "rows": [
-              {
-                "cells": [
-                  "mle",
-                  "laplace"
-                ],
+                "label": "bigram_count",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "V",
-                  "vocab_size"
-                ],
-                "tone": "data"
+                "label": "context_count",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "bigram_count",
-                  "context_count"
-                ],
+                "label": "vocab_size",
+                "value": 8,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Unseen pairs receive non-zero probabilities while seen pairs yield mass.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares MLE and Laplace probabilities for a seen and.",
+            "bars": [
               {
-                "cells": [
-                  "mle",
-                  "laplace"
-                ],
+                "label": "V",
+                "value": 8,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "V",
-                  "vocab_size"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "bigram_count",
-                  "context_count"
-                ],
+                "label": "bigram_count",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "laplace",
-                  "V"
-                ],
-                "tone": "idle"
+                "label": "context_count",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "vocab_size",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           }
@@ -1018,110 +690,127 @@
       "codeHash": "eb456bc70140a4120a3f8943e4877acb7382aa679ab66c2b07cbd439dd3e7d1a",
       "spec": {
         "template": "flow",
-        "title": "Evaluating with perplexity — Execution Pipeline",
+        "title": "Evaluating with perplexity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluating with per...",
-            "tappable": true
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "probs",
+            "label": "probs"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluating with perplexity [Dthree.Pfive.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluating with per... [Dthree.Pfive.Stwo].",
+            "caption": "How do you know if one language model is better than another.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
+              },
+              "probs": {
+                "var": "probs",
+                "line": 4,
+                "hit": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              ".0": "data",
+              "p": "data",
+              "probs": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                ".0",
+                "p"
               ],
               [
-                "proc",
-                "out"
+                "p",
+                "probs"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Perplexity measures that surprise.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
+              },
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 2
+              },
+              "probs": {
+                "var": "probs",
+                "line": 6,
+                "hit": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              ".0": "data",
+              "p": "data",
+              "probs": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                ".0",
+                "p"
+              ],
+              [
+                "p",
+                "probs"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluating with perplexity.",
+            "at": "say7",
+            "caption": "The example compares a confident, a uniform and a poor model on the same.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
+              },
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 3
+              },
+              "probs": {
+                "var": "probs",
+                "line": 4,
+                "hit": 12
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              ".0": "ok",
+              "p": "ok",
+              "probs": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                ".0",
+                "p"
               ],
               [
-                "proc",
-                "out"
+                "p",
+                "probs"
               ]
             ]
           }
@@ -1129,110 +818,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Evaluating with perplexity — Execution Pipeline",
+        "title": "Evaluating with perplexity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluating with per...",
-            "tappable": true
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "probs",
+            "label": "probs"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluating with perplexity [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluating with per... [D3.P5.S2].",
+            "caption": "How do you know if one language model is better than another.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              ".0": "{'__other__': 'list_iterator'}",
+              "p": "0.9",
+              "probs": "[0.9, 0.8, 0.7, 0.9]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              ".0": "data",
+              "p": "data",
+              "probs": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                ".0",
+                "p"
               ],
               [
-                "proc",
-                "out"
+                "p",
+                "probs"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
+            "at": "say2",
+            "caption": "Perplexity measures that surprise.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              ".0": "{'__other__': 'list_iterator'}",
+              "p": "0.8",
+              "probs": "[0.9, 0.8, 0.7, 0.9]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              ".0": "data",
+              "p": "data",
+              "probs": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                ".0",
+                "p"
+              ],
+              [
+                "p",
+                "probs"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluating with perplexity [D3.P5.S4].",
+            "at": "say7",
+            "caption": "The example compares a confident, a uniform and a poor model on the same.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              ".0": "{'__other__': 'list_iterator'}",
+              "p": "0.7",
+              "probs": "[0.25, 0.25, 0.25, 0.25]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              ".0": "ok",
+              "p": "ok",
+              "probs": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                ".0",
+                "p"
               ],
               [
-                "proc",
-                "out"
+                "p",
+                "probs"
               ]
             ]
           }
@@ -1244,110 +914,161 @@
       "codeHash": "732f70c61d01f8621e7d466b4279d6161818c5564bc0226493a9cba294316929",
       "spec": {
         "template": "flow",
-        "title": "Practice time: smooth and evaluate — Execution Pipeline",
+        "title": "Practice time: smooth and evaluate",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "train",
+            "label": "train"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: smoo...",
-            "tappable": true
+            "id": "pairs",
+            "label": "pairs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "singles",
+            "label": "singles"
+          },
+          {
+            "id": "V",
+            "label": "V"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: smooth and evaluate.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: smoo... [Dthree.Psix.Stwo].",
+            "caption": "Trace how practice updates line during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "train": {
+                "var": "train",
+                "line": 4,
+                "hit": 1
+              },
+              "pairs": {
+                "var": "pairs",
+                "line": 5,
+                "hit": 1
+              },
+              "singles": {
+                "var": "singles",
+                "line": 5,
+                "hit": 1
+              },
+              "V": {
+                "var": "V",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "train": "data",
+              "pairs": "data",
+              "singles": "data",
+              "V": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "train",
+                "pairs"
               ],
               [
-                "proc",
-                "out"
+                "pairs",
+                "singles"
+              ],
+              [
+                "singles",
+                "V"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Check the unseen case.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "train": {
+                "var": "train",
+                "line": 5,
+                "hit": 1
+              },
+              "pairs": {
+                "var": "pairs",
+                "line": 6,
+                "hit": 1
+              },
+              "singles": {
+                "var": "singles",
+                "line": 6,
+                "hit": 1
+              },
+              "V": {
+                "var": "V",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "train": "data",
+              "pairs": "data",
+              "singles": "data",
+              "V": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "train",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "singles"
+              ],
+              [
+                "singles",
+                "V"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: smooth and evaluate.",
+            "at": "say7",
+            "caption": "The example chains everything.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "train": {
+                "var": "train",
+                "line": 6,
+                "hit": 1
+              },
+              "pairs": {
+                "var": "pairs",
+                "line": 7,
+                "hit": 1
+              },
+              "singles": {
+                "var": "singles",
+                "line": 7,
+                "hit": 1
+              },
+              "V": {
+                "var": "V",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "train": "ok",
+              "pairs": "ok",
+              "singles": "ok",
+              "V": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "train",
+                "pairs"
               ],
               [
-                "proc",
-                "out"
+                "pairs",
+                "singles"
+              ],
+              [
+                "singles",
+                "V"
               ]
             ]
           }
@@ -1355,110 +1076,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: smooth and evaluate — Execution Pipeline",
+        "title": "Practice time: smooth and evaluate",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "train",
+            "label": "train"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: smoo...",
-            "tappable": true
+            "id": "pairs",
+            "label": "pairs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "singles",
+            "label": "singles"
+          },
+          {
+            "id": "V",
+            "label": "V"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: smooth and evaluate [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: smoo... [D3.P6.S2].",
+            "caption": "Trace how practice updates line during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "train": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
+              "pairs": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…",
+              "singles": "{'<s>': 3, 'i': 2, 'like': 3, 'tea': 2,…",
+              "V": "7"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "train": "data",
+              "pairs": "data",
+              "singles": "data",
+              "V": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "train",
+                "pairs"
               ],
               [
-                "proc",
-                "out"
+                "pairs",
+                "singles"
+              ],
+              [
+                "singles",
+                "V"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "at": "say2",
+            "caption": "Check the unseen case.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "train": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
+              "pairs": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…",
+              "singles": "{'<s>': 3, 'i': 2, 'like': 3, 'tea': 2,…",
+              "V": "7"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "train": "data",
+              "pairs": "data",
+              "singles": "data",
+              "V": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "train",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "singles"
+              ],
+              [
+                "singles",
+                "V"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: smooth and evaluate [D3.P6.S4].",
+            "at": "say7",
+            "caption": "The example chains everything.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "train": "['<s>', 'i', 'like', 'tea', '</s>', '<s…",
+              "pairs": "{['<s>', 'i']: 2, ['i', 'like']: 2, ['l…",
+              "singles": "{'<s>': 3, 'i': 2, 'like': 3, 'tea': 2,…",
+              "V": "7"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "train": "ok",
+              "pairs": "ok",
+              "singles": "ok",
+              "V": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "train",
+                "pairs"
               ],
               [
-                "proc",
-                "out"
+                "pairs",
+                "singles"
+              ],
+              [
+                "singles",
+                "V"
               ]
             ]
           }

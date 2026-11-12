@@ -2,87 +2,118 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 2,
-  "promptSha": "2231ab893de59f142f331f5955497d8dda34e3eb6fe7b33f66781f7bff7fdf74",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "An array: items side by side in memory",
       "codeHash": "1c0957b9a538155055b52cf2c51b1b9eb6dcbad6ed0e4ed09ad884028bd1330d",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "An array: items side by side in memory",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A Python list is built on an array.",
+            "items": {
+              "var": "nums",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "array"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The items logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The address of item i is start + i x size_of_one_item.",
+            "items": {
+              "var": "nums",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The downside of an array is that its size is fixed when the block is reserved.",
+            "items": {
+              "var": "nums",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "An array: items side by side in memory",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A Python list is built on an array.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "array",
-                  "items"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The items logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The address of item i is start + i x size_of_one_item.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "side",
-                  "side"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The downside of an array is that its size is fixed when the block is reserved.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +124,107 @@
       "partTitle": "Growing by doubling",
       "codeHash": "18ded0fa17d0b6e41bb75d2904aac535e34404799425782c7a1bfaf0ad15c037",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Growing by doubling",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "When a list's block of memory is full and you append one more item, Python.",
+            "items": {
+              "var": "bigger",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Growing"
-                  },
-                  {
-                    "text": "doubling"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The doubling logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "If Python grew the block by just 1 each time, every append would copy.",
+            "items": {
+              "var": "bigger",
+              "line": 16,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Growing"
-                  },
-                  {
-                    "text": "doubling"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "You will build this exact DynamicArray class in today's practice.",
+            "items": {
+              "var": "bigger",
+              "line": 14,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Growing by doubling",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "When a list's block of memory is full and you append one more item, Python.",
+            "items": [
+              "None",
+              "None"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Growing",
-                  "doubling"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The doubling logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "If Python grew the block by just 1 each time, every append would copy.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Growing",
-                  "doubling"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "You will build this exact DynamicArray class in today's practice.",
+            "items": [
+              "0",
+              "None",
+              "None",
+              "None"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +235,131 @@
       "partTitle": "Amortized O(1): the average cost",
       "codeHash": "56a2f46843b012d5d993f95d868caeeb806e2c61b67402514c0615e5fb1bc3b2",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Amortized O(1): the average cost",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The appends concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Most appends are cheap and a few are expensive.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Amortized"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "copies",
+                "value": {
+                  "var": "copies",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The append logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Add up all the copying for N appends with doubling.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "average"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "copies",
+                "value": {
+                  "var": "copies",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The same idea explains why list.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "copies",
+                "value": {
+                  "var": "copies",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +367,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Amortized O(1): the average cost",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The appends concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Most appends are cheap and a few are expensive.",
+            "bars": [
               {
-                "cells": [
-                  "Amortized",
-                  "the"
-                ],
+                "label": "n",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "capacity",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "copies",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The append logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Add up all the copying for N appends with doubling.",
+            "bars": [
               {
-                "cells": [
-                  "average",
-                  "cost"
-                ],
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "capacity",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "copies",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The same idea explains why list.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "capacity",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "copies",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,80 +455,120 @@
       "partTitle": "Changing a list in place with a write pointer",
       "codeHash": "1e74ab0ec5fed46ccc9f76c13037a5394781b17b5b8c8ccb062b818f45291f6b",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Changing a list in place with a write pointer",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Many interview questions ask you to change a list in place.",
+            "items": {
+              "var": "nums",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Changing"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep two positions.",
+            "items": {
+              "var": "nums",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "place"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This is exactly Practice 2 today.",
+            "items": {
+              "var": "nums",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Changing a list in place with a write pointer",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Many interview questions ask you to change a list in place.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "3",
+              "3",
+              "3",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Changing",
-                  "list"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep two positions.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "3",
+              "3",
+              "3",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "place",
-                  "with"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This is exactly Practice 2 today.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "3",
+              "3",
+              "3",
+              "4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +579,80 @@
       "partTitle": "List operations and their costs",
       "codeHash": "136774cb7f7d7ac4df215290e787de928d0e6618e587f034c955f3e199aeffc0",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "List operations and their costs",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The knowing concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "List"
-                  },
-                  {
-                    "text": "operations"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Knowing the cost of each list operation lets you predict how fast your.",
+            "items": {
+              "var": "nums",
+              "line": 1,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The slicing logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "their"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Insert(0, x), pop(0) and remove(x) are O(N), because items have to shift.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say4",
+            "caption": "When you need fast adding and removing at both ends, use collections.",
+            "items": {
+              "var": "nums",
+              "line": 10,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "List operations and their costs",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The knowing concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "List",
-                  "operations"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Knowing the cost of each list operation lets you predict how fast your.",
+            "mode": "queue",
+            "items": [
+              "5",
+              "3",
+              "8"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The slicing logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "their"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Insert(0, x), pop(0) and remove(x) are O(N), because items have to shift.",
+            "mode": "queue",
+            "items": [
+              "5",
+              "3",
+              "8",
+              "1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say4",
+            "caption": "When you need fast adding and removing at both ends, use collections.",
+            "mode": "queue",
+            "items": [
+              "5",
+              "3",
+              "8"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -432,21 +664,36 @@
         "template": "table",
         "title": "Lists of lists and the copy trap",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The grids concept establishes the core structural baseline.",
+            "caption": "Grids, boards and tables are stored as a list of lists.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Lists"
+                    "text": "wrong"
                   },
                   {
-                    "text": "lists"
+                    "var": "wrong",
+                    "line": 1,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "right"
+                  },
+                  {
+                    "var": "right",
+                    "line": 5,
+                    "hit": 4
                   }
                 ],
                 "tone": "data"
@@ -454,16 +701,70 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The safe logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "There is a famous trap when you build one.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "wrong"
                   },
                   {
-                    "text": "the"
+                    "var": "wrong",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "right"
+                  },
+                  {
+                    "var": "right",
+                    "line": 6,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This is the difference between copying a reference and copying the data.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -476,31 +777,72 @@
         "template": "table",
         "title": "Lists of lists and the copy trap",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The grids concept establishes the core structural baseline.",
+            "caption": "Grids, boards and tables are stored as a list of lists.",
             "rows": [
               {
                 "cells": [
-                  "Lists",
-                  "lists"
+                  "wrong",
+                  "[[0, 0, 0], [0, 0, 0], [0, 0, 0]]"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "right",
+                  "[[0, 0, 0], [0, 0, 0], [0, 0, 0]]"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The safe logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "There is a famous trap when you build one.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "the"
+                  "wrong",
+                  "[[9, 0, 0], [9, 0, 0], [9, 0, 0]]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "right",
+                  "[[9, 0, 0], [0, 0, 0], [0, 0, 0]]"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This is the difference between copying a reference and copying the data.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "[[9, 0, 0], [9, 0, 0], [9, 0, 0]]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "[[9, 0, 0], [0, 0, 0], [0, 0, 0]]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "True False"
                 ],
                 "tone": "ok"
               }

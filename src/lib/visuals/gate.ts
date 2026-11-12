@@ -224,12 +224,20 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
 
       switch (spec.template) {
         case 'flow':
-          if (spec.nodes && spec.nodes.length > 6) {
+          // [FIX-STAGE: Gate R3 Array Presence] Ensure flow always defines a non-empty nodes array before downstream indexing.
+          if (!Array.isArray(spec.nodes) || spec.nodes.length === 0) {
+            console.warn(`[PinIT][Fix:VisualGate] Entry [${i}] flow missing nodes array`);
+            errors.push(`R3: Entry [${i}] flow is missing non-empty nodes array`);
+          } else if (spec.nodes.length > 6) {
             errors.push(`R3: Entry [${i}] flow has ${spec.nodes.length} nodes, max 6`);
           }
           break;
         case 'boxes':
-          if (spec.boxes && spec.boxes.length > 6) {
+          // [FIX-STAGE: Gate R3 Array Presence] Ensure boxes always defines a non-empty boxes array (catches node-web corruption).
+          if (!Array.isArray(spec.boxes) || spec.boxes.length === 0) {
+            console.warn(`[PinIT][Fix:VisualGate] Entry [${i}] boxes missing boxes array`);
+            errors.push(`R3: Entry [${i}] boxes is missing non-empty boxes array`);
+          } else if (spec.boxes.length > 6) {
             errors.push(`R3: Entry [${i}] boxes has ${spec.boxes.length} boxes, max 6`);
           }
           break;
@@ -370,6 +378,15 @@ export function checkDayFile(fileInput: string | any, options?: GateCheckOptions
         if (typeof caption !== 'string') {
           errors.push(`R5: Entry [${i}] step [${s}] caption is missing`);
           continue;
+        }
+        // [FIX-STAGE: Gate R5 Anti-Stub Guard] Block synthetic template captions and [Done.*] tokens from passing Gate v2.
+        if (/(?:establishes the core structural baseline|drives deterministic execution)\.?$/i.test(caption)) {
+          console.warn(`[PinIT][Fix:VisualGate] Synthetic stub caption blocked at Entry [${i}] step [${s}]: "${caption}"`);
+          errors.push(`R5: Entry [${i}] step [${s}] caption is a synthetic placeholder template`);
+        }
+        if (/\[\s*Done\./i.test(caption)) {
+          console.warn(`[PinIT][Fix:VisualGate] Unresolved placeholder token blocked at Entry [${i}] step [${s}]: "${caption}"`);
+          errors.push(`R5: Entry [${i}] step [${s}] caption contains unresolved [Done.*] placeholder token`);
         }
         if (caption.length > 80) {
           errors.push(`R5: Entry [${i}] step [${s}] caption exceeds 80 characters (${caption.length})`);

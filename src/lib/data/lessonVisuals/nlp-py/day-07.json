@@ -2,255 +2,139 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "You shall know a word by the company it keeps",
       "codeHash": "a2267b87211db5b9b9f5728441add40127f86c17f8068c20c458dbdb6c98e571",
       "spec": {
-        "template": "table",
-        "title": "Distributional hypothesis co-occurrence context analysis",
-        "columns": [
-          "coffee",
-          "tea"
-        ],
+        "template": "bars",
+        "title": "You shall know a word by the company it keeps",
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributional hypothesis states words are known by context company.",
-            "rows": [
+            "caption": "\"You shall know a word by the company it keeps.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Words appearing in similar contexts share related meanings in language.",
-            "rows": [
+            "caption": "Words that appear in similar contexts tend to have similar meanings.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "drink"
-                  },
-                  {
-                    "text": "morning"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dense vectors represent words with continuous values across all dimensions.",
-            "rows": [
+            "at": "say7",
+            "caption": "This single idea, learning meaning from context, underlies Word2Vec.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "drink"
-                  },
-                  {
-                    "text": "morning"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cup"
-                  },
-                  {
-                    "text": "please"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Distributed dimensions capture structural patterns across the vector space.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "tea"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "drink"
-                  },
-                  {
-                    "text": "morning"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cup"
-                  },
-                  {
-                    "text": "please"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fuel"
-                  },
-                  {
-                    "text": "sentences"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributional hypothesis co-occurrence context analysis",
-        "columns": [
-          "coffee",
-          "tea"
-        ],
+        "template": "bars",
+        "title": "You shall know a word by the company it keeps",
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributional hypothesis states words are known by context company.",
-            "rows": [
+            "caption": "\"You shall know a word by the company it keeps.",
+            "bars": [
               {
-                "cells": [
-                  "coffee",
-                  "tea"
-                ],
-                "tone": "ok"
+                "label": "window",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Words appearing in similar contexts share related meanings in language.",
-            "rows": [
+            "caption": "Words that appear in similar contexts tend to have similar meanings.",
+            "bars": [
               {
-                "cells": [
-                  "coffee",
-                  "tea"
-                ],
+                "label": "window",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "drink",
-                  "morning"
-                ],
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dense vectors represent words with continuous values across all dimensions.",
-            "rows": [
+            "at": "say7",
+            "caption": "This single idea, learning meaning from context, underlies Word2Vec.",
+            "bars": [
               {
-                "cells": [
-                  "coffee",
-                  "tea"
-                ],
+                "label": "window",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "drink",
-                  "morning"
-                ],
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cup",
-                  "please"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Distributed dimensions capture structural patterns across the vector space.",
-            "rows": [
-              {
-                "cells": [
-                  "coffee",
-                  "tea"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "drink",
-                  "morning"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cup",
-                  "please"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "fuel",
-                  "sentences"
-                ],
-                "tone": "idle"
               }
             ]
           }
@@ -261,249 +145,277 @@
       "partTitle": "Skip-gram and CBOW",
       "codeHash": "6283ec61b420c660a82ad1d1220f333b4a4b6e22f11935c7a60c24c762364443",
       "spec": {
-        "template": "table",
-        "title": "Word2Vec architecture comparison and training objectives",
-        "columns": [
-          "tokens",
-          "pairs"
+        "template": "flow",
+        "title": "Skip-gram and CBOW",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "pairs",
+            "label": "pairs"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "WordtwoVec learns distributed word embeddings using neural training.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "pairs"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how published updates tomas during execution.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 2,
+                "hit": 1
+              },
+              "pairs": {
+                "var": "pairs",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "window": "data",
+              "pairs": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "window"
+              ],
+              [
+                "window",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "i"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Skip-gram predicts surrounding context words given an observed centre word.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "pairs"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Given a centre word, predict each word in its context window.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "centre"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "ok"
+              "window": {
+                "var": "window",
+                "line": 3,
+                "hit": 1
+              },
+              "pairs": {
+                "var": "pairs",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "window": "data",
+              "pairs": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "window"
+              ],
+              [
+                "window",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Continuous bag of words predicts the centre target from surrounding context.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "pairs"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "You do not need to train Word2Vec yourself in this course.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "centre"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "ok"
+              "window": {
+                "var": "window",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "drink"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "data"
+              "pairs": {
+                "var": "pairs",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Negative sampling accelerates training by contrasting with random noise words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "pairs"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "centre"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "drink"
-                  },
-                  {
-                    "text": "coffee"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "tokens": "ok",
+              "window": "ok",
+              "pairs": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "window"
+              ],
+              [
+                "window",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "i"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Word2Vec architecture comparison and training objectives",
-        "columns": [
-          "tokens",
-          "pairs"
+        "template": "flow",
+        "title": "Skip-gram and CBOW",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "pairs",
+            "label": "pairs"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Word2Vec learns distributed word embeddings using neural training objectives.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "pairs"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how published updates tomas during execution.",
+            "values": {
+              "tokens": "['i', 'drink', 'hot', 'coffee']",
+              "window": "1",
+              "pairs": "[]",
+              "i": "0"
+            },
+            "tones": {
+              "tokens": "data",
+              "window": "data",
+              "pairs": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "window"
+              ],
+              [
+                "window",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "i"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Skip-gram predicts surrounding context words given an observed centre word.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "pairs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "centre",
-                  "window"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Given a centre word, predict each word in its context window.",
+            "values": {
+              "tokens": "['i', 'drink', 'hot', 'coffee']",
+              "window": "1",
+              "pairs": "[]",
+              "i": "0"
+            },
+            "tones": {
+              "tokens": "data",
+              "window": "data",
+              "pairs": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "window"
+              ],
+              [
+                "window",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Continuous bag of words predicts the centre target from surrounding context.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "pairs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "centre",
-                  "window"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "drink",
-                  "coffee"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Negative sampling accelerates training by contrasting with random noise words.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "pairs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "centre",
-                  "window"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "drink",
-                  "coffee"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "range",
-                  "append"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "You do not need to train Word2Vec yourself in this course.",
+            "values": {
+              "tokens": "['i', 'drink', 'hot', 'coffee']",
+              "window": "1",
+              "pairs": "[]",
+              "i": "0"
+            },
+            "tones": {
+              "tokens": "ok",
+              "window": "ok",
+              "pairs": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "window"
+              ],
+              [
+                "window",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "i"
+              ]
             ]
           }
         ]
@@ -513,248 +425,108 @@
       "partTitle": "Similarity in embedding space",
       "codeHash": "d25e197da419b2aa669fe97993f4975cab6134c45838dbeeaafe287197aa80d1",
       "spec": {
-        "template": "table",
-        "title": "Semantic neighborhood similarity in dense vector space",
-        "columns": [
-          "coffee",
-          "car"
-        ],
+        "template": "cells",
+        "title": "Similarity in embedding space",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine similarity measures semantic closeness within trained embedding space.",
-            "rows": [
+            "caption": "With trained embeddings, cosine similarity finally measures meaning.",
+            "items": {
+              "var": "a",
+              "line": 6,
+              "hit": 13
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "car"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Semantically related words form dense clusters and neighbourhoods in space.",
-            "rows": [
+            "at": "say2",
+            "caption": "For learning, we use tiny three-number vectors so you can see every value.",
+            "items": {
+              "var": "a",
+              "line": 6,
+              "hit": 39
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "car"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "juice"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Pre-trained embeddings provide semantic representations for diverse NLP tasks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "car"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "juice"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "automobile"
-                  },
-                  {
-                    "text": "emb"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Dense representations bridge synonymous words like car and automobile.",
-            "rows": [
+            "caption": "Notice how the meaning-based ranking fixes the car and automobile problem.",
+            "items": {
+              "var": "a",
+              "line": 6,
+              "hit": 52
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "coffee"
-                  },
-                  {
-                    "text": "car"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tea"
-                  },
-                  {
-                    "text": "juice"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "automobile"
-                  },
-                  {
-                    "text": "emb"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Semantic neighborhood similarity in dense vector space",
-        "columns": [
-          "coffee",
-          "car"
-        ],
+        "template": "cells",
+        "title": "Similarity in embedding space",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine similarity measures semantic closeness within trained embedding space.",
-            "rows": [
+            "caption": "With trained embeddings, cosine similarity finally measures meaning.",
+            "items": [
+              "0.9",
+              "0.8",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "coffee",
-                  "car"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Semantically related words form dense clusters and neighbourhoods in space.",
-            "rows": [
+            "at": "say2",
+            "caption": "For learning, we use tiny three-number vectors so you can see every value.",
+            "items": [
+              "0.9",
+              "0.8",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "coffee",
-                  "car"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tea",
-                  "juice"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Pre-trained embeddings provide semantic representations for diverse NLP tasks.",
-            "rows": [
-              {
-                "cells": [
-                  "coffee",
-                  "car"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tea",
-                  "juice"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "automobile",
-                  "emb"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Dense representations bridge synonymous words like car and automobile.",
-            "rows": [
+            "caption": "Notice how the meaning-based ranking fixes the car and automobile problem.",
+            "items": [
+              "0.1",
+              "0.1",
+              "0.95"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "coffee",
-                  "car"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tea",
-                  "juice"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "automobile",
-                  "emb"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "cos",
-                  "math"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,248 +537,108 @@
       "partTitle": "Analogies with vector arithmetic",
       "codeHash": "7e7714dd58a71b95726715f10abc5c3002c3bdf63c3cbcba241120e91d3ad285",
       "spec": {
-        "template": "table",
-        "title": "Vector analogy arithmetic and semantic offset vectors",
-        "columns": [
-          "king",
-          "queen"
-        ],
+        "template": "cells",
+        "title": "Analogies with vector arithmetic",
         "steps": [
           {
             "at": "say1",
-            "caption": "Subtracting man and adding woman to king yields vectors near queen.",
-            "rows": [
+            "caption": "The famous Word2Vec result.",
+            "items": {
+              "var": "king",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "king"
-                  },
-                  {
-                    "text": "queen"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector subtraction removes gender components while preserving royalty concepts.",
-            "rows": [
+            "caption": "The difference king - man captures something like \"royalty without.",
+            "items": {
+              "var": "king",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "king"
-                  },
-                  {
-                    "text": "queen"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "man"
-                  },
-                  {
-                    "text": "woman"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Vector analogy performs element by element addition and subtraction.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "king"
-                  },
-                  {
-                    "text": "queen"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "man"
-                  },
-                  {
-                    "text": "woman"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The zip operation pairs vector dimensions together for parallel computation.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example computes king - man + woman with toy vectors.",
+            "items": {
+              "var": "king",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "king"
-                  },
-                  {
-                    "text": "queen"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "man"
-                  },
-                  {
-                    "text": "woman"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "zip"
-                  },
-                  {
-                    "text": "vector_analogy"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector analogy arithmetic and semantic offset vectors",
-        "columns": [
-          "king",
-          "queen"
-        ],
+        "template": "cells",
+        "title": "Analogies with vector arithmetic",
         "steps": [
           {
             "at": "say1",
-            "caption": "Subtracting man and adding woman to king yields vectors near queen.",
-            "rows": [
+            "caption": "The famous Word2Vec result.",
+            "items": [
+              "0.8",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "king",
-                  "queen"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector subtraction removes gender components while preserving royalty concepts.",
-            "rows": [
+            "caption": "The difference king - man captures something like \"royalty without.",
+            "items": [
+              "0.8",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "king",
-                  "queen"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "man",
-                  "woman"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Vector analogy performs element by element addition and subtraction.",
-            "rows": [
-              {
-                "cells": [
-                  "king",
-                  "queen"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "man",
-                  "woman"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "result",
-                  "round"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The zip operation pairs vector dimensions together for parallel computation.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example computes king - man + woman with toy vectors.",
+            "items": [
+              "0.8",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "king",
-                  "queen"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "man",
-                  "woman"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "result",
-                  "round"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "zip",
-                  "vector_analogy"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +649,109 @@
       "partTitle": "Finding the nearest word",
       "codeHash": "3c44b7c878abdd2d1e77f58889fb1af21750e87a322801a659a00352b6e40802",
       "spec": {
-        "template": "flow",
-        "title": "Finding the nearest word — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finding the nearest...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Finding the nearest word",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Finding the nearest word [Dseven.Pfive.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Finding the nearest... [Dseven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "An analogy result is just a vector.",
+            "items": {
+              "var": "target",
+              "line": 10,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "One important detail.",
+            "items": {
+              "var": "target",
+              "line": 12,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Finding the nearest word.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example completes the analogy and shows what happens without excluding.",
+            "items": {
+              "var": "target",
+              "line": 12,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Finding the nearest word — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finding the nearest...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Finding the nearest word",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finding the nearest word [D7.P5.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finding the nearest... [D7.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "An analogy result is just a vector.",
+            "items": [
+              "0.8",
+              "0.9",
+              "0.9"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "One important detail.",
+            "items": [
+              "0.8",
+              "0.9",
+              "0.9"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finding the nearest word [D7.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example completes the analogy and shows what happens without excluding.",
+            "items": [
+              "0.8",
+              "0.9",
+              "0.9"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1244,110 +762,127 @@
       "codeHash": "294aa9c326e63741f9ab2a17ed8ecb106be5366d4f680a95d7e962539a415dfe",
       "spec": {
         "template": "flow",
-        "title": "Practice time: analogies — Execution Pipeline",
+        "title": "Practice time: analogies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: anal...",
-            "tappable": true
+            "id": "c",
+            "label": "c"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "raw",
+            "label": "raw"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: analogies [Dseven.Psix.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: anal... [Dseven.Psix.Stwo].",
+            "caption": "A single list comprehension over zip(a, b, c), rounding each value to 4.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": {
+                "var": "a",
+                "line": 1,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 3,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "c": "data",
+              "raw": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "c"
               ],
               [
-                "proc",
-                "out"
+                "c",
+                "raw"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The checks include a - a + c, which must return exactly c.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 3,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "c": "data",
+              "raw": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "c"
+              ],
+              [
+                "c",
+                "raw"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: analogies.",
+            "at": "say7",
+            "caption": "The example shows the floating point leftover that rounding hides.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 3,
+                "hit": 2
+              },
+              "raw": {
+                "var": "raw",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "c": "ok",
+              "raw": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "c"
               ],
               [
-                "proc",
-                "out"
+                "c",
+                "raw"
               ]
             ]
           }
@@ -1355,110 +890,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: analogies — Execution Pipeline",
+        "title": "Practice time: analogies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: anal...",
-            "tappable": true
+            "id": "c",
+            "label": "c"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "raw",
+            "label": "raw"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: analogies [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: anal... [D7.P6.S2].",
+            "caption": "A single list comprehension over zip(a, b, c), rounding each value to 4.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": "[0.1, 0.2]",
+              "c": "[0.7, 0.3]",
+              "raw": "[0.7, 0.3]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "c": "data",
+              "raw": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "c"
               ],
               [
-                "proc",
-                "out"
+                "c",
+                "raw"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include a - a + c, which must return exactly c.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": "[0.1, 0.2]",
+              "c": "[0.7, 0.3]",
+              "raw": "[0.7, 0.3]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "c": "data",
+              "raw": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "c"
+              ],
+              [
+                "c",
+                "raw"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: analogies [D7.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the floating point leftover that rounding hides.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": "[0.1, 0.2]",
+              "c": "[0.7, 0.3]",
+              "raw": "[0.7, 0.3]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "c": "ok",
+              "raw": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "c"
               ],
               [
-                "proc",
-                "out"
+                "c",
+                "raw"
               ]
             ]
           }

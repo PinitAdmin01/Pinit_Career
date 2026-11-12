@@ -2,89 +2,137 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 19,
-  "promptSha": "5945bd54b10f06d7f734f99fac6059c58154b6a2dad2dc52c5ed28612d4288f1",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A tree of letters",
       "codeHash": "f463d7ddae60b97b9eaf0d6ee8d30415f1c05faa5e545cf54db06e3a62cf0f74",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "A tree of letters",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The trie concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tree"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A trie (pronounced \"try\", from retrieval) stores words by their letters.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 7,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tree"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Words that share a beginning share a path.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 8,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Tries power the auto-complete in search boxes, spell checkers and.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 9,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 9,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "word": "ok",
+              "ch": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "A tree of letters",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The trie concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "tree",
-                  "letters"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A trie (pronounced \"try\", from retrieval) stores words by their letters.",
+            "values": {
+              "word": "'car'",
+              "ch": "'c'"
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "tree",
-                  "letters"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Words that share a beginning share a path.",
+            "values": {
+              "word": "'car'",
+              "ch": "'c'"
+            },
+            "tones": {
+              "word": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Tries power the auto-complete in search boxes, spell checkers and.",
+            "values": {
+              "word": "'car'",
+              "ch": "'a'"
+            },
+            "tones": {
+              "word": "ok",
+              "ch": "ok"
+            }
           }
         ]
       }
@@ -93,82 +141,194 @@
       "partTitle": "insert, search and starts_with",
       "codeHash": "2e007c65d123f003c682e20b0d863e5142d8bfa36da80bc55fbcaee4429c4f55",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "insert, search and starts_with",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "insert"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Insert walks the letters, creating missing nodes, and sets is_end on.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 32,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 11,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 12,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The starts logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "starts"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Search walks the letters.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 33,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 12,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 13,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 18,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "All three methods are O(L) for a word of length L.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 32,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 13,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 12,
+                "hit": 2
+              },
+              "text": {
+                "var": "text",
+                "line": 19,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "w": "ok",
+              "word": "ok",
+              "ch": "ok",
+              "text": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "insert, search and starts_with",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "insert",
-                  "search"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Insert walks the letters, creating missing nodes, and sets is_end on.",
+            "values": {
+              "w": "'apple'",
+              "word": "'apple'",
+              "ch": "'a'",
+              "text": "'app'"
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The starts logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "starts"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Search walks the letters.",
+            "values": {
+              "w": "'apple'",
+              "word": "'apple'",
+              "ch": "'a'",
+              "text": "'app'"
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "text": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "All three methods are O(L) for a word of length L.",
+            "values": {
+              "w": "'app'",
+              "word": "'apple'",
+              "ch": "'p'",
+              "text": "'app'"
+            },
+            "tones": {
+              "w": "ok",
+              "word": "ok",
+              "ch": "ok",
+              "text": "ok"
+            }
           }
         ]
       }
@@ -177,80 +337,113 @@
       "partTitle": "Listing words with a prefix",
       "codeHash": "c9c7270cb2250663fe8a8bb2b2d0a7ebf7c89b1d3d7e077698c3894db80714b2",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Listing words with a prefix",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "First walk down to the prefix's node.",
+            "items": {
+              "var": "found",
+              "line": 24,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Listing"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The visiting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then explore everything below that node with depth-first search, building.",
+            "items": {
+              "var": "found",
+              "line": 24,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "prefix"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The second half ranks the suggestions by popularity.",
+            "items": {
+              "var": "found",
+              "line": 25,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Listing words with a prefix",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "First walk down to the prefix's node.",
+            "items": [
+              "'car'",
+              "'card'",
+              "'care'",
+              "'cart'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Listing",
-                  "words"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The visiting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then explore everything below that node with depth-first search, building.",
+            "items": [
+              "'car'",
+              "'card'",
+              "'care'",
+              "'cart'",
+              "'cat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "with",
-                  "prefix"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The second half ranks the suggestions by popularity.",
+            "items": [
+              "'car'",
+              "'card'",
+              "'care'",
+              "'cart'",
+              "'cat'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,82 +454,194 @@
       "partTitle": "Counting words and prefixes",
       "codeHash": "e053d1924798e647a551e3e2454234e447186d7f8962e4ca183f014c9b1d5889",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Counting words and prefixes",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "prefix",
+            "label": "prefix"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tries concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Tries can store extra information in each node.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 21,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 8,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 9,
+                "hit": 1
+              },
+              "prefix": {
+                "var": "prefix",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "prefix": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The store logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "prefixes"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Increase the count on every node along the path during insert.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 22,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 9,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 10,
+                "hit": 1
+              },
+              "prefix": {
+                "var": "prefix",
+                "line": 15,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "prefix": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Deleting a word is the reverse.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 21,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 10,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 11,
+                "hit": 1
+              },
+              "prefix": {
+                "var": "prefix",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "w": "ok",
+              "word": "ok",
+              "ch": "ok",
+              "prefix": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Counting words and prefixes",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "prefix",
+            "label": "prefix"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tries concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Counting",
-                  "words"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Tries can store extra information in each node.",
+            "values": {
+              "w": "'apple'",
+              "word": "'apple'",
+              "ch": "'a'",
+              "prefix": "'ap'"
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "prefix": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The store logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "prefixes"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Increase the count on every node along the path during insert.",
+            "values": {
+              "w": "'apple'",
+              "word": "'apple'",
+              "ch": "'a'",
+              "prefix": "'ap'"
+            },
+            "tones": {
+              "w": "data",
+              "word": "data",
+              "ch": "data",
+              "prefix": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Deleting a word is the reverse.",
+            "values": {
+              "w": "'apply'",
+              "word": "'apple'",
+              "ch": "'a'",
+              "prefix": "'ap'"
+            },
+            "tones": {
+              "w": "ok",
+              "word": "ok",
+              "ch": "ok",
+              "prefix": "ok"
+            }
           }
         ]
       }
@@ -345,80 +650,120 @@
       "partTitle": "Tries versus sets and sorted lists",
       "codeHash": "c2f06555231120e126d7d28c9da2e4c77abd7864f45d08d50814f200c93e42c9",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Tries versus sets and sorted lists",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The store concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "You could store words in a set.",
+            "items": {
+              "var": "words",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Tries"
-                  },
-                  {
-                    "text": "versus"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The trie logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A sorted list with bisect can find the range of words starting with.",
+            "items": {
+              "var": "words",
+              "line": 15,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sets"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Compressed tries (radix trees) merge long single-child chains into one.",
+            "items": {
+              "var": "words",
+              "line": 15,
+              "hit": 8
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Tries versus sets and sorted lists",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The store concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "You could store words in a set.",
+            "items": [
+              "'apple'",
+              "'car'",
+              "'card'",
+              "'care'",
+              "'cart'",
+              "'cat'",
+              "'dog'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Tries",
-                  "versus"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The trie logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A sorted list with bisect can find the range of words starting with.",
+            "items": [
+              "'apple'",
+              "'car'",
+              "'card'",
+              "'care'",
+              "'cart'",
+              "'cat'",
+              "'dog'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sets",
-                  "and"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Compressed tries (radix trees) merge long single-child chains into one.",
+            "items": [
+              "'apple'",
+              "'car'",
+              "'card'",
+              "'care'",
+              "'cart'",
+              "'cat'",
+              "'dog'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,80 +774,114 @@
       "partTitle": "A word-search game with a trie",
       "codeHash": "56cf674a513ccb624a834ab334b268a0446a8c9cb185373cfa7df6d8e4377975",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "A word-search game with a trie",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tries concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Tries shine when you must check many prefixes at once, for example finding.",
+            "items": {
+              "var": "words",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The walk logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Without a trie you would try every path in the grid and check each one.",
+            "items": {
+              "var": "words",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "game"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "This combines three topics from this month.",
+            "items": {
+              "var": "words",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "A word-search game with a trie",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tries concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Tries shine when you must check many prefixes at once, for example finding.",
+            "items": [
+              "'oath'",
+              "'pea'",
+              "'eat'",
+              "'rain'",
+              "'hike'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "word",
-                  "search"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The walk logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Without a trie you would try every path in the grid and check each one.",
+            "items": [
+              "'oath'",
+              "'pea'",
+              "'eat'",
+              "'rain'",
+              "'hike'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "game",
-                  "with"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "This combines three topics from this month.",
+            "items": [
+              "'oath'",
+              "'pea'",
+              "'eat'",
+              "'rain'",
+              "'hike'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

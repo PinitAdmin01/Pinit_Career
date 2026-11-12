@@ -2,1335 +2,973 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 36,
-  "promptSha": "cbe7fa49f938512090f91591105faaac600f515589558411a2b942f7a1afc6e9",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Masks — Foundations & Mathematical Invariants",
-      "codeHash": "21948a03d3120f23735f7271340acfde8d2a002e1b04bbec63314e0321a6106f",
+      "partTitle": "Vocabulary Logit Masking During Token Sampling",
+      "codeHash": "3ff836a38f12d0c38381da4198f27d3e5da0a0d6c1385918e0f40209806fef40",
       "spec": {
         "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
+        "title": "Vocabulary Logit Masking During Token Sampling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "next_logits",
+            "label": "next_logits"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "logits",
+            "label": "logits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "allowed_tokens",
+            "label": "allowed_tokens"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tok",
+            "label": "tok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Asking an LLM politely in prompts for 'ONLY valid JSON, no markdown.",
+            "values": {
+              "next_logits": {
+                "var": "next_logits",
+                "line": 11,
+                "hit": 1
+              },
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 1
+              },
+              "allowed_tokens": {
+                "var": "allowed_tokens",
+                "line": 4,
+                "hit": 1
+              },
+              "tok": {
+                "var": "tok",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "next_logits": "data",
+              "logits": "data",
+              "allowed_tokens": "data",
+              "tok": "data"
+            },
+            "arrows": [
+              [
+                "next_logits",
+                "logits"
+              ],
+              [
+                "logits",
+                "allowed_tokens"
+              ],
+              [
+                "allowed_tokens",
+                "tok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Constrained decoding eliminates structural syntax errors at generation time.",
+            "values": {
+              "next_logits": {
+                "var": "next_logits",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "allowed_tokens": {
+                "var": "allowed_tokens",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tok": {
+                "var": "tok",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "next_logits": "data",
+              "logits": "data",
+              "allowed_tokens": "data",
+              "tok": "data"
+            },
+            "arrows": [
+              [
+                "next_logits",
+                "logits"
+              ],
+              [
+                "logits",
+                "allowed_tokens"
+              ],
+              [
+                "allowed_tokens",
+                "tok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect the output dictionary printed below.",
+            "values": {
+              "next_logits": {
+                "var": "next_logits",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "allowed_tokens": {
+                "var": "allowed_tokens",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tok": {
+                "var": "tok",
+                "line": 4,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "next_logits": "ok",
+              "logits": "ok",
+              "allowed_tokens": "ok",
+              "tok": "ok"
+            },
+            "arrows": [
+              [
+                "next_logits",
+                "logits"
+              ],
+              [
+                "logits",
+                "allowed_tokens"
+              ],
+              [
+                "allowed_tokens",
+                "tok"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
+        "title": "Vocabulary Logit Masking During Token Sampling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "next_logits",
+            "label": "next_logits"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "logits",
+            "label": "logits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "allowed_tokens",
+            "label": "allowed_tokens"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tok",
+            "label": "tok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Asking an LLM politely in prompts for 'ONLY valid JSON, no markdown.",
+            "values": {
+              "next_logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
+              "logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
+              "allowed_tokens": "{'[', '{'}",
+              "tok": "'{'"
+            },
+            "tones": {
+              "next_logits": "data",
+              "logits": "data",
+              "allowed_tokens": "data",
+              "tok": "data"
+            },
+            "arrows": [
+              [
+                "next_logits",
+                "logits"
+              ],
+              [
+                "logits",
+                "allowed_tokens"
+              ],
+              [
+                "allowed_tokens",
+                "tok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Constrained decoding eliminates structural syntax errors at generation time.",
+            "values": {
+              "next_logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
+              "logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
+              "allowed_tokens": "{'[', '{'}",
+              "tok": "'FENCE'"
+            },
+            "tones": {
+              "next_logits": "data",
+              "logits": "data",
+              "allowed_tokens": "data",
+              "tok": "data"
+            },
+            "arrows": [
+              [
+                "next_logits",
+                "logits"
+              ],
+              [
+                "logits",
+                "allowed_tokens"
+              ],
+              [
+                "allowed_tokens",
+                "tok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Inspect the output dictionary printed below.",
+            "values": {
+              "next_logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
+              "logits": "{'{': 1.2, 'FENCE': 4.8, 'Here': 3.5, '…",
+              "allowed_tokens": "{'[', '{'}",
+              "tok": "'Here'"
+            },
+            "tones": {
+              "next_logits": "ok",
+              "logits": "ok",
+              "allowed_tokens": "ok",
+              "tok": "ok"
+            },
+            "arrows": [
+              [
+                "next_logits",
+                "logits"
+              ],
+              [
+                "logits",
+                "allowed_tokens"
+              ],
+              [
+                "allowed_tokens",
+                "tok"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Masks — Core Algorithm & State Representation",
-      "codeHash": "1e94959c34e1c3df4b742338f97f84d832176cc3925a9d80ef12785978cf0f21",
+      "partTitle": "Deterministic Finite Automaton (DFA) State Tracking",
+      "codeHash": "ddbad8a12e9c3ad6535ad1a94f188c75cd15e69d72b387df4e7ca276cd3de006",
       "spec": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Deterministic Finite Automaton (DFA) State Tracking",
+        "actors": [
+          "sample",
+          "self",
+          "dfa"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how decide updates vocabulary during execution.",
+            "activeActor": "sample",
+            "messages": [
+              {
+                "from": "sample",
+                "to": "self",
+                "label": {
+                  "var": "sample",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "dfa",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Instead, inference engines compile regular grammars and non-recursive JSON.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sample",
+                "to": "self",
+                "label": {
+                  "var": "sample",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "dfa",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Notice that invalid digits inside `'{\"ok\":123}'` abort the moment.",
+            "activeActor": "dfa",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sample",
+                "to": "self",
+                "label": {
+                  "var": "sample",
+                  "line": 20,
+                  "hit": 13
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "dfa",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Deterministic Finite Automaton (DFA) State Tracking",
+        "actors": [
+          "sample",
+          "self",
+          "dfa"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how decide updates vocabulary during execution.",
+            "messages": [
+              {
+                "from": "sample",
+                "to": "self",
+                "label": "'{\"ok\":true}'",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "dfa",
+                "label": "<JsonBoolObjectDFA>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sample"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Instead, inference engines compile regular grammars and non-recursive JSON.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sample",
+                "to": "self",
+                "label": "'{\"ok\":true}'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "dfa",
+                "label": "<JsonBoolObjectDFA>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Notice that invalid digits inside `'{\"ok\":123}'` abort the moment.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sample",
+                "to": "self",
+                "label": "'{\"ok\":true}'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "dfa",
+                "label": "<JsonBoolObjectDFA>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "dfa"
           }
         ]
       }
     },
     {
-      "partTitle": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Masks — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "2c2e60adc879495f0e182032d562c3bf27406e5fd368ad3651451007cc1e2b2f",
+      "partTitle": "Schema-to-Enum and Required-Key Transitions",
+      "codeHash": "9275e8f40c159b264b3c584889ee4849247c10c8844027fa7254310cf31010dd",
       "spec": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Schema-to-Enum and Required-Key Transitions",
+        "actors": [
+          "statuses",
+          "pfx",
+          "prefix"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond balanced braces and quotes, real structured extraction enforces.",
+            "activeActor": "statuses",
+            "messages": [
+              {
+                "from": "statuses",
+                "to": "pfx",
+                "label": {
+                  "var": "statuses",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pfx",
+                "to": "prefix",
+                "label": {
+                  "var": "pfx",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Once `\"status\":\"` finishes emitting, allowed character paths branch.",
+            "activeActor": "pfx",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "statuses",
+                "to": "pfx",
+                "label": {
+                  "var": "statuses",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pfx",
+                "to": "prefix",
+                "label": {
+                  "var": "pfx",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Even when generating across nested JSON lists of mixed review statuses.",
+            "activeActor": "prefix",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "statuses",
+                "to": "pfx",
+                "label": {
+                  "var": "statuses",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "pfx",
+                "to": "prefix",
+                "label": {
+                  "var": "pfx",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Schema-to-Enum and Required-Key Transitions",
+        "actors": [
+          "statuses",
+          "pfx",
+          "prefix"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond balanced braces and quotes, real structured extraction enforces.",
+            "messages": [
+              {
+                "from": "statuses",
+                "to": "pfx",
+                "label": "['APPROVED', 'REJECTED', 'ESCALATED']",
+                "tone": "data"
+              },
+              {
+                "from": "pfx",
+                "to": "prefix",
+                "label": "''",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "statuses"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Once `\"status\":\"` finishes emitting, allowed character paths branch.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "statuses",
+                "to": "pfx",
+                "label": "['APPROVED', 'REJECTED', 'ESCALATED']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pfx",
+                "to": "prefix",
+                "label": "''",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pfx"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Even when generating across nested JSON lists of mixed review statuses.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "statuses",
+                "to": "pfx",
+                "label": "['APPROVED', 'REJECTED', 'ESCALATED']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pfx",
+                "to": "prefix",
+                "label": "'A'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "prefix"
           }
         ]
       }
     },
     {
-      "partTitle": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Masks — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c0baf6e05752e4986887b9617c41e18deb9022a84fda458ed126cbdfd6430958",
+      "partTitle": "Streaming Prefix Escaping and Multi-Token Boundary Edge Cases",
+      "codeHash": "a66659cf21a56d16c792cffef5780f6298cbaf4babf19ba79cc46d91892d17f3",
       "spec": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Streaming Prefix Escaping and Multi-Token Boundary Edge Cases",
+        "actors": [
+          "TRANSITIONS",
+          "tok",
+          "start_state"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "One classic subtlety in subword BPE tokenization occurs when a.",
+            "activeActor": "TRANSITIONS",
+            "messages": [
+              {
+                "from": "TRANSITIONS",
+                "to": "tok",
+                "label": {
+                  "var": "TRANSITIONS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tok",
+                "to": "start_state",
+                "label": {
+                  "var": "tok",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If your masker inspects only single-character edges, it accidentally masks.",
+            "activeActor": "tok",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "TRANSITIONS",
+                "to": "tok",
+                "label": {
+                  "var": "TRANSITIONS",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tok",
+                "to": "start_state",
+                "label": {
+                  "var": "tok",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Observe how `':true}'` transitions seamlessly into `DONE` whereas.",
+            "activeActor": "start_state",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "TRANSITIONS",
+                "to": "tok",
+                "label": {
+                  "var": "TRANSITIONS",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "tok",
+                "to": "start_state",
+                "label": {
+                  "var": "tok",
+                  "line": 19,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Streaming Prefix Escaping and Multi-Token Boundary Edge Cases",
+        "actors": [
+          "TRANSITIONS",
+          "tok",
+          "start_state"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "One classic subtlety in subword BPE tokenization occurs when a.",
+            "messages": [
+              {
+                "from": "TRANSITIONS",
+                "to": "tok",
+                "label": "{'COLON': {':': 'VAL_START'}, 'VAL_STAR…",
+                "tone": "data"
+              },
+              {
+                "from": "tok",
+                "to": "start_state",
+                "label": "':true}'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "TRANSITIONS"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If your masker inspects only single-character edges, it accidentally masks.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "TRANSITIONS",
+                "to": "tok",
+                "label": "{'COLON': {':': 'VAL_START'}, 'VAL_STAR…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tok",
+                "to": "start_state",
+                "label": "':true}'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tok"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Observe how `':true}'` transitions seamlessly into `DONE` whereas.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "TRANSITIONS",
+                "to": "tok",
+                "label": "{'COLON': {':': 'VAL_START'}, 'VAL_STAR…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tok",
+                "to": "start_state",
+                "label": "':false'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "start_state"
           }
         ]
       }
     },
     {
-      "partTitle": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Masks — Production Telemetry & Verification Audit",
-      "codeHash": "1dfa4ff0acec4c1479416b038e35ce229858a0b1c59b079e9ba952744be96251",
+      "partTitle": "Measuring Eliminated Retry Waste vs Unconstrained Prompting",
+      "codeHash": "ce9dfe66e52d622f60b5c179d0fae45f7fc7857b42694c88ae475ff29c390f87",
       "spec": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
+        "template": "boxes",
+        "title": "Measuring Eliminated Retry Waste vs Unconstrained Prompting",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "runs",
+            "label": "runs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "r",
+            "label": "r"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "unconstrained",
+            "label": "unconstrained"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Prompt-only structured extraction incurs deceptive hidden overhead.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 11,
+                "hit": 1
+              },
+              "runs": {
+                "var": "runs",
+                "line": 2,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
+              },
+              "unconstrained": {
+                "var": "unconstrained",
+                "line": 2,
+                "hit": 7
+              }
+            },
+            "tones": {
+              "logs": "data",
+              "runs": "data",
+              "r": "data",
+              "unconstrained": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Quantifying first-pass compliance rate alongside total billed tokens per.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "runs": {
+                "var": "runs",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "unconstrained": {
+                "var": "unconstrained",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "logs": "data",
+              "runs": "data",
+              "r": "data",
+              "unconstrained": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Recording per-request attempt counts alongside schema validation failures.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "runs": {
+                "var": "runs",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "unconstrained": {
+                "var": "unconstrained",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "logs": "ok",
+              "runs": "ok",
+              "r": "ok",
+              "unconstrained": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constrained Decoding, JSON Schema Finite State Machines & Grammar Mask",
-        "nodes": [
+        "template": "boxes",
+        "title": "Measuring Eliminated Retry Waste vs Unconstrained Prompting",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "runs",
+            "label": "runs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "r",
+            "label": "r"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "unconstrained",
+            "label": "unconstrained"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Prompt-only structured extraction incurs deceptive hidden overhead.",
+            "values": {
+              "logs": "[{'constrained': False, 'attempts': 1, …",
+              "runs": "[{'constrained': False, 'attempts': 1, …",
+              "r": "{'constrained': False, 'attempts': 1, '…",
+              "unconstrained": "[{'constrained': False, 'attempts': 1, …"
+            },
+            "tones": {
+              "logs": "data",
+              "runs": "data",
+              "r": "data",
+              "unconstrained": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Quantifying first-pass compliance rate alongside total billed tokens per.",
+            "values": {
+              "logs": "[{'constrained': False, 'attempts': 1, …",
+              "runs": "[{'constrained': False, 'attempts': 1, …",
+              "r": "{'constrained': False, 'attempts': 3, '…",
+              "unconstrained": "[{'constrained': False, 'attempts': 1, …"
+            },
+            "tones": {
+              "logs": "data",
+              "runs": "data",
+              "r": "data",
+              "unconstrained": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Recording per-request attempt counts alongside schema validation failures.",
+            "values": {
+              "logs": "[{'constrained': False, 'attempts': 1, …",
+              "runs": "[{'constrained': False, 'attempts': 1, …",
+              "r": "{'constrained': False, 'attempts': 2, '…",
+              "unconstrained": "[{'constrained': False, 'attempts': 1, …"
+            },
+            "tones": {
+              "logs": "ok",
+              "runs": "ok",
+              "r": "ok",
+              "unconstrained": "ok"
+            }
           }
         ]
       }

@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 47,
-  "promptSha": "a51ebe388f069ed615d90e57ac2b45e1e69bcb40e8183176f03052c0828553eb",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Implied Volatility Surface Calibration — Foundations & Mathematical Invariants",
-      "codeHash": "57474827fe5c421fa724ad4e172d4166a8672c8b49cc3f259c4f38fa1c3252e7",
+      "codeHash": "40c7b49290bce5ae3a01d4f7d05c7163b8018ed7d98a80bedb3d4e851ff8be48",
       "spec": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Foundations & Mathematical In",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Implied Volatility Surface Calibration — Foundations & Mathemati",
         "steps": [
           {
+            "at": "say1",
+            "caption": "While the Black-Scholes-Merton model assumes constant volatility.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c_market",
+                "value": {
+                  "var": "c_market",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Implied Volatility (IV) is the unique volatility parameter $\\sigma$.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "c_market",
+                "value": {
+                  "var": "c_market",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic root finding guarantees that trading desks calculate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "c_market",
+                "value": {
+                  "var": "c_market",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Foundations & Mathematical In",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Implied Volatility Surface Calibration — Foundations & Mathemati",
         "steps": [
           {
+            "at": "say1",
+            "caption": "While the Black-Scholes-Merton model assumes constant volatility.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "c_market",
+                "value": 6,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Implied Volatility (IV) is the unique volatility parameter $\\sigma$.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "s",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "c_market",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic root finding guarantees that trading desks calculate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "c_market",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Implied Volatility Surface Calibration — Core Algorithm & State Representation",
-      "codeHash": "d4056e701392726fe4b8382abc9f73e381d5d74693cccd159a7faeb0ad5f1b2d",
+      "codeHash": "d804259c581d2575450cf198b45ca59d8e54c436909f22b3eedbfcb2e18b76b4",
       "spec": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Core Algorithm & State Repres",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Implied Volatility Surface Calibration — Core Algorithm & State ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core implied volatility solver couples the Brenner-Subrahmanyam seed.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At each iteration $k$, the solver evaluates the Black-Scholes call price.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Sub-microsecond root finding enables real-time volatility smile.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Core Algorithm & State Repres",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Implied Volatility Surface Calibration — Core Algorithm & State ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core implied volatility solver couples the Brenner-Subrahmanyam seed.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At each iteration $k$, the solver evaluates the Black-Scholes call price.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "s",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "r",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Sub-microsecond root finding enables real-time volatility smile.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "r",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +447,218 @@
     },
     {
       "partTitle": "Implied Volatility Surface Calibration — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "257429bf62f4d0dd640f533cbefeab01ba6c5729c5e0471aba19375e2e401620",
+      "codeHash": "095ba25e6e874647696ce7a499d669958377c0efb78bb06178de36bdf0ebf6a9",
       "spec": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Throughput Optimization & Edg",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Implied Volatility Surface Calibration — Throughput Optimization",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how calibrating updates real during execution.",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k_log_moneynes",
+                "value": {
+                  "var": "k_log_moneyness",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how running updates iterations during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k_log_moneynes",
+                "value": {
+                  "var": "k_log_moneyness",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic mathematical guarantees ensure that downstream pricing.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k_log_moneynes",
+                "value": {
+                  "var": "k_log_moneyness",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Throughput Optimization & Edg",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Implied Volatility Surface Calibration — Throughput Optimization",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how calibrating updates real during execution.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "k_log_moneynes",
+                "value": -0.2,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0.04,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0.12,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how running updates iterations during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k_log_moneynes",
+                "value": -0.2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "a",
+                "value": 0.04,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "b",
+                "value": 0.12,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic mathematical guarantees ensure that downstream pricing.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k_log_moneynes",
+                "value": -0.2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "a",
+                "value": 0.04,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "b",
+                "value": 0.12,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +667,279 @@
     },
     {
       "partTitle": "Implied Volatility Surface Calibration — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7f5be99df03f886e058d2056366c4ab87cc7ec00b3dfd852e4eba651d1674662",
+      "codeHash": "755eabaedcc5a6505555135daa6d8c6369605582c837efc81f8ebc9fbbfdb647",
       "spec": {
         "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Resilience Guardrails & Failu",
+        "title": "Implied Volatility Surface Calibration — Resilience Guardrails &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "strikes",
+            "label": "strikes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "valid_calls",
+            "label": "valid_calls"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "invalid_calls",
+            "label": "invalid_calls"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "call_prices",
+            "label": "call_prices"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated volatility calibration engines enforce strict resilience.",
+            "values": {
+              "strikes": {
+                "var": "strikes",
+                "line": 25,
+                "hit": 1
+              },
+              "valid_calls": {
+                "var": "valid_calls",
+                "line": 26,
+                "hit": 1
+              },
+              "invalid_calls": {
+                "var": "invalid_calls",
+                "line": 27,
+                "hit": 1
+              },
+              "call_prices": {
+                "var": "call_prices",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "strikes": "data",
+              "valid_calls": "data",
+              "invalid_calls": "data",
+              "call_prices": "data"
+            },
+            "arrows": [
+              [
+                "strikes",
+                "valid_calls"
+              ],
+              [
+                "valid_calls",
+                "invalid_calls"
+              ],
+              [
+                "invalid_calls",
+                "call_prices"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The first resilience guardrail is the Bid-Ask Spread Validity Gate.",
+            "values": {
+              "strikes": {
+                "var": "strikes",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "valid_calls": {
+                "var": "valid_calls",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "invalid_calls": {
+                "var": "invalid_calls",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "call_prices": {
+                "var": "call_prices",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "strikes": "data",
+              "valid_calls": "data",
+              "invalid_calls": "data",
+              "call_prices": "data"
+            },
+            "arrows": [
+              [
+                "strikes",
+                "valid_calls"
+              ],
+              [
+                "valid_calls",
+                "invalid_calls"
+              ],
+              [
+                "invalid_calls",
+                "call_prices"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Automated sanity checking ensures that trading algorithms operate only.",
+            "values": {
+              "strikes": {
+                "var": "strikes",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "valid_calls": {
+                "var": "valid_calls",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "invalid_calls": {
+                "var": "invalid_calls",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "call_prices": {
+                "var": "call_prices",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "strikes": "ok",
+              "valid_calls": "ok",
+              "invalid_calls": "ok",
+              "call_prices": "ok"
+            },
+            "arrows": [
+              [
+                "strikes",
+                "valid_calls"
+              ],
+              [
+                "valid_calls",
+                "invalid_calls"
+              ],
+              [
+                "invalid_calls",
+                "call_prices"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Resilience Guardrails & Failu",
+        "title": "Implied Volatility Surface Calibration — Resilience Guardrails &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "strikes",
+            "label": "strikes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "valid_calls",
+            "label": "valid_calls"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "invalid_calls",
+            "label": "invalid_calls"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "call_prices",
+            "label": "call_prices"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated volatility calibration engines enforce strict resilience.",
+            "values": {
+              "strikes": "[90, 100, 110]",
+              "valid_calls": "[14, 6, 1]",
+              "invalid_calls": "[14, 8, 1]",
+              "call_prices": "[14, 6, 1]"
+            },
+            "tones": {
+              "strikes": "data",
+              "valid_calls": "data",
+              "invalid_calls": "data",
+              "call_prices": "data"
+            },
+            "arrows": [
+              [
+                "strikes",
+                "valid_calls"
+              ],
+              [
+                "valid_calls",
+                "invalid_calls"
+              ],
+              [
+                "invalid_calls",
+                "call_prices"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The first resilience guardrail is the Bid-Ask Spread Validity Gate.",
+            "values": {
+              "strikes": "[90, 100, 110]",
+              "valid_calls": "[14, 6, 1]",
+              "invalid_calls": "[14, 8, 1]",
+              "call_prices": "[14, 6, 1]"
+            },
+            "tones": {
+              "strikes": "data",
+              "valid_calls": "data",
+              "invalid_calls": "data",
+              "call_prices": "data"
+            },
+            "arrows": [
+              [
+                "strikes",
+                "valid_calls"
+              ],
+              [
+                "valid_calls",
+                "invalid_calls"
+              ],
+              [
+                "invalid_calls",
+                "call_prices"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Automated sanity checking ensures that trading algorithms operate only.",
+            "values": {
+              "strikes": "[90, 100, 110]",
+              "valid_calls": "[14, 6, 1]",
+              "invalid_calls": "[14, 8, 1]",
+              "call_prices": "[14, 6, 1]"
+            },
+            "tones": {
+              "strikes": "ok",
+              "valid_calls": "ok",
+              "invalid_calls": "ok",
+              "call_prices": "ok"
+            },
+            "arrows": [
+              [
+                "strikes",
+                "valid_calls"
+              ],
+              [
+                "valid_calls",
+                "invalid_calls"
+              ],
+              [
+                "invalid_calls",
+                "call_prices"
+              ]
             ]
           }
         ]
@@ -1071,266 +947,164 @@
     },
     {
       "partTitle": "Implied Volatility Surface Calibration — Production Telemetry & Verification Audit",
-      "codeHash": "4e61059db2f4d6c4fe911589b94d3171c7b795c4b0f2c83ba7ccb8f5cedf9bac",
+      "codeHash": "3fe6b9ac13c4396bf9d7db4b4027254bbad7f4a4f885695213a9f39017f1bcc8",
       "spec": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Production Telemetry & Verifi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Implied Volatility Surface Calibration — Production Telemetry & ",
+        "actors": [
+          "market",
+          "model",
+          "iters"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for volatility surface calibration requires.",
+            "activeActor": "market",
+            "messages": [
+              {
+                "from": "market",
+                "to": "model",
+                "label": {
+                  "var": "market",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "model",
+                "to": "iters",
+                "label": {
+                  "var": "model",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes Root Mean Square Error (RMSE) between.",
+            "activeActor": "model",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "market",
+                "to": "model",
+                "label": {
+                  "var": "market",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "model",
+                "to": "iters",
+                "label": {
+                  "var": "model",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency.",
+            "activeActor": "iters",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "market",
+                "to": "model",
+                "label": {
+                  "var": "market",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "model",
+                "to": "iters",
+                "label": {
+                  "var": "model",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Implied Volatility Surface Calibration — Production Telemetry & Verifi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Implied Volatility Surface Calibration — Production Telemetry & ",
+        "actors": [
+          "market",
+          "model",
+          "iters"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for volatility surface calibration requires.",
+            "messages": [
+              {
+                "from": "market",
+                "to": "model",
+                "label": "[14.2, 9.8, 6.1, 3.4, 1.6]",
+                "tone": "data"
+              },
+              {
+                "from": "model",
+                "to": "iters",
+                "label": "[14.22, 9.78, 6.11, 3.39, 1.62]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "market"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes Root Mean Square Error (RMSE) between.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "market",
+                "to": "model",
+                "label": "[14.2, 9.8, 6.1, 3.4, 1.6]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "model",
+                "to": "iters",
+                "label": "[14.22, 9.78, 6.11, 3.39, 1.62]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "model"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "market",
+                "to": "model",
+                "label": "[14.2, 9.8, 6.1, 3.4, 1.6]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "model",
+                "to": "iters",
+                "label": "[14.22, 9.78, 6.11, 3.39, 1.62]",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "iters"
           }
         ]
       }

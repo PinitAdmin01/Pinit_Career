@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 51,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 51,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Anatomy Of Adversarial Prompt Injections And Jailbreak Vectors",
       "codeHash": "a97a41ceece781348f013e06af9eefceef7cb5b39db2adbf115b3dd4878d389a",
       "spec": {
-        "template": "table",
-        "title": "Anatomy Of Adversarial Prompt Injections And Jailbreak Vectors.",
-        "columns": [
-          "Attack Category",
-          "Infiltration Vector",
-          "Compromise Mechanism"
+        "template": "sequence",
+        "title": "Anatomy Of Adversarial Prompt Injections And Jailbreak Vectors",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Adversarial prompt injections compromise language model safety boundaries.",
-            "rows": [
-              [
-                "Direct Override",
-                "Explicit Imperative Command In User Prompt",
-                "Subordinates Core System Instructions"
-              ],
-              [
-                "Persona Jailbreak",
-                "Hypothetical Roleplay Scenario Adoption",
-                "Circumvents Safety Refusal Policies"
-              ]
+            "caption": "As foundation models are granted autonomous execution privileges, file.",
+            "activeActor": "attack_vectors",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The anatomy of adversarial prompt injections encompasses direct exploits.",
-            "rows": [
-              [
-                "Prefix Guidance",
-                "Forced Affirmative Completion Structuring",
-                "Biases Autoregressive Decoding"
-              ],
-              [
-                "Goal Hijacking",
-                "Semantic Distraction And Objective Steering",
-                "Redirects Tool Action Parameters"
-              ]
+            "activeActor": "detection_metrics",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Adversarial prompt injections manipulate foundation model instructions.",
-            "rows": [
-              [
-                "Universal Suffix",
-                "Gradient Optimized Adversarial Token Strings",
-                "Exploits Brittle Embedding Boundaries"
-              ],
-              [
-                "Cognitive Overload",
-                "Context Window Distraction Saturation",
-                "Degrades Attention Refusal Vigilance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Analyze attack vectors and design defensive prompt injection taxonomies.",
-            "rows": [
-              [
-                "Sovereign Adversary",
-                "Executes Comprehensive Attack Matrix Sweeps",
-                "Exposes Critical Vulnerabilities"
-              ],
-              [
-                "Defensive Perimeter",
-                "Intercepts Exploits Prior To Model Inference",
-                "Flawless Enterprise Compliance"
-              ]
+            "at": "say11",
+            "caption": "Mastering the anatomy of adversarial prompt injections equips AI platform.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Anatomy Of Adversarial Prompt Injections And Jailbreak Vectors.",
-        "columns": [
-          "Attack Category",
-          "Infiltration Vector",
-          "Compromise Mechanism"
+        "template": "sequence",
+        "title": "Anatomy Of Adversarial Prompt Injections And Jailbreak Vectors",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Adversarial prompt injections compromise language model safety boundaries.",
-            "rows": [
-              [
-                "Direct Override",
-                "Explicit Imperative Command In User Prompt",
-                "Subordinates Core System Instructions"
-              ],
-              [
-                "Persona Jailbreak",
-                "Hypothetical Roleplay Scenario Adoption",
-                "Circumvents Safety Refusal Policies"
-              ]
-            ]
+            "caption": "As foundation models are granted autonomous execution privileges, file.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attack_vectors"
           },
           {
             "at": "say2",
             "caption": "The anatomy of adversarial prompt injections encompasses direct exploits.",
-            "rows": [
-              [
-                "Prefix Guidance",
-                "Forced Affirmative Completion Structuring",
-                "Biases Autoregressive Decoding"
-              ],
-              [
-                "Goal Hijacking",
-                "Semantic Distraction And Objective Steering",
-                "Redirects Tool Action Parameters"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "detection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Adversarial prompt injections manipulate foundation model instructions.",
-            "rows": [
-              [
-                "Universal Suffix",
-                "Gradient Optimized Adversarial Token Strings",
-                "Exploits Brittle Embedding Boundaries"
-              ],
-              [
-                "Cognitive Overload",
-                "Context Window Distraction Saturation",
-                "Degrades Attention Refusal Vigilance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Analyze attack vectors and design defensive prompt injection taxonomies.",
-            "rows": [
-              [
-                "Sovereign Adversary",
-                "Executes Comprehensive Attack Matrix Sweeps",
-                "Exposes Critical Vulnerabilities"
-              ],
-              [
-                "Defensive Perimeter",
-                "Intercepts Exploits Prior To Model Inference",
-                "Flawless Enterprise Compliance"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering the anatomy of adversarial prompt injections equips AI platform.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,152 +173,162 @@
       "partTitle": "Indirect Prompt Injections And Data Poisoning In Retrieval Systems",
       "codeHash": "a97a41ceece781348f013e06af9eefceef7cb5b39db2adbf115b3dd4878d389a",
       "spec": {
-        "template": "table",
-        "title": "Indirect Prompt Injections And Data Poisoning In Retrieval Systems.",
-        "columns": [
-          "Poisoning Vector",
-          "Ingestion Channel",
-          "Exploitation Mechanism"
+        "template": "sequence",
+        "title": "Indirect Prompt Injections And Data Poisoning In Retrieval Syste",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Indirect injections poison external documents to hijack autonomous models.",
-            "rows": [
-              [
-                "Webpage Poisoning",
-                "Hidden Instructions In Scraped Public Web Content",
-                "Triggers Autonomous Data Exfiltration"
-              ],
-              [
-                "Document Injection",
-                "Low Contrast Text Embedded In PDF Uploads",
-                "Hijacks Automated Parsing Pipelines"
-              ]
+            "caption": "While direct prompt injections require an attacker to have direct.",
+            "activeActor": "attack_vectors",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Indirect prompt injections weaponize untrusted external retrieval sources.",
-            "rows": [
-              [
-                "Markdown Exfiltration",
-                "Injected Image Links With Query Parameters",
-                "Leads To Unauthorized Data Egress"
-              ],
-              [
-                "Tool Execution Abuse",
-                "Poisoned Support Ticket Processing Directives",
-                "Executes Unsanctioned Database Mutations"
-              ]
+            "activeActor": "detection_metrics",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Compromised documents trigger unprompted external exfiltration routines.",
-            "rows": [
-              [
-                "Cross Tenant Poisoning",
-                "Malicious Entries In Shared Knowledge Stores",
-                "Horizontal Privilege Escalation"
-              ],
-              [
-                "Zero Click Propagation",
-                "Self Replicating Autonomous AI Worm Payloads",
-                "Compromises Multi Agent Fleets"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a defensive parser isolating third party retrieved context strings.",
-            "rows": [
-              [
-                "Context Isolation",
-                "Encapsulates External Data In Strict Delimiters",
-                "Preserves Instruction Supremacy"
-              ],
-              [
-                "Sovereign Poison Gate",
-                "Filters Untrusted Data Streams Automatically",
-                "Flawless Multi Tenant Safety"
-              ]
+            "at": "say10",
+            "caption": "Mastering indirect prompt injection defense is essential for deploying.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Indirect Prompt Injections And Data Poisoning In Retrieval Systems.",
-        "columns": [
-          "Poisoning Vector",
-          "Ingestion Channel",
-          "Exploitation Mechanism"
+        "template": "sequence",
+        "title": "Indirect Prompt Injections And Data Poisoning In Retrieval Syste",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Indirect injections poison external documents to hijack autonomous models.",
-            "rows": [
-              [
-                "Webpage Poisoning",
-                "Hidden Instructions In Scraped Public Web Content",
-                "Triggers Autonomous Data Exfiltration"
-              ],
-              [
-                "Document Injection",
-                "Low Contrast Text Embedded In PDF Uploads",
-                "Hijacks Automated Parsing Pipelines"
-              ]
-            ]
+            "caption": "While direct prompt injections require an attacker to have direct.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attack_vectors"
           },
           {
             "at": "say2",
             "caption": "Indirect prompt injections weaponize untrusted external retrieval sources.",
-            "rows": [
-              [
-                "Markdown Exfiltration",
-                "Injected Image Links With Query Parameters",
-                "Leads To Unauthorized Data Egress"
-              ],
-              [
-                "Tool Execution Abuse",
-                "Poisoned Support Ticket Processing Directives",
-                "Executes Unsanctioned Database Mutations"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "detection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Compromised documents trigger unprompted external exfiltration routines.",
-            "rows": [
-              [
-                "Cross Tenant Poisoning",
-                "Malicious Entries In Shared Knowledge Stores",
-                "Horizontal Privilege Escalation"
-              ],
-              [
-                "Zero Click Propagation",
-                "Self Replicating Autonomous AI Worm Payloads",
-                "Compromises Multi Agent Fleets"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a defensive parser isolating third party retrieved context strings.",
-            "rows": [
-              [
-                "Context Isolation",
-                "Encapsulates External Data In Strict Delimiters",
-                "Preserves Instruction Supremacy"
-              ],
-              [
-                "Sovereign Poison Gate",
-                "Filters Untrusted Data Streams Automatically",
-                "Flawless Multi Tenant Safety"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Mastering indirect prompt injection defense is essential for deploying.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,152 +337,162 @@
       "partTitle": "Token Smuggling Ciphers And Multi Lingual Jailbreak Vectors",
       "codeHash": "a97a41ceece781348f013e06af9eefceef7cb5b39db2adbf115b3dd4878d389a",
       "spec": {
-        "template": "table",
-        "title": "Token Smuggling Ciphers And Multi Lingual Jailbreak Vectors.",
-        "columns": [
-          "Smuggling Primitive",
-          "Encoding Transform",
-          "Bypass Characteristic"
+        "template": "sequence",
+        "title": "Token Smuggling Ciphers And Multi Lingual Jailbreak Vectors",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Token smuggling obscures malicious intent through cryptographic encodings.",
-            "rows": [
-              [
-                "Base Sixty Four Encoding",
-                "Alphanumeric Cipher Transformation",
-                "Bypasses Surface Regex Blocklists"
-              ],
-              [
-                "Hexadecimal Strings",
-                "Raw Byte Hex Serialized Prompt Payloads",
-                "Model Decodes Payload In Memory"
-              ]
+            "caption": "As security teams deploy static keyword filters and naive string-matching.",
+            "activeActor": "attack_vectors",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Token smuggling and cipher encodings disguise malicious prompt payloads.",
-            "rows": [
-              [
-                "Unicode Homoglyphs",
-                "Cyrillic And Non Joiner Character Swaps",
-                "Defeats Word Boundary Regex Filters"
-              ],
-              [
-                "Multi Lingual Translation",
-                "Low Resource Language Semantic Transposition",
-                "Bypasses English Aligned Safeguards"
-              ]
+            "activeActor": "detection_metrics",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Base sixty four encoded instructions bypass simple string safety filters.",
-            "rows": [
-              [
-                "Token Splitting",
-                "Subword Delimiter Punctuation Insertion",
-                "Evades Subword Lexical Fingerprints"
-              ],
-              [
-                "Cipher Dialects",
-                "Synthetic Vocabulary Symbolic Substitution",
-                "Enables Obfuscated Instruction Flow"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement recursive token decoding intercepting obfuscated prompt payloads.",
-            "rows": [
-              [
-                "Recursive Decoder",
-                "Unwraps Nested Obfuscation Layers Dynamically",
-                "Exposes Hidden Exploit Payloads"
-              ],
-              [
-                "Sovereign Token Shield",
-                "Normalizes Obfuscated Tokens Systematically",
-                "Zero Bypass Toleration Standard"
-              ]
+            "at": "say11",
+            "caption": "Mastering token smuggling and cipher defense enables AI security engineers.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token Smuggling Ciphers And Multi Lingual Jailbreak Vectors.",
-        "columns": [
-          "Smuggling Primitive",
-          "Encoding Transform",
-          "Bypass Characteristic"
+        "template": "sequence",
+        "title": "Token Smuggling Ciphers And Multi Lingual Jailbreak Vectors",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Token smuggling obscures malicious intent through cryptographic encodings.",
-            "rows": [
-              [
-                "Base Sixty Four Encoding",
-                "Alphanumeric Cipher Transformation",
-                "Bypasses Surface Regex Blocklists"
-              ],
-              [
-                "Hexadecimal Strings",
-                "Raw Byte Hex Serialized Prompt Payloads",
-                "Model Decodes Payload In Memory"
-              ]
-            ]
+            "caption": "As security teams deploy static keyword filters and naive string-matching.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attack_vectors"
           },
           {
             "at": "say2",
             "caption": "Token smuggling and cipher encodings disguise malicious prompt payloads.",
-            "rows": [
-              [
-                "Unicode Homoglyphs",
-                "Cyrillic And Non Joiner Character Swaps",
-                "Defeats Word Boundary Regex Filters"
-              ],
-              [
-                "Multi Lingual Translation",
-                "Low Resource Language Semantic Transposition",
-                "Bypasses English Aligned Safeguards"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "detection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Base sixty four encoded instructions bypass simple string safety filters.",
-            "rows": [
-              [
-                "Token Splitting",
-                "Subword Delimiter Punctuation Insertion",
-                "Evades Subword Lexical Fingerprints"
-              ],
-              [
-                "Cipher Dialects",
-                "Synthetic Vocabulary Symbolic Substitution",
-                "Enables Obfuscated Instruction Flow"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement recursive token decoding intercepting obfuscated prompt payloads.",
-            "rows": [
-              [
-                "Recursive Decoder",
-                "Unwraps Nested Obfuscation Layers Dynamically",
-                "Exposes Hidden Exploit Payloads"
-              ],
-              [
-                "Sovereign Token Shield",
-                "Normalizes Obfuscated Tokens Systematically",
-                "Zero Bypass Toleration Standard"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering token smuggling and cipher defense enables AI security engineers.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +501,162 @@
       "partTitle": "Multi Modal Injections Visual Steganography And Audio Noise",
       "codeHash": "a97a41ceece781348f013e06af9eefceef7cb5b39db2adbf115b3dd4878d389a",
       "spec": {
-        "template": "table",
-        "title": "Multi Modal Injections Visual Steganography And Audio Noise.",
-        "columns": [
-          "Multi Modal Modality",
-          "Adversarial Perturbation",
-          "Safety Evasion Strategy"
+        "template": "sequence",
+        "title": "Multi Modal Injections Visual Steganography And Audio Noise",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi modal injection vectors embed exploits directly into image pixels.",
-            "rows": [
-              [
-                "Typographic Exploits",
-                "Subtle Low Contrast Text In Image Textures",
-                "Vision Transformers Read And Execute"
-              ],
-              [
-                "Adversarial Noise",
-                "Gradient Optimized Imperceptible Pixel Shifts",
-                "Manipulates Visual Encoder Embeddings"
-              ]
+            "caption": "The evolution of foundation models into multimodal systemscapable.",
+            "activeActor": "attack_vectors",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Multi modal injections conceal adversarial instructions in media assets.",
-            "rows": [
-              [
-                "Acoustic Steganography",
-                "Ultrasonic Frequency Perturbations In Audio",
-                "Hijacks Speech Recognition Pipelines"
-              ],
-              [
-                "Cross Modal Conflict",
-                "Contradictory Visual And Text Directives",
-                "Visual Tokens Capture Core Attention"
-              ]
+            "activeActor": "detection_metrics",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Adversarial image perturbations trigger unauthorized tool invocations.",
-            "rows": [
-              [
-                "Robotic Tool Abuse",
-                "Physical Signboard Exploits In Sensor Streams",
-                "Triggers Unintended Mechanical Actions"
-              ],
-              [
-                "Visual Boundary Breach",
-                "Disables Multimodal Safety Refusal Gates",
-                "Elicits Prohibited Vision Content"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Evaluate multi modal adversarial perturbations across vision transformers.",
-            "rows": [
-              [
-                "Gaussian Sanitizer",
-                "Applies Feature Blurring And Spatial Smoothing",
-                "Neutralizes Adversarial Perturbations"
-              ],
-              [
-                "Sovereign Vision Mesh",
-                "Quarantines Detected OCR Text In Delimiters",
-                "Uncompromised Multimodal Defense"
-              ]
+            "at": "say11",
+            "caption": "Mastering multimodal injection defense prepares security architects.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": {
+                  "var": "attack_vectors",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "detection_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi Modal Injections Visual Steganography And Audio Noise.",
-        "columns": [
-          "Multi Modal Modality",
-          "Adversarial Perturbation",
-          "Safety Evasion Strategy"
+        "template": "sequence",
+        "title": "Multi Modal Injections Visual Steganography And Audio Noise",
+        "actors": [
+          "attack_vectors",
+          "detection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi modal injection vectors embed exploits directly into image pixels.",
-            "rows": [
-              [
-                "Typographic Exploits",
-                "Subtle Low Contrast Text In Image Textures",
-                "Vision Transformers Read And Execute"
-              ],
-              [
-                "Adversarial Noise",
-                "Gradient Optimized Imperceptible Pixel Shifts",
-                "Manipulates Visual Encoder Embeddings"
-              ]
-            ]
+            "caption": "The evolution of foundation models into multimodal systemscapable.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attack_vectors"
           },
           {
             "at": "say2",
             "caption": "Multi modal injections conceal adversarial instructions in media assets.",
-            "rows": [
-              [
-                "Acoustic Steganography",
-                "Ultrasonic Frequency Perturbations In Audio",
-                "Hijacks Speech Recognition Pipelines"
-              ],
-              [
-                "Cross Modal Conflict",
-                "Contradictory Visual And Text Directives",
-                "Visual Tokens Capture Core Attention"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "detection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Adversarial image perturbations trigger unauthorized tool invocations.",
-            "rows": [
-              [
-                "Robotic Tool Abuse",
-                "Physical Signboard Exploits In Sensor Streams",
-                "Triggers Unintended Mechanical Actions"
-              ],
-              [
-                "Visual Boundary Breach",
-                "Disables Multimodal Safety Refusal Gates",
-                "Elicits Prohibited Vision Content"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Evaluate multi modal adversarial perturbations across vision transformers.",
-            "rows": [
-              [
-                "Gaussian Sanitizer",
-                "Applies Feature Blurring And Spatial Smoothing",
-                "Neutralizes Adversarial Perturbations"
-              ],
-              [
-                "Sovereign Vision Mesh",
-                "Quarantines Detected OCR Text In Delimiters",
-                "Uncompromised Multimodal Defense"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering multimodal injection defense prepares security architects.",
+            "messages": [
+              {
+                "from": "attack_vectors",
+                "to": "detection_metrics",
+                "label": "['Direct System Prompt Override', 'Indi…",
+                "tone": "data"
+              },
+              {
+                "from": "detection_metrics",
+                "to": "result",
+                "label": "{'directInjectionDeflectionRatePct': 99…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,150 +665,220 @@
       "partTitle": "Enterprise Adversarial Injection And Token Smuggling Scanner In Python",
       "codeHash": "a97a41ceece781348f013e06af9eefceef7cb5b39db2adbf115b3dd4878d389a",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Adversarial Injection And Token Smuggling Scanner In Python.",
-        "columns": [
-          "Scanner Subsystem",
-          "Evaluation Protocol",
-          "Detection SLA Standard"
+        "template": "flow",
+        "title": "Enterprise Adversarial Injection And Token Smuggling Scanner In ",
+        "nodes": [
+          {
+            "id": "attack_vectors",
+            "label": "attack_vectors"
+          },
+          {
+            "id": "detection_metrics",
+            "label": "detection_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise adversarial scanners detect complex prompt injection vectors.",
-            "rows": [
+            "caption": "Translating adversarial injection analysis, indirect poisoning defense.",
+            "values": {
+              "attack_vectors": {
+                "var": "attack_vectors",
+                "line": 8,
+                "hit": 1
+              },
+              "detection_metrics": {
+                "var": "detection_metrics",
+                "line": 15,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "attack_vectors": "data",
+              "detection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Direct Override Detector",
-                "Scans Prompts For Imperative Hijacking Keywords",
-                "Ninety Nine Percent Direct Deflection"
+                "attack_vectors",
+                "detection_metrics"
               ],
               [
-                "Cipher De Obfuscator",
-                "Recursively Decodes Base Sixty Four And Hex",
-                "Ninety Nine Percent Smuggling Recall"
+                "detection_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Enterprise adversarial injection scanners evaluate model defense postures.",
-            "rows": [
+            "values": {
+              "attack_vectors": {
+                "var": "attack_vectors",
+                "line": 16,
+                "hit": 1
+              },
+              "detection_metrics": {
+                "var": "detection_metrics",
+                "line": 22,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "attack_vectors": "data",
+              "detection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Context Sanitizer Gate",
-                "Strips Markdown Webhooks And Inserts Delimiters",
-                "Zero Data Exfiltration Breach Risk"
+                "attack_vectors",
+                "detection_metrics"
               ],
               [
-                "Suffix Perplexity Core",
-                "Computes Token Perplexity Over Prompt Endings",
-                "Microsecond Suffix Interception SLA"
+                "detection_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Automated injection scanners achieve ninety nine percent deflection rates.",
-            "rows": [
+            "at": "say13",
+            "caption": "Mastering the engineering architecture of adversarial prompt injection.",
+            "values": {
+              "attack_vectors": {
+                "var": "attack_vectors",
+                "line": 17,
+                "hit": 1
+              },
+              "detection_metrics": {
+                "var": "detection_metrics",
+                "line": 23,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "attack_vectors": "ok",
+              "detection_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Telemetry SIEM Pipeline",
-                "Exports Attack Signatures To Splunk Dashboards",
-                "Comprehensive Operational Visibility"
+                "attack_vectors",
+                "detection_metrics"
               ],
               [
-                "Cryptographic Ledger",
-                "Archives SHA Digests Of Deflected Attacks",
-                "Statutory Security Audit Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an enterprise injection scanner evaluating live model safety gates.",
-            "rows": [
-              [
-                "Sovereign Scanner Engine",
-                "Coordinates Multi Layered Prompt Inspection",
-                "Fourteen Millisecond Mean Latency"
-              ],
-              [
-                "Enterprise Shield Hub",
-                "Protects Autonomous Fleets From Exploitation",
-                "Flawless Production Reliability"
+                "detection_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Adversarial Injection And Token Smuggling Scanner In Python.",
-        "columns": [
-          "Scanner Subsystem",
-          "Evaluation Protocol",
-          "Detection SLA Standard"
+        "template": "flow",
+        "title": "Enterprise Adversarial Injection And Token Smuggling Scanner In ",
+        "nodes": [
+          {
+            "id": "attack_vectors",
+            "label": "attack_vectors"
+          },
+          {
+            "id": "detection_metrics",
+            "label": "detection_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise adversarial scanners detect complex prompt injection vectors.",
-            "rows": [
+            "caption": "Translating adversarial injection analysis, indirect poisoning defense.",
+            "values": {
+              "attack_vectors": "['Direct System Prompt Override', 'Indi…",
+              "detection_metrics": "{'directInjectionDeflectionRatePct': 99…",
+              "result": "{'evaluator': 'Adversarial Injection & …"
+            },
+            "tones": {
+              "attack_vectors": "data",
+              "detection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Direct Override Detector",
-                "Scans Prompts For Imperative Hijacking Keywords",
-                "Ninety Nine Percent Direct Deflection"
+                "attack_vectors",
+                "detection_metrics"
               ],
               [
-                "Cipher De Obfuscator",
-                "Recursively Decodes Base Sixty Four And Hex",
-                "Ninety Nine Percent Smuggling Recall"
+                "detection_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Enterprise adversarial injection scanners evaluate model defense postures.",
-            "rows": [
+            "values": {
+              "attack_vectors": "['Direct System Prompt Override', 'Indi…",
+              "detection_metrics": "{'directInjectionDeflectionRatePct': 99…",
+              "result": "{'evaluator': 'Adversarial Injection & …"
+            },
+            "tones": {
+              "attack_vectors": "data",
+              "detection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Context Sanitizer Gate",
-                "Strips Markdown Webhooks And Inserts Delimiters",
-                "Zero Data Exfiltration Breach Risk"
+                "attack_vectors",
+                "detection_metrics"
               ],
               [
-                "Suffix Perplexity Core",
-                "Computes Token Perplexity Over Prompt Endings",
-                "Microsecond Suffix Interception SLA"
+                "detection_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Automated injection scanners achieve ninety nine percent deflection rates.",
-            "rows": [
+            "at": "say13",
+            "caption": "Mastering the engineering architecture of adversarial prompt injection.",
+            "values": {
+              "attack_vectors": "['Direct System Prompt Override', 'Indi…",
+              "detection_metrics": "{'directInjectionDeflectionRatePct': 99…",
+              "result": "{'evaluator': 'Adversarial Injection & …"
+            },
+            "tones": {
+              "attack_vectors": "ok",
+              "detection_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Telemetry SIEM Pipeline",
-                "Exports Attack Signatures To Splunk Dashboards",
-                "Comprehensive Operational Visibility"
+                "attack_vectors",
+                "detection_metrics"
               ],
               [
-                "Cryptographic Ledger",
-                "Archives SHA Digests Of Deflected Attacks",
-                "Statutory Security Audit Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an enterprise injection scanner evaluating live model safety gates.",
-            "rows": [
-              [
-                "Sovereign Scanner Engine",
-                "Coordinates Multi Layered Prompt Inspection",
-                "Fourteen Millisecond Mean Latency"
-              ],
-              [
-                "Enterprise Shield Hub",
-                "Protects Autonomous Fleets From Exploitation",
-                "Flawless Production Reliability"
+                "detection_metrics",
+                "result"
               ]
             ]
           }

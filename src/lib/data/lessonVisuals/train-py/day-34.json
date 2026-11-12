@@ -2,535 +2,387 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 34,
-  "promptSha": "6c633ea17e68e407245f39d55587bcf88db9fda16c75d7f01f70fe02cf715182",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tree All-Reduce vs Ring All-Reduce — Foundations & Mathematical Invariants",
-      "codeHash": "dbe2c60cbbd3df4b7f8de1919a31cc25dc44bf035aa323eb4f6a99e3aafe66fe",
+      "codeHash": "0f013c3498f955b8a5f2eeb0325e4c937581592ec69c0f8111cf5509512073d5",
       "spec": {
-        "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Foundations & Mathematical Invari",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Foundations & Mathematical ",
+        "actors": [
+          "ALLREDUCE_ALGORITHM_TAXONOMY",
+          "algo",
+          "summary"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Ring All-Reduce is bandwidth-optimal for large gradient tensors, its.",
+            "activeActor": "ALLREDUCE_ALGORITHM_TAXONOMY",
+            "messages": [
+              {
+                "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                "to": "algo",
+                "label": {
+                  "var": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "algo",
+                "to": "summary",
+                "label": {
+                  "var": "algo",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how large updates cluster during execution.",
+            "activeActor": "algo",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                "to": "algo",
+                "label": {
+                  "var": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "algo",
+                "to": "summary",
+                "label": {
+                  "var": "algo",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "High-performance collective libraries dynamically select communication.",
+            "activeActor": "summary",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                "to": "algo",
+                "label": {
+                  "var": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "algo",
+                "to": "summary",
+                "label": {
+                  "var": "algo",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Foundations & Mathematical Invari",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Foundations & Mathematical ",
+        "actors": [
+          "ALLREDUCE_ALGORITHM_TAXONOMY",
+          "algo",
+          "summary"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Ring All-Reduce is bandwidth-optimal for large gradient tensors, its.",
+            "messages": [
+              {
+                "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                "to": "algo",
+                "label": "{'RING_ALLREDUCE': 'Bandwidth-optimal: …",
+                "tone": "data"
+              },
+              {
+                "from": "algo",
+                "to": "summary",
+                "label": "'CROSSOVER_THRESHOLD'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ALLREDUCE_ALGORITHM_TAXONOMY"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how large updates cluster during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                "to": "algo",
+                "label": "{'RING_ALLREDUCE': 'Bandwidth-optimal: …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "algo",
+                "to": "summary",
+                "label": "'CROSSOVER_THRESHOLD'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "algo"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "High-performance collective libraries dynamically select communication.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ALLREDUCE_ALGORITHM_TAXONOMY",
+                "to": "algo",
+                "label": "{'RING_ALLREDUCE': 'Bandwidth-optimal: …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "algo",
+                "to": "summary",
+                "label": "'RING_ALLREDUCE'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "summary"
           }
         ]
       }
     },
     {
       "partTitle": "Tree All-Reduce vs Ring All-Reduce — Core Algorithm & State Representation",
-      "codeHash": "ba65c143b05d0cd55be170e41a4250aa6572e057624f6c87a3ff4bf045e70cba",
+      "codeHash": "9336aa71b92eb39bccbb4af2f7136664301e4a1f3c3af03698511ee35402d1ea",
       "spec": {
-        "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Core Algorithm & State Representa",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Core Algorithm & State Repr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The alpha-beta communication model provides a rigorous mathematical.",
+            "bars": [
+              {
+                "label": "tensor_size_mb",
+                "value": {
+                  "var": "tensor_size_mb",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha_latency_",
+                "value": {
+                  "var": "alpha_latency_us",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bandwidth_gbps",
+                "value": {
+                  "var": "bandwidth_gbps",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In this model, total communication time is expressed as.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tensor_size_mb",
+                "value": {
+                  "var": "tensor_size_mb",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "alpha_latency_",
+                "value": {
+                  "var": "alpha_latency_us",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "bandwidth_gbps",
+                "value": {
+                  "var": "bandwidth_gbps",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Evaluating alpha-beta communication models enables researchers to pinpoint.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tensor_size_mb",
+                "value": {
+                  "var": "tensor_size_mb",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "alpha_latency_",
+                "value": {
+                  "var": "alpha_latency_us",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "bandwidth_gbps",
+                "value": {
+                  "var": "bandwidth_gbps",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Core Algorithm & State Representa",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Core Algorithm & State Repr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The alpha-beta communication model provides a rigorous mathematical.",
+            "bars": [
+              {
+                "label": "tensor_size_mb",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "num_nodes",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "alpha_latency_",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "bandwidth_gbps",
+                "value": 100,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In this model, total communication time is expressed as.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tensor_size_mb",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_nodes",
+                "value": 64,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "alpha_latency_",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "bandwidth_gbps",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Evaluating alpha-beta communication models enables researchers to pinpoint.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tensor_size_mb",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_nodes",
+                "value": 64,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "alpha_latency_",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "bandwidth_gbps",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +391,176 @@
     },
     {
       "partTitle": "Tree All-Reduce vs Ring All-Reduce — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "2c54302f6d4ad5b647b1992e481edfe52598e2c172ed002a0f2c1981be3d783a",
+      "codeHash": "fa6555987ee2224b874f5067152d6081338aab4f2b3aa464ee968165b0fb2c78",
       "spec": {
-        "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Throughput Optimization & Edge-Ca",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Throughput Optimization & E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern distributed collective libraries cannot rely on static algorithm.",
+            "bars": [
+              {
+                "label": "tensor_size_kb",
+                "value": {
+                  "var": "tensor_size_kb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "node_count",
+                "value": {
+                  "var": "node_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "crossover_kb_t",
+                "value": {
+                  "var": "crossover_kb_threshold",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The collective algorithm crossover router inspects the byte size of each.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tensor_size_kb",
+                "value": {
+                  "var": "tensor_size_kb",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "node_count",
+                "value": {
+                  "var": "node_count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "crossover_kb_t",
+                "value": {
+                  "var": "crossover_kb_threshold",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Modern AI clusters deploy two-tier hierarchical collective communication.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tensor_size_kb",
+                "value": {
+                  "var": "tensor_size_kb",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "node_count",
+                "value": {
+                  "var": "node_count",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "crossover_kb_t",
+                "value": {
+                  "var": "crossover_kb_threshold",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Throughput Optimization & Edge-Ca",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Throughput Optimization & E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern distributed collective libraries cannot rely on static algorithm.",
+            "bars": [
+              {
+                "label": "tensor_size_kb",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "node_count",
+                "value": 128,
+                "tone": "data"
+              },
+              {
+                "label": "crossover_kb_t",
+                "value": 512,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The collective algorithm crossover router inspects the byte size of each.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tensor_size_kb",
+                "value": 32,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "node_count",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "crossover_kb_t",
+                "value": 512,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Modern AI clusters deploy two-tier hierarchical collective communication.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tensor_size_kb",
+                "value": 65536,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "node_count",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "crossover_kb_t",
+                "value": 512,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +569,167 @@
     },
     {
       "partTitle": "Tree All-Reduce vs Ring All-Reduce — Resilience Guardrails & Failure Recovery",
-      "codeHash": "5877f25e8e3bf866d5a5a0a8df967ce3b80410be700fcca5072d15367845c3b6",
+      "codeHash": "1e2df65c653c7c07703f48e390e0a73d6a74886a7e2aadcbc6302f0402535c89",
       "spec": {
         "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Resilience Guardrails & Failure R",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Resilience Guardrails & Fai",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "num_nodes",
+            "label": "num_nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_power_of_two",
+            "label": "is_power_of_two"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tree All-Reduce algorithms require balanced binary tree topologies,.",
+            "values": {
+              "num_nodes": {
+                "var": "num_nodes",
+                "line": 5,
+                "hit": 1
+              },
+              "is_power_of_two": {
+                "var": "is_power_of_two",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "num_nodes": "data",
+              "is_power_of_two": "data"
+            },
+            "arrows": [
+              [
+                "num_nodes",
+                "is_power_of_two"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If an enterprise cluster provisions an odd or non-power-of-two number.",
+            "values": {
+              "num_nodes": {
+                "var": "num_nodes",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "is_power_of_two": {
+                "var": "is_power_of_two",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "num_nodes": "data",
+              "is_power_of_two": "data"
+            },
+            "arrows": [
+              [
+                "num_nodes",
+                "is_power_of_two"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Building resilient collective fallbacks guarantees that cluster training.",
+            "values": {
+              "num_nodes": {
+                "var": "num_nodes",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "is_power_of_two": {
+                "var": "is_power_of_two",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "num_nodes": "ok",
+              "is_power_of_two": "ok"
+            },
+            "arrows": [
+              [
+                "num_nodes",
+                "is_power_of_two"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Resilience Guardrails & Failure R",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Resilience Guardrails & Fai",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "num_nodes",
+            "label": "num_nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_power_of_two",
+            "label": "is_power_of_two"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tree All-Reduce algorithms require balanced binary tree topologies,.",
+            "values": {
+              "num_nodes": "64",
+              "is_power_of_two": "True"
+            },
+            "tones": {
+              "num_nodes": "data",
+              "is_power_of_two": "data"
+            },
+            "arrows": [
+              [
+                "num_nodes",
+                "is_power_of_two"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If an enterprise cluster provisions an odd or non-power-of-two number.",
+            "values": {
+              "num_nodes": "64",
+              "is_power_of_two": "True"
+            },
+            "tones": {
+              "num_nodes": "data",
+              "is_power_of_two": "data"
+            },
+            "arrows": [
+              [
+                "num_nodes",
+                "is_power_of_two"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Building resilient collective fallbacks guarantees that cluster training.",
+            "values": {
+              "num_nodes": "64",
+              "is_power_of_two": "True"
+            },
+            "tones": {
+              "num_nodes": "ok",
+              "is_power_of_two": "ok"
+            },
+            "arrows": [
+              [
+                "num_nodes",
+                "is_power_of_two"
+              ]
             ]
           }
         ]
@@ -1071,265 +737,279 @@
     },
     {
       "partTitle": "Tree All-Reduce vs Ring All-Reduce — Production Telemetry & Verification Audit",
-      "codeHash": "3c88c79f22137ef01214bb3bb431009ef5bdc7ab27750492199f0c6fb029ecb5",
+      "codeHash": "90e17f9c253153a43a21ecdb19ee3605408f163860b3e5a2d883146356b79e0a",
       "spec": {
         "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Production Telemetry & Verificati",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Production Telemetry & Veri",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "comparator_ok",
+            "label": "comparator_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "router_ok",
+            "label": "router_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "topology_guard_ok",
+            "label": "topology_guard_ok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing collective communication topologies requires continuous.",
+            "values": {
+              "comparator_ok": {
+                "var": "comparator_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "router_ok": {
+                "var": "router_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "topology_guard_ok": {
+                "var": "topology_guard_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "checks": {
+                "var": "checks",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "comparator_ok": "data",
+              "router_ok": "data",
+              "topology_guard_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "comparator_ok",
+                "router_ok"
+              ],
+              [
+                "router_ok",
+                "topology_guard_ok"
+              ],
+              [
+                "topology_guard_ok",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A topology algorithm auditor verifies that alpha-beta comparators.",
+            "values": {
+              "comparator_ok": {
+                "var": "comparator_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "router_ok": {
+                "var": "router_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "topology_guard_ok": {
+                "var": "topology_guard_ok",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "comparator_ok": "data",
+              "router_ok": "data",
+              "topology_guard_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "comparator_ok",
+                "router_ok"
+              ],
+              [
+                "router_ok",
+                "topology_guard_ok"
+              ],
+              [
+                "topology_guard_ok",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous collective topology auditing ensures that distributed training.",
+            "values": {
+              "comparator_ok": {
+                "var": "comparator_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "router_ok": {
+                "var": "router_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "topology_guard_ok": {
+                "var": "topology_guard_ok",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "comparator_ok": "ok",
+              "router_ok": "ok",
+              "topology_guard_ok": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "comparator_ok",
+                "router_ok"
+              ],
+              [
+                "router_ok",
+                "topology_guard_ok"
+              ],
+              [
+                "topology_guard_ok",
+                "checks"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Tree All-Reduce vs Ring All-Reduce — Production Telemetry & Verificati",
+        "title": "Tree All-Reduce vs Ring All-Reduce — Production Telemetry & Veri",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "comparator_ok",
+            "label": "comparator_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "router_ok",
+            "label": "router_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "topology_guard_ok",
+            "label": "topology_guard_ok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing collective communication topologies requires continuous.",
+            "values": {
+              "comparator_ok": "True",
+              "router_ok": "True",
+              "topology_guard_ok": "True",
+              "checks": "{'ALPHA_BETA_COMPARATOR': True, 'CROSSO…"
+            },
+            "tones": {
+              "comparator_ok": "data",
+              "router_ok": "data",
+              "topology_guard_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "comparator_ok",
+                "router_ok"
+              ],
+              [
+                "router_ok",
+                "topology_guard_ok"
+              ],
+              [
+                "topology_guard_ok",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A topology algorithm auditor verifies that alpha-beta comparators.",
+            "values": {
+              "comparator_ok": "True",
+              "router_ok": "True",
+              "topology_guard_ok": "True",
+              "checks": "{'ALPHA_BETA_COMPARATOR': True, 'CROSSO…"
+            },
+            "tones": {
+              "comparator_ok": "data",
+              "router_ok": "data",
+              "topology_guard_ok": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "comparator_ok",
+                "router_ok"
+              ],
+              [
+                "router_ok",
+                "topology_guard_ok"
+              ],
+              [
+                "topology_guard_ok",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous collective topology auditing ensures that distributed training.",
+            "values": {
+              "comparator_ok": "True",
+              "router_ok": "True",
+              "topology_guard_ok": "True",
+              "checks": "{'ALPHA_BETA_COMPARATOR': True, 'CROSSO…"
+            },
+            "tones": {
+              "comparator_ok": "ok",
+              "router_ok": "ok",
+              "topology_guard_ok": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "comparator_ok",
+                "router_ok"
+              ],
+              [
+                "router_ok",
+                "topology_guard_ok"
+              ],
+              [
+                "topology_guard_ok",
+                "checks"
+              ]
             ]
           }
         ]

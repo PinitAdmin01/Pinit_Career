@@ -2,87 +2,118 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 60,
-  "promptSha": "8875de481f7cbccacca08337139e24cd1d64bb57cfba018d021c542669b60f98",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Principal Architecture: Distributed Exchange Indexing, Caching & Smart Routing",
       "codeHash": "8b8209ed083ec3fb933cf195404b1cc687dde97795508eadccc7505d3c83d7d9",
       "spec": {
-        "template": "table",
-        "title": "Principal Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Principal Architecture: Distributed Exchange Indexing, Caching &",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Across sixty days we progressed from asymptotic complexity and hash tables.",
+            "items": {
+              "var": "brokers",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Principal"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Today we assemble an integrated enterprise simulation uniting ALL FOUR.",
+            "items": {
+              "var": "brokers",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Distributed"
-                  },
-                  {
-                    "text": "Exchange"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Fourth, an **Algorithmic Smart Order Router** uses **Consistent Tie-Broken.",
+            "items": {
+              "var": "brokers",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Principal Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Principal Architecture: Distributed Exchange Indexing, Caching &",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Across sixty days we progressed from asymptotic complexity and hash tables.",
+            "items": [
+              "'match-ny4'",
+              "'match-ld4'",
+              "'match-ty3'",
+              "'match-fr2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Principal",
-                  "Architecture"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Today we assemble an integrated enterprise simulation uniting ALL FOUR.",
+            "items": [
+              "'match-ny4'",
+              "'match-ld4'",
+              "'match-ty3'",
+              "'match-fr2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Distributed",
-                  "Exchange"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Fourth, an **Algorithmic Smart Order Router** uses **Consistent Tie-Broken.",
+            "items": [
+              "'match-ny4'",
+              "'match-ld4'",
+              "'match-ty3'",
+              "'match-fr2'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +124,111 @@
       "partTitle": "Stage 1: MD5 Virtual-Node Shard Router & O(1) LFU Quote Cache",
       "codeHash": "e1b0f0221cd8849cad764137a94c273c926d9db3fb2d6671d4b43ab14a148fc0",
       "spec": {
-        "template": "table",
-        "title": "Stage 1: MD5 Virtual-Node Shard Router & O(1) LFU Quote",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 1: MD5 Virtual-Node Shard Router & O(1) LFU Quote Cache",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 1 stands up the distributed routing and caching front-end tier.",
+            "items": {
+              "var": "brokers",
+              "line": 23,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Virtual"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Notice that pinning every vnode strictly to deterministic `hashlib.",
+            "items": {
+              "var": "brokers",
+              "line": 25,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Node"
-                  },
-                  {
-                    "text": "Shard"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run Stage 1 below to verify multi-replica shard affinity, low lateral.",
+            "items": {
+              "var": "brokers",
+              "line": 27,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 1: MD5 Virtual-Node Shard Router & O(1) LFU Quote",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 1: MD5 Virtual-Node Shard Router & O(1) LFU Quote Cache",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 1 stands up the distributed routing and caching front-end tier.",
+            "items": [
+              "'ny4'",
+              "'ld4'",
+              "'ty3'",
+              "'fr2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Virtual"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Notice that pinning every vnode strictly to deterministic `hashlib.",
+            "items": [
+              "'ny4'",
+              "'ld4'",
+              "'ty3'",
+              "'fr2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Node",
-                  "Shard"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run Stage 1 below to verify multi-replica shard affinity, low lateral.",
+            "items": [
+              "'ny4'",
+              "'ld4'",
+              "'ty3'",
+              "'fr2'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +239,131 @@
       "partTitle": "Stage 2: Seeded Skip-List Order Book Depth & Spread Ladder Engine",
       "codeHash": "f052942cc04ad3df1a85ccc445e4897f4a4528d211fc4ac09266b0edfaa89625",
       "spec": {
-        "template": "table",
-        "title": "Stage 2: Seeded Skip-List Order Book Depth & Spread Ladder",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Stage 2: Seeded Skip-List Order Book Depth & Spread Ladder Engin",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 2 embeds an exact **Sorted Order Book Price Ladder** backed by our.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Seeded"
-                  }
-                ],
+                "label": "max_lvl",
+                "value": {
+                  "var": "max_lvl",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "px",
+                "value": {
+                  "var": "px",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace the core order-book lifecycle operations executed at matching speed.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Skip"
-                  },
-                  {
-                    "text": "List"
-                  }
-                ],
+                "label": "max_lvl",
+                "value": {
+                  "var": "max_lvl",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "px",
+                "value": {
+                  "var": "px",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 2 order-book insertion, cancellation, fill sweep, and range.",
+            "bars": [
+              {
+                "label": "max_lvl",
+                "value": {
+                  "var": "max_lvl",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "px",
+                "value": {
+                  "var": "px",
+                  "line": 70,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +371,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 2: Seeded Skip-List Order Book Depth & Spread Ladder",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Stage 2: Seeded Skip-List Order Book Depth & Spread Ladder Engin",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 2 embeds an exact **Sorted Order Book Price Ladder** backed by our.",
+            "bars": [
               {
-                "cells": [
-                  "Stage",
-                  "Seeded"
-                ],
+                "label": "max_lvl",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.25,
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "data"
+              },
+              {
+                "label": "px",
+                "value": -1000000000000000000,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace the core order-book lifecycle operations executed at matching speed.",
+            "bars": [
               {
-                "cells": [
-                  "Skip",
-                  "List"
-                ],
+                "label": "max_lvl",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "px",
+                "value": -1000000000000000000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 2 order-book insertion, cancellation, fill sweep, and range.",
+            "bars": [
+              {
+                "label": "max_lvl",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "px",
+                "value": 13850,
                 "tone": "ok"
               }
             ]
@@ -261,80 +459,84 @@
       "partTitle": "Stage 3: Branch-and-Bound Risk Packing & Tie-Broken A* Smart Network Router",
       "codeHash": "3a3bceedda278353ba4b28c340f58e6446477ffe85149fa150151f695abe8a1a",
       "spec": {
-        "template": "table",
-        "title": "Stage 3: Branch-and-Bound Risk Packing & Tie-Broken A* Smart",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Branch-and-Bound Risk Packing & Tie-Broken A* Smart Net",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 3 optimizes execution intelligence across venues and fiber hops.",
+            "items": {
+              "var": "mesh",
+              "line": 69,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Branch"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, given candidate proprietary trade baskets `(trade_id, risk_cost.",
+            "items": {
+              "var": "mesh",
+              "line": 69,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Bound"
-                  },
-                  {
-                    "text": "Risk"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 3: Branch-and-Bound Risk Packing & Tie-Broken A* Smart",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Branch-and-Bound Risk Packing & Tie-Broken A* Smart Net",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 3 optimizes execution intelligence across venues and fiber hops.",
+            "items": [
+              "'..........'",
+              "'.###..###.'",
+              "'..........'",
+              "'...####...'",
+              "'..........'",
+              "'.###..###.'",
+              "'..........'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Branch"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, given candidate proprietary trade baskets `(trade_id, risk_cost.",
+            "items": [
+              "'..........'",
+              "'.###..###.'",
+              "'..........'",
+              "'...####...'",
+              "'..........'",
+              "'.###..###.'",
+              "'..........'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Bound",
-                  "Risk"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +547,82 @@
       "partTitle": "Complete Milestone 12 Capstone: Full 60-Day Principal Trading & Indexing Engine",
       "codeHash": "178415ca2d1ed5312a36c3c2ea5f8e740d7d0694bb88fbe6b7504f9f519de6fc",
       "spec": {
-        "template": "table",
-        "title": "Complete Milestone 12 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 12 Capstone: Full 60-Day Principal Trading & ",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assemble design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Milestone"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "`Milestone12CapstoneSuite` integrating Consistent Hashing Virtual-Node.",
+            "items": {
+              "var": "brokers",
+              "line": 31,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Capstone"
-                  },
-                  {
-                    "text": "Full"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Watch how a single end-to-end trading execution scenario exercises every.",
+            "items": {
+              "var": "brokers",
+              "line": 32,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute `Milestone12CapstoneSuite` cleanly in Pyodide below completing all.",
+            "items": {
+              "var": "brokers",
+              "line": 37,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Complete Milestone 12 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 12 Capstone: Full 60-Day Principal Trading & ",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assemble design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Complete",
-                  "Milestone"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "`Milestone12CapstoneSuite` integrating Consistent Hashing Virtual-Node.",
+            "mode": "stack",
+            "items": [
+              "'ny4'",
+              "'ld4'",
+              "'ty3'",
+              "'fr2'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Capstone",
-                  "Full"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Watch how a single end-to-end trading execution scenario exercises every.",
+            "mode": "stack",
+            "items": [
+              "'ny4'",
+              "'ld4'",
+              "'ty3'",
+              "'fr2'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute `Milestone12CapstoneSuite` cleanly in Pyodide below completing all.",
+            "mode": "stack",
+            "items": [
+              "'ny4'",
+              "'ld4'",
+              "'ty3'",
+              "'fr2'"
+            ],
+            "action": "idle"
           }
         ]
       }

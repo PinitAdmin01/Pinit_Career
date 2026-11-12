@@ -2,87 +2,112 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 23,
-  "promptSha": "dadde77144414791134846a028fe9582ee92d9793919479b9109068763e2380b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Dependencies as a directed graph",
       "codeHash": "8778ac92f664ac9353fa6bb2a568c347ced92512dd92f7d2737d305ed48533ed",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Dependencies as a directed graph",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Many problems are about order.",
+            "items": {
+              "var": "unlocks",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Dependencies"
-                  },
-                  {
-                    "text": "directed"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The graph logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Draw each task as a node and each \"a must come before b\" as a directed.",
+            "items": {
+              "var": "unlocks",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "graph"
-                  },
-                  {
-                    "text": "directed"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Package managers (pip, npm), spreadsheet recalculation and build tools.",
+            "items": {
+              "var": "unlocks",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Dependencies as a directed graph",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Many problems are about order.",
+            "items": [
+              "'machine learning'",
+              "'web dev'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dependencies",
-                  "directed"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The graph logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Draw each task as a node and each \"a must come before b\" as a directed.",
+            "items": [
+              "'machine learning'",
+              "'web dev'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "graph",
-                  "directed"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Package managers (pip, npm), spreadsheet recalculation and build tools.",
+            "items": [
+              "'machine learning'",
+              "'web dev'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +118,111 @@
       "partTitle": "In-degree: counting what you still need",
       "codeHash": "52b316c7e46165f923a1dfd450deea6b41d2b2be7688b8a6ce0abbd101ed23b7",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "In-degree: counting what you still need",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The degree concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The in-degree of a node is how many edges point into it.",
+            "items": {
+              "var": "in_degree",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "degree"
-                  },
-                  {
-                    "text": "counting"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The complete logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A task with in-degree 0 has nothing blocking it, so it can be done now.",
+            "items": {
+              "var": "in_degree",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "what"
-                  },
-                  {
-                    "text": "you"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In a Directed Acyclic Graph (DAG), an in-degree of zero indicates that.",
+            "items": {
+              "var": "in_degree",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "In-degree: counting what you still need",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The degree concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The in-degree of a node is how many edges point into it.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "degree",
-                  "counting"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The complete logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A task with in-degree 0 has nothing blocking it, so it can be done now.",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "what",
-                  "you"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In a Directed Acyclic Graph (DAG), an in-degree of zero indicates that.",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,82 +233,82 @@
       "partTitle": "Kahn's algorithm",
       "codeHash": "7793ae9279bc3b504bdc22b032ba43074fed52600c23df88d6d316d67a2cadee",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Kahn's algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Kahn"
-                  },
-                  {
-                    "text": "algorithm"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Find_order(num_courses, prerequisites) returns a valid order, or an empty.",
+            "items": {
+              "var": "in_degree",
+              "line": 5,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Kahn"
-                  },
-                  {
-                    "text": "algorithm"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Put every node with in-degree 0 in a queue.",
+            "items": {
+              "var": "in_degree",
+              "line": 6,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace the example by hand once.",
+            "items": {
+              "var": "in_degree",
+              "line": 7,
+              "hit": 4
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Kahn's algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Kahn",
-                  "algorithm"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Find_order(num_courses, prerequisites) returns a valid order, or an empty.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Kahn",
-                  "algorithm"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Put every node with in-degree 0 in a queue.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace the example by hand once.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,80 +317,107 @@
       "partTitle": "Can all courses be finished?",
       "codeHash": "1e42d2d900b4fbf60b25a1b9e958c4d9d5a5c69a5601b3dd6a1f7613fa7c4adb",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Can all courses be finished?",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 only asks yes or no.",
+            "items": {
+              "var": "state",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Can"
-                  },
-                  {
-                    "text": "all"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The detect logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The simplest correct answer reuses Kahn's algorithm.",
+            "items": {
+              "var": "state",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "courses"
-                  },
-                  {
-                    "text": "finished"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Kahn's algorithm provides an elegant, deterministic cycle detection mechanism.",
+            "items": {
+              "var": "state",
+              "line": 18,
+              "hit": 6
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Can all courses be finished?",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 only asks yes or no.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Can",
-                  "all"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The detect logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The simplest correct answer reuses Kahn's algorithm.",
+            "items": [
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "courses",
-                  "finished"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Kahn's algorithm provides an elegant, deterministic cycle detection mechanism.",
+            "items": [
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +428,75 @@
       "partTitle": "Build systems and parallel steps",
       "codeHash": "37e6054f3b785fe9451f611b1ac4d38735fc1c646053db399acffff7d6abca8d",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Build systems and parallel steps",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The topological concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Build"
-                  },
-                  {
-                    "text": "systems"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Topological order also tells you what can run at the same time.",
+            "items": {
+              "var": "ds",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The number logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "parallel"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how processing updates queue during execution.",
+            "items": {
+              "var": "ds",
+              "line": 2,
+              "hit": 2
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "The code groups a small software build into stages.",
+            "items": {
+              "var": "ds",
+              "line": 2,
+              "hit": 9
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Build systems and parallel steps",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The topological concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Build",
-                  "systems"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Topological order also tells you what can run at the same time.",
+            "mode": "queue",
+            "items": [
+              "'api'",
+              "'ui'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The number logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "parallel"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how processing updates queue during execution.",
+            "mode": "queue",
+            "items": [
+              "'api'",
+              "'ui'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "The code groups a small software build into stages.",
+            "mode": "queue",
+            "items": [
+              "'app'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -429,82 +505,162 @@
       "partTitle": "Choosing the right graph tool",
       "codeHash": "bf53884ab10ca769a9679e65dcd05142f359a8da87e27d1455e6af6be1f3f067",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Choosing the right graph tool",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The four concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Choosing"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "data"
+            "caption": "You now have four graph tools.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 11,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 2,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "w": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The topological logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "right"
-                  },
-                  {
-                    "text": "graph"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Read the question for clues.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 2,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 3,
+                "hit": 2
+              },
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 3
               }
-            ]
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "w": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Keyword matching like the code below is only a first guess.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 3,
+                "hit": 2
+              },
+              "question": {
+                "var": "question",
+                "line": 4,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 4
+              }
+            },
+            "tones": {
+              "q": "ok",
+              "question": "ok",
+              "w": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Choosing the right graph tool",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The four concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Choosing",
-                  "the"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "You now have four graph tools.",
+            "values": {
+              "q": "'Course prerequisites: find an order'",
+              "question": "'Course prerequisites: find an order'",
+              "w": "'prerequisite'"
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "w": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The topological logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "right",
-                  "graph"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Read the question for clues.",
+            "values": {
+              "q": "'course prerequisites: find an order'",
+              "question": "'Course prerequisites: find an order'",
+              "w": "'prerequisite'"
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "w": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Keyword matching like the code below is only a first guess.",
+            "values": {
+              "q": "'course prerequisites: find an order'",
+              "question": "'Course prerequisites: find an order'",
+              "w": "'depends'"
+            },
+            "tones": {
+              "q": "ok",
+              "question": "ok",
+              "w": "ok"
+            }
           }
         ]
       }

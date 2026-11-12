@@ -2,255 +2,115 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Similarity as geometry",
       "codeHash": "0f5b3bc3305819e2fbfe0583518ee41dda2604304304ed84c6632461cdaa2f72",
       "spec": {
-        "template": "table",
-        "title": "Vector comparison measuring distance against cosine angle",
-        "columns": [
-          "short",
-          "long"
-        ],
+        "template": "cells",
+        "title": "Similarity as geometry",
         "steps": [
           {
             "at": "say1",
-            "caption": "Documents become vectors pointing in similar directions for related topics.",
-            "rows": [
+            "caption": "Once documents are vectors, similarity becomes geometry.",
+            "items": {
+              "var": "short",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector entries represent arrows where longer vectors contain more entries.",
-            "rows": [
+            "caption": "Think of a vector with two entries as an arrow on a page.",
+            "items": {
+              "var": "short",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Distance between arrow tips grows large when document length expands.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares straight-line distance and cosine for a short and.",
+            "items": {
+              "var": "short",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dist"
-                  },
-                  {
-                    "text": "other"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The angle between arrows measures topic without being skewed by length.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dist"
-                  },
-                  {
-                    "text": "other"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "recipe"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector comparison measuring distance against cosine angle",
-        "columns": [
-          "short",
-          "long"
-        ],
+        "template": "cells",
+        "title": "Similarity as geometry",
         "steps": [
           {
             "at": "say1",
-            "caption": "Documents become vectors pointing in similar directions for related topics.",
-            "rows": [
+            "caption": "Once documents are vectors, similarity becomes geometry.",
+            "items": [
+              "2",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "short",
-                  "long"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector entries represent arrows where longer vectors contain more entries.",
-            "rows": [
+            "caption": "Think of a vector with two entries as an arrow on a page.",
+            "items": [
+              "2",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "short",
-                  "long"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cloud",
-                  "cost"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Distance between arrow tips grows large when document length expands.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares straight-line distance and cosine for a short and.",
+            "items": [
+              "2",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "short",
-                  "long"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cloud",
-                  "cost"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dist",
-                  "other"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The angle between arrows measures topic without being skewed by length.",
-            "rows": [
-              {
-                "cells": [
-                  "short",
-                  "long"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cloud",
-                  "cost"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dist",
-                  "other"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "cos",
-                  "recipe"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,143 +121,131 @@
       "partTitle": "The dot product and vector length",
       "codeHash": "ead26441a8a9e043e5076ee8f4d380cea1ea9bedf5e44a2056a22ca805d2624d",
       "spec": {
-        "template": "table",
-        "title": "Dot product and vector norm computation pipeline",
-        "columns": [
-          "dot",
-          "cosine"
-        ],
+        "template": "bars",
+        "title": "The dot product and vector length",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cosine is built from two simpler pieces.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dot",
+                "value": {
+                  "var": "dot",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "len_a",
+                "value": {
+                  "var": "len_a",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The dot product multiplies matching entries across both vectors.",
-            "rows": [
+            "caption": "The dot product multiplies matching entries and adds them up.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "dot"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dot",
+                "value": {
+                  "var": "dot",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "len_a",
+                "value": {
+                  "var": "len_a",
+                  "line": 6,
+                  "hit": 5
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vector length equals the square root of the sum of squared elements.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example computes all the pieces for two small vectors.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "dot"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "len_a"
-                  },
-                  {
-                    "text": "len_b"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Dividing dot product by vector lengths leaves only spatial direction.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dot"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "len_a"
-                  },
-                  {
-                    "text": "len_b"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "unit_a"
-                  },
-                  {
-                    "text": "unit_b"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Normalised vectors allow fast cosine calculation via direct dot product.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dot"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
+                "label": "dot",
+                "value": {
+                  "var": "dot",
+                  "line": 6,
+                  "hit": 5
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "len_a"
-                  },
-                  {
-                    "text": "len_b"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "unit_a"
-                  },
-                  {
-                    "text": "unit_b"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "len_a",
+                "value": {
+                  "var": "len_a",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +253,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dot product and vector norm computation pipeline",
-        "columns": [
-          "dot",
-          "cosine"
-        ],
+        "template": "bars",
+        "title": "The dot product and vector length",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cosine is built from two simpler pieces.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "dot",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "len_a",
+                "value": 3.7416573867739413,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The dot product multiplies matching entries across both vectors.",
-            "rows": [
+            "caption": "The dot product multiplies matching entries and adds them up.",
+            "bars": [
               {
-                "cells": [
-                  "dot",
-                  "cosine"
-                ],
+                "label": "x",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "dot",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "len_a",
+                "value": 3.7416573867739413,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vector length equals the square root of the sum of squared elements.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example computes all the pieces for two small vectors.",
+            "bars": [
               {
-                "cells": [
-                  "dot",
-                  "cosine"
-                ],
+                "label": "x",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "len_a",
-                  "len_b"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Dividing dot product by vector lengths leaves only spatial direction.",
-            "rows": [
-              {
-                "cells": [
-                  "dot",
-                  "cosine"
-                ],
+                "label": "y",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "len_a",
-                  "len_b"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "unit_a",
-                  "unit_b"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Normalised vectors allow fast cosine calculation via direct dot product.",
-            "rows": [
-              {
-                "cells": [
-                  "dot",
-                  "cosine"
-                ],
+                "label": "dot",
+                "value": 32,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "len_a",
-                  "len_b"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "unit_a",
-                  "unit_b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "round"
-                ],
+                "label": "len_a",
+                "value": 3.7416573867739413,
                 "tone": "ok"
               }
             ]
@@ -514,110 +342,161 @@
       "codeHash": "186bb6dee2e6670d3d6acafffc31c20e0524444bbcc1c17af4da608d7d3b79cd",
       "spec": {
         "template": "flow",
-        "title": "Writing cosine similarity safely — Execution Pipeline",
+        "title": "Writing cosine similarity safely",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Writing cosine simi...",
-            "tappable": true
+            "id": "b",
+            "label": "b"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Writing cosine similarity safely.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Writing cosine simi... [Dsix.Pthree.Stwo].",
+            "caption": "Practice 1 is cosine_similarity(a, b), rounded to 4 decimals.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": {
+                "var": "a",
+                "line": 10,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 10,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "b": "data",
+              ".0": "data",
+              "x": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "One edge case needs care.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 4
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 4
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "b": "data",
+              ".0": "data",
+              "x": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Writing cosine similarity safely.",
+            "at": "say7",
+            "caption": "The example shows the zero-vector crash and the safe version side by side.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 4
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 4
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "b": "ok",
+              ".0": "ok",
+              "x": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
               ]
             ]
           }
@@ -625,110 +504,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Writing cosine similarity safely — Execution Pipeline",
+        "title": "Writing cosine similarity safely",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Writing cosine simi...",
-            "tappable": true
+            "id": "b",
+            "label": "b"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Writing cosine similarity safely [D6.P3.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Writing cosine simi... [D6.P3.S2].",
+            "caption": "Practice 1 is cosine_similarity(a, b), rounded to 4 decimals.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": "[1, 0]",
+              "b": "[1, 0]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "b": "data",
+              ".0": "data",
+              "x": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P3.S3].",
+            "at": "say2",
+            "caption": "One edge case needs care.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": "[1, 0]",
+              "b": "[1, 0]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "b": "data",
+              ".0": "data",
+              "x": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Writing cosine similarity safely [D6.P3.S4].",
+            "at": "say7",
+            "caption": "The example shows the zero-vector crash and the safe version side by side.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": "[1, 0]",
+              "b": "[1, 0]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "b": "ok",
+              ".0": "ok",
+              "x": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
               ]
             ]
           }
@@ -739,248 +621,108 @@
       "partTitle": "Ranking by similarity",
       "codeHash": "f630a8fa7c8c6110a5e3518debec84a87736cc711091851d06b4e151bad6ee24",
       "spec": {
-        "template": "table",
-        "title": "Document similarity ranking and tie breaking order",
-        "columns": [
-          "query",
-          "document"
-        ],
+        "template": "cells",
+        "title": "Ranking by similarity",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine ranking scores a collection of document vectors against a query.",
-            "rows": [
+            "caption": "With cosine you can rank a whole collection against a query vector.",
+            "items": {
+              "var": "q",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "document"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Ranking returns the top similar documents ordered by score and tie identifier.",
-            "rows": [
+            "caption": "Practice 2 is top_k_similar(query, vectors, k).",
+            "items": {
+              "var": "q",
+              "line": 8,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "document"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Deterministic tie breaking maintains stable ordering across equal vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "document"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "baking"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Finding similar vectors provides the core foundation of semantic search.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example ranks four documents for two different queries.",
+            "items": {
+              "var": "q",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "document"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "baking"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "zip"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Document similarity ranking and tie breaking order",
-        "columns": [
-          "query",
-          "document"
-        ],
+        "template": "cells",
+        "title": "Ranking by similarity",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine ranking scores a collection of document vectors against a query.",
-            "rows": [
+            "caption": "With cosine you can rank a whole collection against a query vector.",
+            "items": [
+              "1",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "query",
-                  "document"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Ranking returns the top similar documents ordered by score and tie identifier.",
-            "rows": [
+            "caption": "Practice 2 is top_k_similar(query, vectors, k).",
+            "items": [
+              "0",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "query",
-                  "document"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vecs",
-                  "cos"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Deterministic tie breaking maintains stable ordering across equal vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "query",
-                  "document"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vecs",
-                  "cos"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "baking",
-                  "math"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Finding similar vectors provides the core foundation of semantic search.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example ranks four documents for two different queries.",
+            "items": [
+              "0",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "query",
-                  "document"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vecs",
-                  "cos"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "baking",
-                  "math"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "zip",
-                  "sum"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -991,248 +733,111 @@
       "partTitle": "TF-IDF vectors and semantic limits",
       "codeHash": "8e7961e93dd28e97e17921529cda2dec4260c94a05f34b85988d843c825288b6",
       "spec": {
-        "template": "table",
-        "title": "Vocabulary overlap limits and semantic representation",
-        "columns": [
-          "vocab",
-          "dot"
-        ],
+        "template": "cells",
+        "title": "TF-IDF vectors and semantic limits",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine evaluation with weighted vectors improves document ranking quality.",
-            "rows": [
+            "caption": "Cosine works with any vectors.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vocabulary mismatch between synonymous words yields zero cosine overlap.",
-            "rows": [
+            "at": "say2",
+            "caption": "Put together, TF-IDF vectors plus cosine similarity make a classic, strong.",
+            "items": {
+              "var": "a",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "car"
-                  },
-                  {
-                    "text": "automobile"
-                  }
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Orthogonal word directions ignore semantic relationships between terms.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is one of the most important ideas in modern NLP.",
+            "items": {
+              "var": "a",
+              "line": 6,
+              "hit": 9
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "car"
-                  },
-                  {
-                    "text": "automobile"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fast"
-                  },
-                  {
-                    "text": "quickly"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Dense embeddings resolve vocabulary limits by clustering related concepts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "car"
-                  },
-                  {
-                    "text": "automobile"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fast"
-                  },
-                  {
-                    "text": "quickly"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vocabulary overlap limits and semantic representation",
-        "columns": [
-          "vocab",
-          "dot"
-        ],
+        "template": "cells",
+        "title": "TF-IDF vectors and semantic limits",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine evaluation with weighted vectors improves document ranking quality.",
-            "rows": [
+            "caption": "Cosine works with any vectors.",
+            "items": [
+              "'the'",
+              "'car'",
+              "'is'",
+              "'fast'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vocab",
-                  "dot"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vocabulary mismatch between synonymous words yields zero cosine overlap.",
-            "rows": [
+            "at": "say2",
+            "caption": "Put together, TF-IDF vectors plus cosine similarity make a classic, strong.",
+            "items": [
+              "'the'",
+              "'car'",
+              "'is'",
+              "'fast'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vocab",
-                  "dot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "car",
-                  "automobile"
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Orthogonal word directions ignore semantic relationships between terms.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is one of the most important ideas in modern NLP.",
+            "items": [
+              "'the'",
+              "'car'",
+              "'is'",
+              "'fast'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vocab",
-                  "dot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "car",
-                  "automobile"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "fast",
-                  "quickly"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Dense embeddings resolve vocabulary limits by clustering related concepts.",
-            "rows": [
-              {
-                "cells": [
-                  "vocab",
-                  "dot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "car",
-                  "automobile"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "fast",
-                  "quickly"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "math",
-                  "split"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -1243,223 +848,109 @@
       "partTitle": "Practice time: similarity and ranking",
       "codeHash": "5dcbac9546f65206ae024d8740e325cdd09eeeb46a671f01d71acd81cdb6652e",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: similarity and ranking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: simi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: similarity and ranking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: similarity and ranking.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: simi... [Dsix.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Trace how practice updates compute during execution.",
+            "items": {
+              "var": "ranked",
+              "line": 2,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how remember updates possible during execution.",
+            "items": {
+              "var": "ranked",
+              "line": 3,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: similarity and ran.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows how slicing handles a k larger than the number of documents.",
+            "items": {
+              "var": "ranked",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: similarity and ranking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: simi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: similarity and ranking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: similarity and ranking [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: simi... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates compute during execution.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how remember updates possible during execution.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: similarity and ran.. [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows how slicing handles a k larger than the number of documents.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

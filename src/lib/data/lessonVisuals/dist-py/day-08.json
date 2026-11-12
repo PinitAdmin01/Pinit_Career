@@ -2,231 +2,113 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why not a simple counter?",
       "codeHash": "5cde3b690cdd2acf842311adfa273545d87eaaec5c363beb4dbd86ba0ad06be1",
       "spec": {
-        "template": "flow",
-        "title": "Why not a simple counter? — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Why not a simple counter?",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "options",
+            "label": "options"
           },
           {
-            "id": "proc",
-            "label": "2. Why not a simple co...",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "props",
+            "label": "props"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why not a simple counter? [Deight.Pone.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why not a simple co... [Deight.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A single database with an auto-increment column gives neat IDs.",
+            "currentState": "options",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Collisions are practically impossible.",
+            "currentState": "name",
+            "transition": {
+              "from": "options",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why not a simple counter.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "IDs look like a small detail, but at millions of inserts per second they.",
+            "currentState": "props",
+            "transition": {
+              "from": "name",
+              "to": "props",
+              "label": {
+                "var": "props",
+                "line": 6,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why not a simple counter? — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Why not a simple counter?",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "options",
+            "label": "options"
           },
           {
-            "id": "proc",
-            "label": "2. Why not a simple co...",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "props",
+            "label": "props"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why not a simple counter? [D8.P1.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why not a simple co... [D8.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A single database with an auto-increment column gives neat IDs.",
+            "currentState": "options",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Collisions are practically impossible.",
+            "currentState": "name",
+            "transition": {
+              "from": "options",
+              "to": "name",
+              "label": "'auto-increment'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why not a simple counter? [D8.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "IDs look like a small detail, but at millions of inserts per second they.",
+            "currentState": "props",
+            "transition": {
+              "from": "name",
+              "to": "props",
+              "label": "{'no coordination': True, 'time sortabl…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -235,140 +117,91 @@
       "partTitle": "The Snowflake layout",
       "codeHash": "5ff075a8d42f442b743c185976a930be9cfd3b9498b0ee94b424b670427ef733",
       "spec": {
-        "template": "table",
-        "title": "Twitter Snowflake 64-bit layout bit field allocations",
-        "columns": [
-          "field",
-          "bits",
-          "total"
+        "template": "sequence",
+        "title": "The Snowflake layout",
+        "actors": [
+          "TIME_BITS",
+          "DC_BITS",
+          "WORKER_BITS"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Snowflake ID allocates multiple bits for millisecond epoch time.",
-            "rows": [
+            "caption": "The top bit is unused (keeps it positive).",
+            "activeActor": "TIME_BITS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "TIME_BITS"
-                  },
-                  {
-                    "text": "41"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": {
+                  "var": "TIME_BITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": {
+                  "var": "DC_BITS",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Datacenter and worker IDs allow multiple distributed generators.",
-            "rows": [
+            "caption": "Then 5 bits of datacenter id and 5 bits of worker id.",
+            "activeActor": "DC_BITS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "TIME_BITS"
-                  },
-                  {
-                    "text": "41"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": {
+                  "var": "TIME_BITS",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "DC_BITS"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "WORKER_BITS"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": {
+                  "var": "DC_BITS",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Shifts and OR operations assemble worker and sequence bits.",
-            "rows": [
+            "at": "say7",
+            "caption": "The code computes the capacity numbers from the bit sizes.",
+            "activeActor": "WORKER_BITS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "TIME_BITS"
-                  },
-                  {
-                    "text": "41"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": {
+                  "var": "TIME_BITS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "DC_BITS"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "WORKER_BITS"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SEQ_BITS"
-                  },
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": {
+                  "var": "DC_BITS",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -376,95 +209,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Twitter Snowflake 64-bit layout bit field allocations",
-        "columns": [
-          "field",
-          "bits",
-          "total"
+        "template": "sequence",
+        "title": "The Snowflake layout",
+        "actors": [
+          "TIME_BITS",
+          "DC_BITS",
+          "WORKER_BITS"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Snowflake ID allocates 41 bits for millisecond epoch time.",
-            "rows": [
+            "caption": "The top bit is unused (keeps it positive).",
+            "messages": [
               {
-                "cells": [
-                  "TIME_BITS",
-                  "41",
-                  "1024"
-                ],
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": "41",
+                "tone": "data"
+              },
+              {
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": "5",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "TIME_BITS"
           },
           {
             "at": "say2",
-            "caption": "Datacenter and worker IDs allow 1024 distributed generators.",
-            "rows": [
+            "caption": "Then 5 bits of datacenter id and 5 bits of worker id.",
+            "messages": [
               {
-                "cells": [
-                  "TIME_BITS",
-                  "41",
-                  "1024"
-                ],
-                "tone": "ok"
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": "41",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "DC_BITS",
-                  "5",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "WORKER_BITS",
-                  "5",
-                  "1024"
-                ],
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": "5",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "DC_BITS"
           },
           {
-            "at": "say3",
-            "caption": "Shifts and OR operations assemble worker and sequence bits.",
-            "rows": [
+            "at": "say7",
+            "caption": "The code computes the capacity numbers from the bit sizes.",
+            "messages": [
               {
-                "cells": [
-                  "TIME_BITS",
-                  "41",
-                  "1024"
-                ],
-                "tone": "ok"
+                "from": "TIME_BITS",
+                "to": "DC_BITS",
+                "label": "41",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "DC_BITS",
-                  "5",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "WORKER_BITS",
-                  "5",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SEQ_BITS",
-                  "12",
-                  "1024"
-                ],
+                "from": "DC_BITS",
+                "to": "WORKER_BITS",
+                "label": "5",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "WORKER_BITS"
           }
         ]
       }
@@ -473,132 +281,162 @@
       "partTitle": "Building the generator",
       "codeHash": "b02176272aa01bb030fcf01a206a70a690600ede1be2f847018d026f7b99e6d9",
       "spec": {
-        "template": "compare",
-        "title": "Snowflake generator clock monotonicity and backward jump error handling",
-        "leftLabel": "Monotonic Progression",
-        "rightLabel": "Clock Backward Anomaly",
+        "template": "sequence",
+        "title": "Building the generator",
+        "actors": [
+          "EPOCH",
+          "times",
+          "self"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function next_id increments sequence when millisecond equals last.",
-            "left": {
-              "code": "ms == last_ms: sequence + 1",
-              "result": {
-                "text": "1"
+            "caption": "Next_id() reads the clock.",
+            "activeActor": "EPOCH",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "times",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "ms != last_ms: sequence = 0",
-              "result": {
-                "text": "3"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "times",
+                "to": "self",
+                "label": {
+                  "var": "times",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Backward clock raises CLOCK_MOVED_BACKWARDS avoiding duplicates.",
-            "left": {
-              "code": "advancing millisecond timestamp",
-              "result": {
-                "text": "1"
+            "caption": "If the clock has gone backwards (for example after an NTP correction).",
+            "activeActor": "times",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "times",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "ms < last_ms clock backward",
-              "result": {
-                "text": "CLOCK_MOVED_BACKWARDS"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "times",
+                "to": "self",
+                "label": {
+                  "var": "times",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say7",
-            "caption": "ID generation happens locally without network calls.",
-            "left": {
-              "code": "local sequence calculation",
-              "result": {
-                "text": "1"
+            "caption": "Everything else happens locally, with no network calls, which is why.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "times",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "clock exception aborts id",
-              "result": {
-                "text": "CLOCK_MOVED_BACKWARDS"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "times",
+                "to": "self",
+                "label": {
+                  "var": "times",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Snowflake generator clock monotonicity and backward jump error handling",
-        "leftLabel": "Monotonic Progression",
-        "rightLabel": "Clock Backward Anomaly",
+        "template": "sequence",
+        "title": "Building the generator",
+        "actors": [
+          "EPOCH",
+          "times",
+          "self"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function next_id increments sequence when millisecond equals last.",
-            "left": {
-              "code": "ms == last_ms: sequence + 1",
-              "result": "1",
-              "tone": "ok",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "ms != last_ms: sequence = 0",
-              "result": "3",
-              "tone": "ok",
-              "checks": [
-                "3"
-              ]
-            }
+            "caption": "Next_id() reads the clock.",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "times",
+                "label": "1700000000000",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "self",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "EPOCH"
           },
           {
             "at": "say2",
-            "caption": "Backward clock raises CLOCK_MOVED_BACKWARDS avoiding duplicates.",
-            "left": {
-              "code": "advancing millisecond timestamp",
-              "result": "1",
-              "tone": "ok",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "ms < last_ms clock backward",
-              "result": "CLOCK_MOVED_BACKWARDS",
-              "tone": "error",
-              "checks": [
-                "CLOCK_MOVED_BACKWARDS"
-              ]
-            }
+            "caption": "If the clock has gone backwards (for example after an NTP correction).",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "times",
+                "label": "1700000000000",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "self",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "times"
           },
           {
             "at": "say7",
-            "caption": "ID generation happens locally without network calls.",
-            "left": {
-              "code": "local sequence calculation",
-              "result": "1",
-              "tone": "ok",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "clock exception aborts id",
-              "result": "CLOCK_MOVED_BACKWARDS",
-              "tone": "error",
-              "checks": [
-                "CLOCK_MOVED_BACKWARDS"
-              ]
-            }
+            "caption": "Everything else happens locally, with no network calls, which is why.",
+            "messages": [
+              {
+                "from": "EPOCH",
+                "to": "times",
+                "label": "1700000000000",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "self",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           }
         ]
       }
@@ -607,140 +445,91 @@
       "partTitle": "Decoding an ID",
       "codeHash": "95242850ccb9fceba88736ac9aeef493358adebd44ac9c0688f74517476b6235",
       "spec": {
-        "template": "table",
-        "title": "Snowflake ID bitmask extraction and component field decoding",
-        "columns": [
-          "field",
-          "shift",
-          "value"
+        "template": "sequence",
+        "title": "Decoding an ID",
+        "actors": [
+          "EPOCH",
+          "made",
+          "snowflake_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed layout allows bit shifts and masks to separate fields.",
-            "rows": [
+            "caption": "Because the layout is fixed, any ID can be taken apart again with shifts.",
+            "activeActor": "EPOCH",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ms_since_epoch"
-                  },
-                  {
-                    "text": "123_456"
-                  },
-                  {
-                    "text": "123_456"
-                  }
-                ],
+                "from": "EPOCH",
+                "to": "made",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "made",
+                "to": "snowflake_id",
+                "label": {
+                  "var": "made",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Shifts and bitmasks extract datacenter worker and sequence values.",
-            "rows": [
+            "caption": "Id >> 22, plus the epoch.",
+            "activeActor": "made",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ms_since_epoch"
-                  },
-                  {
-                    "text": "123_456"
-                  },
-                  {
-                    "text": "123_456"
-                  }
-                ],
-                "tone": "ok"
+                "from": "EPOCH",
+                "to": "made",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "datacenter"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "worker"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "7"
-                  }
-                ],
+                "from": "made",
+                "to": "snowflake_id",
+                "label": {
+                  "var": "made",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Decoded ID reveals which machine created it for debugging.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds an ID and decodes it back.",
+            "activeActor": "snowflake_id",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ms_since_epoch"
-                  },
-                  {
-                    "text": "123_456"
-                  },
-                  {
-                    "text": "123_456"
-                  }
-                ],
-                "tone": "ok"
+                "from": "EPOCH",
+                "to": "made",
+                "label": {
+                  "var": "EPOCH",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "datacenter"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "worker"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "7"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sequence"
-                  },
-                  {
-                    "text": "42"
-                  },
-                  {
-                    "text": "42"
-                  }
-                ],
+                "from": "made",
+                "to": "snowflake_id",
+                "label": {
+                  "var": "made",
+                  "line": 13,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -748,95 +537,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Snowflake ID bitmask extraction and component field decoding",
-        "columns": [
-          "field",
-          "shift",
-          "value"
+        "template": "sequence",
+        "title": "Decoding an ID",
+        "actors": [
+          "EPOCH",
+          "made",
+          "snowflake_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed layout allows bit shifts and masks to separate fields.",
-            "rows": [
+            "caption": "Because the layout is fixed, any ID can be taken apart again with shifts.",
+            "messages": [
               {
-                "cells": [
-                  "ms_since_epoch",
-                  "123_456",
-                  "123_456"
-                ],
+                "from": "EPOCH",
+                "to": "made",
+                "label": "1700000000000",
+                "tone": "data"
+              },
+              {
+                "from": "made",
+                "to": "snowflake_id",
+                "label": "517812285482",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "EPOCH"
           },
           {
             "at": "say2",
-            "caption": "Shifts and bitmasks extract datacenter worker and sequence values.",
-            "rows": [
+            "caption": "Id >> 22, plus the epoch.",
+            "messages": [
               {
-                "cells": [
-                  "ms_since_epoch",
-                  "123_456",
-                  "123_456"
-                ],
-                "tone": "ok"
+                "from": "EPOCH",
+                "to": "made",
+                "label": "1700000000000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "datacenter",
-                  "2",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "worker",
-                  "7",
-                  "7"
-                ],
+                "from": "made",
+                "to": "snowflake_id",
+                "label": "517812285482",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "made"
           },
           {
-            "at": "say3",
-            "caption": "Decoded ID reveals which machine created it for debugging.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds an ID and decodes it back.",
+            "messages": [
               {
-                "cells": [
-                  "ms_since_epoch",
-                  "123_456",
-                  "123_456"
-                ],
-                "tone": "ok"
+                "from": "EPOCH",
+                "to": "made",
+                "label": "1700000000000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "datacenter",
-                  "2",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "worker",
-                  "7",
-                  "7"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sequence",
-                  "42",
-                  "42"
-                ],
+                "from": "made",
+                "to": "snowflake_id",
+                "label": "517812285482",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "snowflake_id"
           }
         ]
       }
@@ -845,192 +609,162 @@
       "partTitle": "Time-sortable text IDs",
       "codeHash": "0cf425f0291968b7087a524959ce7e362035e42bd7168f3d3061269072e7dfd5",
       "spec": {
-        "template": "table",
-        "title": "Time-sortable Base-36 timestamp prefix string representation",
-        "columns": [
-          "input_ms",
-          "digits",
-          "status"
+        "template": "sequence",
+        "title": "Time-sortable text IDs",
+        "actors": [
+          "DIGITS",
+          "ms",
+          "out"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Timestamp prefix in compact alphabet keeps IDs sortable as text.",
-            "rows": [
+            "caption": "Sometimes IDs are strings, such as in URLs or ULIDs.",
+            "activeActor": "DIGITS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "35"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
+                "from": "DIGITS",
+                "to": "ms",
+                "label": {
+                  "var": "DIGITS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": {
+                  "var": "ms",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function time_prefix writes timestamp in base multiple representation.",
-            "rows": [
+            "caption": "Time_prefix(ms) writes ms in base 36, digits 0-9 then A-Z.",
+            "activeActor": "ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "35"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
+                "from": "DIGITS",
+                "to": "ms",
+                "label": {
+                  "var": "DIGITS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "36"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
+                "from": "ms",
+                "to": "out",
+                "label": {
+                  "var": "ms",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Base multiple compacts millisecond timestamp to nine characters.",
-            "rows": [
+            "at": "say6",
+            "caption": "For text sorting to match time order, all prefixes must have the same.",
+            "activeActor": "out",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "35"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "36"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1_790_000_000_000"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
+                "from": "DIGITS",
+                "to": "ms",
+                "label": {
+                  "var": "DIGITS",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": {
+                  "var": "ms",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Time-sortable Base-36 timestamp prefix string representation",
-        "columns": [
-          "input_ms",
-          "digits",
-          "status"
+        "template": "sequence",
+        "title": "Time-sortable text IDs",
+        "actors": [
+          "DIGITS",
+          "ms",
+          "out"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Timestamp prefix in compact alphabet keeps IDs sortable as text.",
-            "rows": [
+            "caption": "Sometimes IDs are strings, such as in URLs or ULIDs.",
+            "messages": [
               {
-                "cells": [
-                  "35",
-                  "0",
-                  "0"
-                ],
+                "from": "DIGITS",
+                "to": "ms",
+                "label": "'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'",
+                "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": "35",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "DIGITS"
           },
           {
             "at": "say2",
-            "caption": "Function time_prefix writes timestamp in base 36 representation.",
-            "rows": [
+            "caption": "Time_prefix(ms) writes ms in base 36, digits 0-9 then A-Z.",
+            "messages": [
               {
-                "cells": [
-                  "35",
-                  "0",
-                  "0"
-                ],
-                "tone": "ok"
+                "from": "DIGITS",
+                "to": "ms",
+                "label": "'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "36",
-                  "0",
-                  "0"
-                ],
+                "from": "ms",
+                "to": "out",
+                "label": "35",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ms"
           },
           {
-            "at": "say4",
-            "caption": "Base 36 compacts millisecond timestamp to 9 characters.",
-            "rows": [
+            "at": "say6",
+            "caption": "For text sorting to match time order, all prefixes must have the same.",
+            "messages": [
               {
-                "cells": [
-                  "35",
-                  "0",
-                  "0"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "36",
-                  "0",
-                  "0"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1_790_000_000_000",
-                  "0",
-                  "0"
-                ],
+                "from": "DIGITS",
+                "to": "ms",
+                "label": "'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'",
                 "tone": "data"
+              },
+              {
+                "from": "ms",
+                "to": "out",
+                "label": "35",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "out"
           }
         ]
       }
@@ -1040,110 +774,161 @@
       "codeHash": "30eb25ca9e841a74b035d3296605fda5b497c1c351c8378dbd5d2319722595c1",
       "spec": {
         "template": "flow",
-        "title": "Choosing an ID scheme — Execution Pipeline",
+        "title": "Choosing an ID scheme",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "case",
+            "label": "case"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing an ID scheme",
-            "tappable": true
+            "id": "single_db",
+            "label": "single_db"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "needs_sorting",
+            "label": "needs_sorting"
+          },
+          {
+            "id": "max_bits",
+            "label": "max_bits"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing an ID scheme [Deight.Psix.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing an ID scheme [Deight.Psix.Stwo].",
+            "caption": "Fine for small, single-database apps.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "case": {
+                "var": "case",
+                "line": 8,
+                "hit": 1
+              },
+              "single_db": {
+                "var": "single_db",
+                "line": 2,
+                "hit": 1
+              },
+              "needs_sorting": {
+                "var": "needs_sorting",
+                "line": 2,
+                "hit": 1
+              },
+              "max_bits": {
+                "var": "max_bits",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "case": "data",
+              "single_db": "data",
+              "needs_sorting": "data",
+              "max_bits": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "single_db"
               ],
               [
-                "proc",
-                "out"
+                "single_db",
+                "needs_sorting"
+              ],
+              [
+                "needs_sorting",
+                "max_bits"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Easy and collision-free, good when order does not matter and 128 bits are.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "case": {
+                "var": "case",
+                "line": 9,
+                "hit": 1
+              },
+              "single_db": {
+                "var": "single_db",
+                "line": 3,
+                "hit": 1
+              },
+              "needs_sorting": {
+                "var": "needs_sorting",
+                "line": 3,
+                "hit": 1
+              },
+              "max_bits": {
+                "var": "max_bits",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "case": "data",
+              "single_db": "data",
+              "needs_sorting": "data",
+              "max_bits": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "case",
+                "single_db"
+              ],
+              [
+                "single_db",
+                "needs_sorting"
+              ],
+              [
+                "needs_sorting",
+                "max_bits"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing an ID scheme.",
+            "at": "say6",
+            "caption": "Tomorrow you will see how Raft keeps a replicated log consistent across.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "case": {
+                "var": "case",
+                "line": 8,
+                "hit": 2
+              },
+              "single_db": {
+                "var": "single_db",
+                "line": 2,
+                "hit": 2
+              },
+              "needs_sorting": {
+                "var": "needs_sorting",
+                "line": 2,
+                "hit": 2
+              },
+              "max_bits": {
+                "var": "max_bits",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "case": "ok",
+              "single_db": "ok",
+              "needs_sorting": "ok",
+              "max_bits": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "single_db"
               ],
               [
-                "proc",
-                "out"
+                "single_db",
+                "needs_sorting"
+              ],
+              [
+                "needs_sorting",
+                "max_bits"
               ]
             ]
           }
@@ -1151,110 +936,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Choosing an ID scheme — Execution Pipeline",
+        "title": "Choosing an ID scheme",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "case",
+            "label": "case"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing an ID scheme",
-            "tappable": true
+            "id": "single_db",
+            "label": "single_db"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "needs_sorting",
+            "label": "needs_sorting"
+          },
+          {
+            "id": "max_bits",
+            "label": "max_bits"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing an ID scheme [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing an ID scheme [D8.P6.S2].",
+            "caption": "Fine for small, single-database apps.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "case": "[True, True, 64]",
+              "single_db": "True",
+              "needs_sorting": "True",
+              "max_bits": "64"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "case": "data",
+              "single_db": "data",
+              "needs_sorting": "data",
+              "max_bits": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "single_db"
               ],
               [
-                "proc",
-                "out"
+                "single_db",
+                "needs_sorting"
+              ],
+              [
+                "needs_sorting",
+                "max_bits"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
+            "at": "say2",
+            "caption": "Easy and collision-free, good when order does not matter and 128 bits are.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "case": "[True, True, 64]",
+              "single_db": "True",
+              "needs_sorting": "True",
+              "max_bits": "64"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "case": "data",
+              "single_db": "data",
+              "needs_sorting": "data",
+              "max_bits": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "case",
+                "single_db"
+              ],
+              [
+                "single_db",
+                "needs_sorting"
+              ],
+              [
+                "needs_sorting",
+                "max_bits"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing an ID scheme [D8.P6.S4].",
+            "at": "say6",
+            "caption": "Tomorrow you will see how Raft keeps a replicated log consistent across.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "case": "[False, False, 128]",
+              "single_db": "False",
+              "needs_sorting": "False",
+              "max_bits": "128"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "case": "ok",
+              "single_db": "ok",
+              "needs_sorting": "ok",
+              "max_bits": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "single_db"
               ],
               [
-                "proc",
-                "out"
+                "single_db",
+                "needs_sorting"
+              ],
+              [
+                "needs_sorting",
+                "max_bits"
               ]
             ]
           }

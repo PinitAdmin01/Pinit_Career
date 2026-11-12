@@ -2,1335 +2,1005 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 39,
-  "promptSha": "f7fdad48955b0a3efcae5719da27581b23f9006c15ef13907e53352b0f6f1090",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Multi-Agent Orchestration — Foundations & Mathematical Invariants",
-      "codeHash": "ccb6fad063276ce7f7e40c48db315f56c7c4366244a56321a2b9a18d2f37512a",
+      "partTitle": "Supervisor-to-Specialist Intent Dispatch and Scope Isolation",
+      "codeHash": "3863711985dc57bb1d60cd47d58fba71d47bd01defee142d0be5d023a54aa47a",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Supervisor-to-Specialist Intent Dispatch and Scope Isolation",
+        "actors": [
+          "RULES",
+          "tickets",
+          "t"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how loading updates thirty during execution.",
+            "activeActor": "RULES",
+            "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": {
+                  "var": "RULES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": {
+                  "var": "tickets",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Splitting responsibilities into narrow specialistsfor example.",
+            "activeActor": "tickets",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "RULES",
+                "to": "tickets",
+                "label": {
+                  "var": "RULES",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "tickets",
+                "to": "t",
+                "label": {
+                  "var": "tickets",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run dispatch_specialist() below tracing clean ordered routing across.",
+            "activeActor": "t",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "RULES",
+                "to": "tickets",
+                "label": {
+                  "var": "RULES",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "tickets",
+                "to": "t",
+                "label": {
+                  "var": "tickets",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
+        "template": "sequence",
+        "title": "Supervisor-to-Specialist Intent Dispatch and Scope Isolation",
+        "actors": [
+          "RULES",
+          "tickets",
+          "t"
         ],
-        "edges": [
+        "steps": [
           {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
+            "at": "say1",
+            "caption": "Trace how loading updates thirty during execution.",
+            "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": "[['SecurityReviewer', ['secret', 'leak'…",
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": "['Possible leaked token inside staging …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "RULES"
           },
           {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
+            "at": "say2",
+            "caption": "Splitting responsibilities into narrow specialistsfor example.",
+            "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": "[['SecurityReviewer', ['secret', 'leak'…",
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": "['Possible leaked token inside staging …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tickets"
           },
           {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "at": "say7",
+            "caption": "Run dispatch_specialist() below tracing clean ordered routing across.",
+            "messages": [
+              {
+                "from": "RULES",
+                "to": "tickets",
+                "label": "[['SecurityReviewer', ['secret', 'leak'…",
+                "tone": "data"
+              },
+              {
+                "from": "tickets",
+                "to": "t",
+                "label": "['Possible leaked token inside staging …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Minimal Handoff Packets Over Shared Chat Transcripts",
+      "codeHash": "261d112994deafc84e3a3b9e167928ce3651fe577398d77486a50aea2a19dd56",
+      "spec": {
+        "template": "boxes",
+        "title": "Minimal Handoff Packets Over Shared Chat Transcripts",
+        "boxes": [
+          {
+            "id": "src",
+            "label": "src"
+          },
+          {
+            "id": "dst",
+            "label": "dst"
+          },
+          {
+            "id": "goal",
+            "label": "goal"
+          },
+          {
+            "id": "facts",
+            "label": "facts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Forwarding the entire raw multi-kilobyte conversation transcript.",
+            "values": {
+              "src": {
+                "var": "src",
+                "line": 2,
+                "hit": 1
+              },
+              "dst": {
+                "var": "dst",
+                "line": 2,
+                "hit": 1
+              },
+              "goal": {
+                "var": "goal",
+                "line": 2,
+                "hit": 1
+              },
+              "facts": {
+                "var": "facts",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "src": "data",
+              "dst": "data",
+              "goal": "data",
+              "facts": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Instead, enforce an explicit concise Handoff Packet contract containing.",
+            "values": {
+              "src": {
+                "var": "src",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "dst": {
+                "var": "dst",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "goal": {
+                "var": "goal",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "facts": {
+                "var": "facts",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "src": "data",
+              "dst": "data",
+              "goal": "data",
+              "facts": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Test build_handoff_packet() verifying field bounds, cleanliness trimming.",
+            "values": {
+              "src": {
+                "var": "src",
+                "line": 4,
+                "hit": 2
+              },
+              "dst": {
+                "var": "dst",
+                "line": 4,
+                "hit": 2
+              },
+              "goal": {
+                "var": "goal",
+                "line": 4,
+                "hit": 2
+              },
+              "facts": {
+                "var": "facts",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "src": "ok",
+              "dst": "ok",
+              "goal": "ok",
+              "facts": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Minimal Handoff Packets Over Shared Chat Transcripts",
+        "boxes": [
+          {
+            "id": "src",
+            "label": "src"
+          },
+          {
+            "id": "dst",
+            "label": "dst"
+          },
+          {
+            "id": "goal",
+            "label": "goal"
+          },
+          {
+            "id": "facts",
+            "label": "facts"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Forwarding the entire raw multi-kilobyte conversation transcript.",
+            "values": {
+              "src": "'SqlAnalyst'",
+              "dst": "'InfraReviewer'",
+              "goal": "'Check PG connection pool headroom'",
+              "facts": "['p95 latency spiked to 920ms', 'slow t…"
+            },
+            "tones": {
+              "src": "data",
+              "dst": "data",
+              "goal": "data",
+              "facts": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Instead, enforce an explicit concise Handoff Packet contract containing.",
+            "values": {
+              "src": "'SqlAnalyst'",
+              "dst": "'InfraReviewer'",
+              "goal": "'Check PG connection pool headroom'",
+              "facts": "['p95 latency spiked to 920ms', 'slow t…"
+            },
+            "tones": {
+              "src": "data",
+              "dst": "data",
+              "goal": "data",
+              "facts": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Test build_handoff_packet() verifying field bounds, cleanliness trimming.",
+            "values": {
+              "src": "'SqlAnalyst'",
+              "dst": "'InfraReviewer'",
+              "goal": "'Check PG connection pool headroom'",
+              "facts": "['p95 latency spiked to 920ms', 'slow t…"
+            },
+            "tones": {
+              "src": "ok",
+              "dst": "ok",
+              "goal": "ok",
+              "facts": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Global Spend Ledger Shared Across All Delegated Agents",
+      "codeHash": "496d71565573d51129b1072a79b0dc34e3984b690da083e49fdf700851aa21ce",
+      "spec": {
+        "template": "boxes",
+        "title": "Global Spend Ledger Shared Across All Delegated Agents",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "cap_tokens",
+            "label": "cap_tokens"
+          },
+          {
+            "id": "ledger",
+            "label": "ledger"
+          },
+          {
+            "id": "agent",
+            "label": "agent"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how giving updates each during execution.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "cap_tokens": {
+                "var": "cap_tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "ledger": {
+                "var": "ledger",
+                "line": 14,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 15,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "ledger": "data",
+              "agent": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Production orchestrators wire one shared `BudgetLedger` instance directly.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "cap_tokens": {
+                "var": "cap_tokens",
+                "line": 4,
+                "hit": 1
+              },
+              "ledger": {
+                "var": "ledger",
+                "line": 15,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "ledger": "data",
+              "agent": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run BudgetLedger below watching sequential worker charges stay strictly.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "cap_tokens": {
+                "var": "cap_tokens",
+                "line": 5,
+                "hit": 1
+              },
+              "ledger": {
+                "var": "ledger",
+                "line": 16,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "cap_tokens": "ok",
+              "ledger": "ok",
+              "agent": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Global Spend Ledger Shared Across All Delegated Agents",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "cap_tokens",
+            "label": "cap_tokens"
+          },
+          {
+            "id": "ledger",
+            "label": "ledger"
+          },
+          {
+            "id": "agent",
+            "label": "agent"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how giving updates each during execution.",
+            "values": {
+              "self": "<BudgetLedger>",
+              "cap_tokens": "1000",
+              "ledger": "<BudgetLedger>",
+              "agent": "'Supervisor'"
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "ledger": "data",
+              "agent": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Production orchestrators wire one shared `BudgetLedger` instance directly.",
+            "values": {
+              "self": "<BudgetLedger>",
+              "cap_tokens": "1000",
+              "ledger": "<BudgetLedger>",
+              "agent": "'Supervisor'"
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "ledger": "data",
+              "agent": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run BudgetLedger below watching sequential worker charges stay strictly.",
+            "values": {
+              "self": "<BudgetLedger>",
+              "cap_tokens": "1000",
+              "ledger": "<BudgetLedger>",
+              "agent": "'Supervisor'"
+            },
+            "tones": {
+              "self": "ok",
+              "cap_tokens": "ok",
+              "ledger": "ok",
+              "agent": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Consensus Voting and Tie Escalation Across Parallel Critics",
+      "codeHash": "dd4067df9417a1223df535e46f7e3273576b43dd673ef0dde94524847247c191",
+      "spec": {
+        "template": "flow",
+        "title": "Consensus Voting and Tie Escalation Across Parallel Critics",
+        "nodes": [
+          {
+            "id": "verdicts",
+            "label": "verdicts"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          },
+          {
+            "id": "cleaned",
+            "label": "cleaned"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "High-stakes automated workflowssuch as code security patch sign-off.",
+            "values": {
+              "verdicts": {
+                "var": "verdicts",
+                "line": 4,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 1
+              },
+              "cleaned": {
+                "var": "cleaned",
+                "line": 4,
+                "hit": 4
+              },
+              "counts": {
+                "var": "counts",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "verdicts": "data",
+              "v": "data",
+              "cleaned": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "verdicts",
+                "v"
+              ],
+              [
+                "v",
+                "cleaned"
+              ],
+              [
+                "cleaned",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Majority aggregation collects every normalized verdict label before.",
+            "values": {
+              "verdicts": {
+                "var": "verdicts",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "cleaned": {
+                "var": "cleaned",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "counts": {
+                "var": "counts",
+                "line": 6,
+                "hit": 3
               }
+            },
+            "tones": {
+              "verdicts": "data",
+              "v": "data",
+              "cleaned": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "verdicts",
+                "v"
+              ],
+              [
+                "v",
+                "cleaned"
+              ],
+              [
+                "cleaned",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect consensus_vote() resolving decisive majority panels while.",
+            "values": {
+              "verdicts": {
+                "var": "verdicts",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "cleaned": {
+                "var": "cleaned",
+                "line": 6,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "counts": {
+                "var": "counts",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "verdicts": "ok",
+              "v": "ok",
+              "cleaned": "ok",
+              "counts": "ok"
+            },
+            "arrows": [
+              [
+                "verdicts",
+                "v"
+              ],
+              [
+                "v",
+                "cleaned"
+              ],
+              [
+                "cleaned",
+                "counts"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Consensus Voting and Tie Escalation Across Parallel Critics",
+        "nodes": [
+          {
+            "id": "verdicts",
+            "label": "verdicts"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          },
+          {
+            "id": "cleaned",
+            "label": "cleaned"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "High-stakes automated workflowssuch as code security patch sign-off.",
+            "values": {
+              "verdicts": "['pass', 'PASS ', 'fail']",
+              "v": "'pass'",
+              "cleaned": "['PASS', 'PASS', 'FAIL']",
+              "counts": "{'PASS': 2, 'FAIL': 1}"
+            },
+            "tones": {
+              "verdicts": "data",
+              "v": "data",
+              "cleaned": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "verdicts",
+                "v"
+              ],
+              [
+                "v",
+                "cleaned"
+              ],
+              [
+                "cleaned",
+                "counts"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Majority aggregation collects every normalized verdict label before.",
+            "values": {
+              "verdicts": "['pass', 'PASS ', 'fail']",
+              "v": "'PASS '",
+              "cleaned": "['PASS', 'PASS', 'FAIL']",
+              "counts": "{'PASS': 2, 'FAIL': 1}"
+            },
+            "tones": {
+              "verdicts": "data",
+              "v": "data",
+              "cleaned": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "verdicts",
+                "v"
+              ],
+              [
+                "v",
+                "cleaned"
+              ],
+              [
+                "cleaned",
+                "counts"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect consensus_vote() resolving decisive majority panels while.",
+            "values": {
+              "verdicts": "['pass', 'PASS ', 'fail']",
+              "v": "'fail'",
+              "cleaned": "['PASS', 'PASS', 'FAIL']",
+              "counts": "{'PASS': 2, 'FAIL': 1}"
+            },
+            "tones": {
+              "verdicts": "ok",
+              "v": "ok",
+              "cleaned": "ok",
+              "counts": "ok"
+            },
+            "arrows": [
+              [
+                "verdicts",
+                "v"
+              ],
+              [
+                "v",
+                "cleaned"
+              ],
+              [
+                "cleaned",
+                "counts"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Multi-Agent Orchestration — Core Algorithm & State Representation",
-      "codeHash": "d1c70a0d52bed6d36e47a2078755fbf130aecfda5e71514b595e3d5cc668e4b5",
+      "partTitle": "Preventing Handoff Ping-Pong with Time-To-Live Hop Counters",
+      "codeHash": "5932d226bb20c72f516a7e7adda88df2b70303aaf9d4fa653d4d66fe31bf2b6d",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Preventing Handoff Ping-Pong with Time-To-Live Hop Counters",
+        "actors": [
+          "path",
+          "next_agent",
+          "max_hops"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Suppose `BillingHelper` concludes an invoice dispute mentions suspicious.",
+            "activeActor": "path",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "path",
+                "to": "next_agent",
+                "label": {
+                  "var": "path",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": {
+                  "var": "next_agent",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Just like internet IP packets embed an explicit Hop Limit Time-To-Live.",
+            "activeActor": "next_agent",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "path",
+                "to": "next_agent",
+                "label": {
+                  "var": "path",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": {
+                  "var": "next_agent",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace forward_handoff() catching cyclic ping-pong jumps and deep.",
+            "activeActor": "max_hops",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "path",
+                "to": "next_agent",
+                "label": {
+                  "var": "path",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": {
+                  "var": "next_agent",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Preventing Handoff Ping-Pong with Time-To-Live Hop Counters",
+        "actors": [
+          "path",
+          "next_agent",
+          "max_hops"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Suppose `BillingHelper` concludes an invoice dispute mentions suspicious.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "path",
+                "to": "next_agent",
+                "label": "['Supervisor', 'Researcher']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": "'SqlAnalyst'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "path"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Just like internet IP packets embed an explicit Hop Limit Time-To-Live.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "path",
+                "to": "next_agent",
+                "label": "['Supervisor', 'Researcher']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": "'SqlAnalyst'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "next_agent"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace forward_handoff() catching cyclic ping-pong jumps and deep.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "path",
+                "to": "next_agent",
+                "label": "['Supervisor', 'Researcher']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "next_agent",
+                "to": "max_hops",
+                "label": "'SqlAnalyst'",
+                "tone": "ok"
               }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Multi-Agent Orchestration — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "46cdbd18d487d09c06349f10c31df3651f62df6d9f4fbeb66587aaf3349fb55c",
-      "spec": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Multi-Agent Orchestration — Resilience Guardrails & Failure Recovery",
-      "codeHash": "22c785b1a8014dcca41dd551273774474393b4c24f0298efdfd1533aba1f543f",
-      "spec": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Multi-Agent Orchestration — Production Telemetry & Verification Audit",
-      "codeHash": "c27c057981b4ea5948caa7d33debd4ecb4234687ec4ac658573ab8735852d2a8",
-      "spec": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Multi-Agent Orchestration — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "max_hops"
           }
         ]
       }

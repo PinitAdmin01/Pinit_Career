@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 53,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 53,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Architecture Of Post Generation Output Sanitization",
       "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
       "spec": {
-        "template": "table",
-        "title": "The Architecture Of Post Generation Output Sanitization.",
-        "columns": [
-          "Sanitization Stage",
-          "Inspection Technique",
-          "Compliance SLA Standard"
+        "template": "sequence",
+        "title": "The Architecture Of Post Generation Output Sanitization",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Output guardrails prevent data leakage and regulatory violations.",
-            "rows": [
-              [
-                "Streaming Token Matcher",
-                "Sliding Window Regular Expression Scanning",
-                "Sub Millisecond Processing SLA"
-              ],
-              [
-                "Named Entity Scrubber",
-                "Contextual Deep Learning Entity Recognition",
-                "Ninety Nine Percent PII Recall"
-              ]
+            "caption": "In enterprise AI system security, defending the input boundary is only.",
+            "activeActor": "redaction_layers",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The architecture of post generation output sanitization enforces rules.",
-            "rows": [
-              [
-                "Canary Trap Interceptor",
-                "Streaming Cryptographic Token Verification",
-                "Zero System Prompt Leakage Risk"
-              ],
-              [
-                "Secret Entropy Scanner",
-                "Calculates Character Distribution Randomness",
-                "One Hundred Percent Key Masking"
-              ]
+            "caption": "The architecture of post generation output sanitization enforces.",
+            "activeActor": "protection_metrics",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Post generation filters scrub sensitive corporate secrets and PII data.",
-            "rows": [
-              [
-                "Fail Closed Egress Gate",
-                "Closes Output Streams On Security Failures",
-                "Guarantees Zero Exploit Pass Through"
-              ],
-              [
-                "Compliance Audit Logger",
-                "Records Hashes Of Masked Tokens In Ledgers",
-                "Statutory Regulatory Alignment"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Architect a streaming post generation filter redacting sensitive tokens.",
-            "rows": [
-              [
-                "Sovereign Egress Filter",
-                "Intercepts Unsanitized Tokens Before Client",
-                "Eight Millisecond Mean Latency"
-              ],
-              [
-                "Enterprise Output Shield",
-                "Guarantees Absolute Data Privacy Compliance",
-                "Flawless Enterprise Protection"
-              ]
+            "at": "say11",
+            "caption": "Mastering the architecture of post-generation output sanitization.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Architecture Of Post Generation Output Sanitization.",
-        "columns": [
-          "Sanitization Stage",
-          "Inspection Technique",
-          "Compliance SLA Standard"
+        "template": "sequence",
+        "title": "The Architecture Of Post Generation Output Sanitization",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Output guardrails prevent data leakage and regulatory violations.",
-            "rows": [
-              [
-                "Streaming Token Matcher",
-                "Sliding Window Regular Expression Scanning",
-                "Sub Millisecond Processing SLA"
-              ],
-              [
-                "Named Entity Scrubber",
-                "Contextual Deep Learning Entity Recognition",
-                "Ninety Nine Percent PII Recall"
-              ]
-            ]
+            "caption": "In enterprise AI system security, defending the input boundary is only.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "redaction_layers"
           },
           {
             "at": "say2",
-            "caption": "The architecture of post generation output sanitization enforces rules.",
-            "rows": [
-              [
-                "Canary Trap Interceptor",
-                "Streaming Cryptographic Token Verification",
-                "Zero System Prompt Leakage Risk"
-              ],
-              [
-                "Secret Entropy Scanner",
-                "Calculates Character Distribution Randomness",
-                "One Hundred Percent Key Masking"
-              ]
-            ]
+            "caption": "The architecture of post generation output sanitization enforces.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "protection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Post generation filters scrub sensitive corporate secrets and PII data.",
-            "rows": [
-              [
-                "Fail Closed Egress Gate",
-                "Closes Output Streams On Security Failures",
-                "Guarantees Zero Exploit Pass Through"
-              ],
-              [
-                "Compliance Audit Logger",
-                "Records Hashes Of Masked Tokens In Ledgers",
-                "Statutory Regulatory Alignment"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Architect a streaming post generation filter redacting sensitive tokens.",
-            "rows": [
-              [
-                "Sovereign Egress Filter",
-                "Intercepts Unsanitized Tokens Before Client",
-                "Eight Millisecond Mean Latency"
-              ],
-              [
-                "Enterprise Output Shield",
-                "Guarantees Absolute Data Privacy Compliance",
-                "Flawless Enterprise Protection"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering the architecture of post-generation output sanitization.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,152 +173,162 @@
       "partTitle": "Named Entity Recognition And PII Redaction With Microsoft Presidio",
       "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
       "spec": {
-        "template": "table",
-        "title": "Named Entity Recognition And PII Redaction With Microsoft Presidio.",
-        "columns": [
-          "Entity Category",
-          "Detection Methodology",
-          "Anonymization Transform"
+        "template": "sequence",
+        "title": "Named Entity Recognition And PII Redaction With Microsoft Presid",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Presidio analyzes generated text to redact sensitive personal identifiers.",
-            "rows": [
-              [
-                "Social Security Numbers",
-                "Regex Checksum Validation With Context Rules",
-                "Masks All Digits With Asterisks"
-              ],
-              [
-                "Payment Card Numbers",
-                "Luhn Algorithm Checksum Verification",
-                "Replaces With Generic Tag Placeholders"
-              ]
+            "caption": "While simple regular expressions can match standardized numeric patterns.",
+            "activeActor": "redaction_layers",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Named entity recognition and PII redaction mask personal information.",
-            "rows": [
-              [
-                "Personal Names",
-                "RoBERTa Transformer Named Entity Classifier",
-                "Substitutes Consistent Pseudonyms"
-              ],
-              [
-                "Email And Phone Records",
-                "International Regex Template Recognition",
-                "Redacts Specific Character Spans"
-              ]
+            "caption": "Named entity recognition and PII redaction mask personal information using.",
+            "activeActor": "protection_metrics",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Presidio anonymizers replace sensitive numbers with typed placeholder tags.",
-            "rows": [
-              [
-                "Proprietary Project Names",
-                "Custom Enterprise Word Lists And Context Rules",
-                "Replaces With Normalized Alias Tags"
-              ],
-              [
-                "Multi Lingual Support",
-                "Language Specific Transformer Pipelines",
-                "Global Regulatory Compliance Standard"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure Presidio analyzers detecting custom enterprise entity patterns.",
-            "rows": [
-              [
-                "Presidio Core Engine",
-                "Harmonizes Regex Patterns And Neural Models",
-                "Ninety Nine Point Nine Percent Recall"
-              ],
-              [
-                "Sovereign PII Redactor",
-                "Protects Customer Privacy Across Workloads",
-                "Flawless Data Protection Standard"
-              ]
+            "at": "say12",
+            "caption": "Mastering PII and PCI redaction with Microsoft Presidio equips AI platform.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Named Entity Recognition And PII Redaction With Microsoft Presidio.",
-        "columns": [
-          "Entity Category",
-          "Detection Methodology",
-          "Anonymization Transform"
+        "template": "sequence",
+        "title": "Named Entity Recognition And PII Redaction With Microsoft Presid",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Presidio analyzes generated text to redact sensitive personal identifiers.",
-            "rows": [
-              [
-                "Social Security Numbers",
-                "Regex Checksum Validation With Context Rules",
-                "Masks All Digits With Asterisks"
-              ],
-              [
-                "Payment Card Numbers",
-                "Luhn Algorithm Checksum Verification",
-                "Replaces With Generic Tag Placeholders"
-              ]
-            ]
+            "caption": "While simple regular expressions can match standardized numeric patterns.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "redaction_layers"
           },
           {
             "at": "say2",
-            "caption": "Named entity recognition and PII redaction mask personal information.",
-            "rows": [
-              [
-                "Personal Names",
-                "RoBERTa Transformer Named Entity Classifier",
-                "Substitutes Consistent Pseudonyms"
-              ],
-              [
-                "Email And Phone Records",
-                "International Regex Template Recognition",
-                "Redacts Specific Character Spans"
-              ]
-            ]
+            "caption": "Named entity recognition and PII redaction mask personal information using.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "protection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Presidio anonymizers replace sensitive numbers with typed placeholder tags.",
-            "rows": [
-              [
-                "Proprietary Project Names",
-                "Custom Enterprise Word Lists And Context Rules",
-                "Replaces With Normalized Alias Tags"
-              ],
-              [
-                "Multi Lingual Support",
-                "Language Specific Transformer Pipelines",
-                "Global Regulatory Compliance Standard"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure Presidio analyzers detecting custom enterprise entity patterns.",
-            "rows": [
-              [
-                "Presidio Core Engine",
-                "Harmonizes Regex Patterns And Neural Models",
-                "Ninety Nine Point Nine Percent Recall"
-              ],
-              [
-                "Sovereign PII Redactor",
-                "Protects Customer Privacy Across Workloads",
-                "Flawless Data Protection Standard"
-              ]
-            ]
+            "at": "say12",
+            "caption": "Mastering PII and PCI redaction with Microsoft Presidio equips AI platform.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,150 +337,220 @@
       "partTitle": "Canary Token Cryptographic Traps And System Prompt Leakage Defense",
       "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
       "spec": {
-        "template": "table",
-        "title": "Canary Token Cryptographic Traps And System Prompt Leakage Defense.",
-        "columns": [
-          "Defense Primitive",
-          "Cryptographic Mechanism",
-          "Interception SLA Metric"
+        "template": "flow",
+        "title": "Canary Token Cryptographic Traps And System Prompt Leakage Defen",
+        "nodes": [
+          {
+            "id": "redaction_layers",
+            "label": "redaction_layers"
+          },
+          {
+            "id": "protection_metrics",
+            "label": "protection_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Canary token traps detect and intercept system prompt extraction attacks.",
-            "rows": [
+            "caption": "Among the most prevalent security risks in enterprise LLM deployments.",
+            "values": {
+              "redaction_layers": {
+                "var": "redaction_layers",
+                "line": 8,
+                "hit": 1
+              },
+              "protection_metrics": {
+                "var": "protection_metrics",
+                "line": 14,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 28,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "redaction_layers": "data",
+              "protection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Canary Token Generator",
-                "Injects Unique High Entropy UUIDs In Prompts",
-                "Unique Salted Canary Per Session"
+                "redaction_layers",
+                "protection_metrics"
               ],
               [
-                "Streaming Trie Matcher",
-                "Inspects Generated Tokens Against Active Registry",
-                "Sub Millisecond Canary Interception"
+                "protection_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Canary token cryptographic traps intercept unauthorized prompt leakage.",
-            "rows": [
+            "values": {
+              "redaction_layers": {
+                "var": "redaction_layers",
+                "line": 15,
+                "hit": 1
+              },
+              "protection_metrics": {
+                "var": "protection_metrics",
+                "line": 21,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "redaction_layers": "data",
+              "protection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Extraction Abort Trigger",
-                "Closes TCP Socket On Canary Detection",
-                "Zero System Instruction Leakage"
+                "redaction_layers",
+                "protection_metrics"
               ],
               [
-                "Secret Pattern Detector",
-                "Scans For Known Cloud Provider Key Prefixes",
-                "Neutralizes Leaked AWS Credentials"
+                "protection_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Cryptographic canary traps drop responses containing system prompt hashes.",
-            "rows": [
+            "at": "say11",
+            "caption": "Mastering canary token traps and secret scrubbing provides enterprise AI.",
+            "values": {
+              "redaction_layers": {
+                "var": "redaction_layers",
+                "line": 16,
+                "hit": 1
+              },
+              "protection_metrics": {
+                "var": "protection_metrics",
+                "line": 22,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "redaction_layers": "ok",
+              "protection_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Shannon Entropy Monitor",
-                "Calculates Character Distribution Density",
-                "Catches Raw Base Sixty Four Keys"
+                "redaction_layers",
+                "protection_metrics"
               ],
               [
-                "Forensic Extraction Logger",
-                "Archives Adversarial Prompt And Client IP",
-                "Automated Security Event Alert"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Embed cryptographic canary tokens into system prompts and build traps.",
-            "rows": [
-              [
-                "Canary Trap Architecture",
-                "Embeds Tripwires In Privileged Instructions",
-                "One Hundred Percent Leak Prevention"
-              ],
-              [
-                "Sovereign Prompt Shield",
-                "Protects Corporate Intellectual Property",
-                "Impenetrable Prompt Security SLA"
+                "protection_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Canary Token Cryptographic Traps And System Prompt Leakage Defense.",
-        "columns": [
-          "Defense Primitive",
-          "Cryptographic Mechanism",
-          "Interception SLA Metric"
+        "template": "flow",
+        "title": "Canary Token Cryptographic Traps And System Prompt Leakage Defen",
+        "nodes": [
+          {
+            "id": "redaction_layers",
+            "label": "redaction_layers"
+          },
+          {
+            "id": "protection_metrics",
+            "label": "protection_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Canary token traps detect and intercept system prompt extraction attacks.",
-            "rows": [
+            "caption": "Among the most prevalent security risks in enterprise LLM deployments.",
+            "values": {
+              "redaction_layers": "['Presidio Named Entity Recognition & R…",
+              "protection_metrics": "{'piiRedactionRecallPct': 99.9, 'canary…",
+              "result": "{'guardrailEngine': 'Enterprise Output …"
+            },
+            "tones": {
+              "redaction_layers": "data",
+              "protection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Canary Token Generator",
-                "Injects Unique High Entropy UUIDs In Prompts",
-                "Unique Salted Canary Per Session"
+                "redaction_layers",
+                "protection_metrics"
               ],
               [
-                "Streaming Trie Matcher",
-                "Inspects Generated Tokens Against Active Registry",
-                "Sub Millisecond Canary Interception"
+                "protection_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Canary token cryptographic traps intercept unauthorized prompt leakage.",
-            "rows": [
+            "values": {
+              "redaction_layers": "['Presidio Named Entity Recognition & R…",
+              "protection_metrics": "{'piiRedactionRecallPct': 99.9, 'canary…",
+              "result": "{'guardrailEngine': 'Enterprise Output …"
+            },
+            "tones": {
+              "redaction_layers": "data",
+              "protection_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Extraction Abort Trigger",
-                "Closes TCP Socket On Canary Detection",
-                "Zero System Instruction Leakage"
+                "redaction_layers",
+                "protection_metrics"
               ],
               [
-                "Secret Pattern Detector",
-                "Scans For Known Cloud Provider Key Prefixes",
-                "Neutralizes Leaked AWS Credentials"
+                "protection_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Cryptographic canary traps drop responses containing system prompt hashes.",
-            "rows": [
+            "at": "say11",
+            "caption": "Mastering canary token traps and secret scrubbing provides enterprise AI.",
+            "values": {
+              "redaction_layers": "['Presidio Named Entity Recognition & R…",
+              "protection_metrics": "{'piiRedactionRecallPct': 99.9, 'canary…",
+              "result": "{'guardrailEngine': 'Enterprise Output …"
+            },
+            "tones": {
+              "redaction_layers": "ok",
+              "protection_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Shannon Entropy Monitor",
-                "Calculates Character Distribution Density",
-                "Catches Raw Base Sixty Four Keys"
+                "redaction_layers",
+                "protection_metrics"
               ],
               [
-                "Forensic Extraction Logger",
-                "Archives Adversarial Prompt And Client IP",
-                "Automated Security Event Alert"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Embed cryptographic canary tokens into system prompts and build traps.",
-            "rows": [
-              [
-                "Canary Trap Architecture",
-                "Embeds Tripwires In Privileged Instructions",
-                "One Hundred Percent Leak Prevention"
-              ],
-              [
-                "Sovereign Prompt Shield",
-                "Protects Corporate Intellectual Property",
-                "Impenetrable Prompt Security SLA"
+                "protection_metrics",
+                "result"
               ]
             ]
           }
@@ -470,152 +561,162 @@
       "partTitle": "Natural Language Inference And Real Time Hallucination Suppression",
       "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
       "spec": {
-        "template": "table",
-        "title": "Natural Language Inference And Real Time Hallucination Suppression.",
-        "columns": [
-          "Verification Stage",
-          "Inferential Algorithm",
-          "Factual Accuracy Standard"
+        "template": "sequence",
+        "title": "Natural Language Inference And Real Time Hallucination Suppressi",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Natural language inference models verify factual alignment against source.",
-            "rows": [
-              [
-                "Assertion Decomposition",
-                "Splits Paragraphs Into Atomic Factual Claims",
-                "Granular Sentence Level Testing"
-              ],
-              [
-                "DeBERTa NLI Classifier",
-                "Computes Premise Hypothesis Entailment Probability",
-                "Sub Six Millisecond Inference SLA"
-              ]
+            "caption": "Beyond data privacy violations and leaked credentials, foundation models.",
+            "activeActor": "redaction_layers",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Natural language inference and real time hallucination suppression verify.",
-            "rows": [
-              [
-                "Contradiction Detector",
-                "Flags Claims Opposing Retrieved Grounding Facts",
-                "Prevents Falsified Business Output"
-              ],
-              [
-                "Neutral Claim Identifier",
-                "Identifies Assertions Lacking Document Support",
-                "Enforces Fact Grounded Rigor"
-              ]
+            "activeActor": "protection_metrics",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Entailment classifiers suppress unsupported claims before user delivery.",
-            "rows": [
-              [
-                "Citation Attribution Core",
-                "Links Claims To Source Offsets In Documents",
-                "Transparent Clickable Evidence Trail"
-              ],
-              [
-                "Self Correction Loop",
-                "Prompts Model To Regenerate Grounded Facts",
-                "Zero Hallucination Toleration SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an NLI entailment classifier verifying generated claim consistency.",
-            "rows": [
-              [
-                "NLI Verification Engine",
-                "Scores Logical Entailment Deterministically",
-                "Ninety Five Percent Grounding Standard"
-              ],
-              [
-                "Sovereign Truthfulness Hub",
-                "Guarantees Factual Integrity In Analytical AI",
-                "Flawless Enterprise Dependability"
-              ]
+            "at": "say11",
+            "caption": "Mastering Natural Language Inference and hallucination suppression.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Natural Language Inference And Real Time Hallucination Suppression.",
-        "columns": [
-          "Verification Stage",
-          "Inferential Algorithm",
-          "Factual Accuracy Standard"
+        "template": "sequence",
+        "title": "Natural Language Inference And Real Time Hallucination Suppressi",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Natural language inference models verify factual alignment against source.",
-            "rows": [
-              [
-                "Assertion Decomposition",
-                "Splits Paragraphs Into Atomic Factual Claims",
-                "Granular Sentence Level Testing"
-              ],
-              [
-                "DeBERTa NLI Classifier",
-                "Computes Premise Hypothesis Entailment Probability",
-                "Sub Six Millisecond Inference SLA"
-              ]
-            ]
+            "caption": "Beyond data privacy violations and leaked credentials, foundation models.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "redaction_layers"
           },
           {
             "at": "say2",
             "caption": "Natural language inference and real time hallucination suppression verify.",
-            "rows": [
-              [
-                "Contradiction Detector",
-                "Flags Claims Opposing Retrieved Grounding Facts",
-                "Prevents Falsified Business Output"
-              ],
-              [
-                "Neutral Claim Identifier",
-                "Identifies Assertions Lacking Document Support",
-                "Enforces Fact Grounded Rigor"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "protection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Entailment classifiers suppress unsupported claims before user delivery.",
-            "rows": [
-              [
-                "Citation Attribution Core",
-                "Links Claims To Source Offsets In Documents",
-                "Transparent Clickable Evidence Trail"
-              ],
-              [
-                "Self Correction Loop",
-                "Prompts Model To Regenerate Grounded Facts",
-                "Zero Hallucination Toleration SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an NLI entailment classifier verifying generated claim consistency.",
-            "rows": [
-              [
-                "NLI Verification Engine",
-                "Scores Logical Entailment Deterministically",
-                "Ninety Five Percent Grounding Standard"
-              ],
-              [
-                "Sovereign Truthfulness Hub",
-                "Guarantees Factual Integrity In Analytical AI",
-                "Flawless Enterprise Dependability"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering Natural Language Inference and hallucination suppression.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Output Sanitization And Leakage Defense Suite In Python",
       "codeHash": "79b63d1e6f2a42afc666873d817562a6c526e826c9ac247fb24b729efc78fd96",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Output Sanitization And Leakage Defense Suite In Python.",
-        "columns": [
-          "Sanitization Layer",
-          "Architectural Role",
-          "Production Performance SLA"
+        "template": "sequence",
+        "title": "Enterprise Output Sanitization And Leakage Defense Suite In Pyth",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise output sanitization pipelines shield corporate assets cleanly.",
-            "rows": [
-              [
-                "Presidio PII Scrubber",
-                "Redacts Personal Identifiers With Transformers",
-                "Ninety Nine Point Nine Recall Rate"
-              ],
-              [
-                "Canary Token Interceptor",
-                "Drops Streaming Extraction Attempts Instantly",
-                "One Hundred Percent Interception SLA"
-              ]
+            "caption": "Translating post-generation inspection, Presidio PII anonymization, canary.",
+            "activeActor": "redaction_layers",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Enterprise output sanitization and leakage defense suites enforce rules.",
-            "rows": [
-              [
-                "Secret Entropy Scanner",
-                "Neutralizes API Keys And Database Passwords",
-                "Zero Credential Leakage Attestation"
-              ],
-              [
-                "NLI Grounding Gate",
-                "Evaluates Claim Entailment Against Sources",
-                "Sub Six Millisecond Claim Testing"
-              ]
+            "activeActor": "protection_metrics",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Output guardrail pipelines operate with eight millisecond latency overhead.",
-            "rows": [
-              [
-                "AsyncIO Egress Worker",
-                "Coordinates Non Blocking Streaming Inspection",
-                "High Concurrency Swarm Scalability"
-              ],
-              [
-                "OpenTelemetry Telemetry",
-                "Exports Redaction Counts And Overhead Latencies",
-                "Granular Production Observability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an enterprise output defense suite with canary and PII scrubbers.",
-            "rows": [
-              [
-                "Cryptographic Audit Ledger",
-                "Archives Hashes Of Redacted Prompts And Logs",
-                "Complete Enterprise Governance Audit"
-              ],
-              [
-                "Apex Output Suite",
-                "Harmonizes Scrubbers Canary Traps And NLI",
-                "Eight Millisecond Processing Overhead"
-              ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise output sanitization.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": {
+                  "var": "redaction_layers",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": {
+                  "var": "protection_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Output Sanitization And Leakage Defense Suite In Python.",
-        "columns": [
-          "Sanitization Layer",
-          "Architectural Role",
-          "Production Performance SLA"
+        "template": "sequence",
+        "title": "Enterprise Output Sanitization And Leakage Defense Suite In Pyth",
+        "actors": [
+          "redaction_layers",
+          "protection_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise output sanitization pipelines shield corporate assets cleanly.",
-            "rows": [
-              [
-                "Presidio PII Scrubber",
-                "Redacts Personal Identifiers With Transformers",
-                "Ninety Nine Point Nine Recall Rate"
-              ],
-              [
-                "Canary Token Interceptor",
-                "Drops Streaming Extraction Attempts Instantly",
-                "One Hundred Percent Interception SLA"
-              ]
-            ]
+            "caption": "Translating post-generation inspection, Presidio PII anonymization, canary.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "redaction_layers"
           },
           {
             "at": "say2",
             "caption": "Enterprise output sanitization and leakage defense suites enforce rules.",
-            "rows": [
-              [
-                "Secret Entropy Scanner",
-                "Neutralizes API Keys And Database Passwords",
-                "Zero Credential Leakage Attestation"
-              ],
-              [
-                "NLI Grounding Gate",
-                "Evaluates Claim Entailment Against Sources",
-                "Sub Six Millisecond Claim Testing"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "protection_metrics"
           },
           {
-            "at": "example",
-            "caption": "Output guardrail pipelines operate with eight millisecond latency overhead.",
-            "rows": [
-              [
-                "AsyncIO Egress Worker",
-                "Coordinates Non Blocking Streaming Inspection",
-                "High Concurrency Swarm Scalability"
-              ],
-              [
-                "OpenTelemetry Telemetry",
-                "Exports Redaction Counts And Overhead Latencies",
-                "Granular Production Observability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an enterprise output defense suite with canary and PII scrubbers.",
-            "rows": [
-              [
-                "Cryptographic Audit Ledger",
-                "Archives Hashes Of Redacted Prompts And Logs",
-                "Complete Enterprise Governance Audit"
-              ],
-              [
-                "Apex Output Suite",
-                "Harmonizes Scrubbers Canary Traps And NLI",
-                "Eight Millisecond Processing Overhead"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise output sanitization.",
+            "messages": [
+              {
+                "from": "redaction_layers",
+                "to": "protection_metrics",
+                "label": "['Presidio Named Entity Recognition & R…",
+                "tone": "data"
+              },
+              {
+                "from": "protection_metrics",
+                "to": "result",
+                "label": "{'piiRedactionRecallPct': 99.9, 'canary…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 39,
-  "promptSha": "a00e906f27a356e719de43855a7b61ea59b3fc236b151d8ac33d5c24672afe65",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking — Foundations & Mathematical Invariants",
-      "codeHash": "85097b9e2449c79cdc12f0aeeb8788d78a90a83b0872189c12199225c136b0fc",
+      "codeHash": "8d88de80ce9c14095904bda3376313cfb9c13cfc6730db9289270bd8fbb052c4",
       "spec": {
         "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trust_domain",
+            "label": "trust_domain"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mesh",
+            "label": "mesh"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "c_spiffe",
+            "label": "c_spiffe"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern Kubernetes microservice topologies, relying on perimeter.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "trust_domain": {
+                "var": "trust_domain",
+                "line": 3,
+                "hit": 1
+              },
+              "mesh": {
+                "var": "mesh",
+                "line": 13,
+                "hit": 1
+              },
+              "c_spiffe": {
+                "var": "c_spiffe",
+                "line": 14,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "trust_domain": "data",
+              "mesh": "data",
+              "c_spiffe": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "trust_domain"
+              ],
+              [
+                "trust_domain",
+                "mesh"
+              ],
+              [
+                "mesh",
+                "c_spiffe"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A Service Mesh (such as Istio, Linkerd, or AWS App Mesh) injects.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "trust_domain": {
+                "var": "trust_domain",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "mesh": {
+                "var": "mesh",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "c_spiffe": {
+                "var": "c_spiffe",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "trust_domain": "data",
+              "mesh": "data",
+              "c_spiffe": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "trust_domain"
+              ],
+              [
+                "trust_domain",
+                "mesh"
+              ],
+              [
+                "mesh",
+                "c_spiffe"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Short-lived certificates drastically reduce exposure windows if a private.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "trust_domain": {
+                "var": "trust_domain",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "mesh": {
+                "var": "mesh",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "c_spiffe": {
+                "var": "c_spiffe",
+                "line": 17,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "trust_domain": "ok",
+              "mesh": "ok",
+              "c_spiffe": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "trust_domain"
+              ],
+              [
+                "trust_domain",
+                "mesh"
+              ],
+              [
+                "mesh",
+                "c_spiffe"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trust_domain",
+            "label": "trust_domain"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mesh",
+            "label": "mesh"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "c_spiffe",
+            "label": "c_spiffe"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern Kubernetes microservice topologies, relying on perimeter.",
+            "values": {
+              "self": "<ServiceMeshHandshakeModel>",
+              "trust_domain": "'cluster.local'",
+              "mesh": "<ServiceMeshHandshakeModel>",
+              "c_spiffe": "'spiffe://cluster.local/ns/prod/sa/orde…"
+            },
+            "tones": {
+              "self": "data",
+              "trust_domain": "data",
+              "mesh": "data",
+              "c_spiffe": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "trust_domain"
+              ],
+              [
+                "trust_domain",
+                "mesh"
+              ],
+              [
+                "mesh",
+                "c_spiffe"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A Service Mesh (such as Istio, Linkerd, or AWS App Mesh) injects.",
+            "values": {
+              "self": "<ServiceMeshHandshakeModel>",
+              "trust_domain": "'cluster.local'",
+              "mesh": "<ServiceMeshHandshakeModel>",
+              "c_spiffe": "'spiffe://cluster.local/ns/prod/sa/orde…"
+            },
+            "tones": {
+              "self": "data",
+              "trust_domain": "data",
+              "mesh": "data",
+              "c_spiffe": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "trust_domain"
+              ],
+              [
+                "trust_domain",
+                "mesh"
+              ],
+              [
+                "mesh",
+                "c_spiffe"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Short-lived certificates drastically reduce exposure windows if a private.",
+            "values": {
+              "self": "<ServiceMeshHandshakeModel>",
+              "trust_domain": "'cluster.local'",
+              "mesh": "<ServiceMeshHandshakeModel>",
+              "c_spiffe": "'spiffe://cluster.local/ns/prod/sa/orde…"
+            },
+            "tones": {
+              "self": "ok",
+              "trust_domain": "ok",
+              "mesh": "ok",
+              "c_spiffe": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "trust_domain"
+              ],
+              [
+                "trust_domain",
+                "mesh"
+              ],
+              [
+                "mesh",
+                "c_spiffe"
+              ]
             ]
           }
         ]
@@ -273,264 +287,218 @@
     },
     {
       "partTitle": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking — Core Algorithm & State Representation",
-      "codeHash": "59f22dac64c12b642e8750c1b8b6e59a9ebef68fa2df4b8751a4f511ddc631aa",
+      "codeHash": "275eb1a6433afff8617d9623f42e596fb05ef17df4f488ca79c5ad5a4ac0460c",
       "spec": {
-        "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond encryption, Envoy sidecars act as intelligent traffic controllers.",
+            "bars": [
+              {
+                "label": "consecutive_5x",
+                "value": {
+                  "var": "consecutive_5xx_limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base_ejection_",
+                "value": {
+                  "var": "base_ejection_sec",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "status_code",
+                "value": {
+                  "var": "status_code",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_time",
+                "value": {
+                  "var": "current_time",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Outlier detection tracks the consecutive failure status codes returned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "consecutive_5x",
+                "value": {
+                  "var": "consecutive_5xx_limit",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "base_ejection_",
+                "value": {
+                  "var": "base_ejection_sec",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "status_code",
+                "value": {
+                  "var": "status_code",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "current_time",
+                "value": {
+                  "var": "current_time",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Consecutive gateway error thresholds can be configured alongside.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "consecutive_5x",
+                "value": {
+                  "var": "consecutive_5xx_limit",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "base_ejection_",
+                "value": {
+                  "var": "base_ejection_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "status_code",
+                "value": {
+                  "var": "status_code",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "current_time",
+                "value": {
+                  "var": "current_time",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond encryption, Envoy sidecars act as intelligent traffic controllers.",
+            "bars": [
+              {
+                "label": "consecutive_5x",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "base_ejection_",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "status_code",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "current_time",
+                "value": 100,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Outlier detection tracks the consecutive failure status codes returned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "consecutive_5x",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "base_ejection_",
+                "value": 30,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "status_code",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "current_time",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Consecutive gateway error thresholds can be configured alongside.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "consecutive_5x",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "base_ejection_",
+                "value": 30,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "status_code",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "current_time",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +507,279 @@
     },
     {
       "partTitle": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5758421b7a98e8219560d3e06037d657f599afcd4a156aa05df933ed4aad6dc8",
+      "codeHash": "c28709a328c8c63348e95db62442880d8efb27f5d98558d9e742db59ef247791",
       "spec": {
         "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_cluster_services",
+            "label": "total_cluster_services"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "scoped_dependencies",
+            "label": "scoped_dependencies"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "full_mesh_kb",
+            "label": "full_mesh_kb"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scoped_mesh_kb",
+            "label": "scoped_mesh_kb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In high-throughput microservice meshes handling tens of thousands.",
+            "values": {
+              "total_cluster_services": {
+                "var": "total_cluster_services",
+                "line": 5,
+                "hit": 1
+              },
+              "scoped_dependencies": {
+                "var": "scoped_dependencies",
+                "line": 5,
+                "hit": 1
+              },
+              "full_mesh_kb": {
+                "var": "full_mesh_kb",
+                "line": 5,
+                "hit": 1
+              },
+              "scoped_mesh_kb": {
+                "var": "scoped_mesh_kb",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_cluster_services": "data",
+              "scoped_dependencies": "data",
+              "full_mesh_kb": "data",
+              "scoped_mesh_kb": "data"
+            },
+            "arrows": [
+              [
+                "total_cluster_services",
+                "scoped_dependencies"
+              ],
+              [
+                "scoped_dependencies",
+                "full_mesh_kb"
+              ],
+              [
+                "full_mesh_kb",
+                "scoped_mesh_kb"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Envoy sidecars optimize throughput using Persistent Connection Pooling.",
+            "values": {
+              "total_cluster_services": {
+                "var": "total_cluster_services",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "scoped_dependencies": {
+                "var": "scoped_dependencies",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "full_mesh_kb": {
+                "var": "full_mesh_kb",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scoped_mesh_kb": {
+                "var": "scoped_mesh_kb",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total_cluster_services": "data",
+              "scoped_dependencies": "data",
+              "full_mesh_kb": "data",
+              "scoped_mesh_kb": "data"
+            },
+            "arrows": [
+              [
+                "total_cluster_services",
+                "scoped_dependencies"
+              ],
+              [
+                "scoped_dependencies",
+                "full_mesh_kb"
+              ],
+              [
+                "full_mesh_kb",
+                "scoped_mesh_kb"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Scoping service discovery configurations with Istio Sidecar resources.",
+            "values": {
+              "total_cluster_services": {
+                "var": "total_cluster_services",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "scoped_dependencies": {
+                "var": "scoped_dependencies",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "full_mesh_kb": {
+                "var": "full_mesh_kb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scoped_mesh_kb": {
+                "var": "scoped_mesh_kb",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "total_cluster_services": "ok",
+              "scoped_dependencies": "ok",
+              "full_mesh_kb": "ok",
+              "scoped_mesh_kb": "ok"
+            },
+            "arrows": [
+              [
+                "total_cluster_services",
+                "scoped_dependencies"
+              ],
+              [
+                "scoped_dependencies",
+                "full_mesh_kb"
+              ],
+              [
+                "full_mesh_kb",
+                "scoped_mesh_kb"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_cluster_services",
+            "label": "total_cluster_services"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "scoped_dependencies",
+            "label": "scoped_dependencies"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "full_mesh_kb",
+            "label": "full_mesh_kb"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scoped_mesh_kb",
+            "label": "scoped_mesh_kb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In high-throughput microservice meshes handling tens of thousands.",
+            "values": {
+              "total_cluster_services": "500",
+              "scoped_dependencies": "['auth', 'db-proxy', 'fraud', 'ledger',…",
+              "full_mesh_kb": "25000",
+              "scoped_mesh_kb": "300"
+            },
+            "tones": {
+              "total_cluster_services": "data",
+              "scoped_dependencies": "data",
+              "full_mesh_kb": "data",
+              "scoped_mesh_kb": "data"
+            },
+            "arrows": [
+              [
+                "total_cluster_services",
+                "scoped_dependencies"
+              ],
+              [
+                "scoped_dependencies",
+                "full_mesh_kb"
+              ],
+              [
+                "full_mesh_kb",
+                "scoped_mesh_kb"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Envoy sidecars optimize throughput using Persistent Connection Pooling.",
+            "values": {
+              "total_cluster_services": "500",
+              "scoped_dependencies": "['auth', 'db-proxy', 'fraud', 'ledger',…",
+              "full_mesh_kb": "25000",
+              "scoped_mesh_kb": "300"
+            },
+            "tones": {
+              "total_cluster_services": "data",
+              "scoped_dependencies": "data",
+              "full_mesh_kb": "data",
+              "scoped_mesh_kb": "data"
+            },
+            "arrows": [
+              [
+                "total_cluster_services",
+                "scoped_dependencies"
+              ],
+              [
+                "scoped_dependencies",
+                "full_mesh_kb"
+              ],
+              [
+                "full_mesh_kb",
+                "scoped_mesh_kb"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Scoping service discovery configurations with Istio Sidecar resources.",
+            "values": {
+              "total_cluster_services": "500",
+              "scoped_dependencies": "['auth', 'db-proxy', 'fraud', 'ledger',…",
+              "full_mesh_kb": "25000",
+              "scoped_mesh_kb": "300"
+            },
+            "tones": {
+              "total_cluster_services": "ok",
+              "scoped_dependencies": "ok",
+              "full_mesh_kb": "ok",
+              "scoped_mesh_kb": "ok"
+            },
+            "arrows": [
+              [
+                "total_cluster_services",
+                "scoped_dependencies"
+              ],
+              [
+                "scoped_dependencies",
+                "full_mesh_kb"
+              ],
+              [
+                "full_mesh_kb",
+                "scoped_mesh_kb"
+              ]
             ]
           }
         ]
@@ -805,265 +787,279 @@
     },
     {
       "partTitle": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking — Resilience Guardrails & Failure Recovery",
-      "codeHash": "e267b310a2034c111b072b6b647d541df409efc8d0d23ca9b4d4f9abe541f183",
+      "codeHash": "4d6096c08bc7046cf73ac192fe6be8eb42ac3b80e2c953b9d6aa05b38ae28086",
       "spec": {
         "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_connections",
+            "label": "max_connections"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "max_pending",
+            "label": "max_pending"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_requests",
+            "label": "max_requests"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if an upstream database or payment partner experiences.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "max_connections": {
+                "var": "max_connections",
+                "line": 3,
+                "hit": 1
+              },
+              "max_pending": {
+                "var": "max_pending",
+                "line": 3,
+                "hit": 1
+              },
+              "max_requests": {
+                "var": "max_requests",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "max_connections": "data",
+              "max_pending": "data",
+              "max_requests": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_connections"
+              ],
+              [
+                "max_connections",
+                "max_pending"
+              ],
+              [
+                "max_pending",
+                "max_requests"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In naive systems without circuit breaking, client services continue firing.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_connections": {
+                "var": "max_connections",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "max_pending": {
+                "var": "max_pending",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_requests": {
+                "var": "max_requests",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "max_connections": "data",
+              "max_pending": "data",
+              "max_requests": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_connections"
+              ],
+              [
+                "max_connections",
+                "max_pending"
+              ],
+              [
+                "max_pending",
+                "max_requests"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Decoupling timeout budgets and retry policies between client proxies.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_connections": {
+                "var": "max_connections",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "max_pending": {
+                "var": "max_pending",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_requests": {
+                "var": "max_requests",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "max_connections": "ok",
+              "max_pending": "ok",
+              "max_requests": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_connections"
+              ],
+              [
+                "max_connections",
+                "max_pending"
+              ],
+              [
+                "max_pending",
+                "max_requests"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_connections",
+            "label": "max_connections"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "max_pending",
+            "label": "max_pending"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_requests",
+            "label": "max_requests"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if an upstream database or payment partner experiences.",
+            "values": {
+              "self": "<EnvoyCircuitBreaker>",
+              "max_connections": "5",
+              "max_pending": "2",
+              "max_requests": "3"
+            },
+            "tones": {
+              "self": "data",
+              "max_connections": "data",
+              "max_pending": "data",
+              "max_requests": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_connections"
+              ],
+              [
+                "max_connections",
+                "max_pending"
+              ],
+              [
+                "max_pending",
+                "max_requests"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In naive systems without circuit breaking, client services continue firing.",
+            "values": {
+              "self": "<EnvoyCircuitBreaker>",
+              "max_connections": "5",
+              "max_pending": "2",
+              "max_requests": "3"
+            },
+            "tones": {
+              "self": "data",
+              "max_connections": "data",
+              "max_pending": "data",
+              "max_requests": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_connections"
+              ],
+              [
+                "max_connections",
+                "max_pending"
+              ],
+              [
+                "max_pending",
+                "max_requests"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Decoupling timeout budgets and retry policies between client proxies.",
+            "values": {
+              "self": "<EnvoyCircuitBreaker>",
+              "max_connections": "5",
+              "max_pending": "2",
+              "max_requests": "3"
+            },
+            "tones": {
+              "self": "ok",
+              "max_connections": "ok",
+              "max_pending": "ok",
+              "max_requests": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_connections"
+              ],
+              [
+                "max_connections",
+                "max_pending"
+              ],
+              [
+                "max_pending",
+                "max_requests"
+              ]
             ]
           }
         ]
@@ -1071,266 +1067,164 @@
     },
     {
       "partTitle": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking — Production Telemetry & Verification Audit",
-      "codeHash": "8d0f3d74b9d734178ff77cb96417717f516fd2e9aa2ff14d7760b7cba3452cc6",
+      "codeHash": "acf0198992e8530e9783ea1941b177c7ebc8b933688d8aaedaec8dd6c882707d",
       "spec": {
-        "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
+        "actors": [
+          "healthy",
+          "degraded",
+          "mesh_telemetry"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating an enterprise service mesh in production demands continuous.",
+            "activeActor": "healthy",
+            "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": {
+                  "var": "degraded",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Envoy proxies emit rich Prometheus metrics.",
+            "activeActor": "degraded",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": {
+                  "var": "degraded",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Automated alerts on certificate expiration margins prevent catastrophic.",
+            "activeActor": "mesh_telemetry",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": {
+                  "var": "degraded",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Breaking",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Service Mesh mTLS Rotation, Envoy Outlier Detection & Circuit Br",
+        "actors": [
+          "healthy",
+          "degraded",
+          "mesh_telemetry"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating an enterprise service mesh in production demands continuous.",
+            "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'days_until_cert_expiry': 14, 'ejectio…",
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": "{'days_until_cert_expiry': 1, 'ejection…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "healthy"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Envoy proxies emit rich Prometheus metrics.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'days_until_cert_expiry': 14, 'ejectio…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": "{'days_until_cert_expiry': 1, 'ejection…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "degraded"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Automated alerts on certificate expiration margins prevent catastrophic.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'days_until_cert_expiry': 14, 'ejectio…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "degraded",
+                "to": "mesh_telemetry",
+                "label": "{'days_until_cert_expiry': 1, 'ejection…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "mesh_telemetry"
           }
         ]
       }

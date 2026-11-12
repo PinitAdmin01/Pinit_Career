@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Gradients become ready in reverse",
       "codeHash": "769293ef3eb27010d9c7287dde3d88a6a7d3fcaa91965b3d6642e04d65998ccd",
       "spec": {
-        "template": "table",
-        "title": "Reverse order of gradient readiness during backward pass",
-        "columns": [
+        "template": "sequence",
+        "title": "Gradients become ready in reverse",
+        "actors": [
           "layer_ms",
           "clock",
           "name"
@@ -20,67 +20,80 @@
           {
             "at": "say1",
             "caption": "The backward pass runs from the last layer to the first.",
-            "rows": [
+            "activeActor": "layer_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "layer_ms"
-                  },
-                  {
-                    "text": "clock"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+                "from": "layer_ms",
+                "to": "clock",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "layer_ms"
-                  },
-                  {
-                    "text": "clock"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "data"
+                "from": "clock",
+                "to": "name",
+                "label": {
+                  "var": "clock",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Instead we start all-reducing gradients while earlier layers are computing.",
-            "rows": [
+            "at": "say2",
+            "caption": "So the last layer's gradients are ready first, long before the first layer's.",
+            "activeActor": "clock",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "layer_ms"
-                  },
-                  {
-                    "text": "clock"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "from": "layer_ms",
+                "to": "clock",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "layer_ms"
-                  },
-                  {
-                    "text": "clock"
-                  },
-                  {
-                    "text": "layer_ms"
-                  }
-                ],
+                "from": "clock",
+                "to": "name",
+                "label": {
+                  "var": "clock",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we simulate it to understand exactly how much time it can save.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "clock",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "clock",
+                "to": "name",
+                "label": {
+                  "var": "clock",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,9 +101,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Reverse order of gradient readiness during backward pass",
-        "columns": [
+        "template": "sequence",
+        "title": "Gradients become ready in reverse",
+        "actors": [
           "layer_ms",
           "clock",
           "name"
@@ -99,46 +112,59 @@
           {
             "at": "say1",
             "caption": "The backward pass runs from the last layer to the first.",
-            "rows": [
+            "messages": [
               {
-                "cells": [
-                  "layer_ms",
-                  "clock",
-                  "name"
-                ],
-                "tone": "ok"
+                "from": "layer_ms",
+                "to": "clock",
+                "label": "{'layer 4': 30, 'layer 3': 30, 'layer 2…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "layer_ms",
-                  "clock",
-                  "name"
-                ],
-                "tone": "data"
+                "from": "clock",
+                "to": "name",
+                "label": "0",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "layer_ms"
           },
           {
-            "at": "say4",
-            "caption": "Instead we start all-reducing gradients while earlier layers are computing.",
-            "rows": [
+            "at": "say2",
+            "caption": "So the last layer's gradients are ready first, long before the first layer's.",
+            "messages": [
               {
-                "cells": [
-                  "layer_ms",
-                  "clock",
-                  "name"
-                ],
+                "from": "layer_ms",
+                "to": "clock",
+                "label": "{'layer 4': 30, 'layer 3': 30, 'layer 2…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "layer_ms",
-                  "clock",
-                  "layer_ms"
-                ],
+                "from": "clock",
+                "to": "name",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "clock"
+          },
+          {
+            "at": "say10",
+            "caption": "Today we simulate it to understand exactly how much time it can save.",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "clock",
+                "label": "{'layer 4': 30, 'layer 3': 30, 'layer 2…",
+                "tone": "data"
+              },
+              {
+                "from": "clock",
+                "to": "name",
+                "label": "30",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -147,78 +173,91 @@
       "partTitle": "Gradient buckets",
       "codeHash": "a5f7bd5e075d73aa0f2e0370424cb23d583cda8909ebc80cb9eb8c2158272b25",
       "spec": {
-        "template": "table",
-        "title": "Grouping individual tensor gradients into contiguous buckets",
-        "columns": [
+        "template": "sequence",
+        "title": "Gradient buckets",
+        "actors": [
           "sizes",
           "buckets",
           "current"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Gradients are grouped into buckets of a chosen target size.",
-            "rows": [
+            "at": "say1",
+            "caption": "Sending each small gradient separately would pay the latency cost many.",
+            "activeActor": "sizes",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "buckets"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "ok"
+                "from": "sizes",
+                "to": "buckets",
+                "label": {
+                  "var": "sizes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "buckets"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "data"
+                "from": "buckets",
+                "to": "current",
+                "label": {
+                  "var": "buckets",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "When a bucket is full its all-reduce starts while the backward pass continues.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead, gradients are grouped into buckets of a target size, commonly.",
+            "activeActor": "buckets",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "buckets"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
+                "from": "sizes",
+                "to": "buckets",
+                "label": {
+                  "var": "sizes",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "sizes"
-                  },
-                  {
-                    "text": "buckets"
-                  },
-                  {
-                    "text": "sizes"
-                  }
-                ],
+                "from": "buckets",
+                "to": "current",
+                "label": {
+                  "var": "buckets",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tuning bucket size is a quick win when profiling shows exposed communication.",
+            "activeActor": "current",
+            "messages": [
+              {
+                "from": "sizes",
+                "to": "buckets",
+                "label": {
+                  "var": "sizes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "buckets",
+                "to": "current",
+                "label": {
+                  "var": "buckets",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Grouping individual tensor gradients into contiguous buckets",
-        "columns": [
+        "template": "sequence",
+        "title": "Gradient buckets",
+        "actors": [
           "sizes",
           "buckets",
           "current"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Gradients are grouped into buckets of a chosen target size.",
-            "rows": [
+            "at": "say1",
+            "caption": "Sending each small gradient separately would pay the latency cost many.",
+            "messages": [
               {
-                "cells": [
-                  "sizes",
-                  "buckets",
-                  "current"
-                ],
-                "tone": "ok"
+                "from": "sizes",
+                "to": "buckets",
+                "label": "[10, 20, 5, 15, 30]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "sizes",
-                  "buckets",
-                  "current"
-                ],
-                "tone": "data"
+                "from": "buckets",
+                "to": "current",
+                "label": "[]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sizes"
           },
           {
-            "at": "say4",
-            "caption": "When a bucket is full its all-reduce starts while the backward pass continues.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead, gradients are grouped into buckets of a target size, commonly.",
+            "messages": [
               {
-                "cells": [
-                  "sizes",
-                  "buckets",
-                  "current"
-                ],
+                "from": "sizes",
+                "to": "buckets",
+                "label": "[10, 20, 5, 15, 30]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "sizes",
-                  "buckets",
-                  "sizes"
-                ],
+                "from": "buckets",
+                "to": "current",
+                "label": "[]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "buckets"
+          },
+          {
+            "at": "say10",
+            "caption": "Tuning bucket size is a quick win when profiling shows exposed communication.",
+            "messages": [
+              {
+                "from": "sizes",
+                "to": "buckets",
+                "label": "[10, 20, 5, 15, 30]",
+                "tone": "data"
+              },
+              {
+                "from": "buckets",
+                "to": "current",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "current"
           }
         ]
       }
@@ -285,78 +337,131 @@
       "partTitle": "Simulating overlap",
       "codeHash": "102a628d71fc1305c441dfcdb7e916b7a55f0a2aab997baa39bb8f3f8c34a956",
       "spec": {
-        "template": "table",
-        "title": "Two-clock overlap simulation tracking compute and communication",
-        "columns": [
-          "compute",
-          "comm",
-          "start"
-        ],
+        "template": "bars",
+        "title": "Simulating overlap",
         "steps": [
           {
-            "at": "say2",
-            "caption": "We track two clocks for bucket computation and communication.",
-            "rows": [
+            "at": "say1",
+            "caption": "Each bucket's all-reduce can start only when its gradients have been.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "start"
-                  }
-                ],
-                "tone": "ok"
+                "label": "compute_done",
+                "value": {
+                  "var": "compute_done",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "start"
-                  }
-                ],
+                "label": "comm_done",
+                "value": {
+                  "var": "comm_done",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The overlapped step finishes much sooner than sequential execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "So we track two clocks.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "start"
-                  }
-                ],
-                "tone": "data"
+                "label": "compute_done",
+                "value": {
+                  "var": "compute_done",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "compute"
-                  }
-                ],
+                "label": "comm_done",
+                "value": {
+                  "var": "comm_done",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "It also shows why the final bucket should be small.",
+            "bars": [
+              {
+                "label": "compute_done",
+                "value": {
+                  "var": "compute_done",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comm_done",
+                "value": {
+                  "var": "comm_done",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +469,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Two-clock overlap simulation tracking compute and communication",
-        "columns": [
-          "compute",
-          "comm",
-          "start"
-        ],
+        "template": "bars",
+        "title": "Simulating overlap",
         "steps": [
           {
-            "at": "say2",
-            "caption": "We track two clocks for bucket computation and communication.",
-            "rows": [
+            "at": "say1",
+            "caption": "Each bucket's all-reduce can start only when its gradients have been.",
+            "bars": [
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "start"
-                ],
-                "tone": "ok"
+                "label": "compute_done",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "start"
-                ],
+                "label": "comm_done",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 10,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The overlapped step finishes much sooner than sequential execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "So we track two clocks.",
+            "bars": [
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "start"
-                ],
-                "tone": "data"
+                "label": "compute_done",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "compute"
-                ],
+                "label": "comm_done",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 10,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "It also shows why the final bucket should be small.",
+            "bars": [
+              {
+                "label": "compute_done",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "comm_done",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 10,
                 "tone": "ok"
               }
             ]
@@ -423,78 +557,131 @@
       "partTitle": "When overlap is not enough",
       "codeHash": "9d9937eb57137f21abfd20dc639d238cda32f7f3abd1a262577a193e3f224d24",
       "spec": {
-        "template": "table",
-        "title": "Communication-bound limits where overlap cannot hide transfer",
-        "columns": [
-          "compute",
-          "comm",
-          "name"
-        ],
+        "template": "bars",
+        "title": "When overlap is not enough",
         "steps": [
           {
             "at": "say1",
-            "caption": "Total communication time can exceed backward computation in some regimes.",
-            "rows": [
+            "caption": "If the total communication time is larger than the backward computation.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+                "label": "cd",
+                "value": {
+                  "var": "cd",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "label": "md",
+                "value": {
+                  "var": "md",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Measuring the fraction of step time where the GPU is idle clarifies cases.",
-            "rows": [
+            "at": "say2",
+            "caption": "The step is then communication-bound, and the fixes from Day 20 apply.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "data"
+                "label": "cd",
+                "value": {
+                  "var": "cd",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "compute"
-                  },
-                  {
-                    "text": "comm"
-                  },
-                  {
-                    "text": "compute"
-                  }
-                ],
+                "label": "md",
+                "value": {
+                  "var": "md",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how profiling updates check during execution.",
+            "bars": [
+              {
+                "label": "cd",
+                "value": {
+                  "var": "cd",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "md",
+                "value": {
+                  "var": "md",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +689,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Communication-bound limits where overlap cannot hide transfer",
-        "columns": [
-          "compute",
-          "comm",
-          "name"
-        ],
+        "template": "bars",
+        "title": "When overlap is not enough",
         "steps": [
           {
             "at": "say1",
-            "caption": "Total communication time can exceed backward computation in some regimes.",
-            "rows": [
+            "caption": "If the total communication time is larger than the backward computation.",
+            "bars": [
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "name"
-                ],
-                "tone": "ok"
+                "label": "cd",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "name"
-                ],
+                "label": "md",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 5,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Measuring the fraction of step time where the GPU is idle clarifies cases.",
-            "rows": [
+            "at": "say2",
+            "caption": "The step is then communication-bound, and the fixes from Day 20 apply.",
+            "bars": [
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "name"
-                ],
-                "tone": "data"
+                "label": "cd",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "compute",
-                  "comm",
-                  "compute"
-                ],
+                "label": "md",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how profiling updates check during execution.",
+            "bars": [
+              {
+                "label": "cd",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "md",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -562,110 +778,127 @@
       "codeHash": "49b05784fc1f93800467e1d656b77f094f7c2601aed9514c992cbcc64b0a8439",
       "spec": {
         "template": "flow",
-        "title": "Overlap in real frameworks — Execution Pipeline",
+        "title": "Overlap in real frameworks",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "settings",
+            "label": "settings"
           },
           {
-            "id": "proc",
-            "label": "2. Overlap in real fra...",
-            "tappable": true
+            "id": "framework",
+            "label": "framework"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "names",
+            "label": "names"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Overlap in real frameworks [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Overlap in real fra... [D.Pfive.Stwo].",
+            "caption": "DDP registers a hook on each parameter.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "settings": {
+                "var": "settings",
+                "line": 1,
+                "hit": 2
+              },
+              "framework": {
+                "var": "framework",
+                "line": 4,
+                "hit": 1
+              },
+              "names": {
+                "var": "names",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "settings": "data",
+              "framework": "data",
+              "names": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "settings",
+                "framework"
               ],
               [
-                "proc",
-                "out"
+                "framework",
+                "names"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "At the end of backward, DDP waits for all outstanding all-reduces before.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "settings": {
+                "var": "settings",
+                "line": 4,
+                "hit": 1
+              },
+              "framework": {
+                "var": "framework",
+                "line": 5,
+                "hit": 1
+              },
+              "names": {
+                "var": "names",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "settings": "data",
+              "framework": "data",
+              "names": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "settings",
+                "framework"
+              ],
+              [
+                "framework",
+                "names"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Overlap in real frameworks.",
+            "at": "say10",
+            "caption": "Reading framework documentation with today's model in mind makes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "settings": {
+                "var": "settings",
+                "line": 5,
+                "hit": 1
+              },
+              "framework": {
+                "var": "framework",
+                "line": 4,
+                "hit": 2
+              },
+              "names": {
+                "var": "names",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "settings": "ok",
+              "framework": "ok",
+              "names": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "settings",
+                "framework"
               ],
               [
-                "proc",
-                "out"
+                "framework",
+                "names"
               ]
             ]
           }
@@ -673,110 +906,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Overlap in real frameworks — Execution Pipeline",
+        "title": "Overlap in real frameworks",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "settings",
+            "label": "settings"
           },
           {
-            "id": "proc",
-            "label": "2. Overlap in real fra...",
-            "tappable": true
+            "id": "framework",
+            "label": "framework"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "names",
+            "label": "names"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Overlap in real frameworks [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Overlap in real fra... [D21.P5.S2].",
+            "caption": "DDP registers a hook on each parameter.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "settings": "{'PyTorch DDP': ['bucket_cap_mb', 'grad…",
+              "framework": "'PyTorch DDP'",
+              "names": "['bucket_cap_mb', 'gradient_as_bucket_v…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "settings": "data",
+              "framework": "data",
+              "names": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "settings",
+                "framework"
               ],
               [
-                "proc",
-                "out"
+                "framework",
+                "names"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
+            "at": "say2",
+            "caption": "At the end of backward, DDP waits for all outstanding all-reduces before.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "settings": "{'PyTorch DDP': ['bucket_cap_mb', 'grad…",
+              "framework": "'PyTorch DDP'",
+              "names": "['bucket_cap_mb', 'gradient_as_bucket_v…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "settings": "data",
+              "framework": "data",
+              "names": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "settings",
+                "framework"
+              ],
+              [
+                "framework",
+                "names"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Overlap in real frameworks [D21.P5.S4].",
+            "at": "say10",
+            "caption": "Reading framework documentation with today's model in mind makes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "settings": "{'PyTorch DDP': ['bucket_cap_mb', 'grad…",
+              "framework": "'PyTorch FSDP'",
+              "names": "['forward_prefetch', 'backward_prefetch…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "settings": "ok",
+              "framework": "ok",
+              "names": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "settings",
+                "framework"
               ],
               [
-                "proc",
-                "out"
+                "framework",
+                "names"
               ]
             ]
           }
@@ -788,110 +1002,161 @@
       "codeHash": "aeb7d362d1c2cfb939578f3ecdc0c81694380751e074d5831ffa5be1c7fa39e8",
       "spec": {
         "template": "flow",
-        "title": "Practice time: overlap — Execution Pipeline",
+        "title": "Practice time: overlap",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sizes",
+            "label": "sizes"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: overlap",
-            "tappable": true
+            "id": "cap",
+            "label": "cap"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "cd",
+            "label": "cd"
+          },
+          {
+            "id": "md",
+            "label": "md"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: overlap [D.Psix.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: overlap [D.Psix.Stwo].",
+            "caption": "Walk layers from last to first, closing the current bucket when adding.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "sizes": {
+                "var": "sizes",
+                "line": 11,
+                "hit": 1
+              },
+              "cap": {
+                "var": "cap",
+                "line": 12,
+                "hit": 1
+              },
+              "cd": {
+                "var": "cd",
+                "line": 13,
+                "hit": 1
+              },
+              "md": {
+                "var": "md",
+                "line": 13,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "sizes": "data",
+              "cap": "data",
+              "cd": "data",
+              "md": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sizes",
+                "cap"
               ],
               [
-                "proc",
-                "out"
+                "cap",
+                "cd"
+              ],
+              [
+                "cd",
+                "md"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "sizes": {
+                "var": "sizes",
+                "line": 12,
+                "hit": 1
+              },
+              "cap": {
+                "var": "cap",
+                "line": 13,
+                "hit": 1
+              },
+              "cd": {
+                "var": "cd",
+                "line": 14,
+                "hit": 1
+              },
+              "md": {
+                "var": "md",
+                "line": 14,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "sizes": "data",
+              "cap": "data",
+              "cd": "data",
+              "md": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "sizes",
+                "cap"
+              ],
+              [
+                "cap",
+                "cd"
+              ],
+              [
+                "cd",
+                "md"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: overlap [D.Psix.Sfour].",
+            "at": "say10",
+            "caption": "If step_time is wrong, print both clocks after each bucket.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "sizes": {
+                "var": "sizes",
+                "line": 13,
+                "hit": 1
+              },
+              "cap": {
+                "var": "cap",
+                "line": 2,
+                "hit": 1
+              },
+              "cd": {
+                "var": "cd",
+                "line": 15,
+                "hit": 3
+              },
+              "md": {
+                "var": "md",
+                "line": 15,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "sizes": "ok",
+              "cap": "ok",
+              "cd": "ok",
+              "md": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sizes",
+                "cap"
               ],
               [
-                "proc",
-                "out"
+                "cap",
+                "cd"
+              ],
+              [
+                "cd",
+                "md"
               ]
             ]
           }
@@ -899,110 +1164,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: overlap — Execution Pipeline",
+        "title": "Practice time: overlap",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sizes",
+            "label": "sizes"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: overlap",
-            "tappable": true
+            "id": "cap",
+            "label": "cap"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "cd",
+            "label": "cd"
+          },
+          {
+            "id": "md",
+            "label": "md"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: overlap [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: overlap [D21.P6.S2].",
+            "caption": "Walk layers from last to first, closing the current bucket when adding.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "sizes": "[4, 8, 8, 8, 8, 8, 8, 12]",
+              "cap": "16",
+              "cd": "0",
+              "md": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "sizes": "data",
+              "cap": "data",
+              "cd": "data",
+              "md": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sizes",
+                "cap"
               ],
               [
-                "proc",
-                "out"
+                "cap",
+                "cd"
+              ],
+              [
+                "cd",
+                "md"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "sizes": "[4, 8, 8, 8, 8, 8, 8, 12]",
+              "cap": "16",
+              "cd": "0",
+              "md": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "sizes": "data",
+              "cap": "data",
+              "cd": "data",
+              "md": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "sizes",
+                "cap"
+              ],
+              [
+                "cap",
+                "cd"
+              ],
+              [
+                "cd",
+                "md"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: overlap [D21.P6.S4].",
+            "at": "say10",
+            "caption": "If step_time is wrong, print both clocks after each bucket.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "sizes": "[4, 8, 8, 8, 8, 8, 8, 12]",
+              "cap": "16",
+              "cd": "0",
+              "md": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "sizes": "ok",
+              "cap": "ok",
+              "cd": "ok",
+              "md": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sizes",
+                "cap"
               ],
               [
-                "proc",
-                "out"
+                "cap",
+                "cd"
+              ],
+              [
+                "cd",
+                "md"
               ]
             ]
           }

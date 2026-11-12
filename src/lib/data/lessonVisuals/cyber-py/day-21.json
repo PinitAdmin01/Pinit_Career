@@ -2,155 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 21,
-  "promptSha": "915206d8ae21c2c9aa232db93aa6b51ce1f1e8c3ef6b21eebd25d5475aa7aaaf",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What an API gateway does",
       "codeHash": "97cfa390d49d57857fcf3afbbdf27c76106bc3bf85f2d7ffd9e514fdc45ed304",
       "spec": {
-        "template": "flow",
-        "title": "Milestone three multi-layered runtime application self-protection pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "What an API gateway does",
+        "states": [
           {
-            "id": "rateStage",
-            "label": "Token Bucket Rate Guard",
-            "tappable": false
+            "id": "checks",
+            "label": "checks"
           },
           {
-            "id": "ssrfStage",
-            "label": "Cloud Metadata Egress Filter",
-            "tappable": false
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "deserStage",
-            "label": "Deserialization Payload Scanner",
-            "tappable": false
-          },
-          {
-            "id": "sbomStage",
-            "label": "SBOM Supply Chain Inspector",
-            "tappable": false
-          },
-          {
-            "id": "entropyStage",
-            "label": "Shannon Entropy Secret Guard",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "rateStage",
-            "to": "ssrfStage",
-            "label": "Buffers"
-          },
-          {
-            "from": "ssrfStage",
-            "to": "deserStage",
-            "label": "Routes"
-          },
-          {
-            "from": "deserStage",
-            "to": "sbomStage",
-            "label": "Inspects"
-          },
-          {
-            "from": "sbomStage",
-            "to": "entropyStage",
-            "label": "Validates"
+            "id": "check_",
+            "label": "check_"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Runtime defense suites protect against outbound attacks targeting metadata.",
-            "activeNodes": [
-              "rateStage",
-              "ssrfStage"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "An API gateway sits in front of backend services and applies shared.",
+            "currentState": "checks",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "API surfaces are buffered behind rate limiters to mitigate stuffing.",
-            "activeNodes": [
-              "sbomStage",
-              "entropyStage"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Centralising these controls means each backend team does not have.",
+            "currentState": "i",
+            "transition": {
+              "from": "checks",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "A gateway is also the natural place to add new protections quickly during.",
+            "currentState": "check_",
+            "transition": {
+              "from": "i",
+              "to": "check_",
+              "label": {
+                "var": "check_",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone three multi-layered runtime application self-protection pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "What an API gateway does",
+        "states": [
           {
-            "id": "rateStage",
-            "label": "Token Bucket Rate Guard",
-            "tappable": false
+            "id": "checks",
+            "label": "checks"
           },
           {
-            "id": "ssrfStage",
-            "label": "Cloud Metadata Egress Filter",
-            "tappable": false
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "deserStage",
-            "label": "Deserialization Payload Scanner",
-            "tappable": false
-          },
-          {
-            "id": "sbomStage",
-            "label": "SBOM Supply Chain Inspector",
-            "tappable": false
-          },
-          {
-            "id": "entropyStage",
-            "label": "Shannon Entropy Secret Guard",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "rateStage",
-            "to": "ssrfStage",
-            "label": "Buffers"
-          },
-          {
-            "from": "ssrfStage",
-            "to": "deserStage",
-            "label": "Routes"
-          },
-          {
-            "from": "deserStage",
-            "to": "sbomStage",
-            "label": "Inspects"
-          },
-          {
-            "from": "sbomStage",
-            "to": "entropyStage",
-            "label": "Validates"
+            "id": "check_",
+            "label": "check_"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Runtime defense suites protect against outbound attacks targeting metadata.",
-            "activeNodes": [
-              "rateStage",
-              "ssrfStage"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "An API gateway sits in front of backend services and applies shared.",
+            "currentState": "checks",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "API surfaces are buffered behind rate limiters to mitigate stuffing.",
-            "activeNodes": [
-              "sbomStage",
-              "entropyStage"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Centralising these controls means each backend team does not have.",
+            "currentState": "i",
+            "transition": {
+              "from": "checks",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "A gateway is also the natural place to add new protections quickly during.",
+            "currentState": "check_",
+            "transition": {
+              "from": "i",
+              "to": "check_",
+              "label": "'client has a token in its bucket'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -160,73 +118,105 @@
       "codeHash": "5f3f8c97e3652551c3aa44e35eb48a722c5a435aeb668fafe23fbafed7227eff",
       "spec": {
         "template": "states",
-        "title": "Cloud egress proxy destination evaluation and IMDSv2 token enforcement",
+        "title": "Per-client buckets",
         "states": [
           {
-            "id": "outboundRequest",
-            "label": "Backend Initiates Outbound Request"
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "ipResolved",
-            "label": "Destination Host and IP Evaluated"
+            "id": "rate",
+            "label": "rate"
           },
           {
-            "id": "tokenVerified",
-            "label": "IMDSv2 Session Token Validated"
-          },
-          {
-            "id": "unauthorizedBlocked",
-            "label": "Unauthenticated Metadata Quarantined"
+            "id": "buckets",
+            "label": "buckets"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The proxy inspects destination hostnames against metadata address ranges.",
-            "activeStateId": "ipResolved",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Each client (identified by an API key or user ID) needs its own token bucket.",
+            "currentState": "capacity",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Unauthenticated requests targeting metadata endpoints are blocked immediately.",
-            "activeStateId": "unauthorizedBlocked",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "A dictionary mapping client IDs to (tokens, last_time) holds the state.",
+            "currentState": "rate",
+            "transition": {
+              "from": "capacity",
+              "to": "rate",
+              "label": {
+                "var": "rate",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Limits should be documented for API users, so legitimate clients can pace.",
+            "currentState": "buckets",
+            "transition": {
+              "from": "rate",
+              "to": "buckets",
+              "label": {
+                "var": "buckets",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Cloud egress proxy destination evaluation and IMDSv2 token enforcement",
+        "title": "Per-client buckets",
         "states": [
           {
-            "id": "outboundRequest",
-            "label": "Backend Initiates Outbound Request"
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "ipResolved",
-            "label": "Destination Host and IP Evaluated"
+            "id": "rate",
+            "label": "rate"
           },
           {
-            "id": "tokenVerified",
-            "label": "IMDSv2 Session Token Validated"
-          },
-          {
-            "id": "unauthorizedBlocked",
-            "label": "Unauthenticated Metadata Quarantined"
+            "id": "buckets",
+            "label": "buckets"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The proxy inspects destination hostnames against metadata address ranges.",
-            "activeStateId": "ipResolved",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Each client (identified by an API key or user ID) needs its own token bucket.",
+            "currentState": "capacity",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Unauthenticated requests targeting metadata endpoints are blocked immediately.",
-            "activeStateId": "unauthorizedBlocked",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "A dictionary mapping client IDs to (tokens, last_time) holds the state.",
+            "currentState": "rate",
+            "transition": {
+              "from": "capacity",
+              "to": "rate",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Limits should be documented for API users, so legitimate clients can pace.",
+            "currentState": "buckets",
+            "transition": {
+              "from": "rate",
+              "to": "buckets",
+              "label": "{}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -235,202 +225,162 @@
       "partTitle": "Building the gateway",
       "codeHash": "024b18b9e78256f53b821652aa2b27eae68c5bb1633b55cf8efabd01c27806df",
       "spec": {
-        "template": "table",
-        "title": "Deep payload inspection signatures and prototype pollution defense",
-        "columns": [
-          "Payload Threat Class",
-          "Detection Signature",
-          "Runtime Target",
-          "Defense Action"
+        "template": "boxes",
+        "title": "Building the gateway",
+        "boxes": [
+          {
+            "id": "url",
+            "label": "url"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "ip",
+            "label": "ip"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Signatures associated with notorious gadget libraries are intercepted.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Java Deserialization",
-                  "ObjectInputStream Magic Bytes",
-                  "Java Virtual Machine",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Trace how practice updates gateway during execution.",
+            "values": {
+              "url": {
+                "var": "url",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Python Pickle Opcode",
-                  "Reduce Magic Byte Function",
-                  "Python Runtime Stack",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Prototype Pollution",
-                  "Proto and Constructor Keys",
-                  "Node JavaScript Engine",
-                  "Strip Dangerous Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Declarative JSON Data",
-                  "Strict Typed Primitive Schema",
-                  "Clean Application Domain",
-                  "Permit Clean Processing"
-                ],
-                "tone": "data"
+              "ip": {
+                "var": "ip",
+                "line": 9,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "url": "data",
+              "m": "data",
+              "ip": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Benign data is parsed using schema validation limiting primitive types.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Java Deserialization",
-                  "ObjectInputStream Magic Bytes",
-                  "Java Virtual Machine",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Run the SSRF check (scheme, internal hosts, private IP ranges).",
+            "values": {
+              "url": {
+                "var": "url",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Python Pickle Opcode",
-                  "Reduce Magic Byte Function",
-                  "Python Runtime Stack",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Prototype Pollution",
-                  "Proto and Constructor Keys",
-                  "Node JavaScript Engine",
-                  "Strip Dangerous Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Declarative JSON Data",
-                  "Strict Typed Primitive Schema",
-                  "Clean Application Domain",
-                  "Permit Clean Processing"
-                ],
-                "tone": "data"
+              "ip": {
+                "var": "ip",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "url": "data",
+              "m": "data",
+              "ip": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Tests with mixed traffic, good calls, abusive clients and SSRF attempts.",
+            "values": {
+              "url": {
+                "var": "url",
+                "line": 6,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 1
+              },
+              "ip": {
+                "var": "ip",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "url": "ok",
+              "m": "ok",
+              "ip": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deep payload inspection signatures and prototype pollution defense",
-        "columns": [
-          "Payload Threat Class",
-          "Detection Signature",
-          "Runtime Target",
-          "Defense Action"
+        "template": "boxes",
+        "title": "Building the gateway",
+        "boxes": [
+          {
+            "id": "url",
+            "label": "url"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "ip",
+            "label": "ip"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Signatures associated with notorious gadget libraries are intercepted.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Java Deserialization",
-                  "ObjectInputStream Magic Bytes",
-                  "Java Virtual Machine",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Python Pickle Opcode",
-                  "Reduce Magic Byte Function",
-                  "Python Runtime Stack",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Prototype Pollution",
-                  "Proto and Constructor Keys",
-                  "Node JavaScript Engine",
-                  "Strip Dangerous Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Declarative JSON Data",
-                  "Strict Typed Primitive Schema",
-                  "Clean Application Domain",
-                  "Permit Clean Processing"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how practice updates gateway during execution.",
+            "values": {
+              "url": "'https://hooks.example.com/x'",
+              "m": "{'__other__': 'Match'}",
+              "ip": "{'__other__': 'IPv4Address'}"
+            },
+            "tones": {
+              "url": "data",
+              "m": "data",
+              "ip": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Benign data is parsed using schema validation limiting primitive types.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Java Deserialization",
-                  "ObjectInputStream Magic Bytes",
-                  "Java Virtual Machine",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Python Pickle Opcode",
-                  "Reduce Magic Byte Function",
-                  "Python Runtime Stack",
-                  "Reject and Quarantine"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Prototype Pollution",
-                  "Proto and Constructor Keys",
-                  "Node JavaScript Engine",
-                  "Strip Dangerous Keys"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Declarative JSON Data",
-                  "Strict Typed Primitive Schema",
-                  "Clean Application Domain",
-                  "Permit Clean Processing"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Run the SSRF check (scheme, internal hosts, private IP ranges).",
+            "values": {
+              "url": "'https://hooks.example.com/x'",
+              "m": "{'__other__': 'Match'}",
+              "ip": "{'__other__': 'IPv4Address'}"
+            },
+            "tones": {
+              "url": "data",
+              "m": "data",
+              "ip": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Tests with mixed traffic, good calls, abusive clients and SSRF attempts.",
+            "values": {
+              "url": "'https://hooks.example.com/x'",
+              "m": "{'__other__': 'Match'}",
+              "ip": "{'__other__': 'IPv4Address'}"
+            },
+            "tones": {
+              "url": "ok",
+              "m": "ok",
+              "ip": "ok"
+            }
           }
         ]
       }
@@ -439,150 +389,442 @@
       "partTitle": "Summarising decisions",
       "codeHash": "602e08029c92049a053cd8199fd9da3db687b216cc624d7a6eedb1f3b409ca91",
       "spec": {
-        "template": "compare",
-        "title": "Unprotected code commits versus shift-left entropy pre-commit hook",
-        "left": {
-          "title": "Unprotected Git Commit",
-          "items": [
-            "Exposes high entropy cryptographic keys in public feeds",
-            "Bots scrape leaked credentials within seconds of commit",
-            "Permanent history retention requires complex repository purge"
-          ]
-        },
-        "right": {
-          "title": "Shift-Left Entropy Hook",
-          "items": [
-            "Pre-commit hook inspects staged code modifications",
-            "Combines vendor regex patterns with Shannon entropy",
-            "Aborts commit immediately preventing secret leaks"
-          ]
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Summarising decisions",
+        "nodes": [
           {
-            "at": "say5",
-            "caption": "Candidate tokens are evaluated against the entropy threshold to verify keys.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "decisions",
+            "label": "decisions"
           },
           {
-            "at": "say8",
-            "caption": "Shift left prevention guarantees secrets never enter version control history.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "summary",
+            "label": "summary"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          },
+          {
+            "id": "blocked",
+            "label": "blocked"
           }
         ],
-        "leftLabel": "Unprotected Git Commit",
-        "rightLabel": "Shift-Left Entropy Hook"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Raw decisions are hard to read in bulk.",
+            "values": {
+              "decisions": {
+                "var": "decisions",
+                "line": 3,
+                "hit": 1
+              },
+              "summary": {
+                "var": "summary",
+                "line": 4,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 1
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 5,
+                "hit": 52
+              }
+            },
+            "tones": {
+              "decisions": "data",
+              "summary": "data",
+              "d": "data",
+              "blocked": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "summary"
+              ],
+              [
+                "summary",
+                "d"
+              ],
+              [
+                "d",
+                "blocked"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how practice updates decisions during execution.",
+            "values": {
+              "decisions": {
+                "var": "decisions",
+                "line": 4,
+                "hit": 1
+              },
+              "summary": {
+                "var": "summary",
+                "line": 5,
+                "hit": 52
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 2
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "decisions": "data",
+              "summary": "data",
+              "d": "data",
+              "blocked": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "summary"
+              ],
+              [
+                "summary",
+                "d"
+              ],
+              [
+                "d",
+                "blocked"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Breaking summaries down by client identifies exactly who needs attention.",
+            "values": {
+              "decisions": {
+                "var": "decisions",
+                "line": 5,
+                "hit": 52
+              },
+              "summary": {
+                "var": "summary",
+                "line": 6,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 3
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "decisions": "ok",
+              "summary": "ok",
+              "d": "ok",
+              "blocked": "ok"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "summary"
+              ],
+              [
+                "summary",
+                "d"
+              ],
+              [
+                "d",
+                "blocked"
+              ]
+            ]
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Unprotected code commits versus shift-left entropy pre-commit hook",
-        "left": {
-          "title": "Unprotected Git Commit",
-          "items": [
-            "Exposes high entropy cryptographic keys in public feeds",
-            "Bots scrape leaked credentials within seconds of commit",
-            "Permanent history retention requires complex repository purge"
-          ]
-        },
-        "right": {
-          "title": "Shift-Left Entropy Hook",
-          "items": [
-            "Pre-commit hook inspects staged code modifications",
-            "Combines vendor regex patterns with Shannon entropy",
-            "Aborts commit immediately preventing secret leaks"
-          ]
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Summarising decisions",
+        "nodes": [
           {
-            "at": "say5",
-            "caption": "Candidate tokens are evaluated against the entropy threshold to verify keys.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "decisions",
+            "label": "decisions"
           },
           {
-            "at": "say8",
-            "caption": "Shift left prevention guarantees secrets never enter version control history.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "summary",
+            "label": "summary"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          },
+          {
+            "id": "blocked",
+            "label": "blocked"
           }
         ],
-        "leftLabel": "Unprotected Git Commit",
-        "rightLabel": "Shift-Left Entropy Hook"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Raw decisions are hard to read in bulk.",
+            "values": {
+              "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
+              "summary": "{'ALLOW': 42, 'BLOCKED_SSRF': 3, 'RATE_…",
+              "d": "'ALLOW'",
+              "blocked": "8"
+            },
+            "tones": {
+              "decisions": "data",
+              "summary": "data",
+              "d": "data",
+              "blocked": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "summary"
+              ],
+              [
+                "summary",
+                "d"
+              ],
+              [
+                "d",
+                "blocked"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how practice updates decisions during execution.",
+            "values": {
+              "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
+              "summary": "{'ALLOW': 42, 'BLOCKED_SSRF': 3, 'RATE_…",
+              "d": "'ALLOW'",
+              "blocked": "8"
+            },
+            "tones": {
+              "decisions": "data",
+              "summary": "data",
+              "d": "data",
+              "blocked": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "summary"
+              ],
+              [
+                "summary",
+                "d"
+              ],
+              [
+                "d",
+                "blocked"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Breaking summaries down by client identifies exactly who needs attention.",
+            "values": {
+              "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
+              "summary": "{'ALLOW': 42, 'BLOCKED_SSRF': 3, 'RATE_…",
+              "d": "'ALLOW'",
+              "blocked": "8"
+            },
+            "tones": {
+              "decisions": "ok",
+              "summary": "ok",
+              "d": "ok",
+              "blocked": "ok"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "summary"
+              ],
+              [
+                "summary",
+                "d"
+              ],
+              [
+                "d",
+                "blocked"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Layers around the gateway",
       "codeHash": "9666ceb1194840f51674dbe23bbc418a589c155028f56e4516b129ee7e98425b",
       "spec": {
-        "template": "states",
-        "title": "SBOM dependency manifest ingestion and CVSS severity compliance check",
-        "states": [
-          {
-            "id": "sbomIngested",
-            "label": "SBOM Package Manifest Ingested"
-          },
-          {
-            "id": "cveCorrelated",
-            "label": "Dependencies Correlated Against CVE Feed"
-          },
-          {
-            "id": "cvssEvaluated",
-            "label": "CVSS Exploitability Scored"
-          },
-          {
-            "id": "buildQuarantined",
-            "label": "Critical CVSS Triggers Build Failure"
-          }
+        "template": "sequence",
+        "title": "Layers around the gateway",
+        "actors": [
+          "layers",
+          "attack",
+          "stoppers"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Component records are cross referenced against live vulnerability feeds.",
-            "activeStateId": "cveCorrelated",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The gateway is one layer among many built in this course.",
+            "activeActor": "layers",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": {
+                  "var": "attack",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "The compliance engine enforces strict thresholds that fail the build.",
-            "activeStateId": "buildQuarantined",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Trace how front updates ddos during execution.",
+            "activeActor": "attack",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": {
+                  "var": "layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": {
+                  "var": "attack",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Security architecture is largely the art of arranging these layers so.",
+            "activeActor": "stoppers",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": {
+                  "var": "layers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": {
+                  "var": "attack",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "SBOM dependency manifest ingestion and CVSS severity compliance check",
-        "states": [
-          {
-            "id": "sbomIngested",
-            "label": "SBOM Package Manifest Ingested"
-          },
-          {
-            "id": "cveCorrelated",
-            "label": "Dependencies Correlated Against CVE Feed"
-          },
-          {
-            "id": "cvssEvaluated",
-            "label": "CVSS Exploitability Scored"
-          },
-          {
-            "id": "buildQuarantined",
-            "label": "Critical CVSS Triggers Build Failure"
-          }
+        "template": "sequence",
+        "title": "Layers around the gateway",
+        "actors": [
+          "layers",
+          "attack",
+          "stoppers"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Component records are cross referenced against live vulnerability feeds.",
-            "activeStateId": "cveCorrelated",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The gateway is one layer among many built in this course.",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": "{'WAF': {'sqli', 'xss'}, 'gateway': {'a…",
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": "'sqli'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "layers"
           },
           {
-            "at": "say5",
-            "caption": "The compliance engine enforces strict thresholds that fail the build.",
-            "activeStateId": "buildQuarantined",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Trace how front updates ddos during execution.",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": "{'WAF': {'sqli', 'xss'}, 'gateway': {'a…",
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": "'sqli'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attack"
+          },
+          {
+            "at": "say9",
+            "caption": "Security architecture is largely the art of arranging these layers so.",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "attack",
+                "label": "{'WAF': {'sqli', 'xss'}, 'gateway': {'a…",
+                "tone": "data"
+              },
+              {
+                "from": "attack",
+                "to": "stoppers",
+                "label": "'sqli'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stoppers"
           }
         ]
       }
@@ -591,224 +833,106 @@
       "partTitle": "Milestone practice: gateway and summary",
       "codeHash": "bd3b4c272961113c84c38584e061dce394f7ea0a9bc27d7c350629c96331b164",
       "spec": {
-        "template": "flow",
-        "title": "Milestone Capstone: Integrated Token Bucket R... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: gateway and summary",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "decisions",
+            "label": "decisions"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone Capstone:...",
-            "tappable": true
+            "id": "summary",
+            "label": "summary"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d",
+            "label": "d"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone Capstone: Integrated Token Buc.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone Capstone:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Gateway(calls, capacity, rate).",
+            "currentState": "decisions",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a client exceeding its burst, an SSRF attempt that does.",
+            "currentState": "summary",
+            "transition": {
+              "from": "decisions",
+              "to": "summary",
+              "label": {
+                "var": "summary",
+                "line": 5,
+                "hit": 9
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone Capstone: Integrated To.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Keep the gateway code.",
+            "currentState": "d",
+            "transition": {
+              "from": "summary",
+              "to": "d",
+              "label": {
+                "var": "d",
+                "line": 5,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone Capstone: Integrated Token Bucket R... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: gateway and summary",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "decisions",
+            "label": "decisions"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone Capstone:...",
-            "tappable": true
+            "id": "summary",
+            "label": "summary"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d",
+            "label": "d"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone Capstone: Integrated Token Buc.. [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone Capstone:... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Gateway(calls, capacity, rate).",
+            "currentState": "decisions",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a client exceeding its burst, an SSRF attempt that does.",
+            "currentState": "summary",
+            "transition": {
+              "from": "decisions",
+              "to": "summary",
+              "label": "{'ALLOW': 4, 'BLOCKED_SSRF': 1, 'RATE_L…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone Capstone: Integrated To.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Keep the gateway code.",
+            "currentState": "d",
+            "transition": {
+              "from": "summary",
+              "to": "d",
+              "label": "'RATE_LIMITED'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

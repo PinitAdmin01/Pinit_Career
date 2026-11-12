@@ -2,269 +2,115 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 46,
-  "promptSha": "5ad995386e5f1f8f20ea5337b39133d69ef2173a4183fffbcd22325aa814496c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Foundations & Mathematical Invariants",
-      "codeHash": "acce91c18e99002cbba54d2ba9d7d4cd16078ce623468cb50c65e6a0c465ecb1",
+      "partTitle": "Strict Quorum Intersection Math & Staleness Pitfalls",
+      "codeHash": "e6f5c19895ad855d749b7014bf67b47252ea9b0135050fccaf8f9e17adad5324",
       "spec": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Foun",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Strict Quorum Intersection Math & Staleness Pitfalls",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Leaderless replicated stores like Amazon Dynamo and Apache Cassandra write.",
+            "items": {
+              "var": "cfg",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Instead of waiting unconditionally for all `N` nodes (which stalls.",
+            "items": {
+              "var": "cfg",
+              "line": 14,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Simulate quorum intersection overlap (`R + W - N`) and concurrent version.",
+            "items": {
+              "var": "cfg",
+              "line": 14,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Foun",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Strict Quorum Intersection Math & Staleness Pitfalls",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Leaderless replicated stores like Amazon Dynamo and Apache Cassandra write.",
+            "items": [
+              "3",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Instead of waiting unconditionally for all `N` nodes (which stalls.",
+            "items": [
+              "3",
+              "1",
+              "2"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say7",
+            "caption": "Simulate quorum intersection overlap (`R + W - N`) and concurrent version.",
+            "items": [
+              "5",
+              "3",
+              "3"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +118,717 @@
       }
     },
     {
-      "partTitle": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Core Algorithm & State Representation",
-      "codeHash": "9f2598897da6cf603a0ad749cd3c895df15b79615e424190e12c3458b298f93e",
+      "partTitle": "Tunable Availability vs Latency Profiles Across Workloads",
+      "codeHash": "b0b71d05acad5ba6975d7006113c2fd0454e86030a85f2fa0331e45c37b9e53a",
       "spec": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Core",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Tunable Availability vs Latency Profiles Across Workloads",
+        "actors": [
+          "rtts",
+          "name",
+          "w"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "The magic of `(N, W, R)` quorums is tuning availability and tail latency.",
+            "activeActor": "rtts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "rtts",
+                "to": "name",
+                "label": {
+                  "var": "rtts",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "w",
+                "label": {
+                  "var": "name",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "For an append-heavy IoT telemetry log where high write uptime dominates.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "rtts",
+                "to": "name",
+                "label": {
+                  "var": "rtts",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "w",
+                "label": {
+                  "var": "name",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Model tail latency and failure survival trade-offs across quorum policies.",
+            "activeActor": "w",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "rtts",
+                "to": "name",
+                "label": {
+                  "var": "rtts",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "w",
+                "label": {
+                  "var": "name",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Tunable Availability vs Latency Profiles Across Workloads",
+        "actors": [
+          "rtts",
+          "name",
+          "w"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The magic of `(N, W, R)` quorums is tuning availability and tail latency.",
+            "messages": [
+              {
+                "from": "rtts",
+                "to": "name",
+                "label": "[2.1, 3.4, 180]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "w",
+                "label": "'QUORUM(2,2)'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rtts"
+          },
+          {
+            "at": "say2",
+            "caption": "For an append-heavy IoT telemetry log where high write uptime dominates.",
+            "messages": [
+              {
+                "from": "rtts",
+                "to": "name",
+                "label": "[2.1, 3.4, 180]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "w",
+                "label": "'QUORUM(2,2)'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
+          },
+          {
+            "at": "say6",
+            "caption": "Model tail latency and failure survival trade-offs across quorum policies.",
+            "messages": [
+              {
+                "from": "rtts",
+                "to": "name",
+                "label": "[2.1, 3.4, 180]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "w",
+                "label": "'FAST_WRITE(1,3)'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "w"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Sloppy Quorums During Multiple-Node Partitions",
+      "codeHash": "7c0f9ea3c45e930a527a1c1a6c5dcd0e93ecb92b01f4eedaddac281f8cf439b6",
+      "spec": {
+        "template": "sequence",
+        "title": "Sloppy Quorums During Multiple-Node Partitions",
+        "actors": [
+          "ring",
+          "pref_list",
+          "ring_order"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how imagine updates mapped during execution.",
+            "activeActor": "ring",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": {
+                  "var": "ring",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": {
+                  "var": "pref_list",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how under updates strict during execution.",
+            "activeActor": "pref_list",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": {
+                  "var": "ring",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": {
+                  "var": "pref_list",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Simulate preference-list failover onto healthy standby ring peers cleanly.",
+            "activeActor": "ring_order",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": {
+                  "var": "ring",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": {
+                  "var": "pref_list",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Sloppy Quorums During Multiple-Node Partitions",
+        "actors": [
+          "ring",
+          "pref_list",
+          "ring_order"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how imagine updates mapped during execution.",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": "['A', 'B', 'C', 'D', 'E', 'F']",
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": "['A', 'B', 'C']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ring"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how under updates strict during execution.",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": "['A', 'B', 'C', 'D', 'E', 'F']",
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": "['A', 'B', 'C']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pref_list"
+          },
+          {
+            "at": "say7",
+            "caption": "Simulate preference-list failover onto healthy standby ring peers cleanly.",
+            "messages": [
+              {
+                "from": "ring",
+                "to": "pref_list",
+                "label": "['A', 'B', 'C', 'D', 'E', 'F']",
+                "tone": "data"
+              },
+              {
+                "from": "pref_list",
+                "to": "ring_order",
+                "label": "['A', 'B', 'C']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ring_order"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Hinted Handoff Drain, Expiry & Backpressure Protections",
+      "codeHash": "a36bd8c7181180a0307cccba6272d65722e17fe68d1138656766a2343985ea9e",
+      "spec": {
         "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Core",
+        "title": "Hinted Handoff Drain, Expiry & Backpressure Protections",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_window_ms",
+            "label": "max_window_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "standby",
+            "label": "standby"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "target_node",
+            "label": "target_node"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Whenever standby host `NodeD` accepts a Sloppy Quorum write destined.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "max_window_ms": {
+                "var": "max_window_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "standby": {
+                "var": "standby",
+                "line": 26,
+                "hit": 1
+              },
+              "target_node": {
+                "var": "target_node",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "max_window_ms": "data",
+              "standby": "data",
+              "target_node": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_window_ms"
+              ],
+              [
+                "max_window_ms",
+                "standby"
+              ],
+              [
+                "standby",
+                "target_node"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Watch how Hinted Handoff heals the cluster once offline `NodeB` recovers.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_window_ms": {
+                "var": "max_window_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "standby": {
+                "var": "standby",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "target_node": {
+                "var": "target_node",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "self": "data",
+              "max_window_ms": "data",
+              "standby": "data",
+              "target_node": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_window_ms"
+              ],
+              [
+                "max_window_ms",
+                "standby"
+              ],
+              [
+                "standby",
+                "target_node"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Implement hint buffering, expiration drop guards, and timestamp-preserving.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_window_ms": {
+                "var": "max_window_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "standby": {
+                "var": "standby",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "target_node": {
+                "var": "target_node",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "ok",
+              "max_window_ms": "ok",
+              "standby": "ok",
+              "target_node": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_window_ms"
+              ],
+              [
+                "max_window_ms",
+                "standby"
+              ],
+              [
+                "standby",
+                "target_node"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Hinted Handoff Drain, Expiry & Backpressure Protections",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "max_window_ms",
+            "label": "max_window_ms"
+          },
+          {
+            "id": "standby",
+            "label": "standby"
+          },
+          {
+            "id": "target_node",
+            "label": "target_node"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Whenever standby host `NodeD` accepts a Sloppy Quorum write destined.",
+            "values": {
+              "self": "<HintedStandby>",
+              "max_window_ms": "5000",
+              "standby": "<HintedStandby>",
+              "target_node": "'B'"
+            },
+            "tones": {
+              "self": "data",
+              "max_window_ms": "data",
+              "standby": "data",
+              "target_node": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_window_ms"
+              ],
+              [
+                "max_window_ms",
+                "standby"
+              ],
+              [
+                "standby",
+                "target_node"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say2",
+            "caption": "Watch how Hinted Handoff heals the cluster once offline `NodeB` recovers.",
+            "values": {
+              "self": "<HintedStandby>",
+              "max_window_ms": "5000",
+              "standby": "<HintedStandby>",
+              "target_node": "'B'"
+            },
+            "tones": {
+              "self": "data",
+              "max_window_ms": "data",
+              "standby": "data",
+              "target_node": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_window_ms"
+              ],
+              [
+                "max_window_ms",
+                "standby"
+              ],
+              [
+                "standby",
+                "target_node"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Implement hint buffering, expiration drop guards, and timestamp-preserving.",
+            "values": {
+              "self": "<HintedStandby>",
+              "max_window_ms": "5000",
+              "standby": "<HintedStandby>",
+              "target_node": "'B'"
+            },
+            "tones": {
+              "self": "ok",
+              "max_window_ms": "ok",
+              "standby": "ok",
+              "target_node": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_window_ms"
+              ],
+              [
+                "max_window_ms",
+                "standby"
+              ],
+              [
+                "standby",
+                "target_node"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "4986aae0332c3df0831d5aced11df51745ace7811bad2d6860d299cb0beaa392",
+      "partTitle": "End-to-End Quorum + Sloppy Failover + Hinted Handoff Recovery",
+      "codeHash": "ccc05e59c6409b96055fbdace7aa84871879679a6989741d66b9c3605e4e9666",
       "spec": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Thro",
-        "nodes": [
+        "template": "states",
+        "title": "End-to-End Quorum + Sloppy Failover + Hinted Handoff Recovery",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hints",
+            "label": "hints"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "n",
+            "label": "n"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how Strict Quorums, Sloppy Quorums, and Hinted Handoff interact.",
+            "currentState": "nodes",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say2",
+            "caption": "At T1 (Healthy), client writes `(ver=1, 'logged_in')` with `W=2`.",
+            "currentState": "hints",
+            "transition": {
+              "from": "nodes",
+              "to": "hints",
+              "label": {
+                "var": "hints",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+            "caption": "Trace how execute updates complete during execution.",
+            "currentState": "n",
+            "transition": {
+              "from": "hints",
+              "to": "n",
+              "label": {
+                "var": "n",
+                "line": 6,
+                "hit": 3
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Thro",
-        "nodes": [
+        "template": "states",
+        "title": "End-to-End Quorum + Sloppy Failover + Hinted Handoff Recovery",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hints",
+            "label": "hints"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "n",
+            "label": "n"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how Strict Quorums, Sloppy Quorums, and Hinted Handoff interact.",
+            "currentState": "nodes",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "At T1 (Healthy), client writes `(ver=1, 'logged_in')` with `W=2`.",
+            "currentState": "hints",
+            "transition": {
+              "from": "nodes",
+              "to": "hints",
+              "label": "[]"
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Resilience Guardrails & Failure Recovery",
-      "codeHash": "95448bf81e1154d07ddfae11322f65bade7700d90579f5560100875ce9cbca3f",
-      "spec": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Resi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Resi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Production Telemetry & Verification Audit",
-      "codeHash": "35ab221fd3b577f5a27d8a128c1bea5bf1d3de78b22e5f450ad6d494b5180cd2",
-      "spec": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Prod",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Read-Write Quorums (R + W > N), Sloppy Quorums & Hinted Handoff — Prod",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Trace how execute updates complete during execution.",
+            "currentState": "n",
+            "transition": {
+              "from": "hints",
+              "to": "n",
+              "label": "'B'"
+            },
+            "tone": "ok"
           }
         ]
       }

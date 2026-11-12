@@ -2,139 +2,170 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 48,
-  "promptSha": "781bca8c8b05a0d22b16971e74fcc4f29a55a06e71c9c00be06664532eb2f84f",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "UEBA Anomaly Detection — Foundations & Mathematical Invariants",
-      "codeHash": "078ca27b0fac546fb940a6001dcce12a4b75eba8a28456fcb6e6680912d52414",
+      "codeHash": "afe0cfa60cd55431a75ebbb1d8bd0fe296088b3d1844115c354a2e8734081325",
       "spec": {
         "template": "flow",
         "title": "UEBA Anomaly Detection — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "lat1",
+            "label": "lat1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "lon1",
+            "label": "lon1"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lat2",
+            "label": "lat2"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lon2",
+            "label": "lon2"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Traditional signature-based detection is powerless against adversaries who.",
+            "values": {
+              "lat1": {
+                "var": "lat1",
+                "line": 8,
+                "hit": 1
+              },
+              "lon1": {
+                "var": "lon1",
+                "line": 8,
+                "hit": 1
+              },
+              "lat2": {
+                "var": "lat2",
+                "line": 8,
+                "hit": 1
+              },
+              "lon2": {
+                "var": "lon2",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "lat1": "data",
+              "lon1": "data",
+              "lat2": "data",
+              "lon2": "data"
+            },
+            "arrows": [
+              [
+                "lat1",
+                "lon1"
+              ],
+              [
+                "lon1",
+                "lat2"
+              ],
+              [
+                "lat2",
+                "lon2"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "To detect compromised accounts operating with legitimate credentials.",
+            "values": {
+              "lat1": {
+                "var": "lat1",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "lon1": {
+                "var": "lon1",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "lat2": {
+                "var": "lat2",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lon2": {
+                "var": "lon2",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lat1": "data",
+              "lon1": "data",
+              "lat2": "data",
+              "lon2": "data"
+            },
+            "arrows": [
+              [
+                "lat1",
+                "lon1"
+              ],
+              [
+                "lon1",
+                "lat2"
+              ],
+              [
+                "lat2",
+                "lon2"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Mastering geographical distance mathematics enables detection engineers.",
+            "values": {
+              "lat1": {
+                "var": "lat1",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "lon1": {
+                "var": "lon1",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "lat2": {
+                "var": "lat2",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lon2": {
+                "var": "lon2",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "lat1": "ok",
+              "lon1": "ok",
+              "lat2": "ok",
+              "lon2": "ok"
+            },
+            "arrows": [
+              [
+                "lat1",
+                "lon1"
+              ],
+              [
+                "lon1",
+                "lat2"
+              ],
+              [
+                "lat2",
+                "lon2"
+              ]
             ]
           }
         ]
@@ -144,128 +175,111 @@
         "title": "UEBA Anomaly Detection — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "lat1",
+            "label": "lat1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "lon1",
+            "label": "lon1"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lat2",
+            "label": "lat2"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lon2",
+            "label": "lon2"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Traditional signature-based detection is powerless against adversaries who.",
+            "values": {
+              "lat1": "40.7128",
+              "lon1": "-74.006",
+              "lat2": "51.5074",
+              "lon2": "-0.1278"
+            },
+            "tones": {
+              "lat1": "data",
+              "lon1": "data",
+              "lat2": "data",
+              "lon2": "data"
+            },
+            "arrows": [
+              [
+                "lat1",
+                "lon1"
+              ],
+              [
+                "lon1",
+                "lat2"
+              ],
+              [
+                "lat2",
+                "lon2"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "To detect compromised accounts operating with legitimate credentials.",
+            "values": {
+              "lat1": "40.7128",
+              "lon1": "-74.006",
+              "lat2": "51.5074",
+              "lon2": "-0.1278"
+            },
+            "tones": {
+              "lat1": "data",
+              "lon1": "data",
+              "lat2": "data",
+              "lon2": "data"
+            },
+            "arrows": [
+              [
+                "lat1",
+                "lon1"
+              ],
+              [
+                "lon1",
+                "lat2"
+              ],
+              [
+                "lat2",
+                "lon2"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Mastering geographical distance mathematics enables detection engineers.",
+            "values": {
+              "lat1": "40.7128",
+              "lon1": "-74.006",
+              "lat2": "51.5074",
+              "lon2": "-0.1278"
+            },
+            "tones": {
+              "lat1": "ok",
+              "lon1": "ok",
+              "lat2": "ok",
+              "lon2": "ok"
+            },
+            "arrows": [
+              [
+                "lat1",
+                "lon1"
+              ],
+              [
+                "lon1",
+                "lat2"
+              ],
+              [
+                "lat2",
+                "lon2"
+              ]
             ]
           }
         ]
@@ -273,1064 +287,488 @@
     },
     {
       "partTitle": "UEBA Anomaly Detection — Core Algorithm & State Representation",
-      "codeHash": "69f5750c68713a63a27633136e31bfe3e83612a72c630ec37b597b779cca9389",
+      "codeHash": "f918e66db6095d19d497cfc13310c2f0b88ad0d883171440f70d8d7a76f220ca",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "UEBA Anomaly Detection — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "login_nyc",
+          "login_london",
+          "login1"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The impossible travel detection algorithm maintains stateful session.",
+            "activeActor": "login_nyc",
+            "messages": [
+              {
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": {
+                  "var": "login_nyc",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "login_london",
+                "to": "login1",
+                "label": {
+                  "var": "login_london",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When a new authentication event is ingested, the engine queries the user's.",
+            "activeActor": "login_london",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": {
+                  "var": "login_nyc",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "login_london",
+                "to": "login1",
+                "label": {
+                  "var": "login_london",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Deploying this algorithm across corporate identity providers protects.",
+            "activeActor": "login1",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": {
+                  "var": "login_nyc",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "login_london",
+                "to": "login1",
+                "label": {
+                  "var": "login_london",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "UEBA Anomaly Detection — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "login_nyc",
+          "login_london",
+          "login1"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The impossible travel detection algorithm maintains stateful session.",
+            "messages": [
+              {
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": "{'user': 'bob', 'lat': 40.7128, 'lon': …",
+                "tone": "data"
+              },
+              {
+                "from": "login_london",
+                "to": "login1",
+                "label": "{'user': 'bob', 'lat': 51.5074, 'lon': …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "login_nyc"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When a new authentication event is ingested, the engine queries the user's.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": "{'user': 'bob', 'lat': 40.7128, 'lon': …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "login_london",
+                "to": "login1",
+                "label": "{'user': 'bob', 'lat': 51.5074, 'lon': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "login_london"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Deploying this algorithm across corporate identity providers protects.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "login_nyc",
+                "to": "login_london",
+                "label": "{'user': 'bob', 'lat': 40.7128, 'lon': …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "login_london",
+                "to": "login1",
+                "label": "{'user': 'bob', 'lat': 51.5074, 'lon': …",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "login1"
           }
         ]
       }
     },
     {
       "partTitle": "UEBA Anomaly Detection — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5a35ea9c165f687f35f39a9d63056bc683e26d2c490f3ec01e0c7bf7e2d50f5a",
+      "codeHash": "0bbbb0dbc7172216cd6fa41f1c7b7e9066887f2e5857e47f018d8770782df542",
       "spec": {
-        "template": "flow",
-        "title": "UEBA Anomaly Detection — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "UEBA Anomaly Detection — Throughput Optimization & Edge-Case Han",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "historical_daily_downloads",
+            "label": "historical_daily_downloads"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "normal_activity",
+            "label": "normal_activity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "malicious_exfiltration",
+            "label": "malicious_exfiltration"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond geographical anomalies, UEBA systems identify volumetric anomalies.",
+            "currentState": "historical_daily_downloads",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "To detect anomalous volumes without setting arbitrary static thresholds.",
+            "currentState": "normal_activity",
+            "transition": {
+              "from": "historical_daily_downloads",
+              "to": "normal_activity",
+              "label": {
+                "var": "normal_activity",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Continuous baseline updating ensures that behavioral models adapt.",
+            "currentState": "malicious_exfiltration",
+            "transition": {
+              "from": "normal_activity",
+              "to": "malicious_exfiltration",
+              "label": {
+                "var": "malicious_exfiltration",
+                "line": 20,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "UEBA Anomaly Detection — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "UEBA Anomaly Detection — Throughput Optimization & Edge-Case Han",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "historical_daily_downloads",
+            "label": "historical_daily_downloads"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "normal_activity",
+            "label": "normal_activity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "malicious_exfiltration",
+            "label": "malicious_exfiltration"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond geographical anomalies, UEBA systems identify volumetric anomalies.",
+            "currentState": "historical_daily_downloads",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "To detect anomalous volumes without setting arbitrary static thresholds.",
+            "currentState": "normal_activity",
+            "transition": {
+              "from": "historical_daily_downloads",
+              "to": "normal_activity",
+              "label": "17"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Continuous baseline updating ensures that behavioral models adapt.",
+            "currentState": "malicious_exfiltration",
+            "transition": {
+              "from": "normal_activity",
+              "to": "malicious_exfiltration",
+              "label": "145"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "UEBA Anomaly Detection — Resilience Guardrails & Failure Recovery",
-      "codeHash": "3f20a6ab57635939d31214472fd8dbdbd1c3f5405b416c659a917f59d83ae293",
+      "codeHash": "2a48f287b94c59df84022c04cfd2bc39899c58600af1fe7dd857d3d54e4b37d8",
       "spec": {
-        "template": "flow",
-        "title": "UEBA Anomaly Detection — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "UEBA Anomaly Detection — Resilience Guardrails & Failure Recover",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_geo",
+            "label": "valid_geo"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_geo",
+            "label": "invalid_geo"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "geo_dict",
+            "label": "geo_dict"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Behavioral analytics pipelines depend on enriched metadata, particularly.",
+            "currentState": "valid_geo",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "If an upstream Geo-IP service fails or returns corrupted coordinates,.",
+            "currentState": "invalid_geo",
+            "transition": {
+              "from": "valid_geo",
+              "to": "invalid_geo",
+              "label": {
+                "var": "invalid_geo",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Building fault-tolerant analytics pipelines ensures continuous behavioral.",
+            "currentState": "geo_dict",
+            "transition": {
+              "from": "invalid_geo",
+              "to": "geo_dict",
+              "label": {
+                "var": "geo_dict",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "UEBA Anomaly Detection — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "UEBA Anomaly Detection — Resilience Guardrails & Failure Recover",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_geo",
+            "label": "valid_geo"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_geo",
+            "label": "invalid_geo"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "geo_dict",
+            "label": "geo_dict"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Behavioral analytics pipelines depend on enriched metadata, particularly.",
+            "currentState": "valid_geo",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "If an upstream Geo-IP service fails or returns corrupted coordinates,.",
+            "currentState": "invalid_geo",
+            "transition": {
+              "from": "valid_geo",
+              "to": "invalid_geo",
+              "label": "{'lat': 137.77, 'lon': -122.4194}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Building fault-tolerant analytics pipelines ensures continuous behavioral.",
+            "currentState": "geo_dict",
+            "transition": {
+              "from": "invalid_geo",
+              "to": "geo_dict",
+              "label": "{'lat': 37.7749, 'lon': -122.4194}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "UEBA Anomaly Detection — Production Telemetry & Verification Audit",
-      "codeHash": "15c994e4f8ac9bca90ae3fa94df2c328908c24ca1784b74ff927efbce8655b18",
+      "codeHash": "f0f2a5faffee7040eedbee10715dfee6ad89260728a3843d30cf5892b7d290d0",
       "spec": {
-        "template": "flow",
-        "title": "UEBA Anomaly Detection — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "UEBA Anomaly Detection — Production Telemetry & Verification Aud",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "impossible_travel_active",
+            "label": "impossible_travel_active"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "zscore_threshold_set",
+            "label": "zscore_threshold_set"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_baseline_enforced",
+            "label": "min_baseline_enforced"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Certifying a UEBA anomaly detection deployment requires systematic.",
+            "currentState": "impossible_travel_active",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A UEBA certification auditor asserts that impossible travel calculations.",
+            "currentState": "zscore_threshold_set",
+            "transition": {
+              "from": "impossible_travel_active",
+              "to": "zscore_threshold_set",
+              "label": {
+                "var": "zscore_threshold_set",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Organizations with mature UEBA programs achieve significantly faster.",
+            "currentState": "min_baseline_enforced",
+            "transition": {
+              "from": "zscore_threshold_set",
+              "to": "min_baseline_enforced",
+              "label": {
+                "var": "min_baseline_enforced",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "UEBA Anomaly Detection — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "UEBA Anomaly Detection — Production Telemetry & Verification Aud",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "impossible_travel_active",
+            "label": "impossible_travel_active"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "zscore_threshold_set",
+            "label": "zscore_threshold_set"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_baseline_enforced",
+            "label": "min_baseline_enforced"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Certifying a UEBA anomaly detection deployment requires systematic.",
+            "currentState": "impossible_travel_active",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A UEBA certification auditor asserts that impossible travel calculations.",
+            "currentState": "zscore_threshold_set",
+            "transition": {
+              "from": "impossible_travel_active",
+              "to": "zscore_threshold_set",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Organizations with mature UEBA programs achieve significantly faster.",
+            "currentState": "min_baseline_enforced",
+            "transition": {
+              "from": "zscore_threshold_set",
+              "to": "min_baseline_enforced",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

@@ -2,1335 +2,861 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 52,
-  "promptSha": "c936b9aa3d5b43379038fd0d3fa968840f1f3f4a8bdf66dc1117eeae5048ceb8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Foundations & Mathematical Invariants",
-      "codeHash": "28c5bf9ceab0b165a29dbd2f5674382e85284d623058efaf4e09eea3b04a2d26",
+      "partTitle": "YARA-Style Byte Signature Matching — Foundations & Mathematical Invariants",
+      "codeHash": "6fa482e7ed3164c8ca6febebcfb02347ea4e125c985ef5ba55366f44edd32302",
       "spec": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
+        "template": "states",
+        "title": "YARA-Style Byte Signature Matching — Foundations & Mathematical ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MAGIC_HEADER_TAXONOMY",
+            "label": "MAGIC_HEADER_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "meta",
+            "label": "meta"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Static file inspection is a cornerstone of malware triage, email gateway.",
+            "currentState": "MAGIC_HEADER_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Attackers routinely attempt to bypass upload filters and user vigilance.",
+            "currentState": "name",
+            "transition": {
+              "from": "MAGIC_HEADER_TAXONOMY",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Security teams integrate automated magic header verifiers into public.",
+            "currentState": "meta",
+            "transition": {
+              "from": "name",
+              "to": "meta",
+              "label": {
+                "var": "meta",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "YARA-Style Byte Signature Matching — Foundations & Mathematical ",
+        "states": [
+          {
+            "id": "MAGIC_HEADER_TAXONOMY",
+            "label": "MAGIC_HEADER_TAXONOMY"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "meta",
+            "label": "meta"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static file inspection is a cornerstone of malware triage, email gateway.",
+            "currentState": "MAGIC_HEADER_TAXONOMY",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Attackers routinely attempt to bypass upload filters and user vigilance.",
+            "currentState": "name",
+            "transition": {
+              "from": "MAGIC_HEADER_TAXONOMY",
+              "to": "name",
+              "label": "'ELF_LINUX'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Security teams integrate automated magic header verifiers into public.",
+            "currentState": "meta",
+            "transition": {
+              "from": "name",
+              "to": "meta",
+              "label": "{'magic': {'__other__': 'bytes'}, 'offs…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YARA-Style Byte Signature Matching — Core Algorithm & State Representation",
+      "codeHash": "70171561aa06cd9bd1ab8a78640d9ff087eeaa863ccc5606a889f357f60bc433",
+      "spec": {
+        "template": "boxes",
+        "title": "YARA-Style Byte Signature Matching — Core Algorithm & State Repr",
+        "boxes": [
+          {
+            "id": "legit_pdf",
+            "label": "legit_pdf"
+          },
+          {
+            "id": "spoofed_pdf",
+            "label": "spoofed_pdf"
+          },
+          {
+            "id": "raw_bytes",
+            "label": "raw_bytes"
+          },
+          {
+            "id": "claimed_extension",
+            "label": "claimed_extension"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The magic header verification algorithm extracts the leading slice of raw.",
+            "values": {
+              "legit_pdf": {
+                "var": "legit_pdf",
+                "line": 18,
+                "hit": 1
+              },
+              "spoofed_pdf": {
+                "var": "spoofed_pdf",
+                "line": 19,
+                "hit": 1
+              },
+              "raw_bytes": {
+                "var": "raw_bytes",
+                "line": 11,
+                "hit": 1
+              },
+              "claimed_extension": {
+                "var": "claimed_extension",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "legit_pdf": "data",
+              "spoofed_pdf": "data",
+              "raw_bytes": "data",
+              "claimed_extension": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The table maps canonical file extensions to their expected magic byte.",
+            "values": {
+              "legit_pdf": {
+                "var": "legit_pdf",
+                "line": 19,
+                "hit": 1
+              },
+              "spoofed_pdf": {
+                "var": "spoofed_pdf",
+                "line": 20,
+                "hit": 1
+              },
+              "raw_bytes": {
+                "var": "raw_bytes",
+                "line": 12,
+                "hit": 1
+              },
+              "claimed_extension": {
+                "var": "claimed_extension",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "legit_pdf": "data",
+              "spoofed_pdf": "data",
+              "raw_bytes": "data",
+              "claimed_extension": "data"
+            }
+          },
+          {
+            "at": "say10",
+            "caption": "API gateways enforce strict magic byte validation across all multipart.",
+            "values": {
+              "legit_pdf": {
+                "var": "legit_pdf",
+                "line": 20,
+                "hit": 1
+              },
+              "spoofed_pdf": {
+                "var": "spoofed_pdf",
+                "line": 21,
+                "hit": 1
+              },
+              "raw_bytes": {
+                "var": "raw_bytes",
+                "line": 13,
+                "hit": 1
+              },
+              "claimed_extension": {
+                "var": "claimed_extension",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "legit_pdf": "ok",
+              "spoofed_pdf": "ok",
+              "raw_bytes": "ok",
+              "claimed_extension": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "YARA-Style Byte Signature Matching — Core Algorithm & State Repr",
+        "boxes": [
+          {
+            "id": "legit_pdf",
+            "label": "legit_pdf"
+          },
+          {
+            "id": "spoofed_pdf",
+            "label": "spoofed_pdf"
+          },
+          {
+            "id": "raw_bytes",
+            "label": "raw_bytes"
+          },
+          {
+            "id": "claimed_extension",
+            "label": "claimed_extension"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The magic header verification algorithm extracts the leading slice of raw.",
+            "values": {
+              "legit_pdf": "{'__other__': 'bytes'}",
+              "spoofed_pdf": "{'__other__': 'bytes'}",
+              "raw_bytes": "{'__other__': 'bytes'}",
+              "claimed_extension": "'pdf'"
+            },
+            "tones": {
+              "legit_pdf": "data",
+              "spoofed_pdf": "data",
+              "raw_bytes": "data",
+              "claimed_extension": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The table maps canonical file extensions to their expected magic byte.",
+            "values": {
+              "legit_pdf": "{'__other__': 'bytes'}",
+              "spoofed_pdf": "{'__other__': 'bytes'}",
+              "raw_bytes": "{'__other__': 'bytes'}",
+              "claimed_extension": "'pdf'"
+            },
+            "tones": {
+              "legit_pdf": "data",
+              "spoofed_pdf": "data",
+              "raw_bytes": "data",
+              "claimed_extension": "data"
+            }
+          },
+          {
+            "at": "say10",
+            "caption": "API gateways enforce strict magic byte validation across all multipart.",
+            "values": {
+              "legit_pdf": "{'__other__': 'bytes'}",
+              "spoofed_pdf": "{'__other__': 'bytes'}",
+              "raw_bytes": "{'__other__': 'bytes'}",
+              "claimed_extension": "'pdf'"
+            },
+            "tones": {
+              "legit_pdf": "ok",
+              "spoofed_pdf": "ok",
+              "raw_bytes": "ok",
+              "claimed_extension": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YARA-Style Byte Signature Matching — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "311dc91deed2d95441fc229d675dbe3983662798a4bb5ac609cc71abfa7e8011",
+      "spec": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching — Throughput Optimization & E",
+        "nodes": [
+          {
+            "id": "sample_binary",
+            "label": "sample_binary"
+          },
+          {
+            "id": "yara_rules",
+            "label": "yara_rules"
+          },
+          {
+            "id": "raw_bytes",
+            "label": "raw_bytes"
+          },
+          {
+            "id": "signatures",
+            "label": "signatures"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Beyond file headers, threat hunters inspect the entire binary body.",
+            "values": {
+              "sample_binary": {
+                "var": "sample_binary",
+                "line": 14,
+                "hit": 1
+              },
+              "yara_rules": {
+                "var": "yara_rules",
+                "line": 15,
+                "hit": 1
+              },
+              "raw_bytes": {
+                "var": "raw_bytes",
+                "line": 6,
+                "hit": 1
+              },
+              "signatures": {
+                "var": "signatures",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sample_binary": "data",
+              "yara_rules": "data",
+              "raw_bytes": "data",
+              "signatures": "data"
+            },
+            "arrows": [
+              [
+                "sample_binary",
+                "yara_rules"
+              ],
+              [
+                "yara_rules",
+                "raw_bytes"
+              ],
+              [
+                "raw_bytes",
+                "signatures"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "YARA-style pattern matching scans contiguous binary buffers for strings.",
+            "values": {
+              "sample_binary": {
+                "var": "sample_binary",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "yara_rules": {
+                "var": "yara_rules",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "raw_bytes": {
+                "var": "raw_bytes",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "signatures": {
+                "var": "signatures",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sample_binary": "data",
+              "yara_rules": "data",
+              "raw_bytes": "data",
+              "signatures": "data"
+            },
+            "arrows": [
+              [
+                "sample_binary",
+                "yara_rules"
+              ],
+              [
+                "yara_rules",
+                "raw_bytes"
+              ],
+              [
+                "raw_bytes",
+                "signatures"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Incident responders deploy YARA byte signatures across memory dumps.",
+            "values": {
+              "sample_binary": {
+                "var": "sample_binary",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "yara_rules": {
+                "var": "yara_rules",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "raw_bytes": {
+                "var": "raw_bytes",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "signatures": {
+                "var": "signatures",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sample_binary": "ok",
+              "yara_rules": "ok",
+              "raw_bytes": "ok",
+              "signatures": "ok"
+            },
+            "arrows": [
+              [
+                "sample_binary",
+                "yara_rules"
+              ],
+              [
+                "yara_rules",
+                "raw_bytes"
+              ],
+              [
+                "raw_bytes",
+                "signatures"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "title": "YARA-Style Byte Signature Matching — Throughput Optimization & E",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_binary",
+            "label": "sample_binary"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "yara_rules",
+            "label": "yara_rules"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "raw_bytes",
+            "label": "raw_bytes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "signatures",
+            "label": "signatures"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond file headers, threat hunters inspect the entire binary body.",
+            "values": {
+              "sample_binary": "{'__other__': 'bytes'}",
+              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…",
+              "raw_bytes": "{'__other__': 'bytes'}",
+              "signatures": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…"
+            },
+            "tones": {
+              "sample_binary": "data",
+              "yara_rules": "data",
+              "raw_bytes": "data",
+              "signatures": "data"
+            },
+            "arrows": [
+              [
+                "sample_binary",
+                "yara_rules"
+              ],
+              [
+                "yara_rules",
+                "raw_bytes"
+              ],
+              [
+                "raw_bytes",
+                "signatures"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "YARA-style pattern matching scans contiguous binary buffers for strings.",
+            "values": {
+              "sample_binary": "{'__other__': 'bytes'}",
+              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…",
+              "raw_bytes": "{'__other__': 'bytes'}",
+              "signatures": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…"
+            },
+            "tones": {
+              "sample_binary": "data",
+              "yara_rules": "data",
+              "raw_bytes": "data",
+              "signatures": "data"
+            },
+            "arrows": [
+              [
+                "sample_binary",
+                "yara_rules"
+              ],
+              [
+                "yara_rules",
+                "raw_bytes"
+              ],
+              [
+                "raw_bytes",
+                "signatures"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Incident responders deploy YARA byte signatures across memory dumps.",
+            "values": {
+              "sample_binary": "{'__other__': 'bytes'}",
+              "yara_rules": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…",
+              "raw_bytes": "{'__other__': 'bytes'}",
+              "signatures": "{'SUSPICIOUS_EVAL_DECODE': {'__other__'…"
+            },
+            "tones": {
+              "sample_binary": "ok",
+              "yara_rules": "ok",
+              "raw_bytes": "ok",
+              "signatures": "ok"
+            },
+            "arrows": [
+              [
+                "sample_binary",
+                "yara_rules"
+              ],
+              [
+                "yara_rules",
+                "raw_bytes"
+              ],
+              [
+                "raw_bytes",
+                "signatures"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Core Algorithm & State Representation",
-      "codeHash": "5055a9489abd11c9052d1ea7831cf98dd8dc1eba5b54f6de3286503224ad5b84",
+      "partTitle": "YARA-Style Byte Signature Matching — Resilience Guardrails & Failure Recovery",
+      "codeHash": "4d0f8735babae9b3accd3aa524b1fb0a7f4b7cc8b52655428fb404050a334c12",
       "spec": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "YARA-Style Byte Signature Matching — Resilience Guardrails & Fai",
+        "actors": [
+          "valid_header",
+          "truncated_header",
+          "raw_bytes"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Robust binary inspection requires resilient exception handling when.",
+            "activeActor": "valid_header",
+            "messages": [
+              {
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": {
+                  "var": "valid_header",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": {
+                  "var": "truncated_header",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how attackers updates frequently during execution.",
+            "activeActor": "truncated_header",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": {
+                  "var": "valid_header",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": {
+                  "var": "truncated_header",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Fuzz testing file ingestion pipelines ensures that malformed, empty,.",
+            "activeActor": "raw_bytes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": {
+                  "var": "valid_header",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": {
+                  "var": "truncated_header",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "YARA-Style Byte Signature Matching — Resilience Guardrails & Fai",
+        "actors": [
+          "valid_header",
+          "truncated_header",
+          "raw_bytes"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Robust binary inspection requires resilient exception handling when.",
+            "messages": [
+              {
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "valid_header"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how attackers updates frequently during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "truncated_header"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Fuzz testing file ingestion pipelines ensures that malformed, empty,.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "valid_header",
+                "to": "truncated_header",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "truncated_header",
+                "to": "raw_bytes",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "raw_bytes"
           }
         ]
       }
     },
     {
-      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ffdc6c57ad5af09a732bc90dde1bb85f1ec8fd64c48a1f45604a62bb616ed583",
+      "partTitle": "YARA-Style Byte Signature Matching — Production Telemetry & Verification Audit",
+      "codeHash": "02ec42f671144e590dfb2cb272c1e34264b2a6319551987a28f36b3909dc3d5c",
       "spec": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
+        "template": "states",
+        "title": "YARA-Style Byte Signature Matching — Production Telemetry & Veri",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "magic_verifier_ok",
+            "label": "magic_verifier_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "yara_matcher_ok",
+            "label": "yara_matcher_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "truncation_guard_ok",
+            "label": "truncation_guard_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Certifying a static malware inspection engine requires comprehensive.",
+            "currentState": "magic_verifier_ok",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A malware signature auditor asserts the operational status of magic header.",
+            "currentState": "yara_matcher_ok",
+            "transition": {
+              "from": "magic_verifier_ok",
+              "to": "yara_matcher_ok",
+              "label": {
+                "var": "yara_matcher_ok",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Continuous signature engine auditing guarantees that malware detection.",
+            "currentState": "truncation_guard_ok",
+            "transition": {
+              "from": "yara_matcher_ok",
+              "to": "truncation_guard_ok",
+              "label": {
+                "var": "truncation_guard_ok",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
+        "template": "states",
+        "title": "YARA-Style Byte Signature Matching — Production Telemetry & Veri",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "magic_verifier_ok",
+            "label": "magic_verifier_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "yara_matcher_ok",
+            "label": "yara_matcher_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "truncation_guard_ok",
+            "label": "truncation_guard_ok"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Certifying a static malware inspection engine requires comprehensive.",
+            "currentState": "magic_verifier_ok",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Resilience Guardrails & Failure Recovery",
-      "codeHash": "57bb71fd3cad42c8e00ce205dca4db6691d9f8130ae3c32b1b375b0cc0ba4da2",
-      "spec": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A malware signature auditor asserts the operational status of magic header.",
+            "currentState": "yara_matcher_ok",
+            "transition": {
+              "from": "magic_verifier_ok",
+              "to": "yara_matcher_ok",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Production Telemetry & Verification Audit",
-      "codeHash": "7adf55a42a4052d42d18c097e9ef390289459c4c180c697c36e5b987803431a5",
-      "spec": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Continuous signature engine auditing guarantees that malware detection.",
+            "currentState": "truncation_guard_ok",
+            "transition": {
+              "from": "yara_matcher_ok",
+              "to": "truncation_guard_ok",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

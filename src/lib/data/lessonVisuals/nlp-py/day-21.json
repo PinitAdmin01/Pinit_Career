@@ -2,255 +2,124 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The encoder layer, step by step",
       "codeHash": "bce7b82e42aeb732c4f2002379fafe4cd9bfffdfe44ea5f14157cb9d0223168f",
       "spec": {
-        "template": "table",
-        "title": "Encoder layer computation pipeline stages",
-        "columns": [
-          "tokens",
-          "d_model"
-        ],
+        "template": "cells",
+        "title": "The encoder layer, step by step",
         "steps": [
           {
             "at": "say1",
-            "caption": "Transformer encoder layers preserve the shape of sequence vectors.",
-            "rows": [
+            "caption": "One Transformer encoder layer takes a sequence of vectors in and returns.",
+            "items": {
+              "var": "steps",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Token embeddings and positional encodings mix across sequence positions.",
-            "rows": [
+            "caption": "Look up token embeddings.",
+            "items": {
+              "var": "steps",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Residual connections add attention output directly back to input vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "shape"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The feed-forward network processes each position independently.",
-            "rows": [
+            "at": "say7",
+            "caption": "Today you build the missing pieces (adding positions, layer normalisation).",
+            "items": {
+              "var": "steps",
+              "line": 4,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "shape"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Encoder layer computation pipeline stages",
-        "columns": [
-          "tokens",
-          "d_model"
-        ],
+        "template": "cells",
+        "title": "The encoder layer, step by step",
         "steps": [
           {
             "at": "say1",
-            "caption": "Transformer encoder layers preserve the shape of sequence vectors.",
-            "rows": [
+            "caption": "One Transformer encoder layer takes a sequence of vectors in and returns.",
+            "items": [
+              "'embeddings'",
+              "'+ positions'",
+              "'self-attention'",
+              "'+ residual, layer norm'",
+              "'feed-forward'",
+              "'+ residual, layer norm'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "d_model"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Token embeddings and positional encodings mix across sequence positions.",
-            "rows": [
+            "caption": "Look up token embeddings.",
+            "items": [
+              "'embeddings'",
+              "'+ positions'",
+              "'self-attention'",
+              "'+ residual, layer norm'",
+              "'feed-forward'",
+              "'+ residual, layer norm'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "d_model"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "print"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Residual connections add attention output directly back to input vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "d_model"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "shape"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The feed-forward network processes each position independently.",
-            "rows": [
+            "at": "say7",
+            "caption": "Today you build the missing pieces (adding positions, layer normalisation).",
+            "items": [
+              "'embeddings'",
+              "'+ positions'",
+              "'self-attention'",
+              "'+ residual, layer norm'",
+              "'feed-forward'",
+              "'+ residual, layer norm'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "d_model"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "shape"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "steps"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,143 +130,131 @@
       "partTitle": "Adding positional encodings to a sequence",
       "codeHash": "6b3fbfc8d37db93c14be3ba5deb4118636f7b071be23292cf15b701a5a151430",
       "spec": {
-        "template": "table",
-        "title": "Positional encoding summation over token embeddings",
-        "columns": [
-          "pos",
-          "angle"
-        ],
+        "template": "bars",
+        "title": "Adding positional encodings to a sequence",
         "steps": [
           {
             "at": "say1",
-            "caption": "Adding positional sinusoidal encoding to each token embedding vector.",
-            "rows": [
+            "caption": "For each token vector at position pos, add the sinusoidal encoding.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "angle"
-                  }
-                ],
-                "tone": "ok"
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The angle formula separates even and odd components for vector length.",
-            "rows": [
+            "caption": "Angle = pos / 10000 ** (2 * (i // 2) / d), sin for even i and cos for odd.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "angle"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Learned embeddings add positional values through element addition.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example adds positions to three zero vectors, which shows the pure.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "angle"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "embeddings"
-                  },
-                  {
-                    "text": "add_positions"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Using enumerate yields both the sequence position and vector index.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "angle"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "embeddings"
-                  },
-                  {
-                    "text": "add_positions"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "zeros"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +262,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Positional encoding summation over token embeddings",
-        "columns": [
-          "pos",
-          "angle"
-        ],
+        "template": "bars",
+        "title": "Adding positional encodings to a sequence",
         "steps": [
           {
             "at": "say1",
-            "caption": "Adding positional sinusoidal encoding to each token embedding vector.",
-            "rows": [
+            "caption": "For each token vector at position pos, add the sinusoidal encoding.",
+            "bars": [
               {
-                "cells": [
-                  "pos",
-                  "angle"
-                ],
-                "tone": "ok"
+                "label": "pos",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The angle formula separates even and odd components for vector length.",
-            "rows": [
+            "caption": "Angle = pos / 10000 ** (2 * (i // 2) / d), sin for even i and cos for odd.",
+            "bars": [
               {
-                "cells": [
-                  "pos",
-                  "angle"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "round"
-                ],
+                "label": "d",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Learned embeddings add positional values through element addition.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example adds positions to three zero vectors, which shows the pure.",
+            "bars": [
               {
-                "cells": [
-                  "pos",
-                  "angle"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "round"
-                ],
+                "label": "d",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "embeddings",
-                  "add_positions"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Using enumerate yields both the sequence position and vector index.",
-            "rows": [
-              {
-                "cells": [
-                  "pos",
-                  "angle"
-                ],
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "embeddings",
-                  "add_positions"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "enumerate",
-                  "zeros"
-                ],
+                "label": "v",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -513,249 +350,277 @@
       "partTitle": "Layer normalisation",
       "codeHash": "2a76639375c1900a5dd90c47c1fa26a878677988b7d7e4d441cd6f708f62e7a4",
       "spec": {
-        "template": "table",
-        "title": "Layer normalisation statistics and vector stabilization",
-        "columns": [
-          "mean",
-          "var"
+        "template": "flow",
+        "title": "Layer normalisation",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "eps",
+            "label": "eps"
+          },
+          {
+            "id": "mean",
+            "label": "mean"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Normalisation controls drift when vectors pass through deep layers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "As vectors pass through many layers, their values can drift to very large.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 8,
+                "hit": 1
+              },
+              "eps": {
+                "var": "eps",
+                "line": 4,
+                "hit": 1
+              },
+              "mean": {
+                "var": "mean",
+                "line": 4,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "eps": "data",
+              "mean": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "eps"
+              ],
+              [
+                "eps",
+                "mean"
+              ],
+              [
+                "mean",
+                ".0"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Layer normalisation rescales each vector across its own dimensions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "(x_i - mean) / sqrt(variance + eps).",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "eps"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "eps": {
+                "var": "eps",
+                "line": 5,
+                "hit": 5
+              },
+              "mean": {
+                "var": "mean",
+                "line": 5,
+                "hit": 5
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "x": "data",
+              "eps": "data",
+              "mean": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "eps"
+              ],
+              [
+                "eps",
+                "mean"
+              ],
+              [
+                "mean",
+                ".0"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Small epsilon prevents division by zero when values are equal.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example normalises vectors of different scales and shows they end up.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 5
               },
-              {
-                "cells": [
-                  {
-                    "text": "eps"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "eps": {
+                "var": "eps",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
+              "mean": {
+                "var": "mean",
+                "line": 6,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Compute the mean and variance to normalise each coordinate value.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "eps"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "layer_norm"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "x": "ok",
+              "eps": "ok",
+              "mean": "ok",
+              ".0": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "eps"
+              ],
+              [
+                "eps",
+                "mean"
+              ],
+              [
+                "mean",
+                ".0"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Layer normalisation statistics and vector stabilization",
-        "columns": [
-          "mean",
-          "var"
+        "template": "flow",
+        "title": "Layer normalisation",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "eps",
+            "label": "eps"
+          },
+          {
+            "id": "mean",
+            "label": "mean"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Normalisation controls drift when vectors pass through deep layers.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "var"
-                ],
-                "tone": "ok"
-              }
+            "caption": "As vectors pass through many layers, their values can drift to very large.",
+            "values": {
+              "x": "[1, 2, 3]",
+              "eps": "0.00001",
+              "mean": "2",
+              ".0": "{'__other__': 'list_iterator'}"
+            },
+            "tones": {
+              "x": "data",
+              "eps": "data",
+              "mean": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "eps"
+              ],
+              [
+                "eps",
+                "mean"
+              ],
+              [
+                "mean",
+                ".0"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Layer normalisation rescales each vector across its own dimensions.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "var"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "eps",
-                  "math"
-                ],
-                "tone": "ok"
-              }
+            "caption": "(x_i - mean) / sqrt(variance + eps).",
+            "values": {
+              "x": "[1, 2, 3]",
+              "eps": "0.00001",
+              "mean": "2",
+              ".0": "{'__other__': 'list_iterator'}"
+            },
+            "tones": {
+              "x": "data",
+              "eps": "data",
+              "mean": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "eps"
+              ],
+              [
+                "eps",
+                "mean"
+              ],
+              [
+                "mean",
+                ".0"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Small epsilon prevents division by zero when values are equal.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "var"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "eps",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "round"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Compute the mean and variance to normalise each coordinate value.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "var"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "eps",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "round"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "layer_norm",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example normalises vectors of different scales and shows they end up.",
+            "values": {
+              "x": "[1, 2, 3]",
+              "eps": "0.00001",
+              "mean": "2",
+              ".0": "{'__other__': 'list_iterator'}"
+            },
+            "tones": {
+              "x": "ok",
+              "eps": "ok",
+              "mean": "ok",
+              ".0": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "eps"
+              ],
+              [
+                "eps",
+                "mean"
+              ],
+              [
+                "mean",
+                ".0"
+              ]
             ]
           }
         ]
@@ -765,248 +630,111 @@
       "partTitle": "Residual connections in the layer",
       "codeHash": "6997a3e45081886907f4ac31f87e744afa3ef3b361c4767817ee82549eb3d219",
       "spec": {
-        "template": "table",
-        "title": "Residual skip connections and gradient propagation",
-        "columns": [
-          "attn",
-          "ffn"
-        ],
+        "template": "cells",
+        "title": "Residual connections in the layer",
         "steps": [
           {
             "at": "say1",
-            "caption": "Sub-layer output joins the input before normalising the sequence.",
-            "rows": [
+            "caption": "Each sub-layer's output is added to its input before normalising.",
+            "items": {
+              "var": "x",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "attn"
-                  },
-                  {
-                    "text": "ffn"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Input passes through residual shortcuts almost unchanged early on.",
-            "rows": [
+            "caption": "If a sub-layer has nothing useful to add yet (early in training), its.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "attn"
-                  },
-                  {
-                    "text": "ffn"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "layer_norm"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Gradients can flow straight back through residual additions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "attn"
-                  },
-                  {
-                    "text": "ffn"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "layer_norm"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Attention output and feed-forward steps combine with layer norm.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how without updates residuals during execution.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "attn"
-                  },
-                  {
-                    "text": "ffn"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "layer_norm"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Residual skip connections and gradient propagation",
-        "columns": [
-          "attn",
-          "ffn"
-        ],
+        "template": "cells",
+        "title": "Residual connections in the layer",
         "steps": [
           {
             "at": "say1",
-            "caption": "Sub-layer output joins the input before normalising the sequence.",
-            "rows": [
+            "caption": "Each sub-layer's output is added to its input before normalising.",
+            "items": [
+              "2",
+              "-1",
+              "0.5",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "attn",
-                  "ffn"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Input passes through residual shortcuts almost unchanged early on.",
-            "rows": [
+            "caption": "If a sub-layer has nothing useful to add yet (early in training), its.",
+            "items": [
+              "2.3",
+              "-0.8",
+              "0.4",
+              "3.4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "attn",
-                  "ffn"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layer_norm",
-                  "zip"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Gradients can flow straight back through residual additions.",
-            "rows": [
-              {
-                "cells": [
-                  "attn",
-                  "ffn"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layer_norm",
-                  "zip"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Attention output and feed-forward steps combine with layer norm.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how without updates residuals during execution.",
+            "items": [
+              "2.3",
+              "-0.8",
+              "0.4",
+              "3.4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "attn",
-                  "ffn"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layer_norm",
-                  "zip"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "out",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +745,112 @@
       "partTitle": "A complete tiny encoder layer",
       "codeHash": "c0ebfdb36945a0cccb24f6727ea90b7d52a5329431c8a4014f1effbeb9d6b484",
       "spec": {
-        "template": "flow",
-        "title": "A complete tiny encoder layer — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A complete tiny enc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "A complete tiny encoder layer",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A complete tiny encoder layer [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A complete tiny enc... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Now all the pieces run together on a real (tiny) example.",
+            "items": {
+              "var": "q",
+              "line": 10,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "We start from three 4-dimensional embeddings, add positions, compute.",
+            "items": {
+              "var": "q",
+              "line": 12,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A complete tiny encoder layer.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "When you can explain this code, you understand the core of the Transformer.",
+            "items": {
+              "var": "q",
+              "line": 12,
+              "hit": 7
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A complete tiny encoder layer — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A complete tiny enc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "A complete tiny encoder layer",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A complete tiny encoder layer [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A complete tiny enc... [D21.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Now all the pieces run together on a real (tiny) example.",
+            "items": [
+              "1",
+              "1",
+              "0.5",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "We start from three 4-dimensional embeddings, add positions, compute.",
+            "items": [
+              "1",
+              "1",
+              "0.5",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A complete tiny encoder layer [D21.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "When you can explain this code, you understand the core of the Transformer.",
+            "items": [
+              "1",
+              "1",
+              "0.5",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +860,112 @@
       "partTitle": "Milestone practice: positions and normalisation",
       "codeHash": "31e0985e12ced63387f1ef9565250807aa6d3a3e67d6d2ffa15708e428612847",
       "spec": {
-        "template": "flow",
-        "title": "Milestone practice: positions and normalisation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Milestone practice: positions and normalisation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: positions and normal.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Add_positions(embeddings).",
+            "items": {
+              "var": "x",
+              "line": 3,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks use zero vectors (pure encoding) and a row of ones at position.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: positions and.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows the difference between population and sample variance,.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone practice: positions and normalisation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Milestone practice: positions and normalisation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: positions and normal.. [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Add_positions(embeddings).",
+            "items": [
+              "2",
+              "4",
+              "6",
+              "8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks use zero vectors (pure encoding) and a row of ones at position.",
+            "items": [
+              "2",
+              "4",
+              "6",
+              "8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: positions and.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the difference between population and sample variance,.",
+            "items": [
+              "2",
+              "4",
+              "6",
+              "8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

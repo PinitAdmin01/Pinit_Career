@@ -2,802 +2,556 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 31,
-  "promptSha": "fb180ba4c7d3840bc6308cc8a01be62801a335da668ffa4f6d395c0eb8cc8e04",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Permission Boundaries — Foundations & Mathematical Invariants",
-      "codeHash": "00e77c388d6a78000ab0676b5cffb52d8e3ff6eba7b8754f37a6c9c0706cb580",
+      "codeHash": "52a9828cf89cbf72cf27c285976e3949071760aee2e3f2e9810937fd05592e61",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
+        "actors": [
+          "identity_allow",
+          "scp_allow",
+          "boundary_allow"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise cloud engineering, hosting multi-tenant workloads.",
+            "activeActor": "identity_allow",
+            "messages": [
+              {
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": {
+                  "var": "identity_allow",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": {
+                  "var": "scp_allow",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "AWS Organizations establishes a hierarchical tree of Organizational Units.",
+            "activeActor": "scp_allow",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": {
+                  "var": "identity_allow",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": {
+                  "var": "scp_allow",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "By enforcing strict OU boundaries, security teams ensure that compliance.",
+            "activeActor": "boundary_allow",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": {
+                  "var": "identity_allow",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": {
+                  "var": "scp_allow",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
+        "actors": [
+          "identity_allow",
+          "scp_allow",
+          "boundary_allow"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise cloud engineering, hosting multi-tenant workloads.",
+            "messages": [
+              {
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "identity_allow"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "AWS Organizations establishes a hierarchical tree of Organizational Units.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "scp_allow"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "By enforcing strict OU boundaries, security teams ensure that compliance.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "identity_allow",
+                "to": "scp_allow",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "scp_allow",
+                "to": "boundary_allow",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "boundary_allow"
           }
         ]
       }
     },
     {
       "partTitle": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Permission Boundaries — Core Algorithm & State Representation",
-      "codeHash": "f55a1898d53a368292e63402f3f9fcffb7a2cc22713653753dd969c61bff0ef5",
+      "codeHash": "a8f5735381f0ef89fe3079dcb3e608c3c73cd8f47356843e11f9015497d01f40",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
-        "nodes": [
+        "template": "states",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scp_denies",
+            "label": "scp_denies"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating SCP inheritance across an Organizational Unit tree requires.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "In AWS Organizations, an account inherits all SCPs attached directly.",
+            "currentState": "name",
+            "transition": {
+              "from": "self",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Traversing the OU tree guarantees that security policies compound defensively.",
+            "currentState": "scp_denies",
+            "transition": {
+              "from": "name",
+              "to": "scp_denies",
+              "label": {
+                "var": "scp_denies",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
-        "nodes": [
+        "template": "states",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scp_denies",
+            "label": "scp_denies"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating SCP inheritance across an Organizational Unit tree requires.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "In AWS Organizations, an account inherits all SCPs attached directly.",
+            "currentState": "name",
+            "transition": {
+              "from": "self",
+              "to": "name",
+              "label": "'Root'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Traversing the OU tree guarantees that security policies compound defensively.",
+            "currentState": "scp_denies",
+            "transition": {
+              "from": "name",
+              "to": "scp_denies",
+              "label": "['s3:DeleteBucket']"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Permission Boundaries — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3147afcd8fc36879168b6ddf4ef1c60cf0f2140425bacb7409272dcf572e3bd0",
+      "codeHash": "b9a0b35490ea7ed439d68365e4094827017d8b05d670a88e7f58407fb1d077e4",
       "spec": {
         "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "allowed_regions",
+            "label": "allowed_regions"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "exempt_role_arns",
+            "label": "exempt_role_arns"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "policy",
+            "label": "policy"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "stmt",
+            "label": "stmt"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When designing multi-account security guardrails, cloud architects.",
+            "values": {
+              "allowed_regions": {
+                "var": "allowed_regions",
+                "line": 5,
+                "hit": 1
+              },
+              "exempt_role_arns": {
+                "var": "exempt_role_arns",
+                "line": 5,
+                "hit": 1
+              },
+              "policy": {
+                "var": "policy",
+                "line": 20,
+                "hit": 1
+              },
+              "stmt": {
+                "var": "stmt",
+                "line": 21,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "allowed_regions": "data",
+              "exempt_role_arns": "data",
+              "policy": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "allowed_regions",
+                "exempt_role_arns"
+              ],
+              [
+                "exempt_role_arns",
+                "policy"
+              ],
+              [
+                "policy",
+                "stmt"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Exceeding this size quota while attempting to enforce fine-grained.",
+            "values": {
+              "allowed_regions": {
+                "var": "allowed_regions",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "exempt_role_arns": {
+                "var": "exempt_role_arns",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "policy": {
+                "var": "policy",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "stmt": {
+                "var": "stmt",
+                "line": 22,
+                "hit": 1
               }
+            },
+            "tones": {
+              "allowed_regions": "data",
+              "exempt_role_arns": "data",
+              "policy": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "allowed_regions",
+                "exempt_role_arns"
+              ],
+              [
+                "exempt_role_arns",
+                "policy"
+              ],
+              [
+                "policy",
+                "stmt"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Exempting global service control planes prevents accidental regional.",
+            "values": {
+              "allowed_regions": {
+                "var": "allowed_regions",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "exempt_role_arns": {
+                "var": "exempt_role_arns",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "policy": {
+                "var": "policy",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "stmt": {
+                "var": "stmt",
+                "line": 23,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "allowed_regions": "ok",
+              "exempt_role_arns": "ok",
+              "policy": "ok",
+              "stmt": "ok"
+            },
+            "arrows": [
+              [
+                "allowed_regions",
+                "exempt_role_arns"
+              ],
+              [
+                "exempt_role_arns",
+                "policy"
+              ],
+              [
+                "policy",
+                "stmt"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "allowed_regions",
+            "label": "allowed_regions"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "exempt_role_arns",
+            "label": "exempt_role_arns"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "policy",
+            "label": "policy"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "stmt",
+            "label": "stmt"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When designing multi-account security guardrails, cloud architects.",
+            "values": {
+              "allowed_regions": "['us-east-1', 'eu-west-1']",
+              "exempt_role_arns": "['arn:aws:iam::*:role/BreakGlassAdmin']",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "stmt": "{'Sid': 'DenyUnapprovedRegionsExceptEme…"
+            },
+            "tones": {
+              "allowed_regions": "data",
+              "exempt_role_arns": "data",
+              "policy": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "allowed_regions",
+                "exempt_role_arns"
+              ],
+              [
+                "exempt_role_arns",
+                "policy"
+              ],
+              [
+                "policy",
+                "stmt"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Exceeding this size quota while attempting to enforce fine-grained.",
+            "values": {
+              "allowed_regions": "['us-east-1', 'eu-west-1']",
+              "exempt_role_arns": "['arn:aws:iam::*:role/BreakGlassAdmin']",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "stmt": "{'Sid': 'DenyUnapprovedRegionsExceptEme…"
+            },
+            "tones": {
+              "allowed_regions": "data",
+              "exempt_role_arns": "data",
+              "policy": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "allowed_regions",
+                "exempt_role_arns"
+              ],
+              [
+                "exempt_role_arns",
+                "policy"
+              ],
+              [
+                "policy",
+                "stmt"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Exempting global service control planes prevents accidental regional.",
+            "values": {
+              "allowed_regions": "['us-east-1', 'eu-west-1']",
+              "exempt_role_arns": "['arn:aws:iam::*:role/BreakGlassAdmin']",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "stmt": "{'Sid': 'DenyUnapprovedRegionsExceptEme…"
+            },
+            "tones": {
+              "allowed_regions": "ok",
+              "exempt_role_arns": "ok",
+              "policy": "ok",
+              "stmt": "ok"
+            },
+            "arrows": [
+              [
+                "allowed_regions",
+                "exempt_role_arns"
+              ],
+              [
+                "exempt_role_arns",
+                "policy"
+              ],
+              [
+                "policy",
+                "stmt"
+              ]
             ]
           }
         ]
@@ -805,265 +559,279 @@
     },
     {
       "partTitle": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Permission Boundaries — Resilience Guardrails & Failure Recovery",
-      "codeHash": "8f8e73bf73cfa151caa327cf0054e215cbc48b793d283d5285cb42839c466f94",
+      "codeHash": "06e8e3b7041e17de05d010806eeb2f393a47b81d036910050439afbdd8e30246",
       "spec": {
         "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "bad_policy",
+            "label": "bad_policy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "safe_policy",
+            "label": "safe_policy"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "policy_doc",
+            "label": "policy_doc"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "stmt",
+            "label": "stmt"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying a misconfigured SCP to the Organization Root can instantly.",
+            "values": {
+              "bad_policy": {
+                "var": "bad_policy",
+                "line": 17,
+                "hit": 1
+              },
+              "safe_policy": {
+                "var": "safe_policy",
+                "line": 20,
+                "hit": 1
+              },
+              "policy_doc": {
+                "var": "policy_doc",
+                "line": 8,
+                "hit": 1
+              },
+              "stmt": {
+                "var": "stmt",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "bad_policy": "data",
+              "safe_policy": "data",
+              "policy_doc": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "bad_policy",
+                "safe_policy"
+              ],
+              [
+                "safe_policy",
+                "policy_doc"
+              ],
+              [
+                "policy_doc",
+                "stmt"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "To safeguard against catastrophic administrative lockout, resilient cloud.",
+            "values": {
+              "bad_policy": {
+                "var": "bad_policy",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "safe_policy": {
+                "var": "safe_policy",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "policy_doc": {
+                "var": "policy_doc",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "stmt": {
+                "var": "stmt",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bad_policy": "data",
+              "safe_policy": "data",
+              "policy_doc": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "bad_policy",
+                "safe_policy"
+              ],
+              [
+                "safe_policy",
+                "policy_doc"
+              ],
+              [
+                "policy_doc",
+                "stmt"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Guaranteeing break-glass role exemptions across all Deny statements.",
+            "values": {
+              "bad_policy": {
+                "var": "bad_policy",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "safe_policy": {
+                "var": "safe_policy",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "policy_doc": {
+                "var": "policy_doc",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "stmt": {
+                "var": "stmt",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "bad_policy": "ok",
+              "safe_policy": "ok",
+              "policy_doc": "ok",
+              "stmt": "ok"
+            },
+            "arrows": [
+              [
+                "bad_policy",
+                "safe_policy"
+              ],
+              [
+                "safe_policy",
+                "policy_doc"
+              ],
+              [
+                "policy_doc",
+                "stmt"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "bad_policy",
+            "label": "bad_policy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "safe_policy",
+            "label": "safe_policy"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "policy_doc",
+            "label": "policy_doc"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "stmt",
+            "label": "stmt"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying a misconfigured SCP to the Organization Root can instantly.",
+            "values": {
+              "bad_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "safe_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "policy_doc": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "stmt": "{'Effect': 'Deny', 'Action': '*', 'Reso…"
+            },
+            "tones": {
+              "bad_policy": "data",
+              "safe_policy": "data",
+              "policy_doc": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "bad_policy",
+                "safe_policy"
+              ],
+              [
+                "safe_policy",
+                "policy_doc"
+              ],
+              [
+                "policy_doc",
+                "stmt"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "To safeguard against catastrophic administrative lockout, resilient cloud.",
+            "values": {
+              "bad_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "safe_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "policy_doc": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "stmt": "{'Effect': 'Deny', 'Action': '*', 'Reso…"
+            },
+            "tones": {
+              "bad_policy": "data",
+              "safe_policy": "data",
+              "policy_doc": "data",
+              "stmt": "data"
+            },
+            "arrows": [
+              [
+                "bad_policy",
+                "safe_policy"
+              ],
+              [
+                "safe_policy",
+                "policy_doc"
+              ],
+              [
+                "policy_doc",
+                "stmt"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Guaranteeing break-glass role exemptions across all Deny statements.",
+            "values": {
+              "bad_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "safe_policy": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "policy_doc": "{'Statement': [{'Effect': 'Deny', 'Acti…",
+              "stmt": "{'Effect': 'Deny', 'Action': '*', 'Reso…"
+            },
+            "tones": {
+              "bad_policy": "ok",
+              "safe_policy": "ok",
+              "policy_doc": "ok",
+              "stmt": "ok"
+            },
+            "arrows": [
+              [
+                "bad_policy",
+                "safe_policy"
+              ],
+              [
+                "safe_policy",
+                "policy_doc"
+              ],
+              [
+                "policy_doc",
+                "stmt"
+              ]
             ]
           }
         ]
@@ -1071,265 +839,279 @@
     },
     {
       "partTitle": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Permission Boundaries — Production Telemetry & Verification Audit",
-      "codeHash": "86c80c1243ab6576e76415d6a6c21a805b2ba45eb3f38c2d9b89a9aa6cf9b164",
+      "codeHash": "5e8d41b7b5e8da43d2b45300f211f189e2bc5f751ce1a88b75d923c1c60d79f2",
       "spec": {
         "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "telemetry",
+            "label": "telemetry"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "accounts_telemetry",
+            "label": "accounts_telemetry"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "drift_alerts",
+            "label": "drift_alerts"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "acct",
+            "label": "acct"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous compliance auditing across multi-account estates requires.",
+            "values": {
+              "telemetry": {
+                "var": "telemetry",
+                "line": 15,
+                "hit": 1
+              },
+              "accounts_telemetry": {
+                "var": "accounts_telemetry",
+                "line": 2,
+                "hit": 1
+              },
+              "drift_alerts": {
+                "var": "drift_alerts",
+                "line": 2,
+                "hit": 1
+              },
+              "acct": {
+                "var": "acct",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "telemetry": "data",
+              "accounts_telemetry": "data",
+              "drift_alerts": "data",
+              "acct": "data"
+            },
+            "arrows": [
+              [
+                "telemetry",
+                "accounts_telemetry"
+              ],
+              [
+                "accounts_telemetry",
+                "drift_alerts"
+              ],
+              [
+                "drift_alerts",
+                "acct"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "AWS CloudTrail aggregates API audit logs across all member accounts into.",
+            "values": {
+              "telemetry": {
+                "var": "telemetry",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "accounts_telemetry": {
+                "var": "accounts_telemetry",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "drift_alerts": {
+                "var": "drift_alerts",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "acct": {
+                "var": "acct",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "telemetry": "data",
+              "accounts_telemetry": "data",
+              "drift_alerts": "data",
+              "acct": "data"
+            },
+            "arrows": [
+              [
+                "telemetry",
+                "accounts_telemetry"
+              ],
+              [
+                "accounts_telemetry",
+                "drift_alerts"
+              ],
+              [
+                "drift_alerts",
+                "acct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Continuous automated compliance scanning flags any newly created IAM roles.",
+            "values": {
+              "telemetry": {
+                "var": "telemetry",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "accounts_telemetry": {
+                "var": "accounts_telemetry",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "drift_alerts": {
+                "var": "drift_alerts",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "acct": {
+                "var": "acct",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "telemetry": "ok",
+              "accounts_telemetry": "ok",
+              "drift_alerts": "ok",
+              "acct": "ok"
+            },
+            "arrows": [
+              [
+                "telemetry",
+                "accounts_telemetry"
+              ],
+              [
+                "accounts_telemetry",
+                "drift_alerts"
+              ],
+              [
+                "drift_alerts",
+                "acct"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs) & Per",
+        "title": "Multi-Account AWS Organizations, Service Control Policies (SCPs)",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "telemetry",
+            "label": "telemetry"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "accounts_telemetry",
+            "label": "accounts_telemetry"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "drift_alerts",
+            "label": "drift_alerts"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "acct",
+            "label": "acct"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous compliance auditing across multi-account estates requires.",
+            "values": {
+              "telemetry": "[{'account_id': '111122223333', 'scp_gu…",
+              "accounts_telemetry": "[{'account_id': '111122223333', 'scp_gu…",
+              "drift_alerts": "[]",
+              "acct": "{'account_id': '111122223333', 'scp_gua…"
+            },
+            "tones": {
+              "telemetry": "data",
+              "accounts_telemetry": "data",
+              "drift_alerts": "data",
+              "acct": "data"
+            },
+            "arrows": [
+              [
+                "telemetry",
+                "accounts_telemetry"
+              ],
+              [
+                "accounts_telemetry",
+                "drift_alerts"
+              ],
+              [
+                "drift_alerts",
+                "acct"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "AWS CloudTrail aggregates API audit logs across all member accounts into.",
+            "values": {
+              "telemetry": "[{'account_id': '111122223333', 'scp_gu…",
+              "accounts_telemetry": "[{'account_id': '111122223333', 'scp_gu…",
+              "drift_alerts": "[]",
+              "acct": "{'account_id': '111122223333', 'scp_gua…"
+            },
+            "tones": {
+              "telemetry": "data",
+              "accounts_telemetry": "data",
+              "drift_alerts": "data",
+              "acct": "data"
+            },
+            "arrows": [
+              [
+                "telemetry",
+                "accounts_telemetry"
+              ],
+              [
+                "accounts_telemetry",
+                "drift_alerts"
+              ],
+              [
+                "drift_alerts",
+                "acct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Continuous automated compliance scanning flags any newly created IAM roles.",
+            "values": {
+              "telemetry": "[{'account_id': '111122223333', 'scp_gu…",
+              "accounts_telemetry": "[{'account_id': '111122223333', 'scp_gu…",
+              "drift_alerts": "[]",
+              "acct": "{'account_id': '111122223333', 'scp_gua…"
+            },
+            "tones": {
+              "telemetry": "ok",
+              "accounts_telemetry": "ok",
+              "drift_alerts": "ok",
+              "acct": "ok"
+            },
+            "arrows": [
+              [
+                "telemetry",
+                "accounts_telemetry"
+              ],
+              [
+                "accounts_telemetry",
+                "drift_alerts"
+              ],
+              [
+                "drift_alerts",
+                "acct"
+              ]
             ]
           }
         ]

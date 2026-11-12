@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What an exchange does",
       "codeHash": "6edac8989790607cb8a29e33d6faef022ef33c6b65cc6dea85da18d916c28d88",
       "spec": {
-        "template": "table",
-        "title": "Electronic exchange market participants and architecture",
-        "columns": [
-          "day",
-          "name"
+        "template": "flow",
+        "title": "What an exchange does",
+        "nodes": [
+          {
+            "id": "modules",
+            "label": "modules"
+          },
+          {
+            "id": "day",
+            "label": "day"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Electronic exchanges deploy matching engines to pair buyers and sellers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "day"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "An exchange is a meeting place where buyers and sellers agree on prices.",
+            "values": {
+              "modules": {
+                "var": "modules",
+                "line": 1,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "modules": "data",
+              "day": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "modules",
+                "day"
+              ],
+              [
+                "day",
+                "name"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Brokers route customer orders while market makers offer quotes continuously.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "day"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Participants include investors (pension funds, mutual funds, people like.",
+            "values": {
+              "modules": {
+                "var": "modules",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "modules"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+              "day": {
+                "var": "day",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "modules": "data",
+              "day": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "modules",
+                "day"
+              ],
+              [
+                "day",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Quantitative engineers develop execution algorithms and risk controls.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "day"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example lists the parts of a trading system you will build over.",
+            "values": {
+              "modules": {
+                "var": "modules",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "modules"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+              "day": {
+                "var": "day",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "day"
-                  },
-                  {
-                    "text": "modules"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Market concepts combine with engineering to build fast and safe trading systems.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "day"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "modules"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "day"
-                  },
-                  {
-                    "text": "modules"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "modules": "ok",
+              "day": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "modules",
+                "day"
+              ],
+              [
+                "day",
+                "name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Electronic exchange market participants and architecture",
-        "columns": [
-          "day",
-          "name"
+        "template": "flow",
+        "title": "What an exchange does",
+        "nodes": [
+          {
+            "id": "modules",
+            "label": "modules"
+          },
+          {
+            "id": "day",
+            "label": "day"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Electronic exchanges deploy matching engines to pair buyers and sellers.",
-            "rows": [
-              {
-                "cells": [
-                  "day",
-                  "name"
-                ],
-                "tone": "ok"
-              }
+            "caption": "An exchange is a meeting place where buyers and sellers agree on prices.",
+            "values": {
+              "modules": "[[2, 'limit order book'], [3, 'matching…",
+              "day": "2",
+              "name": "'limit order book'"
+            },
+            "tones": {
+              "modules": "data",
+              "day": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "modules",
+                "day"
+              ],
+              [
+                "day",
+                "name"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Brokers route customer orders while market makers offer quotes continuously.",
-            "rows": [
-              {
-                "cells": [
-                  "day",
-                  "name"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "modules",
-                  "name"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Participants include investors (pension funds, mutual funds, people like.",
+            "values": {
+              "modules": "[[2, 'limit order book'], [3, 'matching…",
+              "day": "2",
+              "name": "'limit order book'"
+            },
+            "tones": {
+              "modules": "data",
+              "day": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "modules",
+                "day"
+              ],
+              [
+                "day",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Quantitative engineers develop execution algorithms and risk controls.",
-            "rows": [
-              {
-                "cells": [
-                  "day",
-                  "name"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "modules",
-                  "name"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "day",
-                  "modules"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Market concepts combine with engineering to build fast and safe trading systems.",
-            "rows": [
-              {
-                "cells": [
-                  "day",
-                  "name"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "modules",
-                  "name"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "day",
-                  "modules"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example lists the parts of a trading system you will build over.",
+            "values": {
+              "modules": "[[2, 'limit order book'], [3, 'matching…",
+              "day": "3",
+              "name": "'matching engine'"
+            },
+            "tones": {
+              "modules": "ok",
+              "day": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "modules",
+                "day"
+              ],
+              [
+                "day",
+                "name"
+              ]
             ]
           }
         ]
@@ -261,249 +233,277 @@
       "partTitle": "Bid, ask and spread",
       "codeHash": "72f6d757c4d062a8fbe0e3373132c8d07372eba5568a6f0d68d6777dbbec1156",
       "spec": {
-        "template": "table",
-        "title": "Order book bid ask spread and immediacy pricing",
-        "columns": [
-          "bid",
-          "ask"
+        "template": "flow",
+        "title": "Bid, ask and spread",
+        "nodes": [
+          {
+            "id": "quotes",
+            "label": "quotes"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The bid reflects willing buyers while the ask reflects willing sellers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The bid is the highest price someone is currently willing to pay.",
+            "values": {
+              "quotes": {
+                "var": "quotes",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
+              },
+              "bid": {
+                "var": "bid",
+                "line": 2,
+                "hit": 1
+              },
+              "ask": {
+                "var": "ask",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "quotes": "data",
+              "name": "data",
+              "bid": "data",
+              "ask": "data"
+            },
+            "arrows": [
+              [
+                "quotes",
+                "name"
+              ],
+              [
+                "name",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The spread represents the price of immediacy between buyer and seller.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The best bid and best ask across all exchanges are called the NBBO,.",
+            "values": {
+              "quotes": {
+                "var": "quotes",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "spread"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "bid": {
+                "var": "bid",
+                "line": 3,
+                "hit": 1
+              },
+              "ask": {
+                "var": "ask",
+                "line": 3,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A tight spread indicates liquid markets while a wide spread increases cost.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "spread"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "quotes"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "quotes": "data",
+              "name": "data",
+              "bid": "data",
+              "ask": "data"
+            },
+            "arrows": [
+              [
+                "quotes",
+                "name"
+              ],
+              [
+                "name",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
+              ]
             ]
           },
           {
             "at": "say7",
             "caption": "The example prints the spread for a liquid and an illiquid stock.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "quotes": {
+                "var": "quotes",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "spread"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "quotes"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "data"
+              "bid": {
+                "var": "bid",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "ask": {
+                "var": "ask",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "quotes": "ok",
+              "name": "ok",
+              "bid": "ok",
+              "ask": "ok"
+            },
+            "arrows": [
+              [
+                "quotes",
+                "name"
+              ],
+              [
+                "name",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Order book bid ask spread and immediacy pricing",
-        "columns": [
-          "bid",
-          "ask"
+        "template": "flow",
+        "title": "Bid, ask and spread",
+        "nodes": [
+          {
+            "id": "quotes",
+            "label": "quotes"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The bid reflects willing buyers while the ask reflects willing sellers.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The bid is the highest price someone is currently willing to pay.",
+            "values": {
+              "quotes": "{'liquid stock': [100, 100.01], 'illiqu…",
+              "name": "'liquid stock'",
+              "bid": "100",
+              "ask": "100.01"
+            },
+            "tones": {
+              "quotes": "data",
+              "name": "data",
+              "bid": "data",
+              "ask": "data"
+            },
+            "arrows": [
+              [
+                "quotes",
+                "name"
+              ],
+              [
+                "name",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The spread represents the price of immediacy between buyer and seller.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spread",
-                  "mid"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A tight spread indicates liquid markets while a wide spread increases cost.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spread",
-                  "mid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "quotes",
-                  "items"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "The best bid and best ask across all exchanges are called the NBBO,.",
+            "values": {
+              "quotes": "{'liquid stock': [100, 100.01], 'illiqu…",
+              "name": "'liquid stock'",
+              "bid": "100",
+              "ask": "100.01"
+            },
+            "tones": {
+              "quotes": "data",
+              "name": "data",
+              "bid": "data",
+              "ask": "data"
+            },
+            "arrows": [
+              [
+                "quotes",
+                "name"
+              ],
+              [
+                "name",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
+              ]
             ]
           },
           {
             "at": "say7",
             "caption": "The example prints the spread for a liquid and an illiquid stock.",
-            "rows": [
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spread",
-                  "mid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "quotes",
-                  "items"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "round",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "quotes": "{'liquid stock': [100, 100.01], 'illiqu…",
+              "name": "'liquid stock'",
+              "bid": "100",
+              "ask": "100.01"
+            },
+            "tones": {
+              "quotes": "ok",
+              "name": "ok",
+              "bid": "ok",
+              "ask": "ok"
+            },
+            "arrows": [
+              [
+                "quotes",
+                "name"
+              ],
+              [
+                "name",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
+              ]
             ]
           }
         ]
@@ -513,143 +513,91 @@
       "partTitle": "The midpoint and basis points",
       "codeHash": "0cae820804b5f0be2e2a83aeaa5d308ddb9af0066bdba32a1b251351ab429eaa",
       "spec": {
-        "template": "table",
-        "title": "Fair midpoint estimation and basis point standardization",
-        "columns": [
+        "template": "sequence",
+        "title": "The midpoint and basis points",
+        "actors": [
           "price",
-          "mid"
+          "bid",
+          "ask"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The midpoint represents the estimated fair price between buyers and sellers.",
-            "rows": [
+            "caption": "The midpoint is (bid + ask) / 2.",
+            "activeActor": "price",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Basis points normalize spread magnitude across varied asset prices.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares the same absolute spread on stocks at different prices.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "bid"
-                  }
-                ],
+                "from": "price",
+                "to": "bid",
+                "label": {
+                  "var": "price",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": {
+                  "var": "bid",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Many benchmarks use it.",
+            "activeActor": "bid",
+            "messages": [
+              {
+                "from": "price",
+                "to": "bid",
+                "label": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": {
+                  "var": "bid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Basis points serve as the conventional language of financial trading desks.",
-            "rows": [
+            "caption": "Get used to thinking in basis points.",
+            "activeActor": "ask",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "mid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "bid"
-                  }
-                ],
+                "from": "price",
+                "to": "bid",
+                "label": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "bid",
+                "to": "ask",
+                "label": {
+                  "var": "bid",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,106 +605,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fair midpoint estimation and basis point standardization",
-        "columns": [
+        "template": "sequence",
+        "title": "The midpoint and basis points",
+        "actors": [
           "price",
-          "mid"
+          "bid",
+          "ask"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The midpoint represents the estimated fair price between buyers and sellers.",
-            "rows": [
+            "caption": "The midpoint is (bid + ask) / 2.",
+            "messages": [
               {
-                "cells": [
-                  "price",
-                  "mid"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Basis points normalize spread magnitude across varied asset prices.",
-            "rows": [
-              {
-                "cells": [
-                  "price",
-                  "mid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares the same absolute spread on stocks at different prices.",
-            "rows": [
-              {
-                "cells": [
-                  "price",
-                  "mid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "price",
-                  "bid"
-                ],
+                "from": "price",
+                "to": "bid",
+                "label": "30",
                 "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": "30",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "price"
+          },
+          {
+            "at": "say2",
+            "caption": "Many benchmarks use it.",
+            "messages": [
+              {
+                "from": "price",
+                "to": "bid",
+                "label": "30",
+                "tone": "data"
+              },
+              {
+                "from": "bid",
+                "to": "ask",
+                "label": "30",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bid"
           },
           {
             "at": "say7",
-            "caption": "Basis points serve as the conventional language of financial trading desks.",
-            "rows": [
+            "caption": "Get used to thinking in basis points.",
+            "messages": [
               {
-                "cells": [
-                  "price",
-                  "mid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid",
-                  "ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "price",
-                  "bid"
-                ],
+                "from": "price",
+                "to": "bid",
+                "label": "30",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "mid",
-                  "print"
-                ],
+                "from": "bid",
+                "to": "ask",
+                "label": "30",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ask"
           }
         ]
       }
@@ -765,143 +677,131 @@
       "partTitle": "Ticks and the price grid",
       "codeHash": "9134ca4b52a787987f0e9637c058081ba8d252da1e3a2250aae887239e1184c3",
       "spec": {
-        "template": "table",
-        "title": "Exchange tick increments and directional price snapping",
-        "columns": [
-          "price",
-          "tick"
-        ],
+        "template": "bars",
+        "title": "Ticks and the price grid",
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchange rules enforce discrete tick increments for all submitted orders.",
-            "rows": [
+            "caption": "Exchanges do not accept any price.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "tick"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Off-grid prices get rejected unless trading systems snap prices to the grid.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "tick"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Directional rounding ensures buy orders and sell orders remain conservative.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "tick"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "floor"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "So valid prices form a grid.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows the floating point trap and the numerical epsilon fix.",
-            "rows": [
+            "caption": "The example shows the floating point trap and the fix.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "tick"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 10,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "floor"
-                  }
-                ],
-                "tone": "data"
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "snap"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +809,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exchange tick increments and directional price snapping",
-        "columns": [
-          "price",
-          "tick"
-        ],
+        "template": "bars",
+        "title": "Ticks and the price grid",
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchange rules enforce discrete tick increments for all submitted orders.",
-            "rows": [
+            "caption": "Exchanges do not accept any price.",
+            "bars": [
               {
-                "cells": [
-                  "price",
-                  "tick"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Off-grid prices get rejected unless trading systems snap prices to the grid.",
-            "rows": [
-              {
-                "cells": [
-                  "price",
-                  "tick"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "steps"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Directional rounding ensures buy orders and sell orders remain conservative.",
-            "rows": [
-              {
-                "cells": [
-                  "price",
-                  "tick"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "floor"
-                ],
+                "label": "p",
+                "value": 100.017,
                 "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100.017,
+                "tone": "data"
+              },
+              {
+                "label": "tick",
+                "value": 0.01,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 10001,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "So valid prices form a grid.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 100.017,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100.017,
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": 0.01,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 10001,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows the floating point trap and the numerical epsilon fix.",
-            "rows": [
+            "caption": "The example shows the floating point trap and the fix.",
+            "bars": [
               {
-                "cells": [
-                  "price",
-                  "tick"
-                ],
+                "label": "p",
+                "value": 100.011,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "side",
-                  "steps"
-                ],
+                "label": "price",
+                "value": 100.017,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "floor"
-                ],
-                "tone": "data"
+                "label": "tick",
+                "value": 0.01,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "snap",
-                  "print"
-                ],
+                "label": "steps",
+                "value": 10002,
                 "tone": "ok"
               }
             ]
@@ -1017,223 +897,217 @@
       "partTitle": "Liquidity and market quality",
       "codeHash": "9270cd3e29db3b7a516246f1e33b6d7a6b17cd0830d8de440acf8a127589a3ca",
       "spec": {
-        "template": "flow",
-        "title": "Liquidity and market quality — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Liquidity and marke...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Liquidity and market quality",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Liquidity and market quality [Done.Pfive.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Liquidity and marke... [Done.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Liquidity is how easily you can trade without moving the price.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Market makers provide liquidity by quoting both a bid and an ask.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Liquidity and market quality.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Every later lesson builds on these ideas.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Liquidity and market quality — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Liquidity and marke...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Liquidity and market quality",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Liquidity and market quality [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Liquidity and marke... [D1.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Liquidity is how easily you can trade without moving the price.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 5000,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100.01,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 3000,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Market makers provide liquidity by quoting both a bid and an ask.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 5000,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100.01,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 3000,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Liquidity and market quality [D1.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Every later lesson builds on these ideas.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 2000,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 300030,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100.02,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 4000,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +1117,217 @@
       "partTitle": "Practice time: quotes and ticks",
       "codeHash": "f1a3c5280797967cf826c43fd158cc3c0a195a3284aaa0966df12901a761da54",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: quotes and ticks — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: quot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: quotes and ticks",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: quotes and ticks.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: quot... [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "First raise ValueError if bid >= ask.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how round updates spread during execution.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: quotes and ticks.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows that validation helper.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: quotes and ticks — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: quot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: quotes and ticks",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: quotes and ticks [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: quot... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "First raise ValueError if bid >= ask.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 100.05,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100.05,
+                "tone": "data"
+              },
+              {
+                "label": "tick",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 2000.9999999999998,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how round updates spread during execution.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 100.05,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100.05,
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 2000.9999999999998,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: quotes and ticks [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows that validation helper.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 100.03,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100.05,
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 1000.4999999999999,
+                "tone": "ok"
+              }
             ]
           }
         ]

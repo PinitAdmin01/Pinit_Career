@@ -2,87 +2,127 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 55,
-  "promptSha": "8d63d49eb01dc3434c29427d53f23f2efb61ddeb3686547572b21665b47885f2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "System Architecture: Unifying Tree Indexing, Planar Geometry & Stream Sketches",
       "codeHash": "c42cd0ca793fd46175a31fe2bc8639b47bc69b83d37572c8a91e813c9e6af3f3",
       "spec": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "System Architecture: Unifying Tree Indexing, Planar Geometry & S",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Welcome to Milestone 11.",
+            "items": {
+              "var": "node_loads",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "System"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think carefully about how those Block 11 building blocks reinforce one.",
+            "items": {
+              "var": "node_loads",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Unifying"
-                  },
-                  {
-                    "text": "Tree"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In Part 1, let us define the unified `Block11KernelSpec` configuration.",
+            "items": {
+              "var": "node_loads",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "System Architecture: Unifying Tree Indexing, Planar Geometry & S",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Welcome to Milestone 11.",
+            "items": [
+              "50",
+              "75",
+              "60",
+              "30",
+              "85",
+              "25",
+              "45"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "System",
-                  "Architecture"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think carefully about how those Block 11 building blocks reinforce one.",
+            "items": [
+              "50",
+              "75",
+              "60",
+              "30",
+              "85",
+              "25",
+              "45"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Unifying",
-                  "Tree"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In Part 1, let us define the unified `Block11KernelSpec` configuration.",
+            "items": [
+              "50",
+              "75",
+              "60",
+              "30",
+              "85",
+              "25",
+              "45"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,82 +133,91 @@
       "partTitle": "Stage 1: Combined Binary Lifting LCA & Dynamic HLD Path Congestion Kernel",
       "codeHash": "007379d0c46aa2c036b6e5afbf4cbcd926684d23ffdff9d38864c6e4d60c015e",
       "spec": {
-        "template": "table",
-        "title": "Stage 1: Combined Binary Lifting LCA & Dynamic HLD Path",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Combined Binary Lifting LCA & Dynamic HLD Path Congesti",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Combined"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 unifies hierarchical structural analytics across `N`.",
+            "items": {
+              "var": "loads",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The heavy step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "Lifting"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "During a single iterative pass (`O(N log N)` setup), we record `tin/tout`.",
+            "items": {
+              "var": "loads",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 1 below and verify both static LCA relationships and live.",
+            "items": {
+              "var": "loads",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 1: Combined Binary Lifting LCA & Dynamic HLD Path",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Combined Binary Lifting LCA & Dynamic HLD Path Congesti",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Stage",
-                  "Combined"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 unifies hierarchical structural analytics across `N`.",
+            "mode": "stack",
+            "items": [
+              "50",
+              "75",
+              "60",
+              "30",
+              "85",
+              "25",
+              "45"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The heavy step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Binary",
-                  "Lifting"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "During a single iterative pass (`O(N log N)` setup), we record `tin/tout`.",
+            "mode": "stack",
+            "items": [
+              "50",
+              "75",
+              "60",
+              "30",
+              "85",
+              "25",
+              "45"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 1 below and verify both static LCA relationships and live.",
+            "mode": "stack",
+            "items": [
+              "50",
+              "75",
+              "60",
+              "30",
+              "85",
+              "25",
+              "45"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,80 +226,105 @@
       "partTitle": "Stage 2: Monotone Chain Convex Hull Geofence & Corridor Clearance Auditor",
       "codeHash": "07b77e3c7cecbf0f07d14c1c89274f017abff03464dbf12687154822534cac80",
       "spec": {
-        "template": "table",
-        "title": "Stage 2: Monotone Chain Convex Hull Geofence & Corridor",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 2: Monotone Chain Convex Hull Geofence & Corridor Clearanc",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 2 transitions cleanly into 2D physical spatial verification.",
+            "items": {
+              "var": "p",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Monotone"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keeping step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Walk through how Stage 2 prevents geometry failure modes cleanly.",
+            "items": {
+              "var": "p",
+              "line": 7,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Chain"
-                  },
-                  {
-                    "text": "Convex"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and execute Stage 2 geometry collision auditing cleanly in Pyodide.",
+            "items": {
+              "var": "p",
+              "line": 9,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 2: Monotone Chain Convex Hull Geofence & Corridor",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 2: Monotone Chain Convex Hull Geofence & Corridor Clearanc",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 2 transitions cleanly into 2D physical spatial verification.",
+            "items": [
+              "0",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Monotone"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keeping step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Walk through how Stage 2 prevents geometry failure modes cleanly.",
+            "items": [
+              "4",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Chain",
-                  "Convex"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and execute Stage 2 geometry collision auditing cleanly in Pyodide.",
+            "items": [
+              "4",
+              "9"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -261,43 +335,131 @@
       "partTitle": "Stage 3: Deterministic SHA-256 Bloom, Count-Min & Reservoir Stream Monitor",
       "codeHash": "529196df84c73a5be3d20b1f52c9911095cc777960c57086f590e14fe4c03828",
       "spec": {
-        "template": "table",
-        "title": "Stage 3: Deterministic SHA-256 Bloom, Count-Min & Reservoir",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Stage 3: Deterministic SHA-256 Bloom, Count-Min & Reservoir Stre",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 3 processes high-velocity stream events `(req_id, region_tag)`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Deterministic"
-                  }
-                ],
+                "label": "expected",
+                "value": {
+                  "var": "expected",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k_sample",
+                "value": {
+                  "var": "k_sample",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 60,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The count step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every arriving packet updates THREE probabilistic engines plus Algorithm R.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Bloom"
-                  },
-                  {
-                    "text": "Count"
-                  }
-                ],
+                "label": "expected",
+                "value": {
+                  "var": "expected",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k_sample",
+                "value": {
+                  "var": "k_sample",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 61,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect how closely all sub-linear estimates track exact reference.",
+            "bars": [
+              {
+                "label": "expected",
+                "value": {
+                  "var": "expected",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k_sample",
+                "value": {
+                  "var": "k_sample",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 60,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +467,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 3: Deterministic SHA-256 Bloom, Count-Min & Reservoir",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Stage 3: Deterministic SHA-256 Bloom, Count-Min & Reservoir Stre",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 3 processes high-velocity stream events `(req_id, region_tag)`.",
+            "bars": [
               {
-                "cells": [
-                  "Stage",
-                  "Deterministic"
-                ],
+                "label": "expected",
+                "value": 300,
+                "tone": "data"
+              },
+              {
+                "label": "k_sample",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The count step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every arriving packet updates THREE probabilistic engines plus Algorithm R.",
+            "bars": [
               {
-                "cells": [
-                  "Bloom",
-                  "Count"
-                ],
+                "label": "expected",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "k_sample",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect how closely all sub-linear estimates track exact reference.",
+            "bars": [
+              {
+                "label": "expected",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "k_sample",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -345,80 +555,120 @@
       "partTitle": "Complete Milestone 11 Capstone: Unified Cloud Hierarchy, Geofence & Telemetry Kernel",
       "codeHash": "6d7b8aa7acb6e9c7ed5b94b77c2061d6c8e183e9f7213558486d48279682a834",
       "spec": {
-        "template": "table",
-        "title": "Complete Milestone 11 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Complete Milestone 11 Capstone: Unified Cloud Hierarchy, Geofenc",
         "steps": [
           {
             "at": "say1",
-            "caption": "The unify design establishes the core structural invariant.",
-            "rows": [
+            "caption": "`Milestone11KernelSuite` combining Binary Lifting LCA, Heavy-Light.",
+            "items": {
+              "var": "loads",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Milestone"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Watch how cleanly the integrated operational telemetry run executes.",
+            "items": {
+              "var": "loads",
+              "line": 10,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Capstone"
-                  },
-                  {
-                    "text": "Unified"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how complete updates milestone during execution.",
+            "items": {
+              "var": "loads",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Complete Milestone 11 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Complete Milestone 11 Capstone: Unified Cloud Hierarchy, Geofenc",
         "steps": [
           {
             "at": "say1",
-            "caption": "The unify design establishes the core structural invariant.",
-            "rows": [
+            "caption": "`Milestone11KernelSuite` combining Binary Lifting LCA, Heavy-Light.",
+            "items": [
+              "40",
+              "80",
+              "60",
+              "20",
+              "90",
+              "35",
+              "50"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Complete",
-                  "Milestone"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Watch how cleanly the integrated operational telemetry run executes.",
+            "items": [
+              "40",
+              "80",
+              "60",
+              "20",
+              "90",
+              "35",
+              "50"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Capstone",
-                  "Unified"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how complete updates milestone during execution.",
+            "items": [
+              "40",
+              "80",
+              "60",
+              "20",
+              "90",
+              "35",
+              "50"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

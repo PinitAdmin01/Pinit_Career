@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Attention is all you need",
       "codeHash": "653890bb0d9ce22abe948d3bd61892c919606ad6ad45b2b5142c81af810a98c5",
       "spec": {
-        "template": "table",
-        "title": "Recurrent versus self-attention sequential computational complexity",
-        "columns": [
-          "rnn_sequential_steps",
-          "transformer_sequential_steps"
+        "template": "flow",
+        "title": "Attention is all you need",
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "rnn_sequential_steps",
+            "label": "rnn_sequential_steps"
+          },
+          {
+            "id": "transformer_sequential_steps",
+            "label": "transformer_sequential_steps"
+          },
+          {
+            "id": "attention_pairs",
+            "label": "attention_pairs"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Transformer eliminates recurrent sequential dependency using self attention.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rnn_sequential_steps"
-                  },
-                  {
-                    "text": "transformer_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Their Transformer used no recurrence at all, only attention and simple.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 1,
+                "hit": 1
+              },
+              "rnn_sequential_steps": {
+                "var": "rnn_sequential_steps",
+                "line": 2,
+                "hit": 1
+              },
+              "transformer_sequential_steps": {
+                "var": "transformer_sequential_steps",
+                "line": 3,
+                "hit": 1
+              },
+              "attention_pairs": {
+                "var": "attention_pairs",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "n": "data",
+              "rnn_sequential_steps": "data",
+              "transformer_sequential_steps": "data",
+              "attention_pairs": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "rnn_sequential_steps"
+              ],
+              [
+                "rnn_sequential_steps",
+                "transformer_sequential_steps"
+              ],
+              [
+                "transformer_sequential_steps",
+                "attention_pairs"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Parallel token processing accelerates hardware training on modern GPUs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rnn_sequential_steps"
-                  },
-                  {
-                    "text": "transformer_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Because no position waits for the previous one, all positions are.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "attention_pairs"
-                  },
-                  {
-                    "text": "rnn_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
+              "rnn_sequential_steps": {
+                "var": "rnn_sequential_steps",
+                "line": 3,
+                "hit": 1
+              },
+              "transformer_sequential_steps": {
+                "var": "transformer_sequential_steps",
+                "line": 4,
+                "hit": 1
+              },
+              "attention_pairs": {
+                "var": "attention_pairs",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Direct attention links connect distant tokens within a single step.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rnn_sequential_steps"
-                  },
-                  {
-                    "text": "transformer_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "attention_pairs"
-                  },
-                  {
-                    "text": "rnn_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "transformer_sequential_steps"
-                  },
-                  {
-                    "text": "attention_pairs"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "n": "data",
+              "rnn_sequential_steps": "data",
+              "transformer_sequential_steps": "data",
+              "attention_pairs": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "rnn_sequential_steps"
+              ],
+              [
+                "rnn_sequential_steps",
+                "transformer_sequential_steps"
+              ],
+              [
+                "transformer_sequential_steps",
+                "attention_pairs"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Pairwise comparisons grow quadratically with total sequence length.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rnn_sequential_steps"
-                  },
-                  {
-                    "text": "transformer_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The price is that attention compares every pair of positions, so cost.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "attention_pairs"
-                  },
-                  {
-                    "text": "rnn_sequential_steps"
-                  }
-                ],
-                "tone": "ok"
+              "rnn_sequential_steps": {
+                "var": "rnn_sequential_steps",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "transformer_sequential_steps"
-                  },
-                  {
-                    "text": "attention_pairs"
-                  }
-                ],
-                "tone": "data"
+              "transformer_sequential_steps": {
+                "var": "transformer_sequential_steps",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "attention_pairs"
-                  },
-                  {
-                    "text": "transformer_sequential_steps"
-                  }
-                ],
-                "tone": "idle"
+              "attention_pairs": {
+                "var": "attention_pairs",
+                "line": 1,
+                "hit": 2
               }
+            },
+            "tones": {
+              "n": "ok",
+              "rnn_sequential_steps": "ok",
+              "transformer_sequential_steps": "ok",
+              "attention_pairs": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "rnn_sequential_steps"
+              ],
+              [
+                "rnn_sequential_steps",
+                "transformer_sequential_steps"
+              ],
+              [
+                "transformer_sequential_steps",
+                "attention_pairs"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recurrent versus self-attention sequential computational complexity",
-        "columns": [
-          "rnn_sequential_steps",
-          "transformer_sequential_steps"
+        "template": "flow",
+        "title": "Attention is all you need",
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "rnn_sequential_steps",
+            "label": "rnn_sequential_steps"
+          },
+          {
+            "id": "transformer_sequential_steps",
+            "label": "transformer_sequential_steps"
+          },
+          {
+            "id": "attention_pairs",
+            "label": "attention_pairs"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Transformer eliminates recurrent sequential dependency using self attention.",
-            "rows": [
-              {
-                "cells": [
-                  "rnn_sequential_steps",
-                  "transformer_sequential_steps"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Their Transformer used no recurrence at all, only attention and simple.",
+            "values": {
+              "n": "10",
+              "rnn_sequential_steps": "10",
+              "transformer_sequential_steps": "1",
+              "attention_pairs": "100"
+            },
+            "tones": {
+              "n": "data",
+              "rnn_sequential_steps": "data",
+              "transformer_sequential_steps": "data",
+              "attention_pairs": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "rnn_sequential_steps"
+              ],
+              [
+                "rnn_sequential_steps",
+                "transformer_sequential_steps"
+              ],
+              [
+                "transformer_sequential_steps",
+                "attention_pairs"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Parallel token processing accelerates hardware training on modern GPUs.",
-            "rows": [
-              {
-                "cells": [
-                  "rnn_sequential_steps",
-                  "transformer_sequential_steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "attention_pairs",
-                  "rnn_sequential_steps"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Direct attention links connect distant tokens within a single step.",
-            "rows": [
-              {
-                "cells": [
-                  "rnn_sequential_steps",
-                  "transformer_sequential_steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "attention_pairs",
-                  "rnn_sequential_steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "transformer_sequential_steps",
-                  "attention_pairs"
-                ],
-                "tone": "data"
-              }
+            "caption": "Because no position waits for the previous one, all positions are.",
+            "values": {
+              "n": "10",
+              "rnn_sequential_steps": "10",
+              "transformer_sequential_steps": "1",
+              "attention_pairs": "100"
+            },
+            "tones": {
+              "n": "data",
+              "rnn_sequential_steps": "data",
+              "transformer_sequential_steps": "data",
+              "attention_pairs": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "rnn_sequential_steps"
+              ],
+              [
+                "rnn_sequential_steps",
+                "transformer_sequential_steps"
+              ],
+              [
+                "transformer_sequential_steps",
+                "attention_pairs"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Pairwise comparisons grow quadratically with total sequence length.",
-            "rows": [
-              {
-                "cells": [
-                  "rnn_sequential_steps",
-                  "transformer_sequential_steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "attention_pairs",
-                  "rnn_sequential_steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "transformer_sequential_steps",
-                  "attention_pairs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "attention_pairs",
-                  "transformer_sequential_steps"
-                ],
-                "tone": "idle"
-              }
+            "caption": "The price is that attention compares every pair of positions, so cost.",
+            "values": {
+              "n": "10",
+              "rnn_sequential_steps": "10",
+              "transformer_sequential_steps": "1",
+              "attention_pairs": "100"
+            },
+            "tones": {
+              "n": "ok",
+              "rnn_sequential_steps": "ok",
+              "transformer_sequential_steps": "ok",
+              "attention_pairs": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "rnn_sequential_steps"
+              ],
+              [
+                "rnn_sequential_steps",
+                "transformer_sequential_steps"
+              ],
+              [
+                "transformer_sequential_steps",
+                "attention_pairs"
+              ]
             ]
           }
         ]
@@ -261,248 +289,111 @@
       "partTitle": "Queries, keys and values",
       "codeHash": "cab7857a26c108fb26a56b86bd472a49c692945c1f278b15d3a2c5c4e6a0e004",
       "spec": {
-        "template": "table",
-        "title": "Query key value projections and associative retrieval matching",
-        "columns": [
-          "keys",
-          "score"
-        ],
+        "template": "cells",
+        "title": "Queries, keys and values",
         "steps": [
           {
             "at": "say1",
-            "caption": "Self attention projects tokens into query, key, and value representations.",
-            "rows": [
+            "caption": "Self-attention gives each word three vectors, each produced by multiplying.",
+            "items": {
+              "var": "words",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Queries seek targets while keys provide matching identifiers.",
-            "rows": [
+            "caption": "The query says what this word is looking for.",
+            "items": {
+              "var": "words",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "query_for_sat"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Comparing queries with keys computes attention weights over value vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "query_for_sat"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Learned linear projections decouple query seeking from key presentation.",
-            "rows": [
+            "at": "say7",
+            "caption": "All three are learned during training.",
+            "items": {
+              "var": "words",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "query_for_sat"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "down"
-                  },
-                  {
-                    "text": "keys"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Query key value projections and associative retrieval matching",
-        "columns": [
-          "keys",
-          "score"
-        ],
+        "template": "cells",
+        "title": "Queries, keys and values",
         "steps": [
           {
             "at": "say1",
-            "caption": "Self attention projects tokens into query, key, and value representations.",
-            "rows": [
+            "caption": "Self-attention gives each word three vectors, each produced by multiplying.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'down'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "keys",
-                  "score"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Queries seek targets while keys provide matching identifiers.",
-            "rows": [
+            "caption": "The query says what this word is looking for.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'down'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "keys",
-                  "score"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "query_for_sat",
-                  "words"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Comparing queries with keys computes attention weights over value vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "keys",
-                  "score"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "query_for_sat",
-                  "words"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Learned linear projections decouple query seeking from key presentation.",
-            "rows": [
+            "at": "say7",
+            "caption": "All three are learned during training.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'down'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "keys",
-                  "score"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "query_for_sat",
-                  "words"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "down",
-                  "keys"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,248 +404,108 @@
       "partTitle": "Scaling by the square root of d_k",
       "codeHash": "4da013950d7cc57e386bc355414d71468f0ec475a05c6bb81bdd8f90777ced7d",
       "spec": {
-        "template": "table",
-        "title": "Attention score scaling preventing softmax saturation and vanishing gradients",
-        "columns": [
-          "raw",
-          "scaled"
-        ],
+        "template": "cells",
+        "title": "Scaling by the square root of d_k",
         "steps": [
           {
             "at": "say1",
-            "caption": "The Transformer divides dot products by the square root of key dimension.",
-            "rows": [
+            "caption": "The Transformer computes scores as the dot product of query and key.",
+            "items": {
+              "var": "raw",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Unscaled dot product variance expands with vector dimension magnitude.",
-            "rows": [
+            "caption": "A dot product sums d_k products.",
+            "items": {
+              "var": "raw",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "softmax"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Large unscaled inputs saturate softmax and cause vanishing gradients.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows softmax saturating on unscaled scores and staying smooth.",
+            "items": {
+              "var": "raw",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "softmax"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Dividing by square root keeps scores in a moderate range.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "softmax"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scaled"
-                  },
-                  {
-                    "text": "softmax"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Attention score scaling preventing softmax saturation and vanishing gradients",
-        "columns": [
-          "raw",
-          "scaled"
-        ],
+        "template": "cells",
+        "title": "Scaling by the square root of d_k",
         "steps": [
           {
             "at": "say1",
-            "caption": "The Transformer divides dot products by the square root of key dimension.",
-            "rows": [
+            "caption": "The Transformer computes scores as the dot product of query and key.",
+            "items": [
+              "24",
+              "16",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "raw",
-                  "scaled"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Unscaled dot product variance expands with vector dimension magnitude.",
-            "rows": [
+            "caption": "A dot product sums d_k products.",
+            "items": [
+              "24",
+              "16",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "raw",
-                  "scaled"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "softmax",
-                  "math"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Large unscaled inputs saturate softmax and cause vanishing gradients.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows softmax saturating on unscaled scores and staying smooth.",
+            "items": [
+              "24",
+              "16",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "raw",
-                  "scaled"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "softmax",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "raw"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Dividing by square root keeps scores in a moderate range.",
-            "rows": [
-              {
-                "cells": [
-                  "raw",
-                  "scaled"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "softmax",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "raw"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "scaled",
-                  "softmax"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -765,248 +516,105 @@
       "partTitle": "Scaled dot-product attention in full",
       "codeHash": "0aa0def828aa04ad9f446ffb3ed8be6058f13b29452bedc6565e8e05881fa1c5",
       "spec": {
-        "template": "table",
-        "title": "Full scaled dot-product attention calculation pipeline",
-        "columns": [
-          "scores",
-          "weights"
-        ],
+        "template": "cells",
+        "title": "Scaled dot-product attention in full",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scaled dot product attention normalizes scores and sums value vectors.",
-            "rows": [
+            "caption": "Putting it together, for every query.",
+            "items": {
+              "var": "q",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The matrix formulation evaluates all positions concurrently on hardware.",
-            "rows": [
+            "caption": "In matrix form this is written softmax(Q K^T / sqrt(d_k)) V, and GPUs.",
+            "items": {
+              "var": "q",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "self_attention"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Self attention executes vector math over inputs without loss of precision.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "self_attention"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Output vectors encapsulate context aware blends across all sequence positions.",
-            "rows": [
+            "at": "say7",
+            "caption": "Everything in the rest of the course, multi-head attention, BERT, GPT.",
+            "items": {
+              "var": "q",
+              "line": 11,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "self_attention"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "self_attention"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full scaled dot-product attention calculation pipeline",
-        "columns": [
-          "scores",
-          "weights"
-        ],
+        "template": "cells",
+        "title": "Scaled dot-product attention in full",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scaled dot product attention normalizes scores and sums value vectors.",
-            "rows": [
+            "caption": "Putting it together, for every query.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "scores",
-                  "weights"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The matrix formulation evaluates all positions concurrently on hardware.",
-            "rows": [
+            "caption": "In matrix form this is written softmax(Q K^T / sqrt(d_k)) V, and GPUs.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "scores",
-                  "weights"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "self_attention",
-                  "math"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Self attention executes vector math over inputs without loss of precision.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "weights"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "self_attention",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "scores"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Output vectors encapsulate context aware blends across all sequence positions.",
-            "rows": [
+            "at": "say7",
+            "caption": "Everything in the rest of the course, multi-head attention, BERT, GPT.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "scores",
-                  "weights"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "self_attention",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "scores"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "weights",
-                  "self_attention"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1018,110 +626,161 @@
       "codeHash": "d3a1607e4fa4e8e6a85935ac051b9199b4330c70c932d82c8407bab81b06da03",
       "spec": {
         "template": "flow",
-        "title": "The encoder block — Execution Pipeline",
+        "title": "The encoder block",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "proc",
-            "label": "2. The encoder block",
-            "tappable": true
+            "id": "attention_out",
+            "label": "attention_out"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "after_attention",
+            "label": "after_attention"
+          },
+          {
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The encoder block [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The encoder block [D.Pfive.Stwo].",
+            "caption": "Trace how transformer updates encoder during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "x": {
+                "var": "x",
+                "line": 1,
+                "hit": 1
+              },
+              "attention_out": {
+                "var": "attention_out",
+                "line": 2,
+                "hit": 1
+              },
+              "after_attention": {
+                "var": "after_attention",
+                "line": 3,
+                "hit": 4
+              },
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "x": "data",
+              "attention_out": "data",
+              "after_attention": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "x",
+                "attention_out"
               ],
               [
-                "proc",
-                "out"
+                "attention_out",
+                "after_attention"
+              ],
+              [
+                "after_attention",
+                "v"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Each block has two sub-layers.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 1
+              },
+              "attention_out": {
+                "var": "attention_out",
+                "line": 3,
+                "hit": 1
+              },
+              "after_attention": {
+                "var": "after_attention",
+                "line": 4,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "x": "data",
+              "attention_out": "data",
+              "after_attention": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "x",
+                "attention_out"
+              ],
+              [
+                "attention_out",
+                "after_attention"
+              ],
+              [
+                "after_attention",
+                "v"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The encoder block [D.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "The decoder (for translation) adds a second attention sub-layer.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "x": {
+                "var": "x",
+                "line": 3,
+                "hit": 1
+              },
+              "attention_out": {
+                "var": "attention_out",
+                "line": 3,
+                "hit": 2
+              },
+              "after_attention": {
+                "var": "after_attention",
+                "line": 5,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "x": "ok",
+              "attention_out": "ok",
+              "after_attention": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "x",
+                "attention_out"
               ],
               [
-                "proc",
-                "out"
+                "attention_out",
+                "after_attention"
+              ],
+              [
+                "after_attention",
+                "v"
               ]
             ]
           }
@@ -1129,110 +788,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The encoder block — Execution Pipeline",
+        "title": "The encoder block",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "proc",
-            "label": "2. The encoder block",
-            "tappable": true
+            "id": "attention_out",
+            "label": "attention_out"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "after_attention",
+            "label": "after_attention"
+          },
+          {
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The encoder block [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The encoder block [D18.P5.S2].",
+            "caption": "Trace how transformer updates encoder during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "x": "[0.5, -1, 2]",
+              "attention_out": "[0.2, 0.1, -0.3]",
+              "after_attention": "[0.7, -0.9, 1.7]",
+              "v": "[0.7, -0.9, 1.7]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "x": "data",
+              "attention_out": "data",
+              "after_attention": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "x",
+                "attention_out"
               ],
               [
-                "proc",
-                "out"
+                "attention_out",
+                "after_attention"
+              ],
+              [
+                "after_attention",
+                "v"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
+            "at": "say2",
+            "caption": "Each block has two sub-layers.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "x": "[0.5, -1, 2]",
+              "attention_out": "[0.2, 0.1, -0.3]",
+              "after_attention": "[0.7, -0.9, 1.7]",
+              "v": "[0.7, -0.9, 1.7]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "x": "data",
+              "attention_out": "data",
+              "after_attention": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "x",
+                "attention_out"
+              ],
+              [
+                "attention_out",
+                "after_attention"
+              ],
+              [
+                "after_attention",
+                "v"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The encoder block [D18.P5.S4].",
+            "at": "say7",
+            "caption": "The decoder (for translation) adds a second attention sub-layer.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "x": "[0.5, -1, 2]",
+              "attention_out": "[0.2, 0.1, -0.3]",
+              "after_attention": "[0.7, -0.9, 1.7]",
+              "v": "[0.7, -0.9, 1.7]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "x": "ok",
+              "attention_out": "ok",
+              "after_attention": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "x",
+                "attention_out"
               ],
               [
-                "proc",
-                "out"
+                "attention_out",
+                "after_attention"
+              ],
+              [
+                "after_attention",
+                "v"
               ]
             ]
           }
@@ -1244,110 +906,161 @@
       "codeHash": "eca5eff93716abcbc511b54b47a80bc505c7d82bf83ab039b82dad7e4d5dcb5c",
       "spec": {
         "template": "flow",
-        "title": "Practice time: scores and attention — Execution Pipeline",
+        "title": "Practice time: scores and attention",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "Q",
+            "label": "Q"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: scor...",
-            "tappable": true
+            "id": "K",
+            "label": "K"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: scores and attention.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: scor... [D.Psix.Stwo].",
+            "caption": "Sum(a * b for a, b in zip(q, k)) divided by math.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "Q": {
+                "var": "Q",
+                "line": 3,
+                "hit": 1
+              },
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 5,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "Q": "data",
+              "K": "data",
+              "q": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "Q",
+                "K"
               ],
               [
-                "proc",
-                "out"
+                "K",
+                "q"
+              ],
+              [
+                "q",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "[1, 0, 1, 0] with [1, 1, 1, 1] gives 2 / 2 = 1.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "Q": {
+                "var": "Q",
+                "line": 4,
+                "hit": 1
+              },
+              "K": {
+                "var": "K",
+                "line": 5,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 6,
+                "hit": 4
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "Q": "data",
+              "K": "data",
+              "q": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "Q",
+                "K"
+              ],
+              [
+                "K",
+                "q"
+              ],
+              [
+                "q",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: scores and attention.",
+            "at": "say7",
+            "caption": "The example checks a key property.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "Q": {
+                "var": "Q",
+                "line": 5,
+                "hit": 1
+              },
+              "K": {
+                "var": "K",
+                "line": 6,
+                "hit": 4
+              },
+              "q": {
+                "var": "q",
+                "line": 6,
+                "hit": 8
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "Q": "ok",
+              "K": "ok",
+              "q": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "Q",
+                "K"
               ],
               [
-                "proc",
-                "out"
+                "K",
+                "q"
+              ],
+              [
+                "q",
+                ".0"
               ]
             ]
           }
@@ -1355,110 +1068,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: scores and attention — Execution Pipeline",
+        "title": "Practice time: scores and attention",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "Q",
+            "label": "Q"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: scor...",
-            "tappable": true
+            "id": "K",
+            "label": "K"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: scores and attention [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: scor... [D18.P6.S2].",
+            "caption": "Sum(a * b for a, b in zip(q, k)) divided by math.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "Q": "[[1, 0], [0.5, 0.5]]",
+              "K": "[[1, 0], [0, 1], [0.6, 0.8]]",
+              "q": "[1, 0]",
+              ".0": "{'__other__': 'zip'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "Q": "data",
+              "K": "data",
+              "q": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "Q",
+                "K"
               ],
               [
-                "proc",
-                "out"
+                "K",
+                "q"
+              ],
+              [
+                "q",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
+            "at": "say2",
+            "caption": "[1, 0, 1, 0] with [1, 1, 1, 1] gives 2 / 2 = 1.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "Q": "[[1, 0], [0.5, 0.5]]",
+              "K": "[[1, 0], [0, 1], [0.6, 0.8]]",
+              "q": "[1, 0]",
+              ".0": "{'__other__': 'zip'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "Q": "data",
+              "K": "data",
+              "q": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "Q",
+                "K"
+              ],
+              [
+                "K",
+                "q"
+              ],
+              [
+                "q",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: scores and attention [D18.P6.S4].",
+            "at": "say7",
+            "caption": "The example checks a key property.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "Q": "[[1, 0], [0.5, 0.5]]",
+              "K": "[[1, 0], [0, 1], [0.6, 0.8]]",
+              "q": "[1, 0]",
+              ".0": "{'__other__': 'zip'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "Q": "ok",
+              "K": "ok",
+              "q": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "Q",
+                "K"
               ],
               [
-                "proc",
-                "out"
+                "K",
+                "q"
+              ],
+              [
+                "q",
+                ".0"
               ]
             ]
           }

@@ -2,671 +2,498 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 59,
-  "promptSha": "2f06baf6648e649a546f7172c29149e2a4b2e507d5a094873c8104bc5f35f4f3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Chaos Engineering — Foundations & Mathematical Invariants",
-      "codeHash": "8a173e7c14518a2245284d75c042ad7b3254872cafb3218db5a89385597cc3d2",
+      "codeHash": "4f64d0f82d8f8558ae746ec154c8426151094208b60f50060a9baec1d734655d",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Chaos Engineering — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "metrics",
+          "self",
+          "name"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Distributed systems inevitably encounter complex, unpredictable failure.",
+            "activeActor": "metrics",
+            "messages": [
+              {
+                "from": "metrics",
+                "to": "self",
+                "label": {
+                  "var": "metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Chaos Engineering, pioneered by Netflix's Chaos Monkey and formalized.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "metrics",
+                "to": "self",
+                "label": {
+                  "var": "metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Hypothesis testing must be empirical and quantitative.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "metrics",
+                "to": "self",
+                "label": {
+                  "var": "metrics",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Chaos Engineering — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "metrics",
+          "self",
+          "name"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Distributed systems inevitably encounter complex, unpredictable failure.",
+            "messages": [
+              {
+                "from": "metrics",
+                "to": "self",
+                "label": "{'latency_p99': 25, 'error_rate': 0.002}",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<ChaosExperiment>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "metrics"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Chaos Engineering, pioneered by Netflix's Chaos Monkey and formalized.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "metrics",
+                "to": "self",
+                "label": "{'latency_p99': 25, 'error_rate': 0.002}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "name",
+                "label": "<ChaosExperiment>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Hypothesis testing must be empirical and quantitative.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "metrics",
+                "to": "self",
+                "label": "{'latency_p99': 25, 'error_rate': 0.002}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "name",
+                "label": "<ChaosExperiment>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "name"
           }
         ]
       }
     },
     {
       "partTitle": "Chaos Engineering — Core Algorithm & State Representation",
-      "codeHash": "8d7486454fb018774bd9bec92011b043d83c4d3d9efaf6d1f1484a8d38af8237",
+      "codeHash": "abd6f241df5d01dbfcc347a843a61664263271331ff66a47b21663524e31e3dc",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Chaos Engineering — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "self",
+          "nodes",
+          "proxy"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "To test distributed consensus protocols (such as Raft or Paxos).",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "proxy",
+                "label": {
+                  "var": "nodes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A deterministic chaos proxy intercepts network traffic between cluster.",
+            "activeActor": "nodes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nodes",
+                "to": "proxy",
+                "label": {
+                  "var": "nodes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Deterministic proxies simulate these edge cases by controlling packet flow.",
+            "activeActor": "proxy",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "nodes",
+                "to": "proxy",
+                "label": {
+                  "var": "nodes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Chaos Engineering — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "self",
+          "nodes",
+          "proxy"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "To test distributed consensus protocols (such as Raft or Paxos).",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<PartitionFaultProxy>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "proxy",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A deterministic chaos proxy intercepts network traffic between cluster.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "nodes",
+                "label": "<PartitionFaultProxy>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nodes",
+                "to": "proxy",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "nodes"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Deterministic proxies simulate these edge cases by controlling packet flow.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "nodes",
+                "label": "<PartitionFaultProxy>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nodes",
+                "to": "proxy",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5']",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "proxy"
           }
         ]
       }
     },
     {
       "partTitle": "Chaos Engineering — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "60a1c88c7efe81f99d11be99d5448bde8114c990e2bf1f1746028ff5c54703aa",
+      "codeHash": "ed2a896766c714bbe66b7ac0fb6adc38c87cd2a055225ddeac363c262ab6b0b8",
       "spec": {
         "template": "flow",
         "title": "Chaos Engineering — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "h_valid",
+            "label": "h_valid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "history_sorted",
+            "label": "history_sorted"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Verifying linearizability over thousands of concurrent operations.",
+            "values": {
+              "h_valid": {
+                "var": "h_valid",
+                "line": 26,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 16,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 16,
+                "hit": 3
+              },
+              "history_sorted": {
+                "var": "history_sorted",
+                "line": 16,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "h_valid": "data",
+              "x": "data",
+              "history": "data",
+              "history_sorted": "data"
+            },
+            "arrows": [
+              [
+                "h_valid",
+                "x"
+              ],
+              [
+                "x",
+                "history"
+              ],
+              [
+                "history",
+                "history_sorted"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Kyle Kingsbury's Knossos and Jepsen checkers optimize linearizability.",
+            "values": {
+              "h_valid": {
+                "var": "h_valid",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "x": {
+                "var": "x",
+                "line": 16,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "history": {
+                "var": "history",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "history_sorted": {
+                "var": "history_sorted",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tones": {
+              "h_valid": "data",
+              "x": "data",
+              "history": "data",
+              "history_sorted": "data"
+            },
+            "arrows": [
+              [
+                "h_valid",
+                "x"
+              ],
+              [
+                "x",
+                "history"
+              ],
+              [
+                "history",
+                "history_sorted"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "State-of-the-art verification harnesses prune the search graph.",
+            "values": {
+              "h_valid": {
+                "var": "h_valid",
+                "line": 30,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "x": {
+                "var": "x",
+                "line": 16,
+                "hit": 4
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "history": {
+                "var": "history",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "history_sorted": {
+                "var": "history_sorted",
+                "line": 19,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "h_valid": "ok",
+              "x": "ok",
+              "history": "ok",
+              "history_sorted": "ok"
+            },
+            "arrows": [
+              [
+                "h_valid",
+                "x"
+              ],
+              [
+                "x",
+                "history"
+              ],
+              [
+                "history",
+                "history_sorted"
+              ]
             ]
           }
         ]
@@ -676,128 +503,111 @@
         "title": "Chaos Engineering — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "h_valid",
+            "label": "h_valid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "history_sorted",
+            "label": "history_sorted"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Verifying linearizability over thousands of concurrent operations.",
+            "values": {
+              "h_valid": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…",
+              "x": "[0, 10, 'write', 5, 'OK']",
+              "history": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…",
+              "history_sorted": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…"
+            },
+            "tones": {
+              "h_valid": "data",
+              "x": "data",
+              "history": "data",
+              "history_sorted": "data"
+            },
+            "arrows": [
+              [
+                "h_valid",
+                "x"
+              ],
+              [
+                "x",
+                "history"
+              ],
+              [
+                "history",
+                "history_sorted"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Kyle Kingsbury's Knossos and Jepsen checkers optimize linearizability.",
+            "values": {
+              "h_valid": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…",
+              "x": "[12, 20, 'read', None, 5]",
+              "history": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…",
+              "history_sorted": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…"
+            },
+            "tones": {
+              "h_valid": "data",
+              "x": "data",
+              "history": "data",
+              "history_sorted": "data"
+            },
+            "arrows": [
+              [
+                "h_valid",
+                "x"
+              ],
+              [
+                "x",
+                "history"
+              ],
+              [
+                "history",
+                "history_sorted"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "State-of-the-art verification harnesses prune the search graph.",
+            "values": {
+              "h_valid": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…",
+              "x": "[0, 15, 'write', 10, 'OK']",
+              "history": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…",
+              "history_sorted": "[[0, 10, 'write', 5, 'OK'], [12, 20, 'r…"
+            },
+            "tones": {
+              "h_valid": "ok",
+              "x": "ok",
+              "history": "ok",
+              "history_sorted": "ok"
+            },
+            "arrows": [
+              [
+                "h_valid",
+                "x"
+              ],
+              [
+                "x",
+                "history"
+              ],
+              [
+                "history",
+                "history_sorted"
+              ]
             ]
           }
         ]
@@ -805,532 +615,272 @@
     },
     {
       "partTitle": "Chaos Engineering — Resilience Guardrails & Failure Recovery",
-      "codeHash": "82f9b092482226f010e06b370fefd4bb82d53dca5459df481fec313610a08999",
+      "codeHash": "469ee17c6593e24ef1e1ffb00475fa1feac2cd0c20d18bfe70002f44a5e58852",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Chaos Engineering — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_allowed_down_nodes",
+            "label": "max_allowed_down_nodes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gov",
+            "label": "gov"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Chaos engineering experiments in live staging or production canary.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "To prevent chaos experiments from causing catastrophic damage, enterprise.",
+            "currentState": "max_allowed_down_nodes",
+            "transition": {
+              "from": "self",
+              "to": "max_allowed_down_nodes",
+              "label": {
+                "var": "max_allowed_down_nodes",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Chaos runners also record an immutable audit trail of all injected faults.",
+            "currentState": "gov",
+            "transition": {
+              "from": "max_allowed_down_nodes",
+              "to": "gov",
+              "label": {
+                "var": "gov",
+                "line": 22,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Chaos Engineering — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_allowed_down_nodes",
+            "label": "max_allowed_down_nodes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gov",
+            "label": "gov"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Chaos engineering experiments in live staging or production canary.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "To prevent chaos experiments from causing catastrophic damage, enterprise.",
+            "currentState": "max_allowed_down_nodes",
+            "transition": {
+              "from": "self",
+              "to": "max_allowed_down_nodes",
+              "label": "1"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Chaos runners also record an immutable audit trail of all injected faults.",
+            "currentState": "gov",
+            "transition": {
+              "from": "max_allowed_down_nodes",
+              "to": "gov",
+              "label": "<ChaosGovernor>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Chaos Engineering — Production Telemetry & Verification Audit",
-      "codeHash": "5008abd717b8dbb59948d0ab368a2c94336c7008df5f30745f291e4f78da7e10",
+      "codeHash": "2326b684cf846298177e6c43fd04fd8756ed506e8126cb61b9b1bdf8aa752ef1",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Chaos Engineering — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "run_data",
+          "bad_run",
+          "experiment_run"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ultimate output of a chaos engineering campaign is a quantitative.",
+            "activeActor": "run_data",
+            "messages": [
+              {
+                "from": "run_data",
+                "to": "bad_run",
+                "label": {
+                  "var": "run_data",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": {
+                  "var": "bad_run",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "During fault injection, telemetry monitors track the exact elapsed time.",
+            "activeActor": "bad_run",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "run_data",
+                "to": "bad_run",
+                "label": {
+                  "var": "run_data",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": {
+                  "var": "bad_run",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Teams that practice continuous automated chaos testing demonstrate.",
+            "activeActor": "experiment_run",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "run_data",
+                "to": "bad_run",
+                "label": {
+                  "var": "run_data",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": {
+                  "var": "bad_run",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Chaos Engineering — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "run_data",
+          "bad_run",
+          "experiment_run"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ultimate output of a chaos engineering campaign is a quantitative.",
+            "messages": [
+              {
+                "from": "run_data",
+                "to": "bad_run",
+                "label": "{'mttd_sec': 3, 'mttr_sec': 12, 'sla_mt…",
+                "tone": "data"
+              },
+              {
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": "{'mttd_sec': 15, 'mttr_sec': 45, 'sla_m…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "run_data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "During fault injection, telemetry monitors track the exact elapsed time.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "run_data",
+                "to": "bad_run",
+                "label": "{'mttd_sec': 3, 'mttr_sec': 12, 'sla_mt…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": "{'mttd_sec': 15, 'mttr_sec': 45, 'sla_m…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bad_run"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Teams that practice continuous automated chaos testing demonstrate.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "run_data",
+                "to": "bad_run",
+                "label": "{'mttd_sec': 3, 'mttr_sec': 12, 'sla_mt…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bad_run",
+                "to": "experiment_run",
+                "label": "{'mttd_sec': 15, 'mttr_sec': 45, 'sla_m…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "experiment_run"
           }
         ]
       }

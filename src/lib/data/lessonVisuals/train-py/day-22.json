@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Scaling laws",
       "codeHash": "bdae28687d068346c2c84ed904e505a9c10a2a3ec7c9a0ce37ea788ce2d71cdf",
       "spec": {
-        "template": "table",
-        "title": "Predictable power-law loss trajectory across parameter scales",
-        "columns": [
-          "params",
-          "loss",
+        "template": "sequence",
+        "title": "Scaling laws",
+        "actors": [
+          "E",
+          "A",
           "alpha"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scaling laws describe how validation loss falls predictably across runs.",
-            "rows": [
+            "caption": "Scaling laws describe how a model's loss falls predictably as model size.",
+            "activeActor": "E",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "ok"
+                "from": "E",
+                "to": "A",
+                "label": {
+                  "var": "E",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "data"
+                "from": "A",
+                "to": "alpha",
+                "label": {
+                  "var": "A",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Teams use scaling laws to forecast performance before spending millions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how kaplan updates colleagues during execution.",
+            "activeActor": "A",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
+                "from": "E",
+                "to": "A",
+                "label": {
+                  "var": "E",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "from": "A",
+                "to": "alpha",
+                "label": {
+                  "var": "A",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "They also warn against a common mistake.",
+            "activeActor": "alpha",
+            "messages": [
+              {
+                "from": "E",
+                "to": "A",
+                "label": {
+                  "var": "E",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "A",
+                "to": "alpha",
+                "label": {
+                  "var": "A",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Predictable power-law loss trajectory across parameter scales",
-        "columns": [
-          "params",
-          "loss",
+        "template": "sequence",
+        "title": "Scaling laws",
+        "actors": [
+          "E",
+          "A",
           "alpha"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scaling laws describe how validation loss falls predictably across runs.",
-            "rows": [
+            "caption": "Scaling laws describe how a model's loss falls predictably as model size.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "loss",
-                  "alpha"
-                ],
-                "tone": "ok"
+                "from": "E",
+                "to": "A",
+                "label": "1.7",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "loss",
-                  "alpha"
-                ],
-                "tone": "data"
+                "from": "A",
+                "to": "alpha",
+                "label": "400",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "E"
           },
           {
-            "at": "say4",
-            "caption": "Teams use scaling laws to forecast performance before spending millions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how kaplan updates colleagues during execution.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "loss",
-                  "alpha"
-                ],
+                "from": "E",
+                "to": "A",
+                "label": "1.7",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "loss",
-                  "params"
-                ],
+                "from": "A",
+                "to": "alpha",
+                "label": "400",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "A"
+          },
+          {
+            "at": "say11",
+            "caption": "They also warn against a common mistake.",
+            "messages": [
+              {
+                "from": "E",
+                "to": "A",
+                "label": "1.7",
+                "tone": "data"
+              },
+              {
+                "from": "A",
+                "to": "alpha",
+                "label": "400",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "alpha"
           }
         ]
       }
@@ -147,78 +173,77 @@
       "partTitle": "Chinchilla: balancing parameters and data",
       "codeHash": "c1ca68cccd3b6fd1b2a61d6bb6aedb6c6ba85585b13b0f50be31b27352bc7448",
       "spec": {
-        "template": "table",
-        "title": "Chinchilla compute-optimal allocation between size and tokens",
-        "columns": [
-          "budget",
-          "math",
-          "budget"
-        ],
+        "template": "bars",
+        "title": "Chinchilla: balancing parameters and data",
         "steps": [
           {
             "at": "say1",
-            "caption": "For a fixed compute budget engineers balance model size against tokens.",
-            "rows": [
+            "caption": "For a fixed compute budget, you can train a big model on little data or.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
-                "tone": "ok"
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Chinchilla established a balance between training tokens and parameters.",
-            "rows": [
+            "caption": "Trace how hoffmann updates colleagues during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
-                "tone": "data"
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "It assumes you care only about training compute, as the next part explains.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +251,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Chinchilla compute-optimal allocation between size and tokens",
-        "columns": [
-          "budget",
-          "math",
-          "budget"
-        ],
+        "template": "bars",
+        "title": "Chinchilla: balancing parameters and data",
         "steps": [
           {
             "at": "say1",
-            "caption": "For a fixed compute budget engineers balance model size against tokens.",
-            "rows": [
+            "caption": "For a fixed compute budget, you can train a big model on little data or.",
+            "bars": [
               {
-                "cells": [
-                  "budget",
-                  "math",
-                  "budget"
-                ],
-                "tone": "ok"
+                "label": "budget",
+                "value": 1e+21,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "budget",
-                  "math",
-                  "budget"
-                ],
+                "label": "n",
+                "value": 2886751345.9481287,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Chinchilla established a balance between training tokens and parameters.",
-            "rows": [
+            "caption": "Trace how hoffmann updates colleagues during execution.",
+            "bars": [
               {
-                "cells": [
-                  "budget",
-                  "math",
-                  "budget"
-                ],
-                "tone": "data"
+                "label": "budget",
+                "value": 1e+21,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "budget",
-                  "math",
-                  "math"
-                ],
+                "label": "n",
+                "value": 2886751345.9481287,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "It assumes you care only about training compute, as the next part explains.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 1e+21,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 2886751345.9481287,
                 "tone": "ok"
               }
             ]
@@ -285,78 +309,77 @@
       "partTitle": "Beyond compute-optimal",
       "codeHash": "3c0f6b13502d8b8a9e60ffc6985e94c20680a5a5ac148701e054f1a39af63ef0",
       "spec": {
-        "template": "table",
-        "title": "Inference economics and deliberate overtraining of compact models",
-        "columns": [
-          "train_cost",
-          "total",
-          "requests_billions"
-        ],
+        "template": "bars",
+        "title": "Beyond compute-optimal",
         "steps": [
           {
             "at": "say1",
-            "caption": "Models are evaluated on inference costs when served to millions of people.",
-            "rows": [
+            "caption": "Chinchilla optimises training compute only, but a model is then used.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "train_cost"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "requests_billions"
-                  }
-                ],
-                "tone": "ok"
+                "label": "requests_billi",
+                "value": {
+                  "var": "requests_billions",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "train_cost"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "requests_billions"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A smaller model costs more to train but less to run for every request.",
-            "rows": [
+            "caption": "A smaller model trained on far more data costs more to train but less.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "train_cost"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "requests_billions"
-                  }
-                ],
-                "tone": "data"
+                "label": "requests_billi",
+                "value": {
+                  "var": "requests_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "train_cost"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "train_cost"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how your updates budget during execution.",
+            "bars": [
+              {
+                "label": "requests_billi",
+                "value": {
+                  "var": "requests_billions",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +387,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Inference economics and deliberate overtraining of compact models",
-        "columns": [
-          "train_cost",
-          "total",
-          "requests_billions"
-        ],
+        "template": "bars",
+        "title": "Beyond compute-optimal",
         "steps": [
           {
             "at": "say1",
-            "caption": "Models are evaluated on inference costs when served to millions of people.",
-            "rows": [
+            "caption": "Chinchilla optimises training compute only, but a model is then used.",
+            "bars": [
               {
-                "cells": [
-                  "train_cost",
-                  "total",
-                  "requests_billions"
-                ],
-                "tone": "ok"
+                "label": "requests_billi",
+                "value": 10,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "train_cost",
-                  "total",
-                  "requests_billions"
-                ],
+                "label": "total",
+                "value": 1.013,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A smaller model costs more to train but less to run for every request.",
-            "rows": [
+            "caption": "A smaller model trained on far more data costs more to train but less.",
+            "bars": [
               {
-                "cells": [
-                  "train_cost",
-                  "total",
-                  "requests_billions"
-                ],
-                "tone": "data"
+                "label": "requests_billi",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "train_cost",
-                  "total",
-                  "train_cost"
-                ],
+                "label": "total",
+                "value": 1.013,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how your updates budget during execution.",
+            "bars": [
+              {
+                "label": "requests_billi",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1.013,
                 "tone": "ok"
               }
             ]
@@ -423,135 +445,277 @@
       "partTitle": "From FLOPs to a budget",
       "codeHash": "50950392ff065794456b5da9784805d65c67166faa09919ca320bc25ee041130",
       "spec": {
-        "template": "table",
-        "title": "Synthesizing FLOPs into actionable GPU-hours and financial budgets",
-        "columns": [
-          "params",
-          "tokens",
-          "hours"
+        "template": "flow",
+        "title": "From FLOPs to a budget",
+        "nodes": [
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "peak",
+            "label": "peak"
+          },
+          {
+            "id": "mfu",
+            "label": "mfu"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A budget report turns a plan into numbers decision makers understand.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "data"
+              "tokens": {
+                "var": "tokens",
+                "line": 1,
+                "hit": 1
+              },
+              "peak": {
+                "var": "peak",
+                "line": 1,
+                "hit": 1
+              },
+              "mfu": {
+                "var": "mfu",
+                "line": 1,
+                "hit": 1
               }
+            },
+            "tones": {
+              "params": "data",
+              "tokens": "data",
+              "peak": "data",
+              "mfu": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "peak"
+              ],
+              [
+                "peak",
+                "mfu"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "The verdict is undertrained below fifteen tokens per parameter.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "GPU-hours = total FLOPs (peak FLOPs per GPU MFU) 3600.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "peak": {
+                "var": "peak",
+                "line": 2,
+                "hit": 1
+              },
+              "mfu": {
+                "var": "mfu",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "params": "data",
+              "tokens": "data",
+              "peak": "data",
+              "mfu": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "peak"
+              ],
+              [
+                "peak",
+                "mfu"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Sharing the report with finance and leadership early avoids surprises when.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "peak": {
+                "var": "peak",
+                "line": 3,
+                "hit": 1
+              },
+              "mfu": {
+                "var": "mfu",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "params": "ok",
+              "tokens": "ok",
+              "peak": "ok",
+              "mfu": "ok"
+            },
+            "arrows": [
+              [
+                "params",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "peak"
+              ],
+              [
+                "peak",
+                "mfu"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Synthesizing FLOPs into actionable GPU-hours and financial budgets",
-        "columns": [
-          "params",
-          "tokens",
-          "hours"
+        "template": "flow",
+        "title": "From FLOPs to a budget",
+        "nodes": [
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "peak",
+            "label": "peak"
+          },
+          {
+            "id": "mfu",
+            "label": "mfu"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A budget report turns a plan into numbers decision makers understand.",
-            "rows": [
-              {
-                "cells": [
-                  "params",
-                  "tokens",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "params",
-                  "tokens",
-                  "hours"
-                ],
-                "tone": "data"
-              }
+            "values": {
+              "params": "7000000000",
+              "tokens": "140000000000",
+              "peak": "312000000000000",
+              "mfu": "0.4"
+            },
+            "tones": {
+              "params": "data",
+              "tokens": "data",
+              "peak": "data",
+              "mfu": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "peak"
+              ],
+              [
+                "peak",
+                "mfu"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "The verdict is undertrained below fifteen tokens per parameter.",
-            "rows": [
-              {
-                "cells": [
-                  "params",
-                  "tokens",
-                  "hours"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "params",
-                  "tokens",
-                  "params"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "GPU-hours = total FLOPs (peak FLOPs per GPU MFU) 3600.",
+            "values": {
+              "params": "7000000000",
+              "tokens": "140000000000",
+              "peak": "312000000000000",
+              "mfu": "0.4"
+            },
+            "tones": {
+              "params": "data",
+              "tokens": "data",
+              "peak": "data",
+              "mfu": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "peak"
+              ],
+              [
+                "peak",
+                "mfu"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Sharing the report with finance and leadership early avoids surprises when.",
+            "values": {
+              "params": "7000000000",
+              "tokens": "140000000000",
+              "peak": "312000000000000",
+              "mfu": "0.4"
+            },
+            "tones": {
+              "params": "ok",
+              "tokens": "ok",
+              "peak": "ok",
+              "mfu": "ok"
+            },
+            "arrows": [
+              [
+                "params",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "peak"
+              ],
+              [
+                "peak",
+                "mfu"
+              ]
             ]
           }
         ]
@@ -562,110 +726,161 @@
       "codeHash": "28435dd529b377eaeefa70598387c320de17f9832fcf62df4a9428fb968d6ecf",
       "spec": {
         "template": "flow",
-        "title": "Using scaling laws responsibly — Execution Pipeline",
+        "title": "Using scaling laws responsibly",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "runs",
+            "label": "runs"
           },
           {
-            "id": "proc",
-            "label": "2. Using scaling laws ...",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
+          },
+          {
+            "id": "mx",
+            "label": "mx"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Using scaling laws responsibly [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Using scaling laws ... [D.Pfive.Stwo].",
+            "caption": "Scaling-law fits come from a range of experiments.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "runs": {
+                "var": "runs",
+                "line": 3,
+                "hit": 1
+              },
+              "xs": {
+                "var": "xs",
+                "line": 4,
+                "hit": 4
+              },
+              "ys": {
+                "var": "ys",
+                "line": 5,
+                "hit": 4
+              },
+              "mx": {
+                "var": "mx",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "runs": "data",
+              "xs": "data",
+              "ys": "data",
+              "mx": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "runs",
+                "xs"
               ],
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "mx"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Fitting your own small-scale runs, on your own data, gives more reliable.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "runs": {
+                "var": "runs",
+                "line": 4,
+                "hit": 1
+              },
+              "xs": {
+                "var": "xs",
+                "line": 5,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 6,
+                "hit": 1
+              },
+              "mx": {
+                "var": "mx",
+                "line": 7,
+                "hit": 9
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "runs": "data",
+              "xs": "data",
+              "ys": "data",
+              "mx": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "runs",
+                "xs"
+              ],
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "mx"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Using scaling laws responsibly.",
+            "at": "say10",
+            "caption": "Tomorrow measures how efficiently a real run uses its hardware, the MFU we.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "runs": {
+                "var": "runs",
+                "line": 4,
+                "hit": 2
+              },
+              "xs": {
+                "var": "xs",
+                "line": 5,
+                "hit": 2
+              },
+              "ys": {
+                "var": "ys",
+                "line": 7,
+                "hit": 9
+              },
+              "mx": {
+                "var": "mx",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "runs": "ok",
+              "xs": "ok",
+              "ys": "ok",
+              "mx": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "runs",
+                "xs"
               ],
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "mx"
               ]
             ]
           }
@@ -673,110 +888,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Using scaling laws responsibly — Execution Pipeline",
+        "title": "Using scaling laws responsibly",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "runs",
+            "label": "runs"
           },
           {
-            "id": "proc",
-            "label": "2. Using scaling laws ...",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
+          },
+          {
+            "id": "mx",
+            "label": "mx"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Using scaling laws responsibly [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Using scaling laws ... [D22.P5.S2].",
+            "caption": "Scaling-law fits come from a range of experiments.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "runs": "[[100000000, 3.9], [300000000, 3.55], […",
+              "xs": "[18.420680743952367, 19.519293032620475…",
+              "ys": "[0.7884573603642703, 0.6151856390902334…",
+              "mx": "19.554413204506417"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "runs": "data",
+              "xs": "data",
+              "ys": "data",
+              "mx": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "runs",
+                "xs"
               ],
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "mx"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
+            "at": "say2",
+            "caption": "Fitting your own small-scale runs, on your own data, gives more reliable.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "runs": "[[100000000, 3.9], [300000000, 3.55], […",
+              "xs": "[18.420680743952367, 19.519293032620475…",
+              "ys": "[0.7884573603642703, 0.6151856390902334…",
+              "mx": "19.554413204506417"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "runs": "data",
+              "xs": "data",
+              "ys": "data",
+              "mx": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "runs",
+                "xs"
+              ],
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "mx"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Using scaling laws responsibly [D22.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow measures how efficiently a real run uses its hardware, the MFU we.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "runs": "[[100000000, 3.9], [300000000, 3.55], […",
+              "xs": "[18.420680743952367, 19.519293032620475…",
+              "ys": "[0.7884573603642703, 0.6151856390902334…",
+              "mx": "19.554413204506417"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "runs": "ok",
+              "xs": "ok",
+              "ys": "ok",
+              "mx": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "runs",
+                "xs"
               ],
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "mx"
               ]
             ]
           }
@@ -787,224 +1005,162 @@
       "partTitle": "Practice time: budgets",
       "codeHash": "ce74a7d79e9beac7557ebf44644cddd22a42848c739e2bd03246d552a480024a",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: budgets — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: budgets",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: budgets",
+        "actors": [
+          "plans",
+          "name",
+          "n"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: budgets [D.Psix.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: budgets [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Chinchilla(compute_flops).",
+            "activeActor": "plans",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": {
+                  "var": "plans",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": {
+                  "var": "plans",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: budgets [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If the cost check fails, round GPU-hours before multiplying by the price.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": {
+                  "var": "plans",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: budgets — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: budgets",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: budgets",
+        "actors": [
+          "plans",
+          "name",
+          "n"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: budgets [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: budgets [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Chinchilla(compute_flops).",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": "[['7B on 140B', 7000000000, 14000000000…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'7B on 140B'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plans"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": "[['7B on 140B', 7000000000, 14000000000…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'7B on 140B'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: budgets [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "If the cost check fails, round GPU-hours before multiplying by the price.",
+            "messages": [
+              {
+                "from": "plans",
+                "to": "name",
+                "label": "[['7B on 140B', 7000000000, 14000000000…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'7B on 140B'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
           }
         ]
       }

@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 37,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Distributed GPU Memory Architecture: The 16-Byte-Per-Parameter State Budget & The Memory Wall",
       "codeHash": "caea127854d6f77768ed89b79155c66756e5ba4caa49a92cdd32131c9c7401e3",
       "spec": {
-        "template": "flow",
-        "title": "Distributed GPU Memory Architecture: The 16-B... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Distributed GPU Mem...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Distributed GPU Memory Architecture: The 16-Byte-Per-Parameter S",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Distributed GPU Memory Architecture: The...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Distributed GPU Mem....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "However, when an engineering team attempts to launch.",
+            "bars": [
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "params_billion",
+                "value": {
+                  "var": "params_billions",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "batch_size",
+                "value": {
+                  "var": "batch_size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "During standard mixed-precision training (using 16-bit floating point.",
+            "bars": [
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "params_billion",
+                "value": {
+                  "var": "params_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": {
+                  "var": "batch_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Distributed GPU Memory Architectu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the exact byte-level.",
+            "bars": [
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "params_billion",
+                "value": {
+                  "var": "params_billions",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": {
+                  "var": "batch_size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed GPU Memory Architecture: The 16-B... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Distributed GPU Mem...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Distributed GPU Memory Architecture: The 16-Byte-Per-Parameter S",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Distributed GPU Memory Architecture: The...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Distributed GPU Mem....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "However, when an engineering team attempts to launch.",
+            "bars": [
+              {
+                "label": "m",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "params_billion",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "batch_size",
+                "value": 2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "During standard mixed-precision training (using 16-bit floating point.",
+            "bars": [
+              {
+                "label": "m",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "params_billion",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 4096,
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Distributed GPU Memory Architectu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the exact byte-level.",
+            "bars": [
+              {
+                "label": "m",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "params_billion",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 4096,
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,110 +230,161 @@
       "codeHash": "81ad9df00f024c43222b373ebd0ec3d5579aced10ab331138a28a94417e92427",
       "spec": {
         "template": "flow",
-        "title": "ZeRO Memory Partitioning (Stage 1, Stage 2, a... — Execution Pipeline",
+        "title": "ZeRO Memory Partitioning (Stage 1, Stage 2, and Stage 3): Slashi",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cluster_sizes",
+            "label": "cluster_sizes"
           },
           {
-            "id": "proc",
-            "label": "2. ZeRO Memory Partiti...",
-            "tappable": true
+            "id": "gpus",
+            "label": "gpus"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "params_b",
+            "label": "params_b"
+          },
+          {
+            "id": "num_gpus",
+            "label": "num_gpus"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for ZeRO Memory Partitioning (Stage one, Stage...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in ZeRO Memory Partiti....",
+            "caption": "In traditional Data Parallelism (DDP), every GPU in a distributed cluster.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cluster_sizes": {
+                "var": "cluster_sizes",
+                "line": 28,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 30,
+                "hit": 1
+              },
+              "params_b": {
+                "var": "params_b",
+                "line": 2,
+                "hit": 1
+              },
+              "num_gpus": {
+                "var": "num_gpus",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cluster_sizes": "data",
+              "gpus": "data",
+              "params_b": "data",
+              "num_gpus": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cluster_sizes",
+                "gpus"
               ],
               [
-                "proc",
-                "out"
+                "gpus",
+                "params_b"
+              ],
+              [
+                "params_b",
+                "num_gpus"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "ZeRO organizes memory partitioning into three cumulative stages.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cluster_sizes": {
+                "var": "cluster_sizes",
+                "line": 30,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 31,
+                "hit": 1
+              },
+              "params_b": {
+                "var": "params_b",
+                "line": 4,
+                "hit": 1
+              },
+              "num_gpus": {
+                "var": "num_gpus",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cluster_sizes": "data",
+              "gpus": "data",
+              "params_b": "data",
+              "num_gpus": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cluster_sizes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "params_b"
+              ],
+              [
+                "params_b",
+                "num_gpus"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for ZeRO Memory Partitioning (Stage one...",
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the memory allocations.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cluster_sizes": {
+                "var": "cluster_sizes",
+                "line": 31,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 32,
+                "hit": 1
+              },
+              "params_b": {
+                "var": "params_b",
+                "line": 5,
+                "hit": 1
+              },
+              "num_gpus": {
+                "var": "num_gpus",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cluster_sizes": "ok",
+              "gpus": "ok",
+              "params_b": "ok",
+              "num_gpus": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cluster_sizes",
+                "gpus"
               ],
               [
-                "proc",
-                "out"
+                "gpus",
+                "params_b"
+              ],
+              [
+                "params_b",
+                "num_gpus"
               ]
             ]
           }
@@ -347,110 +392,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "ZeRO Memory Partitioning (Stage 1, Stage 2, a... — Execution Pipeline",
+        "title": "ZeRO Memory Partitioning (Stage 1, Stage 2, and Stage 3): Slashi",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cluster_sizes",
+            "label": "cluster_sizes"
           },
           {
-            "id": "proc",
-            "label": "2. ZeRO Memory Partiti...",
-            "tappable": true
+            "id": "gpus",
+            "label": "gpus"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "params_b",
+            "label": "params_b"
+          },
+          {
+            "id": "num_gpus",
+            "label": "num_gpus"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for ZeRO Memory Partitioning (Stage 1, Stage...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in ZeRO Memory Partiti....",
+            "caption": "In traditional Data Parallelism (DDP), every GPU in a distributed cluster.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cluster_sizes": "[8, 64, 512]",
+              "gpus": "8",
+              "params_b": "70",
+              "num_gpus": "8"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cluster_sizes": "data",
+              "gpus": "data",
+              "params_b": "data",
+              "num_gpus": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cluster_sizes",
+                "gpus"
               ],
               [
-                "proc",
-                "out"
+                "gpus",
+                "params_b"
+              ],
+              [
+                "params_b",
+                "num_gpus"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "ZeRO organizes memory partitioning into three cumulative stages.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cluster_sizes": "[8, 64, 512]",
+              "gpus": "8",
+              "params_b": "70",
+              "num_gpus": "8"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cluster_sizes": "data",
+              "gpus": "data",
+              "params_b": "data",
+              "num_gpus": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cluster_sizes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "params_b"
+              ],
+              [
+                "params_b",
+                "num_gpus"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for ZeRO Memory Partitioning (Stage 1...",
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the memory allocations.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cluster_sizes": "[8, 64, 512]",
+              "gpus": "8",
+              "params_b": "70",
+              "num_gpus": "8"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cluster_sizes": "ok",
+              "gpus": "ok",
+              "params_b": "ok",
+              "num_gpus": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cluster_sizes",
+                "gpus"
               ],
               [
-                "proc",
-                "out"
+                "gpus",
+                "params_b"
+              ],
+              [
+                "params_b",
+                "num_gpus"
               ]
             ]
           }
@@ -461,223 +509,124 @@
       "partTitle": "Megatron-LM Tensor Parallelism: Column and Row Linear Factorization with Dual All-Reduce Primitives",
       "codeHash": "ce45bcfe46a81b25500c8d5bc156ca5b800e6ef5981c2ff8e12c9251705afe31",
       "spec": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism: Column and Ro... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Megatron-LM Tensor ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Megatron-LM Tensor Parallelism: Column and Row Linear Factorizat",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Megatron-LM Tensor Parallelism: Column a...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Megatron-LM Tensor ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While ZeRO memory sharding enables training large models by distributing.",
+            "items": {
+              "var": "row",
+              "line": 11,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To understand Megatron-LM's genius, consider the fundamental matrix.",
+            "items": {
+              "var": "row",
+              "line": 11,
+              "hit": 7
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Megatron-LM Tensor Parallelism: C...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate Megatron-LM's.",
+            "items": {
+              "var": "row",
+              "line": 11,
+              "hit": 12
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Megatron-LM Tensor Parallelism: Column and Ro... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Megatron-LM Tensor ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Megatron-LM Tensor Parallelism: Column and Row Linear Factorizat",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Megatron-LM Tensor Parallelism: Column a...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Megatron-LM Tensor ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While ZeRO memory sharding enables training large models by distributing.",
+            "items": [
+              "0.5",
+              "0.8",
+              "1.1",
+              "1.4000000000000001",
+              "1.7000000000000002",
+              "2",
+              "2.3000000000000003",
+              "2.6"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand Megatron-LM's genius, consider the fundamental matrix.",
+            "items": [
+              "0.5",
+              "0.8",
+              "1.1",
+              "1.4000000000000001",
+              "1.7000000000000002",
+              "2",
+              "2.3000000000000003",
+              "2.6"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Megatron-LM Tensor Parallelism: C...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate Megatron-LM's.",
+            "items": [
+              "0.55",
+              "0.8500000000000001",
+              "1.1500000000000001",
+              "1.4500000000000002",
+              "1.75",
+              "2.0500000000000003",
+              "2.35",
+              "2.6500000000000004"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +636,109 @@
       "partTitle": "Pipeline Parallelism (1F1B Scheduling) & 3D Parallelism Topology Coordination (DP x TP x PP)",
       "codeHash": "8dff666bb7dd97f6262e25a9f5525d59b659ba7e341b1d06c49cf33e73f3fdc5",
       "spec": {
-        "template": "flow",
-        "title": "Pipeline Parallelism (1F1B Scheduling) & 3D P... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Pipeline Parallelis...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Pipeline Parallelism (1F1B Scheduling) & 3D Parallelism Topology",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Pipeline Parallelism (oneFoneB Scheduling) &...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Pipeline Parallelis....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "When foundation models expand to 70 billion, 405 billion, or 1 trillion.",
+            "items": {
+              "var": "model_scales",
+              "line": 23,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Pipeline Parallelism partitions the layers of a deep neural network.",
+            "items": {
+              "var": "model_scales",
+              "line": 30,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Pipeline Parallelism (oneFoneB Schedu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the 1F1B pipeline.",
+            "items": {
+              "var": "model_scales",
+              "line": 26,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Pipeline Parallelism (1F1B Scheduling) & 3D P... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Pipeline Parallelis...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Pipeline Parallelism (1F1B Scheduling) & 3D Parallelism Topology",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Pipeline Parallelism (1F1B Scheduling) &...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Pipeline Parallelis....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "When foundation models expand to 70 billion, 405 billion, or 1 trillion.",
+            "items": [
+              "13",
+              "70",
+              "405"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Pipeline Parallelism partitions the layers of a deep neural network.",
+            "items": [
+              "13",
+              "70",
+              "405"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pipeline Parallelism (1F1B Schedu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the 1F1B pipeline.",
+            "items": [
+              "13",
+              "70",
+              "405"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +748,112 @@
       "partTitle": "Simulating ZeRO-3 Memory Allocation & Tensor Parallel Matrix Factorization in Pure Python",
       "codeHash": "bc63db5c90a946c5f9bbe1ba4c3258cab172ae94aaa581c6390d01c0123275f0",
       "spec": {
-        "template": "flow",
-        "title": "Simulating ZeRO-3 Memory Allocation & Tensor ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Simulating ZeRO-3 M...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Simulating ZeRO-3 Memory Allocation & Tensor Parallel Matrix Fac",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Simulating ZeRO-three Memory Allocation & Te...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Simulating ZeRO-three M....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "The Sovereign Distributed Cluster Engine.",
+            "items": {
+              "var": "x_in",
+              "line": 55,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of our simulated distributed.",
+            "items": {
+              "var": "x_in",
+              "line": 63,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Simulating ZeRO-three Memory Allocati...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following comprehensive implementation, we construct the complete.",
+            "items": {
+              "var": "x_in",
+              "line": 64,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Simulating ZeRO-3 Memory Allocation & Tensor ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Simulating ZeRO-3 M...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Simulating ZeRO-3 Memory Allocation & Tensor Parallel Matrix Fac",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Simulating ZeRO-3 Memory Allocation & Te...",
-            "values": {
-              "in": "Day 37 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Simulating ZeRO-3 M....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The Sovereign Distributed Cluster Engine.",
+            "items": [
+              "1.2",
+              "-0.8",
+              "2.5",
+              "-1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of our simulated distributed.",
+            "items": [
+              "1.2",
+              "-0.8",
+              "2.5",
+              "-1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Simulating ZeRO-3 Memory Allocati...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following comprehensive implementation, we construct the complete.",
+            "items": [
+              "1.2",
+              "-0.8",
+              "2.5",
+              "-1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

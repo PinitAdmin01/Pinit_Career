@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What named entity recognition does",
       "codeHash": "2f3962819e226ee5821e0dd8ff7cbe57d3c66a6e8ad1b8f16a3f6ff28c06cff1",
       "spec": {
-        "template": "table",
-        "title": "Named entity span extraction and category taxonomy",
-        "columns": [
-          "sentence",
-          "entities"
+        "template": "flow",
+        "title": "What named entity recognition does",
+        "nodes": [
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "entities",
+            "label": "entities"
+          },
+          {
+            "id": "etype",
+            "label": "etype"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Named entity recognition identifies spans representing real world entities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "entities"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Named entity recognition (NER) finds the spans of text that name.",
+            "values": {
+              "sentence": {
+                "var": "sentence",
+                "line": 1,
+                "hit": 1
+              },
+              "entities": {
+                "var": "entities",
+                "line": 2,
+                "hit": 1
+              },
+              "etype": {
+                "var": "etype",
+                "line": 3,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sentence": "data",
+              "entities": "data",
+              "etype": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "entities"
+              ],
+              [
+                "entities",
+                "etype"
+              ],
+              [
+                "etype",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The sample sentence includes Sundar Pichai visited New Delhi.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "entities"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In \"Sundar Pichai visited New Delhi on Monday\", NER should find \"Sundar.",
+            "values": {
+              "sentence": {
+                "var": "sentence",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "etype"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+              "entities": {
+                "var": "entities",
+                "line": 3,
+                "hit": 1
+              },
+              "etype": {
+                "var": "etype",
+                "line": 4,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sentence": "data",
+              "entities": "data",
+              "etype": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "entities"
+              ],
+              [
+                "entities",
+                "etype"
+              ],
+              [
+                "etype",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Multi-word entity spans require explicit beginning and continuation boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "entities"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Today you build the representation and the conversion code that every NER.",
+            "values": {
+              "sentence": {
+                "var": "sentence",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "etype"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+              "entities": {
+                "var": "entities",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
+              "etype": {
+                "var": "etype",
+                "line": 5,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Entity classification depends upon specific domain taxonomy definitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "entities"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "etype"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "start"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "sentence": "ok",
+              "entities": "ok",
+              "etype": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "entities"
+              ],
+              [
+                "entities",
+                "etype"
+              ],
+              [
+                "etype",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Named entity span extraction and category taxonomy",
-        "columns": [
-          "sentence",
-          "entities"
+        "template": "flow",
+        "title": "What named entity recognition does",
+        "nodes": [
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "entities",
+            "label": "entities"
+          },
+          {
+            "id": "etype",
+            "label": "etype"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Named entity recognition identifies spans representing real world entities.",
-            "rows": [
-              {
-                "cells": [
-                  "sentence",
-                  "entities"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Named entity recognition (NER) finds the spans of text that name.",
+            "values": {
+              "sentence": "'Sundar Pichai visited New Delhi on Mon…",
+              "entities": "[['PER', 'Sundar Pichai'], ['LOC', 'New…",
+              "etype": "'PER'",
+              "text": "'Sundar Pichai'"
+            },
+            "tones": {
+              "sentence": "data",
+              "entities": "data",
+              "etype": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "entities"
+              ],
+              [
+                "entities",
+                "etype"
+              ],
+              [
+                "etype",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The sample sentence includes Sundar Pichai visited New Delhi.",
-            "rows": [
-              {
-                "cells": [
-                  "sentence",
-                  "entities"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "etype",
-                  "text"
-                ],
-                "tone": "ok"
-              }
+            "caption": "In \"Sundar Pichai visited New Delhi on Monday\", NER should find \"Sundar.",
+            "values": {
+              "sentence": "'Sundar Pichai visited New Delhi on Mon…",
+              "entities": "[['PER', 'Sundar Pichai'], ['LOC', 'New…",
+              "etype": "'PER'",
+              "text": "'Sundar Pichai'"
+            },
+            "tones": {
+              "sentence": "data",
+              "entities": "data",
+              "etype": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "entities"
+              ],
+              [
+                "entities",
+                "etype"
+              ],
+              [
+                "etype",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Multi-word entity spans require explicit beginning and continuation boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "sentence",
-                  "entities"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "etype",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "start",
-                  "len"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Entity classification depends upon specific domain taxonomy definitions.",
-            "rows": [
-              {
-                "cells": [
-                  "sentence",
-                  "entities"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "etype",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "start",
-                  "len"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "start"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Today you build the representation and the conversion code that every NER.",
+            "values": {
+              "sentence": "'Sundar Pichai visited New Delhi on Mon…",
+              "entities": "[['PER', 'Sundar Pichai'], ['LOC', 'New…",
+              "etype": "'PER'",
+              "text": "'Sundar Pichai'"
+            },
+            "tones": {
+              "sentence": "ok",
+              "entities": "ok",
+              "etype": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "entities"
+              ],
+              [
+                "entities",
+                "etype"
+              ],
+              [
+                "etype",
+                "text"
+              ]
             ]
           }
         ]
@@ -261,143 +289,104 @@
       "partTitle": "The BIO scheme",
       "codeHash": "597150f42c0679aaf67ed56194cef310412a65e893c8c9fffd7ceb8521dcd28c",
       "spec": {
-        "template": "table",
-        "title": "BIO token tagging representation for entity spans",
-        "columns": [
-          "tokens",
-          "tags"
-        ],
+        "template": "bars",
+        "title": "The BIO scheme",
         "steps": [
           {
             "at": "say1",
-            "caption": "The standard scheme maps entity spans into individual token tags.",
-            "rows": [
+            "caption": "The standard trick is to turn entity spans into one tag per token with.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
+                "label": "first",
+                "value": {
+                  "var": "first",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "last",
+                "value": {
+                  "var": "last",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prefix tags designate entity beginning, internal continuation, or outside.",
-            "rows": [
+            "caption": "B-TYPE marks the Beginning of an entity, I-TYPE marks a token Inside.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
+                "label": "first",
+                "value": {
+                  "var": "first",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "spans"
-                  },
-                  {
-                    "text": "etype"
-                  }
-                ],
+                "label": "last",
+                "value": {
+                  "var": "last",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Beginning prefixes distinguish separate adjacent entities of identical type.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example converts entity spans into BIO tags for a tokenised sentence.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
+                "label": "first",
+                "value": {
+                  "var": "first",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "spans"
-                  },
-                  {
-                    "text": "etype"
-                  }
-                ],
+                "label": "last",
+                "value": {
+                  "var": "last",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "first"
-                  },
-                  {
-                    "text": "last"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Converting entity spans to per token tags maps into standard sequence models.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "spans"
-                  },
-                  {
-                    "text": "etype"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "first"
-                  },
-                  {
-                    "text": "last"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +394,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "BIO token tagging representation for entity spans",
-        "columns": [
-          "tokens",
-          "tags"
-        ],
+        "template": "bars",
+        "title": "The BIO scheme",
         "steps": [
           {
             "at": "say1",
-            "caption": "The standard scheme maps entity spans into individual token tags.",
-            "rows": [
+            "caption": "The standard trick is to turn entity spans into one tag per token with.",
+            "bars": [
               {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
-                "tone": "ok"
+                "label": "first",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "last",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 7,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prefix tags designate entity beginning, internal continuation, or outside.",
-            "rows": [
+            "caption": "B-TYPE marks the Beginning of an entity, I-TYPE marks a token Inside.",
+            "bars": [
               {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
+                "label": "first",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "spans",
-                  "etype"
-                ],
+                "label": "last",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 7,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Beginning prefixes distinguish separate adjacent entities of identical type.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example converts entity spans into BIO tags for a tokenised sentence.",
+            "bars": [
               {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
+                "label": "first",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "spans",
-                  "etype"
-                ],
+                "label": "last",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "first",
-                  "last"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Converting entity spans to per token tags maps into standard sequence models.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spans",
-                  "etype"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "first",
-                  "last"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "range",
-                  "len"
-                ],
+                "label": "i",
+                "value": 7,
                 "tone": "ok"
               }
             ]
@@ -513,249 +467,277 @@
       "partTitle": "Valid and invalid tag sequences",
       "codeHash": "a67652aef55c6cf58e0ce6c0edcd74f4102da76a89f8425a98579c1a7556a705",
       "spec": {
-        "template": "table",
-        "title": "Sequential tag transition grammar and constraint verification",
-        "columns": [
-          "tags",
-          "prev"
+        "template": "flow",
+        "title": "Valid and invalid tag sequences",
+        "nodes": [
+          {
+            "id": "tags",
+            "label": "tags"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Inside tag continuation requires an immediately preceding entity marker.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Not every sequence of BIO tags makes sense.",
+            "values": {
+              "tags": {
+                "var": "tags",
+                "line": 9,
+                "hit": 1
+              },
+              "prev": {
+                "var": "prev",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tags": "data",
+              "prev": "data",
+              "i": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tags",
+                "prev"
+              ],
+              [
+                "prev",
+                "i"
+              ],
+              [
+                "i",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A dangling inside tag without a matching beginning tag is invalid.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "O followed by I-PER is invalid.",
+            "values": {
+              "tags": {
+                "var": "tags",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "valid"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
+              "prev": {
+                "var": "prev",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tags": "data",
+              "prev": "data",
+              "i": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tags",
+                "prev"
+              ],
+              [
+                "prev",
+                "i"
+              ],
+              [
+                "i",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unconstrained token classifiers can produce invalid grammatical transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example checks several sequences and names the first problem it finds.",
+            "values": {
+              "tags": {
+                "var": "tags",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "valid"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
+              "prev": {
+                "var": "prev",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "first_problem"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "idle"
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Validation ensures every continuation tag follows a matching entity type.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "valid"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "first_problem"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prev"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "tags": "ok",
+              "prev": "ok",
+              "i": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "tags",
+                "prev"
+              ],
+              [
+                "prev",
+                "i"
+              ],
+              [
+                "i",
+                "t"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sequential tag transition grammar and constraint verification",
-        "columns": [
-          "tags",
-          "prev"
+        "template": "flow",
+        "title": "Valid and invalid tag sequences",
+        "nodes": [
+          {
+            "id": "tags",
+            "label": "tags"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Inside tag continuation requires an immediately preceding entity marker.",
-            "rows": [
-              {
-                "cells": [
-                  "tags",
-                  "prev"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Not every sequence of BIO tags makes sense.",
+            "values": {
+              "tags": "['B-PER', 'I-PER', 'O']",
+              "prev": "'O'",
+              "i": "0",
+              "t": "'B-PER'"
+            },
+            "tones": {
+              "tags": "data",
+              "prev": "data",
+              "i": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tags",
+                "prev"
+              ],
+              [
+                "prev",
+                "i"
+              ],
+              [
+                "i",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A dangling inside tag without a matching beginning tag is invalid.",
-            "rows": [
-              {
-                "cells": [
-                  "tags",
-                  "prev"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "valid",
-                  "tags"
-                ],
-                "tone": "ok"
-              }
+            "caption": "O followed by I-PER is invalid.",
+            "values": {
+              "tags": "['B-PER', 'I-PER', 'O']",
+              "prev": "'O'",
+              "i": "0",
+              "t": "'B-PER'"
+            },
+            "tones": {
+              "tags": "data",
+              "prev": "data",
+              "i": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tags",
+                "prev"
+              ],
+              [
+                "prev",
+                "i"
+              ],
+              [
+                "i",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unconstrained token classifiers can produce invalid grammatical transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "tags",
-                  "prev"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "valid",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "first_problem",
-                  "prev"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Validation ensures every continuation tag follows a matching entity type.",
-            "rows": [
-              {
-                "cells": [
-                  "tags",
-                  "prev"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "valid",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "first_problem",
-                  "prev"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "prev",
-                  "valid"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example checks several sequences and names the first problem it finds.",
+            "values": {
+              "tags": "['B-PER', 'I-PER', 'O']",
+              "prev": "'O'",
+              "i": "0",
+              "t": "'B-PER'"
+            },
+            "tones": {
+              "tags": "ok",
+              "prev": "ok",
+              "i": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "tags",
+                "prev"
+              ],
+              [
+                "prev",
+                "i"
+              ],
+              [
+                "i",
+                "t"
+              ]
             ]
           }
         ]
@@ -765,248 +747,120 @@
       "partTitle": "From tags back to entities",
       "codeHash": "bfca47340c54258445e043144361651e853f75a58f907138db261819c7308a7c",
       "spec": {
-        "template": "table",
-        "title": "Token chunking and entity span reconstruction",
-        "columns": [
-          "tokens",
-          "tags"
-        ],
+        "template": "cells",
+        "title": "From tags back to entities",
         "steps": [
           {
             "at": "say1",
-            "caption": "Converting predicted token tags back reconstructs original entity spans.",
-            "rows": [
+            "caption": "Models output one tag per token, but users want entities.",
+            "items": {
+              "var": "toks",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Beginning tags close active entities and initiate new labeled segments.",
-            "rows": [
+            "caption": "Walk through the tokens with a \"current entity\".",
+            "items": {
+              "var": "toks",
+              "line": 16,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "spans"
-                  },
-                  {
-                    "text": "cur"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Sentence termination requires closing any active entity remaining open.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "spans"
-                  },
-                  {
-                    "text": "cur"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tok"
-                  },
-                  {
-                    "text": "tag"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Span reconstruction joins constituent tokens with spacing delimiters.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example converts a tagged sentence with three entities, including one.",
+            "items": {
+              "var": "toks",
+              "line": 17,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "spans"
-                  },
-                  {
-                    "text": "cur"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tok"
-                  },
-                  {
-                    "text": "tag"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bio_spans"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token chunking and entity span reconstruction",
-        "columns": [
-          "tokens",
-          "tags"
-        ],
+        "template": "cells",
+        "title": "From tags back to entities",
         "steps": [
           {
             "at": "say1",
-            "caption": "Converting predicted token tags back reconstructs original entity spans.",
-            "rows": [
+            "caption": "Models output one tag per token, but users want entities.",
+            "items": [
+              "'Sundar'",
+              "'Pichai'",
+              "'visited'",
+              "'New'",
+              "'Delhi'",
+              "'on'",
+              "'Monday'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Beginning tags close active entities and initiate new labeled segments.",
-            "rows": [
+            "caption": "Walk through the tokens with a \"current entity\".",
+            "items": [
+              "'Sundar'",
+              "'Pichai'",
+              "'visited'",
+              "'New'",
+              "'Delhi'",
+              "'on'",
+              "'Monday'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spans",
-                  "cur"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Sentence termination requires closing any active entity remaining open.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spans",
-                  "cur"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tok",
-                  "tag"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Span reconstruction joins constituent tokens with spacing delimiters.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example converts a tagged sentence with three entities, including one.",
+            "items": [
+              "'Sundar'",
+              "'Pichai'",
+              "'visited'",
+              "'New'",
+              "'Delhi'",
+              "'on'",
+              "'Monday'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "spans",
-                  "cur"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tok",
-                  "tag"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "bio_spans",
-                  "tokens"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +871,175 @@
       "partTitle": "Evaluating NER",
       "codeHash": "f8aa36ce05c87f8f1330d5d82d48914110d9e9a3722f19ad354e921bcc063810",
       "spec": {
-        "template": "flow",
-        "title": "Evaluating NER — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluating NER",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Evaluating NER",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluating NER [Deleven.Pfive.Sone].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluating NER [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "NER is evaluated at the entity level, not the token level.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "f1",
+                "value": {
+                  "var": "f1",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "An entity counts as correct only if both its span and its type exactly.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f1",
+                "value": {
+                  "var": "f1",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluating NER [Deleven.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Sets make the comparison simple.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f1",
+                "value": {
+                  "var": "f1",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Evaluating NER — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluating NER",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Evaluating NER",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluating NER [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluating NER [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "NER is evaluated at the entity level, not the token level.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.6666666666666666,
+                "tone": "data"
+              },
+              {
+                "label": "f1",
+                "value": 0.5714285714285715,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "An entity counts as correct only if both its span and its type exactly.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.6666666666666666,
+                "tone": "ok"
+              },
+              {
+                "label": "f1",
+                "value": 0.5714285714285715,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluating NER [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Sets make the comparison simple.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.6666666666666666,
+                "tone": "ok"
+              },
+              {
+                "label": "f1",
+                "value": 0.5714285714285715,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +1049,115 @@
       "partTitle": "Practice time: validate and extract",
       "codeHash": "bbdaf91c3b4ea96e4a4b82a353a35e933e3cf319e251500cc5d17b514a20754a",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: validate and extract — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vali...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: validate and extract",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: validate and extract.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: vali... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Valid_bio(tags).",
+            "items": {
+              "var": "tags",
+              "line": 2,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Checks include a valid sequence, an entity that starts with I-, a type.",
+            "items": {
+              "var": "tags",
+              "line": 4,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: validate and extract.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows that repair.",
+            "items": {
+              "var": "tags",
+              "line": 4,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: validate and extract — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vali...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: validate and extract",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: validate and extract [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: vali... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Valid_bio(tags).",
+            "items": [
+              "'O'",
+              "'I-PER'",
+              "'I-PER'",
+              "'B-LOC'",
+              "'I-ORG'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Checks include a valid sequence, an entity that starts with I-, a type.",
+            "items": [
+              "'O'",
+              "'I-PER'",
+              "'I-PER'",
+              "'B-LOC'",
+              "'I-ORG'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: validate and extract [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows that repair.",
+            "items": [
+              "'O'",
+              "'I-PER'",
+              "'I-PER'",
+              "'B-LOC'",
+              "'I-ORG'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

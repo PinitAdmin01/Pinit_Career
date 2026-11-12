@@ -2,255 +2,136 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Counting co-occurrences",
       "codeHash": "ab9abf133fffb7af847853f43e69eb20353b5586d2df0a510dc49c909f0c77e4",
       "spec": {
-        "template": "table",
-        "title": "Global co-occurrence matrix pair frequency tracking",
-        "columns": [
-          "tokens",
-          "counts"
-        ],
+        "template": "cells",
+        "title": "Counting co-occurrences",
         "steps": [
           {
             "at": "say1",
-            "caption": "A co-occurrence matrix captures how often word pairs appear together.",
-            "rows": [
+            "caption": "A co-occurrence matrix records, for every pair of words, how often they.",
+            "items": {
+              "var": "text",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Co-occurrence counting uses sorted tuples as canonical symmetrical keys.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "tuple"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Window size dictates whether extracted associations reflect syntax or topic.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "tuple"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Positional weighting discounts word evidence across greater token distance.",
-            "rows": [
+            "at": "say2",
+            "caption": "For \"ice\" you would see large counts with \"cold\", \"solid\", \"water\".",
+            "items": {
+              "var": "text",
+              "line": 12,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "tuple"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example builds co-occurrence counts from two short sentences.",
+            "items": {
+              "var": "text",
+              "line": 11,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "cooccurrence"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Global co-occurrence matrix pair frequency tracking",
-        "columns": [
-          "tokens",
-          "counts"
-        ],
+        "template": "cells",
+        "title": "Counting co-occurrences",
         "steps": [
           {
             "at": "say1",
-            "caption": "A co-occurrence matrix captures how often word pairs appear together.",
-            "rows": [
+            "caption": "A co-occurrence matrix records, for every pair of words, how often they.",
+            "items": [
+              "'ice'",
+              "'is'",
+              "'cold'",
+              "'and'",
+              "'solid'",
+              "'steam'",
+              "'is'",
+              "'hot'",
+              "'and'",
+              "'gas'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "counts"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Co-occurrence counting uses sorted tuples as canonical symmetrical keys.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "window",
-                  "tuple"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Window size dictates whether extracted associations reflect syntax or topic.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "window",
-                  "tuple"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "sorted"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Positional weighting discounts word evidence across greater token distance.",
-            "rows": [
+            "at": "say2",
+            "caption": "For \"ice\" you would see large counts with \"cold\", \"solid\", \"water\".",
+            "items": [
+              "'ice'",
+              "'is'",
+              "'cold'",
+              "'and'",
+              "'solid'",
+              "'steam'",
+              "'is'",
+              "'hot'",
+              "'and'",
+              "'gas'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "window",
-                  "tuple"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "sorted"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example builds co-occurrence counts from two short sentences.",
+            "items": [
+              "'ice'",
+              "'is'",
+              "'cold'",
+              "'and'",
+              "'solid'",
+              "'steam'",
+              "'is'",
+              "'hot'",
+              "'and'",
+              "'gas'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "len",
-                  "cooccurrence"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,249 +142,277 @@
       "partTitle": "Ratios carry meaning",
       "codeHash": "cb770a150f03cdfbb6d83b6f6ac8b75f8ece6faf8b1a2a209aa78bea4724bc13",
       "spec": {
-        "template": "table",
-        "title": "Probability ratio analysis isolating semantic associations",
-        "columns": [
-          "solid",
-          "gas"
+        "template": "flow",
+        "title": "Ratios carry meaning",
+        "nodes": [
+          {
+            "id": "p_given_ice",
+            "label": "p_given_ice"
+          },
+          {
+            "id": "p_given_steam",
+            "label": "p_given_steam"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "ratio",
+            "label": "ratio"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "GloVe demonstrates that ratios of co-occurrence probabilities reveal meaning.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "solid"
-                  },
-                  {
-                    "text": "gas"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The key insight of GloVe (Global Vectors, Pennington, Socher and Manning.",
+            "values": {
+              "p_given_ice": {
+                "var": "p_given_ice",
+                "line": 1,
+                "hit": 1
+              },
+              "p_given_steam": {
+                "var": "p_given_steam",
+                "line": 2,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
+              },
+              "ratio": {
+                "var": "ratio",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p_given_ice": "data",
+              "p_given_steam": "data",
+              "k": "data",
+              "ratio": "data"
+            },
+            "arrows": [
+              [
+                "p_given_ice",
+                "p_given_steam"
+              ],
+              [
+                "p_given_steam",
+                "k"
+              ],
+              [
+                "k",
+                "ratio"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Solid correlates strongly with ice producing high probability ratios.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "solid"
-                  },
-                  {
-                    "text": "gas"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Compare how often \"solid\" appears with \"ice\" versus with \"steam\".",
+            "values": {
+              "p_given_ice": {
+                "var": "p_given_ice",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "water"
-                  },
-                  {
-                    "text": "ratio"
-                  }
-                ],
-                "tone": "ok"
+              "p_given_steam": {
+                "var": "p_given_steam",
+                "line": 3,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 1
+              },
+              "ratio": {
+                "var": "ratio",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p_given_ice": "data",
+              "p_given_steam": "data",
+              "k": "data",
+              "ratio": "data"
+            },
+            "arrows": [
+              [
+                "p_given_ice",
+                "p_given_steam"
+              ],
+              [
+                "p_given_steam",
+                "k"
+              ],
+              [
+                "k",
+                "ratio"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Ratios isolate relevant associations while discarding raw frequency noise.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "solid"
-                  },
-                  {
-                    "text": "gas"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This is why GloVe vectors also solve analogies.",
+            "values": {
+              "p_given_ice": {
+                "var": "p_given_ice",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "water"
-                  },
-                  {
-                    "text": "ratio"
-                  }
-                ],
-                "tone": "ok"
+              "p_given_steam": {
+                "var": "p_given_steam",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "fashion"
-                  },
-                  {
-                    "text": "p_given_ice"
-                  }
-                ],
-                "tone": "idle"
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 1
+              },
+              "ratio": {
+                "var": "ratio",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Vector differences geometrically capture co-occurrence log count ratios.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "solid"
-                  },
-                  {
-                    "text": "gas"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "water"
-                  },
-                  {
-                    "text": "ratio"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fashion"
-                  },
-                  {
-                    "text": "p_given_ice"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p_given_steam"
-                  },
-                  {
-                    "text": "ratio"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "p_given_ice": "ok",
+              "p_given_steam": "ok",
+              "k": "ok",
+              "ratio": "ok"
+            },
+            "arrows": [
+              [
+                "p_given_ice",
+                "p_given_steam"
+              ],
+              [
+                "p_given_steam",
+                "k"
+              ],
+              [
+                "k",
+                "ratio"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Probability ratio analysis isolating semantic associations",
-        "columns": [
-          "solid",
-          "gas"
+        "template": "flow",
+        "title": "Ratios carry meaning",
+        "nodes": [
+          {
+            "id": "p_given_ice",
+            "label": "p_given_ice"
+          },
+          {
+            "id": "p_given_steam",
+            "label": "p_given_steam"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "ratio",
+            "label": "ratio"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "GloVe demonstrates that ratios of co-occurrence probabilities reveal meaning.",
-            "rows": [
-              {
-                "cells": [
-                  "solid",
-                  "gas"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The key insight of GloVe (Global Vectors, Pennington, Socher and Manning.",
+            "values": {
+              "p_given_ice": "{'solid': 0.019, 'gas': 0.0007, 'water'…",
+              "p_given_steam": "{'solid': 0.0022, 'gas': 0.0078, 'water…",
+              "k": "'solid'",
+              "ratio": "8.636363636363635"
+            },
+            "tones": {
+              "p_given_ice": "data",
+              "p_given_steam": "data",
+              "k": "data",
+              "ratio": "data"
+            },
+            "arrows": [
+              [
+                "p_given_ice",
+                "p_given_steam"
+              ],
+              [
+                "p_given_steam",
+                "k"
+              ],
+              [
+                "k",
+                "ratio"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Solid correlates strongly with ice producing high probability ratios.",
-            "rows": [
-              {
-                "cells": [
-                  "solid",
-                  "gas"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "water",
-                  "ratio"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Compare how often \"solid\" appears with \"ice\" versus with \"steam\".",
+            "values": {
+              "p_given_ice": "{'solid': 0.019, 'gas': 0.0007, 'water'…",
+              "p_given_steam": "{'solid': 0.0022, 'gas': 0.0078, 'water…",
+              "k": "'solid'",
+              "ratio": "8.636363636363635"
+            },
+            "tones": {
+              "p_given_ice": "data",
+              "p_given_steam": "data",
+              "k": "data",
+              "ratio": "data"
+            },
+            "arrows": [
+              [
+                "p_given_ice",
+                "p_given_steam"
+              ],
+              [
+                "p_given_steam",
+                "k"
+              ],
+              [
+                "k",
+                "ratio"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Ratios isolate relevant associations while discarding raw frequency noise.",
-            "rows": [
-              {
-                "cells": [
-                  "solid",
-                  "gas"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "water",
-                  "ratio"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fashion",
-                  "p_given_ice"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Vector differences geometrically capture co-occurrence log count ratios.",
-            "rows": [
-              {
-                "cells": [
-                  "solid",
-                  "gas"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "water",
-                  "ratio"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fashion",
-                  "p_given_ice"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "p_given_steam",
-                  "ratio"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "This is why GloVe vectors also solve analogies.",
+            "values": {
+              "p_given_ice": "{'solid': 0.019, 'gas': 0.0007, 'water'…",
+              "p_given_steam": "{'solid': 0.0022, 'gas': 0.0078, 'water…",
+              "k": "'solid'",
+              "ratio": "8.636363636363635"
+            },
+            "tones": {
+              "p_given_ice": "ok",
+              "p_given_steam": "ok",
+              "k": "ok",
+              "ratio": "ok"
+            },
+            "arrows": [
+              [
+                "p_given_ice",
+                "p_given_steam"
+              ],
+              [
+                "p_given_steam",
+                "k"
+              ],
+              [
+                "k",
+                "ratio"
+              ]
             ]
           }
         ]
@@ -513,143 +422,131 @@
       "partTitle": "The weighting function",
       "codeHash": "a6cd9b6ca1541b632a6c4df8bdf2aa7611c7d74c534a287fedd9687981449eca",
       "spec": {
-        "template": "table",
-        "title": "GloVe continuous loss weighting and capping function",
-        "columns": [
-          "x_max",
-          "alpha"
-        ],
+        "template": "bars",
+        "title": "The weighting function",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Fitting every cell of the co-occurrence matrix equally would be a mistake.",
+            "bars": [
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x_max",
+                "value": {
+                  "var": "x_max",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Overly frequent pairs carry little meaning while rare pairs introduce noise.",
-            "rows": [
+            "caption": "Very frequent pairs, such as (\"the\", \"of\"), would dominate training, even.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "x_max"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x_max",
+                "value": {
+                  "var": "x_max",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sparse zero entries in the co-occurrence matrix are skipped entirely.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints the weight curve for a range of counts.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "x_max"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "count"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The weighting function caps frequent word pairs while dampening rare terms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "x_max"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "count"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "x_max",
+                "value": {
+                  "var": "x_max",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "glove_weight"
-                  },
-                  {
-                    "text": "count"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The glove weight calculation normalises counts with power scaling.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "x_max"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "count"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "glove_weight"
-                  },
-                  {
-                    "text": "count"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "alpha"
-                  },
-                  {
-                    "text": "x_max"
-                  }
-                ],
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +554,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "GloVe continuous loss weighting and capping function",
-        "columns": [
-          "x_max",
-          "alpha"
-        ],
+        "template": "bars",
+        "title": "The weighting function",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Fitting every cell of the co-occurrence matrix equally would be a mistake.",
+            "bars": [
+              {
+                "label": "count",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x_max",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": 0.75,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Overly frequent pairs carry little meaning while rare pairs introduce noise.",
-            "rows": [
+            "caption": "Very frequent pairs, such as (\"the\", \"of\"), would dominate training, even.",
+            "bars": [
               {
-                "cells": [
-                  "x_max",
-                  "alpha"
-                ],
+                "label": "count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x_max",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 0.75,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sparse zero entries in the co-occurrence matrix are skipped entirely.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints the weight curve for a range of counts.",
+            "bars": [
               {
-                "cells": [
-                  "x_max",
-                  "alpha"
-                ],
+                "label": "count",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "count",
-                  "round"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The weighting function caps frequent word pairs while dampening rare terms.",
-            "rows": [
-              {
-                "cells": [
-                  "x_max",
-                  "alpha"
-                ],
+                "label": "x",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "count",
-                  "round"
-                ],
+                "label": "x_max",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "glove_weight",
-                  "count"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The glove weight calculation normalises counts with power scaling.",
-            "rows": [
-              {
-                "cells": [
-                  "x_max",
-                  "alpha"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "count",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "glove_weight",
-                  "count"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "alpha",
-                  "x_max"
-                ],
+                "label": "alpha",
+                "value": 0.75,
                 "tone": "ok"
               }
             ]
@@ -765,249 +642,277 @@
       "partTitle": "GloVe versus Word2Vec",
       "codeHash": "baa09051f7c502e0f1cfe1fe850d2e917637ac55ba47c33f9b651428ccde7d1d",
       "spec": {
-        "template": "table",
-        "title": "Predictive versus count-based word embedding architectures",
-        "columns": [
-          "Word2Vec",
-          "GloVe"
+        "template": "flow",
+        "title": "GloVe versus Word2Vec",
+        "nodes": [
+          {
+            "id": "methods",
+            "label": "methods"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "how",
+            "label": "how"
+          },
+          {
+            "id": "oov",
+            "label": "oov"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "WordtwoVec predicts local context while GloVe fits global co-occurrence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Word2Vec"
-                  },
-                  {
-                    "text": "GloVe"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Word2Vec is predictive.",
+            "values": {
+              "methods": {
+                "var": "methods",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "how": {
+                "var": "how",
+                "line": 7,
+                "hit": 1
+              },
+              "oov": {
+                "var": "oov",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "methods": "data",
+              "name": "data",
+              "how": "data",
+              "oov": "data"
+            },
+            "arrows": [
+              [
+                "methods",
+                "name"
+              ],
+              [
+                "name",
+                "how"
+              ],
+              [
+                "how",
+                "oov"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "GloVe trains efficiently by processing the precomputed co-occurrence matrix.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Word2Vec"
-                  },
-                  {
-                    "text": "GloVe"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "In practice both give similar quality embeddings.",
+            "values": {
+              "methods": {
+                "var": "methods",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "methods"
-                  },
-                  {
-                    "text": "FastText"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "how": {
+                "var": "how",
+                "line": 8,
+                "hit": 1
+              },
+              "oov": {
+                "var": "oov",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "methods": "data",
+              "name": "data",
+              "how": "data",
+              "oov": "data"
+            },
+            "arrows": [
+              [
+                "methods",
+                "name"
+              ],
+              [
+                "name",
+                "how"
+              ],
+              [
+                "how",
+                "oov"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "WordtwoVec streaming training accommodates datasets exceeding memory.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Word2Vec"
-                  },
-                  {
-                    "text": "GloVe"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example summarises the three methods side by side.",
+            "values": {
+              "methods": {
+                "var": "methods",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "methods"
-                  },
-                  {
-                    "text": "FastText"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "Word2Vec"
-                  },
-                  {
-                    "text": "methods"
-                  }
-                ],
-                "tone": "data"
+              "how": {
+                "var": "how",
+                "line": 7,
+                "hit": 2
+              },
+              "oov": {
+                "var": "oov",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Static word embeddings assign one fixed vector to each vocabulary token.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Word2Vec"
-                  },
-                  {
-                    "text": "GloVe"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "methods"
-                  },
-                  {
-                    "text": "FastText"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Word2Vec"
-                  },
-                  {
-                    "text": "methods"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "FastText"
-                  },
-                  {
-                    "text": "GloVe"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "methods": "ok",
+              "name": "ok",
+              "how": "ok",
+              "oov": "ok"
+            },
+            "arrows": [
+              [
+                "methods",
+                "name"
+              ],
+              [
+                "name",
+                "how"
+              ],
+              [
+                "how",
+                "oov"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Predictive versus count-based word embedding architectures",
-        "columns": [
-          "Word2Vec",
-          "GloVe"
+        "template": "flow",
+        "title": "GloVe versus Word2Vec",
+        "nodes": [
+          {
+            "id": "methods",
+            "label": "methods"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "how",
+            "label": "how"
+          },
+          {
+            "id": "oov",
+            "label": "oov"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Word2Vec predicts local context while GloVe fits global co-occurrence.",
-            "rows": [
-              {
-                "cells": [
-                  "Word2Vec",
-                  "GloVe"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Word2Vec is predictive.",
+            "values": {
+              "methods": "[['Word2Vec', 'predict context, window …",
+              "name": "'Word2Vec'",
+              "how": "'predict context, window by window'",
+              "oov": "'no'"
+            },
+            "tones": {
+              "methods": "data",
+              "name": "data",
+              "how": "data",
+              "oov": "data"
+            },
+            "arrows": [
+              [
+                "methods",
+                "name"
+              ],
+              [
+                "name",
+                "how"
+              ],
+              [
+                "how",
+                "oov"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "GloVe trains efficiently by processing the precomputed co-occurrence matrix.",
-            "rows": [
-              {
-                "cells": [
-                  "Word2Vec",
-                  "GloVe"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "methods",
-                  "FastText"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "In practice both give similar quality embeddings.",
+            "values": {
+              "methods": "[['Word2Vec', 'predict context, window …",
+              "name": "'Word2Vec'",
+              "how": "'predict context, window by window'",
+              "oov": "'no'"
+            },
+            "tones": {
+              "methods": "data",
+              "name": "data",
+              "how": "data",
+              "oov": "data"
+            },
+            "arrows": [
+              [
+                "methods",
+                "name"
+              ],
+              [
+                "name",
+                "how"
+              ],
+              [
+                "how",
+                "oov"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Word2Vec streaming training accommodates datasets exceeding memory limits.",
-            "rows": [
-              {
-                "cells": [
-                  "Word2Vec",
-                  "GloVe"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "methods",
-                  "FastText"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Word2Vec",
-                  "methods"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Static word embeddings assign one fixed vector to each vocabulary token.",
-            "rows": [
-              {
-                "cells": [
-                  "Word2Vec",
-                  "GloVe"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "methods",
-                  "FastText"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Word2Vec",
-                  "methods"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "FastText",
-                  "GloVe"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example summarises the three methods side by side.",
+            "values": {
+              "methods": "[['Word2Vec', 'predict context, window …",
+              "name": "'GloVe'",
+              "how": "'fit global co-occurrence counts'",
+              "oov": "'no'"
+            },
+            "tones": {
+              "methods": "ok",
+              "name": "ok",
+              "how": "ok",
+              "oov": "ok"
+            },
+            "arrows": [
+              [
+                "methods",
+                "name"
+              ],
+              [
+                "name",
+                "how"
+              ],
+              [
+                "how",
+                "oov"
+              ]
             ]
           }
         ]
@@ -1018,110 +923,161 @@
       "codeHash": "a9983f0b724f10988df3883832c674fe9bcfebecb58dc38e71aadf7223b4dd30",
       "spec": {
         "template": "flow",
-        "title": "Using pre-trained embeddings — Execution Pipeline",
+        "title": "Using pre-trained embeddings",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "embeddings",
+            "label": "embeddings"
           },
           {
-            "id": "proc",
-            "label": "2. Using pre-trained e...",
-            "tappable": true
+            "id": "tokens",
+            "label": "tokens"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "covered",
+            "label": "covered"
+          },
+          {
+            "id": "missing",
+            "label": "missing"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Using pre-trained embeddings [Dnine.Pfive.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Using pre-trained e... [Dnine.Pfive.Stwo].",
+            "caption": "Most projects do not train embeddings from scratch.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "embeddings": {
+                "var": "embeddings",
+                "line": 1,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "covered": {
+                "var": "covered",
+                "line": 3,
+                "hit": 10
+              },
+              "missing": {
+                "var": "missing",
+                "line": 4,
+                "hit": 10
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "embeddings": "data",
+              "tokens": "data",
+              "covered": "data",
+              "missing": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "embeddings",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "covered"
+              ],
+              [
+                "covered",
+                "missing"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "A simple and surprisingly strong sentence representation is the average.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "embeddings": {
+                "var": "embeddings",
+                "line": 2,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "covered": {
+                "var": "covered",
+                "line": 4,
+                "hit": 1
+              },
+              "missing": {
+                "var": "missing",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "embeddings": "data",
+              "tokens": "data",
+              "covered": "data",
+              "missing": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "embeddings",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "covered"
+              ],
+              [
+                "covered",
+                "missing"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Using pre-trained embeddings.",
+            "at": "say7",
+            "caption": "Checking coverage takes a minute and can save days of confusing results.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "embeddings": {
+                "var": "embeddings",
+                "line": 3,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 2
+              },
+              "covered": {
+                "var": "covered",
+                "line": 4,
+                "hit": 2
+              },
+              "missing": {
+                "var": "missing",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "embeddings": "ok",
+              "tokens": "ok",
+              "covered": "ok",
+              "missing": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "embeddings",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "covered"
+              ],
+              [
+                "covered",
+                "missing"
               ]
             ]
           }
@@ -1129,110 +1085,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Using pre-trained embeddings — Execution Pipeline",
+        "title": "Using pre-trained embeddings",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "embeddings",
+            "label": "embeddings"
           },
           {
-            "id": "proc",
-            "label": "2. Using pre-trained e...",
-            "tappable": true
+            "id": "tokens",
+            "label": "tokens"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "covered",
+            "label": "covered"
+          },
+          {
+            "id": "missing",
+            "label": "missing"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Using pre-trained embeddings [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Using pre-trained e... [D9.P5.S2].",
+            "caption": "Most projects do not train embeddings from scratch.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "embeddings": "{'the': [0.1], 'patient': [0.4], 'has':…",
+              "tokens": "['the', 'patient', 'has', 'a', 'fever',…",
+              "covered": "['the', 'patient', 'has', 'a', 'fever',…",
+              "missing": "['tachycardia', 'with', 'dyspnoea']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "embeddings": "data",
+              "tokens": "data",
+              "covered": "data",
+              "missing": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "embeddings",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "covered"
+              ],
+              [
+                "covered",
+                "missing"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
+            "at": "say2",
+            "caption": "A simple and surprisingly strong sentence representation is the average.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "embeddings": "{'the': [0.1], 'patient': [0.4], 'has':…",
+              "tokens": "['the', 'patient', 'has', 'a', 'fever',…",
+              "covered": "['the', 'patient', 'has', 'a', 'fever',…",
+              "missing": "['tachycardia', 'with', 'dyspnoea']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "embeddings": "data",
+              "tokens": "data",
+              "covered": "data",
+              "missing": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "embeddings",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "covered"
+              ],
+              [
+                "covered",
+                "missing"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Using pre-trained embeddings [D9.P5.S4].",
+            "at": "say7",
+            "caption": "Checking coverage takes a minute and can save days of confusing results.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "embeddings": "{'the': [0.1], 'patient': [0.4], 'has':…",
+              "tokens": "['the', 'patient', 'has', 'a', 'fever',…",
+              "covered": "['the', 'patient', 'has', 'a', 'fever',…",
+              "missing": "['tachycardia', 'with', 'dyspnoea']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "embeddings": "ok",
+              "tokens": "ok",
+              "covered": "ok",
+              "missing": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "embeddings",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "covered"
+              ],
+              [
+                "covered",
+                "missing"
               ]
             ]
           }
@@ -1243,223 +1202,109 @@
       "partTitle": "Practice time: weights and counts",
       "codeHash": "1b618760b7dce4740efd03af50086bc0f4d9bb40ca79a75f9d3420d5a06b1445",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: weights and counts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: weig...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: weights and counts",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: weights and counts.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: weig... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Otherwise round(min(1.",
+            "items": {
+              "var": "tokens",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks try x = x_max (exactly 1), a huge count (capped at 1), a small.",
+            "items": {
+              "var": "tokens",
+              "line": 3,
+              "hit": 12
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: weights and counts.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows how looking both ways would double the counts.",
+            "items": {
+              "var": "tokens",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: weights and counts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: weig...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: weights and counts",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: weights and counts [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: weig... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Otherwise round(min(1.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks try x = x_max (exactly 1), a huge count (capped at 1), a small.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: weights and counts [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows how looking both ways would double the counts.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

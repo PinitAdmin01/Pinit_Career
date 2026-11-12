@@ -34,8 +34,14 @@ test('Block 3 Invariant: ENABLED_COURSES covers all released courses including I
   assert.strictEqual(isCourseVisualsEnabled('unknown-prefix-999'), false, 'Unknown prefixes must remain disabled');
 });
 
-test('Block 3 Invariant: COURSES_CATALOG has 37 masterclasses with valid metadata', () => {
-  assert.strictEqual(COURSES_CATALOG.length, 37, 'Catalog must contain 37 courses');
+// [FIX-STAGE: wave1c-catalog-registry-parity] Updated catalog parity invariant from stale 37 -> exact 1:1 55-course match with COURSES_REGISTRY
+test('Block 3 Invariant: COURSES_CATALOG has 55 masterclasses matching COURSES_REGISTRY with valid metadata', () => {
+  assert.strictEqual(COURSES_CATALOG.length, 55, 'Catalog must contain 55 courses');
+  assert.strictEqual(
+    COURSES_CATALOG.length,
+    COURSES_REGISTRY.length,
+    `Catalog (${COURSES_CATALOG.length}) must match Registry (${COURSES_REGISTRY.length}) 1:1`
+  );
   for (const course of COURSES_CATALOG) {
     assert.ok(course.id.startsWith('course-'), `Course ID "${course.id}" must start with course-`);
     assert.ok(course.title && course.title.trim().length > 0, `Course "${course.id}" must have a title`);

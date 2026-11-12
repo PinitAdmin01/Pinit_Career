@@ -2,164 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The pipeline at a glance",
       "codeHash": "cb6c8098805c9eb467a87d610ad260e3c3cb3f6ec995435fb75707d1163ed0f0",
       "spec": {
-        "template": "flow",
-        "title": "Assembly line stages wire search merge and rerank",
-        "nodes": [
-          {
-            "id": "search",
-            "label": "search"
-          },
-          {
-            "id": "merge",
-            "label": "merge"
-          },
-          {
-            "id": "rerank",
-            "label": "rerank"
-          }
-        ],
-        "edges": [
-          {
-            "from": "search",
-            "to": "merge"
-          },
-          {
-            "from": "merge",
-            "to": "rerank"
-          }
+        "template": "sequence",
+        "title": "The pipeline at a glance",
+        "actors": [
+          "stages",
+          "i",
+          "stage"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The pipeline wires together keyword search and vector search.",
-            "values": {
-              "search": {
-                "text": "search"
+            "caption": "A production RAG pipeline runs in stages.",
+            "activeActor": "stages",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "i",
+                "label": {
+                  "var": "stages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "merge": {
-                "text": "merge"
-              },
-              "rerank": {
-                "text": "rerank"
+              {
+                "from": "i",
+                "to": "stage",
+                "label": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "search": "data",
-              "merge": "idle",
-              "rerank": "idle"
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Question passes through assembly line stages to produces prompt.",
-            "values": {
-              "search": {
-                "text": "search"
+            "at": "say2",
+            "caption": "Each stage is a small function with clear input and output.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "i",
+                "label": {
+                  "var": "stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "merge": {
-                "text": "merge"
-              },
-              "rerank": {
-                "text": "rerank"
+              {
+                "from": "i",
+                "to": "stage",
+                "label": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "search": "ok",
-              "merge": "data",
-              "rerank": "data"
-            }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Clean design keeps business logic separate from outside services.",
-            "values": {
-              "search": {
-                "text": "search"
+            "at": "say6",
+            "caption": "Draw your pipeline before coding it.",
+            "activeActor": "stage",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "i",
+                "label": {
+                  "var": "stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "merge": {
-                "text": "merge"
-              },
-              "rerank": {
-                "text": "rerank"
+              {
+                "from": "i",
+                "to": "stage",
+                "label": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "search": "ok",
-              "merge": "ok",
-              "rerank": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Assembly line stages wire search merge and rerank",
-        "nodes": [
-          {
-            "id": "search",
-            "label": "search"
-          },
-          {
-            "id": "merge",
-            "label": "merge"
-          },
-          {
-            "id": "rerank",
-            "label": "rerank"
-          }
+        "template": "sequence",
+        "title": "The pipeline at a glance",
+        "actors": [
+          "stages",
+          "i",
+          "stage"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The pipeline wires together keyword search and vector search.",
-            "values": {
-              "search": "search",
-              "merge": "merge",
-              "rerank": "rerank"
-            },
-            "tones": {
-              "search": "data",
-              "merge": "idle",
-              "rerank": "idle"
-            },
-            "arrows": []
+            "caption": "A production RAG pipeline runs in stages.",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "i",
+                "label": "['check question', 'vector search', 'ke…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "stage",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stages"
           },
           {
-            "at": "say3",
-            "caption": "Question passes through assembly line stages to produces prompt.",
-            "values": {
-              "search": "search",
-              "merge": "merge",
-              "rerank": "rerank"
-            },
-            "tones": {
-              "search": "ok",
-              "merge": "data",
-              "rerank": "data"
-            },
-            "arrows": []
+            "at": "say2",
+            "caption": "Each stage is a small function with clear input and output.",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "i",
+                "label": "['check question', 'vector search', 'ke…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "stage",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           },
           {
-            "at": "say5",
-            "caption": "Clean design keeps business logic separate from outside services.",
-            "values": {
-              "search": "search",
-              "merge": "merge",
-              "rerank": "rerank"
-            },
-            "tones": {
-              "search": "ok",
-              "merge": "ok",
-              "rerank": "ok"
-            },
-            "arrows": []
+            "at": "say6",
+            "caption": "Draw your pipeline before coding it.",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "i",
+                "label": "['check question', 'vector search', 'ke…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "stage",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stage"
           }
         ]
       }
@@ -168,280 +173,194 @@
       "partTitle": "Merging results without duplicates",
       "codeHash": "825a075dc9fa53bff9c83316a7d597619076f5835c5890e6ee31b80dc0a47649",
       "spec": {
-        "template": "table",
-        "title": "Deduplicating vector and keyword candidate lists with seen sets",
-        "columns": [
-          "source",
-          "chunk",
-          "status"
+        "template": "boxes",
+        "title": "Merging results without duplicates",
+        "boxes": [
+          {
+            "id": "vector",
+            "label": "vector"
+          },
+          {
+            "id": "keyword",
+            "label": "keyword"
+          },
+          {
+            "id": "result_lists",
+            "label": "result_lists"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vector and keyword search return same chunk once in merged list.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Vector and keyword search often return the same chunk.",
+            "values": {
+              "vector": {
+                "var": "vector",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "c5"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+              "keyword": {
+                "var": "keyword",
+                "line": 11,
+                "hit": 1
+              },
+              "result_lists": {
+                "var": "result_lists",
+                "line": 2,
+                "hit": 1
+              },
+              "seen": {
+                "var": "seen",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "vector": "data",
+              "keyword": "data",
+              "result_lists": "data",
+              "seen": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Walk through vector results then keyword results keeping seen chunks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Walk through the vector results then the keyword results, keeping a set.",
+            "values": {
+              "vector": {
+                "var": "vector",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "c5"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+              "keyword": {
+                "var": "keyword",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "keyword"
-                  },
-                  {
-                    "text": "c9"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+              "result_lists": {
+                "var": "result_lists",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "keyword"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "seen"
-                  }
-                ],
-                "tone": "error"
+              "seen": {
+                "var": "seen",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "vector": "data",
+              "keyword": "data",
+              "result_lists": "data",
+              "seen": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Sets make seen check fast even with hundreds of candidates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say6",
+            "caption": "This is simpler than reciprocal rank fusion because the reranker will.",
+            "values": {
+              "vector": {
+                "var": "vector",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "c5"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+              "keyword": {
+                "var": "keyword",
+                "line": 12,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "keyword"
-                  },
-                  {
-                    "text": "c9"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+              "result_lists": {
+                "var": "result_lists",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "keyword"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "seen"
-                  }
-                ],
-                "tone": "error"
+              "seen": {
+                "var": "seen",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "vector": "ok",
+              "keyword": "ok",
+              "result_lists": "ok",
+              "seen": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deduplicating vector and keyword candidate lists with seen sets",
-        "columns": [
-          "source",
-          "chunk",
-          "status"
+        "template": "boxes",
+        "title": "Merging results without duplicates",
+        "boxes": [
+          {
+            "id": "vector",
+            "label": "vector"
+          },
+          {
+            "id": "keyword",
+            "label": "keyword"
+          },
+          {
+            "id": "result_lists",
+            "label": "result_lists"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vector and keyword search return same chunk once in merged list.",
-            "rows": [
-              {
-                "cells": [
-                  "vector",
-                  "c2",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vector",
-                  "c5",
-                  "merged"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Vector and keyword search often return the same chunk.",
+            "values": {
+              "vector": "[{'id': 'c2', 'text': 'UPI refunds: 2 d…",
+              "keyword": "[{'id': 'c9', 'text': 'ERR-UPI-7 guide'…",
+              "result_lists": "[[{'id': 'c2', 'text': 'UPI refunds: 2 …",
+              "seen": "set()"
+            },
+            "tones": {
+              "vector": "data",
+              "keyword": "data",
+              "result_lists": "data",
+              "seen": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Walk through vector results then keyword results keeping seen chunks.",
-            "rows": [
-              {
-                "cells": [
-                  "vector",
-                  "c2",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vector",
-                  "c5",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "keyword",
-                  "c9",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "keyword",
-                  "c2",
-                  "seen"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Walk through the vector results then the keyword results, keeping a set.",
+            "values": {
+              "vector": "[{'id': 'c2', 'text': 'UPI refunds: 2 d…",
+              "keyword": "[{'id': 'c9', 'text': 'ERR-UPI-7 guide'…",
+              "result_lists": "[[{'id': 'c2', 'text': 'UPI refunds: 2 …",
+              "seen": "set()"
+            },
+            "tones": {
+              "vector": "data",
+              "keyword": "data",
+              "result_lists": "data",
+              "seen": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Sets make seen check fast even with hundreds of candidates.",
-            "rows": [
-              {
-                "cells": [
-                  "vector",
-                  "c2",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vector",
-                  "c5",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "keyword",
-                  "c9",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "keyword",
-                  "c2",
-                  "seen"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say6",
+            "caption": "This is simpler than reciprocal rank fusion because the reranker will.",
+            "values": {
+              "vector": "[{'id': 'c2', 'text': 'UPI refunds: 2 d…",
+              "keyword": "[{'id': 'c9', 'text': 'ERR-UPI-7 guide'…",
+              "result_lists": "[[{'id': 'c2', 'text': 'UPI refunds: 2 …",
+              "seen": "set()"
+            },
+            "tones": {
+              "vector": "ok",
+              "keyword": "ok",
+              "result_lists": "ok",
+              "seen": "ok"
+            }
           }
         ]
       }
@@ -450,131 +369,193 @@
       "partTitle": "The run_rag_pipeline function",
       "codeHash": "8a314da51d5deae6ed15147c7a97c7d14599c0a3fb763517dc097528f418c564",
       "spec": {
-        "template": "compare",
-        "title": "Candidate merging and reranked prompt context assembly",
-        "leftLabel": "Candidate Search",
-        "rightLabel": "Rerank Selection",
+        "template": "boxes",
+        "title": "The run_rag_pipeline function",
+        "boxes": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          },
+          {
+            "id": "merged",
+            "label": "merged"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Call both searches and sort chunks by score.",
-            "left": {
-              "code": "vector_search(query) + keyword_search(query)",
-              "result": {
-                "text": "c2"
+            "caption": "Run_rag_pipeline(query, vector_search, keyword_search, rerank).",
+            "values": {
+              "scores": {
+                "var": "scores",
+                "line": 13,
+                "hit": 1
               },
-              "tone": "data"
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
+              },
+              "seen": {
+                "var": "seen",
+                "line": 2,
+                "hit": 1
+              },
+              "merged": {
+                "var": "merged",
+                "line": 2,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "sorted(rerank(query, merged), key=score)[:3]",
-              "result": {
-                "text": "0.95"
-              },
-              "tone": "ok"
+            "tones": {
+              "scores": "data",
+              "query": "data",
+              "seen": "data",
+              "merged": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Return prompt context with question query and top chunks.",
-            "left": {
-              "code": "Context joined by chunk texts",
-              "result": {
-                "text": "top_chunks"
+            "caption": "Return {\"status\".",
+            "values": {
+              "scores": {
+                "var": "scores",
+                "line": 14,
+                "hit": 1
               },
-              "tone": "data"
+              "query": {
+                "var": "query",
+                "line": 3,
+                "hit": 1
+              },
+              "seen": {
+                "var": "seen",
+                "line": 3,
+                "hit": 1
+              },
+              "merged": {
+                "var": "merged",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "RAG_READY status with formatted prompt",
-              "result": {
-                "text": "RAG_READY"
-              },
-              "tone": "ok"
+            "tones": {
+              "scores": "data",
+              "query": "data",
+              "seen": "data",
+              "merged": "data"
             }
           },
           {
-            "at": "say5",
-            "caption": "Test with fake search and rerank functions returning fixed data.",
-            "left": {
-              "code": "fake search returns fixed chunks",
-              "result": {
-                "text": "c5"
+            "at": "say6",
+            "caption": "This single function is the heart of Milestone 2.",
+            "values": {
+              "scores": {
+                "var": "scores",
+                "line": 15,
+                "hit": 1
               },
-              "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 4,
+                "hit": 1
+              },
+              "seen": {
+                "var": "seen",
+                "line": 4,
+                "hit": 1
+              },
+              "merged": {
+                "var": "merged",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "fake rerank returns scores dict",
-              "result": {
-                "text": "0.70"
-              },
-              "tone": "ok"
+            "tones": {
+              "scores": "ok",
+              "query": "ok",
+              "seen": "ok",
+              "merged": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Candidate merging and reranked prompt context assembly",
-        "leftLabel": "Candidate Search",
-        "rightLabel": "Rerank Selection",
+        "template": "boxes",
+        "title": "The run_rag_pipeline function",
+        "boxes": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          },
+          {
+            "id": "merged",
+            "label": "merged"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Call both searches and sort chunks by score.",
-            "left": {
-              "code": "vector_search(query) + keyword_search(query)",
-              "result": "c2",
-              "tone": "data",
-              "checks": [
-                "c2"
-              ]
+            "caption": "Run_rag_pipeline(query, vector_search, keyword_search, rerank).",
+            "values": {
+              "scores": "{'c2': 0.95, 'c5': 0.4, 'c9': 0.7}",
+              "query": "'When do UPI refunds arrive?'",
+              "seen": "set()",
+              "merged": "[]"
             },
-            "right": {
-              "code": "sorted(rerank(query, merged), key=score)[:3]",
-              "result": "0.95",
-              "tone": "ok",
-              "checks": [
-                "0.95"
-              ]
+            "tones": {
+              "scores": "data",
+              "query": "data",
+              "seen": "data",
+              "merged": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Return prompt context with question query and top chunks.",
-            "left": {
-              "code": "Context joined by chunk texts",
-              "result": "top_chunks",
-              "tone": "data",
-              "checks": [
-                "top_chunks"
-              ]
+            "caption": "Return {\"status\".",
+            "values": {
+              "scores": "{'c2': 0.95, 'c5': 0.4, 'c9': 0.7}",
+              "query": "'When do UPI refunds arrive?'",
+              "seen": "set()",
+              "merged": "[]"
             },
-            "right": {
-              "code": "RAG_READY status with formatted prompt",
-              "result": "RAG_READY",
-              "tone": "ok",
-              "checks": [
-                "RAG_READY"
-              ]
+            "tones": {
+              "scores": "data",
+              "query": "data",
+              "seen": "data",
+              "merged": "data"
             }
           },
           {
-            "at": "say5",
-            "caption": "Test with fake search and rerank functions returning fixed data.",
-            "left": {
-              "code": "fake search returns fixed chunks",
-              "result": "c5",
-              "tone": "idle",
-              "checks": [
-                "c5"
-              ]
+            "at": "say6",
+            "caption": "This single function is the heart of Milestone 2.",
+            "values": {
+              "scores": "{'c2': 0.95, 'c5': 0.4, 'c9': 0.7}",
+              "query": "'When do UPI refunds arrive?'",
+              "seen": "set()",
+              "merged": "[]"
             },
-            "right": {
-              "code": "fake rerank returns scores dict",
-              "result": "0.70",
-              "tone": "ok",
-              "checks": [
-                "0.70"
-              ]
+            "tones": {
+              "scores": "ok",
+              "query": "ok",
+              "seen": "ok",
+              "merged": "ok"
             }
           }
         ]
@@ -584,145 +565,277 @@
       "partTitle": "Measuring latency",
       "codeHash": "1c4d91be9ff5686074a81e3137dbb9910e4377e3ecc61f2e3eea40b929ab73e8",
       "spec": {
-        "template": "bars",
-        "title": "Latency distribution across retrieval rerank and generation stages",
+        "template": "flow",
+        "title": "Measuring latency",
+        "nodes": [
+          {
+            "id": "retrieval_ms",
+            "label": "retrieval_ms"
+          },
+          {
+            "id": "rerank_ms",
+            "label": "rerank_ms"
+          },
+          {
+            "id": "generation_ms",
+            "label": "generation_ms"
+          },
+          {
+            "id": "totals",
+            "label": "totals"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Users judge features by speed and total latency seconds.",
-            "bars": [
-              {
-                "label": "retrieval_ms",
-                "value": {
-                  "text": "120"
-                },
-                "tone": "ok"
+            "caption": "Users judge AI features by speed as much as quality.",
+            "values": {
+              "retrieval_ms": {
+                "var": "retrieval_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "rerank_ms",
-                "value": {
-                  "text": "180"
-                },
-                "tone": "ok"
+              "rerank_ms": {
+                "var": "rerank_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "generation_ms": {
+                "var": "generation_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "totals": {
+                "var": "totals",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "retrieval_ms": "data",
+              "rerank_ms": "data",
+              "generation_ms": "data",
+              "totals": "data"
+            },
+            "arrows": [
+              [
+                "retrieval_ms",
+                "rerank_ms"
+              ],
+              [
+                "rerank_ms",
+                "generation_ms"
+              ],
+              [
+                "generation_ms",
+                "totals"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Time every stage separately with breakdown of where latency occurs.",
-            "bars": [
-              {
-                "label": "retrieval_ms",
-                "value": {
-                  "text": "120"
-                },
-                "tone": "ok"
+            "caption": "Time every stage separately.",
+            "values": {
+              "retrieval_ms": {
+                "var": "retrieval_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "rerank_ms",
-                "value": {
-                  "text": "180"
-                },
-                "tone": "ok"
+              "rerank_ms": {
+                "var": "rerank_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "generation_ms",
-                "value": {
-                  "text": "700"
-                },
-                "tone": "data"
+              "generation_ms": {
+                "var": "generation_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "totals": {
+                "var": "totals",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "retrieval_ms": "data",
+              "rerank_ms": "data",
+              "generation_ms": "data",
+              "totals": "data"
+            },
+            "arrows": [
+              [
+                "retrieval_ms",
+                "rerank_ms"
+              ],
+              [
+                "rerank_ms",
+                "generation_ms"
+              ],
+              [
+                "generation_ms",
+                "totals"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Generation is usually the biggest part while streaming makes it faster.",
-            "bars": [
-              {
-                "label": "retrieval_ms",
-                "value": {
-                  "text": "120"
-                },
-                "tone": "ok"
+            "at": "say6",
+            "caption": "Trace how budget updates example during execution.",
+            "values": {
+              "retrieval_ms": {
+                "var": "retrieval_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "rerank_ms",
-                "value": {
-                  "text": "180"
-                },
-                "tone": "ok"
+              "rerank_ms": {
+                "var": "rerank_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "generation_ms",
-                "value": {
-                  "text": "700"
-                },
-                "tone": "data"
+              "generation_ms": {
+                "var": "generation_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "totals": {
+                "var": "totals",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "retrieval_ms": "ok",
+              "rerank_ms": "ok",
+              "generation_ms": "ok",
+              "totals": "ok"
+            },
+            "arrows": [
+              [
+                "retrieval_ms",
+                "rerank_ms"
+              ],
+              [
+                "rerank_ms",
+                "generation_ms"
+              ],
+              [
+                "generation_ms",
+                "totals"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Latency distribution across retrieval rerank and generation stages",
+        "template": "flow",
+        "title": "Measuring latency",
+        "nodes": [
+          {
+            "id": "retrieval_ms",
+            "label": "retrieval_ms"
+          },
+          {
+            "id": "rerank_ms",
+            "label": "rerank_ms"
+          },
+          {
+            "id": "generation_ms",
+            "label": "generation_ms"
+          },
+          {
+            "id": "totals",
+            "label": "totals"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Users judge features by speed and total latency seconds.",
-            "bars": [
-              {
-                "label": "retrieval_ms",
-                "value": 120,
-                "tone": "ok"
-              },
-              {
-                "label": "rerank_ms",
-                "value": 180,
-                "tone": "ok"
-              }
+            "caption": "Users judge AI features by speed as much as quality.",
+            "values": {
+              "retrieval_ms": "120",
+              "rerank_ms": "180",
+              "generation_ms": "700",
+              "totals": "[900, 950, 1000, 1020, 1100, 1150, 1200…"
+            },
+            "tones": {
+              "retrieval_ms": "data",
+              "rerank_ms": "data",
+              "generation_ms": "data",
+              "totals": "data"
+            },
+            "arrows": [
+              [
+                "retrieval_ms",
+                "rerank_ms"
+              ],
+              [
+                "rerank_ms",
+                "generation_ms"
+              ],
+              [
+                "generation_ms",
+                "totals"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Time every stage separately with breakdown of where latency occurs.",
-            "bars": [
-              {
-                "label": "retrieval_ms",
-                "value": 120,
-                "tone": "ok"
-              },
-              {
-                "label": "rerank_ms",
-                "value": 180,
-                "tone": "ok"
-              },
-              {
-                "label": "generation_ms",
-                "value": 700,
-                "tone": "data"
-              }
+            "caption": "Time every stage separately.",
+            "values": {
+              "retrieval_ms": "120",
+              "rerank_ms": "180",
+              "generation_ms": "700",
+              "totals": "[900, 950, 1000, 1020, 1100, 1150, 1200…"
+            },
+            "tones": {
+              "retrieval_ms": "data",
+              "rerank_ms": "data",
+              "generation_ms": "data",
+              "totals": "data"
+            },
+            "arrows": [
+              [
+                "retrieval_ms",
+                "rerank_ms"
+              ],
+              [
+                "rerank_ms",
+                "generation_ms"
+              ],
+              [
+                "generation_ms",
+                "totals"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Generation is usually the biggest part while streaming makes it faster.",
-            "bars": [
-              {
-                "label": "retrieval_ms",
-                "value": 120,
-                "tone": "ok"
-              },
-              {
-                "label": "rerank_ms",
-                "value": 180,
-                "tone": "ok"
-              },
-              {
-                "label": "generation_ms",
-                "value": 700,
-                "tone": "data"
-              }
+            "at": "say6",
+            "caption": "Trace how budget updates example during execution.",
+            "values": {
+              "retrieval_ms": "120",
+              "rerank_ms": "180",
+              "generation_ms": "700",
+              "totals": "[900, 950, 1000, 1020, 1100, 1150, 1200…"
+            },
+            "tones": {
+              "retrieval_ms": "ok",
+              "rerank_ms": "ok",
+              "generation_ms": "ok",
+              "totals": "ok"
+            },
+            "arrows": [
+              [
+                "retrieval_ms",
+                "rerank_ms"
+              ],
+              [
+                "rerank_ms",
+                "generation_ms"
+              ],
+              [
+                "generation_ms",
+                "totals"
+              ]
             ]
           }
         ]
@@ -732,224 +845,162 @@
       "partTitle": "Handling failures gracefully",
       "codeHash": "54c8edb0bd1df8ecd401a2e903a327f7d3bef25d38dceb32874c4ef4be4beec6",
       "spec": {
-        "template": "flow",
-        "title": "Handling failures gracefully — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Handling failures g...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Handling failures gracefully",
+        "actors": [
+          "question",
+          "log",
+          "query"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Handling failures gracefully [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Handling failures g... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Real services fail.",
+            "activeActor": "question",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": {
+                  "var": "question",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": {
+                  "var": "log",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If one search fails, continue with the other.",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": {
+                  "var": "question",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": {
+                  "var": "log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Handling failures gracefully.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Test each failure path with a fake that raises an error, just as you.",
+            "activeActor": "query",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": {
+                  "var": "question",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Handling failures gracefully — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Handling failures g...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Handling failures gracefully",
+        "actors": [
+          "question",
+          "log",
+          "query"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Handling failures gracefully [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Handling failures g... [D15.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Real services fail.",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": "'What is error UPI-7?'",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "question"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "If one search fails, continue with the other.",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": "'What is error UPI-7?'",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "log"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Handling failures gracefully [D15.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Test each failure path with a fake that raises an error, just as you.",
+            "messages": [
+              {
+                "from": "question",
+                "to": "log",
+                "label": "'What is error UPI-7?'",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "query",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "query"
           }
         ]
       }
@@ -958,224 +1009,162 @@
       "partTitle": "Tracing each stage",
       "codeHash": "483170e9818b808eab87762a81fedce2a5b7b6dc67e141505b20c27a43541c2a",
       "spec": {
-        "template": "flow",
-        "title": "Tracing each stage — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Tracing each stage",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Tracing each stage",
+        "actors": [
+          "trace",
+          "name",
+          "args"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Tracing each stage [D.Psix.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Tracing each stage [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For debugging and monitoring, record a trace for every question.",
+            "activeActor": "trace",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": {
+                  "var": "trace",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "When a user reports a bad answer, the trace shows whether retrieval.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": {
+                  "var": "trace",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": {
+                  "var": "name",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Tracing each stage [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Congratulations on completing Milestone 2.",
+            "activeActor": "args",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": {
+                  "var": "trace",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tracing each stage — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Tracing each stage",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Tracing each stage",
+        "actors": [
+          "trace",
+          "name",
+          "args"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Tracing each stage [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Tracing each stage [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "For debugging and monitoring, record a trace for every question.",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": "'vector_search'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "trace"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "When a user reports a bad answer, the trace shows whether retrieval.",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": "'vector_search'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Tracing each stage [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Congratulations on completing Milestone 2.",
+            "messages": [
+              {
+                "from": "trace",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "args",
+                "label": "'vector_search'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "args"
           }
         ]
       }

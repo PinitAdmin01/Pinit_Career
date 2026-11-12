@@ -173,15 +173,21 @@ async function runBrutalAudit() {
     { num: 12.5, file: 'src/lib/curriculum/pythonFullStack/postGate01Consolidation.ts' },
   ];
 
+  // [FIX-STAGE: wave0-honest-leak-gate] Track actual leak count instead of unconditionally recording PASS
+  let prereqLeakCount = 0;
   for (const f of allFilesToScan) {
     const content = fs.readFileSync(path.join(process.cwd(), f.file), 'utf-8');
     for (const pat of forbiddenPatterns) {
       if (pat.regex.test(content) && f.num < pat.allowedBatchMin) {
+        prereqLeakCount++;
+        console.error(`[PinIT][Audit:PrereqLeak] ${f.file}: forbidden '${pat.name}' before Batch ${pat.allowedBatchMin}`);
         record('CRITICAL', 'Prerequisite Leak', `File ${f.file}`, `Found forbidden concept '${pat.name}' (Deferred to Batch ${pat.allowedBatchMin}+)`);
       }
     }
   }
-  record('PASS', 'Prerequisite Leak', 'AST Scan Across Batches 001–022 & Post-Gate 1', 'Zero forbidden decorators, ABCs, async, or premature packaging files found');
+  if (prereqLeakCount === 0) {
+    record('PASS', 'Prerequisite Leak', 'AST Scan Across Batches 001–033 & Post-Gate 1', 'Zero forbidden decorators, ABCs, async, or premature packaging files found');
+  }
 
   // ── PHASE 3: ASSESSMENT SECURITY & FORMATIVE CLASSIFICATION ──
   console.log('\n── PHASE 3: ASSESSMENT SECURITY & FORMATIVE CLASSIFICATION ──');
@@ -225,6 +231,16 @@ async function runBrutalAudit() {
     if (!a.asm) {
       record('CRITICAL', 'Assessment', `Day ${a.day}`, 'Assessment object missing');
       continue;
+    }
+
+    // [FIX-STAGE: wave0-enforce-assessment-validator] Run strict AssessmentValidator on every batch instead of only mode/rubric checks
+    try {
+      AssessmentValidator.validateAssessment(a.asm as any);
+      record('PASS', 'Assessment Validator', `Batch ${a.batch} (Day ${a.day})`, 'Passed strict AssessmentValidator.validateAssessment()');
+    } catch (err: any) {
+      const msg = err?.message || String(err);
+      console.error(`[PinIT][Audit:AssessmentFail] Batch ${a.batch} Day ${a.day}: ${msg}`);
+      record('CRITICAL', 'Assessment Validator', `Batch ${a.batch} (Day ${a.day})`, msg);
     }
 
     // Check mode

@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The redundancy problem",
       "codeHash": "dc04d5e76815b0c32f0a356fb0c720bb95292f75a29b63f5fd01382bf5ee00cd",
       "spec": {
-        "template": "table",
-        "title": "Memory redundancy across replicated data-parallel ranks",
-        "columns": [
+        "template": "sequence",
+        "title": "The redundancy problem",
+        "actors": [
           "params",
           "gpus",
-          "unique"
+          "per_gpu"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Standard data parallelism replicates identical full model states on each GPU.",
-            "rows": [
+            "caption": "In plain data parallelism, every GPU keeps an identical full copy.",
+            "activeActor": "params",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "unique"
-                  }
-                ],
-                "tone": "ok"
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "unique"
-                  }
-                ],
-                "tone": "data"
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Zero redundancy optimisation eliminates duplication by sharding states.",
-            "rows": [
+            "at": "say2",
+            "caption": "With 64 GPUs, that means 64 copies of the same numbers.",
+            "activeActor": "gpus",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "unique"
-                  }
-                ],
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how zero updates paper during execution.",
+            "activeActor": "per_gpu",
+            "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Memory redundancy across replicated data-parallel ranks",
-        "columns": [
+        "template": "sequence",
+        "title": "The redundancy problem",
+        "actors": [
           "params",
           "gpus",
-          "unique"
+          "per_gpu"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Standard data parallelism replicates identical full model states on each GPU.",
-            "rows": [
+            "caption": "In plain data parallelism, every GPU keeps an identical full copy.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "unique"
-                ],
-                "tone": "ok"
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "unique"
-                ],
-                "tone": "data"
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "64",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "params"
           },
           {
-            "at": "say3",
-            "caption": "Zero redundancy optimisation eliminates duplication by sharding states.",
-            "rows": [
+            "at": "say2",
+            "caption": "With 64 GPUs, that means 64 copies of the same numbers.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "unique"
-                ],
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "params"
-                ],
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "64",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gpus"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how zero updates paper during execution.",
+            "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "64",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "per_gpu"
           }
         ]
       }
@@ -147,9 +173,9 @@
       "partTitle": "Stage 1: shard the optimizer states",
       "codeHash": "fab12c27fe52e2b585483f1c900a13aa936c9bfdbede15800699e17f618691d5",
       "spec": {
-        "template": "table",
-        "title": "ZeRO stage 1: optimizer state partitioning across GPU ranks",
-        "columns": [
+        "template": "sequence",
+        "title": "Stage 1: shard the optimizer states",
+        "actors": [
           "params",
           "gpus",
           "per_gpu"
@@ -157,68 +183,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Optimizer states dominate parameter memory in mixed precision training.",
-            "rows": [
+            "caption": "Trace how optimizer updates states during execution.",
+            "activeActor": "params",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "per_gpu"
-                  }
-                ],
-                "tone": "ok"
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "per_gpu"
-                  }
-                ],
-                "tone": "data"
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Initial sharding partitions master weights and optimizer moments.",
-            "rows": [
+            "caption": "ZeRO stage 1 shards only these.",
+            "activeActor": "gpus",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "per_gpu"
-                  }
-                ],
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how remaining updates stages during execution.",
+            "activeActor": "per_gpu",
+            "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": {
+                  "var": "gpus",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,9 +265,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ZeRO stage 1: optimizer state partitioning across GPU ranks",
-        "columns": [
+        "template": "sequence",
+        "title": "Stage 1: shard the optimizer states",
+        "actors": [
           "params",
           "gpus",
           "per_gpu"
@@ -236,47 +275,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Optimizer states dominate parameter memory in mixed precision training.",
-            "rows": [
+            "caption": "Trace how optimizer updates states during execution.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "per_gpu"
-                ],
-                "tone": "ok"
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "per_gpu"
-                ],
-                "tone": "data"
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "params"
           },
           {
             "at": "say2",
-            "caption": "Initial sharding partitions master weights and optimizer moments.",
-            "rows": [
+            "caption": "ZeRO stage 1 shards only these.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "per_gpu"
-                ],
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "params"
-                ],
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gpus"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how remaining updates stages during execution.",
+            "messages": [
+              {
+                "from": "params",
+                "to": "gpus",
+                "label": "7500000000",
+                "tone": "data"
+              },
+              {
+                "from": "gpus",
+                "to": "per_gpu",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "per_gpu"
           }
         ]
       }
@@ -285,78 +337,131 @@
       "partTitle": "Stages 2 and 3",
       "codeHash": "71916137ef916ae5cdcef565972c6b9931d9305d98f190def88456bc4089a174",
       "spec": {
-        "template": "table",
-        "title": "ZeRO progressive stages: gradient and parameter sharding",
-        "columns": [
-          "stage",
-          "formulas",
-          "params"
-        ],
+        "template": "bars",
+        "title": "Stages 2 and 3",
         "steps": [
           {
             "at": "say1",
-            "caption": "Progressive stages shard gradients and retain only local parameter slices.",
-            "rows": [
+            "caption": "ZeRO stage 2 also shards gradients.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "formulas"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "formulas"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Complete sharding distributes model parameters uniformly across devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead of an all-reduce, gradients are combined with a reduce-scatter, so.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "formulas"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "formulas"
-                  },
-                  {
-                    "text": "stage"
-                  }
-                ],
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing a stage is a balance between memory saved and extra communication.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +469,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ZeRO progressive stages: gradient and parameter sharding",
-        "columns": [
-          "stage",
-          "formulas",
-          "params"
-        ],
+        "template": "bars",
+        "title": "Stages 2 and 3",
         "steps": [
           {
             "at": "say1",
-            "caption": "Progressive stages shard gradients and retain only local parameter slices.",
-            "rows": [
+            "caption": "ZeRO stage 2 also shards gradients.",
+            "bars": [
               {
-                "cells": [
-                  "stage",
-                  "formulas",
-                  "params"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 7500000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "stage",
-                  "formulas",
-                  "params"
-                ],
+                "label": "gpus",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "stage",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 120000000000,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Complete sharding distributes model parameters uniformly across devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead of an all-reduce, gradients are combined with a reduce-scatter, so.",
+            "bars": [
               {
-                "cells": [
-                  "stage",
-                  "formulas",
-                  "params"
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": 7500000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "stage",
-                  "formulas",
-                  "stage"
-                ],
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 120000000000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing a stage is a balance between memory saved and extra communication.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 7500000000,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 31406250000,
                 "tone": "ok"
               }
             ]
@@ -423,78 +557,131 @@
       "partTitle": "How big can we go?",
       "codeHash": "32c649e3bbb49bfe9261622172ed30e48285fcd79190f511af6a90067b0b2b7d",
       "spec": {
-        "template": "table",
-        "title": "Maximum trainable model parameter scaling limits per ZeRO stage",
-        "columns": [
-          "gpu_gb",
-          "gpus",
-          "reserve"
-        ],
+        "template": "bars",
+        "title": "How big can we go?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Memory formulas determine the largest model that fits on available hardware.",
-            "rows": [
+            "caption": "Turning the formulas around tells us the largest model that fits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "gpu_gb"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "reserve"
-                  }
-                ],
-                "tone": "ok"
+                "label": "gpu_gb",
+                "value": {
+                  "var": "gpu_gb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "gpu_gb"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "reserve"
-                  }
-                ],
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "reserve",
+                "value": {
+                  "var": "reserve",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Setting a safe memory reserve protects against activation spikes.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bytes per parameter per GPU are 16, 4 + 12/N, 2 + 14/N and 16/N for stages.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "gpu_gb"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "reserve"
-                  }
-                ],
-                "tone": "data"
+                "label": "gpu_gb",
+                "value": {
+                  "var": "gpu_gb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gpu_gb"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "gpu_gb"
-                  }
-                ],
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "reserve",
+                "value": {
+                  "var": "reserve",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This calculation is a quick first check when someone proposes training.",
+            "bars": [
+              {
+                "label": "gpu_gb",
+                "value": {
+                  "var": "gpu_gb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "reserve",
+                "value": {
+                  "var": "reserve",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +689,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Maximum trainable model parameter scaling limits per ZeRO stage",
-        "columns": [
-          "gpu_gb",
-          "gpus",
-          "reserve"
-        ],
+        "template": "bars",
+        "title": "How big can we go?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Memory formulas determine the largest model that fits on available hardware.",
-            "rows": [
+            "caption": "Turning the formulas around tells us the largest model that fits.",
+            "bars": [
               {
-                "cells": [
-                  "gpu_gb",
-                  "gpus",
-                  "reserve"
-                ],
-                "tone": "ok"
+                "label": "gpu_gb",
+                "value": 80,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "gpu_gb",
-                  "gpus",
-                  "reserve"
-                ],
+                "label": "gpus",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "reserve",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "stage",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Setting a safe memory reserve protects against activation spikes.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bytes per parameter per GPU are 16, 4 + 12/N, 2 + 14/N and 16/N for stages.",
+            "bars": [
               {
-                "cells": [
-                  "gpu_gb",
-                  "gpus",
-                  "reserve"
-                ],
-                "tone": "data"
+                "label": "gpu_gb",
+                "value": 80,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "gpu_gb",
-                  "gpus",
-                  "gpu_gb"
-                ],
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "reserve",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This calculation is a quick first check when someone proposes training.",
+            "bars": [
+              {
+                "label": "gpu_gb",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "reserve",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "stage",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -562,110 +778,161 @@
       "codeHash": "7f28393e1cc4f14a819ad734bc24a304d93e43b9e4dcde876d86b3bd7ae6d230",
       "spec": {
         "template": "flow",
-        "title": "Communication and offloading — Execution Pipeline",
+        "title": "Communication and offloading",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "params_b",
+            "label": "params_b"
           },
           {
-            "id": "proc",
-            "label": "2. Communication and o...",
-            "tappable": true
+            "id": "volumes",
+            "label": "volumes"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stage",
+            "label": "stage"
+          },
+          {
+            "id": "factor",
+            "label": "factor"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Communication and offloading [Dnine.Pfive.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Communication and o... [Dnine.Pfive.Stwo].",
+            "caption": "Stages 1 and 2 communicate about the same amount as plain data parallelism.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "params_b": {
+                "var": "params_b",
+                "line": 1,
+                "hit": 1
+              },
+              "volumes": {
+                "var": "volumes",
+                "line": 2,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 3,
+                "hit": 1
+              },
+              "factor": {
+                "var": "factor",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "params_b": "data",
+              "volumes": "data",
+              "stage": "data",
+              "factor": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "params_b",
+                "volumes"
               ],
               [
-                "proc",
-                "out"
+                "volumes",
+                "stage"
+              ],
+              [
+                "stage",
+                "factor"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Stage 3 communicates about 3 values.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "params_b": {
+                "var": "params_b",
+                "line": 2,
+                "hit": 1
+              },
+              "volumes": {
+                "var": "volumes",
+                "line": 3,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 4,
+                "hit": 1
+              },
+              "factor": {
+                "var": "factor",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "params_b": "data",
+              "volumes": "data",
+              "stage": "data",
+              "factor": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "params_b",
+                "volumes"
+              ],
+              [
+                "volumes",
+                "stage"
+              ],
+              [
+                "stage",
+                "factor"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Communication and offloading.",
+            "at": "say10",
+            "caption": "Tomorrow looks at FSDP, PyTorch's built-in version of stage 3.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "params_b": {
+                "var": "params_b",
+                "line": 3,
+                "hit": 1
+              },
+              "volumes": {
+                "var": "volumes",
+                "line": 4,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 5,
+                "hit": 1
+              },
+              "factor": {
+                "var": "factor",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "params_b": "ok",
+              "volumes": "ok",
+              "stage": "ok",
+              "factor": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "params_b",
+                "volumes"
               ],
               [
-                "proc",
-                "out"
+                "volumes",
+                "stage"
+              ],
+              [
+                "stage",
+                "factor"
               ]
             ]
           }
@@ -673,110 +940,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Communication and offloading — Execution Pipeline",
+        "title": "Communication and offloading",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "params_b",
+            "label": "params_b"
           },
           {
-            "id": "proc",
-            "label": "2. Communication and o...",
-            "tappable": true
+            "id": "volumes",
+            "label": "volumes"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stage",
+            "label": "stage"
+          },
+          {
+            "id": "factor",
+            "label": "factor"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Communication and offloading [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Communication and o... [D9.P5.S2].",
+            "caption": "Stages 1 and 2 communicate about the same amount as plain data parallelism.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "params_b": "7.5",
+              "volumes": "{'stage 0 (DDP)': 2, 'stage 1': 2, 'sta…",
+              "stage": "'stage 0 (DDP)'",
+              "factor": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "params_b": "data",
+              "volumes": "data",
+              "stage": "data",
+              "factor": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "params_b",
+                "volumes"
               ],
               [
-                "proc",
-                "out"
+                "volumes",
+                "stage"
+              ],
+              [
+                "stage",
+                "factor"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
+            "at": "say2",
+            "caption": "Stage 3 communicates about 3 values.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "params_b": "7.5",
+              "volumes": "{'stage 0 (DDP)': 2, 'stage 1': 2, 'sta…",
+              "stage": "'stage 0 (DDP)'",
+              "factor": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "params_b": "data",
+              "volumes": "data",
+              "stage": "data",
+              "factor": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "params_b",
+                "volumes"
+              ],
+              [
+                "volumes",
+                "stage"
+              ],
+              [
+                "stage",
+                "factor"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Communication and offloading [D9.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow looks at FSDP, PyTorch's built-in version of stage 3.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "params_b": "7.5",
+              "volumes": "{'stage 0 (DDP)': 2, 'stage 1': 2, 'sta…",
+              "stage": "'stage 0 (DDP)'",
+              "factor": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "params_b": "ok",
+              "volumes": "ok",
+              "stage": "ok",
+              "factor": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "params_b",
+                "volumes"
               ],
               [
-                "proc",
-                "out"
+                "volumes",
+                "stage"
+              ],
+              [
+                "stage",
+                "factor"
               ]
             ]
           }
@@ -788,110 +1058,161 @@
       "codeHash": "c7eec0487a707ce7bfc625622a640e1e5b9f3b30077c78ee0b5d3f2d6084f778",
       "spec": {
         "template": "flow",
-        "title": "Practice time: ZeRO — Execution Pipeline",
+        "title": "Practice time: ZeRO",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "gpus",
+            "label": "gpus"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: ZeRO",
-            "tappable": true
+            "id": "gpu_gb",
+            "label": "gpu_gb"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "reserve",
+            "label": "reserve"
+          },
+          {
+            "id": "billions",
+            "label": "billions"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: ZeRO [Dnine.Psix.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: ZeRO [Dnine.Psix.Stwo].",
+            "caption": "Zero_memory_gb(params, gpus, stage).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "gpus": {
+                "var": "gpus",
+                "line": 1,
+                "hit": 1
+              },
+              "gpu_gb": {
+                "var": "gpu_gb",
+                "line": 1,
+                "hit": 1
+              },
+              "reserve": {
+                "var": "reserve",
+                "line": 1,
+                "hit": 1
+              },
+              "billions": {
+                "var": "billions",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "gpus": "data",
+              "gpu_gb": "data",
+              "reserve": "data",
+              "billions": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpus",
+                "gpu_gb"
               ],
               [
-                "proc",
-                "out"
+                "gpu_gb",
+                "reserve"
+              ],
+              [
+                "reserve",
+                "billions"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates reproduce during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "gpus": {
+                "var": "gpus",
+                "line": 2,
+                "hit": 1
+              },
+              "gpu_gb": {
+                "var": "gpu_gb",
+                "line": 2,
+                "hit": 1
+              },
+              "reserve": {
+                "var": "reserve",
+                "line": 2,
+                "hit": 1
+              },
+              "billions": {
+                "var": "billions",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "gpus": "data",
+              "gpu_gb": "data",
+              "reserve": "data",
+              "billions": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "gpus",
+                "gpu_gb"
+              ],
+              [
+                "gpu_gb",
+                "reserve"
+              ],
+              [
+                "reserve",
+                "billions"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: ZeRO [Dnine.Psix.Sfour].",
+            "at": "say10",
+            "caption": "Trace how check updates fails during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "gpus": {
+                "var": "gpus",
+                "line": 3,
+                "hit": 1
+              },
+              "gpu_gb": {
+                "var": "gpu_gb",
+                "line": 3,
+                "hit": 1
+              },
+              "reserve": {
+                "var": "reserve",
+                "line": 3,
+                "hit": 1
+              },
+              "billions": {
+                "var": "billions",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "gpus": "ok",
+              "gpu_gb": "ok",
+              "reserve": "ok",
+              "billions": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpus",
+                "gpu_gb"
               ],
               [
-                "proc",
-                "out"
+                "gpu_gb",
+                "reserve"
+              ],
+              [
+                "reserve",
+                "billions"
               ]
             ]
           }
@@ -899,110 +1220,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: ZeRO — Execution Pipeline",
+        "title": "Practice time: ZeRO",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "gpus",
+            "label": "gpus"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: ZeRO",
-            "tappable": true
+            "id": "gpu_gb",
+            "label": "gpu_gb"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "reserve",
+            "label": "reserve"
+          },
+          {
+            "id": "billions",
+            "label": "billions"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: ZeRO [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: ZeRO [D9.P6.S2].",
+            "caption": "Zero_memory_gb(params, gpus, stage).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "gpus": "64",
+              "gpu_gb": "80",
+              "reserve": "20",
+              "billions": "3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "gpus": "data",
+              "gpu_gb": "data",
+              "reserve": "data",
+              "billions": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpus",
+                "gpu_gb"
               ],
               [
-                "proc",
-                "out"
+                "gpu_gb",
+                "reserve"
+              ],
+              [
+                "reserve",
+                "billions"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates reproduce during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "gpus": "64",
+              "gpu_gb": "80",
+              "reserve": "20",
+              "billions": "3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "gpus": "data",
+              "gpu_gb": "data",
+              "reserve": "data",
+              "billions": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "gpus",
+                "gpu_gb"
+              ],
+              [
+                "gpu_gb",
+                "reserve"
+              ],
+              [
+                "reserve",
+                "billions"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: ZeRO [D9.P6.S4].",
+            "at": "say10",
+            "caption": "Trace how check updates fails during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "gpus": "64",
+              "gpu_gb": "80",
+              "reserve": "20",
+              "billions": "3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "gpus": "ok",
+              "gpu_gb": "ok",
+              "reserve": "ok",
+              "billions": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpus",
+                "gpu_gb"
               ],
               [
-                "proc",
-                "out"
+                "gpu_gb",
+                "reserve"
+              ],
+              [
+                "reserve",
+                "billions"
               ]
             ]
           }

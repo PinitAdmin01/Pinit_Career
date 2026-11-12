@@ -2,255 +2,115 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Attention is order-blind",
       "codeHash": "093a7af9272e8375df62c3a2f645c3600e7de0b47d3d797380f5b0a69dcaa5ec",
       "spec": {
-        "template": "table",
-        "title": "Permutation invariance and attention order-blindness",
-        "columns": [
-          "dog",
-          "man"
-        ],
+        "template": "cells",
+        "title": "Attention is order-blind",
         "steps": [
           {
             "at": "say1",
-            "caption": "Self attention treats input sets without regard to sequence order.",
-            "rows": [
+            "caption": "Self-attention treats its input as a set.",
+            "items": {
+              "var": "sentence",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Shuffled phrases produce the same representations for each word.",
-            "rows": [
+            "caption": "\"Dog bites man\" and \"man bites dog\" would produce the same representations.",
+            "items": {
+              "var": "sentence",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bites"
-                  },
-                  {
-                    "text": "emb"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Transformers read everything at once so order must be added explicitly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bites"
-                  },
-                  {
-                    "text": "emb"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Positional signals merge directly into token embeddings before attention.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is one of those details that seems small and turns out to be essential.",
+            "items": {
+              "var": "sentence",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bites"
-                  },
-                  {
-                    "text": "emb"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "attention_for"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Permutation invariance and attention order-blindness",
-        "columns": [
-          "dog",
-          "man"
-        ],
+        "template": "cells",
+        "title": "Attention is order-blind",
         "steps": [
           {
             "at": "say1",
-            "caption": "Self attention treats input sets without regard to sequence order.",
-            "rows": [
+            "caption": "Self-attention treats its input as a set.",
+            "items": [
+              "'dog'",
+              "'bites'",
+              "'man'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Shuffled phrases produce the same representations for each word.",
-            "rows": [
+            "caption": "\"Dog bites man\" and \"man bites dog\" would produce the same representations.",
+            "items": [
+              "'dog'",
+              "'bites'",
+              "'man'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bites",
-                  "emb"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Transformers read everything at once so order must be added explicitly.",
-            "rows": [
-              {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bites",
-                  "emb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "word",
-                  "sentence"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Positional signals merge directly into token embeddings before attention.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is one of those details that seems small and turns out to be essential.",
+            "items": [
+              "'dog'",
+              "'bites'",
+              "'man'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bites",
-                  "emb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "word",
-                  "sentence"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "attention_for",
-                  "dog"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,143 +121,131 @@
       "partTitle": "Sinusoidal positional encoding",
       "codeHash": "dcde9ae44beb79da2f86317ef4f39996061fcc7c38432a1e2a626c94f5e379ab",
       "spec": {
-        "template": "table",
-        "title": "Trigonometric frequency spectrum and harmonic positional encodings",
-        "columns": [
-          "sin",
-          "cos"
-        ],
+        "template": "bars",
+        "title": "Sinusoidal positional encoding",
         "steps": [
           {
             "at": "say1",
-            "caption": "The Transformer synthesizes fixed positional patterns using trigonometric waves.",
-            "rows": [
+            "caption": "The original Transformer added a fixed positional encoding to each.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sin"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Even dimensions compute sine waves while odd dimensions compute cosine waves.",
-            "rows": [
+            "caption": "For position pos and dimension i.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sin"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Progressive frequencies assign every sequence position a unique signature.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints the encoding for the first few positions.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sin"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "positional_encoding"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Paired sine and cosine channels share identical frequencies across indices.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sin"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "positional_encoding"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "d_model"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +253,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Trigonometric frequency spectrum and harmonic positional encodings",
-        "columns": [
-          "sin",
-          "cos"
-        ],
+        "template": "bars",
+        "title": "Sinusoidal positional encoding",
         "steps": [
           {
             "at": "say1",
-            "caption": "The Transformer synthesizes fixed positional patterns using trigonometric waves.",
-            "rows": [
+            "caption": "The original Transformer added a fixed positional encoding to each.",
+            "bars": [
               {
-                "cells": [
-                  "sin",
-                  "cos"
-                ],
-                "tone": "ok"
+                "label": "d",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "d_model",
+                "value": 8,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Even dimensions compute sine waves while odd dimensions compute cosine waves.",
-            "rows": [
+            "caption": "For position pos and dimension i.",
+            "bars": [
               {
-                "cells": [
-                  "sin",
-                  "cos"
-                ],
+                "label": "d",
+                "value": 8,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "pos",
-                  "d_model"
-                ],
+                "label": "pos",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": 8,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Progressive frequencies assign every sequence position a unique signature.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints the encoding for the first few positions.",
+            "bars": [
               {
-                "cells": [
-                  "sin",
-                  "cos"
-                ],
+                "label": "d",
+                "value": 8,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "pos",
-                  "d_model"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "positional_encoding"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Paired sine and cosine channels share identical frequencies across indices.",
-            "rows": [
-              {
-                "cells": [
-                  "sin",
-                  "cos"
-                ],
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "pos",
-                  "d_model"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "positional_encoding"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "d_model",
-                  "pos"
-                ],
+                "label": "d_model",
+                "value": 8,
                 "tone": "ok"
               }
             ]
@@ -513,143 +341,131 @@
       "partTitle": "Adding positions to embeddings",
       "codeHash": "0b1d34b668499a333746cbc336d7eac97df84236f18fe76e52e3cf8b22b5db59",
       "spec": {
-        "template": "table",
-        "title": "Embedding vector addition and token positional differentiation",
-        "columns": [
-          "dog",
-          "pos"
-        ],
+        "template": "bars",
+        "title": "Adding positions to embeddings",
         "steps": [
           {
             "at": "say1",
-            "caption": "Positional encodings match embedding dimensions and sum together elementwise.",
-            "rows": [
+            "caption": "The positional encoding has the same size as the token embedding, and.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
-                "tone": "ok"
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector summation assigns identical words at separate positions distinct vectors.",
-            "rows": [
+            "caption": "After adding, the same word at two different positions has different.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adding rather than concatenating keeps the size the same.",
-            "rows": [
+            "at": "say7",
+            "caption": "Milestone 3 tomorrow builds a function that adds positions to a whole sequence.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Learned positional embeddings cannot extrapolate beyond trained context bounds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +473,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Embedding vector addition and token positional differentiation",
-        "columns": [
-          "dog",
-          "pos"
-        ],
+        "template": "bars",
+        "title": "Adding positions to embeddings",
         "steps": [
           {
             "at": "say1",
-            "caption": "Positional encodings match embedding dimensions and sum together elementwise.",
-            "rows": [
+            "caption": "The positional encoding has the same size as the token embedding, and.",
+            "bars": [
               {
-                "cells": [
-                  "dog",
-                  "pos"
-                ],
-                "tone": "ok"
+                "label": "pos",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector summation assigns identical words at separate positions distinct vectors.",
-            "rows": [
+            "caption": "After adding, the same word at two different positions has different.",
+            "bars": [
               {
-                "cells": [
-                  "dog",
-                  "pos"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "round",
-                  "dog"
-                ],
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adding rather than concatenating keeps the size the same.",
-            "rows": [
+            "at": "say7",
+            "caption": "Milestone 3 tomorrow builds a function that adds positions to a whole sequence.",
+            "bars": [
               {
-                "cells": [
-                  "dog",
-                  "pos"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "round",
-                  "dog"
-                ],
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "pos",
-                  "round"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Learned positional embeddings cannot extrapolate beyond trained context bounds.",
-            "rows": [
-              {
-                "cells": [
-                  "dog",
-                  "pos"
-                ],
+                "label": "d",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "round",
-                  "dog"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pos",
-                  "round"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "dog",
-                  "round"
-                ],
+                "label": "a",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -765,249 +561,277 @@
       "partTitle": "Rotary position embeddings (RoPE)",
       "codeHash": "afc866efa3736b2425c3866e50a357854daa8d17026a78b7d27de4ba28e2d7fe",
       "spec": {
-        "template": "table",
-        "title": "Rotary position embeddings planar rotation and distance invariance",
-        "columns": [
-          "rotate_pair",
-          "theta"
+        "template": "flow",
+        "title": "Rotary position embeddings (RoPE)",
+        "nodes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "theta",
+            "label": "theta"
+          },
+          {
+            "id": "qpos",
+            "label": "qpos"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "RoPE incorporates relative position through rotational coordinate transforms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rotate_pair"
-                  },
-                  {
-                    "text": "theta"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how rotary updates position during execution.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 7,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 7,
+                "hit": 1
+              },
+              "theta": {
+                "var": "theta",
+                "line": 7,
+                "hit": 1
+              },
+              "qpos": {
+                "var": "qpos",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "q": "data",
+              "k": "data",
+              "theta": "data",
+              "qpos": "data"
+            },
+            "arrows": [
+              [
+                "q",
+                "k"
+              ],
+              [
+                "k",
+                "theta"
+              ],
+              [
+                "theta",
+                "qpos"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "RoPE rotates coordinate pairs in queries and keys proportionally to position.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rotate_pair"
-                  },
-                  {
-                    "text": "theta"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Instead of adding a vector, RoPE rotates each pair of numbers in the query.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 1
+              },
+              "theta": {
+                "var": "theta",
+                "line": 8,
+                "hit": 1
+              },
+              "qpos": {
+                "var": "qpos",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "q": "data",
+              "k": "data",
+              "theta": "data",
+              "qpos": "data"
+            },
+            "arrows": [
+              [
+                "q",
+                "k"
+              ],
+              [
+                "k",
+                "theta"
+              ],
+              [
+                "theta",
+                "qpos"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rotating a point by an angle applies trigonometric formulas.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rotate_pair"
-                  },
-                  {
-                    "text": "theta"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example rotates a point to several positions and shows the dot product.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "sin"
-                  }
-                ],
-                "tone": "data"
+              "theta": {
+                "var": "theta",
+                "line": 4,
+                "hit": 1
+              },
+              "qpos": {
+                "var": "qpos",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Rotated query and key dot products depend only on relative position distance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rotate_pair"
-                  },
-                  {
-                    "text": "theta"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "sin"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "rotate_pair"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "q": "ok",
+              "k": "ok",
+              "theta": "ok",
+              "qpos": "ok"
+            },
+            "arrows": [
+              [
+                "q",
+                "k"
+              ],
+              [
+                "k",
+                "theta"
+              ],
+              [
+                "theta",
+                "qpos"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rotary position embeddings planar rotation and distance invariance",
-        "columns": [
-          "rotate_pair",
-          "theta"
+        "template": "flow",
+        "title": "Rotary position embeddings (RoPE)",
+        "nodes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "theta",
+            "label": "theta"
+          },
+          {
+            "id": "qpos",
+            "label": "qpos"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "RoPE incorporates relative position through rotational coordinate transforms.",
-            "rows": [
-              {
-                "cells": [
-                  "rotate_pair",
-                  "theta"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how rotary updates position during execution.",
+            "values": {
+              "q": "[1, 0]",
+              "k": "[0.6, 0.8]",
+              "theta": "0.3",
+              "qpos": "2"
+            },
+            "tones": {
+              "q": "data",
+              "k": "data",
+              "theta": "data",
+              "qpos": "data"
+            },
+            "arrows": [
+              [
+                "q",
+                "k"
+              ],
+              [
+                "k",
+                "theta"
+              ],
+              [
+                "theta",
+                "qpos"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "RoPE rotates coordinate pairs in queries and keys proportionally to position.",
-            "rows": [
-              {
-                "cells": [
-                  "rotate_pair",
-                  "theta"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pos",
-                  "math"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Instead of adding a vector, RoPE rotates each pair of numbers in the query.",
+            "values": {
+              "q": "[1, 0]",
+              "k": "[0.6, 0.8]",
+              "theta": "0.3",
+              "qpos": "2"
+            },
+            "tones": {
+              "q": "data",
+              "k": "data",
+              "theta": "data",
+              "qpos": "data"
+            },
+            "arrows": [
+              [
+                "q",
+                "k"
+              ],
+              [
+                "k",
+                "theta"
+              ],
+              [
+                "theta",
+                "qpos"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rotating a point by an angle applies trigonometric formulas.",
-            "rows": [
-              {
-                "cells": [
-                  "rotate_pair",
-                  "theta"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pos",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cos",
-                  "sin"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Rotated query and key dot products depend only on relative position distance.",
-            "rows": [
-              {
-                "cells": [
-                  "rotate_pair",
-                  "theta"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pos",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cos",
-                  "sin"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "round",
-                  "rotate_pair"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example rotates a point to several positions and shows the dot product.",
+            "values": {
+              "q": "[1, 0]",
+              "k": "[0.6, 0.8]",
+              "theta": "0.3",
+              "qpos": "2"
+            },
+            "tones": {
+              "q": "ok",
+              "k": "ok",
+              "theta": "ok",
+              "qpos": "ok"
+            },
+            "arrows": [
+              [
+                "q",
+                "k"
+              ],
+              [
+                "k",
+                "theta"
+              ],
+              [
+                "theta",
+                "qpos"
+              ]
             ]
           }
         ]
@@ -1017,223 +841,115 @@
       "partTitle": "Choosing a position method",
       "codeHash": "2cf98d846c6538f3624da2e594bc54d8d07dc0d77fc71347e69f86bb61319890",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a position method — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a position...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing a position method",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a position method [Dtwenty.Pfive.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a position... [Dtwenty.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Fixed sinusoidal encodings.",
+            "items": {
+              "var": "scores",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Learned absolute embeddings.",
+            "items": {
+              "var": "scores",
+              "line": 4,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a position method.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Nearby words keep their scores.",
+            "items": {
+              "var": "scores",
+              "line": 3,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a position method — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a position...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing a position method",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a position method [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a position... [D20.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Fixed sinusoidal encodings.",
+            "items": [
+              "2",
+              "2",
+              "2",
+              "2",
+              "3.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Learned absolute embeddings.",
+            "items": [
+              "2",
+              "2",
+              "2",
+              "2",
+              "3.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a position method [D20.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Nearby words keep their scores.",
+            "items": [
+              "2",
+              "2",
+              "2",
+              "2",
+              "3.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +959,217 @@
       "partTitle": "Practice time: encodings and rotations",
       "codeHash": "7a7ad77dfb5aa0b43e287dc7b1c5035a49317e55cb8ba4c52a86101a454349c8",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: encodings and rotations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: enco...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: encodings and rotations",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: encodings and rotations.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: enco... [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates compute during execution.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Position 0 gives sin(0) = 0 and cos(0) = 1.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: encodings and rota.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example verifies that.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: encodings and rotations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: enco...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: encodings and rotations",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: encodings and rotations [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: enco... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates compute during execution.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Position 0 gives sin(0) = 0 and cos(0) = 1.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: encodings and rota.. [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example verifies that.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

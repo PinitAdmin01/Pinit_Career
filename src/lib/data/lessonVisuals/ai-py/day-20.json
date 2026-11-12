@@ -2,73 +2,85 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why stream?",
       "codeHash": "2d9f6dfc532a84d2f35b2c2fe6a0e7281be3f14d9edce7cda222af3178f2dd8c",
       "spec": {
         "template": "bars",
-        "title": "Time to first token perceived latency with streaming",
+        "title": "Why stream?",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A model generates one token at a time.",
+            "bars": [
+              {
+                "label": "ms_per_token",
+                "value": {
+                  "var": "ms_per_token",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "first_token_ms",
+                "value": {
+                  "var": "first_token_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "With streaming each token is sent as soon as it is ready.",
+            "caption": "With streaming, each token is sent as soon as it is ready.",
             "bars": [
               {
-                "label": "with_streaming_ttft",
+                "label": "ms_per_token",
                 "value": {
-                  "text": "300"
+                  "var": "ms_per_token",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "ms_per_token",
+                "label": "first_token_ms",
                 "value": {
-                  "text": "40"
+                  "var": "first_token_ms",
+                  "line": 4,
+                  "hit": 1
                 },
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Time to first token TTFT is key number for perceived speed.",
+            "at": "say7",
+            "caption": "Today you will read and write the SSE format by hand, so the libraries.",
             "bars": [
               {
-                "label": "with_streaming_ttft",
+                "label": "ms_per_token",
                 "value": {
-                  "text": "300"
+                  "var": "ms_per_token",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "ms_per_token",
+                "label": "first_token_ms",
                 "value": {
-                  "text": "40"
-                },
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "All major APIs support streaming through server-sent events.",
-            "bars": [
-              {
-                "label": "with_streaming_ttft",
-                "value": {
-                  "text": "300"
+                  "var": "first_token_ms",
+                  "line": 5,
+                  "hit": 1
                 },
                 "tone": "ok"
-              },
-              {
-                "label": "ms_per_token",
-                "value": {
-                  "text": "40"
-                },
-                "tone": "data"
               }
             ]
           }
@@ -76,53 +88,53 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Time to first token perceived latency with streaming",
+        "title": "Why stream?",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A model generates one token at a time.",
+            "bars": [
+              {
+                "label": "ms_per_token",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "first_token_ms",
+                "value": 300,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "With streaming each token is sent as soon as it is ready.",
+            "caption": "With streaming, each token is sent as soon as it is ready.",
             "bars": [
-              {
-                "label": "with_streaming_ttft",
-                "value": 300,
-                "tone": "ok"
-              },
               {
                 "label": "ms_per_token",
                 "value": 40,
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "label": "first_token_ms",
+                "value": 300,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Time to first token TTFT is key number for perceived speed.",
+            "at": "say7",
+            "caption": "Today you will read and write the SSE format by hand, so the libraries.",
             "bars": [
-              {
-                "label": "with_streaming_ttft",
-                "value": 300,
-                "tone": "ok"
-              },
               {
                 "label": "ms_per_token",
                 "value": 40,
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "All major APIs support streaming through server-sent events.",
-            "bars": [
-              {
-                "label": "with_streaming_ttft",
-                "value": 300,
                 "tone": "ok"
               },
               {
-                "label": "ms_per_token",
-                "value": 40,
-                "tone": "data"
+                "label": "first_token_ms",
+                "value": 300,
+                "tone": "ok"
               }
             ]
           }
@@ -133,236 +145,160 @@
       "partTitle": "The SSE format",
       "codeHash": "3c77f68f13614b00e0016bdc13d55381032217f5ed9b3f1c6554c340afed75d5",
       "spec": {
-        "template": "table",
-        "title": "Server-sent events SSE payload structure and control frames",
-        "columns": [
-          "event_line",
-          "payload",
-          "frame_type"
+        "template": "sequence",
+        "title": "The SSE format",
+        "actors": [
+          "raw",
+          "line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Server-sent events are plain text sent over HTTP response.",
-            "rows": [
+            "caption": "Server-sent events are plain text sent over one long HTTP response.",
+            "activeActor": "raw",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Namaste"
-                  },
-                  {
-                    "text": "assistant"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "line",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": ": keep-alive"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "idle"
+                "from": "line",
+                "to": "raw",
+                "label": {
+                  "var": "line",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The stream ends with special line marker data [DONE].",
-            "rows": [
+            "at": "say2",
+            "caption": "LLM APIs put a small JSON object in each data line.",
+            "activeActor": "line",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Namaste"
-                  },
-                  {
-                    "text": "assistant"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": ": keep-alive"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "data: [DONE]"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
+                "from": "raw",
+                "to": "line",
+                "label": {
+                  "var": "raw",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": {
+                  "var": "line",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Comments starting with colon are used as keep-alive pings.",
-            "rows": [
+            "at": "say7",
+            "caption": "Browsers support SSE natively with EventSource, and fetch can read streams too.",
+            "activeActor": "line",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Namaste"
-                  },
-                  {
-                    "text": "assistant"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": ": keep-alive"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "data: [DONE]"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
+                "from": "raw",
+                "to": "line",
+                "label": {
+                  "var": "raw",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": {
+                  "var": "line",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Server-sent events SSE payload structure and control frames",
-        "columns": [
-          "event_line",
-          "payload",
-          "frame_type"
+        "template": "sequence",
+        "title": "The SSE format",
+        "actors": [
+          "raw",
+          "line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Server-sent events are plain text sent over HTTP response.",
-            "rows": [
+            "caption": "Server-sent events are plain text sent over one long HTTP response.",
+            "messages": [
               {
-                "cells": [
-                  "Namaste",
-                  "assistant",
-                  "line"
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "line",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  ": keep-alive",
-                  "line",
-                  "line"
-                ],
-                "tone": "idle"
+                "from": "line",
+                "to": "raw",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raw"
           },
           {
-            "at": "say4",
-            "caption": "The stream ends with special line marker data [DONE].",
-            "rows": [
+            "at": "say2",
+            "caption": "LLM APIs put a small JSON object in each data line.",
+            "messages": [
               {
-                "cells": [
-                  "Namaste",
-                  "assistant",
-                  "line"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  ": keep-alive",
-                  "line",
-                  "line"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "data: [DONE]",
-                  "line",
-                  "line"
-                ],
+                "from": "raw",
+                "to": "line",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
                 "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "line"
           },
           {
-            "at": "say5",
-            "caption": "Comments starting with colon are used as keep-alive pings.",
-            "rows": [
+            "at": "say7",
+            "caption": "Browsers support SSE natively with EventSource, and fetch can read streams too.",
+            "messages": [
               {
-                "cells": [
-                  "Namaste",
-                  "assistant",
-                  "line"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  ": keep-alive",
-                  "line",
-                  "line"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "data: [DONE]",
-                  "line",
-                  "line"
-                ],
+                "from": "raw",
+                "to": "line",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
                 "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "raw",
+                "label": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "line"
           }
         ]
       }
@@ -371,131 +307,193 @@
       "partTitle": "Parsing a streamed chunk",
       "codeHash": "f64ba779b85af9e4bdfa494c4ad3b8f8c1ce67f1e13c9b844eb9bb41d5725bea",
       "spec": {
-        "template": "compare",
-        "title": "Streamed SSE chunk payload accumulation into completed response",
-        "leftLabel": "Incoming Chunk",
-        "rightLabel": "Accumulated Text",
+        "template": "boxes",
+        "title": "Parsing a streamed chunk",
+        "boxes": [
+          {
+            "id": "chunk",
+            "label": "chunk"
+          },
+          {
+            "id": "pieces",
+            "label": "pieces"
+          },
+          {
+            "id": "done",
+            "label": "done"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parse SSE chunk joins content of data lines and returns text.",
-            "left": {
-              "code": "data: {\"choices\":[{\"delta\":{\"content\":\"Hi\"}}]}",
-              "result": {
-                "text": "Hi"
+            "caption": "Parse_sse_chunk(chunk) joins the content of every data line in order.",
+            "values": {
+              "chunk": {
+                "var": "chunk",
+                "line": 14,
+                "hit": 1
               },
-              "tone": "data"
+              "pieces": {
+                "var": "pieces",
+                "line": 4,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 4,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "data: [DONE]",
-              "result": {
-                "text": "data: [DONE]"
-              },
-              "tone": "ok"
+            "tones": {
+              "chunk": "data",
+              "pieces": "data",
+              "done": "data",
+              "line": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Marker data [DONE] sets done while data lines are parsed.",
-            "left": {
-              "code": "data: {\"choices\":[{\"delta\":{\"content\":\"partial\"}}]}",
-              "result": {
-                "text": "partial"
+            "caption": "Loop over the lines.",
+            "values": {
+              "chunk": {
+                "var": "chunk",
+                "line": 4,
+                "hit": 1
               },
-              "tone": "data"
+              "pieces": {
+                "var": "pieces",
+                "line": 5,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 5,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "done = True on terminal marker",
-              "result": {
-                "text": "data: [DONE]"
-              },
-              "tone": "ok"
+            "tones": {
+              "chunk": "data",
+              "pieces": "data",
+              "done": "data",
+              "line": "data"
             }
           },
           {
-            "at": "say4",
-            "caption": "Skip lines that are not data lines such as comments.",
-            "left": {
-              "code": ": ping comment keep-alive line",
-              "result": {
-                "text": "Hi"
+            "at": "say7",
+            "caption": "Test with chunks that include role-only events, comments and the DONE.",
+            "values": {
+              "chunk": {
+                "var": "chunk",
+                "line": 5,
+                "hit": 1
               },
-              "tone": "idle"
+              "pieces": {
+                "var": "pieces",
+                "line": 6,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 6,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "json.loads extracts delta content",
-              "result": {
-                "text": "partial"
-              },
-              "tone": "ok"
+            "tones": {
+              "chunk": "ok",
+              "pieces": "ok",
+              "done": "ok",
+              "line": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Streamed SSE chunk payload accumulation into completed response",
-        "leftLabel": "Incoming Chunk",
-        "rightLabel": "Accumulated Text",
+        "template": "boxes",
+        "title": "Parsing a streamed chunk",
+        "boxes": [
+          {
+            "id": "chunk",
+            "label": "chunk"
+          },
+          {
+            "id": "pieces",
+            "label": "pieces"
+          },
+          {
+            "id": "done",
+            "label": "done"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parse SSE chunk joins content of data lines and returns text.",
-            "left": {
-              "code": "data: {\"choices\":[{\"delta\":{\"content\":\"Hi\"}}]}",
-              "result": "Hi",
-              "tone": "data",
-              "checks": [
-                "Hi"
-              ]
+            "caption": "Parse_sse_chunk(chunk) joins the content of every data line in order.",
+            "values": {
+              "chunk": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+              "pieces": "[]",
+              "done": "False",
+              "line": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…"
             },
-            "right": {
-              "code": "data: [DONE]",
-              "result": "data: [DONE]",
-              "tone": "ok",
-              "checks": [
-                "data: [DONE]"
-              ]
+            "tones": {
+              "chunk": "data",
+              "pieces": "data",
+              "done": "data",
+              "line": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Marker data [DONE] sets done while data lines are parsed.",
-            "left": {
-              "code": "data: {\"choices\":[{\"delta\":{\"content\":\"partial\"}}]}",
-              "result": "partial",
-              "tone": "data",
-              "checks": [
-                "partial"
-              ]
+            "caption": "Loop over the lines.",
+            "values": {
+              "chunk": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+              "pieces": "[]",
+              "done": "False",
+              "line": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…"
             },
-            "right": {
-              "code": "done = True on terminal marker",
-              "result": "data: [DONE]",
-              "tone": "ok",
-              "checks": [
-                "data: [DONE]"
-              ]
+            "tones": {
+              "chunk": "data",
+              "pieces": "data",
+              "done": "data",
+              "line": "data"
             }
           },
           {
-            "at": "say4",
-            "caption": "Skip lines that are not data lines such as comments.",
-            "left": {
-              "code": ": ping comment keep-alive line",
-              "result": "Hi",
-              "tone": "idle",
-              "checks": [
-                "Hi"
-              ]
+            "at": "say7",
+            "caption": "Test with chunks that include role-only events, comments and the DONE.",
+            "values": {
+              "chunk": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…",
+              "pieces": "[]",
+              "done": "False",
+              "line": "'data: {\"choices\":[{\"delta\":{\"role\":\"as…"
             },
-            "right": {
-              "code": "json.loads extracts delta content",
-              "result": "partial",
-              "tone": "ok",
-              "checks": [
-                "partial"
-              ]
+            "tones": {
+              "chunk": "ok",
+              "pieces": "ok",
+              "done": "ok",
+              "line": "ok"
             }
           }
         ]
@@ -505,192 +503,194 @@
       "partTitle": "Writing events for the browser",
       "codeHash": "fb01e88dbe5375516cc61ee439aa977c4dd37d63b1995b61499cc407c57d194b",
       "spec": {
-        "template": "table",
-        "title": "Formatting server event objects into spec-compliant SSE lines",
-        "columns": [
-          "event_type",
-          "event_text",
-          "status"
+        "template": "boxes",
+        "title": "Writing events for the browser",
+        "boxes": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "obj",
+            "label": "obj"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          },
+          {
+            "id": "stream",
+            "label": "stream"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Server forwards stream writing format_sse_line with two newlines.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "Hi"
-                  },
-                  {
-                    "text": "type"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When your server forwards a model stream to a browser, it writes SSE too.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "done"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 7,
+                "hit": 1
+              },
+              "stream": {
+                "var": "stream",
+                "line": 7,
+                "hit": 5
               }
-            ]
+            },
+            "tones": {
+              "events": "data",
+              "obj": "data",
+              "e": "data",
+              "stream": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Two newlines tell browser that event is complete.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "Hi"
-                  },
-                  {
-                    "text": "type"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The two newlines matter.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 7,
+                "hit": 5
               },
-              {
-                "cells": [
-                  {
-                    "text": "done"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 2
+              },
+              "e": {
+                "var": "e",
+                "line": 7,
+                "hit": 2
+              },
+              "stream": {
+                "var": "stream",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "events": "data",
+              "obj": "data",
+              "e": "data",
+              "stream": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Send custom event shapes with token text and done sources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "Hi"
-                  },
-                  {
-                    "text": "type"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Keep each event small.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "done"
-                  },
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 3
+              },
+              "e": {
+                "var": "e",
+                "line": 7,
+                "hit": 3
+              },
+              "stream": {
+                "var": "stream",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "events": "ok",
+              "obj": "ok",
+              "e": "ok",
+              "stream": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Formatting server event objects into spec-compliant SSE lines",
-        "columns": [
-          "event_type",
-          "event_text",
-          "status"
+        "template": "boxes",
+        "title": "Writing events for the browser",
+        "boxes": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "obj",
+            "label": "obj"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          },
+          {
+            "id": "stream",
+            "label": "stream"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Server forwards stream writing format_sse_line with two newlines.",
-            "rows": [
-              {
-                "cells": [
-                  "token",
-                  "Hi",
-                  "type"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "done",
-                  "c2",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "When your server forwards a model stream to a browser, it writes SSE too.",
+            "values": {
+              "events": "[{'type': 'token', 'text': 'Hi'}, {'typ…",
+              "obj": "{'type': 'token', 'text': 'Hi'}",
+              "e": "{'type': 'token', 'text': 'Hi'}",
+              "stream": "'data: {\"type\": \"token\", \"text\": \"Hi\"}\n…"
+            },
+            "tones": {
+              "events": "data",
+              "obj": "data",
+              "e": "data",
+              "stream": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Two newlines tell browser that event is complete.",
-            "rows": [
-              {
-                "cells": [
-                  "token",
-                  "Hi",
-                  "type"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "done",
-                  "c2",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "The two newlines matter.",
+            "values": {
+              "events": "[{'type': 'token', 'text': 'Hi'}, {'typ…",
+              "obj": "{'type': 'token', 'text': ' \"friend\"\n'}",
+              "e": "{'type': 'token', 'text': ' \"friend\"\n'}",
+              "stream": "'data: {\"type\": \"token\", \"text\": \"Hi\"}\n…"
+            },
+            "tones": {
+              "events": "data",
+              "obj": "data",
+              "e": "data",
+              "stream": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Send custom event shapes with token text and done sources.",
-            "rows": [
-              {
-                "cells": [
-                  "token",
-                  "Hi",
-                  "type"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "done",
-                  "c2",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "Keep each event small.",
+            "values": {
+              "events": "[{'type': 'token', 'text': 'Hi'}, {'typ…",
+              "obj": "{'type': 'done', 'sources': ['c2']}",
+              "e": "{'type': 'done', 'sources': ['c2']}",
+              "stream": "'data: {\"type\": \"token\", \"text\": \"Hi\"}\n…"
+            },
+            "tones": {
+              "events": "ok",
+              "obj": "ok",
+              "e": "ok",
+              "stream": "ok"
+            }
           }
         ]
       }
@@ -700,110 +700,161 @@
       "codeHash": "26561ae32f234516981b0f27c2c4b5c67c8fa9d236c7e672b3c2b97a2bdd73fb",
       "spec": {
         "template": "flow",
-        "title": "Partial lines and buffering — Execution Pipeline",
+        "title": "Partial lines and buffering",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stream",
+            "label": "stream"
           },
           {
-            "id": "proc",
-            "label": "2. Partial lines and b...",
-            "tappable": true
+            "id": "pieces",
+            "label": "pieces"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "buffer",
+            "label": "buffer"
+          },
+          {
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Partial lines and buffering.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Partial lines and b... [Dtwenty.Pfive.Stwo].",
+            "caption": "Network data arrives in arbitrary pieces.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "stream": {
+                "var": "stream",
+                "line": 3,
+                "hit": 1
+              },
+              "pieces": {
+                "var": "pieces",
+                "line": 4,
+                "hit": 18
+              },
+              "buffer": {
+                "var": "buffer",
+                "line": 5,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "stream": "data",
+              "pieces": "data",
+              "buffer": "data",
+              "text": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "pieces"
               ],
               [
-                "proc",
-                "out"
+                "pieces",
+                "buffer"
+              ],
+              [
+                "buffer",
+                "text"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Parsing that half line would fail.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "stream": {
+                "var": "stream",
+                "line": 4,
+                "hit": 1
+              },
+              "pieces": {
+                "var": "pieces",
+                "line": 5,
+                "hit": 1
+              },
+              "buffer": {
+                "var": "buffer",
+                "line": 6,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "stream": "data",
+              "pieces": "data",
+              "buffer": "data",
+              "text": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "stream",
+                "pieces"
+              ],
+              [
+                "pieces",
+                "buffer"
+              ],
+              [
+                "buffer",
+                "text"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Partial lines and buffering.",
+            "at": "say6",
+            "caption": "Test with deliberately awkward splits, like cutting every 7 characters,.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "stream": {
+                "var": "stream",
+                "line": 4,
+                "hit": 2
+              },
+              "pieces": {
+                "var": "pieces",
+                "line": 6,
+                "hit": 1
+              },
+              "buffer": {
+                "var": "buffer",
+                "line": 7,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "stream": "ok",
+              "pieces": "ok",
+              "buffer": "ok",
+              "text": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "pieces"
               ],
               [
-                "proc",
-                "out"
+                "pieces",
+                "buffer"
+              ],
+              [
+                "buffer",
+                "text"
               ]
             ]
           }
@@ -811,110 +862,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Partial lines and buffering — Execution Pipeline",
+        "title": "Partial lines and buffering",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stream",
+            "label": "stream"
           },
           {
-            "id": "proc",
-            "label": "2. Partial lines and b...",
-            "tappable": true
+            "id": "pieces",
+            "label": "pieces"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "buffer",
+            "label": "buffer"
+          },
+          {
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Partial lines and buffering [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Partial lines and b... [D20.P5.S2].",
+            "caption": "Network data arrives in arbitrary pieces.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "stream": "'data: {\"choices\":[{\"delta\":{\"content\":…",
+              "pieces": "['data: {', '\"choice', 's\":[{\"d', 'elta…",
+              "buffer": "''",
+              "text": "''"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "stream": "data",
+              "pieces": "data",
+              "buffer": "data",
+              "text": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "pieces"
               ],
               [
-                "proc",
-                "out"
+                "pieces",
+                "buffer"
+              ],
+              [
+                "buffer",
+                "text"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
+            "at": "say2",
+            "caption": "Parsing that half line would fail.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "stream": "'data: {\"choices\":[{\"delta\":{\"content\":…",
+              "pieces": "['data: {', '\"choice', 's\":[{\"d', 'elta…",
+              "buffer": "''",
+              "text": "''"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "stream": "data",
+              "pieces": "data",
+              "buffer": "data",
+              "text": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "stream",
+                "pieces"
+              ],
+              [
+                "pieces",
+                "buffer"
+              ],
+              [
+                "buffer",
+                "text"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Partial lines and buffering [D20.P5.S4].",
+            "at": "say6",
+            "caption": "Test with deliberately awkward splits, like cutting every 7 characters,.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "stream": "'data: {\"choices\":[{\"delta\":{\"content\":…",
+              "pieces": "['data: {', '\"choice', 's\":[{\"d', 'elta…",
+              "buffer": "'data: {'",
+              "text": "''"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "stream": "ok",
+              "pieces": "ok",
+              "buffer": "ok",
+              "text": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "pieces"
               ],
               [
-                "proc",
-                "out"
+                "pieces",
+                "buffer"
+              ],
+              [
+                "buffer",
+                "text"
               ]
             ]
           }
@@ -925,223 +979,133 @@
       "partTitle": "Cancellation and good streaming UX",
       "codeHash": "25d97b7923ba5fa818e62ce68c08011ada2ea818ddeadcab8276c0cb0c4b2e88",
       "spec": {
-        "template": "flow",
-        "title": "Cancellation and good streaming UX — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Cancellation and go...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Cancellation and good streaming UX",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cancellation and good streaming UX.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cancellation and go... [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Let users press Stop.",
+            "bars": [
+              {
+                "label": "stop_after",
+                "value": {
+                  "var": "stop_after",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Show a typing indicator until the first token arrives, then render text.",
+            "bars": [
+              {
+                "label": "stop_after",
+                "value": {
+                  "var": "stop_after",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cancellation and good streaming UX.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Trace how tomorrow updates milestone during execution.",
+            "bars": [
+              {
+                "label": "stop_after",
+                "value": {
+                  "var": "stop_after",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cancellation and good streaming UX — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Cancellation and go...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Cancellation and good streaming UX",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cancellation and good streaming UX [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cancellation and go... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Let users press Stop.",
+            "bars": [
+              {
+                "label": "stop_after",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Show a typing indicator until the first token arrives, then render text.",
+            "bars": [
+              {
+                "label": "stop_after",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cancellation and good streaming UX [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Trace how tomorrow updates milestone during execution.",
+            "bars": [
+              {
+                "label": "stop_after",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

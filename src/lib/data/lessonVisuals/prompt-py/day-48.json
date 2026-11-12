@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 48,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 48,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents",
       "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
       "spec": {
-        "template": "table",
-        "title": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents.",
-        "columns": [
-          "Failure Category",
-          "Root Cause Mechanism",
-          "Remediation Strategy"
+        "template": "sequence",
+        "title": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Runtime exceptions provide diagnostic signals that drive code remediation.",
-            "rows": [
-              [
-                "Syntax Indentation Defect",
-                "Malformed Tokens And Unclosed Brackets",
-                "Immediate AST Parser Interception"
-              ],
-              [
-                "Missing Import Conflict",
-                "Uninstalled Third Party Module Reference",
-                "Dynamic Package Installer Protocol"
-              ]
+            "caption": "Even the most advanced foundation models generate code that occasionally fails.",
+            "activeActor": "diagnostic_pipeline",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The anatomy of autonomous code execution failures encompasses distinct.",
-            "rows": [
-              [
-                "Schema Drift Mismatch",
-                "Renamed Database Columns And Null Strings",
-                "Runtime DataFrame Schema Inspection"
-              ],
-              [
-                "Numerical Edge Boundary",
-                "Division By Zero And Shape Discrepancies",
-                "Defensive Dimension Validation Gate"
-              ]
+            "activeActor": "repair_metrics",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Runtime exceptions provide epistemic signals that drive code remediation.",
-            "rows": [
-              [
-                "Infinite Execution Stall",
-                "Impossible Loop Exits And Thread Deadlocks",
-                "Hardware Watchdog Timer Interruption"
-              ],
-              [
-                "Cascading Logic Regression",
-                "Reckless Full File Regeneration Flaws",
-                "Enforced Minimal Targeted Patching"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Analyze common runtime exceptions and design classification taxonomies.",
-            "rows": [
-              [
-                "Forensic Error Signal",
-                "Extracts Causal Signals From Tracebacks",
-                "Drives Recursive Self Debugging Loop"
-              ],
-              [
-                "Sovereign Diagnosis Mesh",
-                "Categorizes Complex Multi Domain Failures",
-                "Unprecedented Autonomous Reliability"
-              ]
+            "at": "say10",
+            "caption": "Mastering the anatomy of code execution failures transforms errors.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents.",
-        "columns": [
-          "Failure Category",
-          "Root Cause Mechanism",
-          "Remediation Strategy"
+        "template": "sequence",
+        "title": "Anatomy Of Runtime Failures In Autonomous CodeAct Agents",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Runtime exceptions provide diagnostic signals that drive code remediation.",
-            "rows": [
-              [
-                "Syntax Indentation Defect",
-                "Malformed Tokens And Unclosed Brackets",
-                "Immediate AST Parser Interception"
-              ],
-              [
-                "Missing Import Conflict",
-                "Uninstalled Third Party Module Reference",
-                "Dynamic Package Installer Protocol"
-              ]
-            ]
+            "caption": "Even the most advanced foundation models generate code that occasionally fails.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "diagnostic_pipeline"
           },
           {
             "at": "say2",
             "caption": "The anatomy of autonomous code execution failures encompasses distinct.",
-            "rows": [
-              [
-                "Schema Drift Mismatch",
-                "Renamed Database Columns And Null Strings",
-                "Runtime DataFrame Schema Inspection"
-              ],
-              [
-                "Numerical Edge Boundary",
-                "Division By Zero And Shape Discrepancies",
-                "Defensive Dimension Validation Gate"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "repair_metrics"
           },
           {
-            "at": "example",
-            "caption": "Runtime exceptions provide epistemic signals that drive code remediation.",
-            "rows": [
-              [
-                "Infinite Execution Stall",
-                "Impossible Loop Exits And Thread Deadlocks",
-                "Hardware Watchdog Timer Interruption"
-              ],
-              [
-                "Cascading Logic Regression",
-                "Reckless Full File Regeneration Flaws",
-                "Enforced Minimal Targeted Patching"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Analyze common runtime exceptions and design classification taxonomies.",
-            "rows": [
-              [
-                "Forensic Error Signal",
-                "Extracts Causal Signals From Tracebacks",
-                "Drives Recursive Self Debugging Loop"
-              ],
-              [
-                "Sovereign Diagnosis Mesh",
-                "Categorizes Complex Multi Domain Failures",
-                "Unprecedented Autonomous Reliability"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Mastering the anatomy of code execution failures transforms errors.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,152 +173,162 @@
       "partTitle": "Static Analysis And Pre Execution Linting With PyFlakes AST",
       "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
       "spec": {
-        "template": "table",
-        "title": "Static Analysis And Pre Execution Linting With PyFlakes AST.",
-        "columns": [
-          "Static Analysis Layer",
-          "Diagnostic Mechanism",
-          "Verification Latency Profile"
+        "template": "sequence",
+        "title": "Static Analysis And Pre Execution Linting With PyFlakes AST",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Static linting catches syntax flaws and undefined symbols in microseconds.",
-            "rows": [
-              [
-                "Abstract Syntax Tree Parser",
-                "Decomposes Code Into Strongly Typed Objects",
-                "Microsecond Syntax Validation SLA"
-              ],
-              [
-                "PyFlakes Linter Core",
-                "Identifies Undefined Symbols And Scopes",
-                "Zero Execution Overhead Defect Check"
-              ]
+            "caption": "Dispatching every raw, model-generated script directly to an execution.",
+            "activeActor": "diagnostic_pipeline",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Static code analysis and pre execution abstract syntax tree linting catch.",
-            "rows": [
-              [
-                "Import Dependency Checker",
-                "Cross References Against Environment Inventory",
-                "Pre Execution Missing Package Alert"
-              ],
-              [
-                "Lightweight Type Validator",
-                "Verifies Function Signatures And Parameter Types",
-                "Early Detection Of Type Coercion Bugs"
-              ]
+            "activeActor": "repair_metrics",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "PyFlakes catches undefined variables and syntax flaws before execution.",
-            "rows": [
-              [
-                "Security AST Inspector",
-                "Blocks Unauthorized Subprocess And Socket Calls",
-                "Preserves Sandbox Isolation Boundaries"
-              ],
-              [
-                "Automated Syntax Autofixer",
-                "Patches Missing Colons With AST Transformers",
-                "Zero Token Mechanical Error Resolution"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement an AST pre flight validator blocking dangerous system calls.",
-            "rows": [
-              [
-                "Pre Flight Quality Gate",
-                "Ensures Only Valid Code Dispatches To Kernel",
-                "Substantial Cloud Compute Cost Savings"
-              ],
-              [
-                "Sovereign Static Shield",
-                "Protects Execution Runtime From Flawed Code",
-                "Enterprise Grade Pre Execution Rigor"
-              ]
+            "at": "say11",
+            "caption": "Mastering static analysis and pre-execution AST verification provides.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Static Analysis And Pre Execution Linting With PyFlakes AST.",
-        "columns": [
-          "Static Analysis Layer",
-          "Diagnostic Mechanism",
-          "Verification Latency Profile"
+        "template": "sequence",
+        "title": "Static Analysis And Pre Execution Linting With PyFlakes AST",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Static linting catches syntax flaws and undefined symbols in microseconds.",
-            "rows": [
-              [
-                "Abstract Syntax Tree Parser",
-                "Decomposes Code Into Strongly Typed Objects",
-                "Microsecond Syntax Validation SLA"
-              ],
-              [
-                "PyFlakes Linter Core",
-                "Identifies Undefined Symbols And Scopes",
-                "Zero Execution Overhead Defect Check"
-              ]
-            ]
+            "caption": "Dispatching every raw, model-generated script directly to an execution.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "diagnostic_pipeline"
           },
           {
             "at": "say2",
             "caption": "Static code analysis and pre execution abstract syntax tree linting catch.",
-            "rows": [
-              [
-                "Import Dependency Checker",
-                "Cross References Against Environment Inventory",
-                "Pre Execution Missing Package Alert"
-              ],
-              [
-                "Lightweight Type Validator",
-                "Verifies Function Signatures And Parameter Types",
-                "Early Detection Of Type Coercion Bugs"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "repair_metrics"
           },
           {
-            "at": "example",
-            "caption": "PyFlakes catches undefined variables and syntax flaws before execution.",
-            "rows": [
-              [
-                "Security AST Inspector",
-                "Blocks Unauthorized Subprocess And Socket Calls",
-                "Preserves Sandbox Isolation Boundaries"
-              ],
-              [
-                "Automated Syntax Autofixer",
-                "Patches Missing Colons With AST Transformers",
-                "Zero Token Mechanical Error Resolution"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement an AST pre flight validator blocking dangerous system calls.",
-            "rows": [
-              [
-                "Pre Flight Quality Gate",
-                "Ensures Only Valid Code Dispatches To Kernel",
-                "Substantial Cloud Compute Cost Savings"
-              ],
-              [
-                "Sovereign Static Shield",
-                "Protects Execution Runtime From Flawed Code",
-                "Enterprise Grade Pre Execution Rigor"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering static analysis and pre-execution AST verification provides.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,150 +337,220 @@
       "partTitle": "Traceback Dissection And Forensic Frame Extraction",
       "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
       "spec": {
-        "template": "table",
-        "title": "Traceback Dissection And Forensic Frame Extraction.",
-        "columns": [
-          "Traceback Component",
-          "Extraction Protocol",
-          "Diagnostic Signal Value"
+        "template": "flow",
+        "title": "Traceback Dissection And Forensic Frame Extraction",
+        "nodes": [
+          {
+            "id": "diagnostic_pipeline",
+            "label": "diagnostic_pipeline"
+          },
+          {
+            "id": "repair_metrics",
+            "label": "repair_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traceback dissectors isolate root cause lines and runtime variables.",
-            "rows": [
+            "caption": "When a script passes static analysis but fails during runtime execution.",
+            "values": {
+              "diagnostic_pipeline": {
+                "var": "diagnostic_pipeline",
+                "line": 9,
+                "hit": 1
+              },
+              "repair_metrics": {
+                "var": "repair_metrics",
+                "line": 16,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "diagnostic_pipeline": "data",
+              "repair_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Stack Frame Filter",
-                "Strips Irrelevant Third Party Library Frames",
-                "Eighty Percent Context Token Reduction"
+                "diagnostic_pipeline",
+                "repair_metrics"
               ],
               [
-                "Local Variable Inspector",
-                "Extracts Active Symbols And Memory Values",
-                "Instantaneous Root Cause Verification"
+                "repair_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Traceback dissection and forensic frame extraction isolate root cause.",
-            "rows": [
+            "values": {
+              "diagnostic_pipeline": {
+                "var": "diagnostic_pipeline",
+                "line": 17,
+                "hit": 1
+              },
+              "repair_metrics": {
+                "var": "repair_metrics",
+                "line": 23,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 31,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "diagnostic_pipeline": "data",
+              "repair_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Exception Classifier",
-                "Maps Errors To Actionable Remediation Classes",
-                "Structured Diagnostic Prompt Steering"
+                "diagnostic_pipeline",
+                "repair_metrics"
               ],
               [
-                "Context Window Slicer",
-                "Extracts Local Lines Surrounding Failure Site",
-                "Optimal Context Density Without Bloat"
+                "repair_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Traceback dissectors prune framework frames to isolate root cause lines.",
-            "rows": [
+            "at": "say11",
+            "caption": "Mastering traceback dissection transforms obscure runtime crashes.",
+            "values": {
+              "diagnostic_pipeline": {
+                "var": "diagnostic_pipeline",
+                "line": 18,
+                "hit": 1
+              },
+              "repair_metrics": {
+                "var": "repair_metrics",
+                "line": 24,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 31,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "diagnostic_pipeline": "ok",
+              "repair_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Matrix Shape Analyzer",
-                "Inspects Dimensions During Scientific Crashes",
-                "Enables Precise Tensor Transposition"
+                "diagnostic_pipeline",
+                "repair_metrics"
               ],
               [
-                "Error Signature Hasher",
-                "Generates SHA Two Fifty Six Exception Digests",
-                "Detects Repetitive Failure Deadlocks"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a traceback parser capturing local variable state at failure sites.",
-            "rows": [
-              [
-                "Forensic Frame Extractor",
-                "Isolates Offending Code Line And Variables",
-                "High Signal Error Feedback Direction"
-              ],
-              [
-                "Sovereign Dissector Hub",
-                "Transforms Cryptic Stacks Into Actionable Steps",
-                "Superhuman Diagnostic Clarity Standard"
+                "repair_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Traceback Dissection And Forensic Frame Extraction.",
-        "columns": [
-          "Traceback Component",
-          "Extraction Protocol",
-          "Diagnostic Signal Value"
+        "template": "flow",
+        "title": "Traceback Dissection And Forensic Frame Extraction",
+        "nodes": [
+          {
+            "id": "diagnostic_pipeline",
+            "label": "diagnostic_pipeline"
+          },
+          {
+            "id": "repair_metrics",
+            "label": "repair_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traceback dissectors isolate root cause lines and runtime variables.",
-            "rows": [
+            "caption": "When a script passes static analysis but fails during runtime execution.",
+            "values": {
+              "diagnostic_pipeline": "['Syntax & Import Validation with PyFla…",
+              "repair_metrics": "{'selfCorrectionConvergenceRatePct': 97…",
+              "result": "{'remediationEngine': 'AST Traceback Pa…"
+            },
+            "tones": {
+              "diagnostic_pipeline": "data",
+              "repair_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Stack Frame Filter",
-                "Strips Irrelevant Third Party Library Frames",
-                "Eighty Percent Context Token Reduction"
+                "diagnostic_pipeline",
+                "repair_metrics"
               ],
               [
-                "Local Variable Inspector",
-                "Extracts Active Symbols And Memory Values",
-                "Instantaneous Root Cause Verification"
+                "repair_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Traceback dissection and forensic frame extraction isolate root cause.",
-            "rows": [
+            "values": {
+              "diagnostic_pipeline": "['Syntax & Import Validation with PyFla…",
+              "repair_metrics": "{'selfCorrectionConvergenceRatePct': 97…",
+              "result": "{'remediationEngine': 'AST Traceback Pa…"
+            },
+            "tones": {
+              "diagnostic_pipeline": "data",
+              "repair_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Exception Classifier",
-                "Maps Errors To Actionable Remediation Classes",
-                "Structured Diagnostic Prompt Steering"
+                "diagnostic_pipeline",
+                "repair_metrics"
               ],
               [
-                "Context Window Slicer",
-                "Extracts Local Lines Surrounding Failure Site",
-                "Optimal Context Density Without Bloat"
+                "repair_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Traceback dissectors prune framework frames to isolate root cause lines.",
-            "rows": [
+            "at": "say11",
+            "caption": "Mastering traceback dissection transforms obscure runtime crashes.",
+            "values": {
+              "diagnostic_pipeline": "['Syntax & Import Validation with PyFla…",
+              "repair_metrics": "{'selfCorrectionConvergenceRatePct': 97…",
+              "result": "{'remediationEngine': 'AST Traceback Pa…"
+            },
+            "tones": {
+              "diagnostic_pipeline": "ok",
+              "repair_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Matrix Shape Analyzer",
-                "Inspects Dimensions During Scientific Crashes",
-                "Enables Precise Tensor Transposition"
+                "diagnostic_pipeline",
+                "repair_metrics"
               ],
               [
-                "Error Signature Hasher",
-                "Generates SHA Two Fifty Six Exception Digests",
-                "Detects Repetitive Failure Deadlocks"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a traceback parser capturing local variable state at failure sites.",
-            "rows": [
-              [
-                "Forensic Frame Extractor",
-                "Isolates Offending Code Line And Variables",
-                "High Signal Error Feedback Direction"
-              ],
-              [
-                "Sovereign Dissector Hub",
-                "Transforms Cryptic Stacks Into Actionable Steps",
-                "Superhuman Diagnostic Clarity Standard"
+                "repair_metrics",
+                "result"
               ]
             ]
           }
@@ -470,152 +561,162 @@
       "partTitle": "The Hypothesis Patch Verify Loop And Minimal AST Diffs",
       "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
       "spec": {
-        "template": "table",
-        "title": "The Hypothesis Patch Verify Loop And Minimal AST Diffs.",
-        "columns": [
-          "Repair Phase",
-          "Transformation Primitive",
-          "Regression Resistance Level"
+        "template": "sequence",
+        "title": "The Hypothesis Patch Verify Loop And Minimal AST Diffs",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Targeted minimal diffs repair broken lines without regression risks.",
-            "rows": [
-              [
-                "Diagnostic Hypothesizer",
-                "Deduces Causal Root Cause Before Editing Code",
-                "Prevents Unproductive Guessing Loops"
-              ],
-              [
-                "Unified Diff Generator",
-                "Outputs Minimal Replacement Hunks For Code",
-                "Ninety Percent Token Generation Savings"
-              ]
+            "caption": "Once an autonomous agent understands the root cause of an execution.",
+            "activeActor": "diagnostic_pipeline",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The Hypothesis Patch Verify loop repairs broken scripts through targeted.",
-            "rows": [
-              [
-                "Programmatic Patch Applier",
-                "Merges Unified Diffs Into Target Files",
-                "Zero Risk Of Far Reaching Regressions"
-              ],
-              [
-                "AST Node Surgery Kernel",
-                "Manipulates Abstract Syntax Subtrees Directly",
-                "Guarantees Syntactic Validity By Design"
-              ]
+            "activeActor": "repair_metrics",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Agents formulate diagnostic hypotheses and apply minimal unified diffs.",
-            "rows": [
-              [
-                "Sandbox Regression Tester",
-                "Executes Patched Code Against Behavioral Tests",
-                "Verifies Complete Bug Remediation SLA"
-              ],
-              [
-                "Iteration Budget Gate",
-                "Caps Debugging Loops At Three Iterations Max",
-                "Prevents Runaway Operational Costs"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design a patching harness applying unified diffs to scripts cleanly.",
-            "rows": [
-              [
-                "Hypothesis Verify Engine",
-                "Unifies Diagnosis Patching And Testing Cycles",
-                "Disciplined Software Maintenance Core"
-              ],
-              [
-                "Sovereign Patching Mesh",
-                "Repairs Complex Algorithmic Software Defects",
-                "Clinical Precision Autonomous Healing"
-              ]
+            "at": "say10",
+            "caption": "Mastering the Hypothesis-Patch-Verify loop elevates autonomous agents.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Hypothesis Patch Verify Loop And Minimal AST Diffs.",
-        "columns": [
-          "Repair Phase",
-          "Transformation Primitive",
-          "Regression Resistance Level"
+        "template": "sequence",
+        "title": "The Hypothesis Patch Verify Loop And Minimal AST Diffs",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Targeted minimal diffs repair broken lines without regression risks.",
-            "rows": [
-              [
-                "Diagnostic Hypothesizer",
-                "Deduces Causal Root Cause Before Editing Code",
-                "Prevents Unproductive Guessing Loops"
-              ],
-              [
-                "Unified Diff Generator",
-                "Outputs Minimal Replacement Hunks For Code",
-                "Ninety Percent Token Generation Savings"
-              ]
-            ]
+            "caption": "Once an autonomous agent understands the root cause of an execution.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "diagnostic_pipeline"
           },
           {
             "at": "say2",
             "caption": "The Hypothesis Patch Verify loop repairs broken scripts through targeted.",
-            "rows": [
-              [
-                "Programmatic Patch Applier",
-                "Merges Unified Diffs Into Target Files",
-                "Zero Risk Of Far Reaching Regressions"
-              ],
-              [
-                "AST Node Surgery Kernel",
-                "Manipulates Abstract Syntax Subtrees Directly",
-                "Guarantees Syntactic Validity By Design"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "repair_metrics"
           },
           {
-            "at": "example",
-            "caption": "Agents formulate diagnostic hypotheses and apply minimal unified diffs.",
-            "rows": [
-              [
-                "Sandbox Regression Tester",
-                "Executes Patched Code Against Behavioral Tests",
-                "Verifies Complete Bug Remediation SLA"
-              ],
-              [
-                "Iteration Budget Gate",
-                "Caps Debugging Loops At Three Iterations Max",
-                "Prevents Runaway Operational Costs"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design a patching harness applying unified diffs to scripts cleanly.",
-            "rows": [
-              [
-                "Hypothesis Verify Engine",
-                "Unifies Diagnosis Patching And Testing Cycles",
-                "Disciplined Software Maintenance Core"
-              ],
-              [
-                "Sovereign Patching Mesh",
-                "Repairs Complex Algorithmic Software Defects",
-                "Clinical Precision Autonomous Healing"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Mastering the Hypothesis-Patch-Verify loop elevates autonomous agents.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Production Self Healing Execution Harness In Python",
       "codeHash": "2f697f932064e06211ef59a03825d6690fe30ea489597e7e63dffac54c468a52",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Production Self Healing Execution Harness In Python.",
-        "columns": [
-          "Engine Subsystem Layer",
-          "Asynchronous Implementation",
-          "Convergence SLA Standard"
+        "template": "sequence",
+        "title": "Enterprise Production Self Healing Execution Harness In Python",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production self healing harnesses converge on clean execution rapidly.",
-            "rows": [
-              [
-                "Static Pre Flight Linter",
-                "Validates Syntax And Variable Bindings Early",
-                "Catches Fifty Percent Of Code Flaws"
-              ],
-              [
-                "Forensic Traceback Parser",
-                "Extracts Stack Frames And Variable Snapshots",
-                "Enriched Diagnostic Metadata Routing"
-              ]
+            "caption": "Translating runtime failure analysis, PyFlakes static linting, traceback.",
+            "activeActor": "diagnostic_pipeline",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Enterprise production self healing execution harnesses automate code.",
-            "rows": [
-              [
-                "Patch Synthesis Engine",
-                "Synthesizes Diffs And Executes AST Surgery",
-                "Deterministic Minimal Code Repair Loop"
-              ],
-              [
-                "Regression Verification Gate",
-                "Tests Patched Scripts In Isolated Containers",
-                "Guarantees Zero Regressive Behavior"
-              ]
+            "activeActor": "repair_metrics",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Self healing harnesses achieve ninety seven percent convergence.",
-            "rows": [
-              [
-                "AsyncIO Parallel Worker",
-                "Coordinates Concurrent Multi Agent Debugging",
-                "High Concurrency Mission Scalability"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Convergence Curves And Latency Metrics",
-                "Granular Production Observability SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a production self debugging engine tracking repair metrics.",
-            "rows": [
-              [
-                "Repair Provenance Ledger",
-                "Archives Hashes Of Scripts Diffs And Tests",
-                "Complete Statutory Compliance Audit"
-              ],
-              [
-                "Sovereign Self Healing Engine",
-                "Harmonizes Linting Parsing And Patching Loops",
-                "Ninety Seven Percent Automated Recovery"
-              ]
+            "at": "say12",
+            "caption": "Mastering the engineering architecture of self-debugging and dynamic error.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": {
+                  "var": "diagnostic_pipeline",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": {
+                  "var": "repair_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Production Self Healing Execution Harness In Python.",
-        "columns": [
-          "Engine Subsystem Layer",
-          "Asynchronous Implementation",
-          "Convergence SLA Standard"
+        "template": "sequence",
+        "title": "Enterprise Production Self Healing Execution Harness In Python",
+        "actors": [
+          "diagnostic_pipeline",
+          "repair_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production self healing harnesses converge on clean execution rapidly.",
-            "rows": [
-              [
-                "Static Pre Flight Linter",
-                "Validates Syntax And Variable Bindings Early",
-                "Catches Fifty Percent Of Code Flaws"
-              ],
-              [
-                "Forensic Traceback Parser",
-                "Extracts Stack Frames And Variable Snapshots",
-                "Enriched Diagnostic Metadata Routing"
-              ]
-            ]
+            "caption": "Translating runtime failure analysis, PyFlakes static linting, traceback.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "diagnostic_pipeline"
           },
           {
             "at": "say2",
             "caption": "Enterprise production self healing execution harnesses automate code.",
-            "rows": [
-              [
-                "Patch Synthesis Engine",
-                "Synthesizes Diffs And Executes AST Surgery",
-                "Deterministic Minimal Code Repair Loop"
-              ],
-              [
-                "Regression Verification Gate",
-                "Tests Patched Scripts In Isolated Containers",
-                "Guarantees Zero Regressive Behavior"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "repair_metrics"
           },
           {
-            "at": "example",
-            "caption": "Self healing harnesses achieve ninety seven percent convergence.",
-            "rows": [
-              [
-                "AsyncIO Parallel Worker",
-                "Coordinates Concurrent Multi Agent Debugging",
-                "High Concurrency Mission Scalability"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Convergence Curves And Latency Metrics",
-                "Granular Production Observability SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a production self debugging engine tracking repair metrics.",
-            "rows": [
-              [
-                "Repair Provenance Ledger",
-                "Archives Hashes Of Scripts Diffs And Tests",
-                "Complete Statutory Compliance Audit"
-              ],
-              [
-                "Sovereign Self Healing Engine",
-                "Harmonizes Linting Parsing And Patching Loops",
-                "Ninety Seven Percent Automated Recovery"
-              ]
-            ]
+            "at": "say12",
+            "caption": "Mastering the engineering architecture of self-debugging and dynamic error.",
+            "messages": [
+              {
+                "from": "diagnostic_pipeline",
+                "to": "repair_metrics",
+                "label": "['Syntax & Import Validation with PyFla…",
+                "tone": "data"
+              },
+              {
+                "from": "repair_metrics",
+                "to": "result",
+                "label": "{'selfCorrectionConvergenceRatePct': 97…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

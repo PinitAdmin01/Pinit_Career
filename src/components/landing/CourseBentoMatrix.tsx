@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
+import { COURSES_CATALOG, COURSE_FIRST_QUEST_ID } from '@/lib/data/coursesCatalog';
 
 type DomainCategory = 'all' | 'software' | 'database_cloud' | 'iot_hardware' | 'bcom' | 'foundational';
 
@@ -105,7 +105,8 @@ export default function CourseBentoMatrix() {
         {/* 36-Course Bento Grid */}
         <div className="bento-course-grid">
           {filteredCourses.map((course) => {
-            const firstQuestId = `${course.id}-day-1`;
+            // [FIX-STAGE: option-a-live-browser-fixes] Resolve canonical Day 1 lecture quest ID (prevents null parseQuestId on Start Track)
+            const firstQuestId = COURSE_FIRST_QUEST_ID[course.id] ?? `${course.id}-day-1`;
 
             return (
               <div key={course.id} className="bento-course-card">
@@ -119,8 +120,9 @@ export default function CourseBentoMatrix() {
                       <span style={{ padding: '2px 8px', borderRadius: 6, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: 11.5, fontFamily: 'var(--font-mono)' }}>
                         {course.difficulty}
                       </span>
+                      {/* [FIX-STAGE: option-a-python-alignment] Reflect actual course length (60 Days for 8-week courses like Python) */}
                       <span style={{ padding: '2px 8px', borderRadius: 6, background: 'var(--badge-bg)', color: 'var(--badge-text)', fontSize: 11.5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
-                        30 Days
+                        {course.durationWeeks >= 8 ? '60 Days' : '30 Days'}
                       </span>
                     </div>
                   </div>
@@ -136,7 +138,7 @@ export default function CourseBentoMatrix() {
 
                 <div style={{ paddingTop: 14, marginTop: 14, borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ fontSize: 12.5, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' }}>
-                    <span style={{ color: 'var(--accent)', fontWeight: 700 }}>90 Blocks</span> • <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>5 Milestones</span>
+                    <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{course.durationWeeks >= 8 ? '180 Blocks' : '90 Blocks'}</span> • <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>{course.durationWeeks >= 8 ? '10 Milestones' : '5 Milestones'}</span>
                   </div>
 
                   <Link

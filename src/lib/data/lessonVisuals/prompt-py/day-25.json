@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a custom assistant is",
       "codeHash": "7c470ea8fac9b6cc433440a8f0d19e45451ac6c001e3e8f521f072841c889611",
       "spec": {
-        "template": "table",
-        "title": "Custom assistant configuration and knowledge grounding",
-        "columns": [
-          "config",
-          "key",
-          "value"
+        "template": "flow",
+        "title": "What a custom assistant is",
+        "nodes": [
+          {
+            "id": "config",
+            "label": "config"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "value",
+            "label": "value"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Custom chat assistants are configured specifically for dedicated tasks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "config"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Custom assistants, such as custom GPTs in ChatGPT, Projects in Claude.",
+            "values": {
+              "config": {
+                "var": "config",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "config"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "data"
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "config": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Assistants combine prompt instructions, uploaded knowledge, and action tools.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "config"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "data"
+            "caption": "They combine three parts.",
+            "values": {
+              "config": {
+                "var": "config",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "config"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "config"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 8,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "config": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Sharing one well-built assistant with a whole team also makes answers more.",
+            "values": {
+              "config": {
+                "var": "config",
+                "line": 8,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 2
+              },
+              "value": {
+                "var": "value",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "config": "ok",
+              "key": "ok",
+              "value": "ok"
+            },
+            "arrows": [
+              [
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Custom assistant configuration and knowledge grounding",
-        "columns": [
-          "config",
-          "key",
-          "value"
+        "template": "flow",
+        "title": "What a custom assistant is",
+        "nodes": [
+          {
+            "id": "config",
+            "label": "config"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "value",
+            "label": "value"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Custom chat assistants are configured specifically for dedicated tasks.",
-            "rows": [
-              {
-                "cells": [
-                  "config",
-                  "key",
-                  "value"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "config",
-                  "key",
-                  "value"
-                ],
-                "tone": "data"
-              }
+            "caption": "Custom assistants, such as custom GPTs in ChatGPT, Projects in Claude.",
+            "values": {
+              "config": "{'name': 'Class 10 Science Buddy', 'ins…",
+              "key": "'name'",
+              "value": "'Class 10 Science Buddy'"
+            },
+            "tones": {
+              "config": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Assistants combine prompt instructions, uploaded knowledge, and action tools.",
-            "rows": [
-              {
-                "cells": [
-                  "config",
-                  "key",
-                  "value"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "config",
-                  "key",
-                  "config"
-                ],
-                "tone": "ok"
-              }
+            "caption": "They combine three parts.",
+            "values": {
+              "config": "{'name': 'Class 10 Science Buddy', 'ins…",
+              "key": "'name'",
+              "value": "'Class 10 Science Buddy'"
+            },
+            "tones": {
+              "config": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Sharing one well-built assistant with a whole team also makes answers more.",
+            "values": {
+              "config": "{'name': 'Class 10 Science Buddy', 'ins…",
+              "key": "'instructions'",
+              "value": "'Explain concepts from the uploaded NCE…"
+            },
+            "tones": {
+              "config": "ok",
+              "key": "ok",
+              "value": "ok"
+            },
+            "arrows": [
+              [
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           }
         ]
@@ -147,78 +233,91 @@
       "partTitle": "Writing assistant instructions",
       "codeHash": "12b1f5c86ef2506183b672b6ab256f81eed7314274345551873fe085e2fac31f",
       "spec": {
-        "template": "table",
-        "title": "Modular assistant prompt specification and role boundaries",
-        "columns": [
+        "template": "sequence",
+        "title": "Writing assistant instructions",
+        "actors": [
           "parts",
-          "parts",
-          "parts"
+          "k",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Assistant instructions define context, role, instructions, and target tone.",
-            "rows": [
+            "caption": "Assistant instructions are a system prompt, so the C-R-E-A-T-E framework.",
+            "activeActor": "parts",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "ok"
+                "from": "parts",
+                "to": "k",
+                "label": {
+                  "var": "parts",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "data"
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Explicit rules state scope limits clearly and redirect out-of-scope questions.",
-            "rows": [
+            "caption": "State the scope clearly (\"only questions about our leave policy\") and what.",
+            "activeActor": "k",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
+                "from": "parts",
+                "to": "k",
+                "label": {
+                  "var": "parts",
+                  "line": 6,
+                  "hit": 7
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping instructions under a page makes them easier to maintain and less.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "parts",
+                "to": "k",
+                "label": {
+                  "var": "parts",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +325,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Modular assistant prompt specification and role boundaries",
-        "columns": [
+        "template": "sequence",
+        "title": "Writing assistant instructions",
+        "actors": [
           "parts",
-          "parts",
-          "parts"
+          "k",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Assistant instructions define context, role, instructions, and target tone.",
-            "rows": [
+            "caption": "Assistant instructions are a system prompt, so the C-R-E-A-T-E framework.",
+            "messages": [
               {
-                "cells": [
-                  "parts",
-                  "parts",
-                  "parts"
-                ],
-                "tone": "ok"
+                "from": "parts",
+                "to": "k",
+                "label": "{'Role': 'You are the HR policy assista…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "parts",
-                  "parts",
-                  "parts"
-                ],
-                "tone": "data"
+                "from": "k",
+                "to": "v",
+                "label": "'Role'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "parts"
           },
           {
             "at": "say2",
-            "caption": "Explicit rules state scope limits clearly and redirect out-of-scope questions.",
-            "rows": [
+            "caption": "State the scope clearly (\"only questions about our leave policy\") and what.",
+            "messages": [
               {
-                "cells": [
-                  "parts",
-                  "parts",
-                  "parts"
-                ],
+                "from": "parts",
+                "to": "k",
+                "label": "{'Role': 'You are the HR policy assista…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "parts",
-                  "parts",
-                  "parts"
-                ],
+                "from": "k",
+                "to": "v",
+                "label": "'Scope'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "k"
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping instructions under a page makes them easier to maintain and less.",
+            "messages": [
+              {
+                "from": "parts",
+                "to": "k",
+                "label": "{'Role': 'You are the HR policy assista…",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": "'Sources'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }
@@ -285,78 +397,91 @@
       "partTitle": "Answering from a FAQ",
       "codeHash": "03a543c5024ce36915b0f96cc4e10038f0149599b8fd1e3a3cd82595c628e29a",
       "spec": {
-        "template": "table",
-        "title": "Jaccard similarity FAQ retrieval and fallback triggering",
-        "columns": [
+        "template": "sequence",
+        "title": "Answering from a FAQ",
+        "actors": [
           "faq",
-          "words",
-          "faq"
+          "q",
+          "f"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Many assistants answer user queries from curated frequently asked questions.",
-            "rows": [
+            "caption": "Many assistants start with a list of frequently asked questions and answers.",
+            "activeActor": "faq",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "faq"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "faq"
-                  }
-                ],
-                "tone": "ok"
+                "from": "faq",
+                "to": "q",
+                "label": {
+                  "var": "faq",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "faq"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "faq"
-                  }
-                ],
-                "tone": "data"
+                "from": "q",
+                "to": "f",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Jaccard similarity measures shared words between the user query and FAQ.",
-            "rows": [
+            "caption": "To answer a new question, find the most similar FAQ question.",
+            "activeActor": "q",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "faq"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "faq"
-                  }
-                ],
+                "from": "faq",
+                "to": "q",
+                "label": {
+                  "var": "faq",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "faq"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "from": "q",
+                "to": "f",
+                "label": {
+                  "var": "q",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Logging unanswered questions shows exactly which new FAQ entries are.",
+            "activeActor": "f",
+            "messages": [
+              {
+                "from": "faq",
+                "to": "q",
+                "label": {
+                  "var": "faq",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "f",
+                "label": {
+                  "var": "q",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +489,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Jaccard similarity FAQ retrieval and fallback triggering",
-        "columns": [
+        "template": "sequence",
+        "title": "Answering from a FAQ",
+        "actors": [
           "faq",
-          "words",
-          "faq"
+          "q",
+          "f"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Many assistants answer user queries from curated frequently asked questions.",
-            "rows": [
+            "caption": "Many assistants start with a list of frequently asked questions and answers.",
+            "messages": [
               {
-                "cells": [
-                  "faq",
-                  "words",
-                  "faq"
-                ],
-                "tone": "ok"
+                "from": "faq",
+                "to": "q",
+                "label": "['How do I reset my password?', 'What a…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "faq",
-                  "words",
-                  "faq"
-                ],
-                "tone": "data"
+                "from": "q",
+                "to": "f",
+                "label": "'How can I reset my password'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "faq"
           },
           {
             "at": "say2",
-            "caption": "Jaccard similarity measures shared words between the user query and FAQ.",
-            "rows": [
+            "caption": "To answer a new question, find the most similar FAQ question.",
+            "messages": [
               {
-                "cells": [
-                  "faq",
-                  "words",
-                  "faq"
-                ],
+                "from": "faq",
+                "to": "q",
+                "label": "['How do I reset my password?', 'What a…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "faq",
-                  "words",
-                  "words"
-                ],
+                "from": "q",
+                "to": "f",
+                "label": "'How can I reset my password'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "q"
+          },
+          {
+            "at": "say10",
+            "caption": "Logging unanswered questions shows exactly which new FAQ entries are.",
+            "messages": [
+              {
+                "from": "faq",
+                "to": "q",
+                "label": "['How do I reset my password?', 'What a…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "f",
+                "label": "'How can I reset my password'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "f"
           }
         ]
       }
@@ -423,78 +561,91 @@
       "partTitle": "Actions: connecting to APIs",
       "codeHash": "db37e4fac0965de30f42e6b927c00e4836087e119b2d8a75412296a38f484dab",
       "spec": {
-        "template": "table",
-        "title": "External action endpoint security and HTTPS verification",
-        "columns": [
+        "template": "sequence",
+        "title": "Actions: connecting to APIs",
+        "actors": [
           "actions",
-          "name",
-          "actions"
+          "a",
+          "secure"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Actions empower the assistant to call external services and check order status.",
-            "rows": [
+            "caption": "Actions let an assistant call external services.",
+            "activeActor": "actions",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "actions"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "ok"
+                "from": "actions",
+                "to": "a",
+                "label": {
+                  "var": "actions",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "actions"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "data"
+                "from": "a",
+                "to": "secure",
+                "label": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Security requires HTTPS encryption for every external action endpoint URL.",
-            "rows": [
+            "at": "say2",
+            "caption": "They are described with an API schema (often OpenAPI) listing endpoints.",
+            "activeActor": "a",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "actions"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
+                "from": "actions",
+                "to": "a",
+                "label": {
+                  "var": "actions",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "actions"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "from": "a",
+                "to": "secure",
+                "label": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Read-only actions, such as looking up an order, are a safe first step.",
+            "activeActor": "secure",
+            "messages": [
+              {
+                "from": "actions",
+                "to": "a",
+                "label": {
+                  "var": "actions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "secure",
+                "label": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +653,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "External action endpoint security and HTTPS verification",
-        "columns": [
+        "template": "sequence",
+        "title": "Actions: connecting to APIs",
+        "actors": [
           "actions",
-          "name",
-          "actions"
+          "a",
+          "secure"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Actions empower the assistant to call external services and check order status.",
-            "rows": [
+            "caption": "Actions let an assistant call external services.",
+            "messages": [
               {
-                "cells": [
-                  "actions",
-                  "name",
-                  "actions"
-                ],
-                "tone": "ok"
+                "from": "actions",
+                "to": "a",
+                "label": "[{'name': 'order_status', 'url': 'https…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "actions",
-                  "name",
-                  "actions"
-                ],
-                "tone": "data"
+                "from": "a",
+                "to": "secure",
+                "label": "{'name': 'order_status', 'url': 'https:…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "actions"
           },
           {
-            "at": "say3",
-            "caption": "Security requires HTTPS encryption for every external action endpoint URL.",
-            "rows": [
+            "at": "say2",
+            "caption": "They are described with an API schema (often OpenAPI) listing endpoints.",
+            "messages": [
               {
-                "cells": [
-                  "actions",
-                  "name",
-                  "actions"
-                ],
+                "from": "actions",
+                "to": "a",
+                "label": "[{'name': 'order_status', 'url': 'https…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "actions",
-                  "name",
-                  "name"
-                ],
+                "from": "a",
+                "to": "secure",
+                "label": "{'name': 'order_status', 'url': 'https:…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "a"
+          },
+          {
+            "at": "say9",
+            "caption": "Read-only actions, such as looking up an order, are a safe first step.",
+            "messages": [
+              {
+                "from": "actions",
+                "to": "a",
+                "label": "[{'name': 'order_status', 'url': 'https…",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "secure",
+                "label": "{'name': 'order_status', 'url': 'https:…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "secure"
           }
         ]
       }
@@ -561,224 +725,162 @@
       "partTitle": "Validating assistant configurations",
       "codeHash": "14ebaa13178c9c1ce161d7e9afec43b15bd2b36f6766ca80d405200a6a003d36",
       "spec": {
-        "template": "flow",
-        "title": "Validating assistant configurations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Validating assistan...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Validating assistant configurations",
+        "actors": [
+          "config",
+          "errors",
+          "i"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Validating assistant configurations.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Validating assistan... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In teams, many people create assistants, so a quick automatic check.",
+            "activeActor": "config",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": {
+                  "var": "config",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": {
+                  "var": "errors",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how practice updates config during execution.",
+            "activeActor": "errors",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": {
+                  "var": "config",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": {
+                  "var": "errors",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Validating assistant configurations.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "The same idea applies to any settings file.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": {
+                  "var": "config",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": {
+                  "var": "errors",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Validating assistant configurations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Validating assistan...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Validating assistant configurations",
+        "actors": [
+          "config",
+          "errors",
+          "i"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Validating assistant configurations [D25.P5.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Validating assistan... [D25.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In teams, many people create assistants, so a quick automatic check.",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": "{'name': 'Helper', 'instructions': 'Be …",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "config"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how practice updates config during execution.",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": "{'name': 'Helper', 'instructions': 'Be …",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "errors"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Validating assistant configurations [D25.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "The same idea applies to any settings file.",
+            "messages": [
+              {
+                "from": "config",
+                "to": "errors",
+                "label": "{'name': 'Helper', 'instructions': 'Be …",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "i",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           }
         ]
       }
@@ -788,110 +890,161 @@
       "codeHash": "bdff210283909b6172f731db90e4d9c355c4ea09697d9c979d5cdf8a6e3652b2",
       "spec": {
         "template": "flow",
-        "title": "Practice time: FAQ answers and config checks — Execution Pipeline",
+        "title": "Practice time: FAQ answers and config checks",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "FALLBACK",
+            "label": "FALLBACK"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: FAQ ...",
-            "tappable": true
+            "id": "faq",
+            "label": "faq"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: FAQ answers and config ch.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: FAQ ... [D.Psix.Stwo].",
+            "caption": "Faq_answer(question, faq, threshold=0.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "FALLBACK": {
+                "var": "FALLBACK",
+                "line": 3,
+                "hit": 1
+              },
+              "faq": {
+                "var": "faq",
+                "line": 4,
+                "hit": 2
+              },
+              "q": {
+                "var": "q",
+                "line": 7,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "FALLBACK": "data",
+              "faq": "data",
+              "q": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "FALLBACK",
+                "faq"
               ],
               [
-                "proc",
-                "out"
+                "faq",
+                "q"
+              ],
+              [
+                "q",
+                "t"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "A close paraphrase (0.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "FALLBACK": {
+                "var": "FALLBACK",
+                "line": 4,
+                "hit": 1
+              },
+              "faq": {
+                "var": "faq",
+                "line": 6,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 8,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "FALLBACK": "data",
+              "faq": "data",
+              "q": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "FALLBACK",
+                "faq"
+              ],
+              [
+                "faq",
+                "q"
+              ],
+              [
+                "q",
+                "t"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: FAQ answers and co.",
+            "at": "say8",
+            "caption": "Both functions reward care with honesty.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "FALLBACK": {
+                "var": "FALLBACK",
+                "line": 5,
+                "hit": 1
+              },
+              "faq": {
+                "var": "faq",
+                "line": 7,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 8,
+                "hit": 2
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "FALLBACK": "ok",
+              "faq": "ok",
+              "q": "ok",
+              "t": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "FALLBACK",
+                "faq"
               ],
               [
-                "proc",
-                "out"
+                "faq",
+                "q"
+              ],
+              [
+                "q",
+                "t"
               ]
             ]
           }
@@ -899,110 +1052,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: FAQ answers and config checks — Execution Pipeline",
+        "title": "Practice time: FAQ answers and config checks",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "FALLBACK",
+            "label": "FALLBACK"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: FAQ ...",
-            "tappable": true
+            "id": "faq",
+            "label": "faq"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: FAQ answers and config ch.. [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: FAQ ... [D25.P6.S2].",
+            "caption": "Faq_answer(question, faq, threshold=0.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "FALLBACK": "\"I don't know. Please contact support.\"",
+              "faq": "[['When is the library open?', '9 am to…",
+              "q": "'How many books can I borrow at once?'",
+              "t": "'How many books can I borrow at once?'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "FALLBACK": "data",
+              "faq": "data",
+              "q": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "FALLBACK",
+                "faq"
               ],
               [
-                "proc",
-                "out"
+                "faq",
+                "q"
+              ],
+              [
+                "q",
+                "t"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "at": "say2",
+            "caption": "A close paraphrase (0.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "FALLBACK": "\"I don't know. Please contact support.\"",
+              "faq": "[['When is the library open?', '9 am to…",
+              "q": "'How many books can I borrow at once?'",
+              "t": "'When is the library open?'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "FALLBACK": "data",
+              "faq": "data",
+              "q": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "FALLBACK",
+                "faq"
+              ],
+              [
+                "faq",
+                "q"
+              ],
+              [
+                "q",
+                "t"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: FAQ answers and co.. [D25.P6.S4].",
+            "at": "say8",
+            "caption": "Both functions reward care with honesty.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "FALLBACK": "\"I don't know. Please contact support.\"",
+              "faq": "[['When is the library open?', '9 am to…",
+              "q": "'How many books can I borrow at once?'",
+              "t": "'How many books can I borrow at once?'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "FALLBACK": "ok",
+              "faq": "ok",
+              "q": "ok",
+              "t": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "FALLBACK",
+                "faq"
               ],
               [
-                "proc",
-                "out"
+                "faq",
+                "q"
+              ],
+              [
+                "q",
+                "t"
               ]
             ]
           }

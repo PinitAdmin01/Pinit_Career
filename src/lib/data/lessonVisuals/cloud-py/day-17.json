@@ -2,238 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "How DNS finds your app",
       "codeHash": "44043fc337a4da73ecf63f7e351a2f28e670a5951dd1814ee1f0d91535d6092b",
       "spec": {
-        "template": "table",
-        "title": "DNS hierarchical server resolution simulation",
-        "columns": [
-          "hierarchy",
-          "server"
+        "template": "flow",
+        "title": "How DNS finds your app",
+        "nodes": [
+          {
+            "id": "root",
+            "label": "root"
+          },
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "tld",
+            "label": "tld"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Domain Name System (DNS) turns names like shop.",
+            "values": {
+              "root": {
+                "var": "root",
+                "line": 1,
+                "hit": 1
+              },
+              "servers": {
+                "var": "servers",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "tld": {
+                "var": "tld",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "root": "data",
+              "servers": "data",
+              "name": "data",
+              "tld": "data"
+            },
+            "arrows": [
+              [
+                "root",
+                "servers"
+              ],
+              [
+                "servers",
+                "name"
+              ],
+              [
+                "name",
+                "tld"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The resolver walks down the server hierarchy.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "com"
-                  },
-                  {
-                    "text": "tld-com-server"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Authoritative name servers answer for the domain.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "com"
-                  },
-                  {
-                    "text": "tld-com-server"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Your computer asks a resolver (usually run by your internet provider or.",
+            "values": {
+              "root": {
+                "var": "root",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "route53-ns-1"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The resolver walks down every server in the chain.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "com"
-                  },
-                  {
-                    "text": "tld-com-server"
-                  }
-                ],
-                "tone": "data"
+              "servers": {
+                "var": "servers",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "route53-ns-1"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shop.example.com"
-                  },
-                  {
-                    "text": "203.0.113.10"
-                  }
-                ],
-                "tone": "ok"
+              "tld": {
+                "var": "tld",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "root": "data",
+              "servers": "data",
+              "name": "data",
+              "tld": "data"
+            },
+            "arrows": [
+              [
+                "root",
+                "servers"
+              ],
+              [
+                "servers",
+                "name"
+              ],
+              [
+                "name",
+                "tld"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "DNS lookups follow each record through to the final address.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "com"
-                  },
-                  {
-                    "text": "tld-com-server"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Knowing this chain helps when debugging.",
+            "values": {
+              "root": {
+                "var": "root",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "route53-ns-1"
-                  }
-                ],
-                "tone": "data"
+              "servers": {
+                "var": "servers",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shop.example.com"
-                  },
-                  {
-                    "text": "203.0.113.10"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 1
+              },
+              "tld": {
+                "var": "tld",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "root": "ok",
+              "servers": "ok",
+              "name": "ok",
+              "tld": "ok"
+            },
+            "arrows": [
+              [
+                "root",
+                "servers"
+              ],
+              [
+                "servers",
+                "name"
+              ],
+              [
+                "name",
+                "tld"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "DNS hierarchical server resolution simulation",
-        "columns": [
-          "hierarchy",
-          "server"
+        "template": "flow",
+        "title": "How DNS finds your app",
+        "nodes": [
+          {
+            "id": "root",
+            "label": "root"
+          },
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "tld",
+            "label": "tld"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Domain Name System (DNS) turns names like shop.",
+            "values": {
+              "root": "{'com': 'tld-com-server'}",
+              "servers": "{'tld-com-server': {'example.com': 'rou…",
+              "name": "'shop.example.com'",
+              "tld": "'com'"
+            },
+            "tones": {
+              "root": "data",
+              "servers": "data",
+              "name": "data",
+              "tld": "data"
+            },
+            "arrows": [
+              [
+                "root",
+                "servers"
+              ],
+              [
+                "servers",
+                "name"
+              ],
+              [
+                "name",
+                "tld"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The resolver walks down the server hierarchy.",
-            "rows": [
-              {
-                "cells": [
-                  "com",
-                  "tld-com-server"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Authoritative name servers answer for the domain.",
-            "rows": [
-              {
-                "cells": [
-                  "com",
-                  "tld-com-server"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "example.com",
-                  "route53-ns-1"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The resolver walks down every server in the chain.",
-            "rows": [
-              {
-                "cells": [
-                  "com",
-                  "tld-com-server"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "example.com",
-                  "route53-ns-1"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "shop.example.com",
-                  "203.0.113.10"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Your computer asks a resolver (usually run by your internet provider or.",
+            "values": {
+              "root": "{'com': 'tld-com-server'}",
+              "servers": "{'tld-com-server': {'example.com': 'rou…",
+              "name": "'shop.example.com'",
+              "tld": "'com'"
+            },
+            "tones": {
+              "root": "data",
+              "servers": "data",
+              "name": "data",
+              "tld": "data"
+            },
+            "arrows": [
+              [
+                "root",
+                "servers"
+              ],
+              [
+                "servers",
+                "name"
+              ],
+              [
+                "name",
+                "tld"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "DNS lookups follow each record through to the final address.",
-            "rows": [
-              {
-                "cells": [
-                  "com",
-                  "tld-com-server"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "example.com",
-                  "route53-ns-1"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "shop.example.com",
-                  "203.0.113.10"
-                ],
-                "tone": "data"
-              }
+            "caption": "Knowing this chain helps when debugging.",
+            "values": {
+              "root": "{'com': 'tld-com-server'}",
+              "servers": "{'tld-com-server': {'example.com': 'rou…",
+              "name": "'shop.example.com'",
+              "tld": "'com'"
+            },
+            "tones": {
+              "root": "ok",
+              "servers": "ok",
+              "name": "ok",
+              "tld": "ok"
+            },
+            "arrows": [
+              [
+                "root",
+                "servers"
+              ],
+              [
+                "servers",
+                "name"
+              ],
+              [
+                "name",
+                "tld"
+              ]
             ]
           }
         ]
@@ -243,249 +289,277 @@
       "partTitle": "Record types and alias records",
       "codeHash": "f798656a9bc901370fef0247efac5da907de8f12d8ff72b4f3ee9edfa8e9829b",
       "spec": {
-        "template": "table",
-        "title": "DNS record types and apex alias configuration",
-        "columns": [
-          "name",
-          "rtype"
+        "template": "flow",
+        "title": "Record types and alias records",
+        "nodes": [
+          {
+            "id": "zone",
+            "label": "zone"
+          },
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "rtype",
+            "label": "rtype"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple record types map names to endpoints.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "A-ALIAS"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "DNS has several record types.",
+            "values": {
+              "zone": {
+                "var": "zone",
+                "line": 1,
+                "hit": 1
+              },
+              "records": {
+                "var": "records",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "rtype": {
+                "var": "rtype",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "zone": "data",
+              "records": "data",
+              "name": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "zone",
+                "records"
+              ],
+              [
+                "records",
+                "name"
+              ],
+              [
+                "name",
+                "rtype"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Zone apex names cannot hold standard CNAME mappings.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "A-ALIAS"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A CNAME cannot be used at the zone apex (the bare domain, example.",
+            "values": {
+              "zone": {
+                "var": "zone",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "www.example.com"
-                  },
-                  {
-                    "text": "CNAME"
-                  }
-                ],
-                "tone": "idle"
+              "records": {
+                "var": "records",
+                "line": 8,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
+              },
+              "rtype": {
+                "var": "rtype",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "zone": "data",
+              "records": "data",
+              "name": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "zone",
+                "records"
+              ],
+              [
+                "records",
+                "name"
+              ],
+              [
+                "name",
+                "rtype"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Alias records point directly to cloud resources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "A-ALIAS"
-                  }
-                ],
-                "tone": "data"
+            "at": "say7",
+            "caption": "Always double-check record changes.",
+            "values": {
+              "zone": {
+                "var": "zone",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "www.example.com"
-                  },
-                  {
-                    "text": "CNAME"
-                  }
-                ],
-                "tone": "idle"
+              "records": {
+                "var": "records",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "api.example.com"
-                  },
-                  {
-                    "text": "A-ALIAS"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 1
+              },
+              "rtype": {
+                "var": "rtype",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example inspects every record in the hosted zone.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "A-ALIAS"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "www.example.com"
-                  },
-                  {
-                    "text": "CNAME"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "api.example.com"
-                  },
-                  {
-                    "text": "A-ALIAS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "example.com"
-                  },
-                  {
-                    "text": "MX"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "zone": "ok",
+              "records": "ok",
+              "name": "ok",
+              "rtype": "ok"
+            },
+            "arrows": [
+              [
+                "zone",
+                "records"
+              ],
+              [
+                "records",
+                "name"
+              ],
+              [
+                "name",
+                "rtype"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "DNS record types and apex alias configuration",
-        "columns": [
-          "name",
-          "rtype"
+        "template": "flow",
+        "title": "Record types and alias records",
+        "nodes": [
+          {
+            "id": "zone",
+            "label": "zone"
+          },
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "rtype",
+            "label": "rtype"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple record types map names to endpoints.",
-            "rows": [
-              {
-                "cells": [
-                  "example.com",
-                  "A-ALIAS"
-                ],
-                "tone": "ok"
-              }
+            "caption": "DNS has several record types.",
+            "values": {
+              "zone": "'example.com'",
+              "records": "[['example.com', 'A-ALIAS', 'd123.cloud…",
+              "name": "'example.com'",
+              "rtype": "'A-ALIAS'"
+            },
+            "tones": {
+              "zone": "data",
+              "records": "data",
+              "name": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "zone",
+                "records"
+              ],
+              [
+                "records",
+                "name"
+              ],
+              [
+                "name",
+                "rtype"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Zone apex names cannot hold standard CNAME mappings.",
-            "rows": [
-              {
-                "cells": [
-                  "example.com",
-                  "A-ALIAS"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "www.example.com",
-                  "CNAME"
-                ],
-                "tone": "idle"
-              }
+            "caption": "A CNAME cannot be used at the zone apex (the bare domain, example.",
+            "values": {
+              "zone": "'example.com'",
+              "records": "[['example.com', 'A-ALIAS', 'd123.cloud…",
+              "name": "'example.com'",
+              "rtype": "'A-ALIAS'"
+            },
+            "tones": {
+              "zone": "data",
+              "records": "data",
+              "name": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "zone",
+                "records"
+              ],
+              [
+                "records",
+                "name"
+              ],
+              [
+                "name",
+                "rtype"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Alias records point directly to cloud resources.",
-            "rows": [
-              {
-                "cells": [
-                  "example.com",
-                  "A-ALIAS"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "www.example.com",
-                  "CNAME"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "api.example.com",
-                  "A-ALIAS"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example inspects every record in the hosted zone.",
-            "rows": [
-              {
-                "cells": [
-                  "example.com",
-                  "A-ALIAS"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "www.example.com",
-                  "CNAME"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "api.example.com",
-                  "A-ALIAS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "example.com",
-                  "MX"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Always double-check record changes.",
+            "values": {
+              "zone": "'example.com'",
+              "records": "[['example.com', 'A-ALIAS', 'd123.cloud…",
+              "name": "'example.com'",
+              "rtype": "'A-ALIAS'"
+            },
+            "tones": {
+              "zone": "ok",
+              "records": "ok",
+              "name": "ok",
+              "rtype": "ok"
+            },
+            "arrows": [
+              [
+                "zone",
+                "records"
+              ],
+              [
+                "records",
+                "name"
+              ],
+              [
+                "name",
+                "rtype"
+              ]
             ]
           }
         ]
@@ -495,232 +569,162 @@
       "partTitle": "Health checks and failover routing",
       "codeHash": "2aa7c5fb7ae43ecfcc4ed2a3aade9a86d556c2af46c20fd120d62200cba20cfe",
       "spec": {
-        "template": "table",
-        "title": "Route 53 health check and failover resolution logic",
-        "columns": [
+        "template": "sequence",
+        "title": "Health checks and failover routing",
+        "actors": [
+          "cfg",
           "moment",
-          "endpoint"
+          "h"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Periodic health checks monitor each remote endpoint.",
-            "rows": [
+            "caption": "Trace how route updates health during execution.",
+            "activeActor": "cfg",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "us-east-1-alb"
-                  }
-                ],
+                "from": "cfg",
+                "to": "moment",
+                "label": {
+                  "var": "cfg",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "moment",
+                "to": "h",
+                "label": {
+                  "var": "moment",
+                  "line": 11,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Repeated failures mark an endpoint as unhealthy.",
-            "rows": [
+            "caption": "An endpoint is marked unhealthy after it fails a number of checks in.",
+            "activeActor": "moment",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "us-east-1-alb"
-                  }
-                ],
-                "tone": "ok"
+                "from": "cfg",
+                "to": "moment",
+                "label": {
+                  "var": "cfg",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "us-east-1 down"
-                  },
-                  {
-                    "text": "eu-west-1-alb"
-                  }
-                ],
-                "tone": "error"
+                "from": "moment",
+                "to": "h",
+                "label": {
+                  "var": "moment",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Failover routing sends traffic to healthy secondary targets.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example walks through a Region outage and recovery.",
+            "activeActor": "h",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "us-east-1-alb"
-                  }
-                ],
+                "from": "cfg",
+                "to": "moment",
+                "label": {
+                  "var": "cfg",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "moment",
+                "to": "h",
+                "label": {
+                  "var": "moment",
+                  "line": 11,
+                  "hit": 3
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "us-east-1 down"
-                  },
-                  {
-                    "text": "eu-west-1-alb"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "both down"
-                  },
-                  {
-                    "text": "us-east-1-alb"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Total outages fall back to the primary record anyway.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "us-east-1-alb"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "us-east-1 down"
-                  },
-                  {
-                    "text": "eu-west-1-alb"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "both down"
-                  },
-                  {
-                    "text": "us-east-1-alb"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Route 53 health check and failover resolution logic",
-        "columns": [
+        "template": "sequence",
+        "title": "Health checks and failover routing",
+        "actors": [
+          "cfg",
           "moment",
-          "endpoint"
+          "h"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Periodic health checks monitor each remote endpoint.",
-            "rows": [
+            "caption": "Trace how route updates health during execution.",
+            "messages": [
               {
-                "cells": [
-                  "normal",
-                  "us-east-1-alb"
-                ],
+                "from": "cfg",
+                "to": "moment",
+                "label": "{'policy': 'FAILOVER', 'primary': 'us-e…",
+                "tone": "data"
+              },
+              {
+                "from": "moment",
+                "to": "h",
+                "label": "'normal'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cfg"
           },
           {
             "at": "say2",
-            "caption": "Repeated failures mark an endpoint as unhealthy.",
-            "rows": [
+            "caption": "An endpoint is marked unhealthy after it fails a number of checks in.",
+            "messages": [
               {
-                "cells": [
-                  "normal",
-                  "us-east-1-alb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "us-east-1 down",
-                  "eu-west-1-alb"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Failover routing sends traffic to healthy secondary targets.",
-            "rows": [
-              {
-                "cells": [
-                  "normal",
-                  "us-east-1-alb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "us-east-1 down",
-                  "eu-west-1-alb"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "both down",
-                  "us-east-1-alb"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Total outages fall back to the primary record anyway.",
-            "rows": [
-              {
-                "cells": [
-                  "normal",
-                  "us-east-1-alb"
-                ],
+                "from": "cfg",
+                "to": "moment",
+                "label": "{'policy': 'FAILOVER', 'primary': 'us-e…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "us-east-1 down",
-                  "eu-west-1-alb"
-                ],
+                "from": "moment",
+                "to": "h",
+                "label": "'normal'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "moment"
+          },
+          {
+            "at": "say7",
+            "caption": "The example walks through a Region outage and recovery.",
+            "messages": [
+              {
+                "from": "cfg",
+                "to": "moment",
+                "label": "{'policy': 'FAILOVER', 'primary': 'us-e…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "both down",
-                  "us-east-1-alb"
-                ],
-                "tone": "error"
+                "from": "moment",
+                "to": "h",
+                "label": "'us-east-1 down'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "h"
           }
         ]
       }
@@ -729,196 +733,106 @@
       "partTitle": "Weighted routing and canary releases",
       "codeHash": "2da5ad0e48d5357f014e9d5259818d6d4b8b96fd1e813c2e29d191377e9bb396",
       "spec": {
-        "template": "table",
-        "title": "Weighted traffic distribution and canary releases",
-        "columns": [
-          "endpoint",
-          "weight"
+        "template": "states",
+        "title": "Weighted routing and canary releases",
+        "states": [
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "roll",
+            "label": "roll"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Weighted routing splits traffic between deployment targets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "v1"
-                  },
-                  {
-                    "text": "90"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Weighted routing splits traffic between records by weight.",
+            "currentState": "records",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Canary releases let operators observe error rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "v1"
-                  },
-                  {
-                    "text": "90"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "v2-canary"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "This makes canary releases easy.",
+            "currentState": "roll",
+            "transition": {
+              "from": "records",
+              "to": "roll",
+              "label": {
+                "var": "roll",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Standby targets remain ready without active traffic.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "v1"
-                  },
-                  {
-                    "text": "90"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "v2-canary"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "The example inspects every possible roll across weights.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "v1"
-                  },
-                  {
-                    "text": "90"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "v2-canary"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example checks the split over every possible roll.",
+            "currentState": "total",
+            "transition": {
+              "from": "roll",
+              "to": "total",
+              "label": {
+                "var": "total",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Weighted traffic distribution and canary releases",
-        "columns": [
-          "endpoint",
-          "weight"
+        "template": "states",
+        "title": "Weighted routing and canary releases",
+        "states": [
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "roll",
+            "label": "roll"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Weighted routing splits traffic between deployment targets.",
-            "rows": [
-              {
-                "cells": [
-                  "v1",
-                  "90"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Weighted routing splits traffic between records by weight.",
+            "currentState": "records",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Canary releases let operators observe error rates.",
-            "rows": [
-              {
-                "cells": [
-                  "v1",
-                  "90"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "v2-canary",
-                  "10"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Standby targets remain ready without active traffic.",
-            "rows": [
-              {
-                "cells": [
-                  "v1",
-                  "90"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "v2-canary",
-                  "10"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "This makes canary releases easy.",
+            "currentState": "roll",
+            "transition": {
+              "from": "records",
+              "to": "roll",
+              "label": "0"
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "The example inspects every possible roll across weights.",
-            "rows": [
-              {
-                "cells": [
-                  "v1",
-                  "90"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "v2-canary",
-                  "10"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "The example checks the split over every possible roll.",
+            "currentState": "total",
+            "transition": {
+              "from": "roll",
+              "to": "total",
+              "label": "90"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -928,110 +842,161 @@
       "codeHash": "c7d8c39ee26996a8ed78a1c2a0699cf9e5e4d15eb96579c828430a3c511bffa2",
       "spec": {
         "template": "flow",
-        "title": "Latency and geolocation routing — Execution Pipeline",
+        "title": "Latency and geolocation routing",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "latency",
+            "label": "latency"
           },
           {
-            "id": "proc",
-            "label": "2. Latency and geoloca...",
-            "tappable": true
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "city",
+            "label": "city"
+          },
+          {
+            "id": "options",
+            "label": "options"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Latency and geolocation routing [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Latency and geoloca... [D.Pfive.Stwo].",
+            "caption": "Latency-based routing answers with the Region that gives the user.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "latency": {
+                "var": "latency",
+                "line": 1,
+                "hit": 1
+              },
+              "healthy": {
+                "var": "healthy",
+                "line": 6,
+                "hit": 1
+              },
+              "city": {
+                "var": "city",
+                "line": 7,
+                "hit": 1
+              },
+              "options": {
+                "var": "options",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "latency": "data",
+              "healthy": "data",
+              "city": "data",
+              "options": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "latency",
+                "healthy"
               ],
               [
-                "proc",
-                "out"
+                "healthy",
+                "city"
+              ],
+              [
+                "city",
+                "options"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "That is what global apps usually want.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "latency": {
+                "var": "latency",
+                "line": 6,
+                "hit": 1
+              },
+              "healthy": {
+                "var": "healthy",
+                "line": 7,
+                "hit": 1
+              },
+              "city": {
+                "var": "city",
+                "line": 8,
+                "hit": 1
+              },
+              "options": {
+                "var": "options",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "latency": "data",
+              "healthy": "data",
+              "city": "data",
+              "options": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "latency",
+                "healthy"
+              ],
+              [
+                "healthy",
+                "city"
+              ],
+              [
+                "city",
+                "options"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Latency and geolocation routing.",
+            "at": "say7",
+            "caption": "The example chooses the lowest-latency healthy Region for users in three.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "latency": {
+                "var": "latency",
+                "line": 7,
+                "hit": 1
+              },
+              "healthy": {
+                "var": "healthy",
+                "line": 8,
+                "hit": 1
+              },
+              "city": {
+                "var": "city",
+                "line": 8,
+                "hit": 2
+              },
+              "options": {
+                "var": "options",
+                "line": 8,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "latency": "ok",
+              "healthy": "ok",
+              "city": "ok",
+              "options": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "latency",
+                "healthy"
               ],
               [
-                "proc",
-                "out"
+                "healthy",
+                "city"
+              ],
+              [
+                "city",
+                "options"
               ]
             ]
           }
@@ -1039,110 +1004,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Latency and geolocation routing — Execution Pipeline",
+        "title": "Latency and geolocation routing",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "latency",
+            "label": "latency"
           },
           {
-            "id": "proc",
-            "label": "2. Latency and geoloca...",
-            "tappable": true
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "city",
+            "label": "city"
+          },
+          {
+            "id": "options",
+            "label": "options"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Latency and geolocation routing [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Latency and geoloca... [D17.P5.S2].",
+            "caption": "Latency-based routing answers with the Region that gives the user.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "latency": "{'Mumbai': {'ap-south-1': 15, 'eu-centr…",
+              "healthy": "{'ap-south-1': True, 'eu-central-1': Fa…",
+              "city": "'Mumbai'",
+              "options": "{'ap-south-1': 15, 'eu-central-1': 120,…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "latency": "data",
+              "healthy": "data",
+              "city": "data",
+              "options": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "latency",
+                "healthy"
               ],
               [
-                "proc",
-                "out"
+                "healthy",
+                "city"
+              ],
+              [
+                "city",
+                "options"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
+            "at": "say2",
+            "caption": "That is what global apps usually want.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "latency": "{'Mumbai': {'ap-south-1': 15, 'eu-centr…",
+              "healthy": "{'ap-south-1': True, 'eu-central-1': Fa…",
+              "city": "'Mumbai'",
+              "options": "{'ap-south-1': 15, 'eu-central-1': 120,…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "latency": "data",
+              "healthy": "data",
+              "city": "data",
+              "options": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "latency",
+                "healthy"
+              ],
+              [
+                "healthy",
+                "city"
+              ],
+              [
+                "city",
+                "options"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Latency and geolocation routing [D17.P5.S4].",
+            "at": "say7",
+            "caption": "The example chooses the lowest-latency healthy Region for users in three.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "latency": "{'Mumbai': {'ap-south-1': 15, 'eu-centr…",
+              "healthy": "{'ap-south-1': True, 'eu-central-1': Fa…",
+              "city": "'Mumbai'",
+              "options": "{'ap-south-1': 15, 'eu-central-1': 120,…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "latency": "ok",
+              "healthy": "ok",
+              "city": "ok",
+              "options": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "latency",
+                "healthy"
               ],
               [
-                "proc",
-                "out"
+                "healthy",
+                "city"
+              ],
+              [
+                "city",
+                "options"
               ]
             ]
           }
@@ -1153,223 +1121,217 @@
       "partTitle": "Practice time: failover and weights",
       "codeHash": "5c7f10449db4537fc3057294a814a94e98a1b542c7e8f402f0a9b1bf795fd0bf",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: failover and weights — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fail...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: failover and weights",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: failover and weights.",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: fail... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Resolve_dns(config, health).",
+            "bars": [
+              {
+                "label": "roll",
+                "value": {
+                  "var": "roll",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "weight",
+                "value": {
+                  "var": "weight",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Test the four situations in your head.",
+            "bars": [
+              {
+                "label": "roll",
+                "value": {
+                  "var": "roll",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": {
+                  "var": "weight",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: failover and weights.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the off-by-one error in action.",
+            "bars": [
+              {
+                "label": "roll",
+                "value": {
+                  "var": "roll",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": {
+                  "var": "weight",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 11,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: failover and weights — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fail...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: failover and weights",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: failover and weights [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: fail... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Resolve_dns(config, health).",
+            "bars": [
+              {
+                "label": "roll",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "weight",
+                "value": 90,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Test the four situations in your head.",
+            "bars": [
+              {
+                "label": "roll",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": 90,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: failover and weights [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the off-by-one error in action.",
+            "bars": [
+              {
+                "label": "roll",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 90,
+                "tone": "ok"
+              },
+              {
+                "label": "weight",
+                "value": 90,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]

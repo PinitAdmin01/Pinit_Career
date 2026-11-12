@@ -2,100 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "In-context learning",
       "codeHash": "0ef016aa1753a1547817408fcf25553c0e6bf553bd00a13095c8e370dc570014",
       "spec": {
-        "template": "table",
-        "title": "In-context learning demonstration query adaptation",
-        "columns": [
+        "template": "sequence",
+        "title": "In-context learning",
+        "actors": [
           "task",
+          "examples",
           "query"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In context learning adapts model behaviour via prompt demonstration pairs.",
-            "rows": [
+            "caption": "Large language models can pick up a new task from examples placed in.",
+            "activeActor": "task",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
+                "from": "task",
+                "to": "examples",
+                "label": {
+                  "var": "task",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "query",
+                "label": {
+                  "var": "examples",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Demonstration examples establish pattern consistency for subsequent queries.",
-            "rows": [
+            "caption": "If you show three examples of product reviews labelled positive.",
+            "activeActor": "examples",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+                "from": "task",
+                "to": "examples",
+                "label": {
+                  "var": "task",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
+                "from": "examples",
+                "to": "query",
+                "label": {
+                  "var": "examples",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sample pairs illustrate output format style and boundary handling.",
-            "rows": [
+            "at": "say8",
+            "caption": "In-context learning works for surprisingly unusual tasks, such as.",
+            "activeActor": "query",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+                "from": "task",
+                "to": "examples",
+                "label": {
+                  "var": "task",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
+                "from": "examples",
+                "to": "query",
+                "label": {
+                  "var": "examples",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -103,72 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "In-context learning demonstration query adaptation",
-        "columns": [
+        "template": "sequence",
+        "title": "In-context learning",
+        "actors": [
           "task",
+          "examples",
           "query"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In context learning adapts model behaviour via prompt demonstration pairs.",
-            "rows": [
+            "caption": "Large language models can pick up a new task from examples placed in.",
+            "messages": [
               {
-                "cells": [
-                  "task",
-                  "query"
-                ],
+                "from": "task",
+                "to": "examples",
+                "label": "'Label the sentiment as positive or neg…",
+                "tone": "data"
+              },
+              {
+                "from": "examples",
+                "to": "query",
+                "label": "[['Delivery was quick and the food was …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "task"
           },
           {
             "at": "say2",
-            "caption": "Demonstration examples establish pattern consistency for subsequent queries.",
-            "rows": [
+            "caption": "If you show three examples of product reviews labelled positive.",
+            "messages": [
               {
-                "cells": [
-                  "task",
-                  "query"
-                ],
-                "tone": "ok"
+                "from": "task",
+                "to": "examples",
+                "label": "'Label the sentiment as positive or neg…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "task",
-                  "query"
-                ],
+                "from": "examples",
+                "to": "query",
+                "label": "[['Delivery was quick and the food was …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "examples"
           },
           {
-            "at": "say5",
-            "caption": "Sample pairs illustrate output format style and boundary handling.",
-            "rows": [
+            "at": "say8",
+            "caption": "In-context learning works for surprisingly unusual tasks, such as.",
+            "messages": [
               {
-                "cells": [
-                  "task",
-                  "query"
-                ],
-                "tone": "ok"
+                "from": "task",
+                "to": "examples",
+                "label": "'Label the sentiment as positive or neg…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "task",
-                  "query"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "task",
-                  "query"
-                ],
+                "from": "examples",
+                "to": "query",
+                "label": "[['Delivery was quick and the food was …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "query"
           }
         ]
       }
@@ -177,166 +173,160 @@
       "partTitle": "Zero-shot, one-shot and few-shot",
       "codeHash": "f2f7762066cdfaa39f2b3663ca4531832c1ee39ec88c896e672df946c6e890db",
       "spec": {
-        "template": "table",
-        "title": "Zero-shot, one-shot and few-shot taxonomy categorization",
-        "columns": [
-          "n_examples",
-          "kind"
+        "template": "sequence",
+        "title": "Zero-shot, one-shot and few-shot",
+        "actors": [
+          "n",
+          "n_examples"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Zero shot prompts provide instructions without reference examples.",
-            "rows": [
+            "caption": "Zero-shot prompting gives only an instruction, no examples.",
+            "activeActor": "n",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n_examples"
-                  },
-                  {
-                    "text": "kind"
-                  }
-                ],
+                "from": "n",
+                "to": "n_examples",
+                "label": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n_examples",
+                "to": "n",
+                "label": {
+                  "var": "n_examples",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "One shot prompting provides a single example to fix expected output format.",
-            "rows": [
+            "caption": "One-shot gives a single example, which is often enough to fix the output.",
+            "activeActor": "n_examples",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n_examples"
-                  },
-                  {
-                    "text": "kind"
-                  }
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "n_examples",
+                "label": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "n_examples"
-                  },
-                  {
-                    "text": "ONE_SHOT"
-                  }
-                ],
+                "from": "n_examples",
+                "to": "n",
+                "label": {
+                  "var": "n_examples",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Few shot prompting guides strict formats and complex edge cases.",
-            "rows": [
+            "at": "say8",
+            "caption": "Keep a small set of test inputs so you can see whether adding an example.",
+            "activeActor": "n_examples",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n_examples"
-                  },
-                  {
-                    "text": "kind"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n_examples"
-                  },
-                  {
-                    "text": "ONE_SHOT"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n_examples"
-                  },
-                  {
-                    "text": "FEW_SHOT"
-                  }
-                ],
+                "from": "n",
+                "to": "n_examples",
+                "label": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "data"
+              },
+              {
+                "from": "n_examples",
+                "to": "n",
+                "label": {
+                  "var": "n_examples",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Zero-shot, one-shot and few-shot taxonomy categorization",
-        "columns": [
-          "n_examples",
-          "kind"
+        "template": "sequence",
+        "title": "Zero-shot, one-shot and few-shot",
+        "actors": [
+          "n",
+          "n_examples"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Zero shot prompts provide instructions without reference examples.",
-            "rows": [
+            "caption": "Zero-shot prompting gives only an instruction, no examples.",
+            "messages": [
               {
-                "cells": [
-                  "n_examples",
-                  "kind"
-                ],
+                "from": "n",
+                "to": "n_examples",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "n_examples",
+                "to": "n",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n"
           },
           {
             "at": "say2",
-            "caption": "One shot prompting provides a single example to fix expected output format.",
-            "rows": [
+            "caption": "One-shot gives a single example, which is often enough to fix the output.",
+            "messages": [
               {
-                "cells": [
-                  "n_examples",
-                  "kind"
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "n_examples",
+                "label": "0",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "n_examples",
-                  "ONE_SHOT"
-                ],
+                "from": "n_examples",
+                "to": "n",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n_examples"
           },
           {
-            "at": "say3",
-            "caption": "Few shot prompting guides strict formats and complex edge cases.",
-            "rows": [
+            "at": "say8",
+            "caption": "Keep a small set of test inputs so you can see whether adding an example.",
+            "messages": [
               {
-                "cells": [
-                  "n_examples",
-                  "kind"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n_examples",
-                  "ONE_SHOT"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n_examples",
-                  "FEW_SHOT"
-                ],
+                "from": "n",
+                "to": "n_examples",
+                "label": "1",
                 "tone": "data"
+              },
+              {
+                "from": "n_examples",
+                "to": "n",
+                "label": "3",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n_examples"
           }
         ]
       }
@@ -345,191 +335,277 @@
       "partTitle": "Formatting example pairs",
       "codeHash": "7df9ed3076e0fa906e696261ceb77e2d12de8d506bbe0c9fc3fd1c2fbe59747b",
       "spec": {
-        "template": "table",
-        "title": "Example demonstration formatting and input-output blocks",
-        "columns": [
-          "instruction",
-          "examples",
-          "query"
+        "template": "flow",
+        "title": "Formatting example pairs",
+        "nodes": [
+          {
+            "id": "instruction",
+            "label": "instruction"
+          },
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consistent demonstration labels establish predictable structural syntax.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "instruction"
-                  },
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Consistency is everything.",
+            "values": {
+              "instruction": {
+                "var": "instruction",
+                "line": 2,
+                "hit": 1
+              },
+              "examples": {
+                "var": "examples",
+                "line": 2,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "instruction": "data",
+              "examples": "data",
+              "query": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "instruction",
+                "examples"
+              ],
+              [
+                "examples",
+                "query"
+              ],
+              [
+                "query",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompts conclude with an open output field indicating where to continue.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "instruction"
-                  },
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "If your real inputs are long emails, make at least one example a long.",
+            "values": {
+              "instruction": {
+                "var": "instruction",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "instruction"
-                  },
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+              "examples": {
+                "var": "examples",
+                "line": 2,
+                "hit": 2
+              },
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 2
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "instruction": "data",
+              "examples": "data",
+              "query": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "instruction",
+                "examples"
+              ],
+              [
+                "examples",
+                "query"
+              ],
+              [
+                "query",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Blank line delimiters distinguish independent demonstration blocks clearly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "instruction"
-                  },
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say9",
+            "caption": "Short, clear labels like Input and Output work better than long.",
+            "values": {
+              "instruction": {
+                "var": "instruction",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "instruction"
-                  },
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+              "examples": {
+                "var": "examples",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "instruction"
-                  },
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 3
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "instruction": "ok",
+              "examples": "ok",
+              "query": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "instruction",
+                "examples"
+              ],
+              [
+                "examples",
+                "query"
+              ],
+              [
+                "query",
+                "i"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Example demonstration formatting and input-output blocks",
-        "columns": [
-          "instruction",
-          "examples",
-          "query"
+        "template": "flow",
+        "title": "Formatting example pairs",
+        "nodes": [
+          {
+            "id": "instruction",
+            "label": "instruction"
+          },
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consistent demonstration labels establish predictable structural syntax.",
-            "rows": [
-              {
-                "cells": [
-                  "instruction",
-                  "examples",
-                  "query"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Consistency is everything.",
+            "values": {
+              "instruction": "'Extract the city.'",
+              "examples": "[['Flight to Mumbai on Monday', 'Mumbai…",
+              "query": "'Train from Pune tomorrow'",
+              "i": "'Flight to Mumbai on Monday'"
+            },
+            "tones": {
+              "instruction": "data",
+              "examples": "data",
+              "query": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "instruction",
+                "examples"
+              ],
+              [
+                "examples",
+                "query"
+              ],
+              [
+                "query",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompts conclude with an open output field indicating where to continue.",
-            "rows": [
-              {
-                "cells": [
-                  "instruction",
-                  "examples",
-                  "query"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "instruction",
-                  "examples",
-                  "query"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "If your real inputs are long emails, make at least one example a long.",
+            "values": {
+              "instruction": "'Extract the city.'",
+              "examples": "[['Flight to Mumbai on Monday', 'Mumbai…",
+              "query": "'Train from Pune tomorrow'",
+              "i": "'No travel planned'"
+            },
+            "tones": {
+              "instruction": "data",
+              "examples": "data",
+              "query": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "instruction",
+                "examples"
+              ],
+              [
+                "examples",
+                "query"
+              ],
+              [
+                "query",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Blank line delimiters distinguish independent demonstration blocks clearly.",
-            "rows": [
-              {
-                "cells": [
-                  "instruction",
-                  "examples",
-                  "query"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "instruction",
-                  "examples",
-                  "query"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "instruction",
-                  "examples",
-                  "query"
-                ],
-                "tone": "ok"
-              }
+            "at": "say9",
+            "caption": "Short, clear labels like Input and Output work better than long.",
+            "values": {
+              "instruction": "'Extract the city.'",
+              "examples": "[['Flight to Mumbai on Monday', 'Mumbai…",
+              "query": "'Train from Pune tomorrow'",
+              "i": "'No travel planned'"
+            },
+            "tones": {
+              "instruction": "ok",
+              "examples": "ok",
+              "query": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "instruction",
+                "examples"
+              ],
+              [
+                "examples",
+                "query"
+              ],
+              [
+                "query",
+                "i"
+              ]
             ]
           }
         ]
@@ -539,93 +615,91 @@
       "partTitle": "Choosing examples automatically",
       "codeHash": "854415ed592af2d3bf95d6b117e1807cef36606f5dfcd122c7faff438b88114f",
       "spec": {
-        "template": "table",
-        "title": "Dynamic example retrieval and linguistic word overlap ranking",
-        "columns": [
+        "template": "sequence",
+        "title": "Choosing examples automatically",
+        "actors": [
           "pool",
-          "query"
+          "query",
+          "ex"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic selection identifies candidate examples matching incoming queries.",
-            "rows": [
+            "caption": "When you have a large pool of possible examples, pick the ones most.",
+            "activeActor": "pool",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "pool"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "ex",
+                "label": {
+                  "var": "query",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Word overlap metrics score linguistic similarity between pairs.",
-            "rows": [
+            "caption": "A simple similarity measure is word overlap.",
+            "activeActor": "query",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "pool"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Refund for a broken phone"
-                  },
-                  {
-                    "text": "My phone arrived broken!"
-                  }
-                ],
+                "from": "query",
+                "to": "ex",
+                "label": {
+                  "var": "query",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Ranked pool examples populate context windows for demonstration guidance.",
-            "rows": [
+            "at": "say8",
+            "caption": "Word overlap has limits.",
+            "activeActor": "ex",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "pool"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "ok"
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Refund for a broken phone"
-                  },
-                  {
-                    "text": "My phone arrived broken!"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Phone screen is broken"
-                  },
-                  {
-                    "text": "My phone arrived broken!"
-                  }
-                ],
+                "from": "query",
+                "to": "ex",
+                "label": {
+                  "var": "query",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -633,72 +707,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dynamic example retrieval and linguistic word overlap ranking",
-        "columns": [
+        "template": "sequence",
+        "title": "Choosing examples automatically",
+        "actors": [
           "pool",
-          "query"
+          "query",
+          "ex"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic selection identifies candidate examples matching incoming queries.",
-            "rows": [
+            "caption": "When you have a large pool of possible examples, pick the ones most.",
+            "messages": [
               {
-                "cells": [
-                  "pool",
-                  "query"
-                ],
+                "from": "pool",
+                "to": "query",
+                "label": "['Refund for a broken phone', 'Where is…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "ex",
+                "label": "'My phone arrived broken!'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pool"
           },
           {
             "at": "say2",
-            "caption": "Word overlap metrics score linguistic similarity between pairs.",
-            "rows": [
+            "caption": "A simple similarity measure is word overlap.",
+            "messages": [
               {
-                "cells": [
-                  "pool",
-                  "query"
-                ],
-                "tone": "ok"
+                "from": "pool",
+                "to": "query",
+                "label": "['Refund for a broken phone', 'Where is…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "Refund for a broken phone",
-                  "My phone arrived broken!"
-                ],
+                "from": "query",
+                "to": "ex",
+                "label": "'My phone arrived broken!'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "query"
           },
           {
-            "at": "say3",
-            "caption": "Ranked pool examples populate context windows for demonstration guidance.",
-            "rows": [
+            "at": "say8",
+            "caption": "Word overlap has limits.",
+            "messages": [
               {
-                "cells": [
-                  "pool",
-                  "query"
-                ],
-                "tone": "ok"
+                "from": "pool",
+                "to": "query",
+                "label": "['Refund for a broken phone', 'Where is…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "Refund for a broken phone",
-                  "My phone arrived broken!"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Phone screen is broken",
-                  "My phone arrived broken!"
-                ],
+                "from": "query",
+                "to": "ex",
+                "label": "'My phone arrived broken!'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ex"
           }
         ]
       }
@@ -707,224 +779,162 @@
       "partTitle": "Common few-shot mistakes",
       "codeHash": "b61e13ec3e7d4fbaf7a21ba6eba4906063bddb18f3f6111b552cb63a2d009dc7",
       "spec": {
-        "template": "flow",
-        "title": "Common few-shot mistakes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Common few-shot mis...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Common few-shot mistakes",
+        "actors": [
+          "examples",
+          "label",
+          "counts"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Common few-shot mistakes [Dthree.Pfive.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Common few-shot mis... [Dthree.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If four of five examples are \"positive\", the model leans positive.",
+            "activeActor": "examples",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": {
+                  "var": "examples",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": {
+                  "var": "label",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Real data is often imbalanced too, but examples should still show every.",
+            "activeActor": "label",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": {
+                  "var": "examples",
+                  "line": 5,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": {
+                  "var": "label",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Common few-shot mistakes.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "A good habit is to ask a colleague to label your examples independently.",
+            "activeActor": "counts",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": {
+                  "var": "examples",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": {
+                  "var": "label",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Common few-shot mistakes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Common few-shot mis...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Common few-shot mistakes",
+        "actors": [
+          "examples",
+          "label",
+          "counts"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Common few-shot mistakes [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Common few-shot mis... [D3.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "If four of five examples are \"positive\", the model leans positive.",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": "[['Loved it', 'positive'], ['Great valu…",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": "'positive'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "examples"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Real data is often imbalanced too, but examples should still show every.",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": "[['Loved it', 'positive'], ['Great valu…",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": "'positive'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "label"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Common few-shot mistakes [D3.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "A good habit is to ask a colleague to label your examples independently.",
+            "messages": [
+              {
+                "from": "examples",
+                "to": "label",
+                "label": "[['Loved it', 'positive'], ['Great valu…",
+                "tone": "data"
+              },
+              {
+                "from": "label",
+                "to": "counts",
+                "label": "'positive'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "counts"
           }
         ]
       }
@@ -933,224 +943,162 @@
       "partTitle": "Practice time: build and select",
       "codeHash": "17253a80dbaa9a7049712e660245d9d1f594897be7399193f14fda1468669463",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: build and select — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: build and select",
+        "actors": [
+          "pool",
+          "query",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: build and select.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: buil... [Dthree.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Few_shot_prompt(instruction, examples, query).",
+            "activeActor": "pool",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": {
+                  "var": "query",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return the prompt and the kind.",
+            "activeActor": "query",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": {
+                  "var": "query",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: build and select.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will get the model to show its reasoning, and check it with code.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": {
+                  "var": "pool",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": {
+                  "var": "query",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: build and select — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: build and select",
+        "actors": [
+          "pool",
+          "query",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: build and select [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: buil... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Few_shot_prompt(instruction, examples, query).",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "[['Refund for a broken phone', 'REFUND'…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": "'The screen on my new phone is broken'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pool"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return the prompt and the kind.",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "[['Refund for a broken phone', 'REFUND'…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": "'The screen on my new phone is broken'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "query"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: build and select [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will get the model to show its reasoning, and check it with code.",
+            "messages": [
+              {
+                "from": "pool",
+                "to": "query",
+                "label": "[['Refund for a broken phone', 'REFUND'…",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "t",
+                "label": "'The screen on my new phone is broken'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }

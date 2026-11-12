@@ -840,3 +840,11 @@ export function useUserProgress(): UserProgressContextType {
   }
   return ctx;
 }
+
+/**
+ * [FIX-STAGE: Wave 1A - Hook Order Safety]
+ * Non-throwing optional accessor for isolated renders outside UserProgressProvider.
+ */
+export function useOptionalUserProgress(): UserProgressContextType | null {
+  return useContext(UserProgressContext);
+}

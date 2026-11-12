@@ -2,88 +2,284 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Letting a model use your code",
       "codeHash": "27e24cb2ced0d0a5a6a7b226f0371fdfe142f8ed6e5ac8be05663f82d54f22b6",
       "spec": {
-        "template": "sequence",
-        "title": "Tool call dispatch and execution request loop",
-        "actors": [
-          "model",
-          "app"
+        "template": "flow",
+        "title": "Letting a model use your code",
+        "nodes": [
+          {
+            "id": "model_reply",
+            "label": "model_reply"
+          },
+          {
+            "id": "call",
+            "label": "call"
+          },
+          {
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "order_id",
+            "label": "order_id"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The model replies with a structured tool call request for external code.",
-            "messages": [
-              {
-                "from": "model",
-                "to": "app",
-                "label": "call get_order_status(A-1042)",
-                "tone": "data"
+            "at": "say1",
+            "caption": "A model on its own cannot check today's weather, look up an order or send.",
+            "values": {
+              "model_reply": {
+                "var": "model_reply",
+                "line": 6,
+                "hit": 1
+              },
+              "call": {
+                "var": "call",
+                "line": 7,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 8,
+                "hit": 1
+              },
+              "order_id": {
+                "var": "order_id",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "model_reply": "data",
+              "call": "data",
+              "args": "data",
+              "order_id": "data"
+            },
+            "arrows": [
+              [
+                "model_reply",
+                "call"
+              ],
+              [
+                "call",
+                "args"
+              ],
+              [
+                "args",
+                "order_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Your code runs the function and returns result data to the model.",
-            "messages": [
-              {
-                "from": "model",
-                "to": "app",
-                "label": "call get_order_status(A-1042)",
-                "tone": "data"
+            "at": "say2",
+            "caption": "You describe some tools to the model.",
+            "values": {
+              "model_reply": {
+                "var": "model_reply",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "from": "app",
-                "to": "model",
-                "label": "result: out for delivery",
-                "tone": "ok"
+              "call": {
+                "var": "call",
+                "line": 8,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 9,
+                "hit": 1
+              },
+              "order_id": {
+                "var": "order_id",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "model_reply": "data",
+              "call": "data",
+              "args": "data",
+              "order_id": "data"
+            },
+            "arrows": [
+              [
+                "model_reply",
+                "call"
+              ],
+              [
+                "call",
+                "args"
+              ],
+              [
+                "args",
+                "order_id"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Almost every serious AI product uses this.",
+            "values": {
+              "model_reply": {
+                "var": "model_reply",
+                "line": 8,
+                "hit": 1
+              },
+              "call": {
+                "var": "call",
+                "line": 9,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 10,
+                "hit": 1
+              },
+              "order_id": {
+                "var": "order_id",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "model_reply": "ok",
+              "call": "ok",
+              "args": "ok",
+              "order_id": "ok"
+            },
+            "arrows": [
+              [
+                "model_reply",
+                "call"
+              ],
+              [
+                "call",
+                "args"
+              ],
+              [
+                "args",
+                "order_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Tool call dispatch and execution request loop",
-        "actors": [
-          "model",
-          "app"
+        "template": "flow",
+        "title": "Letting a model use your code",
+        "nodes": [
+          {
+            "id": "model_reply",
+            "label": "model_reply"
+          },
+          {
+            "id": "call",
+            "label": "call"
+          },
+          {
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "order_id",
+            "label": "order_id"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The model replies with a structured tool call request for external code.",
-            "messages": [
-              {
-                "from": "model",
-                "to": "app",
-                "label": "call get_order_status(A-1042)",
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "A model on its own cannot check today's weather, look up an order or send.",
+            "values": {
+              "model_reply": "{'tool_call': {'name': 'get_order_statu…",
+              "call": "{'name': 'get_order_status', 'arguments…",
+              "args": "{'order_id': 'A-1042'}",
+              "order_id": "'A-1042'"
+            },
+            "tones": {
+              "model_reply": "data",
+              "call": "data",
+              "args": "data",
+              "order_id": "data"
+            },
+            "arrows": [
+              [
+                "model_reply",
+                "call"
+              ],
+              [
+                "call",
+                "args"
+              ],
+              [
+                "args",
+                "order_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Your code runs the function and returns result data to the model.",
-            "messages": [
-              {
-                "from": "model",
-                "to": "app",
-                "label": "call get_order_status(A-1042)",
-                "tone": "data"
-              },
-              {
-                "from": "app",
-                "to": "model",
-                "label": "result: out for delivery",
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "You describe some tools to the model.",
+            "values": {
+              "model_reply": "{'tool_call': {'name': 'get_order_statu…",
+              "call": "{'name': 'get_order_status', 'arguments…",
+              "args": "{'order_id': 'A-1042'}",
+              "order_id": "'A-1042'"
+            },
+            "tones": {
+              "model_reply": "data",
+              "call": "data",
+              "args": "data",
+              "order_id": "data"
+            },
+            "arrows": [
+              [
+                "model_reply",
+                "call"
+              ],
+              [
+                "call",
+                "args"
+              ],
+              [
+                "args",
+                "order_id"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Almost every serious AI product uses this.",
+            "values": {
+              "model_reply": "{'tool_call': {'name': 'get_order_statu…",
+              "call": "{'name': 'get_order_status', 'arguments…",
+              "args": "{'order_id': 'A-1042'}",
+              "order_id": "'A-1042'"
+            },
+            "tones": {
+              "model_reply": "ok",
+              "call": "ok",
+              "args": "ok",
+              "order_id": "ok"
+            },
+            "arrows": [
+              [
+                "model_reply",
+                "call"
+              ],
+              [
+                "call",
+                "args"
+              ],
+              [
+                "args",
+                "order_id"
+              ]
             ]
           }
         ]
@@ -93,92 +289,90 @@
       "partTitle": "Declaring a tool",
       "codeHash": "1873b5e6d2f8c2089c5e44d74868b3cf4a07191335d122e28589faff1735ecc2",
       "spec": {
-        "template": "table",
-        "title": "Structural elements of a valid tool declaration",
-        "columns": [
-          "field_name",
-          "field_type",
-          "purpose"
+        "template": "sequence",
+        "title": "Declaring a tool",
+        "actors": [
+          "order_tool",
+          "tool"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tool declaration describes name description and parameter schema details.",
-            "rows": [
+            "caption": "The model learns about a tool from its declaration.",
+            "activeActor": "order_tool",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "action identifier"
-                  }
-                ],
-                "tone": "ok"
+                "from": "order_tool",
+                "to": "tool",
+                "label": {
+                  "var": "order_tool",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "description"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "tool usage prompt"
-                  }
-                ],
+                "from": "tool",
+                "to": "order_tool",
+                "label": {
+                  "var": "tool",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Valid tools must provide a name description and parameters dictionary.",
-            "rows": [
+            "at": "say2",
+            "caption": "The description is a prompt.",
+            "activeActor": "tool",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "action identifier"
-                  }
-                ],
-                "tone": "ok"
+                "from": "order_tool",
+                "to": "tool",
+                "label": {
+                  "var": "order_tool",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "description"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "tool usage prompt"
-                  }
-                ],
+                "from": "tool",
+                "to": "order_tool",
+                "label": {
+                  "var": "tool",
+                  "line": 12,
+                  "hit": 2
+                },
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Use clear, action-style names like get_order_status or create_ticket.",
+            "activeActor": "tool",
+            "messages": [
+              {
+                "from": "order_tool",
+                "to": "tool",
+                "label": {
+                  "var": "order_tool",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "parameters"
-                  },
-                  {
-                    "text": "object"
-                  },
-                  {
-                    "text": "schema property constraints"
-                  }
-                ],
+                "from": "tool",
+                "to": "order_tool",
+                "label": {
+                  "var": "tool",
+                  "line": 12,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -186,65 +380,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Structural elements of a valid tool declaration",
-        "columns": [
-          "field_name",
-          "field_type",
-          "purpose"
+        "template": "sequence",
+        "title": "Declaring a tool",
+        "actors": [
+          "order_tool",
+          "tool"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tool declaration describes name description and parameter schema details.",
-            "rows": [
+            "caption": "The model learns about a tool from its declaration.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "string",
-                  "action identifier"
-                ],
-                "tone": "ok"
+                "from": "order_tool",
+                "to": "tool",
+                "label": "{'name': 'get_order_status', 'descripti…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "description",
-                  "string",
-                  "tool usage prompt"
-                ],
+                "from": "tool",
+                "to": "order_tool",
+                "label": "{'name': 'get_order_status', 'descripti…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "order_tool"
           },
           {
-            "at": "say3",
-            "caption": "Valid tools must provide a name description and parameters dictionary.",
-            "rows": [
+            "at": "say2",
+            "caption": "The description is a prompt.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "string",
-                  "action identifier"
-                ],
-                "tone": "ok"
+                "from": "order_tool",
+                "to": "tool",
+                "label": "{'name': 'get_order_status', 'descripti…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "description",
-                  "string",
-                  "tool usage prompt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "parameters",
-                  "object",
-                  "schema property constraints"
-                ],
+                "from": "tool",
+                "to": "order_tool",
+                "label": "{'name': 'x', 'description': '', 'param…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tool"
+          },
+          {
+            "at": "say5",
+            "caption": "Use clear, action-style names like get_order_status or create_ticket.",
+            "messages": [
+              {
+                "from": "order_tool",
+                "to": "tool",
+                "label": "{'name': 'get_order_status', 'descripti…",
+                "tone": "data"
+              },
+              {
+                "from": "tool",
+                "to": "order_tool",
+                "label": "{'name': 'x', 'description': '', 'param…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tool"
           }
         ]
       }
@@ -253,94 +451,162 @@
       "partTitle": "Dispatching tool calls safely",
       "codeHash": "342ec1f6b8339944b39c3e9f1e1eb441bc8296219d1b212c61280e8cd4c2f3c8",
       "spec": {
-        "template": "compare",
-        "title": "Tool call dispatch routing and verification",
-        "leftLabel": "Undeclared Call",
-        "rightLabel": "Declared Tool",
+        "template": "sequence",
+        "title": "Dispatching tool calls safely",
+        "actors": [
+          "decl",
+          "handlers",
+          "declaration"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Dispatching checks whether the tool matches a declared handler before running.",
-            "left": {
-              "code": "call delete_all()",
-              "result": {
-                "text": "UNKNOWN_TOOL"
+            "at": "say1",
+            "caption": "Dispatch_tool_call(declaration, call, handlers).",
+            "activeActor": "decl",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": {
+                  "var": "decl",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "call add(x=2, y=3)",
-              "result": {
-                "text": "success: 5"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": {
+                  "var": "handlers",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Only functions explicitly mapped to handlers in code are permitted to run.",
-            "left": {
-              "code": "unmapped name",
-              "result": {
-                "text": "rejected by dispatcher"
+            "at": "say2",
+            "caption": "Check the name matches a declared tool.",
+            "activeActor": "handlers",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": {
+                  "var": "decl",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "registered handler",
-              "result": {
-                "text": "safely executed"
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": {
+                  "var": "handlers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Returning error codes instead of raising exceptions lets you send.",
+            "activeActor": "declaration",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": {
+                  "var": "decl",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": {
+                  "var": "handlers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Tool call dispatch routing and verification",
-        "leftLabel": "Undeclared Call",
-        "rightLabel": "Declared Tool",
+        "template": "sequence",
+        "title": "Dispatching tool calls safely",
+        "actors": [
+          "decl",
+          "handlers",
+          "declaration"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Dispatching checks whether the tool matches a declared handler before running.",
-            "left": {
-              "code": "call delete_all()",
-              "result": "UNKNOWN_TOOL",
-              "tone": "error",
-              "checks": [
-                "UNKNOWN_TOOL"
-              ]
-            },
-            "right": {
-              "code": "call add(x=2, y=3)",
-              "result": "success: 5",
-              "tone": "ok",
-              "checks": [
-                "success: 5"
-              ]
-            }
+            "at": "say1",
+            "caption": "Dispatch_tool_call(declaration, call, handlers).",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": "{'name': 'add', 'description': 'Add two…",
+                "tone": "data"
+              },
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": "{'add': {'__other__': 'function'}}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "decl"
           },
           {
-            "at": "say4",
-            "caption": "Only functions explicitly mapped to handlers in code are permitted to run.",
-            "left": {
-              "code": "unmapped name",
-              "result": "rejected by dispatcher",
-              "tone": "error",
-              "checks": [
-                "rejected by dispatcher"
-              ]
-            },
-            "right": {
-              "code": "registered handler",
-              "result": "safely executed",
-              "tone": "ok",
-              "checks": [
-                "safely executed"
-              ]
-            }
+            "at": "say2",
+            "caption": "Check the name matches a declared tool.",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": "{'name': 'add', 'description': 'Add two…",
+                "tone": "data"
+              },
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": "{'add': {'__other__': 'function'}}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "handlers"
+          },
+          {
+            "at": "say5",
+            "caption": "Returning error codes instead of raising exceptions lets you send.",
+            "messages": [
+              {
+                "from": "decl",
+                "to": "handlers",
+                "label": "{'name': 'add', 'description': 'Add two…",
+                "tone": "data"
+              },
+              {
+                "from": "handlers",
+                "to": "declaration",
+                "label": "{'add': {'__other__': 'function'}}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "declaration"
           }
         ]
       }
@@ -349,224 +615,162 @@
       "partTitle": "Sending results back to the model",
       "codeHash": "434e4d0480e63780f6834c72dab70ac58a608ae083fdf9fb8b8f878a09793431",
       "spec": {
-        "template": "flow",
-        "title": "Sending results back to the model — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sending results bac...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Sending results back to the model",
+        "actors": [
+          "handlers",
+          "messages",
+          "last"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Sending results back to the model.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Sending results bac... [Dsix.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After running a tool, add two messages to the conversation.",
+            "activeActor": "handlers",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": {
+                  "var": "handlers",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": {
+                  "var": "messages",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Then call the model again.",
+            "activeActor": "messages",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": {
+                  "var": "handlers",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": {
+                  "var": "messages",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Sending results back to the model.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say5",
+            "caption": "The fake model below shows the two-step loop without a real API.",
+            "activeActor": "last",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": {
+                  "var": "handlers",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": {
+                  "var": "messages",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sending results back to the model — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sending results bac...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Sending results back to the model",
+        "actors": [
+          "handlers",
+          "messages",
+          "last"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Sending results back to the model [D6.P4.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Sending results bac... [D6.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After running a tool, add two messages to the conversation.",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": "{'get_order_status': {'__other__': 'fun…",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": "[{'role': 'user', 'content': 'Where is …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "handlers"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Then call the model again.",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": "{'get_order_status': {'__other__': 'fun…",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": "[{'role': 'user', 'content': 'Where is …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "messages"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Sending results back to the model [D6.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say5",
+            "caption": "The fake model below shows the two-step loop without a real API.",
+            "messages": [
+              {
+                "from": "handlers",
+                "to": "messages",
+                "label": "{'get_order_status': {'__other__': 'fun…",
+                "tone": "data"
+              },
+              {
+                "from": "messages",
+                "to": "last",
+                "label": "[{'role': 'user', 'content': 'Where is …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "last"
           }
         ]
       }
@@ -575,86 +779,162 @@
       "partTitle": "Validating arguments and staying safe",
       "codeHash": "4dbf07af34098b4a60e45fc0b87f7c8a2034b1b8f184884cbc4e516e0ef4bc1e",
       "spec": {
-        "template": "bars",
-        "title": "Argument schema conformance and safety gate checks",
+        "template": "boxes",
+        "title": "Validating arguments and staying safe",
+        "boxes": [
+          {
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "order_total",
+            "label": "order_total"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Validating arguments ensures numbers are positive and strings match format.",
-            "bars": [
-              {
-                "label": "valid_amount",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "ok"
+            "caption": "The model can produce wrong arguments.",
+            "values": {
+              "args": {
+                "var": "args",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "label": "negative_amount",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "error"
+              "order_total": {
+                "var": "order_total",
+                "line": 2,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "args": "data",
+              "order_total": "data",
+              "problems": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Restricting permissions gives each tool the least power needed for tasks.",
-            "bars": [
-              {
-                "label": "read_only_access",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Tools that change things, like refunds, payments, deletes or emails, need.",
+            "values": {
+              "args": {
+                "var": "args",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "delete_permission",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "error"
+              "order_total": {
+                "var": "order_total",
+                "line": 3,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "args": "data",
+              "order_total": "data",
+              "problems": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Log every tool call with its arguments and result.",
+            "values": {
+              "args": {
+                "var": "args",
+                "line": 3,
+                "hit": 1
+              },
+              "order_total": {
+                "var": "order_total",
+                "line": 5,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "args": "ok",
+              "order_total": "ok",
+              "problems": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Argument schema conformance and safety gate checks",
+        "template": "boxes",
+        "title": "Validating arguments and staying safe",
+        "boxes": [
+          {
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "order_total",
+            "label": "order_total"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Validating arguments ensures numbers are positive and strings match format.",
-            "bars": [
-              {
-                "label": "valid_amount",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "negative_amount",
-                "value": 0,
-                "tone": "error"
-              }
-            ]
+            "caption": "The model can produce wrong arguments.",
+            "values": {
+              "args": "{'order_id': 'A-7', 'amount': 300}",
+              "order_total": "450",
+              "problems": "[]"
+            },
+            "tones": {
+              "args": "data",
+              "order_total": "data",
+              "problems": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Restricting permissions gives each tool the least power needed for tasks.",
-            "bars": [
-              {
-                "label": "read_only_access",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "delete_permission",
-                "value": 0,
-                "tone": "error"
-              }
-            ]
+            "at": "say2",
+            "caption": "Tools that change things, like refunds, payments, deletes or emails, need.",
+            "values": {
+              "args": "{'order_id': 'A-7', 'amount': 300}",
+              "order_total": "450",
+              "problems": "[]"
+            },
+            "tones": {
+              "args": "data",
+              "order_total": "data",
+              "problems": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Log every tool call with its arguments and result.",
+            "values": {
+              "args": "{'order_id': 'A-7', 'amount': 300}",
+              "order_total": "450",
+              "problems": "[]"
+            },
+            "tones": {
+              "args": "ok",
+              "order_total": "ok",
+              "problems": "ok"
+            }
           }
         ]
       }
@@ -663,224 +943,194 @@
       "partTitle": "Many tools, one registry",
       "codeHash": "ec18cc1b5d2d02da9fbd0b0eeb34fe4205cb6eda021bad437997273ada9e67b7",
       "spec": {
-        "template": "flow",
-        "title": "Many tools, one registry — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Many tools, one registry",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "REGISTRY",
+            "label": "REGISTRY"
           },
           {
-            "id": "proc",
-            "label": "2. Many tools, one reg...",
-            "tappable": true
+            "id": "calls",
+            "label": "calls"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "call",
+            "label": "call"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Many tools, one registry [Dsix.Psix.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Many tools, one reg... [Dsix.Psix.Stwo].",
+            "caption": "Real assistants have several tools.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "REGISTRY": {
+                "var": "REGISTRY",
+                "line": 3,
+                "hit": 1
+              },
+              "calls": {
+                "var": "calls",
+                "line": 16,
+                "hit": 2
+              },
+              "results": {
+                "var": "results",
+                "line": 9,
+                "hit": 1
+              },
+              "call": {
+                "var": "call",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "REGISTRY": "data",
+              "calls": "data",
+              "results": "data",
+              "call": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Some models ask for several tool calls in one reply.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "REGISTRY": {
+                "var": "REGISTRY",
+                "line": 8,
+                "hit": 1
+              },
+              "calls": {
+                "var": "calls",
+                "line": 9,
+                "hit": 1
+              },
+              "results": {
+                "var": "results",
+                "line": 10,
+                "hit": 1
+              },
+              "call": {
+                "var": "call",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "REGISTRY": "data",
+              "calls": "data",
+              "results": "data",
+              "call": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Many tools, one registry.",
+            "at": "say5",
+            "caption": "Trace how will updates build during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "REGISTRY": {
+                "var": "REGISTRY",
+                "line": 16,
+                "hit": 1
+              },
+              "calls": {
+                "var": "calls",
+                "line": 10,
+                "hit": 1
+              },
+              "results": {
+                "var": "results",
+                "line": 11,
+                "hit": 1
+              },
+              "call": {
+                "var": "call",
+                "line": 12,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "REGISTRY": "ok",
+              "calls": "ok",
+              "results": "ok",
+              "call": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Many tools, one registry — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Many tools, one registry",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "REGISTRY",
+            "label": "REGISTRY"
           },
           {
-            "id": "proc",
-            "label": "2. Many tools, one reg...",
-            "tappable": true
+            "id": "calls",
+            "label": "calls"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "call",
+            "label": "call"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Many tools, one registry [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Many tools, one reg... [D6.P6.S2].",
+            "caption": "Real assistants have several tools.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "REGISTRY": "{'convert_currency': {'description': 'C…",
+              "calls": "[{'id': 'a', 'name': 'convert_currency'…",
+              "results": "[]",
+              "call": "{'id': 'a', 'name': 'convert_currency',…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "REGISTRY": "data",
+              "calls": "data",
+              "results": "data",
+              "call": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
+            "at": "say2",
+            "caption": "Some models ask for several tool calls in one reply.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "REGISTRY": "{'convert_currency': {'description': 'C…",
+              "calls": "[{'id': 'a', 'name': 'convert_currency'…",
+              "results": "[]",
+              "call": "{'id': 'a', 'name': 'convert_currency',…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "REGISTRY": "data",
+              "calls": "data",
+              "results": "data",
+              "call": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Many tools, one registry [D6.P6.S4].",
+            "at": "say5",
+            "caption": "Trace how will updates build during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "REGISTRY": "{'convert_currency': {'description': 'C…",
+              "calls": "[{'id': 'a', 'name': 'convert_currency'…",
+              "results": "[]",
+              "call": "{'id': 'a', 'name': 'convert_currency',…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "REGISTRY": "ok",
+              "calls": "ok",
+              "results": "ok",
+              "call": "ok"
+            }
           }
         ]
       }

@@ -2,87 +2,124 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 9,
-  "promptSha": "f6a5f2d269493b0b37f2d44dddee294535fba27b415734aaed25498e0af7937b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a sliding window is",
       "codeHash": "7008e7f414508e1186754576fbeb9783f302cc1d7a286ac9b257c297a4d68039",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "What a sliding window is",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Many questions ask about a stretch of items in a row.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "What"
-                  },
-                  {
-                    "text": "sliding"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rebuilding logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A window is that stretch, marked by a left and a right position.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "sliding"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Sliding window algorithms transform nested O(N^2) subarray evaluations.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "What a sliding window is",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Many questions ask about a stretch of items in a row.",
+            "items": [
+              "4",
+              "2",
+              "7",
+              "1",
+              "8",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "What",
-                  "sliding"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rebuilding logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A window is that stretch, marked by a left and a right position.",
+            "items": [
+              "4",
+              "2",
+              "7",
+              "1",
+              "8",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "window",
-                  "sliding"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Sliding window algorithms transform nested O(N^2) subarray evaluations.",
+            "items": [
+              "4",
+              "2",
+              "7",
+              "1",
+              "8",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +130,120 @@
       "partTitle": "Fixed window: the best sum of k in a row",
       "codeHash": "8e4835eaf8939337f08cbd555d79f9d1cd329afaa1dc51d55626e2b7bfe4820f",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Fixed window: the best sum of k in a row",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 asks for the biggest sum of any k numbers in a row.",
+            "items": {
+              "var": "sales",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Fixed"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The slide logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead, sum the first k numbers once.",
+            "items": {
+              "var": "sales",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This trick works for anything you can update by adding and removing one item.",
+            "items": {
+              "var": "sales",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Fixed window: the best sum of k in a row",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 asks for the biggest sum of any k numbers in a row.",
+            "items": [
+              "120",
+              "80",
+              "150",
+              "90",
+              "200",
+              "60",
+              "170"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Fixed",
-                  "window"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The slide logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead, sum the first k numbers once.",
+            "items": [
+              "120",
+              "80",
+              "150",
+              "90",
+              "200",
+              "60",
+              "170"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "the",
-                  "best"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This trick works for anything you can update by adding and removing one item.",
+            "items": [
+              "120",
+              "80",
+              "150",
+              "90",
+              "200",
+              "60",
+              "170"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +254,104 @@
       "partTitle": "Flexible window: longest stretch with no repeats",
       "codeHash": "f8b6dd373f2765e63db7ee843731bdd73ef90b84eacbf8d36a9c2ebaff420ae6",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Flexible window: longest stretch with no repeats",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 asks for the length of the longest part of a string with no.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Flexible"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best",
+                "value": {
+                  "var": "best",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The step logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Move right one character at a time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "longest"
-                  },
-                  {
-                    "text": "stretch"
-                  }
-                ],
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best",
+                "value": {
+                  "var": "best",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Notice how the auxiliary hash set maintains the uniqueness invariant.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best",
+                "value": {
+                  "var": "best",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +359,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Flexible window: longest stretch with no repeats",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 asks for the length of the longest part of a string with no.",
+            "bars": [
               {
-                "cells": [
-                  "Flexible",
-                  "window"
-                ],
+                "label": "left",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "best",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "right",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The step logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Move right one character at a time.",
+            "bars": [
               {
-                "cells": [
-                  "longest",
-                  "stretch"
-                ],
+                "label": "left",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "best",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Notice how the auxiliary hash set maintains the uniqueness invariant.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "best",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,80 +432,117 @@
       "partTitle": "Flexible window: shortest stretch reaching a total",
       "codeHash": "9453d87bdf7c472798999d44820c38f8f5ee2f6dff65d5138eaa1c0f80e764cd",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Flexible window: shortest stretch reaching a total",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The opposite concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The opposite kind of flexible window finds the shortest stretch that meets.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Flexible"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The works logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Grow the window by moving right and adding numbers.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shortest"
-                  },
-                  {
-                    "text": "stretch"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Because both left and right pointers traverse the array from left to right.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Flexible window: shortest stretch reaching a total",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The opposite concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The opposite kind of flexible window finds the shortest stretch that meets.",
+            "items": [
+              "2",
+              "3",
+              "1",
+              "2",
+              "4",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Flexible",
-                  "window"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The works logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Grow the window by moving right and adding numbers.",
+            "items": [
+              "2",
+              "3",
+              "1",
+              "2",
+              "4",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shortest",
-                  "stretch"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Because both left and right pointers traverse the array from left to right.",
+            "items": [
+              "2",
+              "3",
+              "1",
+              "2",
+              "4",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,43 +553,77 @@
       "partTitle": "Counting letters in a window",
       "codeHash": "661ab6a28d631aa944c977fe6540f860a34cd50837caaa597906e78660e26837",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Counting letters in a window",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The windows concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Windows often keep counts, not just sums.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The window logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Counter from collections holds the counts.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This pattern, a fixed window with counts, solves \"find all anagrams\".",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +631,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Counting letters in a window",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The windows concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Windows often keep counts, not just sums.",
+            "bars": [
               {
-                "cells": [
-                  "Counting",
-                  "letters"
-                ],
+                "label": "k",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 3,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The window logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Counter from collections holds the counts.",
+            "bars": [
               {
-                "cells": [
-                  "window",
-                  "letters"
-                ],
+                "label": "k",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This pattern, a fixed window with counts, solves \"find all anagrams\".",
+            "bars": [
+              {
+                "label": "k",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 3,
                 "tone": "ok"
               }
             ]
@@ -429,82 +689,82 @@
       "partTitle": "Spotting a window problem",
       "codeHash": "c7ccd9f3b3ed7414c09d102965d25b9ee74a860806f1c27e5897b7c7fc928082",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Spotting a window problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The window concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Spotting"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Window problems have a pattern in their wording.",
+            "items": {
+              "var": "questions",
+              "line": 1,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The item logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Decide first if the size is fixed (k is given) or flexible (a rule decides).",
+            "items": {
+              "var": "questions",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say4",
+            "caption": "Say the complexity out loud in interviews.",
+            "items": {
+              "var": "questions",
+              "line": 8,
+              "hit": 14
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Spotting a window problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The window concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Spotting",
-                  "window"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Window problems have a pattern in their wording.",
+            "mode": "queue",
+            "items": [
+              "'max sum of 5 numbers in a row'",
+              "'longest substring with at most 2 disti…",
+              "'two numbers anywhere that add to 10'",
+              "'shortest subarray with sum at least 10…"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The item logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "problem",
-                  "window"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Decide first if the size is fixed (k is given) or flexible (a rule decides).",
+            "mode": "queue",
+            "items": [
+              "'max sum of 5 numbers in a row'",
+              "'longest substring with at most 2 disti…",
+              "'two numbers anywhere that add to 10'",
+              "'shortest subarray with sum at least 10…"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say4",
+            "caption": "Say the complexity out loud in interviews.",
+            "mode": "queue",
+            "items": [
+              "'max sum of 5 numbers in a row'",
+              "'longest substring with at most 2 disti…",
+              "'two numbers anywhere that add to 10'",
+              "'shortest subarray with sum at least 10…"
+            ],
+            "action": "idle"
           }
         ]
       }

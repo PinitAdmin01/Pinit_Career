@@ -2,231 +2,137 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why structured output",
       "codeHash": "298471f6b37964004ff9b43bb13e29d786851add67d8f59ee8dd7fdfe87a09b9",
       "spec": {
-        "template": "flow",
-        "title": "Why structured output — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why structured output",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "reply",
+            "label": "reply"
           },
           {
-            "id": "proc",
-            "label": "2. Why structured output",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "data",
+            "label": "data"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why structured output [Dfive.Pone.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why structured output [Dfive.Pone.Stwo].",
+            "caption": "A chat answer is for people.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "reply": {
+                "var": "reply",
+                "line": 3,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "reply": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Pone.object-storage].",
+            "at": "say2",
+            "caption": "Structured output also makes testing easy.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "reply": {
+                "var": "reply",
+                "line": 4,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "reply": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why structured output [Dfive.Pone.Sfour].",
+            "at": "say6",
+            "caption": "In Python, json.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "reply": {
+                "var": "reply",
+                "line": 5,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "reply": "ok",
+              "data": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why structured output — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why structured output",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "reply",
+            "label": "reply"
           },
           {
-            "id": "proc",
-            "label": "2. Why structured output",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "data",
+            "label": "data"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why structured output [D5.P1.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why structured output [D5.P1.S2].",
+            "caption": "A chat answer is for people.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "reply": "'{\"merchant\": \"Chai Point\", \"amount\": 1…",
+              "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "reply": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P1.S3].",
+            "at": "say2",
+            "caption": "Structured output also makes testing easy.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "reply": "'{\"merchant\": \"Chai Point\", \"amount\": 1…",
+              "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "reply": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why structured output [D5.P1.S4].",
+            "at": "say6",
+            "caption": "In Python, json.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "reply": "'{\"merchant\": \"Chai Point\", \"amount\": 1…",
+              "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "reply": "ok",
+              "data": "ok"
+            }
           }
         ]
       }
@@ -235,94 +141,278 @@
       "partTitle": "Cleaning up the model's JSON",
       "codeHash": "a7d60581803b55580ede31732de5dc99c8b14c9fff946d0aee94813baeafe03f",
       "spec": {
-        "template": "compare",
-        "title": "Stripping markdown code blocks from model outputs",
-        "leftLabel": "Raw Output",
-        "rightLabel": "Cleaned JSON",
+        "template": "flow",
+        "title": "Cleaning up the model's JSON",
+        "nodes": [
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "end",
+            "label": "end"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models often wrap output in markdown fences or surrounding chatter.",
-            "left": {
-              "code": "```json\n{\"a\": 1}\n```",
-              "result": {
-                "text": "markdown wrapper"
+            "caption": "Models often wrap JSON in Markdown fences, like ```json at the start.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 11,
+                "hit": 1
               },
-              "tone": "data"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 8,
+                "hit": 1
+              },
+              "end": {
+                "var": "end",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "{\"a\": 1}",
-              "result": {
-                "text": "clean payload"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "raw": "data",
+              "text": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                "text"
+              ],
+              [
+                "text",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Stripping fences if present lets json loads parse the text cleanly.",
-            "left": {
-              "code": "fences present",
-              "result": {
-                "text": "decode syntax error"
+            "caption": "Practice 1 starts by stripping the fences if present.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 4,
+                "hit": 1
               },
-              "tone": "error"
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 9,
+                "hit": 1
+              },
+              "end": {
+                "var": "end",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "strip and parse",
-              "result": {
-                "text": "valid dict object"
+            "tones": {
+              "raw": "data",
+              "text": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                "text"
+              ],
+              [
+                "text",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Clean first, parse second, validate third.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 5,
+                "hit": 1
               },
-              "tone": "ok"
-            }
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 8,
+                "hit": 2
+              },
+              "end": {
+                "var": "end",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "raw": "ok",
+              "text": "ok",
+              "start": "ok",
+              "end": "ok"
+            },
+            "arrows": [
+              [
+                "raw",
+                "text"
+              ],
+              [
+                "text",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Stripping markdown code blocks from model outputs",
-        "leftLabel": "Raw Output",
-        "rightLabel": "Cleaned JSON",
+        "template": "flow",
+        "title": "Cleaning up the model's JSON",
+        "nodes": [
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "end",
+            "label": "end"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models often wrap output in markdown fences or surrounding chatter.",
-            "left": {
-              "code": "```json\n{\"a\": 1}\n```",
-              "result": "markdown wrapper",
-              "tone": "data",
-              "checks": [
-                "markdown wrapper"
-              ]
+            "caption": "Models often wrap JSON in Markdown fences, like ```json at the start.",
+            "values": {
+              "raw": "'```json\n{\"a\": 1}\n```'",
+              "text": "'```json\n{\"a\": 1}\n```'",
+              "start": "0",
+              "end": "7"
             },
-            "right": {
-              "code": "{\"a\": 1}",
-              "result": "clean payload",
-              "tone": "ok",
-              "checks": [
-                "clean payload"
+            "tones": {
+              "raw": "data",
+              "text": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                "text"
+              ],
+              [
+                "text",
+                "start"
+              ],
+              [
+                "start",
+                "end"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Stripping fences if present lets json loads parse the text cleanly.",
-            "left": {
-              "code": "fences present",
-              "result": "decode syntax error",
-              "tone": "error",
-              "checks": [
-                "decode syntax error"
-              ]
+            "caption": "Practice 1 starts by stripping the fences if present.",
+            "values": {
+              "raw": "'```json\n{\"a\": 1}\n```'",
+              "text": "'```json\n{\"a\": 1}\n```'",
+              "start": "0",
+              "end": "7"
             },
-            "right": {
-              "code": "strip and parse",
-              "result": "valid dict object",
-              "tone": "ok",
-              "checks": [
-                "valid dict object"
+            "tones": {
+              "raw": "data",
+              "text": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                "text"
+              ],
+              [
+                "text",
+                "start"
+              ],
+              [
+                "start",
+                "end"
               ]
-            }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Clean first, parse second, validate third.",
+            "values": {
+              "raw": "'```json\n{\"a\": 1}\n```'",
+              "text": "'{\"a\": 1}\n```'",
+              "start": "18",
+              "end": "25"
+            },
+            "tones": {
+              "raw": "ok",
+              "text": "ok",
+              "start": "ok",
+              "end": "ok"
+            },
+            "arrows": [
+              [
+                "raw",
+                "text"
+              ],
+              [
+                "text",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
+            ]
           }
         ]
       }
@@ -331,158 +421,162 @@
       "partTitle": "Checking required keys",
       "codeHash": "b6ff7b646c975eb4c0fc9460b6bbd7fe050555798f48465c0301fcc4f07f7075",
       "spec": {
-        "template": "table",
-        "title": "Required schema keys verification and missing field reporting",
-        "columns": [
-          "field_name",
-          "presence_check",
-          "validation_state"
+        "template": "sequence",
+        "title": "Checking required keys",
+        "actors": [
+          "raw",
+          "required_keys",
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Checking required keys verifies that every expected field is present.",
-            "rows": [
+            "caption": "Valid JSON can still be missing fields your code needs.",
+            "activeActor": "raw",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "present in dict"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "required_keys",
+                "label": {
+                  "var": "raw",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "missing from input"
-                  },
-                  {
-                    "text": "missing key"
-                  }
-                ],
-                "tone": "error"
+                "from": "required_keys",
+                "to": "text",
+                "label": {
+                  "var": "required_keys",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reporting all missing keys in stable order assists systematic prompt repair.",
-            "rows": [
+            "caption": "Practice 1 returns {\"valid\".",
+            "activeActor": "required_keys",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "present in dict"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
+                "from": "raw",
+                "to": "required_keys",
+                "label": {
+                  "var": "raw",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required_keys",
+                "to": "text",
+                "label": {
+                  "var": "required_keys",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Returning a small result dict instead of raising exceptions makes.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "required_keys",
+                "label": {
+                  "var": "raw",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "missing from input"
-                  },
-                  {
-                    "text": "missing key"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "city"
-                  },
-                  {
-                    "text": "missing from input"
-                  },
-                  {
-                    "text": "missing key"
-                  }
-                ],
-                "tone": "error"
+                "from": "required_keys",
+                "to": "text",
+                "label": {
+                  "var": "required_keys",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Required schema keys verification and missing field reporting",
-        "columns": [
-          "field_name",
-          "presence_check",
-          "validation_state"
+        "template": "sequence",
+        "title": "Checking required keys",
+        "actors": [
+          "raw",
+          "required_keys",
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Checking required keys verifies that every expected field is present.",
-            "rows": [
+            "caption": "Valid JSON can still be missing fields your code needs.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "present in dict",
-                  "valid"
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "required_keys",
+                "label": "'```json\n{\"name\": \"Asha\", \"age\": 30}\n``…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "age",
-                  "missing from input",
-                  "missing key"
-                ],
-                "tone": "error"
+                "from": "required_keys",
+                "to": "text",
+                "label": "['name', 'age']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raw"
           },
           {
             "at": "say2",
-            "caption": "Reporting all missing keys in stable order assists systematic prompt repair.",
-            "rows": [
+            "caption": "Practice 1 returns {\"valid\".",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "present in dict",
-                  "valid"
-                ],
+                "from": "raw",
+                "to": "required_keys",
+                "label": "'```json\n{\"name\": \"Asha\", \"age\": 30}\n``…",
+                "tone": "data"
+              },
+              {
+                "from": "required_keys",
+                "to": "text",
+                "label": "['name', 'age']",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "age",
-                  "missing from input",
-                  "missing key"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "city",
-                  "missing from input",
-                  "missing key"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "required_keys"
+          },
+          {
+            "at": "say6",
+            "caption": "Returning a small result dict instead of raising exceptions makes.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "required_keys",
+                "label": "'```json\n{\"name\": \"Asha\", \"age\": 30}\n``…",
+                "tone": "data"
+              },
+              {
+                "from": "required_keys",
+                "to": "text",
+                "label": "['name', 'age']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }
@@ -491,98 +585,162 @@
       "partTitle": "Checking value types",
       "codeHash": "44ae78f087d1b87311d6135ce994a6f5ba70db96a6406d43a03b91e2fe705314",
       "spec": {
-        "template": "bars",
-        "title": "Type validation checks against expected schema types",
+        "template": "sequence",
+        "title": "Checking value types",
+        "actors": [
+          "TYPES",
+          "value",
+          "expected"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Ruling out bool instances avoids Python treating boolean values as ints.",
-            "bars": [
+            "at": "say1",
+            "caption": "Validate_type(value, expected) with expected one of \"str\", \"int\", \"float\".",
+            "activeActor": "TYPES",
+            "messages": [
               {
-                "label": "valid_int",
-                "value": {
-                  "text": "1"
+                "from": "TYPES",
+                "to": "value",
+                "label": {
+                  "var": "TYPES",
+                  "line": 1,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "bool_as_int",
-                "value": {
-                  "text": "0"
+                "from": "value",
+                "to": "expected",
+                "label": {
+                  "var": "value",
+                  "line": 9,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Type checks catch common model mistakes like numbers returned as strings.",
-            "bars": [
+            "at": "say2",
+            "caption": "Use isinstance, with one Python trap.",
+            "activeActor": "value",
+            "messages": [
               {
-                "label": "valid_int",
-                "value": {
-                  "text": "1"
+                "from": "TYPES",
+                "to": "value",
+                "label": {
+                  "var": "TYPES",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "expected",
+                "label": {
+                  "var": "value",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Some teams gently convert near-misses, such as the text \"120\" into.",
+            "activeActor": "expected",
+            "messages": [
+              {
+                "from": "TYPES",
+                "to": "value",
+                "label": {
+                  "var": "TYPES",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "label": "bool_as_int",
-                "value": {
-                  "text": "0"
+                "from": "value",
+                "to": "expected",
+                "label": {
+                  "var": "value",
+                  "line": 6,
+                  "hit": 1
                 },
-                "tone": "error"
-              },
-              {
-                "label": "str_as_int",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "error"
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Type validation checks against expected schema types",
+        "template": "sequence",
+        "title": "Checking value types",
+        "actors": [
+          "TYPES",
+          "value",
+          "expected"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Ruling out bool instances avoids Python treating boolean values as ints.",
-            "bars": [
+            "at": "say1",
+            "caption": "Validate_type(value, expected) with expected one of \"str\", \"int\", \"float\".",
+            "messages": [
               {
-                "label": "valid_int",
-                "value": 1,
-                "tone": "ok"
+                "from": "TYPES",
+                "to": "value",
+                "label": "{'str': {'__other__': 'type'}, 'int': {…",
+                "tone": "data"
               },
               {
-                "label": "bool_as_int",
-                "value": 0,
-                "tone": "error"
+                "from": "value",
+                "to": "expected",
+                "label": "120",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "TYPES"
           },
           {
-            "at": "say5",
-            "caption": "Type checks catch common model mistakes like numbers returned as strings.",
-            "bars": [
+            "at": "say2",
+            "caption": "Use isinstance, with one Python trap.",
+            "messages": [
               {
-                "label": "valid_int",
-                "value": 1,
+                "from": "TYPES",
+                "to": "value",
+                "label": "{'str': {'__other__': 'type'}, 'int': {…",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "expected",
+                "label": "120",
                 "tone": "ok"
-              },
-              {
-                "label": "bool_as_int",
-                "value": 0,
-                "tone": "error"
-              },
-              {
-                "label": "str_as_int",
-                "value": 0,
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "value"
+          },
+          {
+            "at": "say6",
+            "caption": "Some teams gently convert near-misses, such as the text \"120\" into.",
+            "messages": [
+              {
+                "from": "TYPES",
+                "to": "value",
+                "label": "{'str': {'__other__': 'type'}, 'int': {…",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "expected",
+                "label": "120",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "expected"
           }
         ]
       }
@@ -592,44 +750,90 @@
       "codeHash": "849cd27d7a84990a67bfe7e31d4e0e1a31640b795dc23f9dfc2a66fe89436d9f",
       "spec": {
         "template": "sequence",
-        "title": "Automated validation failure and repair prompting sequence",
+        "title": "Retry with a repair prompt",
         "actors": [
-          "client",
-          "model"
+          "attempts",
+          "prompt",
+          "required"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When validation fails asking again with clear error messages repairs the JSON.",
+            "caption": "When validation fails, the best fix is often to ask again, telling.",
+            "activeActor": "attempts",
             "messages": [
               {
-                "from": "client",
-                "to": "model",
-                "label": "Extract receipt info",
+                "from": "attempts",
+                "to": "prompt",
+                "label": {
+                  "var": "attempts",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "from": "model",
-                "to": "client",
-                "label": "{\"name\": \"Asha\"}",
-                "tone": "error"
+                "from": "prompt",
+                "to": "required",
+                "label": {
+                  "var": "prompt",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Put a limit on retries (two or three).",
+            "activeActor": "prompt",
+            "messages": [
+              {
+                "from": "attempts",
+                "to": "prompt",
+                "label": {
+                  "var": "attempts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "required",
+                "label": {
+                  "var": "prompt",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "A validate and retry loop ensures reliable structured output in production.",
+            "caption": "This validate-and-retry loop is the core of reliable structured output.",
+            "activeActor": "required",
             "messages": [
               {
-                "from": "client",
-                "to": "model",
-                "label": "Missing age key. Reply with corrected JSON",
+                "from": "attempts",
+                "to": "prompt",
+                "label": {
+                  "var": "attempts",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "from": "model",
-                "to": "client",
-                "label": "{\"name\": \"Asha\", \"age\": 30}",
+                "from": "prompt",
+                "to": "required",
+                "label": {
+                  "var": "prompt",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -638,47 +842,69 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Automated validation failure and repair prompting sequence",
+        "title": "Retry with a repair prompt",
         "actors": [
-          "client",
-          "model"
+          "attempts",
+          "prompt",
+          "required"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When validation fails asking again with clear error messages repairs the JSON.",
+            "caption": "When validation fails, the best fix is often to ask again, telling.",
             "messages": [
               {
-                "from": "client",
-                "to": "model",
-                "label": "Extract receipt info",
+                "from": "attempts",
+                "to": "prompt",
+                "label": "[]",
                 "tone": "data"
               },
               {
-                "from": "model",
-                "to": "client",
-                "label": "{\"name\": \"Asha\"}",
-                "tone": "error"
+                "from": "prompt",
+                "to": "required",
+                "label": "'Extract name and age as JSON.'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "attempts"
+          },
+          {
+            "at": "say2",
+            "caption": "Put a limit on retries (two or three).",
+            "messages": [
+              {
+                "from": "attempts",
+                "to": "prompt",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "required",
+                "label": "'Extract name and age as JSON.'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompt"
           },
           {
             "at": "say6",
-            "caption": "A validate and retry loop ensures reliable structured output in production.",
+            "caption": "This validate-and-retry loop is the core of reliable structured output.",
             "messages": [
               {
-                "from": "client",
-                "to": "model",
-                "label": "Missing age key. Reply with corrected JSON",
+                "from": "attempts",
+                "to": "prompt",
+                "label": "[]",
                 "tone": "data"
               },
               {
-                "from": "model",
-                "to": "client",
-                "label": "{\"name\": \"Asha\", \"age\": 30}",
+                "from": "prompt",
+                "to": "required",
+                "label": "'Extract name and age as JSON.'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "required"
           }
         ]
       }
@@ -687,224 +913,194 @@
       "partTitle": "Milestone 1: a schema-checked extractor",
       "codeHash": "53f5a369ae0e7fd9aa59b2ce54eca791bc3d77891087260b2404352ae6c8fcf0",
       "spec": {
-        "template": "flow",
-        "title": "Milestone 1: a schema-checked extractor — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Milestone 1: a schema-checked extractor",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "SCHEMA",
+            "label": "SCHEMA"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone 1: a sche...",
-            "tappable": true
+            "id": "TYPES",
+            "label": "TYPES"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "data",
+            "label": "data"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone one: a schema-checked extractor.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone one: a sche... [Dfive.Psix.Stwo].",
+            "caption": "Your milestone combines everything.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "SCHEMA": {
+                "var": "SCHEMA",
+                "line": 4,
+                "hit": 1
+              },
+              "TYPES": {
+                "var": "TYPES",
+                "line": 5,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 14,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 14,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "SCHEMA": "data",
+              "TYPES": "data",
+              "raw": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
+            "at": "say2",
+            "caption": "A schema here is a dict of field name to type name.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "SCHEMA": {
+                "var": "SCHEMA",
+                "line": 5,
+                "hit": 1
+              },
+              "TYPES": {
+                "var": "TYPES",
+                "line": 7,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 15,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 15,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "SCHEMA": "data",
+              "TYPES": "data",
+              "raw": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone one: a schema-checked ext.",
+            "at": "say5",
+            "caption": "Next week you will let the model call your own functions, which uses.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "SCHEMA": {
+                "var": "SCHEMA",
+                "line": 7,
+                "hit": 1
+              },
+              "TYPES": {
+                "var": "TYPES",
+                "line": 8,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 16,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 16,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "SCHEMA": "ok",
+              "TYPES": "ok",
+              "raw": "ok",
+              "data": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone 1: a schema-checked extractor — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Milestone 1: a schema-checked extractor",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "SCHEMA",
+            "label": "SCHEMA"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone 1: a sche...",
-            "tappable": true
+            "id": "TYPES",
+            "label": "TYPES"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "data",
+            "label": "data"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone 1: a schema-checked extractor [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone 1: a sche... [D5.P6.S2].",
+            "caption": "Your milestone combines everything.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "SCHEMA": "{'merchant': 'str', 'amount': 'int', 'p…",
+              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "raw": "'```json\n{\"merchant\": \"Chai Point\", \"am…",
+              "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "SCHEMA": "data",
+              "TYPES": "data",
+              "raw": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say2",
+            "caption": "A schema here is a dict of field name to type name.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "SCHEMA": "{'merchant': 'str', 'amount': 'int', 'p…",
+              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "raw": "'```json\n{\"merchant\": \"Chai Point\", \"am…",
+              "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "SCHEMA": "data",
+              "TYPES": "data",
+              "raw": "data",
+              "data": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone 1: a schema-checked ext.. [D5.P6.S4].",
+            "at": "say5",
+            "caption": "Next week you will let the model call your own functions, which uses.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "SCHEMA": "{'merchant': 'str', 'amount': 'int', 'p…",
+              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "raw": "'```json\n{\"merchant\": \"Chai Point\", \"am…",
+              "data": "{'merchant': 'Chai Point', 'amount': 12…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "SCHEMA": "ok",
+              "TYPES": "ok",
+              "raw": "ok",
+              "data": "ok"
+            }
           }
         ]
       }

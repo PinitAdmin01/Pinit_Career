@@ -2,223 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The tick handler",
       "codeHash": "c3490859818def465ab41f4c37b9e8280cb74da9b2eca8a0792bf70693a57501",
       "spec": {
-        "template": "table",
-        "title": "Micro-price reservation pricing and tick execution workflow",
-        "columns": [
-          "bid",
-          "bid_qty",
-          "ask",
-          "ask_qty"
-        ],
+        "template": "bars",
+        "title": "The tick handler",
         "steps": [
           {
             "at": "say1",
-            "caption": "The market making tick handler evaluates book updates and risk limits.",
-            "rows": [
+            "caption": "A market maker's core function runs on every market data tick.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "ok"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t_left",
+                "value": {
+                  "var": "t_left",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "half_spread",
+                "value": {
+                  "var": "half_spread",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Micro price weights order book depth to estimate true underlying fair value.",
-            "rows": [
+            "caption": "Step 1, micro-price.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "100.0"
-                  },
-                  {
-                    "text": "600"
-                  },
-                  {
-                    "text": "100.1"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t_left",
+                "value": {
+                  "var": "t_left",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "half_spread",
+                "value": {
+                  "var": "half_spread",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reservation prices adjust quotes dynamically against current inventory skew.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example walks through the four steps for one tick with zero inventory.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "100.0"
-                  },
-                  {
-                    "text": "600"
-                  },
-                  {
-                    "text": "100.1"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "bid_qty"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "ask_qty"
-                  }
-                ],
-                "tone": "data"
+                "label": "t_left",
+                "value": {
+                  "var": "t_left",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "half_spread",
+                "value": {
+                  "var": "half_spread",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Micro-price reservation pricing and tick execution workflow",
-        "columns": [
-          "bid",
-          "bid_qty",
-          "ask",
-          "ask_qty"
-        ],
+        "template": "bars",
+        "title": "The tick handler",
         "steps": [
           {
             "at": "say1",
-            "caption": "The market making tick handler evaluates book updates and risk limits.",
-            "rows": [
+            "caption": "A market maker's core function runs on every market data tick.",
+            "bars": [
               {
-                "cells": [
-                  "bid",
-                  "bid_qty",
-                  "ask",
-                  "ask_qty"
-                ],
-                "tone": "ok"
+                "label": "gamma",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "sigma",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "t_left",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "half_spread",
+                "value": 0.05,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Micro price weights order book depth to estimate true underlying fair value.",
-            "rows": [
+            "caption": "Step 1, micro-price.",
+            "bars": [
               {
-                "cells": [
-                  "bid",
-                  "bid_qty",
-                  "ask",
-                  "ask_qty"
-                ],
+                "label": "gamma",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "100.0",
-                  "600",
-                  "100.1",
-                  "400"
-                ],
+                "label": "sigma",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "t_left",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "half_spread",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reservation prices adjust quotes dynamically against current inventory skew.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example walks through the four steps for one tick with zero inventory.",
+            "bars": [
               {
-                "cells": [
-                  "bid",
-                  "bid_qty",
-                  "ask",
-                  "ask_qty"
-                ],
+                "label": "gamma",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "100.0",
-                  "600",
-                  "100.1",
-                  "400"
-                ],
+                "label": "sigma",
+                "value": 0.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "bid",
-                  "bid_qty",
-                  "ask",
-                  "ask_qty"
-                ],
-                "tone": "data"
+                "label": "t_left",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "half_spread",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           }
@@ -229,216 +229,216 @@
       "partTitle": "Inventory skew in action",
       "codeHash": "b71798e38e3d4c311e8cbf1a3662655cc5664b074af222795d6cb10c0fede1c4",
       "spec": {
-        "template": "table",
-        "title": "Avellaneda-Stoikov inventory skew quoting shifts",
-        "columns": [
-          "inventory",
-          "micro",
-          "gamma",
-          "sigma"
-        ],
+        "template": "bars",
+        "title": "Inventory skew in action",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inventory skew lowers quotes to encourage sales and rebalance holdings.",
-            "rows": [
+            "caption": "A market maker wants to stay close to flat.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "ok"
+                "label": "micro",
+                "value": {
+                  "var": "micro",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t_left",
+                "value": {
+                  "var": "t_left",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Inventory parameters determine quoting shifts per asset unit held.",
-            "rows": [
+            "caption": "The size of the skew is inventory gamma sigma time left.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
+                "label": "micro",
+                "value": {
+                  "var": "micro",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "100.06"
-                  },
-                  {
-                    "text": "0.1"
-                  },
-                  {
-                    "text": "0.5"
-                  }
-                ],
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t_left",
+                "value": {
+                  "var": "t_left",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Skew adjustments control position risk without crossing market spreads.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints quotes for several inventory levels.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
+                "label": "micro",
+                "value": {
+                  "var": "micro",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "100.06"
-                  },
-                  {
-                    "text": "0.1"
-                  },
-                  {
-                    "text": "0.5"
-                  }
-                ],
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "40"
-                  },
-                  {
-                    "text": "100.06"
-                  },
-                  {
-                    "text": "0.1"
-                  },
-                  {
-                    "text": "0.5"
-                  }
-                ],
-                "tone": "idle"
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t_left",
+                "value": {
+                  "var": "t_left",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Avellaneda-Stoikov inventory skew quoting shifts",
-        "columns": [
-          "inventory",
-          "micro",
-          "gamma",
-          "sigma"
-        ],
+        "template": "bars",
+        "title": "Inventory skew in action",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inventory skew lowers quotes to encourage sales and rebalance holdings.",
-            "rows": [
+            "caption": "A market maker wants to stay close to flat.",
+            "bars": [
               {
-                "cells": [
-                  "inventory",
-                  "micro",
-                  "gamma",
-                  "sigma"
-                ],
-                "tone": "ok"
+                "label": "micro",
+                "value": 100.06,
+                "tone": "data"
+              },
+              {
+                "label": "gamma",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "sigma",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "t_left",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Inventory parameters determine quoting shifts per asset unit held.",
-            "rows": [
+            "caption": "The size of the skew is inventory gamma sigma time left.",
+            "bars": [
               {
-                "cells": [
-                  "inventory",
-                  "micro",
-                  "gamma",
-                  "sigma"
-                ],
+                "label": "micro",
+                "value": 100.06,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "10",
-                  "100.06",
-                  "0.1",
-                  "0.5"
-                ],
+                "label": "gamma",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "sigma",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "t_left",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Skew adjustments control position risk without crossing market spreads.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints quotes for several inventory levels.",
+            "bars": [
               {
-                "cells": [
-                  "inventory",
-                  "micro",
-                  "gamma",
-                  "sigma"
-                ],
+                "label": "micro",
+                "value": 100.06,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "10",
-                  "100.06",
-                  "0.1",
-                  "0.5"
-                ],
+                "label": "gamma",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "40",
-                  "100.06",
-                  "0.1",
-                  "0.5"
-                ],
-                "tone": "idle"
+                "label": "sigma",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "t_left",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -449,191 +449,277 @@
       "partTitle": "Risk gating each quote",
       "codeHash": "e8c50ff3cf8b906bf2a0379c16dd9bdc278bebabdcbe4f9b55b541bd7f7ae0d7",
       "spec": {
-        "template": "table",
-        "title": "One-sided inventory gating and price collar validation",
-        "columns": [
-          "max_qty",
-          "collar_pct",
-          "max_inventory"
+        "template": "flow",
+        "title": "Risk gating each quote",
+        "nodes": [
+          {
+            "id": "limits",
+            "label": "limits"
+          },
+          {
+            "id": "inventory",
+            "label": "inventory"
+          },
+          {
+            "id": "price",
+            "label": "price"
+          },
+          {
+            "id": "micro",
+            "label": "micro"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent quote verification checks each bid and ask separately.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "collar_pct"
-                  },
-                  {
-                    "text": "max_inventory"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Each quote is checked independently, because one side may be safe while.",
+            "values": {
+              "limits": {
+                "var": "limits",
+                "line": 1,
+                "hit": 1
+              },
+              "inventory": {
+                "var": "inventory",
+                "line": 8,
+                "hit": 1
+              },
+              "price": {
+                "var": "price",
+                "line": 3,
+                "hit": 1
+              },
+              "micro": {
+                "var": "micro",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "limits": "data",
+              "inventory": "data",
+              "price": "data",
+              "micro": "data"
+            },
+            "arrows": [
+              [
+                "limits",
+                "inventory"
+              ],
+              [
+                "inventory",
+                "price"
+              ],
+              [
+                "price",
+                "micro"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Price collars and size constraints gate quote transmission directly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "collar_pct"
-                  },
-                  {
-                    "text": "max_inventory"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A quote passes if the order size is within max_qty and its price is within.",
+            "values": {
+              "limits": {
+                "var": "limits",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "500"
-                  },
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "1000"
-                  }
-                ],
-                "tone": "ok"
+              "inventory": {
+                "var": "inventory",
+                "line": 3,
+                "hit": 1
+              },
+              "price": {
+                "var": "price",
+                "line": 4,
+                "hit": 1
+              },
+              "micro": {
+                "var": "micro",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "limits": "data",
+              "inventory": "data",
+              "price": "data",
+              "micro": "data"
+            },
+            "arrows": [
+              [
+                "limits",
+                "inventory"
+              ],
+              [
+                "inventory",
+                "price"
+              ],
+              [
+                "price",
+                "micro"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "One sided inventory limits permit risk reducing quotes while blocking additions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "collar_pct"
-                  },
-                  {
-                    "text": "max_inventory"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "One-sided gating is subtle but important.",
+            "values": {
+              "limits": {
+                "var": "limits",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "500"
-                  },
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "1000"
-                  }
-                ],
-                "tone": "ok"
+              "inventory": {
+                "var": "inventory",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "collar_pct"
-                  },
-                  {
-                    "text": "max_inventory"
-                  }
-                ],
-                "tone": "data"
+              "price": {
+                "var": "price",
+                "line": 5,
+                "hit": 1
+              },
+              "micro": {
+                "var": "micro",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "limits": "ok",
+              "inventory": "ok",
+              "price": "ok",
+              "micro": "ok"
+            },
+            "arrows": [
+              [
+                "limits",
+                "inventory"
+              ],
+              [
+                "inventory",
+                "price"
+              ],
+              [
+                "price",
+                "micro"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "One-sided inventory gating and price collar validation",
-        "columns": [
-          "max_qty",
-          "collar_pct",
-          "max_inventory"
+        "template": "flow",
+        "title": "Risk gating each quote",
+        "nodes": [
+          {
+            "id": "limits",
+            "label": "limits"
+          },
+          {
+            "id": "inventory",
+            "label": "inventory"
+          },
+          {
+            "id": "price",
+            "label": "price"
+          },
+          {
+            "id": "micro",
+            "label": "micro"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent quote verification checks each bid and ask separately.",
-            "rows": [
-              {
-                "cells": [
-                  "max_qty",
-                  "collar_pct",
-                  "max_inventory"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Each quote is checked independently, because one side may be safe while.",
+            "values": {
+              "limits": "{'max_qty': 500, 'collar_pct': 1, 'max_…",
+              "inventory": "0",
+              "price": "100.01",
+              "micro": "100.06"
+            },
+            "tones": {
+              "limits": "data",
+              "inventory": "data",
+              "price": "data",
+              "micro": "data"
+            },
+            "arrows": [
+              [
+                "limits",
+                "inventory"
+              ],
+              [
+                "inventory",
+                "price"
+              ],
+              [
+                "price",
+                "micro"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Price collars and size constraints gate quote transmission directly.",
-            "rows": [
-              {
-                "cells": [
-                  "max_qty",
-                  "collar_pct",
-                  "max_inventory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "500",
-                  "1.0",
-                  "1000"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A quote passes if the order size is within max_qty and its price is within.",
+            "values": {
+              "limits": "{'max_qty': 500, 'collar_pct': 1, 'max_…",
+              "inventory": "0",
+              "price": "100.01",
+              "micro": "100.06"
+            },
+            "tones": {
+              "limits": "data",
+              "inventory": "data",
+              "price": "data",
+              "micro": "data"
+            },
+            "arrows": [
+              [
+                "limits",
+                "inventory"
+              ],
+              [
+                "inventory",
+                "price"
+              ],
+              [
+                "price",
+                "micro"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "One sided inventory limits permit risk reducing quotes while blocking additions.",
-            "rows": [
-              {
-                "cells": [
-                  "max_qty",
-                  "collar_pct",
-                  "max_inventory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "500",
-                  "1.0",
-                  "1000"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max_qty",
-                  "collar_pct",
-                  "max_inventory"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "One-sided gating is subtle but important.",
+            "values": {
+              "limits": "{'max_qty': 500, 'collar_pct': 1, 'max_…",
+              "inventory": "0",
+              "price": "100.01",
+              "micro": "100.06"
+            },
+            "tones": {
+              "limits": "ok",
+              "inventory": "ok",
+              "price": "ok",
+              "micro": "ok"
+            },
+            "arrows": [
+              [
+                "limits",
+                "inventory"
+              ],
+              [
+                "inventory",
+                "price"
+              ],
+              [
+                "price",
+                "micro"
+              ]
             ]
           }
         ]
@@ -643,192 +729,162 @@
       "partTitle": "Production readiness",
       "codeHash": "246bda800fb2145bda9749d0e3c17a6f8b2cfd1a47092086f22adadd4aea4220",
       "spec": {
-        "template": "table",
-        "title": "Production readiness audit checklist and latency budget validation",
-        "columns": [
+        "template": "sequence",
+        "title": "Production readiness",
+        "actors": [
+          "checks",
           "p99_ns",
-          "budget_ns",
-          "failed"
+          "budget_ns"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Comprehensive readiness reviews audit trading components before live rollout.",
-            "rows": [
+            "caption": "A strategy is not ready for live trading just because the backtest looks good.",
+            "activeActor": "checks",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "p99_ns"
-                  },
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "failed"
-                  }
-                ],
+                "from": "checks",
+                "to": "p99_ns",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": {
+                  "var": "p99_ns",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Strict latency percentile budgets verify responsive execution speed.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how typical updates checks during execution.",
+            "activeActor": "p99_ns",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "p99_ns"
-                  },
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "failed"
-                  }
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "p99_ns",
+                "label": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1500"
-                  },
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "failed"
-                  }
-                ],
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": {
+                  "var": "p99_ns",
+                  "line": 3,
+                  "hit": 6
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Readiness verification flags unfulfilled test items and performance deficits.",
-            "rows": [
+            "at": "say8",
+            "caption": "Real firms add sign-off from risk, compliance and technology leads before.",
+            "activeActor": "budget_ns",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "p99_ns"
-                  },
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "failed"
-                  }
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "p99_ns",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1500"
-                  },
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "failed"
-                  }
-                ],
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": {
+                  "var": "p99_ns",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p99_ns"
-                  },
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "failed"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production readiness audit checklist and latency budget validation",
-        "columns": [
+        "template": "sequence",
+        "title": "Production readiness",
+        "actors": [
+          "checks",
           "p99_ns",
-          "budget_ns",
-          "failed"
+          "budget_ns"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Comprehensive readiness reviews audit trading components before live rollout.",
-            "rows": [
+            "caption": "A strategy is not ready for live trading just because the backtest looks good.",
+            "messages": [
               {
-                "cells": [
-                  "p99_ns",
-                  "budget_ns",
-                  "failed"
-                ],
+                "from": "checks",
+                "to": "p99_ns",
+                "label": "{'book_tested': True, 'risk_gate': True…",
+                "tone": "data"
+              },
+              {
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": "1500",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "checks"
           },
           {
-            "at": "say3",
-            "caption": "Strict latency percentile budgets verify responsive execution speed.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how typical updates checks during execution.",
+            "messages": [
               {
-                "cells": [
-                  "p99_ns",
-                  "budget_ns",
-                  "failed"
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "p99_ns",
+                "label": "{'book_tested': True, 'risk_gate': True…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1500",
-                  "1000",
-                  "failed"
-                ],
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": "1500",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p99_ns"
           },
           {
-            "at": "say4",
-            "caption": "Readiness verification flags unfulfilled test items and performance deficits.",
-            "rows": [
+            "at": "say8",
+            "caption": "Real firms add sign-off from risk, compliance and technology leads before.",
+            "messages": [
               {
-                "cells": [
-                  "p99_ns",
-                  "budget_ns",
-                  "failed"
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "p99_ns",
+                "label": "{'book_tested': True, 'risk_gate': True…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1500",
-                  "1000",
-                  "failed"
-                ],
+                "from": "p99_ns",
+                "to": "budget_ns",
+                "label": "1500",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99_ns",
-                  "budget_ns",
-                  "failed"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "budget_ns"
           }
         ]
       }
@@ -837,223 +893,133 @@
       "partTitle": "Going live safely",
       "codeHash": "6a2f15c55bf03a9ce88c60a4d1b594558098133497c8c0d7869646baf6aa216c",
       "spec": {
-        "template": "flow",
-        "title": "Going live safely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Going live safely",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Going live safely",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Going live safely [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Going live safely [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Launch gradually.",
+            "bars": [
+              {
+                "label": "instruments",
+                "value": {
+                  "var": "instruments",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_qty",
+                "value": {
+                  "var": "max_qty",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Compare live performance with the backtest daily.",
+            "bars": [
+              {
+                "label": "instruments",
+                "value": {
+                  "var": "instruments",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_qty",
+                "value": {
+                  "var": "max_qty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Going live safely [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Most blow-ups come from operations and process, not from the mathematics.",
+            "bars": [
+              {
+                "label": "instruments",
+                "value": {
+                  "var": "instruments",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_qty",
+                "value": {
+                  "var": "max_qty",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Going live safely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Going live safely",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Going live safely",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Going live safely [D30.P5.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Going live safely [D30.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Launch gradually.",
+            "bars": [
+              {
+                "label": "instruments",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "max_qty",
+                "value": 100,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Compare live performance with the backtest daily.",
+            "bars": [
+              {
+                "label": "instruments",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "max_qty",
+                "value": 100,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Going live safely [D30.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Most blow-ups come from operations and process, not from the mathematics.",
+            "bars": [
+              {
+                "label": "instruments",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "max_qty",
+                "value": 500,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1063,223 +1029,217 @@
       "partTitle": "Capstone practice: tick handler and readiness",
       "codeHash": "00d3d71a98b61837dc0da49ef5b5d2274f7be2ec1d8565f4e9c54bf9d9f78302",
       "spec": {
-        "template": "flow",
-        "title": "Capstone practice: tick handler and readiness — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone practice: ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone practice: tick handler and readiness",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone practice: tick handler and read.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone practice: ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "On_tick(tick, inventory, params, limits).",
+            "bars": [
+              {
+                "label": "inv",
+                "value": {
+                  "var": "inv",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "micro",
+                "value": {
+                  "var": "micro",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bid",
+                "value": {
+                  "var": "bid",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A normal tick (micro 100.",
+            "bars": [
+              {
+                "label": "inv",
+                "value": {
+                  "var": "inv",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "micro",
+                "value": {
+                  "var": "micro",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bid",
+                "value": {
+                  "var": "bid",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone practice: tick handler a.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The same disciplines, measure, test, control risk and stay honest, apply.",
+            "bars": [
+              {
+                "label": "inv",
+                "value": {
+                  "var": "inv",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "micro",
+                "value": {
+                  "var": "micro",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bid",
+                "value": {
+                  "var": "bid",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone practice: tick handler and readiness — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone practice: ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone practice: tick handler and readiness",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone practice: tick handler and read.. [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone practice: ... [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "On_tick(tick, inventory, params, limits).",
+            "bars": [
+              {
+                "label": "inv",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "micro",
+                "value": 100.06,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 100.06,
+                "tone": "data"
+              },
+              {
+                "label": "bid",
+                "value": 100.01,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A normal tick (micro 100.",
+            "bars": [
+              {
+                "label": "inv",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "micro",
+                "value": 100.06,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 100.06,
+                "tone": "ok"
+              },
+              {
+                "label": "bid",
+                "value": 100.01,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone practice: tick handler a.. [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The same disciplines, measure, test, control risk and stay honest, apply.",
+            "bars": [
+              {
+                "label": "inv",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "micro",
+                "value": 100.06,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 100.06,
+                "tone": "ok"
+              },
+              {
+                "label": "bid",
+                "value": 100.01,
+                "tone": "ok"
+              }
             ]
           }
         ]

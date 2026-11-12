@@ -10,6 +10,9 @@
  * 4. Exactly 5 rapid-fire MCQ questions answered within 60 seconds total.
  */
 
+// [FIX-STAGE: phase2-rapidfire-shuffle] Deterministic answer-position shuffling prevents index-0 gameability
+import { withAnswerAt } from '../data/blockTests';
+
 export interface PuzzleBlock {
   id: string;
   label: string;
@@ -549,22 +552,42 @@ export function generateRapidFireBattle(
   const questions: RapidBattleQuestion[] = [];
   const parts = Array.isArray(lessonData?.parts) ? lessonData.parts : [];
 
-  // Extract from parts check questions
+  // [FIX-STAGE: phase2-rapidfire-shuffle] Extract and deterministically shuffle options from parts check questions
   for (let i = 0; i < parts.length; i++) {
     const p = parts[i];
     const chk = p.check;
     if (chk && chk.question && Array.isArray(chk.options) && chk.options.length >= 2) {
+      const rawOpts = chk.options.length >= 4
+        ? chk.options.slice(0, 4)
+        : [
+            chk.options[0] || 'Option A',
+            chk.options[1] || 'Option B',
+            chk.options[2] || 'None of the above',
+            chk.options[3] || 'All of the above',
+          ];
+      const rawAnswerIdx = typeof chk.answer === 'number' ? chk.answer : (chk.answerIndex ?? 0);
+      const boundedIdx = rawAnswerIdx >= 0 && rawAnswerIdx < rawOpts.length ? rawAnswerIdx : 0;
+      if (boundedIdx !== rawAnswerIdx) {
+        console.warn('[PinIT][Fix:RapidFireBattle] Out-of-bounds answer index clamped to 0', {
+          questId,
+          prefix,
+          dayNum,
+          partIndex: i,
+          rawAnswerIdx,
+        });
+      }
+      const shuffled = withAnswerAt(rawOpts, boundedIdx, dayNum * 17 + i * 31 + prefix.length);
       const opts: [string, string, string, string] = [
-        chk.options[0] || 'Option A',
-        chk.options[1] || 'Option B',
-        chk.options[2] || (chk.options.length > 2 ? chk.options[2] : 'None of the above'),
-        chk.options[3] || (chk.options.length > 3 ? chk.options[3] : 'All of the above')
+        shuffled.options[0] ?? rawOpts[0],
+        shuffled.options[1] ?? rawOpts[1],
+        shuffled.options[2] ?? rawOpts[2],
+        shuffled.options[3] ?? rawOpts[3],
       ];
       questions.push({
         id: `battle-q-${i + 1}`,
         question: chk.question.length > 95 ? chk.question.slice(0, 92) + '...' : chk.question,
         options: opts,
-        correctIndex: typeof chk.answer === 'number' ? chk.answer : (chk.answerIndex ?? 0),
+        correctIndex: shuffled.answerIndex,
         explanation: chk.why || chk.explanation || 'Optimal architectural invariant confirmed.'
       });
     }
@@ -597,14 +620,30 @@ export function generateRapidFireBattle(
     { q: "Why should secrets and API keys never be hardcoded in source files?", opts: ["Anyone with repository access can extract and abuse credentials", "They make strings too long", "Compilers reject uppercase letters", "Environment variables are slower"], ans: 0, why: "Hardcoded credentials in version control are a critical security vulnerability." }
   ];
 
+  // [FIX-STAGE: phase2-rapidfire-shuffle] Shuffle fallback domain reflex options so ans is never stuck at index 0
   let rIdx = 0;
+  if (questions.length === 0) {
+    console.info('[PinIT][Fix:RapidFireBattle] No valid part checks found; using shuffled domain reflexes', {
+      questId,
+      prefix,
+      dayNum,
+      domain,
+    });
+  }
   while (questions.length < 5) {
     const item = reflexes[rIdx % reflexes.length];
+    const shuffled = withAnswerAt(item.opts, item.ans, dayNum * 23 + rIdx * 11 + prefix.length);
+    const opts: [string, string, string, string] = [
+      shuffled.options[0] ?? item.opts[0],
+      shuffled.options[1] ?? item.opts[1],
+      shuffled.options[2] ?? item.opts[2],
+      shuffled.options[3] ?? item.opts[3],
+    ];
     questions.push({
       id: `battle-fallback-${questions.length + 1}`,
       question: item.q,
-      options: item.opts,
-      correctIndex: item.ans,
+      options: opts,
+      correctIndex: shuffled.answerIndex,
       explanation: item.why
     });
     rIdx++;

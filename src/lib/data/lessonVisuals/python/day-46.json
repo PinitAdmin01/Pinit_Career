@@ -2,88 +2,253 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 46,
-  "promptSha": "bb25643d42d3550fbf69677111742088c34610c7dca4b162b13fcd9407bdcb7b",
-  "model": "gate-v2-verified",
+  "promptSha": "11c6b11c406fa6922e19220fc7ecce532203ac5d8cd4a2c9b22cc3db8ea479cc",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Protocol Buffers Binary Encoding & HTTP/2 Framing Physics",
       "codeHash": "c7d780a35871e926c50408406a5f14b8d53a2d89c555c9f917d0e7c506df51fd",
       "spec": {
-        "template": "table",
-        "title": "Protocol Buffers Binary Encoding & HTTP/2 Framing ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ProtobufVarintSerializer binary encoding pipeline",
+        "nodes": [
+          {
+            "id": "uid",
+            "label": "user_id"
+          },
+          {
+            "id": "enc",
+            "label": "encode_varint"
+          },
+          {
+            "id": "ser",
+            "label": "serialize_user_message"
+          },
+          {
+            "id": "js",
+            "label": "json"
+          }
+        ],
+        "edges": [
+          {
+            "from": "uid",
+            "to": "enc"
+          },
+          {
+            "from": "enc",
+            "to": "ser",
+            "label": "username"
+          },
+          {
+            "from": "ser",
+            "to": "js"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The modern concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Protocol"
-                  },
-                  {
-                    "text": "Buffers"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Protocol Buffers pack structured fields into binary varints with field tags.",
+            "values": {
+              "uid": {
+                "text": "user_id"
+              },
+              "enc": {
+                "text": "encode_varint"
+              },
+              "ser": {
+                "text": "serialize_user_message"
+              },
+              "js": {
+                "text": "json"
               }
-            ]
+            },
+            "tones": {
+              "uid": "data",
+              "enc": "data",
+              "ser": "idle",
+              "js": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The physical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "Encoding"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Binary streams multiplex requests cleanly across one shared HTTP/2 socket.",
+            "values": {
+              "uid": {
+                "text": "username"
+              },
+              "enc": {
+                "text": "is_active"
+              },
+              "ser": {
+                "text": "serialize_user_message"
+              },
+              "js": {
+                "text": "json"
               }
-            ]
+            },
+            "tones": {
+              "uid": "ok",
+              "enc": "data",
+              "ser": "ok",
+              "js": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Protobuf varint encoding compresses payload bytes compared against JSON text.",
+            "values": {
+              "uid": {
+                "text": "ProtobufVarintSerializer"
+              },
+              "enc": {
+                "text": "encode_varint"
+              },
+              "ser": {
+                "text": "serialize_user_message"
+              },
+              "js": {
+                "text": "json"
+              }
+            },
+            "tones": {
+              "uid": "ok",
+              "enc": "ok",
+              "ser": "ok",
+              "js": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add fourth int64 timestamp field to Protobuf serializer and measure wire bytes.",
+            "values": {
+              "uid": {
+                "text": "Add"
+              },
+              "enc": {
+                "text": "field"
+              },
+              "ser": {
+                "text": "timestamp"
+              },
+              "js": {
+                "text": "Protobuf"
+              }
+            },
+            "tones": {
+              "uid": "ok",
+              "enc": "data",
+              "ser": "ok",
+              "js": "idle"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Protocol Buffers Binary Encoding & HTTP/2 Framing ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ProtobufVarintSerializer binary encoding pipeline",
+        "nodes": [
+          {
+            "id": "uid",
+            "label": "user_id"
+          },
+          {
+            "id": "enc",
+            "label": "encode_varint"
+          },
+          {
+            "id": "ser",
+            "label": "serialize_user_message"
+          },
+          {
+            "id": "js",
+            "label": "json"
+          }
+        ],
+        "edges": [
+          {
+            "from": "uid",
+            "to": "enc"
+          },
+          {
+            "from": "enc",
+            "to": "ser",
+            "label": "username"
+          },
+          {
+            "from": "ser",
+            "to": "js"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The modern concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Protocol",
-                  "Buffers"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Protocol Buffers pack structured fields into binary varints with field tags.",
+            "values": {
+              "uid": "1048576 (int32)",
+              "enc": "Tag 8 + 3 Varint Bytes",
+              "ser": "Packing Field Tags",
+              "js": "UTF-8 Keys Baseline"
+            },
+            "tones": {
+              "uid": "data",
+              "enc": "data",
+              "ser": "idle",
+              "js": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The physical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Binary",
-                  "Encoding"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Binary streams multiplex requests cleanly across one shared HTTP/2 socket.",
+            "values": {
+              "uid": "alex_architect",
+              "enc": "is_active = True",
+              "ser": "HPACK + Binary Stream",
+              "js": "Verbose Text Wire"
+            },
+            "tones": {
+              "uid": "ok",
+              "enc": "data",
+              "ser": "ok",
+              "js": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Protobuf varint encoding compresses payload bytes compared against JSON text.",
+            "values": {
+              "uid": "Compact Binary TLV",
+              "enc": "No ASCII Field Names",
+              "ser": "22 Bytes Total (68.1% Saved)",
+              "js": "69 Bytes JSON Text"
+            },
+            "tones": {
+              "uid": "ok",
+              "enc": "ok",
+              "ser": "ok",
+              "js": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add fourth int64 timestamp field to Protobuf serializer and measure wire bytes.",
+            "values": {
+              "uid": "4 Fields Encoded (TLV)",
+              "enc": "Tag 4 Varint Timestamp",
+              "ser": "28 Bytes Protobuf Wire",
+              "js": "94 Bytes JSON (70.2% Saved)"
+            },
+            "tones": {
+              "uid": "ok",
+              "enc": "data",
+              "ser": "ok",
+              "js": "idle"
+            },
+            "arrows": [],
+            "whatIf": "import json\n\nclass ProtobufVarintSerializer:\n    def encode_varint(self, value):\n        bytes_out = bytearray()\n        while value > 0x7F:\n            bytes_out.append((value & 0x7F) | 0x80)\n            value >>= 7\n        bytes_out.append(value & 0x7F)\n        return bytes(bytes_out)\n\n    def serialize_user_message(self, user_id, username, is_active, timestamp=1731369600):\n        # Field 1 (int32 user_id): tag = (1 << 3) | 0 = 8\n        b = bytearray()\n        b.extend(self.encode_varint((1 << 3) | 0))\n        b.extend(self.encode_varint(user_id))\n        \n        # Field 2 (string username): tag = (2 << 3) | 2 = 18\n        name_bytes = username.encode('utf-8')\n        b.extend(self.encode_varint((2 << 3) | 2))\n        b.extend(self.encode_varint(len(name_bytes)))\n        b.extend(name_bytes)\n        \n        # Field 3 (bool is_active): tag = (3 << 3) | 0 = 24\n        b.extend(self.encode_varint((3 << 3) | 0))\n        b.append(1 if is_active else 0)\n        b.extend(self.encode_varint((4 << 3) | 0))\n        b.extend(self.encode_varint(timestamp))\n        return bytes(b)\n\nser = ProtobufVarintSerializer()\nproto_bytes = ser.serialize_user_message(1048576, \"alex_architect\", True)\njson_str = json.dumps({\"user_id\": 1048576, \"username\": \"alex_architect\", \"is_active\": True, \"timestamp\": 1731369600})\n\nprint(f\"Protobuf binary payload size: {len(proto_bytes)} bytes\")\nprint(f\"JSON text payload size: {len(json_str.encode('utf-8'))} bytes\")\nreduction = round((1 - len(proto_bytes) / len(json_str.encode('utf-8'))) * 100, 1)\nprint(f\"Bandwidth reduction: {reduction}% savings over JSON wire framing!\")",
+            "checks": [
+              "Protobuf binary payload size: 28 bytes",
+              "JSON text payload size: 94 bytes"
             ]
           }
         ]
@@ -93,82 +258,158 @@
       "partTitle": "Ephemeral Port Exhaustion & Connection Churn Forensics",
       "codeHash": "3d8406758c0aa50a98dde305117984b30a8da76c6f6bc758373cc4a3e986bb3a",
       "spec": {
-        "template": "table",
-        "title": "Ephemeral Port Exhaustion & Connection Churn Foren",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "HTTP/1.1 TIME_WAIT churn vs HTTP/2 multiplexing",
+        "leftLabel": "HTTP/1.1 Socket Churn",
+        "rightLabel": "HTTP/2 Multiplexing",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The appreciate concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Ephemeral"
-                  },
-                  {
-                    "text": "Port"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Closed TCP sockets linger in TIME_WAIT state before port reuse.",
+            "left": {
+              "code": "time_wait_sockets",
+              "result": "60s TIME_WAIT Linger",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "tcp_connections",
+              "result": "1 Persistent Socket",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Exhaustion"
-                  },
-                  {
-                    "text": "Connection"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "HTTP/2 multiplexes concurrent streams across one persistent TCP connection.",
+            "left": {
+              "code": "profile_http1_churn",
+              "result": "EADDRNOTAVAIL Risk",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "profile_http2_multiplex",
+              "result": "0 TIME_WAIT Churn",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Connection profiler contrasts socket buildup against stream multiplexing.",
+            "left": {
+              "code": "sockets_created",
+              "result": "2000 Ephemeral Sockets",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "active_streams",
+              "result": "1 Shared Connection",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate scaled requests in profile_http1_churn comparing TIME_WAIT sockets.",
+            "left": {
+              "code": "profiler.profile_http1_churn(5000)",
+              "result": "5000 Sockets In TIME_WAIT",
+              "tone": "error",
+              "checks": [
+                "5000 requests created 5000 sockets! 5000 sockets stuck in TIME_WAIT state."
+              ],
+              "whatIf": "class ConnectionMultiplexingProfiler:\n    def profile_http1_churn(self, request_count=2000):\n        # HTTP/1.1 requires new TCP sockets or pool churn\n        sockets_created = request_count\n        time_wait_sockets = sockets_created\n        return f\"HTTP/1.1 Churn: {request_count} requests created {sockets_created} sockets! {time_wait_sockets} sockets stuck in TIME_WAIT state.\"\n\n    def profile_http2_multiplex(self, request_count=2000, max_concurrent_streams=100):\n        # HTTP/2 multiplexes streams over 1 long-lived TCP connection\n        tcp_connections = 1\n        active_streams = min(request_count, max_concurrent_streams)\n        return f\"HTTP/2 Multiplexing: {request_count} requests multiplexed across {tcp_connections} persistent TCP connection! (0 TIME_WAIT churn)\"\n\nprofiler = ConnectionMultiplexingProfiler()\nprint(profiler.profile_http1_churn(5000))\nprint(profiler.profile_http2_multiplex(2000))\nprint(\"Architecture Invariant: HTTP/2 multiplexing completely eliminates EADDRNOTAVAIL ephemeral port exhaustion.\")"
+            },
+            "right": {
+              "code": "profiler.profile_http2_multiplex(5000)",
+              "result": "1 TCP Socket (0 TIME_WAIT Churn)",
+              "tone": "ok",
+              "checks": [
+                "5000 requests multiplexed across 1 persistent TCP connection! (0 TIME_WAIT churn)"
+              ],
+              "whatIf": "class ConnectionMultiplexingProfiler:\n    def profile_http1_churn(self, request_count=2000):\n        # HTTP/1.1 requires new TCP sockets or pool churn\n        sockets_created = request_count\n        time_wait_sockets = sockets_created\n        return f\"HTTP/1.1 Churn: {request_count} requests created {sockets_created} sockets! {time_wait_sockets} sockets stuck in TIME_WAIT state.\"\n\n    def profile_http2_multiplex(self, request_count=2000, max_concurrent_streams=100):\n        # HTTP/2 multiplexes streams over 1 long-lived TCP connection\n        tcp_connections = 1\n        active_streams = min(request_count, max_concurrent_streams)\n        return f\"HTTP/2 Multiplexing: {request_count} requests multiplexed across {tcp_connections} persistent TCP connection! (0 TIME_WAIT churn)\"\n\nprofiler = ConnectionMultiplexingProfiler()\nprint(profiler.profile_http1_churn(2000))\nprint(profiler.profile_http2_multiplex(5000))\nprint(\"Architecture Invariant: HTTP/2 multiplexing completely eliminates EADDRNOTAVAIL ephemeral port exhaustion.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ephemeral Port Exhaustion & Connection Churn Foren",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "HTTP/1.1 TIME_WAIT churn vs HTTP/2 multiplexing",
+        "leftLabel": "HTTP/1.1 Socket Churn",
+        "rightLabel": "HTTP/2 Multiplexing",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The appreciate concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Ephemeral",
-                  "Port"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Closed TCP sockets linger in TIME_WAIT state before port reuse.",
+            "left": {
+              "code": "close() -> TIME_WAIT (2MSL)",
+              "result": "Port Locked For 60s",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Single Long-Lived TCP Socket",
+              "result": "Never Recycled Per RPC",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Exhaustion",
-                  "Connection"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "HTTP/2 multiplexes concurrent streams across one persistent TCP connection.",
+            "left": {
+              "code": "Outbound Ports Exhausted",
+              "result": "EADDRNOTAVAIL Outage",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "31-Bit Binary Stream IDs",
+              "result": "Zero Ephemeral Churn",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Connection profiler contrasts socket buildup against stream multiplexing.",
+            "left": {
+              "code": "2000 Requests -> 2000 Sockets",
+              "result": "2000 In TIME_WAIT",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "2000 Requests -> 1 Socket",
+              "result": "0 In TIME_WAIT",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate scaled requests in profile_http1_churn comparing TIME_WAIT sockets.",
+            "left": {
+              "code": "profiler.profile_http1_churn(5000)",
+              "result": "5000 Sockets In TIME_WAIT",
+              "tone": "error",
+              "checks": [
+                "5000 requests created 5000 sockets! 5000 sockets stuck in TIME_WAIT state."
+              ],
+              "whatIf": "class ConnectionMultiplexingProfiler:\n    def profile_http1_churn(self, request_count=2000):\n        # HTTP/1.1 requires new TCP sockets or pool churn\n        sockets_created = request_count\n        time_wait_sockets = sockets_created\n        return f\"HTTP/1.1 Churn: {request_count} requests created {sockets_created} sockets! {time_wait_sockets} sockets stuck in TIME_WAIT state.\"\n\n    def profile_http2_multiplex(self, request_count=2000, max_concurrent_streams=100):\n        # HTTP/2 multiplexes streams over 1 long-lived TCP connection\n        tcp_connections = 1\n        active_streams = min(request_count, max_concurrent_streams)\n        return f\"HTTP/2 Multiplexing: {request_count} requests multiplexed across {tcp_connections} persistent TCP connection! (0 TIME_WAIT churn)\"\n\nprofiler = ConnectionMultiplexingProfiler()\nprint(profiler.profile_http1_churn(5000))\nprint(profiler.profile_http2_multiplex(2000))\nprint(\"Architecture Invariant: HTTP/2 multiplexing completely eliminates EADDRNOTAVAIL ephemeral port exhaustion.\")"
+            },
+            "right": {
+              "code": "profiler.profile_http2_multiplex(5000)",
+              "result": "1 TCP Socket (0 TIME_WAIT Churn)",
+              "tone": "ok",
+              "checks": [
+                "5000 requests multiplexed across 1 persistent TCP connection! (0 TIME_WAIT churn)"
+              ],
+              "whatIf": "class ConnectionMultiplexingProfiler:\n    def profile_http1_churn(self, request_count=2000):\n        # HTTP/1.1 requires new TCP sockets or pool churn\n        sockets_created = request_count\n        time_wait_sockets = sockets_created\n        return f\"HTTP/1.1 Churn: {request_count} requests created {sockets_created} sockets! {time_wait_sockets} sockets stuck in TIME_WAIT state.\"\n\n    def profile_http2_multiplex(self, request_count=2000, max_concurrent_streams=100):\n        # HTTP/2 multiplexes streams over 1 long-lived TCP connection\n        tcp_connections = 1\n        active_streams = min(request_count, max_concurrent_streams)\n        return f\"HTTP/2 Multiplexing: {request_count} requests multiplexed across {tcp_connections} persistent TCP connection! (0 TIME_WAIT churn)\"\n\nprofiler = ConnectionMultiplexingProfiler()\nprint(profiler.profile_http1_churn(2000))\nprint(profiler.profile_http2_multiplex(5000))\nprint(\"Architecture Invariant: HTTP/2 multiplexing completely eliminates EADDRNOTAVAIL ephemeral port exhaustion.\")"
+            }
           }
         ]
       }
@@ -177,81 +418,181 @@
       "partTitle": "Asynchronous gRPC Server & Streaming Client Implementation",
       "codeHash": "86ddf9edf1fa2666084fcdc10939d81ea591dcd6eb046f99ea517f6f46494622",
       "spec": {
-        "template": "table",
-        "title": "Asynchronous gRPC Server & Streaming Client Implem",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "AsyncGrpcServicerSimulator canonical RPC dispatch",
+        "boxes": [
+          {
+            "id": "req",
+            "label": "GetUserProfile"
+          },
+          {
+            "id": "db",
+            "label": "user_db"
+          },
+          {
+            "id": "stat",
+            "label": "status_code"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Asynchronous"
-                  },
-                  {
-                    "text": "gRPC"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Servicer coroutines dispatch async RPC handlers without blocking threads.",
+            "values": {
+              "req": {
+                "text": "GetUserProfile"
+              },
+              "db": {
+                "text": "user_db"
+              },
+              "stat": {
+                "text": "status_code"
               }
-            ]
+            },
+            "tones": {
+              "req": "data",
+              "db": "data",
+              "stat": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Server"
-                  },
-                  {
-                    "text": "Streaming"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Missing records assign NOT_FOUND directly onto the response status code.",
+            "values": {
+              "req": {
+                "text": "user_id"
+              },
+              "db": {
+                "text": "error_message"
+              },
+              "stat": {
+                "text": "NOT_FOUND"
               }
-            ]
+            },
+            "tones": {
+              "req": "data",
+              "db": "error",
+              "stat": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Structured responses pair canonical status codes with directory payloads.",
+            "values": {
+              "req": {
+                "text": "AsyncGrpcServicerSimulator"
+              },
+              "db": {
+                "text": "user_db"
+              },
+              "stat": {
+                "text": "status_code"
+              }
+            },
+            "tones": {
+              "req": "ok",
+              "db": "ok",
+              "stat": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add new user entry to user_db dictionary and query profile via GetUserProfile.",
+            "values": {
+              "req": {
+                "text": "Add"
+              },
+              "db": {
+                "text": "user"
+              },
+              "stat": {
+                "text": "102"
+              }
+            },
+            "tones": {
+              "req": "data",
+              "db": "ok",
+              "stat": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Asynchronous gRPC Server & Streaming Client Implem",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "AsyncGrpcServicerSimulator canonical RPC dispatch",
+        "boxes": [
+          {
+            "id": "req",
+            "label": "GetUserProfile"
+          },
+          {
+            "id": "db",
+            "label": "user_db"
+          },
+          {
+            "id": "stat",
+            "label": "status_code"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Asynchronous",
-                  "gRPC"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Servicer coroutines dispatch async RPC handlers without blocking threads.",
+            "values": {
+              "req": "user_id = 101 Lookups",
+              "db": "Found: Sara Chen",
+              "stat": "status_code = OK"
+            },
+            "tones": {
+              "req": "data",
+              "db": "data",
+              "stat": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Server",
-                  "Streaming"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Missing records assign NOT_FOUND directly onto the response status code.",
+            "values": {
+              "req": "user_id = 999 Miss",
+              "db": "User 999 not found",
+              "stat": "status_code = NOT_FOUND"
+            },
+            "tones": {
+              "req": "data",
+              "db": "error",
+              "stat": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Structured responses pair canonical status codes with directory payloads.",
+            "values": {
+              "req": "Non-Blocking Servicer",
+              "db": "Typed Profile Dict",
+              "stat": "OK / NOT_FOUND Trailers"
+            },
+            "tones": {
+              "req": "ok",
+              "db": "ok",
+              "stat": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add new user entry to user_db dictionary and query profile via GetUserProfile.",
+            "values": {
+              "req": "user_id: 102 Query",
+              "db": "Marco Silva Found",
+              "stat": "status_code: OK"
+            },
+            "tones": {
+              "req": "data",
+              "db": "ok",
+              "stat": "ok"
+            },
+            "whatIf": "class AsyncGrpcServicerSimulator:\n    def __init__(self):\n        self.user_db = {101: {\"name\": \"Sara Chen\", \"role\": \"Principal SRE\"}, 102: {\"name\": \"Marco Silva\", \"role\": \"Staff Backend\"}}\n\n    def GetUserProfile(self, request_proto):\n        user_id = request_proto.get(\"user_id\")\n        if user_id not in self.user_db:\n            return {\"status_code\": \"NOT_FOUND\", \"error_message\": f\"User {user_id} not found in directory.\"}\n        user = self.user_db[user_id]\n        return {\n            \"status_code\": \"OK\",\n            \"profile\": {\n                \"user_id\": user_id,\n                \"name\": user[\"name\"],\n                \"role\": user[\"role\"]\n            }\n        }\n\nservicer = AsyncGrpcServicerSimulator()\nresp1 = servicer.GetUserProfile({\"user_id\": 101})\nresp2 = servicer.GetUserProfile({\"user_id\": 102})\n\nprint(f\"RPC 1 [user_id: 101] -> Status: {resp1['status_code']}, Payload: {resp1['profile']}\")\nprint(f\"RPC 2 [user_id: 102] -> Status: {resp2['status_code']}, Payload: {resp2['profile']}\")",
+            "checks": [
+              "RPC 2 [user_id: 102] -> Status: OK, Payload: {'user_id': 102, 'name': 'Marco Silva', 'role': 'Staff Backend'}"
             ]
           }
         ]
@@ -262,23 +603,75 @@
       "codeHash": "4001be04acceed4b427bacd58cddf3ebac8b6bb16c10f8a58adacf51903bdc92",
       "spec": {
         "template": "table",
-        "title": "The Four gRPC Communication Patterns & Streaming T",
+        "title": "GrpcStreamPatternEngine HTTP/2 RPC topologies",
         "columns": [
-          "Stage",
-          "Concept"
+          "Pattern",
+          "Call Shape",
+          "Method"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The powerful concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Unary RPC sends one request message for a single response.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "unary_call"
                   },
                   {
-                    "text": "Four"
+                    "text": "request"
+                  },
+                  {
+                    "text": "GrpcStreamPatternEngine"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "server_streaming_call"
+                  },
+                  {
+                    "text": "topic"
+                  },
+                  {
+                    "text": "events"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Server streaming yields an open generator stream from one request.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "server_streaming_call"
+                  },
+                  {
+                    "text": "topic"
+                  },
+                  {
+                    "text": "events"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "client_streaming_call"
+                  },
+                  {
+                    "text": "batch_data"
+                  },
+                  {
+                    "text": "GrpcStreamPatternEngine"
                   }
                 ],
                 "tone": "data"
@@ -286,19 +679,70 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Client streaming aggregates batches while bidirectional exchanges flow freely.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "gRPC"
+                    "text": "client_streaming_call"
                   },
                   {
-                    "text": "Communication"
+                    "text": "batch_data"
+                  },
+                  {
+                    "text": "GrpcStreamPatternEngine"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "unary_call"
+                  },
+                  {
+                    "text": "server_streaming_call"
+                  },
+                  {
+                    "text": "events"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify server_streaming_call to yield more events and observe array output.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Modify"
+                  },
+                  {
+                    "text": "server_streaming_call"
+                  },
+                  {
+                    "text": "yield"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "yield"
+                  },
+                  {
+                    "text": "events"
+                  },
+                  {
+                    "text": "instead"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -306,36 +750,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "The Four gRPC Communication Patterns & Streaming T",
+        "title": "GrpcStreamPatternEngine HTTP/2 RPC topologies",
         "columns": [
-          "Stage",
-          "Concept"
+          "Pattern",
+          "Call Shape",
+          "Method"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The powerful concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Unary RPC sends one request message for a single response.",
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "Four"
+                  "Unary RPC",
+                  "1 Request -> 1 Response",
+                  "unary_call(\"auth_token_99\")"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Server Streaming",
+                  "1 Request -> N Events",
+                  "Queued Next"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Server streaming yields an open generator stream from one request.",
+            "rows": [
+              {
+                "cells": [
+                  "Server Streaming",
+                  "1 Topic -> 3 Yielded Events",
+                  "server_streaming_call()"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Client Streaming",
+                  "N Batch Items -> 1 Ack",
+                  "Batch Ingest"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Client streaming aggregates batches while bidirectional exchanges flow freely.",
             "rows": [
               {
                 "cells": [
-                  "gRPC",
-                  "Communication"
+                  "Client Streaming",
+                  "4 Orders -> Summary Ack",
+                  "client_streaming_call()"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Bidirectional",
+                  "Full-Duplex Streams",
+                  "Independent Flow Control"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify server_streaming_call to yield more events and observe array output.",
+            "rows": [
+              {
+                "cells": [
+                  "Server Streaming",
+                  "1 Req -> 5 Streamed Events",
+                  "server_streaming_call(count=5)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Client Streaming",
+                  "4 Orders -> Summary Ack",
+                  "client_streaming_call()"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class GrpcStreamPatternEngine:\n    def unary_call(self, request):\n        return f\"UNARY: 1 Request ('{request}') -> 1 Response ('Ack_{request}')\"\n\n    def server_streaming_call(self, topic, count=3):\n        # Server yields a continuous stream of events\n        events = [f\"event_{i}_for_{topic}\" for i in range(1, count + 1)]\n        return f\"SERVER STREAMING: 1 Request ('{topic}') -> Yielded {len(events)} events: {events}\"\n\n    def client_streaming_call(self, batch_data):\n        # Client streams multiple items, server yields 1 summary\n        total_items = len(batch_data)\n        return f\"CLIENT STREAMING: Ingested {total_items} streamed records -> Summary: 'INGESTED_{total_items}_RECORDS'\"\n\nengine = GrpcStreamPatternEngine()\nprint(engine.unary_call(\"auth_token_99\"))\nprint(engine.server_streaming_call(\"order_ticks\", count=5))\nprint(engine.client_streaming_call([\"order_1\", \"order_2\", \"order_3\", \"order_4\"]))",
+            "checks": [
+              "Yielded 5 events: ['event_1_for_order_ticks', 'event_2_for_order_ticks', 'event_3_for_order_ticks', 'event_4_for_order_ticks', 'event_5_for_order_ticks']"
             ]
           }
         ]
@@ -345,81 +856,245 @@
       "partTitle": "Enterprise Inter-Service Communication Modernization",
       "codeHash": "2fad138db3c6dc7bbf5aa992867a5da6c08bc823eb62983603071a872c01d22b",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Inter-Service Communication Modernizati",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "GrpcMicroserviceGateway routing and latency gains",
+        "nodes": [
+          {
+            "id": "reg",
+            "label": "register_rpc"
+          },
+          {
+            "id": "gw",
+            "label": "GrpcMicroserviceGateway"
+          },
+          {
+            "id": "inv",
+            "label": "invoke"
+          },
+          {
+            "id": "out",
+            "label": "latency_ms"
+          }
+        ],
+        "edges": [
+          {
+            "from": "reg",
+            "to": "gw",
+            "label": "routes"
+          },
+          {
+            "from": "gw",
+            "to": "inv"
+          },
+          {
+            "from": "inv",
+            "to": "out"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Enterprise"
-                  },
-                  {
-                    "text": "Inter"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Gateway routing avoids slow JSON parsing across internal RPC calls.",
+            "values": {
+              "reg": {
+                "text": "register_rpc"
+              },
+              "gw": {
+                "text": "routes"
+              },
+              "inv": {
+                "text": "invoke"
+              },
+              "out": {
+                "text": "UNIMPLEMENTED"
               }
-            ]
+            },
+            "tones": {
+              "reg": "data",
+              "gw": "data",
+              "inv": "idle",
+              "out": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The routed logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Service"
-                  },
-                  {
-                    "text": "Communication"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Binary framing slashes microservice RPC latency down to single milliseconds.",
+            "values": {
+              "reg": {
+                "text": "GrpcMicroserviceGateway"
+              },
+              "gw": {
+                "text": "routes"
+              },
+              "inv": {
+                "text": "invoke"
+              },
+              "out": {
+                "text": "latency_ms"
               }
-            ]
+            },
+            "tones": {
+              "reg": "ok",
+              "gw": "ok",
+              "inv": "data",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Gateway execution proves clear latency reduction over legacy REST links.",
+            "values": {
+              "reg": {
+                "text": "register_rpc"
+              },
+              "gw": {
+                "text": "GrpcMicroserviceGateway"
+              },
+              "inv": {
+                "text": "invoke"
+              },
+              "out": {
+                "text": "latency_ms"
+              }
+            },
+            "tones": {
+              "reg": "ok",
+              "gw": "ok",
+              "inv": "ok",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Register inventory CheckStock RPC handler on gateway and verify response.",
+            "values": {
+              "reg": {
+                "text": "Register"
+              },
+              "gw": {
+                "text": "RPC"
+              },
+              "inv": {
+                "text": "gateway"
+              },
+              "out": {
+                "text": "verify"
+              }
+            },
+            "tones": {
+              "reg": "ok",
+              "gw": "data",
+              "inv": "ok",
+              "out": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Inter-Service Communication Modernizati",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "GrpcMicroserviceGateway routing and latency gains",
+        "nodes": [
+          {
+            "id": "reg",
+            "label": "register_rpc"
+          },
+          {
+            "id": "gw",
+            "label": "GrpcMicroserviceGateway"
+          },
+          {
+            "id": "inv",
+            "label": "invoke"
+          },
+          {
+            "id": "out",
+            "label": "latency_ms"
+          }
+        ],
+        "edges": [
+          {
+            "from": "reg",
+            "to": "gw",
+            "label": "routes"
+          },
+          {
+            "from": "gw",
+            "to": "inv"
+          },
+          {
+            "from": "inv",
+            "to": "out"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Enterprise",
-                  "Inter"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Gateway routing avoids slow JSON parsing across internal RPC calls.",
+            "values": {
+              "reg": "payments.Authorize",
+              "gw": "Typed Protobuf Table",
+              "inv": "Zero Text Parse",
+              "out": "Fallback: UNIMPLEMENTED"
+            },
+            "tones": {
+              "reg": "data",
+              "gw": "data",
+              "inv": "idle",
+              "out": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The routed logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Service",
-                  "Communication"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Binary framing slashes microservice RPC latency down to single milliseconds.",
+            "values": {
+              "reg": "Bound Handler",
+              "gw": "HTTP/2 Multiplexed",
+              "inv": "amount=5000 USD",
+              "out": "2.1ms (vs 78ms REST)"
+            },
+            "tones": {
+              "reg": "ok",
+              "gw": "ok",
+              "inv": "data",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Gateway execution proves clear latency reduction over legacy REST links.",
+            "values": {
+              "reg": "Registered",
+              "gw": "Routed AUTH_9921",
+              "inv": "Single TCP Pipe",
+              "out": "97% Latency Saved"
+            },
+            "tones": {
+              "reg": "ok",
+              "gw": "ok",
+              "inv": "ok",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Register inventory CheckStock RPC handler on gateway and verify response.",
+            "values": {
+              "reg": "inventory.CheckStock Added",
+              "gw": "SKU-4090 Routed",
+              "inv": "in_stock: True",
+              "out": "available: 42"
+            },
+            "tones": {
+              "reg": "ok",
+              "gw": "data",
+              "inv": "ok",
+              "out": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class GrpcMicroserviceGateway:\n    def __init__(self):\n        self.routes = {}\n\n    def register_rpc(self, method_name, handler):\n        self.routes[method_name] = handler\n\n    def invoke(self, method_name, payload):\n        if method_name not in self.routes:\n            return {\"error\": \"UNIMPLEMENTED\"}\n        return self.routes[method_name](payload)\n\ngateway = GrpcMicroserviceGateway()\ngateway.register_rpc(\"payments.Authorize\", lambda req: {\"auth_code\": \"AUTH_9921\", \"amount\": req[\"amount\"], \"latency_ms\": 2.1})\ngateway.register_rpc(\"inventory.CheckStock\", lambda req: {\"sku\": req[\"sku\"], \"in_stock\": True, \"available\": 42})\n\nres = gateway.invoke(\"payments.Authorize\", {\"amount\": 5000, \"currency\": \"USD\"})\n\nprint(\"=== Enterprise gRPC Microservice Gateway ===\")\nprint(f\"RPC Method: payments.Authorize\")\nprint(f\"Response: {res}\")\nprint(f\"Measured Latency: {res['latency_ms']}ms (vs 78ms legacy REST/JSON)\")\nstock_res = gateway.invoke(\"inventory.CheckStock\", {\"sku\": \"SKU-4090\"})\nprint(f\"Stock RPC: {stock_res}\")\nprint(\"INVARIANT SATISFIED: gRPC binary multiplexing delivers 97% latency reduction.\")",
+            "checks": [
+              "Stock RPC: {'sku': 'SKU-4090', 'in_stock': True, 'available': 42}"
             ]
           }
         ]

@@ -19,47 +19,65 @@ export interface CourseNote {
 
 export const COURSE_NOTES_REGISTRY: Record<string, CourseNote> = {
   'course-python-backend': {
+    // [FIX-STAGE: wave1c-python-notes-month2] Expanded from Month 1 basics to full 60-day Python + FastAPI/Pydantic/SQLAlchemy/JWT coverage
     courseId: 'course-python-backend',
-    courseTitle: 'Python Foundations & Data Structures',
+    courseTitle: 'Python Programming & Backend Systems',
     category: 'Backend & Data Science',
-    summary: 'Master core Python syntax, dynamic typing, control flow, functions, dictionaries, list comprehensions, and object-oriented paradigms from zero.',
-    realWorldAnalogy: 'Think of Python like a universal Swiss Army Knife. Functions are pre-sharpened tools, dictionaries are labeled toolboxes, and modules are specialized toolboxes you snap on demand.',
+    summary: 'Master core Python syntax, data structures, async ASGI services with FastAPI, schema validation with Pydantic v2, SQLAlchemy 2.0 ORM persistence, and stateless JWT authentication across Months 1 & 2.',
+    realWorldAnalogy: 'Think of a modern Python backend like a high-security bank branch: FastAPI acts as the async concierge routing requests concurrently, Pydantic v2 acts as the intake auditor rejecting malformed forms, SQLAlchemy ORM is the ledger vault manager, and JWT bearer tokens are cryptographically signed visitor badges.',
     keyConcepts: [
       {
-        heading: '1. Variables & Dynamic Type Allocation',
-        explanation: 'Python automatically assigns object types in memory at runtime without explicit type declarations.',
-        codeOrExample: 'user_count = 500  # int\nprice_usd = 19.99  # float\nis_active = True   # bool'
+        heading: '1. Variables, Comprehensions & Dictionaries (`dict`)',
+        explanation: 'Python binds references dynamically to heap objects. Dictionaries provide O(1) average hash lookups, while comprehensions build filtered collections cleanly.',
+        codeOrExample: 'user_session = {"user_id": 984, "role": "admin"}\nactive_ids = [u["id"] for u in users if u.get("active")]'
       },
       {
-        heading: '2. Functions & Variable Scope (`def`)',
-        explanation: 'Functions encapsulate reusable logic block calls. Local variables inside functions expire when execution returns.',
-        codeOrExample: 'def calculate_total(subtotal, tax_rate=0.05):\n    return subtotal * (1 + tax_rate)'
+        heading: '2. Functions, Closures & Variable Scope (`def`)',
+        explanation: 'Functions encapsulate reusable logic. Always avoid mutable default arguments like `[]` or `{}` by defaulting to `None` inside the signature.',
+        codeOrExample: 'def append_item(item: str, bucket: list[str] | None = None) -> list[str]:\n    target = [] if bucket is None else bucket\n    target.append(item)\n    return target'
       },
       {
-        heading: '3. Hash Maps & Dictionaries (`dict`)',
-        explanation: 'Dictionaries map unique keys to values for instant O(1) time complexity lookups.',
-        codeOrExample: 'user_session = {"user_id": 984, "role": "admin", "token": "xyz_123"}\nprint(user_session["role"]) # "admin"'
+        heading: '3. Async FastAPI Endpoints & Pydantic v2 Schemas',
+        explanation: 'FastAPI leverages ASGI `async def` handlers for non-blocking concurrency and Pydantic v2 `BaseModel` schemas for automatic runtime parsing, field constraints, and OpenAPI docs.',
+        codeOrExample: 'from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\nclass OrderIn(BaseModel):\n    sku: str = Field(min_length=3)\n    qty: int = Field(gt=0)\n\n@app.post("/orders")\nasync def create_order(payload: OrderIn):\n    return {"sku": payload.sku, "qty": payload.qty}'
+      },
+      {
+        heading: '4. SQLAlchemy 2.0 Async ORM & Transactional Integrity',
+        explanation: 'SQLAlchemy 2.0 uses typed `Mapped[T]` columns, parameterized `select()` statements, and explicit session commits/rollbacks to prevent SQL injection and partial writes.',
+        codeOrExample: 'stmt = select(User).where(User.email == normalized_email)\nresult = await session.execute(stmt)\nuser = result.scalar_one_or_none()'
+      },
+      {
+        heading: '5. Stateless OAuth2 & JWT Authentication',
+        explanation: 'Passwords must be hashed with slow adaptive algorithms (bcrypt/Argon2), while short-lived JWT access tokens carry signed claims (`sub`, `exp`, `role`) verified via `Depends(...)`.',
+        codeOrExample: 'token = jwt.encode({"sub": str(user.id), "exp": exp_ts}, SECRET_KEY, algorithm="HS256")\npayload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])'
       }
     ],
     cheatsheet: [
-      'List Comprehension: [x*2 for x in numbers if x > 0]',
-      'Dict Lookup: dict.get(key, default_value)',
-      'Tuple Unpacking: x, y = (10, 20)',
-      'String Formatting: f"Hello {name}, balance: {amount:.2f}"'
+      'List Comprehension: [x * 2 for x in numbers if x > 0]',
+      'Dict Safe Lookup: user.get("role", "guest")',
+      'FastAPI DI Guard: def endpoint(user=Depends(get_current_user)): ...',
+      'Pydantic v2 Validation: model = OrderIn.model_validate(raw_payload)',
+      'SQLAlchemy Query: await db.execute(select(Order).where(Order.user_id == uid))',
+      'F-String Formatting: f"Hello {name}, balance: {amount:.2f}"'
     ],
     commonPitfalls: [
-      'Mutating a list while iterating over it (creates skipped elements).',
-      'Using mutable default arguments in functions (`def append_to(element, target=[])`).',
-      'Confusing equality (`==`) with identity (`is`).'
+      'Using mutable default arguments in functions (`def add(x, items=[])`).',
+      'Blocking the FastAPI async event loop with synchronous `time.sleep()` or sync DB drivers instead of `asyncio.sleep()` / async pools.',
+      'Storing plaintext passwords or trusting decoded JWT claims without verifying signature and `exp` timestamp.',
+      'Leaving N+1 ORM queries unoptimized instead of eager loading with `selectinload()` / `joinedload()`.'
     ],
     interviewPrep: [
       {
         question: 'What is the difference between a List and a Tuple in Python?',
-        answer: 'Lists are mutable (modifiable) surrounded by square brackets `[]`. Tuples are immutable (read-only) surrounded by parentheses `()` and take less memory.'
+        answer: 'Lists (`[]`) are mutable and slightly larger in memory; tuples (`()`) are immutable, hashable if their elements are hashable, and safe as dictionary keys.'
       },
       {
-        question: 'How does Python handle memory management?',
-        answer: 'Python uses private heap memory managed by reference counting and an automatic Garbage Collector for detecting reference cycles.'
+        question: 'When should a FastAPI route use `async def` vs synchronous `def`?',
+        answer: 'Use `async def` when awaiting non-blocking async I/O (asyncpg, httpx, Redis). Use plain `def` for blocking CPU/sync libraries so FastAPI automatically offloads them to its AnyIO threadpool instead of stalling the event loop.'
+      },
+      {
+        question: 'How does SQLAlchemy protect against SQL injection and connection exhaustion?',
+        answer: 'SQLAlchemy binds parameters separately from compiled SQL ASTs (never string-interpolating untrusted values) and manages bounded async connection pools with automatic session scoping and rollback on exceptions.'
       }
     ]
   },

@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Where training memory goes",
       "codeHash": "c2248b7db5993651fa08f76896f2608101fa27b7da600cc879f56d33a1743512",
       "spec": {
-        "template": "table",
-        "title": "Training memory component breakdown and footprint accounting",
-        "columns": [
-          "name",
-          "parts",
-          "total"
+        "template": "flow",
+        "title": "Where training memory goes",
+        "nodes": [
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training memory partitions into parameters, gradients, and activations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Training memory has four main parts.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+              "parts": {
+                "var": "parts",
+                "line": 2,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "params": "data",
+              "parts": "data",
+              "total": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "parts"
+              ],
+              [
+                "parts",
+                "total"
+              ],
+              [
+                "total",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Optimizer moments and model states account for persistent memory.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Parameters are the model weights.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+              "parts": {
+                "var": "parts",
+                "line": 4,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "params": "data",
+              "parts": "data",
+              "total": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "parts"
+              ],
+              [
+                "parts",
+                "total"
+              ],
+              [
+                "total",
+                "name"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how zero updates shrinks during execution.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 4,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 5,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "params": "ok",
+              "parts": "ok",
+              "total": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "params",
+                "parts"
+              ],
+              [
+                "parts",
+                "total"
+              ],
+              [
+                "total",
+                "name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Training memory component breakdown and footprint accounting",
-        "columns": [
-          "name",
-          "parts",
-          "total"
+        "template": "flow",
+        "title": "Where training memory goes",
+        "nodes": [
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training memory partitions into parameters, gradients, and activations.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "parts",
-                  "total"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "name",
-                  "parts",
-                  "total"
-                ],
-                "tone": "data"
-              }
+            "caption": "Training memory has four main parts.",
+            "values": {
+              "params": "7000000000",
+              "parts": "[['fp16 weights', 2], ['fp16 gradients'…",
+              "total": "0",
+              "name": "'fp16 weights'"
+            },
+            "tones": {
+              "params": "data",
+              "parts": "data",
+              "total": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "parts"
+              ],
+              [
+                "parts",
+                "total"
+              ],
+              [
+                "total",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Optimizer moments and model states account for persistent memory.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "parts",
-                  "total"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "parts",
-                  "name"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Parameters are the model weights.",
+            "values": {
+              "params": "7000000000",
+              "parts": "[['fp16 weights', 2], ['fp16 gradients'…",
+              "total": "0",
+              "name": "'fp16 weights'"
+            },
+            "tones": {
+              "params": "data",
+              "parts": "data",
+              "total": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "parts"
+              ],
+              [
+                "parts",
+                "total"
+              ],
+              [
+                "total",
+                "name"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how zero updates shrinks during execution.",
+            "values": {
+              "params": "7000000000",
+              "parts": "[['fp16 weights', 2], ['fp16 gradients'…",
+              "total": "2",
+              "name": "'fp16 weights'"
+            },
+            "tones": {
+              "params": "ok",
+              "parts": "ok",
+              "total": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "params",
+                "parts"
+              ],
+              [
+                "parts",
+                "total"
+              ],
+              [
+                "total",
+                "name"
+              ]
             ]
           }
         ]
@@ -147,78 +289,91 @@
       "partTitle": "Comparing setups",
       "codeHash": "9a12341f342a206ad8709214adeaef6e284da786610ca8637376858b8ba2dc65",
       "spec": {
-        "template": "table",
-        "title": "Optimizer memory consumption comparison across configurations",
-        "columns": [
-          "setup",
+        "template": "sequence",
+        "title": "Comparing setups",
+        "actors": [
+          "SETUPS",
           "params",
-          "items"
+          "setup"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Different optimizers and precision choices require distinct memory bytes.",
-            "rows": [
+            "caption": "Different optimizers and precisions need different numbers of bytes per.",
+            "activeActor": "SETUPS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "setup"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
+                "from": "SETUPS",
+                "to": "params",
+                "label": {
+                  "var": "SETUPS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "setup"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "data"
+                "from": "params",
+                "to": "setup",
+                "label": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Inference needs minimal memory by holding only weights without moments.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how adam updates bytes during execution.",
+            "activeActor": "params",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "setup"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "from": "SETUPS",
+                "to": "params",
+                "label": {
+                  "var": "SETUPS",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "setup"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "setup"
-                  }
-                ],
+                "from": "params",
+                "to": "setup",
+                "label": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Always state which setup you assume when you quote a memory figure.",
+            "activeActor": "setup",
+            "messages": [
+              {
+                "from": "SETUPS",
+                "to": "params",
+                "label": {
+                  "var": "SETUPS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "params",
+                "to": "setup",
+                "label": {
+                  "var": "params",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +381,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Optimizer memory consumption comparison across configurations",
-        "columns": [
-          "setup",
+        "template": "sequence",
+        "title": "Comparing setups",
+        "actors": [
+          "SETUPS",
           "params",
-          "items"
+          "setup"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Different optimizers and precision choices require distinct memory bytes.",
-            "rows": [
+            "caption": "Different optimizers and precisions need different numbers of bytes per.",
+            "messages": [
               {
-                "cells": [
-                  "setup",
-                  "params",
-                  "items"
-                ],
-                "tone": "ok"
+                "from": "SETUPS",
+                "to": "params",
+                "label": "{'adam_mixed': 16, 'adam_fp32': 16, 'sg…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "setup",
-                  "params",
-                  "items"
-                ],
-                "tone": "data"
+                "from": "params",
+                "to": "setup",
+                "label": "1300000000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "SETUPS"
           },
           {
-            "at": "say4",
-            "caption": "Inference needs minimal memory by holding only weights without moments.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how adam updates bytes during execution.",
+            "messages": [
               {
-                "cells": [
-                  "setup",
-                  "params",
-                  "items"
-                ],
+                "from": "SETUPS",
+                "to": "params",
+                "label": "{'adam_mixed': 16, 'adam_fp32': 16, 'sg…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "setup",
-                  "params",
-                  "setup"
-                ],
+                "from": "params",
+                "to": "setup",
+                "label": "1300000000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "params"
+          },
+          {
+            "at": "say10",
+            "caption": "Always state which setup you assume when you quote a memory figure.",
+            "messages": [
+              {
+                "from": "SETUPS",
+                "to": "params",
+                "label": "{'adam_mixed': 16, 'adam_fp32': 16, 'sg…",
+                "tone": "data"
+              },
+              {
+                "from": "params",
+                "to": "setup",
+                "label": "1300000000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "setup"
           }
         ]
       }
@@ -285,78 +453,91 @@
       "partTitle": "Activation memory",
       "codeHash": "af7eac100187403b95461f81d12944222c3c0a0a35a6eed55b96f2f334b08a3f",
       "spec": {
-        "template": "table",
-        "title": "Activation tensor growth scaling with sequence and batch dimensions",
-        "columns": [
-          "batch",
+        "template": "sequence",
+        "title": "Activation memory",
+        "actors": [
+          "seq",
           "hidden",
           "layers"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Saved activations scale with batch size, hidden dimension, and layers.",
-            "rows": [
+            "caption": "Activations grow with batch size, sequence length, hidden size and number.",
+            "activeActor": "seq",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "hidden"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "ok"
+                "from": "seq",
+                "to": "hidden",
+                "label": {
+                  "var": "seq",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "hidden"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "data"
+                "from": "hidden",
+                "to": "layers",
+                "label": {
+                  "var": "hidden",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Expanding batch size increases activation memory across transformer layers.",
-            "rows": [
+            "at": "say2",
+            "caption": "A common rough estimate for a transformer with 16-bit activations is batch.",
+            "activeActor": "hidden",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "hidden"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
+                "from": "seq",
+                "to": "hidden",
+                "label": {
+                  "var": "seq",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "hidden"
-                  },
-                  {
-                    "text": "batch"
-                  }
-                ],
+                "from": "hidden",
+                "to": "layers",
+                "label": {
+                  "var": "hidden",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Using rough formulas consistently is more useful than guessing.",
+            "activeActor": "layers",
+            "messages": [
+              {
+                "from": "seq",
+                "to": "hidden",
+                "label": {
+                  "var": "seq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hidden",
+                "to": "layers",
+                "label": {
+                  "var": "hidden",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Activation tensor growth scaling with sequence and batch dimensions",
-        "columns": [
-          "batch",
+        "template": "sequence",
+        "title": "Activation memory",
+        "actors": [
+          "seq",
           "hidden",
           "layers"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Saved activations scale with batch size, hidden dimension, and layers.",
-            "rows": [
+            "caption": "Activations grow with batch size, sequence length, hidden size and number.",
+            "messages": [
               {
-                "cells": [
-                  "batch",
-                  "hidden",
-                  "layers"
-                ],
-                "tone": "ok"
+                "from": "seq",
+                "to": "hidden",
+                "label": "2048",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "batch",
-                  "hidden",
-                  "layers"
-                ],
-                "tone": "data"
+                "from": "hidden",
+                "to": "layers",
+                "label": "2048",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "seq"
           },
           {
-            "at": "say6",
-            "caption": "Expanding batch size increases activation memory across transformer layers.",
-            "rows": [
+            "at": "say2",
+            "caption": "A common rough estimate for a transformer with 16-bit activations is batch.",
+            "messages": [
               {
-                "cells": [
-                  "batch",
-                  "hidden",
-                  "layers"
-                ],
+                "from": "seq",
+                "to": "hidden",
+                "label": "2048",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "batch",
-                  "hidden",
-                  "batch"
-                ],
+                "from": "hidden",
+                "to": "layers",
+                "label": "2048",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "hidden"
+          },
+          {
+            "at": "say10",
+            "caption": "Using rough formulas consistently is more useful than guessing.",
+            "messages": [
+              {
+                "from": "seq",
+                "to": "hidden",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "hidden",
+                "to": "layers",
+                "label": "2048",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "layers"
           }
         ]
       }
@@ -423,78 +617,131 @@
       "partTitle": "Does it fit?",
       "codeHash": "dc268e1853cc732923fd5036baf0217275a7dc144e331fe55354d553ddbed9c6",
       "spec": {
-        "template": "table",
-        "title": "Total device memory budget evaluation: states plus activations",
-        "columns": [
-          "states",
-          "acts",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Does it fit?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Summing model states and activations decides whether training fits on device.",
-            "rows": [
+            "caption": "To decide whether a run fits, add model states and activations and compare.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "acts"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "acts"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq",
+                "value": {
+                  "var": "seq",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hidden",
+                "value": {
+                  "var": "hidden",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Leaving headroom avoids allocation failures caused by memory fragmentation.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how practice updates params during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "acts"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "acts"
-                  },
-                  {
-                    "text": "states"
-                  }
-                ],
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq",
+                "value": {
+                  "var": "seq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hidden",
+                "value": {
+                  "var": "hidden",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow shows how ZeRO pushes far beyond that by sharing the load across GPUs.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq",
+                "value": {
+                  "var": "seq",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hidden",
+                "value": {
+                  "var": "hidden",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +749,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Total device memory budget evaluation: states plus activations",
-        "columns": [
-          "states",
-          "acts",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Does it fit?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Summing model states and activations decides whether training fits on device.",
-            "rows": [
+            "caption": "To decide whether a run fits, add model states and activations and compare.",
+            "bars": [
               {
-                "cells": [
-                  "states",
-                  "acts",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 1300000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "states",
-                  "acts",
-                  "total"
-                ],
+                "label": "batch",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "seq",
+                "value": 2048,
+                "tone": "data"
+              },
+              {
+                "label": "hidden",
+                "value": 2048,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Leaving headroom avoids allocation failures caused by memory fragmentation.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how practice updates params during execution.",
+            "bars": [
               {
-                "cells": [
-                  "states",
-                  "acts",
-                  "total"
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": 1300000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "states",
-                  "acts",
-                  "states"
-                ],
+                "label": "batch",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "seq",
+                "value": 2048,
+                "tone": "ok"
+              },
+              {
+                "label": "hidden",
+                "value": 2048,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow shows how ZeRO pushes far beyond that by sharing the load across GPUs.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 1300000000,
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "seq",
+                "value": 2048,
+                "tone": "ok"
+              },
+              {
+                "label": "hidden",
+                "value": 2048,
                 "tone": "ok"
               }
             ]
@@ -561,223 +837,175 @@
       "partTitle": "Reading memory reports",
       "codeHash": "eb07ba42fdf4014240a9245a67b13ec65c5bb77688b787fdcc9e740e0c4b719d",
       "spec": {
-        "template": "flow",
-        "title": "Reading memory reports — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading memory reports",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Reading memory reports",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reading memory reports [Deight.Pfive.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reading memory reports [Deight.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Frameworks report several memory figures.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "delta",
+                "value": {
+                  "var": "delta",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Allocated memory is what tensors are using now.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": {
+                  "var": "delta",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reading memory reports.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Understanding the timeline explains why freeing activations as soon.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": {
+                  "var": "delta",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reading memory reports — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading memory reports",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Reading memory reports",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reading memory reports [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reading memory reports [D8.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Frameworks report several memory figures.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "peak",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "delta",
+                "value": 20.8,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Allocated memory is what tensors are using now.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": 20.8,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reading memory reports [D8.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Understanding the timeline explains why freeing activations as soon.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 20.8,
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": 20.8,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +1016,161 @@
       "codeHash": "688f97dfca6e55e268e6e8b9224f55a6994c71840bee045eccebf36dcf76d2fd",
       "spec": {
         "template": "flow",
-        "title": "Practice time: memory accounting — Execution Pipeline",
+        "title": "Practice time: memory accounting",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "gpu_gb",
+            "label": "gpu_gb"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: memo...",
-            "tappable": true
+            "id": "batch",
+            "label": "batch"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "seq",
+            "label": "seq"
+          },
+          {
+            "id": "layers",
+            "label": "layers"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: memory accounting.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: memo... [Deight.Psix.Stwo].",
+            "caption": "Training_memory_gb(params, setup).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "gpu_gb": {
+                "var": "gpu_gb",
+                "line": 1,
+                "hit": 1
+              },
+              "batch": {
+                "var": "batch",
+                "line": 1,
+                "hit": 1
+              },
+              "seq": {
+                "var": "seq",
+                "line": 1,
+                "hit": 1
+              },
+              "layers": {
+                "var": "layers",
+                "line": 1,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "gpu_gb": "data",
+              "batch": "data",
+              "seq": "data",
+              "layers": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpu_gb",
+                "batch"
               ],
               [
-                "proc",
-                "out"
+                "batch",
+                "seq"
+              ],
+              [
+                "seq",
+                "layers"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The checks include a 7B model in training and inference, SGD on 1.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "gpu_gb": {
+                "var": "gpu_gb",
+                "line": 2,
+                "hit": 1
+              },
+              "batch": {
+                "var": "batch",
+                "line": 2,
+                "hit": 1
+              },
+              "seq": {
+                "var": "seq",
+                "line": 2,
+                "hit": 1
+              },
+              "layers": {
+                "var": "layers",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "gpu_gb": "data",
+              "batch": "data",
+              "seq": "data",
+              "layers": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "gpu_gb",
+                "batch"
+              ],
+              [
+                "batch",
+                "seq"
+              ],
+              [
+                "seq",
+                "layers"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: memory accounting.",
+            "at": "say10",
+            "caption": "If fits_on_gpu disagrees with the check, compare your rounded parts one by one.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "gpu_gb": {
+                "var": "gpu_gb",
+                "line": 3,
+                "hit": 1
+              },
+              "batch": {
+                "var": "batch",
+                "line": 3,
+                "hit": 1
+              },
+              "seq": {
+                "var": "seq",
+                "line": 3,
+                "hit": 1
+              },
+              "layers": {
+                "var": "layers",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "gpu_gb": "ok",
+              "batch": "ok",
+              "seq": "ok",
+              "layers": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpu_gb",
+                "batch"
               ],
               [
-                "proc",
-                "out"
+                "batch",
+                "seq"
+              ],
+              [
+                "seq",
+                "layers"
               ]
             ]
           }
@@ -899,110 +1178,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: memory accounting — Execution Pipeline",
+        "title": "Practice time: memory accounting",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "gpu_gb",
+            "label": "gpu_gb"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: memo...",
-            "tappable": true
+            "id": "batch",
+            "label": "batch"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "seq",
+            "label": "seq"
+          },
+          {
+            "id": "layers",
+            "label": "layers"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: memory accounting [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: memo... [D8.P6.S2].",
+            "caption": "Training_memory_gb(params, setup).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "gpu_gb": "80",
+              "batch": "1",
+              "seq": "2048",
+              "layers": "24"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "gpu_gb": "data",
+              "batch": "data",
+              "seq": "data",
+              "layers": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpu_gb",
+                "batch"
               ],
               [
-                "proc",
-                "out"
+                "batch",
+                "seq"
+              ],
+              [
+                "seq",
+                "layers"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include a 7B model in training and inference, SGD on 1.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "gpu_gb": "80",
+              "batch": "1",
+              "seq": "2048",
+              "layers": "24"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "gpu_gb": "data",
+              "batch": "data",
+              "seq": "data",
+              "layers": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "gpu_gb",
+                "batch"
+              ],
+              [
+                "batch",
+                "seq"
+              ],
+              [
+                "seq",
+                "layers"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: memory accounting [D8.P6.S4].",
+            "at": "say10",
+            "caption": "If fits_on_gpu disagrees with the check, compare your rounded parts one by one.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "gpu_gb": "80",
+              "batch": "1",
+              "seq": "2048",
+              "layers": "24"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "gpu_gb": "ok",
+              "batch": "ok",
+              "seq": "ok",
+              "layers": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gpu_gb",
+                "batch"
               ],
               [
-                "proc",
-                "out"
+                "batch",
+                "seq"
+              ],
+              [
+                "seq",
+                "layers"
               ]
             ]
           }

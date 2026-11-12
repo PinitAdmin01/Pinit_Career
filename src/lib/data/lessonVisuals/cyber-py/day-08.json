@@ -2,81 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 8,
-  "promptSha": "526450b0d92cdcfdf0b10645d14cff6e50f8eb76f934c5ea242a69ef384f64eb",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What TLS protects",
       "codeHash": "a71e9676d23da35866e20d732c0052942080a7274d8a5f706e8085dcb48acbfb",
       "spec": {
         "template": "states",
-        "title": "Public key infrastructure hierarchical certificate trust states",
+        "title": "What TLS protects",
         "states": [
           {
-            "id": "untrustedCert",
-            "label": "Unverified Leaf Certificate"
+            "id": "threats",
+            "label": "threats"
           },
           {
-            "id": "intermediateResolved",
-            "label": "Intermediate CA Signature Validated"
+            "id": "threat",
+            "label": "threat"
           },
           {
-            "id": "rootStoreAnchored",
-            "label": "Anchor Root CA Verified in Local Store"
-          },
-          {
-            "id": "secureSession",
-            "label": "Authenticated TLS Session Established"
+            "id": "without",
+            "label": "without"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Operating systems ship with root stores containing vetted certificates.",
-            "activeStateId": "rootStoreAnchored",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "TLS (Transport Layer Security) is the protocol behind HTTPS.",
+            "currentState": "threats",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "If certificates lack trusted root signatures the browser aborts.",
-            "activeStateId": "untrustedCert",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Without TLS, anyone on the network path, such as public Wi-Fi, could read.",
+            "currentState": "threat",
+            "transition": {
+              "from": "threats",
+              "to": "threat",
+              "label": {
+                "var": "threat",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Internal services should use TLS too.",
+            "currentState": "without",
+            "transition": {
+              "from": "threat",
+              "to": "without",
+              "label": {
+                "var": "without",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Public key infrastructure hierarchical certificate trust states",
+        "title": "What TLS protects",
         "states": [
           {
-            "id": "untrustedCert",
-            "label": "Unverified Leaf Certificate"
+            "id": "threats",
+            "label": "threats"
           },
           {
-            "id": "intermediateResolved",
-            "label": "Intermediate CA Signature Validated"
+            "id": "threat",
+            "label": "threat"
           },
           {
-            "id": "rootStoreAnchored",
-            "label": "Anchor Root CA Verified in Local Store"
-          },
-          {
-            "id": "secureSession",
-            "label": "Authenticated TLS Session Established"
+            "id": "without",
+            "label": "without"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Operating systems ship with root stores containing vetted certificates.",
-            "activeStateId": "rootStoreAnchored",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "TLS (Transport Layer Security) is the protocol behind HTTPS.",
+            "currentState": "threats",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "If certificates lack trusted root signatures the browser aborts.",
-            "activeStateId": "untrustedCert",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Without TLS, anyone on the network path, such as public Wi-Fi, could read.",
+            "currentState": "threat",
+            "transition": {
+              "from": "threats",
+              "to": "threat",
+              "label": "'read passwords on public Wi-Fi'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Internal services should use TLS too.",
+            "currentState": "without",
+            "transition": {
+              "from": "threat",
+              "to": "without",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -85,202 +117,106 @@
       "partTitle": "X.509 certificates",
       "codeHash": "c35da47041686abbfa74b35a50fa8068dd660883b05b1916273509e0d2fdf2d5",
       "spec": {
-        "template": "table",
-        "title": "X.509 digital certificate attributes and verification criteria",
-        "columns": [
-          "Certificate Field",
-          "ASN.1 Type",
-          "Standard Content",
-          "Security Role"
+        "template": "states",
+        "title": "X.509 certificates",
+        "states": [
+          {
+            "id": "cert",
+            "label": "cert"
+          },
+          {
+            "id": "today",
+            "label": "today"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "The extension specifies all valid domain names covered by certificates.",
-            "activeRowIndex": 1,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Version",
-                  "Integer v3",
-                  "RFC 5280 Specification",
-                  "Enables modern extensions and SANs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Subject Alternative Name",
-                  "Extension SAN",
-                  "DNS:*.enterprise.io",
-                  "Defines authoritative domain coverage"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Validity Period",
-                  "UTCTime Range",
-                  "NotBefore to NotAfter",
-                  "Enforces strict expiration boundaries"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Basic Constraints",
-                  "Extension Boolean",
-                  "CA:FALSE for End-Entity",
-                  "Prevents leaf certificates signing others"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A certificate is a signed document binding a public key to names, such as www.",
+            "currentState": "cert",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Basic constraints declare whether the certificate is an authorized ca.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Version",
-                  "Integer v3",
-                  "RFC 5280 Specification",
-                  "Enables modern extensions and SANs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Subject Alternative Name",
-                  "Extension SAN",
-                  "DNS:*.enterprise.io",
-                  "Defines authoritative domain coverage"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Validity Period",
-                  "UTCTime Range",
-                  "NotBefore to NotAfter",
-                  "Enforces strict expiration boundaries"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Basic Constraints",
-                  "Extension Boolean",
-                  "CA:FALSE for End-Entity",
-                  "Prevents leaf certificates signing others"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Key fields include the subject names (in the Subject Alternative Name.",
+            "currentState": "today",
+            "transition": {
+              "from": "cert",
+              "to": "today",
+              "label": {
+                "var": "today",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Dates in ISO format (YYYY-MM-DD) compare correctly as strings, which keeps.",
+            "currentState": "problems",
+            "transition": {
+              "from": "today",
+              "to": "problems",
+              "label": {
+                "var": "problems",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "X.509 digital certificate attributes and verification criteria",
-        "columns": [
-          "Certificate Field",
-          "ASN.1 Type",
-          "Standard Content",
-          "Security Role"
+        "template": "states",
+        "title": "X.509 certificates",
+        "states": [
+          {
+            "id": "cert",
+            "label": "cert"
+          },
+          {
+            "id": "today",
+            "label": "today"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "The extension specifies all valid domain names covered by certificates.",
-            "activeRowIndex": 1,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Version",
-                  "Integer v3",
-                  "RFC 5280 Specification",
-                  "Enables modern extensions and SANs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Subject Alternative Name",
-                  "Extension SAN",
-                  "DNS:*.enterprise.io",
-                  "Defines authoritative domain coverage"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Validity Period",
-                  "UTCTime Range",
-                  "NotBefore to NotAfter",
-                  "Enforces strict expiration boundaries"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Basic Constraints",
-                  "Extension Boolean",
-                  "CA:FALSE for End-Entity",
-                  "Prevents leaf certificates signing others"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A certificate is a signed document binding a public key to names, such as www.",
+            "currentState": "cert",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Basic constraints declare whether the certificate is an authorized ca.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Version",
-                  "Integer v3",
-                  "RFC 5280 Specification",
-                  "Enables modern extensions and SANs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Subject Alternative Name",
-                  "Extension SAN",
-                  "DNS:*.enterprise.io",
-                  "Defines authoritative domain coverage"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Validity Period",
-                  "UTCTime Range",
-                  "NotBefore to NotAfter",
-                  "Enforces strict expiration boundaries"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Basic Constraints",
-                  "Extension Boolean",
-                  "CA:FALSE for End-Entity",
-                  "Prevents leaf certificates signing others"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Key fields include the subject names (in the Subject Alternative Name.",
+            "currentState": "today",
+            "transition": {
+              "from": "cert",
+              "to": "today",
+              "label": "'2025-12-20'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Dates in ISO format (YYYY-MM-DD) compare correctly as strings, which keeps.",
+            "currentState": "problems",
+            "transition": {
+              "from": "today",
+              "to": "problems",
+              "label": "['NOT_YET_VALID']"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -289,126 +225,106 @@
       "partTitle": "Hostname matching and wildcards",
       "codeHash": "5533db81f117490ae4be9a7b7e36574381c7d91d0384f0e9995e0bc90fdfc4f2",
       "spec": {
-        "template": "sequence",
-        "title": "Certificate chain recursive signature verification sequence",
-        "actors": [
+        "template": "states",
+        "title": "Hostname matching and wildcards",
+        "states": [
           {
-            "id": "clientBrowser",
-            "label": "Client TLS Agent"
+            "id": "host",
+            "label": "host"
           },
           {
-            "id": "leafCert",
-            "label": "Server Leaf Cert"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "intermediateCa",
-            "label": "Intermediate CA"
-          },
-          {
-            "id": "rootCa",
-            "label": "Root CA Anchor"
-          }
-        ],
-        "messages": [
-          {
-            "from": "leafCert",
-            "to": "clientBrowser",
-            "label": "Present Leaf Certificate and Signature",
-            "tone": "data"
-          },
-          {
-            "from": "clientBrowser",
-            "to": "intermediateCa",
-            "label": "Extract Intermediate Public Key to Verify Leaf",
-            "tone": "ok"
-          },
-          {
-            "from": "intermediateCa",
-            "to": "rootCa",
-            "label": "Verify Intermediate Signature Against Root",
-            "tone": "ok"
-          },
-          {
-            "from": "rootCa",
-            "to": "clientBrowser",
-            "label": "Root Found in OS Trust Store Chain Confirmed",
-            "tone": "ok"
+            "id": "first",
+            "label": "first"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "The client extracts the public key from the parent certificate.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The browser checks that the hostname in the address bar appears in.",
+            "currentState": "host",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Matching hashes prove the certificate was genuinely issued and unaltered.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Matching is case-insensitive, because domain names are.",
+            "currentState": "name",
+            "transition": {
+              "from": "host",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Internationalised domain names can contain look-alike characters.",
+            "currentState": "first",
+            "transition": {
+              "from": "name",
+              "to": "first",
+              "label": {
+                "var": "first",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Certificate chain recursive signature verification sequence",
-        "actors": [
+        "template": "states",
+        "title": "Hostname matching and wildcards",
+        "states": [
           {
-            "id": "clientBrowser",
-            "label": "Client TLS Agent"
+            "id": "host",
+            "label": "host"
           },
           {
-            "id": "leafCert",
-            "label": "Server Leaf Cert"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "intermediateCa",
-            "label": "Intermediate CA"
-          },
-          {
-            "id": "rootCa",
-            "label": "Root CA Anchor"
-          }
-        ],
-        "messages": [
-          {
-            "from": "leafCert",
-            "to": "clientBrowser",
-            "label": "Present Leaf Certificate and Signature",
-            "tone": "data"
-          },
-          {
-            "from": "clientBrowser",
-            "to": "intermediateCa",
-            "label": "Extract Intermediate Public Key to Verify Leaf",
-            "tone": "ok"
-          },
-          {
-            "from": "intermediateCa",
-            "to": "rootCa",
-            "label": "Verify Intermediate Signature Against Root",
-            "tone": "ok"
-          },
-          {
-            "from": "rootCa",
-            "to": "clientBrowser",
-            "label": "Root Found in OS Trust Store Chain Confirmed",
-            "tone": "ok"
+            "id": "first",
+            "label": "first"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "The client extracts the public key from the parent certificate.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The browser checks that the hostname in the address bar appears in.",
+            "currentState": "host",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Matching hashes prove the certificate was genuinely issued and unaltered.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Matching is case-insensitive, because domain names are.",
+            "currentState": "name",
+            "transition": {
+              "from": "host",
+              "to": "name",
+              "label": "'*.example.com'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Internationalised domain names can contain look-alike characters.",
+            "currentState": "first",
+            "transition": {
+              "from": "name",
+              "to": "first",
+              "label": "'shop'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -417,277 +333,473 @@
       "partTitle": "Chains of trust",
       "codeHash": "be7b810eda2773734597912aec5c247bfecd4563d8b5e78923a55bd11e78f734",
       "spec": {
-        "template": "compare",
-        "title": "Certificate revocation list overhead versus private OCSP stapling",
-        "left": {
-          "title": "Certificate Revocation List",
-          "items": [
-            "Large downloaded files listing all revoked serials",
-            "Adds latency and bandwidth waste to connections",
-            "Vulnerable to caching delays and stale lists"
-          ]
-        },
-        "right": {
-          "title": "OCSP Stapling (RFC 6066)",
-          "items": [
-            "Server staples timestamped CA status to TLS handshake",
-            "Zero extra network round-trips for connecting clients",
-            "Completely preserves user browsing privacy from CAs"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Chains of trust",
+        "boxes": [
           {
-            "at": "say3",
-            "caption": "Revocation lists created massive connection latency and bandwidth waste.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "chain",
+            "label": "chain"
           },
           {
-            "at": "say8",
-            "caption": "Clients verify the digital signature with zero extra network round trips.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "roots",
+            "label": "roots"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
-        "leftLabel": "Certificate Revocation List",
-        "rightLabel": "OCSP Stapling (RFC 6066)"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Browsers and operating systems ship with a list of trusted root.",
+            "values": {
+              "chain": {
+                "var": "chain",
+                "line": 1,
+                "hit": 2
+              },
+              "roots": {
+                "var": "roots",
+                "line": 3,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "chain": "data",
+              "roots": "data",
+              "a": "data",
+              "b": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Roots rarely sign website certificates directly.",
+            "values": {
+              "chain": {
+                "var": "chain",
+                "line": 3,
+                "hit": 1
+              },
+              "roots": {
+                "var": "roots",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "chain": "data",
+              "roots": "data",
+              "a": "data",
+              "b": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Certificate Transparency logs publicly record issued certificates, helping.",
+            "values": {
+              "chain": {
+                "var": "chain",
+                "line": 4,
+                "hit": 1
+              },
+              "roots": {
+                "var": "roots",
+                "line": 5,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "chain": "ok",
+              "roots": "ok",
+              "a": "ok",
+              "b": "ok"
+            }
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Certificate revocation list overhead versus private OCSP stapling",
-        "left": {
-          "title": "Certificate Revocation List",
-          "items": [
-            "Large downloaded files listing all revoked serials",
-            "Adds latency and bandwidth waste to connections",
-            "Vulnerable to caching delays and stale lists"
-          ]
-        },
-        "right": {
-          "title": "OCSP Stapling (RFC 6066)",
-          "items": [
-            "Server staples timestamped CA status to TLS handshake",
-            "Zero extra network round-trips for connecting clients",
-            "Completely preserves user browsing privacy from CAs"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Chains of trust",
+        "boxes": [
           {
-            "at": "say3",
-            "caption": "Revocation lists created massive connection latency and bandwidth waste.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "chain",
+            "label": "chain"
           },
           {
-            "at": "say8",
-            "caption": "Clients verify the digital signature with zero extra network round trips.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "roots",
+            "label": "roots"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
-        "leftLabel": "Certificate Revocation List",
-        "rightLabel": "OCSP Stapling (RFC 6066)"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Browsers and operating systems ship with a list of trusted root.",
+            "values": {
+              "chain": "[{'subject': 'shop.example.com', 'issue…",
+              "roots": "{'Root CA X1'}",
+              "a": "{'subject': 'shop.example.com', 'issuer…",
+              "b": "{'subject': 'Intermediate R3', 'issuer'…"
+            },
+            "tones": {
+              "chain": "data",
+              "roots": "data",
+              "a": "data",
+              "b": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Roots rarely sign website certificates directly.",
+            "values": {
+              "chain": "[{'subject': 'shop.example.com', 'issue…",
+              "roots": "{'Root CA X1'}",
+              "a": "{'subject': 'shop.example.com', 'issuer…",
+              "b": "{'subject': 'Intermediate R3', 'issuer'…"
+            },
+            "tones": {
+              "chain": "data",
+              "roots": "data",
+              "a": "data",
+              "b": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Certificate Transparency logs publicly record issued certificates, helping.",
+            "values": {
+              "chain": "[{'subject': 'shop.example.com', 'issue…",
+              "roots": "{'Root CA X1'}",
+              "a": "{'subject': 'shop.example.com', 'issuer…",
+              "b": "{'subject': 'Intermediate R3', 'issuer'…"
+            },
+            "tones": {
+              "chain": "ok",
+              "roots": "ok",
+              "a": "ok",
+              "b": "ok"
+            }
+          }
+        ]
       }
     },
     {
       "partTitle": "Common certificate mistakes",
       "codeHash": "3dc4021b0a741744d6508c5c4a1b1188801945d16ca111091a8a5795b171c3c5",
       "spec": {
-        "template": "table",
-        "title": "Transport Layer Security protocol evolution TLS 1.2 versus TLS 1.3",
-        "columns": [
-          "Security Capability",
-          "Legacy TLS 1.2 Protocol",
-          "Modern TLS 1.3 Standard",
-          "Architectural Advantage"
+        "template": "flow",
+        "title": "Common certificate mistakes",
+        "nodes": [
+          {
+            "id": "inventory",
+            "label": "inventory"
+          },
+          {
+            "id": "today",
+            "label": "today"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "issues",
+            "label": "issues"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Protocol upgrades reduce connection latency to a single round trip.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Handshake Round-Trips",
-                  "Two Round-Trips (2-RTT)",
-                  "Single Round-Trip (1-RTT)",
-                  "Halves connection setup latency"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Expired certificates cause outages.",
+            "values": {
+              "inventory": {
+                "var": "inventory",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  "Forward Secrecy",
-                  "Optional (Static RSA Allowed)",
-                  "Mandatory (ECDHE Only)",
-                  "Guarantees past sessions stay safe"
-                ],
-                "tone": "data"
+              "today": {
+                "var": "today",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Supported Ciphers",
-                  "Weak CBC and RC4 Permitted",
-                  "AEAD Ciphers Exclusively",
-                  "Eliminates padding oracle exploits"
-                ],
-                "tone": "data"
+              "c": {
+                "var": "c",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Handshake Encryption",
-                  "Cleartext Server Certificate",
-                  "Encrypted Handshake Extensions",
-                  "Prevents passive identity sniffing"
-                ],
-                "tone": "data"
+              "issues": {
+                "var": "issues",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "inventory": "data",
+              "today": "data",
+              "c": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "today"
+              ],
+              [
+                "today",
+                "c"
+              ],
+              [
+                "c",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "All modern cipher suites mandate authenticated encryption algorithms.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Handshake Round-Trips",
-                  "Two Round-Trips (2-RTT)",
-                  "Single Round-Trip (1-RTT)",
-                  "Halves connection setup latency"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Disabling certificate verification in code \"to make it work\" silently.",
+            "values": {
+              "inventory": {
+                "var": "inventory",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Forward Secrecy",
-                  "Optional (Static RSA Allowed)",
-                  "Mandatory (ECDHE Only)",
-                  "Guarantees past sessions stay safe"
-                ],
-                "tone": "data"
+              "today": {
+                "var": "today",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Supported Ciphers",
-                  "Weak CBC and RC4 Permitted",
-                  "AEAD Ciphers Exclusively",
-                  "Eliminates padding oracle exploits"
-                ],
-                "tone": "data"
+              "c": {
+                "var": "c",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Handshake Encryption",
-                  "Cleartext Server Certificate",
-                  "Encrypted Handshake Extensions",
-                  "Prevents passive identity sniffing"
-                ],
-                "tone": "data"
+              "issues": {
+                "var": "issues",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "inventory": "data",
+              "today": "data",
+              "c": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "today"
+              ],
+              [
+                "today",
+                "c"
+              ],
+              [
+                "c",
+                "issues"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping an inventory of every certificate, with owner and expiry date,.",
+            "values": {
+              "inventory": {
+                "var": "inventory",
+                "line": 5,
+                "hit": 1
+              },
+              "today": {
+                "var": "today",
+                "line": 6,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 7,
+                "hit": 1
+              },
+              "issues": {
+                "var": "issues",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "inventory": "ok",
+              "today": "ok",
+              "c": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "today"
+              ],
+              [
+                "today",
+                "c"
+              ],
+              [
+                "c",
+                "issues"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Transport Layer Security protocol evolution TLS 1.2 versus TLS 1.3",
-        "columns": [
-          "Security Capability",
-          "Legacy TLS 1.2 Protocol",
-          "Modern TLS 1.3 Standard",
-          "Architectural Advantage"
+        "template": "flow",
+        "title": "Common certificate mistakes",
+        "nodes": [
+          {
+            "id": "inventory",
+            "label": "inventory"
+          },
+          {
+            "id": "today",
+            "label": "today"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "issues",
+            "label": "issues"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Protocol upgrades reduce connection latency to a single round trip.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Handshake Round-Trips",
-                  "Two Round-Trips (2-RTT)",
-                  "Single Round-Trip (1-RTT)",
-                  "Halves connection setup latency"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Forward Secrecy",
-                  "Optional (Static RSA Allowed)",
-                  "Mandatory (ECDHE Only)",
-                  "Guarantees past sessions stay safe"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Supported Ciphers",
-                  "Weak CBC and RC4 Permitted",
-                  "AEAD Ciphers Exclusively",
-                  "Eliminates padding oracle exploits"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Handshake Encryption",
-                  "Cleartext Server Certificate",
-                  "Encrypted Handshake Extensions",
-                  "Prevents passive identity sniffing"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Expired certificates cause outages.",
+            "values": {
+              "inventory": "[{'host': 'shop.example.com', 'expires'…",
+              "today": "'2026-09-20'",
+              "c": "{'host': 'shop.example.com', 'expires':…",
+              "issues": "[]"
+            },
+            "tones": {
+              "inventory": "data",
+              "today": "data",
+              "c": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "today"
+              ],
+              [
+                "today",
+                "c"
+              ],
+              [
+                "c",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "All modern cipher suites mandate authenticated encryption algorithms.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Handshake Round-Trips",
-                  "Two Round-Trips (2-RTT)",
-                  "Single Round-Trip (1-RTT)",
-                  "Halves connection setup latency"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Forward Secrecy",
-                  "Optional (Static RSA Allowed)",
-                  "Mandatory (ECDHE Only)",
-                  "Guarantees past sessions stay safe"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Supported Ciphers",
-                  "Weak CBC and RC4 Permitted",
-                  "AEAD Ciphers Exclusively",
-                  "Eliminates padding oracle exploits"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Handshake Encryption",
-                  "Cleartext Server Certificate",
-                  "Encrypted Handshake Extensions",
-                  "Prevents passive identity sniffing"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Disabling certificate verification in code \"to make it work\" silently.",
+            "values": {
+              "inventory": "[{'host': 'shop.example.com', 'expires'…",
+              "today": "'2026-09-20'",
+              "c": "{'host': 'shop.example.com', 'expires':…",
+              "issues": "[]"
+            },
+            "tones": {
+              "inventory": "data",
+              "today": "data",
+              "c": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "today"
+              ],
+              [
+                "today",
+                "c"
+              ],
+              [
+                "c",
+                "issues"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping an inventory of every certificate, with owner and expiry date,.",
+            "values": {
+              "inventory": "[{'host': 'shop.example.com', 'expires'…",
+              "today": "'2026-09-20'",
+              "c": "{'host': 'shop.example.com', 'expires':…",
+              "issues": "[]"
+            },
+            "tones": {
+              "inventory": "ok",
+              "today": "ok",
+              "c": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "today"
+              ],
+              [
+                "today",
+                "c"
+              ],
+              [
+                "c",
+                "issues"
+              ]
             ]
           }
         ]
@@ -697,224 +809,162 @@
       "partTitle": "Practice time: validity and chains",
       "codeHash": "a0610396a42b525e4ee0addd23ffd9ae7fc9d455c294ea49448092cef383d2e8",
       "spec": {
-        "template": "flow",
-        "title": "Engineering an Automated Certificate Authorit... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Engineering an Auto...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: validity and chains",
+        "actors": [
+          "cert",
+          "chain",
+          "host"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Engineering an Automated Certificate Aut.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Engineering an Auto... [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Cert_problems(cert, today, hostname).",
+            "activeActor": "cert",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": {
+                  "var": "cert",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": {
+                  "var": "chain",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a valid wildcard match, a capitalised hostname,.",
+            "activeActor": "chain",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": {
+                  "var": "cert",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": {
+                  "var": "chain",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Engineering an Automated Certific.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Real code should always rely on the TLS library's verification.",
+            "activeActor": "host",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": {
+                  "var": "cert",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": {
+                  "var": "chain",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engineering an Automated Certificate Authorit... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Engineering an Auto...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: validity and chains",
+        "actors": [
+          "cert",
+          "chain",
+          "host"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Engineering an Automated Certificate Aut.. [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Engineering an Auto... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Cert_problems(cert, today, hostname).",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": "{'names': ['*.bank.example'], 'not_befo…",
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": "[{'subject': 'www.bank.example', 'issue…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cert"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include a valid wildcard match, a capitalised hostname,.",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": "{'names': ['*.bank.example'], 'not_befo…",
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": "[{'subject': 'www.bank.example', 'issue…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chain"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Engineering an Automated Certific.. [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Real code should always rely on the TLS library's verification.",
+            "messages": [
+              {
+                "from": "cert",
+                "to": "chain",
+                "label": "{'names': ['*.bank.example'], 'not_befo…",
+                "tone": "data"
+              },
+              {
+                "from": "chain",
+                "to": "host",
+                "label": "[{'subject': 'www.bank.example', 'issue…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "host"
           }
         ]
       }

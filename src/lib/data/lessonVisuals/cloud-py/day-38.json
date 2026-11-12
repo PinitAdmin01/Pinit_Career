@@ -2,535 +2,247 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 38,
-  "promptSha": "9bfa2f467cc73fa5efbd385ce67bdf050391a6bb9eb7c21746ac52e680a2a67b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Interruption Draining — Foundations & Mathematical Invariants",
-      "codeHash": "256bff28f15590e1f9245f37d5aecb17d9e9846eff955f3707e55037050242a3",
+      "codeHash": "b94a5c7252c434f09a9dc49ef9a0456fd6340ca4db72f3c61e20779190865905",
       "spec": {
-        "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
-        "nodes": [
+        "template": "states",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "zones",
+            "label": "zones"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "zone_counts",
+            "label": "zone_counts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "counts",
+            "label": "counts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying highly available microservices in Kubernetes requires solving.",
+            "currentState": "zones",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Even if a microservice has six running pod replicas, what happens if.",
+            "currentState": "zone_counts",
+            "transition": {
+              "from": "zones",
+              "to": "zone_counts",
+              "label": {
+                "var": "zone_counts",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Evenly spreading pod replicas across availability zones ensures.",
+            "currentState": "counts",
+            "transition": {
+              "from": "zone_counts",
+              "to": "counts",
+              "label": {
+                "var": "counts",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
-        "nodes": [
+        "template": "states",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "zones",
+            "label": "zones"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "zone_counts",
+            "label": "zone_counts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "counts",
+            "label": "counts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying highly available microservices in Kubernetes requires solving.",
+            "currentState": "zones",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Even if a microservice has six running pod replicas, what happens if.",
+            "currentState": "zone_counts",
+            "transition": {
+              "from": "zones",
+              "to": "zone_counts",
+              "label": "{'us-east-1a': 2, 'us-east-1b': 2, 'us-…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Evenly spreading pod replicas across availability zones ensures.",
+            "currentState": "counts",
+            "transition": {
+              "from": "zone_counts",
+              "to": "counts",
+              "label": "[2, 2, 2]"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Interruption Draining — Core Algorithm & State Representation",
-      "codeHash": "b5aded7ba1d1e3003e2432d3f1439cdddd00162c0ef8dae1edec223236e53cc0",
+      "codeHash": "241f3443095912d57a1195412abe0ad7b2d9f59e52b1b9666490d7688b9ae6eb",
       "spec": {
-        "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying container workloads on EC2 Spot Instances delivers massive cost.",
+            "bars": [
+              {
+                "label": "event_time_sec",
+                "value": {
+                  "var": "event_time_sec",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "grace_period_s",
+                "value": {
+                  "var": "grace_period_sec",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When AWS needs spot capacity back, Amazon EC2 publishes an Interruption.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "event_time_sec",
+                "value": {
+                  "var": "event_time_sec",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "grace_period_s",
+                "value": {
+                  "var": "grace_period_sec",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Respecting container termination grace periods allows workloads to flush.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "event_time_sec",
+                "value": {
+                  "var": "event_time_sec",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "grace_period_s",
+                "value": {
+                  "var": "grace_period_sec",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying container workloads on EC2 Spot Instances delivers massive cost.",
+            "bars": [
+              {
+                "label": "event_time_sec",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "grace_period_s",
+                "value": 30,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When AWS needs spot capacity back, Amazon EC2 publishes an Interruption.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "event_time_sec",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "grace_period_s",
+                "value": 30,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Respecting container termination grace periods allows workloads to flush.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "event_time_sec",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "grace_period_s",
+                "value": 30,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +251,218 @@
     },
     {
       "partTitle": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Interruption Draining — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "616ab0e70aef58a2c6cc2b74ef0e23d01a929d3ec052365bcba8569624b14b48",
+      "codeHash": "b66e5407d79cb5162136bcae6db818a7623f114b87a9a2583ef23b796866e9ad",
       "spec": {
-        "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A critical edge case in spot interruption handling is the Rebalancing.",
+            "bars": [
+              {
+                "label": "instance_types",
+                "value": {
+                  "var": "instance_types_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "azs_count",
+                "value": {
+                  "var": "azs_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "single_pool_in",
+                "value": {
+                  "var": "single_pool_interruption_p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_pools",
+                "value": {
+                  "var": "total_pools",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A proactive signal sent minutes or hours earlier warning that an instance.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "instance_types",
+                "value": {
+                  "var": "instance_types_count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "azs_count",
+                "value": {
+                  "var": "azs_count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "single_pool_in",
+                "value": {
+                  "var": "single_pool_interruption_p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total_pools",
+                "value": {
+                  "var": "total_pools",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Diversifying spot fleets across multiple instance types and AZs slashes.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "instance_types",
+                "value": {
+                  "var": "instance_types_count",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "azs_count",
+                "value": {
+                  "var": "azs_count",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "single_pool_in",
+                "value": {
+                  "var": "single_pool_interruption_p",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total_pools",
+                "value": {
+                  "var": "total_pools",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A critical edge case in spot interruption handling is the Rebalancing.",
+            "bars": [
+              {
+                "label": "instance_types",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "azs_count",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "single_pool_in",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "total_pools",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A proactive signal sent minutes or hours earlier warning that an instance.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "instance_types",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "azs_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "single_pool_in",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total_pools",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Diversifying spot fleets across multiple instance types and AZs slashes.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "instance_types",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "azs_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "single_pool_in",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total_pools",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +471,167 @@
     },
     {
       "partTitle": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Interruption Draining — Resilience Guardrails & Failure Recovery",
-      "codeHash": "537794616fd2a8f4f1e61fc14b4ab37403a77716c8acc48bc57e8517cd0bc8c6",
+      "codeHash": "5dbb2028adf6b9664b05fb9e5d290b41059056fc590d0e73579dde28c94b7f6e",
       "spec": {
         "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "seconds_elapsed",
+            "label": "seconds_elapsed"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pod_state_saved",
+            "label": "pod_state_saved"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if an unexpected surge in Spot interruptions triggers.",
+            "values": {
+              "seconds_elapsed": {
+                "var": "seconds_elapsed",
+                "line": 5,
+                "hit": 1
+              },
+              "pod_state_saved": {
+                "var": "pod_state_saved",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "seconds_elapsed": "data",
+              "pod_state_saved": "data"
+            },
+            "arrows": [
+              [
+                "seconds_elapsed",
+                "pod_state_saved"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If the draining daemon blindly respects PDBs, the drain blocks.",
+            "values": {
+              "seconds_elapsed": {
+                "var": "seconds_elapsed",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "pod_state_saved": {
+                "var": "pod_state_saved",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "seconds_elapsed": "data",
+              "pod_state_saved": "data"
+            },
+            "arrows": [
+              [
+                "seconds_elapsed",
+                "pod_state_saved"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Enforcing progressive shutdown timers (SIGTERM at 0s, force flush at 100s.",
+            "values": {
+              "seconds_elapsed": {
+                "var": "seconds_elapsed",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "pod_state_saved": {
+                "var": "pod_state_saved",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "seconds_elapsed": "ok",
+              "pod_state_saved": "ok"
+            },
+            "arrows": [
+              [
+                "seconds_elapsed",
+                "pod_state_saved"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "seconds_elapsed",
+            "label": "seconds_elapsed"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pod_state_saved",
+            "label": "pod_state_saved"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if an unexpected surge in Spot interruptions triggers.",
+            "values": {
+              "seconds_elapsed": "30",
+              "pod_state_saved": "False"
+            },
+            "tones": {
+              "seconds_elapsed": "data",
+              "pod_state_saved": "data"
+            },
+            "arrows": [
+              [
+                "seconds_elapsed",
+                "pod_state_saved"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If the draining daemon blindly respects PDBs, the drain blocks.",
+            "values": {
+              "seconds_elapsed": "30",
+              "pod_state_saved": "False"
+            },
+            "tones": {
+              "seconds_elapsed": "data",
+              "pod_state_saved": "data"
+            },
+            "arrows": [
+              [
+                "seconds_elapsed",
+                "pod_state_saved"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Enforcing progressive shutdown timers (SIGTERM at 0s, force flush at 100s.",
+            "values": {
+              "seconds_elapsed": "105",
+              "pod_state_saved": "False"
+            },
+            "tones": {
+              "seconds_elapsed": "ok",
+              "pod_state_saved": "ok"
+            },
+            "arrows": [
+              [
+                "seconds_elapsed",
+                "pod_state_saved"
+              ]
             ]
           }
         ]
@@ -1071,265 +639,279 @@
     },
     {
       "partTitle": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Interruption Draining — Production Telemetry & Verification Audit",
-      "codeHash": "a8a126198b29d31c1afa2644a202cfb5fc32eecad78a04a7c05228c1b7dfa77b",
+      "codeHash": "85bbd898db5fc88ad4698542c344338fbeedca20cccae44564ce146fe63a7ef9",
       "spec": {
         "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "deps",
+            "label": "deps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "deployments_telemetry",
+            "label": "deployments_telemetry"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "violations",
+            "label": "violations"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dep",
+            "label": "dep"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Platform SRE teams track cluster-wide spot pre-emption rates alongside.",
+            "values": {
+              "deps": {
+                "var": "deps",
+                "line": 19,
+                "hit": 1
+              },
+              "deployments_telemetry": {
+                "var": "deployments_telemetry",
+                "line": 2,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 2,
+                "hit": 1
+              },
+              "dep": {
+                "var": "dep",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "deps": "data",
+              "deployments_telemetry": "data",
+              "violations": "data",
+              "dep": "data"
+            },
+            "arrows": [
+              [
+                "deps",
+                "deployments_telemetry"
+              ],
+              [
+                "deployments_telemetry",
+                "violations"
+              ],
+              [
+                "violations",
+                "dep"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Verifying topology spread and spot resilience in production requires.",
+            "values": {
+              "deps": {
+                "var": "deps",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "deployments_telemetry": {
+                "var": "deployments_telemetry",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "dep": {
+                "var": "dep",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "deps": "data",
+              "deployments_telemetry": "data",
+              "violations": "data",
+              "dep": "data"
+            },
+            "arrows": [
+              [
+                "deps",
+                "deployments_telemetry"
+              ],
+              [
+                "deployments_telemetry",
+                "violations"
+              ],
+              [
+                "violations",
+                "dep"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Monitoring spot interruption recovery times guides teams to optimize.",
+            "values": {
+              "deps": {
+                "var": "deps",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "deployments_telemetry": {
+                "var": "deployments_telemetry",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "violations": {
+                "var": "violations",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "dep": {
+                "var": "dep",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "deps": "ok",
+              "deployments_telemetry": "ok",
+              "violations": "ok",
+              "dep": "ok"
+            },
+            "arrows": [
+              [
+                "deps",
+                "deployments_telemetry"
+              ],
+              [
+                "deployments_telemetry",
+                "violations"
+              ],
+              [
+                "violations",
+                "dep"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot Inter",
+        "title": "Pod Disruption Budgets (PDB), Topology Spread Constraints & Spot",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "deps",
+            "label": "deps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "deployments_telemetry",
+            "label": "deployments_telemetry"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "violations",
+            "label": "violations"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dep",
+            "label": "dep"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Platform SRE teams track cluster-wide spot pre-emption rates alongside.",
+            "values": {
+              "deps": "[{'name': 'checkout-svc', 'zone_skew': …",
+              "deployments_telemetry": "[{'name': 'checkout-svc', 'zone_skew': …",
+              "violations": "[]",
+              "dep": "{'name': 'checkout-svc', 'zone_skew': 1…"
+            },
+            "tones": {
+              "deps": "data",
+              "deployments_telemetry": "data",
+              "violations": "data",
+              "dep": "data"
+            },
+            "arrows": [
+              [
+                "deps",
+                "deployments_telemetry"
+              ],
+              [
+                "deployments_telemetry",
+                "violations"
+              ],
+              [
+                "violations",
+                "dep"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Verifying topology spread and spot resilience in production requires.",
+            "values": {
+              "deps": "[{'name': 'checkout-svc', 'zone_skew': …",
+              "deployments_telemetry": "[{'name': 'checkout-svc', 'zone_skew': …",
+              "violations": "[]",
+              "dep": "{'name': 'checkout-svc', 'zone_skew': 1…"
+            },
+            "tones": {
+              "deps": "data",
+              "deployments_telemetry": "data",
+              "violations": "data",
+              "dep": "data"
+            },
+            "arrows": [
+              [
+                "deps",
+                "deployments_telemetry"
+              ],
+              [
+                "deployments_telemetry",
+                "violations"
+              ],
+              [
+                "violations",
+                "dep"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Monitoring spot interruption recovery times guides teams to optimize.",
+            "values": {
+              "deps": "[{'name': 'checkout-svc', 'zone_skew': …",
+              "deployments_telemetry": "[{'name': 'checkout-svc', 'zone_skew': …",
+              "violations": "[]",
+              "dep": "{'name': 'checkout-svc', 'zone_skew': 1…"
+            },
+            "tones": {
+              "deps": "ok",
+              "deployments_telemetry": "ok",
+              "violations": "ok",
+              "dep": "ok"
+            },
+            "arrows": [
+              [
+                "deps",
+                "deployments_telemetry"
+              ],
+              [
+                "deployments_telemetry",
+                "violations"
+              ],
+              [
+                "violations",
+                "dep"
+              ]
             ]
           }
         ]

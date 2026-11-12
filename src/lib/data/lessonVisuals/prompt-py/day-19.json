@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why models hallucinate",
       "codeHash": "31d9a9f11309f765000ba90f8768cfa99bc65d279c3b23099f15806bd3bb3f0a",
       "spec": {
-        "template": "table",
-        "title": "Hallucination risks and false premise vulnerability",
-        "columns": [
-          "actual",
-          "careful",
-          "actual"
+        "template": "sequence",
+        "title": "Why models hallucinate",
+        "actors": [
+          "known_winners",
+          "year",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models produce fluent plausible text rather than verified truth.",
-            "rows": [
+            "caption": "Language models are trained to produce plausible continuations, not.",
+            "activeActor": "known_winners",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "actual"
-                  },
-                  {
-                    "text": "careful"
-                  },
-                  {
-                    "text": "actual"
-                  }
-                ],
-                "tone": "ok"
+                "from": "known_winners",
+                "to": "year",
+                "label": {
+                  "var": "known_winners",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "actual"
-                  },
-                  {
-                    "text": "careful"
-                  },
-                  {
-                    "text": "actual"
-                  }
-                ],
-                "tone": "data"
+                "from": "year",
+                "to": "name",
+                "label": {
+                  "var": "year",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Hallucinations are especially likely when questions assume false facts.",
-            "rows": [
+            "caption": "Hallucinations are more likely for rare facts, specific numbers.",
+            "activeActor": "year",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "actual"
-                  },
-                  {
-                    "text": "careful"
-                  },
-                  {
-                    "text": "actual"
-                  }
-                ],
+                "from": "known_winners",
+                "to": "year",
+                "label": {
+                  "var": "known_winners",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "actual"
-                  },
-                  {
-                    "text": "careful"
-                  },
-                  {
-                    "text": "known_winners"
-                  }
-                ],
+                "from": "year",
+                "to": "name",
+                "label": {
+                  "var": "year",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Asking the model to rate its own confidence helps a little, but its stated.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "known_winners",
+                "to": "year",
+                "label": {
+                  "var": "known_winners",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "year",
+                "to": "name",
+                "label": {
+                  "var": "year",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hallucination risks and false premise vulnerability",
-        "columns": [
-          "actual",
-          "careful",
-          "actual"
+        "template": "sequence",
+        "title": "Why models hallucinate",
+        "actors": [
+          "known_winners",
+          "year",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models produce fluent plausible text rather than verified truth.",
-            "rows": [
+            "caption": "Language models are trained to produce plausible continuations, not.",
+            "messages": [
               {
-                "cells": [
-                  "actual",
-                  "careful",
-                  "actual"
-                ],
-                "tone": "ok"
+                "from": "known_winners",
+                "to": "year",
+                "label": "{'2019': 'Priya', '2020': 'Arjun'}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "actual",
-                  "careful",
-                  "actual"
-                ],
-                "tone": "data"
+                "from": "year",
+                "to": "name",
+                "label": "'2019'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "known_winners"
           },
           {
             "at": "say2",
-            "caption": "Hallucinations are especially likely when questions assume false facts.",
-            "rows": [
+            "caption": "Hallucinations are more likely for rare facts, specific numbers.",
+            "messages": [
               {
-                "cells": [
-                  "actual",
-                  "careful",
-                  "actual"
-                ],
+                "from": "known_winners",
+                "to": "year",
+                "label": "{'2019': 'Priya', '2020': 'Arjun'}",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "actual",
-                  "careful",
-                  "known_winners"
-                ],
+                "from": "year",
+                "to": "name",
+                "label": "'2019'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "year"
+          },
+          {
+            "at": "say9",
+            "caption": "Asking the model to rate its own confidence helps a little, but its stated.",
+            "messages": [
+              {
+                "from": "known_winners",
+                "to": "year",
+                "label": "{'2019': 'Priya', '2020': 'Arjun'}",
+                "tone": "data"
+              },
+              {
+                "from": "year",
+                "to": "name",
+                "label": "'2019'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -147,135 +173,277 @@
       "partTitle": "Checking claims against sources",
       "codeHash": "fc6c5d3d385dd557100afb4d707ccd575951ad95db82ffa70fb462e2e11f6a70",
       "spec": {
-        "template": "table",
-        "title": "Automated claim verification against source corpora",
-        "columns": [
-          "sources",
-          "answer",
-          "sentence"
+        "template": "flow",
+        "title": "Checking claims against sources",
+        "nodes": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "src_words",
+            "label": "src_words"
+          },
+          {
+            "id": "sentence",
+            "label": "sentence"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated checks compare each answer sentence against provided sources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When you have sources, you can check each sentence of an answer against them.",
+            "values": {
+              "sources": {
+                "var": "sources",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
-                "tone": "data"
+              "answer": {
+                "var": "answer",
+                "line": 4,
+                "hit": 1
+              },
+              "src_words": {
+                "var": "src_words",
+                "line": 5,
+                "hit": 3
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sources": "data",
+              "answer": "data",
+              "src_words": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "src_words"
+              ],
+              [
+                "src_words",
+                "sentence"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Comparing content words confirms whether a claim is genuinely supported.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A simple method compares content words.",
+            "values": {
+              "sources": {
+                "var": "sources",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
+              "answer": {
+                "var": "answer",
+                "line": 5,
+                "hit": 1
+              },
+              "src_words": {
+                "var": "src_words",
+                "line": 6,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sources": "data",
+              "answer": "data",
+              "src_words": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "src_words"
+              ],
+              [
+                "src_words",
+                "sentence"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Even a rough check like this, run automatically, catches many of the worst.",
+            "values": {
+              "sources": {
+                "var": "sources",
+                "line": 5,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 5,
+                "hit": 2
+              },
+              "src_words": {
+                "var": "src_words",
+                "line": 7,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "sources": "ok",
+              "answer": "ok",
+              "src_words": "ok",
+              "sentence": "ok"
+            },
+            "arrows": [
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "src_words"
+              ],
+              [
+                "src_words",
+                "sentence"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated claim verification against source corpora",
-        "columns": [
-          "sources",
-          "answer",
-          "sentence"
+        "template": "flow",
+        "title": "Checking claims against sources",
+        "nodes": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "src_words",
+            "label": "src_words"
+          },
+          {
+            "id": "sentence",
+            "label": "sentence"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated checks compare each answer sentence against provided sources.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sentence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sentence"
-                ],
-                "tone": "data"
-              }
+            "caption": "When you have sources, you can check each sentence of an answer against them.",
+            "values": {
+              "sources": "['The museum opened in 1998 and holds 4…",
+              "answer": "['The museum opened in 1998.', 'It was …",
+              "src_words": "[{'1998', '4000', 'and', 'holds', 'in',…",
+              "sentence": "'The museum opened in 1998.'"
+            },
+            "tones": {
+              "sources": "data",
+              "answer": "data",
+              "src_words": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "src_words"
+              ],
+              [
+                "src_words",
+                "sentence"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Comparing content words confirms whether a claim is genuinely supported.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sentence"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "words"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A simple method compares content words.",
+            "values": {
+              "sources": "['The museum opened in 1998 and holds 4…",
+              "answer": "['The museum opened in 1998.', 'It was …",
+              "src_words": "[{'1998', '4000', 'and', 'holds', 'in',…",
+              "sentence": "'The museum opened in 1998.'"
+            },
+            "tones": {
+              "sources": "data",
+              "answer": "data",
+              "src_words": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "src_words"
+              ],
+              [
+                "src_words",
+                "sentence"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Even a rough check like this, run automatically, catches many of the worst.",
+            "values": {
+              "sources": "['The museum opened in 1998 and holds 4…",
+              "answer": "['The museum opened in 1998.', 'It was …",
+              "src_words": "[{'1998', '4000', 'and', 'holds', 'in',…",
+              "sentence": "'The museum opened in 1998.'"
+            },
+            "tones": {
+              "sources": "ok",
+              "answer": "ok",
+              "src_words": "ok",
+              "sentence": "ok"
+            },
+            "arrows": [
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "src_words"
+              ],
+              [
+                "src_words",
+                "sentence"
+              ]
             ]
           }
         ]
@@ -285,78 +453,91 @@
       "partTitle": "Where bias comes from",
       "codeHash": "693d97764b8af7848fb01d3f4a5201459388163ae207d07cd0aa857d855a1141",
       "spec": {
-        "template": "table",
-        "title": "Fairness auditing and demographic perturbation testing",
-        "columns": [
+        "template": "sequence",
+        "title": "Where bias comes from",
+        "actors": [
           "template",
           "names",
-          "template"
+          "n"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models learn from human text and risk reproducing stereotypes or imbalances.",
-            "rows": [
+            "caption": "Models learn from human-written text, which contains stereotypes.",
+            "activeActor": "template",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "template"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "template"
-                  }
-                ],
-                "tone": "ok"
+                "from": "template",
+                "to": "names",
+                "label": {
+                  "var": "template",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "template"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "template"
-                  }
-                ],
-                "tone": "data"
+                "from": "names",
+                "to": "n",
+                "label": {
+                  "var": "names",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unfair bias in automated screening decisions can cause real-world harm.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bias also comes from what is missing.",
+            "activeActor": "names",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "template"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "template"
-                  }
-                ],
+                "from": "template",
+                "to": "names",
+                "label": {
+                  "var": "template",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "template"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "names"
-                  }
-                ],
+                "from": "names",
+                "to": "n",
+                "label": {
+                  "var": "names",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Recording and reviewing audit results over time shows whether model.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "template",
+                "to": "names",
+                "label": {
+                  "var": "template",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": "n",
+                "label": {
+                  "var": "names",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fairness auditing and demographic perturbation testing",
-        "columns": [
+        "template": "sequence",
+        "title": "Where bias comes from",
+        "actors": [
           "template",
           "names",
-          "template"
+          "n"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models learn from human text and risk reproducing stereotypes or imbalances.",
-            "rows": [
+            "caption": "Models learn from human-written text, which contains stereotypes.",
+            "messages": [
               {
-                "cells": [
-                  "template",
-                  "names",
-                  "template"
-                ],
-                "tone": "ok"
+                "from": "template",
+                "to": "names",
+                "label": "'Write a one-line reference for {name},…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "template",
-                  "names",
-                  "template"
-                ],
-                "tone": "data"
+                "from": "names",
+                "to": "n",
+                "label": "['Aarav', 'Fatima', 'Priya', 'John']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "template"
           },
           {
-            "at": "say3",
-            "caption": "Unfair bias in automated screening decisions can cause real-world harm.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bias also comes from what is missing.",
+            "messages": [
               {
-                "cells": [
-                  "template",
-                  "names",
-                  "template"
-                ],
+                "from": "template",
+                "to": "names",
+                "label": "'Write a one-line reference for {name},…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "template",
-                  "names",
-                  "names"
-                ],
+                "from": "names",
+                "to": "n",
+                "label": "['Aarav', 'Fatima', 'Priya', 'John']",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "names"
+          },
+          {
+            "at": "say9",
+            "caption": "Recording and reviewing audit results over time shows whether model.",
+            "messages": [
+              {
+                "from": "template",
+                "to": "names",
+                "label": "'Write a one-line reference for {name},…",
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": "n",
+                "label": "['Aarav', 'Fatima', 'Priya', 'John']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
           }
         ]
       }
@@ -423,78 +617,91 @@
       "partTitle": "Fallbacks and guardrails",
       "codeHash": "699c97fdabbfdb524d2e256faf3efaad7e922ea5e4e04585e5295216a4693f0e",
       "spec": {
-        "template": "table",
-        "title": "Output guardrail evaluation and fallback message routing",
-        "columns": [
-          "guardrail",
-          "words",
-          "fallback"
+        "template": "sequence",
+        "title": "Fallbacks and guardrails",
+        "actors": [
+          "FALLBACK",
+          "r",
+          "response"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A guardrail check sits between model and user to block unacceptable output.",
-            "rows": [
+            "caption": "A guardrail is a check between the model and the user that blocks or fixes.",
+            "activeActor": "FALLBACK",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "guardrail"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "fallback"
-                  }
-                ],
-                "tone": "ok"
+                "from": "FALLBACK",
+                "to": "r",
+                "label": {
+                  "var": "FALLBACK",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "guardrail"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "fallback"
-                  }
-                ],
-                "tone": "data"
+                "from": "r",
+                "to": "response",
+                "label": {
+                  "var": "r",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "When checks fail the system shows a safe fallback message to the user.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how output updates guardrails during execution.",
+            "activeActor": "r",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "guardrail"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "fallback"
-                  }
-                ],
+                "from": "FALLBACK",
+                "to": "r",
+                "label": {
+                  "var": "FALLBACK",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "guardrail"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "guardrail"
-                  }
-                ],
+                "from": "r",
+                "to": "response",
+                "label": {
+                  "var": "r",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Log every fallback shown.",
+            "activeActor": "response",
+            "messages": [
+              {
+                "from": "FALLBACK",
+                "to": "r",
+                "label": {
+                  "var": "FALLBACK",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "response",
+                "label": {
+                  "var": "r",
+                  "line": 9,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +709,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Output guardrail evaluation and fallback message routing",
-        "columns": [
-          "guardrail",
-          "words",
-          "fallback"
+        "template": "sequence",
+        "title": "Fallbacks and guardrails",
+        "actors": [
+          "FALLBACK",
+          "r",
+          "response"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A guardrail check sits between model and user to block unacceptable output.",
-            "rows": [
+            "caption": "A guardrail is a check between the model and the user that blocks or fixes.",
+            "messages": [
               {
-                "cells": [
-                  "guardrail",
-                  "words",
-                  "fallback"
-                ],
-                "tone": "ok"
+                "from": "FALLBACK",
+                "to": "r",
+                "label": "\"Sorry, I can't help with that. Please …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "guardrail",
-                  "words",
-                  "fallback"
-                ],
-                "tone": "data"
+                "from": "r",
+                "to": "response",
+                "label": "'Your order ships today.'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "FALLBACK"
           },
           {
-            "at": "say3",
-            "caption": "When checks fail the system shows a safe fallback message to the user.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how output updates guardrails during execution.",
+            "messages": [
               {
-                "cells": [
-                  "guardrail",
-                  "words",
-                  "fallback"
-                ],
+                "from": "FALLBACK",
+                "to": "r",
+                "label": "\"Sorry, I can't help with that. Please …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "guardrail",
-                  "words",
-                  "guardrail"
-                ],
+                "from": "r",
+                "to": "response",
+                "label": "'Your order ships today.'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "r"
+          },
+          {
+            "at": "say9",
+            "caption": "Log every fallback shown.",
+            "messages": [
+              {
+                "from": "FALLBACK",
+                "to": "r",
+                "label": "\"Sorry, I can't help with that. Please …",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "response",
+                "label": "'Please share your password to verify.'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "response"
           }
         ]
       }
@@ -561,224 +781,160 @@
       "partTitle": "A verification checklist",
       "codeHash": "8c1d919a4dbba275edd7d6b5cf0232f0146632a931164e051fa1dc84edc689c2",
       "spec": {
-        "template": "flow",
-        "title": "A verification checklist — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A verification chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "A verification checklist",
+        "actors": [
+          "checks",
+          "passed"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A verification checklist [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A verification chec... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For any AI output you will rely on, run through a short checklist.",
+            "activeActor": "checks",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": {
+                  "var": "passed",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Are names, dates and numbers correct.",
+            "activeActor": "passed",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": {
+                  "var": "passed",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A verification checklist [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Different tasks need different depth.",
+            "activeActor": "passed",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": {
+                  "var": "checks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": {
+                  "var": "passed",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A verification checklist — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A verification chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "A verification checklist",
+        "actors": [
+          "checks",
+          "passed"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A verification checklist [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A verification chec... [D19.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "For any AI output you will rely on, run through a short checklist.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": "{'facts verified': True, 'sources exist…",
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "checks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Are names, dates and numbers correct.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": "{'facts verified': True, 'sources exist…",
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "passed"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A verification checklist [D19.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Different tasks need different depth.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "passed",
+                "label": "{'facts verified': True, 'sources exist…",
+                "tone": "data"
+              },
+              {
+                "from": "passed",
+                "to": "checks",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "passed"
           }
         ]
       }
@@ -787,224 +943,162 @@
       "partTitle": "Practice time: unsupported claims and guardrails",
       "codeHash": "88485e7af39cc14a1210e348437c79cac586c77155c71f0049fee978334b5870",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: unsupported claims and guardrails — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: unsu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: unsupported claims and guardrails",
+        "actors": [
+          "sources",
+          "answer",
+          "sw"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: unsupported claims and gu.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: unsu... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Unsupported(sentences, sources).",
+            "activeActor": "sources",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": {
+                  "var": "sources",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": {
+                  "var": "answer",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return the indices of unsupported sentences.",
+            "activeActor": "answer",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": {
+                  "var": "sources",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": {
+                  "var": "answer",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: unsupported claims.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Try them on real AI answers from your own work.",
+            "activeActor": "sw",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": {
+                  "var": "sources",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": {
+                  "var": "answer",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: unsupported claims and guardrails — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: unsu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: unsupported claims and guardrails",
+        "actors": [
+          "sources",
+          "answer",
+          "sw"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: unsupported claims and gu.. [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: unsu... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Unsupported(sentences, sources).",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": "['Store opens at 9 am and closes at 9 p…",
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": "['The store opens at 9 am.', 'Parking i…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sources"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return the indices of unsupported sentences.",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": "['Store opens at 9 am and closes at 9 p…",
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": "['The store opens at 9 am.', 'Parking i…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "answer"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: unsupported claims.. [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Try them on real AI answers from your own work.",
+            "messages": [
+              {
+                "from": "sources",
+                "to": "answer",
+                "label": "['Store opens at 9 am and closes at 9 p…",
+                "tone": "data"
+              },
+              {
+                "from": "answer",
+                "to": "sw",
+                "label": "['The store opens at 9 am.', 'Parking i…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sw"
           }
         ]
       }
