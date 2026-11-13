@@ -399,6 +399,35 @@ const RUNNER_LABELS: Record<string, string> = {
   'blockchain': '🪙 EVM Web3 & Solidity TypeScript Simulator',
 };
 
+/**
+ * Emergency fallback question generator when no static question suite is authored for a course.
+ * Produces deterministic, rotated diagnostic assessment questions across block days.
+ */
+export function makeEmergencyFallbackQuestions(
+  prefix: string,
+  start: number,
+  end: number
+): TestQuestion[] {
+  const res: TestQuestion[] = [];
+  for (let day = start; day <= end; day++) {
+    res.push({
+      question: `Diagnostic Assessment Day ${day}: What is the core requirement for Day ${day} in the ${prefix} syllabus?`,
+      ...withAnswerAt(
+        [
+          'Implement the required functionality according to specification and verify with tests',
+          'Skip test verification and push incomplete code directly to production',
+          'Bypass input validation checks in the pipeline',
+          'Hardcode mock credentials in production source code',
+        ],
+        0,
+        (day - 1) % 4
+      ),
+      explanation: `Engineering standard for Day ${day} demands verified implementation matching the curriculum rubric.`,
+    });
+  }
+  return res;
+}
+
 interface UseLessonEngineProps {
   questId: string;
   questData: any;
@@ -484,26 +513,7 @@ export function useLessonEngine({
       const fallback = buildTestQuestions(testInfo.prefix, testInfo.start, testInfo.end, () => null);
       if (fallback.length > 0) return fallback;
       console.warn('[useLessonEngine] makeEmergencyFallback triggered for', testInfo.prefix, testInfo.start, testInfo.end);
-      const res: TestQuestion[] = [];
-      for (let day = testInfo.start; day <= testInfo.end; day++) {
-        res.push(
-          withAnswerAt(
-            {
-              question: `Diagnostic Assessment Day ${day}: What is the core requirement for Day ${day} in the ${testInfo.prefix} syllabus?`,
-              options: [
-                'Implement the required functionality according to specification and verify with tests',
-                'Skip test verification and push incomplete code directly to production',
-                'Bypass input validation checks in the pipeline',
-                'Hardcode mock credentials in production source code',
-              ],
-              answerIndex: 0,
-              explanation: `Engineering standard for Day ${day} demands verified implementation matching the curriculum rubric.`,
-            },
-            (day - 1) % 4
-          )
-        );
-      }
-      return res;
+      return makeEmergencyFallbackQuestions(testInfo.prefix, testInfo.start, testInfo.end);
     };
 
     // Option 1 (Primary): Asynchronous fetch from API route
