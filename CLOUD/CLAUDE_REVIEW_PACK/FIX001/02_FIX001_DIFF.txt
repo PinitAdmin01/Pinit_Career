@@ -1,0 +1,1354 @@
+diff --git a/src/lib/data/safetyPythonLongLessons.ts b/src/lib/data/safetyPythonLongLessons.ts
+index e0e88290..34e71cbf 100644
+--- a/src/lib/data/safetyPythonLongLessons.ts
++++ b/src/lib/data/safetyPythonLongLessons.ts
+@@ -7716,7 +7716,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "OWASP LLM Top 10 Threat Matrix — Foundations & Mathematical Invariants",
+         "say": [
+           "Securing production language model architectures requires a structured threat modeling methodology grounded in enterprise risk standards.",
+@@ -7761,7 +7761,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "OWASP LLM Top 10 Threat Matrix — Core Algorithm & State Representation",
+         "say": [
+           "Quantitative risk assessment models compute deterministic scores to prioritize mitigation efforts across diverse system components.",
+@@ -7806,7 +7806,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "OWASP LLM Top 10 Threat Matrix — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Enterprise safety platforms categorize risk scores into actionable governance tiers with clear escalation protocols.",
+@@ -7851,7 +7851,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "OWASP LLM Top 10 Threat Matrix — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Operational failures in AI risk management typically stem from stale registers, missing threat vectors, or score drift.",
+@@ -7896,7 +7896,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "OWASP LLM Top 10 Threat Matrix — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Enterprise site reliability engineering for AI platforms requires continuous automated auditing of the global risk register.",
+@@ -7962,7 +7962,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Input Guardrails — Foundations & Mathematical Invariants",
+         "say": [
+           "The first line of defense in any production AI system is the deterministic input sanitization boundary.",
+@@ -8007,7 +8007,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Input Guardrails — Core Algorithm & State Representation",
+         "say": [
+           "Beyond homoglyph deception, malicious inputs frequently embed invisible control characters to manipulate terminal emulators or parser state machines.",
+@@ -8052,7 +8052,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Input Guardrails — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Unbounded input lengths present severe operational risks, including Out-Of-Memory crashes and denial-of-service bill-shock.",
+@@ -8097,7 +8097,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Input Guardrails — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Complex enterprise applications combine multiple sanitizers into an integrated pre-processing pipeline.",
+@@ -8142,7 +8142,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Input Guardrails — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "In enterprise SRE architectures, the input firewall serves as a high-throughput gatekeeper protecting downstream model clusters.",
+@@ -8208,7 +8208,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Prompt Injection Detection — Foundations & Mathematical Invariants",
+         "say": [
+           "Prompt injection represents the premier security vulnerability unique to generative language models.",
+@@ -8253,7 +8253,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Prompt Injection Detection — Core Algorithm & State Representation",
+         "say": [
+           "Structural spotlighting is a defensive architectural pattern that cleanly demarcates untrusted data within the prompt context.",
+@@ -8298,7 +8298,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Prompt Injection Detection — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Statistical anomaly detection evaluates linguistic metrics such as character entropy and token perplexity to detect obfuscated attacks.",
+@@ -8343,7 +8343,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Prompt Injection Detection — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Multi-factor heuristic classifiers synthesize lexical signatures, role-play patterns, and system override keywords into a composite risk score.",
+@@ -8388,7 +8388,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Prompt Injection Detection — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The production prompt injection guard combines signature verification, structural encapsulation, and entropy analysis into an enterprise barrier.",
+@@ -8454,7 +8454,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Instruction Hierarchy — Foundations & Mathematical Invariants",
+         "say": [
+           "Modern computing operating systems enforce strict hierarchical privilege levels, such as Ring 0 for the kernel and Ring 3 for user applications.",
+@@ -8499,7 +8499,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Instruction Hierarchy — Core Algorithm & State Representation",
+         "say": [
+           "Context compilation algorithms structure the multi-part prompt into strictly ordered and delineated sections.",
+@@ -8544,7 +8544,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Instruction Hierarchy — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Adversaries aware of structural delimiters frequently attempt tag spoofing attacks to escape untrusted data enclosures.",
+@@ -8589,7 +8589,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Instruction Hierarchy — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "A robust context framing validator inspects compiled prompt payloads before transmission to the model inference API.",
+@@ -8634,7 +8634,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Instruction Hierarchy — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The production hierarchy guard orchestrates the entire prompt assembly and verification lifecycle for enterprise workloads.",
+@@ -8700,7 +8700,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Input Firewall Architecture — Foundations & Mathematical Invariants",
+         "say": [
+           "Milestone 7 brings together the foundational input security layers into a cohesive production defense engine.",
+@@ -8745,7 +8745,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Input Firewall Architecture — Core Algorithm & State Representation",
+         "say": [
+           "The core sanitization routine executes deterministic string transformations across three discrete phases.",
+@@ -8790,7 +8790,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Input Firewall Architecture — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The threat scoring engine calculates a continuous normalized risk score for each incoming request.",
+@@ -8835,7 +8835,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Input Firewall Architecture — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "The DefenseEngineM7 class maintains stateful counters tracking passed and blocked request volumes.",
+@@ -8880,7 +8880,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Input Firewall Architecture — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Production telemetry verification ensures that the input firewall operates reliably within enterprise SRE parameters.",
+@@ -8946,7 +8946,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "PII Detection & Pseudonymization — Foundations & Mathematical Invariants",
+         "say": [
+           "Protecting Personally Identifiable Information (PII) is a mandatory legal and ethical requirement in production AI engineering.",
+@@ -8991,7 +8991,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "PII Detection & Pseudonymization — Core Algorithm & State Representation",
+         "say": [
+           "Irreversible redaction, such as replacing names with '[REDACTED]', destroys the model's ability to maintain conversational coherence.",
+@@ -9040,7 +9040,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "PII Detection & Pseudonymization — Production Implementation & Boundary Mechanics",
+         "say": [
+           "In scenarios where detokenization is not required, high-throughput irreversible masking provides a lightweight alternative.",
+@@ -9085,7 +9085,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "PII Detection & Pseudonymization — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "A stateful PII protection filter tracks cumulative redaction metrics across continuous conversational streaming sessions.",
+@@ -9130,7 +9130,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "PII Detection & Pseudonymization — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Enterprise privacy governance mandates automated auditing of all outbound model requests and responses.",
+@@ -9196,7 +9196,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Output Schema Validation — Foundations & Mathematical Invariants",
+         "say": [
+           "When integrating generative language models into enterprise software architectures, structured output reliability is paramount.",
+@@ -9241,7 +9241,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Output Schema Validation — Core Algorithm & State Representation",
+         "say": [
+           "Foundation models frequently hallucinate external URLs, fabricating plausible-looking domain names that do not exist or link to malicious domains.",
+@@ -9286,7 +9286,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Output Schema Validation — Production Implementation & Boundary Mechanics",
+         "say": [
+           "When a model produces a minor syntax error like a trailing comma or unclosed curly brace, triggering a full re-generation is wasteful.",
+@@ -9331,7 +9331,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Output Schema Validation — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Beyond syntax and URL validation, output enforcement gates prevent sensitive internal state leakage.",
+@@ -9376,7 +9376,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Output Schema Validation — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "In Retrieval-Augmented Generation (RAG) systems, hallucinated citations represent a severe integrity and compliance hazard.",
+@@ -9442,7 +9442,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Faithfulness & Groundedness — Foundations & Mathematical Invariants",
+         "say": [
+           "In enterprise knowledge retrieval systems, factual hallucinations present severe legal, medical, and financial risks.",
+@@ -9487,7 +9487,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Faithfulness & Groundedness — Core Algorithm & State Representation",
+         "say": [
+           "Evaluating the faithfulness of an entire multi-paragraph document at once is prone to false positives and overlooked errors.",
+@@ -9532,7 +9532,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Faithfulness & Groundedness — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The GroundednessVerifier class evaluates extracted claims against reference context using configurable alignment thresholds.",
+@@ -9577,7 +9577,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Faithfulness & Groundedness — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Natural Language Inference (NLI) provides the gold standard for semantic groundedness verification.",
+@@ -9622,7 +9622,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Faithfulness & Groundedness — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The audit_rag_faithfulness function synthesizes atomic claim verification into a comprehensive document-level quality audit.",
+@@ -9688,7 +9688,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Calibrated Refusal — Foundations & Mathematical Invariants",
+         "say": [
+           "A major failure mode in modern aligned foundation models is over-refusal: rejecting benign requests due to the mere presence of sensitive terms.",
+@@ -9733,7 +9733,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Calibrated Refusal — Core Algorithm & State Representation",
+         "say": [
+           "Quantifying refusal calibration requires measuring the empirical over-refusal rate on benchmark datasets of benign sensitive queries.",
+@@ -9778,7 +9778,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Calibrated Refusal — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The ContextualRefusalClassifier evaluates dual-use queries by balancing educational signals against attack signals.",
+@@ -9823,7 +9823,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "When a refusal is strictly necessary, the phrasing of the refusal response critically impacts user experience.",
+@@ -9868,7 +9868,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Calibrated Refusal — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Production refusal telemetry tracks real-time refusal rates and user appeal volumes across live platform traffic.",
+@@ -9934,7 +9934,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Output Safety Pipeline — Foundations & Mathematical Invariants",
+         "say": [
+           "Milestone 8 establishes the complete egress safety perimeter for enterprise generative AI deployments.",
+@@ -9979,7 +9979,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Output Safety Pipeline — Core Algorithm & State Representation",
+         "say": [
+           "The verify_m8_groundedness function evaluates generated propositions against source reference spans.",
+@@ -10024,7 +10024,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Output Safety Pipeline — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Strict contract validation enforces that structured JSON outputs match expected schema types before downstream consumption.",
+@@ -10069,7 +10069,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Output Safety Pipeline — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "The Milestone8Pipeline class wraps output validation into a robust stateful processing engine.",
+@@ -10114,7 +10114,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Output Safety Pipeline — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The generate_m8_audit_badge function synthesizes all output safety signals into an official compliance certification badge.",
+@@ -10180,7 +10180,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Classifier Calibration — Foundations & Mathematical Invariants",
+         "say": [
+           "Binary safety classifiers output continuous probability scores between 0.0 and 1.0 indicating the likelihood of an adversarial payload.",
+@@ -10225,7 +10225,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Classifier Calibration — Core Algorithm & State Representation",
+         "say": [
+           "Precision measures the proportion of flagged requests that were truly adversarial: TP divided by (TP + FP).",
+@@ -10270,7 +10270,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Classifier Calibration — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The F-beta score generalizes the harmonic mean of precision and recall, allowing engineering teams to adjust their relative importance.",
+@@ -10315,7 +10315,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Classifier Calibration — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Cost-weighted loss functions translate statistical errors directly into expected financial and operational damages.",
+@@ -10360,7 +10360,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Classifier Calibration — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The optimal_threshold_picker function iterates across candidate threshold trials, identifying the operating point that minimizes total cost.",
+@@ -10426,7 +10426,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Selective Prediction — Foundations & Mathematical Invariants",
+         "say": [
+           "Foundation models are frequently overconfident, generating fluent and authoritative answers even when completely incorrect.",
+@@ -10471,7 +10471,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Selective Prediction — Core Algorithm & State Representation",
+         "say": [
+           "Margin confidence evaluates the difference between the highest class probability and the second-highest class probability.",
+@@ -10516,7 +10516,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Selective Prediction — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The SelectivePredictionGate class combines maximum entropy ceilings and minimum margin floors into an operational filter.",
+@@ -10561,7 +10561,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "When an abstention gate triggers, the orchestration layer must execute a graceful routing fallback.",
+@@ -10606,7 +10606,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Selective Prediction — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The coverage_accuracy_tradeoff function models the relationship between system coverage and selective prediction accuracy.",
+@@ -10673,7 +10673,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "ECE & Temperature Scaling — Foundations & Mathematical Invariants",
+         "say": [
+           "In safety-critical AI systems, confidence scores must accurately reflect empirical probabilities of correctness.",
+@@ -10718,7 +10718,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "ECE & Temperature Scaling — Core Algorithm & State Representation",
+         "say": [
+           "Quantifying probability miscalibration requires partitioning model predictions into discrete confidence bins (typically 10 or 15 bins).",
+@@ -10763,7 +10763,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "ECE & Temperature Scaling — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Expected Calibration Error (ECE) calculates the sample-weighted average calibration gap across all confidence bins.",
+@@ -10808,7 +10808,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "ECE & Temperature Scaling — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Post-hoc calibration optimizes the temperature parameter T using held-out validation data.",
+@@ -10853,7 +10853,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "ECE & Temperature Scaling — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The audit_model_calibration_health function evaluates production ECE to determine whether confidence scores are safe for automated gates.",
+@@ -10919,7 +10919,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
+         "say": [
+           "When generative models are granted tool-use capabilities, prompt injection evolves from a conversational defect into a critical security vulnerability.",
+@@ -10964,7 +10964,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Safe Tool Sandboxes — Core Algorithm & State Representation",
+         "say": [
+           "Tools that accept file paths or directory targets represent a classic attack surface for directory traversal exploits.",
+@@ -11009,7 +11009,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Safe Tool Sandboxes — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Even when tool names and file paths are valid, tool arguments must conform to strict data type and range schemas.",
+@@ -11054,7 +11054,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Safe Tool Sandboxes — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "High-consequence tools that perform mutations—such as transferring funds, deleting records, or sending emails—require dry-run simulation.",
+@@ -11099,7 +11099,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Safe Tool Sandboxes — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The ZeroTrustToolSandbox class encapsulates tool execution, state isolation, and audit logging into an enterprise service.",
+@@ -11165,7 +11165,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Uncertainty-Gated Execution — Foundations & Mathematical Invariants",
+         "say": [
+           "Milestone 9 establishes the executive control plane for autonomous tool-using language agents.",
+@@ -11210,7 +11210,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Uncertainty-Gated Execution — Core Algorithm & State Representation",
+         "say": [
+           "Before tool arguments reach underlying system libraries, argument sanitizers neutralize potential command injection syntax.",
+@@ -11255,7 +11255,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Uncertainty-Gated Execution — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The ZeroTrustExecutionEnclave provides an isolated execution environment for authorized agent tool invocations.",
+@@ -11300,7 +11300,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Continuous verification of sandbox containment is vital for detecting subtle sandbox escapes and anomalous agent behavior.",
+@@ -11345,7 +11345,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Uncertainty-Gated Execution — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Enterprise governance requires non-repudiable audit receipts for every high-stakes agent tool invocation.",
+@@ -11412,7 +11412,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "HITL Escalation Workflows — Foundations & Mathematical Invariants",
+         "say": [
+           "Human-in-the-Loop (HITL) architectures ensure that autonomous AI systems do not execute irreversible destructive actions without human oversight.",
+@@ -11457,7 +11457,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "HITL Escalation Workflows — Core Algorithm & State Representation",
+         "say": [
+           "When an action requires human review, the system generates an ephemeral, cryptographically secure approval token.",
+@@ -11502,7 +11502,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "HITL Escalation Workflows — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The hitl_escalation_gate function evaluates the calculated blast radius against operational policy tiers.",
+@@ -11547,7 +11547,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "HITL Escalation Workflows — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Stateful escalation queues manage pending approval tasks across distributed operator teams.",
+@@ -11592,7 +11592,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "HITL Escalation Workflows — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Enterprise compliance mandates strict Service Level Agreement (SLA) monitoring for human review workflows.",
+@@ -11659,7 +11659,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Adversarial Red-Teaming — Foundations & Mathematical Invariants",
+         "say": [
+           "Proactive adversarial red-teaming is essential for identifying model vulnerabilities before malicious actors discover them in production.",
+@@ -11704,7 +11704,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Adversarial Red-Teaming — Core Algorithm & State Representation",
+         "say": [
+           "ROT13 is a classic Caesar substitution cipher that rotates each alphabet letter by 13 positions.",
+@@ -11749,7 +11749,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Adversarial Red-Teaming — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The primary quantitative metric in adversarial testing is the Attack Success Rate (ASR).",
+@@ -11794,7 +11794,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Adversarial Red-Teaming — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Automated red-team fuzzers systematically generate diverse adversarial variants from a single seed exploit.",
+@@ -11839,7 +11839,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Adversarial Red-Teaming — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The audit_red_team_benchmark function evaluates comprehensive red-team test suites against enterprise safety targets.",
+@@ -11905,7 +11905,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Safety Regression Gates — Foundations & Mathematical Invariants",
+         "say": [
+           "Software engineering has long relied on regression testing to prevent previously fixed bugs from returning in new releases.",
+@@ -11950,7 +11950,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Safety Regression Gates — Core Algorithm & State Representation",
+         "say": [
+           "The calculate_suite_pass_rate function evaluates test outcomes across the entire golden regression suite.",
+@@ -11995,7 +11995,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Safety Regression Gates — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The CIRegressionGate class integrates with continuous integration runners to automate build verification.",
+@@ -12040,7 +12040,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Clear diagnostic reporting is essential for helping developers quickly understand and remediate regression failures.",
+@@ -12085,7 +12085,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Safety Regression Gates — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The git_commit_safety_enforcer function enforces branch protection rules at the version control repository boundary.",
+@@ -12151,7 +12151,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Algorithmic Fairness — Foundations & Mathematical Invariants",
+         "say": [
+           "When machine learning models automate hiring, credit lending, or admissions decisions, algorithmic bias can cause severe societal harm.",
+@@ -12196,7 +12196,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Algorithmic Fairness — Core Algorithm & State Representation",
+         "say": [
+           "The Four-Fifths Rule (80% Rule) is the primary legal benchmark used by the US EEOC to identify potential unlawful disparate impact.",
+@@ -12241,7 +12241,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Algorithmic Fairness — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Demographic Parity evaluates fairness from an absolute difference perspective rather than a ratio.",
+@@ -12286,7 +12286,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Algorithmic Fairness — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "The FairnessAuditor class encapsulates dual-criteria fairness evaluation into an operational compliance service.",
+@@ -12331,7 +12331,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Algorithmic Fairness — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The generate_eeoc_compliance_report function compiles fairness audits across all monitored demographic cohorts into a corporate audit report.",
+@@ -12397,7 +12397,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Governance Control Plane — Foundations & Mathematical Invariants",
+         "say": [
+           "Milestone 10 establishes the dual security and ethical governance control plane for enterprise AI deployments.",
+@@ -12442,7 +12442,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Governance Control Plane — Core Algorithm & State Representation",
+         "say": [
+           "Dual certification requires satisfying both security thresholds and algorithmic fairness benchmarks simultaneously.",
+@@ -12487,7 +12487,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Governance Control Plane — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Equalized Odds is a sophisticated fairness metric requiring that error rates be equal across demographic cohorts.",
+@@ -12532,7 +12532,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Governance Control Plane — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Enterprise governance requires immutable, tamper-evident records of all pre-release safety and fairness evaluations.",
+@@ -12577,7 +12577,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Governance Control Plane — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The final stage of the governance pipeline is automated executive release sign-off.",
+@@ -12644,7 +12644,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Immutable Audit Logs — Foundations & Mathematical Invariants",
+         "say": [
+           "In enterprise safety governance, logging what happened is not enough: organizations must prove that audit logs have not been tampered with.",
+@@ -12689,7 +12689,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Immutable Audit Logs — Core Algorithm & State Representation",
+         "say": [
+           "The AuditLogChain class maintains the stateful ledger of verified safety and compliance events.",
+@@ -12734,7 +12734,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Immutable Audit Logs — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Chain integrity verification traverses the ledger from the genesis block to the head, independently recomputing every hash.",
+@@ -12779,7 +12779,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Immutable Audit Logs — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "When an audit chain is compromised, automated triage tools must immediately detect and isolate the affected segment.",
+@@ -12824,7 +12824,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Immutable Audit Logs — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The generate_audit_export_manifest function packages ledger metadata into official compliance export manifests.",
+@@ -12890,7 +12890,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "AI Incident Response — Foundations & Mathematical Invariants",
+         "say": [
+           "When an AI system begins generating toxic content or leaking private data in production, manual intervention is often too slow.",
+@@ -12935,7 +12935,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "AI Incident Response — Core Algorithm & State Representation",
+         "say": [
+           "Canary deployments expose a small percentage of production traffic (e.g., 5%) to a newly updated model or prompt configuration.",
+@@ -12980,7 +12980,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "AI Incident Response — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Stateful incident triage runbooks structure incident management workflows during live emergencies.",
+@@ -13025,7 +13025,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "AI Incident Response — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Rapid root-cause triage accelerates incident resolution by automatically classifying failure mechanisms from log signatures.",
+@@ -13070,7 +13070,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "AI Incident Response — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "Post-mortem reviews represent the final, vital phase of incident response, extracting structural lessons to prevent recurrence.",
+@@ -13136,7 +13136,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Regulatory Frameworks — Foundations & Mathematical Invariants",
+         "say": [
+           "Navigating international regulatory frameworks is a mandatory prerequisite for deploying generative AI in commercial markets.",
+@@ -13181,7 +13181,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Regulatory Frameworks — Core Algorithm & State Representation",
+         "say": [
+           "In the United States, the National Institute of Standards and Technology (NIST) maintains the AI Risk Management Framework (AI RMF 1.0).",
+@@ -13226,7 +13226,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Regulatory Frameworks — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Deploying High Risk AI systems under the EU AI Act requires satisfying a rigorous mandatory conformity checklist.",
+@@ -13271,7 +13271,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Under the EU AI Act transparency rules, users interacting with AI systems possess the fundamental right to know they are speaking with an artificial agent.",
+@@ -13316,7 +13316,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Regulatory Frameworks — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The export_eu_ai_act_compliance_declaration function packages regulatory findings into an official EU Declaration of Conformity.",
+@@ -13382,7 +13382,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Data Hygiene — Foundations & Mathematical Invariants",
+         "say": [
+           "Foundation models are products of their training data: corrupt or contaminated training data inevitably produces hazardous model behaviors.",
+@@ -13427,7 +13427,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Data Hygiene — Core Algorithm & State Representation",
+         "say": [
+           "Web crawl datasets contain significant quantities of toxic language, hate speech, and illegal materials that must be scrubbed.",
+@@ -13472,7 +13472,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Data Hygiene — Production Implementation & Boundary Mechanics",
+         "say": [
+           "Verbatim training data memorization is a critical privacy vulnerability where models regurgitate private user records when prompted.",
+@@ -13517,7 +13517,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Data Hygiene — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Web-scraped training datasets contain massive numbers of duplicate documents, syndicated articles, and boilerplate license headers.",
+@@ -13562,7 +13562,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Data Hygiene — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The audit_dataset_hygiene_certification function provides the final pre-training gate, verifying dataset cleanliness.",
+@@ -13628,7 +13628,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Regulatory Ledger — Foundations & Mathematical Invariants",
+         "say": [
+           "Milestone 11 delivers the enterprise compliance and regulatory governance capstone for sovereign AI deployments.",
+@@ -13673,7 +13673,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Regulatory Ledger — Core Algorithm & State Representation",
+         "say": [
+           "Verifying governance ledger immutability requires confirming that every link in the hash chain remains unbroken.",
+@@ -13718,7 +13718,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Regulatory Ledger — Production Implementation & Boundary Mechanics",
+         "say": [
+           "The MultiRegulationComplianceAuditor evaluates enterprise AI systems against multiple international regulatory standards simultaneously.",
+@@ -13763,7 +13763,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Regulatory Ledger — Failure Modes, Hardware Bottlenecks & Debugging",
+         "say": [
+           "Exporting regulatory binders compiles all technical documentation, audit chains, and risk registers into an official filing package.",
+@@ -13808,7 +13808,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Regulatory Ledger — Production Capstone & Enterprise SRE Integration",
+         "say": [
+           "The final stage of Milestone 11 is the issuance of the official Enterprise AI Sovereign Compliance Seal.",
+@@ -13875,7 +13875,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Statistical LLM Watermarking — Foundations & Mathematical Invariants",
+         "say": [
+           "Statistical watermarking provides cryptographic proof of AI model provenance without altering natural language readability.",
+@@ -13920,7 +13920,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Statistical LLM Watermarking — Core Algorithm & State Representation",
+         "say": [
+           "During autoregressive token generation, the watermark engine intercepts logits at every decoding step.",
+@@ -13965,7 +13965,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Statistical LLM Watermarking — Throughput Optimization & Edge-Case Handling",
+         "say": [
+           "Watermark detection evaluates the null hypothesis that text was written without knowledge of the green list.",
+@@ -14010,7 +14010,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Statistical LLM Watermarking — Resilience Guardrails & Failure Recovery",
+         "say": [
+           "Real-world text undergoes paraphrasing, synonym replacement, and formatting edits.",
+@@ -14055,7 +14055,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Statistical LLM Watermarking — Production Telemetry & Verification Audit",
+         "say": [
+           "Production safety pipelines integrate watermark verification into document ingestion and audit logs.",
+@@ -14121,7 +14121,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Invariants",
+         "say": [
+           "Goodhart's Law states that when a measure becomes a target, it ceases to be a good measure.",
+@@ -14166,7 +14166,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Reward Hacking & Goodhart's Law — Core Algorithm & State Representation",
+         "say": [
+           "To prevent policy drift, RLHF algorithms penalize divergence from a frozen reference model.",
+@@ -14211,7 +14211,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge-Case Handling",
+         "say": [
+           "Static KL penalty coefficients either over-constrain learning or fail to stop reward hacking.",
+@@ -14256,7 +14256,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failure Recovery",
+         "say": [
+           "Single reward models possess systematic blind spots that policies inevitably discover.",
+@@ -14301,7 +14301,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Reward Hacking & Goodhart's Law — Production Telemetry & Verification Audit",
+         "say": [
+           "Production alignment pipelines continuously monitor policy health metrics to catch emergent degradation.",
+@@ -14367,7 +14367,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Constitutional AI (CAI) — Foundations & Mathematical Invariants",
+         "say": [
+           "Constitutional AI grounds alignment in explicit, human-readable principles rather than opaque reward functions.",
+@@ -14412,7 +14412,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Constitutional AI (CAI) — Core Algorithm & State Representation",
+         "say": [
+           "The first stage of CAI execution is automated self-critique generation.",
+@@ -14457,7 +14457,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Handling",
+         "say": [
+           "Once a critique identifies policy violations, the model executes a guided revision step.",
+@@ -14502,7 +14502,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recovery",
+         "say": [
+           "Complex queries may violate multiple constitutional principles simultaneously.",
+@@ -14547,7 +14547,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Constitutional AI (CAI) — Production Telemetry & Verification Audit",
+         "say": [
+           "Quantifying alignment improvement requires benchmarking pre-revision versus post-revision outputs.",
+@@ -14613,7 +14613,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Production Safety Drift Monitoring — Foundations & Mathematical Invariants",
+         "say": [
+           "Safety guardrails can degrade silently due to changing user behavior or upstream model updates.",
+@@ -14658,7 +14658,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Production Safety Drift Monitoring — Core Algorithm & State Representation",
+         "say": [
+           "Guardrail over-refusal degrades user trust as severely as safety failures.",
+@@ -14703,7 +14703,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Production Safety Drift Monitoring — Throughput Optimization & Edge-Case Handling",
+         "say": [
+           "Safety guardrails must not impose unacceptable latency overhead on model inference.",
+@@ -14748,7 +14748,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Production Safety Drift Monitoring — Resilience Guardrails & Failure Recovery",
+         "say": [
+           "Automated monitoring is useless without clear, automated remediation escalation.",
+@@ -14793,7 +14793,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Production Safety Drift Monitoring — Production Telemetry & Verification Audit",
+         "say": [
+           "Telemetry snapshots aggregate multi-dimensional health metrics into unified audit payloads.",
+@@ -14859,7 +14859,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+     },
+     "parts": [
+       {
+-        "partNumber": 1,
++        "part": 1,
+         "title": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
+         "say": [
+           "The Sovereign AI Safety Control Plane unifies all safety disciplines mastered across Month 2.",
+@@ -14904,7 +14904,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 2,
++        "part": 2,
+         "title": "Milestone 12 Capstone — Core Algorithm & State Representation",
+         "say": [
+           "The inbound gateway acts as the first line of defense before prompts reach inference endpoints.",
+@@ -14949,7 +14949,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 3,
++        "part": 3,
+         "title": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
+         "say": [
+           "Inbound filters cannot prevent models from generating unsafe content during token decoding.",
+@@ -14994,7 +14994,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 4,
++        "part": 4,
+         "title": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
+         "say": [
+           "Outbound sanitization represents the final verification barrier before responses leave the platform.",
+@@ -15039,7 +15039,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
+         }
+       },
+       {
+-        "partNumber": 5,
++        "part": 5,
+         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
+         "say": [
+           "The complete SovereignSafetyControlPlane integrates all gateway stages with cryptographic audit logging.",

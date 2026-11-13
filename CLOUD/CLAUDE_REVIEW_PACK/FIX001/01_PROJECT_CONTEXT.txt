@@ -1,0 +1,70 @@
+================================================================================
+PROJECT CONTEXT & ARCHITECTURAL FOUNDATION — FIX 001
+================================================================================
+Workspace Path: <repo-root> (Present-Career-os)
+Active Branch: main
+Commit SHA: 5d887012c9a1668eed74960d0b6560e5aa663f92
+Runtime Environment: Node.js v24.19.0 | npm 11.17.0 | TypeScript v5.x | Python 3.12.14
+Date: 2026-11-13T14:15:00+05:30
+
+--------------------------------------------------------------------------------
+1. LMS SYSTEM ARCHITECTURE & SCALE
+--------------------------------------------------------------------------------
+PinIT Career OS is a full-scale enterprise Learning Management System (LMS)
+built on Next.js 14 (App Router) containing:
+- 35 Standalone Regular Courses spanning Core Tech, IoT, Commerce, Foundations.
+- 1 Master Certification Program: Python Full-Stack & AI Certification
+  (12 sequential courses, 720 days, 2,160 lesson parts, anchored by pythonnow.md).
+- Dual-Tier Execution Engine:
+  - Client-Side In-Browser Execution via Pyodide (CPython 3.11 Wasm) and PGlite (PostgreSQL Wasm).
+  - Isolated Cloud Run Docker Execution Judge for high-latency or compiled languages.
+- 53 Physical Lesson Data Stores in src/lib/data/*LongLessons.ts.
+- 59 Router Lookup Prefixes in src/lib/data/longLessons.ts.
+- 308 route.ts API endpoints (370 total HTTP routes).
+
+--------------------------------------------------------------------------------
+2. COURSE UNDER TEST: COURSE 12 (PRODUCTION AI SAFETY & ALIGNMENT)
+--------------------------------------------------------------------------------
+- Catalog Course ID: course-safety-python
+- Router Key / Prefix: safe-py
+- Curriculum Duration: 60 Days (Month 1: Days 1-30; Month 2: Days 31-60)
+- Physical Data Store: src/lib/data/safetyPythonLongLessons.ts
+- Execution Sandbox: Pyodide CPython 3.11 Wasm
+- Lesson Format: LongLesson schema (5 parts per day, spoken audio paragraphs,
+  real-world physical metaphors, runnable Pyodide code snippets, Gate v2 visual
+  bindings, and concept check MCQs).
+
+--------------------------------------------------------------------------------
+3. REFERENCE TO EXISTING CLOUD/ DOSSIER DOCUMENTS
+--------------------------------------------------------------------------------
+For comprehensive empirical analysis, refer to the following authoritative documents
+in the CLOUD/ directory:
+
+1. CLOUD/01_SYSTEM_AND_TOOLCHAIN_PROFILE.md
+   - Details OS environment, Node/npm/Python toolchain, and package topology.
+2. CLOUD/02_GIT_INTEGRITY_AND_BRANCH_STATE.md
+   - Details git worktrees, tracking ref parity, and untracked scripts preservation.
+3. CLOUD/03_CODEBASE_ARCHITECTURE_MAP.md
+   - Maps Next.js 14 App Router, 308 route.ts files, and client-side Wasm runtimes.
+4. CLOUD/05_CURRICULUM_TAXONOMY_RECONCILIATION.md
+   - Reconciles 360-day foundation vs 720-day expansion and course catalog mappings.
+5. CLOUD/06_TEST_AND_DIAGNOSTICS_BASELINE.md
+   - Documents the 720 verified Python curriculum days across test suites.
+6. CLOUD/07_TYPESCRIPT_DIAGNOSTIC_DOSSIER.md
+   - Complete AST failure decompilation of the original 412 compiler errors.
+7. CLOUD/08_SECURITY_AND_EXCLUSIONS_AUDIT.md
+   - Security auditing, path exclusions, and sanitization boundaries.
+8. CLOUD/10_VERIFICATION_EVIDENCE/README.md
+   - Pre-fix and post-fix compiler log manifests and SHA-256 checksums.
+9. CLOUD/11_MASTER_COURSE_AND_CURRICULUM_INVENTORY.md
+   - Master course inventory reconciling all 35 regular courses, dual cert tracks,
+     shared engine dependencies, and prioritized development ledger.
+
+--------------------------------------------------------------------------------
+4. OPERATIONAL CONSTRAINTS FOR INDEPENDENT REVIEW
+--------------------------------------------------------------------------------
+- Strictly read-only evidence evaluation.
+- No modifications to application code or database schemas.
+- No commits or pushes without explicit dual-review approval.
+- Preservation of all 132 untracked developer scripts in scripts/.
+================================================================================

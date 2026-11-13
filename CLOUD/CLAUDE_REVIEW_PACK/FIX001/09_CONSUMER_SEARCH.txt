@@ -1,0 +1,46 @@
+================================================================================
+CONSUMER IMPACT & REFERENCE AUDIT — FIX 001
+================================================================================
+Target Question: Does any application consumer, UI component, hook, or test
+depend on the property 'partNumber' on LongLessonPart objects?
+================================================================================
+
+--------------------------------------------------------------------------------
+1. SEARCH FOR PROPERTY ACCESS: `.partNumber` ACROSS `src/`
+--------------------------------------------------------------------------------
+Total occurrences of `.partNumber` in src/: 1
+  File: src\lib\data\cloudWebLongLessons.ts:2270
+  Line: "code": "interface UploadPart {\n  partNumber: number;\n  sizeMb: number;\n  etag: string;\n}\n\nfunction assembleMultipartUpload(parts: UploadPart[]): { totalParts: number; totalSizeMb: number; isComplete: boolean } {\n  // Sort parts by part number ascending\n  const sorted = [...parts].sort((a, b) => a.partNumber - b.partNumber);\n  const totalSizeMb = sorted.reduce((sum, p) => sum + p.sizeMb, 0);\n  return {\n    totalParts: sorted.length,\n    totalSizeMb,\n    isComplete: sorted.length === 3 // simulated 3-part manifest\n  };\n}\n\nconst parts: UploadPart[] = [\n  { partNumber: 2, sizeMb: 50, etag: '\"etag-part-2\"' },\n  { partNumber: 1, sizeMb: 50, etag: '\"etag-part-1\"' },\n  { partNumber: 3, sizeMb: 45, etag: '\"etag-part-3\"' },\n];\n\nconst completed = assembleMultipartUpload(parts);\nconsole.log(`Multipart Upload Complete: ${completed.isComplete} | Total Size: ${completed.totalSizeMb}MB across ${completed.totalParts} parts`);",
+  Context Analysis: This occurrence in cloudWebLongLessons.ts is an AWS S3
+  multipart upload tutorial code example (part of a student simulation script),
+  NOT an LMS curriculum model consumer.
+
+Conclusion on property access: Exactly ZERO LMS consumers read `.partNumber`.
+
+--------------------------------------------------------------------------------
+2. SEARCH FOR JSON KEY `"partNumber":` ACROSS `src/lib/data/`
+--------------------------------------------------------------------------------
+Data files containing `"partNumber":`: 2
+  - trainPythonLongLessons.ts: 110 occurrences
+  - vectorPythonLongLessons.ts: 150 occurrences
+
+Note on data files:
+  - safetyPythonLongLessons.ts: 0 occurrences (all 150 resolved in Fix 001)
+  - vectorPythonLongLessons.ts: 150 occurrences (pending Fix 002)
+  - trainPythonLongLessons.ts: 110 occurrences (pending Fix 003)
+  - All other 51 curriculum data stores: 0 occurrences (clean)
+
+--------------------------------------------------------------------------------
+3. ACTUAL CONSUMER USAGE PATTERNS FOR `LongLessonPart`
+--------------------------------------------------------------------------------
+UI components and hooks render lesson parts by iterating over `lesson.parts`:
+
+Inspection of src/app/quests/lesson/hooks/useLessonEngine.ts:
+
+Findings on Consumer Architecture:
+1. Array-Based Indexing: Slide components map `lesson.parts.map((part, index) => ...)`
+   and compute slide numbers dynamically as `index + 1` or `part.part || index + 1`.
+2. Interface Alignment: LongLessonPart in longLessonTypes.ts declares `part?: string | number`.
+3. Zero Breakage Guarantee: Replacing 'partNumber' with 'part' aligns the object literal
+   with the TypeScript interface contract with zero regression risk to any consumer.
+================================================================================

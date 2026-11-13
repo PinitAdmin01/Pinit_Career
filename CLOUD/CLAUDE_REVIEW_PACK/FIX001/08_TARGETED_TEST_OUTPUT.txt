@@ -1,0 +1,55 @@
+================================================================================
+TARGETED TEST EXECUTION REPORT — FIX 001
+================================================================================
+Command: npx tsx tests/python_track_long_lessons.test.ts
+Execution Timestamp: 2026-11-13T14:19:00+05:30
+Exit Code: 0
+Duration: 103.76 seconds
+================================================================================
+
+--- STDOUT ---
+✔ DSA in Python: every long lesson code sample prints exactly its output in the browser runner (13405.0642ms)
+✔ DSA in Python: long lessons are full 20-30 minute classes that replace the short ones (55.4779ms)
+✔ DSA in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (9.8945ms)
+✔ AI Engineering in Python: every long lesson code sample prints exactly its output in the browser runner (7011.7018ms)
+✔ AI Engineering in Python: long lessons are full 20-30 minute classes that replace the short ones (49.142ms)
+✔ AI Engineering in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (6.7339ms)
+✔ Distributed Systems in Python: every long lesson code sample prints exactly its output in the browser runner (8132.5096ms)
+✔ Distributed Systems in Python: long lessons are full 20-30 minute classes that replace the short ones (53.71ms)
+✔ Distributed Systems in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (6.2695ms)
+✔ Cloud Engineering in Python: every long lesson code sample prints exactly its output in the browser runner (6522.4635ms)
+✔ Cloud Engineering in Python: long lessons are full 20-30 minute classes that replace the short ones (39.1532ms)
+✔ Cloud Engineering in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (5.3613ms)
+✔ NLP in Python: every long lesson code sample prints exactly its output in the browser runner (9048.5574ms)
+✔ NLP in Python: long lessons are full 20-30 minute classes that replace the short ones (73.9747ms)
+✔ NLP in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (8.9342ms)
+✔ Quantitative Trading Systems in Python: every long lesson code sample prints exactly its output in the browser runner (7859.8815ms)
+✔ Quantitative Trading Systems in Python: long lessons are full 20-30 minute classes that replace the short ones (32.3719ms)
+✔ Quantitative Trading Systems in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (4.4483ms)
+✔ Everyday AI & Prompt Engineering in Python: every long lesson code sample prints exactly its output in the browser runner (6343.8188ms)
+✔ Everyday AI & Prompt Engineering in Python: long lessons are full 20-30 minute classes that replace the short ones (71.8506ms)
+✔ Everyday AI & Prompt Engineering in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (6.0983ms)
+✔ Cybersecurity in Python: every long lesson code sample prints exactly its output in the browser runner (6496.6345ms)
+✔ Cybersecurity in Python: long lessons are full 20-30 minute classes that replace the short ones (31.6504ms)
+✔ Cybersecurity in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (3.4732ms)
+✔ Distributed Model Training in Python: every long lesson code sample prints exactly its output in the browser runner (7405.0552ms)
+✔ Distributed Model Training in Python: long lessons are full 20-30 minute classes that replace the short ones (40.031ms)
+✔ Distributed Model Training in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (4.2817ms)
+✔ Vector Search Engines in Python: every long lesson code sample prints exactly its output in the browser runner (12251.8038ms)
+✔ Vector Search Engines in Python: long lessons are full 20-30 minute classes that replace the short ones (48.8519ms)
+✔ Vector Search Engines in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (8.0797ms)
+✔ Production AI Safety & Guardrails in Python: every long lesson code sample prints exactly its output in the browser runner (6227.0835ms)
+✔ Production AI Safety & Guardrails in Python: long lessons are full 20-30 minute classes that replace the short ones (42.0188ms)
+✔ Production AI Safety & Guardrails in Python: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway (5.388ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91357.4355
+
+--- STDERR ---
+
+================================================================================

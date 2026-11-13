@@ -1,0 +1,173 @@
+================================================================================
+GIT STATE & WORKTREE INTEGRITY REPORT — FIX 001
+================================================================================
+Execution Timestamp: 2026-11-13T14:22:00+05:30
+
+Active Git Branch: main
+HEAD Commit SHA:   5d887012c9a1668eed74960d0b6560e5aa663f92
+HEAD Commit Msg:   5d887012 feat(curriculum): complete 100% verified live python certification track (all 12 courses, zero cloned stubs)
+
+Branch Tracking Status:
+  ## main
+ M src/lib/data/safetyPythonLongLessons.ts
+?? CLOUD/
+?? scripts/apply_accounting_remediation.py
+?? scripts/apply_all_banking_conversions.py
+?? scripts/apply_d1_d2_fix.py
+?? scripts/apply_d2_config.py
+?? scripts/apply_d4_remediation.py
+?? scripts/apply_day1_fix.py
+?? scripts/apply_day2_fix.py
+?? scripts/apply_marketing_fixes.py
+?? scripts/apply_precise_updates.py
+?? scripts/audit_business_summary_now.py
+?? scripts/audit_d1_acc.py
+?? scripts/audit_d1_details.py
+?? scripts/audit_d2_details.py
+?? scripts/audit_d2_lesson.py
+?? scripts/audit_d3_details.py
+?? scripts/audit_d4_details.py
+?? scripts/audit_d5_details.py
+?? scripts/audit_python_day.ts
+?? scripts/build_dmkt_remediations.py
+?? scripts/check_acc_d1_10.py
+?? scripts/check_aud_day1_5_words.py
+?? scripts/check_ban_day1_5_words.py
+?? scripts/check_counts.py
+?? scripts/check_d2_counts.py
+?? scripts/check_d3_counts.py
+?? scripts/check_disk_state.py
+?? scripts/check_ecom_day1_5_words.py
+?? scripts/check_ecom_day2.py
+?? scripts/check_lines_exact.py
+?? scripts/clean_remediate_dmkt.py
+?? scripts/clean_remediate_marketing.py
+?? scripts/compare_titles.py
+?? scripts/d4_dump.json
+?? scripts/dump_d4.py
+?? scripts/enrich_aud_lessons_words.py
+?? scripts/enrich_d3_text.py
+?? scripts/finalize_bcom_finance.py
+?? scripts/finalize_day29.py
+?? scripts/find_aud_fillers.py
+?? scripts/find_ban_fillers.py
+?? scripts/find_day_lines.py
+?? scripts/find_ecom_fillers.py
+?? scripts/find_gate.py
+?? scripts/fix_d1_4_checks.py
+?? scripts/fix_d2_captions.py
+?? scripts/fix_d3_codenotes.py
+?? scripts/fix_long_lessons_corpus.ts
+?? scripts/inspect_acc_d1.py
+?? scripts/inspect_all_business_courses.py
+?? scripts/inspect_all_python_day1.py
+?? scripts/inspect_aud_fillers.py
+?? scripts/inspect_bcom_acc_day1.py
+?? scripts/inspect_bcom_acc_days.py
+?? scripts/inspect_curriculum_quality.py
+?? scripts/inspect_d1_acc_parts.py
+?? scripts/inspect_d1_d2.py
+?? scripts/inspect_d3.py
+?? scripts/inspect_d3_codenotes.py
+?? scripts/inspect_d3_details.py
+?? scripts/inspect_d3_lines_now.py
+?? scripts/inspect_d3_p3_p4.py
+?? scripts/inspect_d4_attached_texts.py
+?? scripts/inspect_d4_code_chars.py
+?? scripts/inspect_d4_details.py
+?? scripts/inspect_d4_dump.py
+?? scripts/inspect_d4_p5.py
+?? scripts/inspect_d4_part5.py
+?? scripts/inspect_d4_visual.py
+?? scripts/inspect_data_day2.py
+?? scripts/inspect_data_file.py
+?? scripts/inspect_dmkt_all_days.py
+?? scripts/inspect_dmkt_detailed.py
+?? scripts/inspect_dmkt_remaining.py
+?? scripts/inspect_ecom_solutions.py
+?? scripts/inspect_file_head.py
+?? scripts/inspect_finance_specific.py
+?? scripts/inspect_iot_day2.py
+?? scripts/inspect_iot_day2_part2.py
+?? scripts/inspect_marketing.py
+?? scripts/inspect_marketing_all_days.py
+?? scripts/inspect_match_day2.py
+?? scripts/inspect_parts.py
+?? scripts/inspect_parts_3_4.py
+?? scripts/inspect_python30days.py
+?? scripts/inspect_specific_tests.py
+?? scripts/inspect_visual_rules.py
+?? scripts/list_courses.py
+?? scripts/marketing_days.json
+?? scripts/rebuild_d1_accounting.py
+?? scripts/rebuild_d2_accounting.py
+?? scripts/rebuild_d3_accounting.py
+?? scripts/remedial_fix_day2_to_5.ts
+?? scripts/remediate_all_bcom_accounting.py
+?? scripts/remediate_all_bcom_auditing_configs.py
+?? scripts/remediate_all_bcom_banking_configs.py
+?? scripts/remediate_all_bcom_dmkt.py
+?? scripts/remediate_all_bcom_ecom.py
+?? scripts/remediate_all_bcom_finance.py
+?? scripts/remediate_all_bcom_marketing.py
+?? scripts/remediate_all_curriculum.py
+?? scripts/remediate_all_python_lessons.py
+?? scripts/remediate_bcom_aud_lessons.py
+?? scripts/remediate_bcom_ban_lessons.py
+?? scripts/remediate_bcom_ecom_lessons.py
+?? scripts/resolve_all_dmkt_remaining.py
+?? scripts/show_check_head.py
+?? scripts/show_current_d2_config.py
+?? scripts/show_d1_lesson.py
+?? scripts/show_d2_parts.py
+?? scripts/show_d3_full_parts.py
+?? scripts/show_d3_parts.py
+?? scripts/show_d4_code.py
+?? scripts/show_d4_part5.py
+?? scripts/show_day1_lines.py
+?? scripts/show_day2_lines.py
+?? scripts/show_gate_r12.py
+?? scripts/show_gate_stopwords.py
+?? scripts/show_get_important_words.py
+?? scripts/show_part.ts
+?? scripts/show_r12.py
+?? scripts/test_all_configs.ts
+?? scripts/test_d1_codes.py
+?? scripts/test_d2_codes.py
+?? scripts/test_d3_codes.py
+?? scripts/test_d4_codes.py
+?? scripts/test_d4_words.py
+?? scripts/test_d5_codes.py
+?? scripts/test_p5_self_contained.py
+?? scripts/test_p5_words.py
+?? scripts/topup_d3_words.py
+?? scripts/verify_d3_captions.py
+?? scripts/verify_only_d4.py
+
+Concurrent Git Worktrees:
+  C:/Users/Admin/Desktop/projects/Present-Career-os          5d887012 [main]
+  C:/Users/Admin/Desktop/projects/Present-Career-os-commerce b770805f [agent/branch-b-curriculum-commerce-iot]
+  C:/Users/Admin/Desktop/projects/Present-Career-os-platform b8e249d1 [agent/branch-c-platform-admin-faculty]
+  C:/Users/Admin/Desktop/projects/Present-Career-os-tech     bc6f2674 [agent/branch-a-curriculum-tech]
+
+Tracked File Modifications (Working Tree):
+  src/lib/data/safetyPythonLongLessons.ts | 300 ++++++++++++++++----------------
+ 1 file changed, 150 insertions(+), 150 deletions(-)
+
+Git Diff Check (whitespace errors): Clean (0 errors)
+
+Target File Cryptographic Metrics (Post-Fix Working Copy):
+  Path:   src\lib\data\safetyPythonLongLessons.ts
+  Size:   1213284 bytes
+  Lines:  15089
+  SHA256: e5bce78f522c5a4015405261e8ceb4be0814775df338c086d5e54b1929e4dd15
+
+Distinction of Untracked vs. Generated vs. Tracked Assets:
+  - Tracked Modified: Exactly 1 file (`src/lib/data/safetyPythonLongLessons.ts`).
+  - Untracked Developer Scripts: 132 files in `scripts/` (preserved untouched).
+  - Documentation Dossiers: `CLOUD/` directory (read-only audit and review artifacts).
+  - Rebuilt Generated Archives: `src/generated/longLessons/safe-py.json.gz` (rebuilt, uncommitted).
+  - Ignored / Temporary Assets: `node_modules/`, `.next/`, `scratch/`.
+
+Commit Status: NO commits or pushes have been made. Fix 001 is staged only in working copy.
+================================================================================
