@@ -9642,7 +9642,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Sequence Parallelism — Foundations & Mathematical Invariants",
         "say": [
           "In standard Megatron-LM Tensor Parallelism, linear layers like ColumnParallel and RowParallel shard model parameters across GPUs.",
@@ -9689,7 +9689,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Sequence Parallelism — Core Algorithm & State Representation",
         "say": [
           "Implementing Sequence Parallelism requires precise tracking of global sequence length versus local sequence length on each TP rank.",
@@ -9736,7 +9736,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Sequence Parallelism — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying activation memory reduction across deep transformer models demonstrates why Sequence Parallelism is essential for long-context models.",
@@ -9783,7 +9783,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Sequence Parallelism — Resilience Guardrails & Failure Recovery",
         "say": [
           "Sequence Parallelism introduces strict structural divisibility constraints that must be validated before training launches.",
@@ -9830,7 +9830,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Sequence Parallelism — Production Telemetry & Verification Audit",
         "say": [
           "Production deployment of Sequence Parallelism requires continuous telemetry monitoring of collective communication latency and overlap efficiency.",
@@ -9898,7 +9898,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 8 — Foundations & Mathematical Invariants",
         "say": [
           "Frontier foundation models with tens or hundreds of billions of parameters cannot fit into the memory of a single GPU or a single server node.",
@@ -9945,7 +9945,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 8 — Core Algorithm & State Representation",
         "say": [
           "The 3D Parallelism Configurator automates the assignment of DP, TP, PP, and SP based on model parameter count and cluster size.",
@@ -9992,7 +9992,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 8 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Estimating High Bandwidth Memory footprint across the 3D process mesh ensures that models fit comfortably within GPU VRAM.",
@@ -10039,7 +10039,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 8 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Before launching distributed training jobs on expensive multi-node clusters, pre-flight guardrails must validate the 3D mesh.",
@@ -10086,7 +10086,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 8 — Production Telemetry & Verification Audit",
         "say": [
           "Milestone 8 certification provides comprehensive verification of the 3D process mesh and collective communication health.",
@@ -10154,7 +10154,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Pipeline Parallelism — Foundations & Mathematical Invariants",
         "say": [
           "Pipeline Parallelism divides a model with L layers into P consecutive stages, assigning each stage to a different GPU.",
@@ -10201,7 +10201,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Pipeline Parallelism — Core Algorithm & State Representation",
         "say": [
           "While GPipe executes all M forward passes before starting backward passes, it requires storing M micro-batch activation buffers in memory.",
@@ -10248,7 +10248,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Minimizing the pipeline bubble fraction requires finding the optimal number of micro-batches M for a given pipeline stage count P.",
@@ -10295,7 +10295,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
         "say": [
           "Pipeline execution schedules are susceptible to deadlock if communication and micro-batch flow control are improperly configured.",
@@ -10342,7 +10342,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Pipeline Parallelism — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing monitors pipeline execution timing and peer-to-peer communication performance across server nodes.",
@@ -10410,7 +10410,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Interleaved 1F1B — Foundations & Mathematical Invariants",
         "say": [
           "Standard 1F1B achieves acceptable bubble fractions only when the micro-batch count M is significantly larger than the stage count P.",
@@ -10457,7 +10457,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Interleaved 1F1B — Core Algorithm & State Representation",
         "say": [
           "Implementing Interleaved 1F1B requires structured mapping of transformer layer chunks across physical GPUs and virtual stages.",
@@ -10504,7 +10504,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Interleaved 1F1B — Throughput Optimization & Edge-Case Handling",
         "say": [
           "While Interleaved 1F1B reduces the idle bubble fraction, it introduces an important trade-off: increased peer-to-peer communication volume.",
@@ -10551,7 +10551,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Interleaved 1F1B — Resilience Guardrails & Failure Recovery",
         "say": [
           "Virtual pipeline stage allocation requires strict mathematical divisibility across model layers and virtual stages.",
@@ -10598,7 +10598,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Interleaved 1F1B — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical performance of Interleaved 1F1B schedules under live training workloads.",
@@ -10666,7 +10666,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Context Parallelism — Foundations & Mathematical Invariants",
         "say": [
           "Standard self-attention incurs quadratic computational and memory complexity with respect to input sequence length.",
@@ -10713,7 +10713,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Context Parallelism — Core Algorithm & State Representation",
         "say": [
           "Implementing Ring Attention requires precise scheduling of point-to-point non-blocking send and receive calls across ring ranks.",
@@ -10760,7 +10760,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Context Parallelism — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying memory savings under Context Parallelism highlights why Ring Attention is indispensable for million-token training.",
@@ -10807,7 +10807,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Context Parallelism — Resilience Guardrails & Failure Recovery",
         "say": [
           "Deploying Context Parallelism requires rigorous preflight validation of sequence length divisibility and ring topology configuration.",
@@ -10854,7 +10854,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Context Parallelism — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing monitors peer-to-peer ring transfer latency and communication-compute overlap percentages in real time.",
@@ -10922,7 +10922,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Selective Activation Checkpointing — Foundations & Mathematical Invariants",
         "say": [
           "During standard neural network training, intermediate activation tensors computed during forward propagation must be retained in memory for backpropagation.",
@@ -10969,7 +10969,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Selective Activation Checkpointing — Core Algorithm & State Representation",
         "say": [
           "Implementing selective checkpointing requires precise accounting of baseline activation memory versus recomputed activation memory.",
@@ -11016,7 +11016,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Selective Activation Checkpointing — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying the exact FLOP overhead of recomputation strategies allows engineering teams to optimize training wall-clock time.",
@@ -11067,7 +11067,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Selective Activation Checkpointing — Resilience Guardrails & Failure Recovery",
         "say": [
           "Dynamic policy guardrails prevent catastrophic Out-Of-Memory (OOM) failures by triggering checkpointing based on real-time VRAM allocation.",
@@ -11114,7 +11114,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Selective Activation Checkpointing — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical effectiveness of activation checkpointing under live training workloads.",
@@ -11182,7 +11182,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 9 — Foundations & Mathematical Invariants",
         "say": [
           "Training frontier foundation models on 128k to 1 million token sequences requires an orchestrated combination of parallelization strategies.",
@@ -11229,7 +11229,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 9 — Core Algorithm & State Representation",
         "say": [
           "The hybrid optimizer automates cluster configuration based on target context length, model parameter scale, and physical GPU count.",
@@ -11276,7 +11276,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Estimating per-GPU High Bandwidth Memory footprint ensures that the hybrid configuration operates within hardware boundaries.",
@@ -11323,7 +11323,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Preflight validation guardrails ensure that the multi-dimensional parallel mesh satisfies all architectural invariants before launching training.",
@@ -11369,7 +11369,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 9 — Production Telemetry & Verification Audit",
         "say": [
           "Milestone 9 certification confirms that the hybrid ultra-long context and pipeline architecture meets all enterprise production benchmarks.",
@@ -11436,7 +11436,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Mixed Precision Training — Foundations & Mathematical Invariants",
         "say": [
           "Full-precision IEEE 754 FP32 uses 1 sign bit, 8 exponent bits, and 23 mantissa bits, offering vast dynamic range and high precision.",
@@ -11483,7 +11483,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Mixed Precision Training — Core Algorithm & State Representation",
         "say": [
           "When training with FP16, Dynamic Loss Scaling prevents small gradients from underflowing by multiplying the loss by a large scale factor.",
@@ -11530,7 +11530,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Mixed Precision Training — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Mixed precision training requires 16 bytes of memory per parameter when paired with the AdamW optimizer.",
@@ -11577,7 +11577,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Mixed Precision Training — Resilience Guardrails & Failure Recovery",
         "say": [
           "Numerical resilience guardrails inspect gradient buffers for non-finite values before allowing optimizer updates to proceed.",
@@ -11622,7 +11622,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Mixed Precision Training — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing tracks numerical stability, gradient norm distributions, and precision formatting under live training workloads.",
@@ -11687,7 +11687,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "FP8 Training — Foundations & Mathematical Invariants",
         "say": [
           "The 8-bit floating-point (FP8) format standardizes two complementary representations for deep learning acceleration: E4M3 and E5M2.",
@@ -11734,7 +11734,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "FP8 Training — Core Algorithm & State Representation",
         "say": [
           "Quantizing tensors to FP8 requires scaling floating-point numbers into the valid representable range of the target format.",
@@ -11781,7 +11781,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "FP8 Training — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Transitioning from 16-bit to 8-bit precision provides massive hardware acceleration across both compute and memory subsystems.",
@@ -11828,7 +11828,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "FP8 Training — Resilience Guardrails & Failure Recovery",
         "say": [
           "Because E4M3 saturates at 448.0, aggressive scale factors can cause values to clip at the maximum representable bound.",
@@ -11875,7 +11875,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "FP8 Training — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical execution efficiency and numerical fidelity of FP8 training workloads.",
@@ -11943,7 +11943,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "FlashAttention — Foundations & Mathematical Invariants",
         "say": [
           "Standard self-attention computes Q*K^T, applies softmax, and multiplies by V, requiring intermediate N-by-N matrix materialization in GPU HBM.",
@@ -11990,7 +11990,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "FlashAttention — Core Algorithm & State Representation",
         "say": [
           "Computing softmax across tiled blocks without materializing the full row requires the Online Softmax algorithm.",
@@ -12037,7 +12037,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "FlashAttention — Throughput Optimization & Edge-Case Handling",
         "say": [
           "The evolution of FlashAttention across three generations demonstrates continuous co-design with GPU hardware architecture.",
@@ -12084,7 +12084,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "FlashAttention — Resilience Guardrails & Failure Recovery",
         "say": [
           "Deploying FlashAttention kernels requires strict verification of head dimensions and shared memory hardware constraints.",
@@ -12131,7 +12131,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "FlashAttention — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing monitors sustained TFLOPs and theoretical peak efficiency of FlashAttention kernels during training.",
@@ -12199,7 +12199,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Fused Optimizers — Foundations & Mathematical Invariants",
         "say": [
           "Standard PyTorch implementations of AdamW execute the optimizer update through a sequence of separate point-wise tensor operations.",
@@ -12246,7 +12246,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Fused Optimizers — Core Algorithm & State Representation",
         "say": [
           "Deep neural networks are susceptible to exploding gradients caused by sharp loss landscape curvature or large batch updates.",
@@ -12293,7 +12293,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Fused Optimizers — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying memory bandwidth savings for billion-parameter models demonstrates the massive impact of fused optimizer kernels.",
@@ -12340,7 +12340,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Fused Optimizers — Resilience Guardrails & Failure Recovery",
         "say": [
           "While gradient clipping protects against normal loss spikes, extreme gradient explosions indicate severe numerical instability.",
@@ -12387,7 +12387,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Fused Optimizers — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates optimizer kernel execution speed and gradient stability during active training.",
@@ -12455,7 +12455,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 10 — Foundations & Mathematical Invariants",
         "say": [
           "Achieving maximum hardware efficiency on modern AI supercomputers requires full-stack optimization of all numerical kernels.",
@@ -12507,7 +12507,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 10 — Core Algorithm & State Representation",
         "say": [
           "The numerics pipeline configurator automatically detects underlying GPU architecture and selects the optimal precision and kernel versions.",
@@ -12554,7 +12554,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Model FLOPs Utilization (MFU) is the gold-standard metric for evaluating the true computational efficiency of foundation model training.",
@@ -12601,7 +12601,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 10 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Preflight validation guardrails verify hardware capabilities and configuration limits before launching high-throughput training jobs.",
@@ -12648,7 +12648,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 10 — Production Telemetry & Verification Audit",
         "say": [
           "Milestone 10 certification confirms that the high-throughput numerics and flash kernel suite achieves peak production efficiency.",
@@ -12716,7 +12716,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "MoE Routing — Foundations & Mathematical Invariants",
         "say": [
           "Dense foundation models activate one hundred percent of their parameters for every single token processed, tying compute cost directly to model size.",
@@ -12763,7 +12763,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "MoE Routing — Core Algorithm & State Representation",
         "say": [
           "In static computational graphs like those on GPUs and TPUs, dynamic tensor shapes with variable token counts induce severe compilation and allocation overhead.",
@@ -12810,7 +12810,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "MoE Routing — Throughput Optimization & Edge-Case Handling",
         "say": [
           "When a popular expert receives more tokens than its allocated capacity buffer can hold, excess tokens must be dropped.",
@@ -12857,7 +12857,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "MoE Routing — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production MoE training platforms implement automated guardrails to detect and respond to excessive token drop rates.",
@@ -12904,7 +12904,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "MoE Routing — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical routing efficiency and capacity utilization of distributed MoE layers.",
@@ -12972,7 +12972,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Expert Parallelism — Foundations & Mathematical Invariants",
         "say": [
           "When scaling MoE models to 16, 64, or 256 experts, the combined parameter memory exceeds the capacity of any single GPU.",
@@ -13019,7 +13019,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Expert Parallelism — Core Algorithm & State Representation",
         "say": [
           "Without explicit regularization, gating networks suffer from a self-reinforcing failure mode known as routing collapse.",
@@ -13066,7 +13066,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Expert Parallelism — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying network communication volume during All-to-All token dispatch is critical for cluster performance engineering.",
@@ -13113,7 +13113,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Expert Parallelism — Resilience Guardrails & Failure Recovery",
         "say": [
           "Routing entropy provides a sensitive mathematical metric for detecting early signs of expert collapse before loss curves diverge.",
@@ -13160,7 +13160,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Expert Parallelism — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical execution performance and load balancing stability of Expert Parallel layers.",
@@ -13228,7 +13228,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "PEFT Architectures — Foundations & Mathematical Invariants",
         "say": [
           "Full fine-tuning of foundation models with 70 billion parameters requires updating and storing gradients and optimizer states for every single parameter.",
@@ -13279,7 +13279,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "PEFT Architectures — Core Algorithm & State Representation",
         "say": [
           "Quantifying the memory footprint of different fine-tuning methodologies reveals why QLoRA is revolutionary for accessibility.",
@@ -13326,7 +13326,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "PEFT Architectures — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Implementing LoRA forward propagation requires careful management of matrix multiplication order and scaling factor application.",
@@ -13373,7 +13373,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "PEFT Architectures — Resilience Guardrails & Failure Recovery",
         "say": [
           "Preflight validation guardrails ensure that low-rank adaptation hyperparameters satisfy numerical stability constraints before launching fine-tuning.",
@@ -13420,7 +13420,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "PEFT Architectures — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical efficiency and downstream task accuracy of low-rank fine-tuning pipelines.",
@@ -13488,7 +13488,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Knowledge Distillation — Foundations & Mathematical Invariants",
         "say": [
           "While large teacher models achieve superior reasoning capabilities, their high inference latency makes real-time edge deployment impractical.",
@@ -13535,7 +13535,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Knowledge Distillation — Core Algorithm & State Representation",
         "say": [
           "Simulating softened probability distributions across different temperature settings demonstrates how dark knowledge is revealed.",
@@ -13582,7 +13582,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Knowledge Distillation — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Knowledge distillation provides exceptional compression ratios when distilling large foundation models into compact edge architectures.",
@@ -13629,7 +13629,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Knowledge Distillation — Resilience Guardrails & Failure Recovery",
         "say": [
           "Preflight validation guardrails ensure that distillation hyperparameters maintain numerical stability throughout optimization.",
@@ -13676,7 +13676,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Knowledge Distillation — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical convergence and representation fidelity of the distilled student model.",
@@ -13744,7 +13744,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 11 — Foundations & Mathematical Invariants",
         "say": [
           "Modern generative AI architectures must balance extreme representational capacity against practical training and inference budgets.",
@@ -13795,7 +13795,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 11 — Core Algorithm & State Representation",
         "say": [
           "The Milestone 11 unified training step orchestrates token routing, expert dispatch, and low-rank adapter updates in a coordinated workflow.",
@@ -13846,7 +13846,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Evaluating the parameter efficiency of sparse architectures reveals the profound mathematical leverage of Mixture of Experts.",
@@ -13893,7 +13893,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 11 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Preflight validation guardrails verify that all integrated subsystems satisfy structural invariants before training begins.",
@@ -13940,7 +13940,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 11 — Production Telemetry & Verification Audit",
         "say": [
           "Milestone 11 certification confirms that the integrated Sparse MoE and PEFT suite satisfies all enterprise production benchmarks.",
@@ -14008,7 +14008,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Async Checkpointing — Foundations & Mathematical Invariants",
         "say": [
           "Synchronous checkpointing halts all cluster GPUs while model weights, optimizer states, and dataloader cursors are written across network storage.",
@@ -14059,7 +14059,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Async Checkpointing — Core Algorithm & State Representation",
         "say": [
           "In large distributed GPU clusters containing thousands of accelerators, hardware degradation frequently creates computational stragglers.",
@@ -14110,7 +14110,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Async Checkpointing — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Determining the mathematically optimal checkpointing frequency requires balancing two competing sources of cluster overhead.",
@@ -14157,7 +14157,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Async Checkpointing — Resilience Guardrails & Failure Recovery",
         "say": [
           "Resuming a multi-node training campaign from a corrupted or truncated checkpoint file causes immediate runtime panics or silent weight corruption.",
@@ -14208,7 +14208,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Async Checkpointing — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing monitors checkpointing latency, straggler remediation events, and elastic recovery timelines under live workloads.",
@@ -14280,7 +14280,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "MFU vs HFU — Foundations & Mathematical Invariants",
         "say": [
           "Evaluating distributed training performance by measuring raw tokens per second can be misleading when comparing different model architectures.",
@@ -14331,7 +14331,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "MFU vs HFU — Core Algorithm & State Representation",
         "say": [
           "Calculating MFU and HFU across distributed clusters requires precise tracking of global batch throughput and hardware accelerator specifications.",
@@ -14382,7 +14382,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "MFU vs HFU — Throughput Optimization & Edge-Case Handling",
         "say": [
           "When MFU falls below expected targets, performance engineers must systematically diagnose the underlying architectural bottleneck.",
@@ -14433,7 +14433,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "MFU vs HFU — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production training platforms enforce automated MFU threshold guardrails to protect compute budgets from silent performance degradation.",
@@ -14480,7 +14480,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "MFU vs HFU — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical floating-point efficiency and energy productivity of distributed training clusters.",
@@ -14552,7 +14552,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Data Pipelines — Foundations & Mathematical Invariants",
         "say": [
           "Standard batching pipelines pad variable-length text documents with special pad tokens to form uniform rectangular training tensors.",
@@ -14603,7 +14603,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Data Pipelines — Core Algorithm & State Representation",
         "say": [
           "Web-scale text corpora contain massive quantities of duplicated, syndicated, and boilerplate content across billions of web pages.",
@@ -14650,7 +14650,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Data Pipelines — Throughput Optimization & Edge-Case Handling",
         "say": [
           "The composition of training data domains exerts a profound influence on the capabilities and reasoning performance of foundation models.",
@@ -14697,7 +14697,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Data Pipelines — Resilience Guardrails & Failure Recovery",
         "say": [
           "Data corruption in streaming training batches can cause catastrophic training failures or silent embedding table corruption.",
@@ -14744,7 +14744,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Data Pipelines — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical throughput, packing efficiency, and deduplication quality of pre-training data pipelines.",
@@ -14812,7 +14812,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "RLHF Evolution — Foundations & Mathematical Invariants",
         "say": [
           "Pre-training equips foundation models with world knowledge and language fluency, but models require alignment to follow instructions and reason safely.",
@@ -14863,7 +14863,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "RLHF Evolution — Core Algorithm & State Representation",
         "say": [
           "Implementing GRPO requires generating a group of G distinct candidate completions for each input prompt using nucleus sampling.",
@@ -14910,7 +14910,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "RLHF Evolution — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying memory savings across alignment methodologies reveals why GRPO is transforming enterprise post-training pipelines.",
@@ -14957,7 +14957,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "RLHF Evolution — Resilience Guardrails & Failure Recovery",
         "say": [
           "During reinforcement learning alignment, policies can exploit reward loopholes or collapse into repetitive, degenerate text distributions.",
@@ -15004,7 +15004,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "RLHF Evolution — Production Telemetry & Verification Audit",
         "say": [
           "Production telemetry auditing validates the empirical alignment performance, reward advantages, and mathematical reasoning accuracy of the policy.",
@@ -15076,7 +15076,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Master Orchestrator — Foundations & Mathematical Invariants",
         "say": [
           "Pre-training a frontier foundation model across thousands of GPU accelerators represents the pinnacle of modern distributed computing.",
@@ -15127,7 +15127,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Master Orchestrator — Core Algorithm & State Representation",
         "say": [
           "Simulating a complete frontier training campaign requires modeling step progression, global batch accumulation, and cluster scheduling.",
@@ -15178,7 +15178,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Master Orchestrator — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Quantifying the total computational workload and hardware execution time for frontier models requires ZettaFLOP-scale mathematics.",
@@ -15229,7 +15229,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Master Orchestrator — Resilience Guardrails & Failure Recovery",
         "say": [
           "Before releasing a 512-GPU supercomputing cluster to execute an 840-ZettaFLOP training run, master preflight verification is mandatory.",
@@ -15280,7 +15280,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Master Orchestrator — Production Telemetry & Verification Audit",
         "say": [
           "The Milestone 12 Master Capstone certification audit provides the ultimate empirical validation of the entire 60-day curriculum.",

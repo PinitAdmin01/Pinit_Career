@@ -7700,7 +7700,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Matryoshka Representation Learning (MRL) — Foundations & Mathematical Invariants",
         "say": [
           "Matryoshka Representation Learning trains neural encoders to capture distinct semantic granularities in nested prefixes of the final vector.",
@@ -7748,7 +7748,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Matryoshka Representation Learning (MRL) — Core Algorithm & State Representation",
         "say": [
           "The core MRL retrieval algorithm operates by computing inner products on truncated, L2-normalized prefix vectors.",
@@ -7796,7 +7796,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Matryoshka Representation Learning (MRL) — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Throughput optimization in MRL leverages multi-granular cascades to reduce expensive full-vector distance evaluations.",
@@ -7844,7 +7844,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Matryoshka Representation Learning (MRL) — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production vector pipelines must gracefully handle zero vectors, dimensional mismatches, and numerical underflow.",
@@ -7892,7 +7892,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Matryoshka Representation Learning (MRL) — Production Telemetry & Verification Audit",
         "say": [
           "Production infrastructure requires continuous telemetry to monitor memory consumption, compression ratios, and cost savings.",
@@ -7961,7 +7961,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invariants",
         "say": [
           "Sparse lexical search excels at finding exact keywords, technical terms, serial numbers, and proper nouns.",
@@ -8009,7 +8009,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representation",
         "say": [
           "Convex score combination computes a weighted linear sum of normalized dense and sparse scores using an alpha coefficient.",
@@ -8057,7 +8057,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Case Handling",
         "say": [
           "While convex combination works well, score calibration across disparate search backends can drift as index statistics change.",
@@ -8105,7 +8105,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Recovery",
         "say": [
           "In distributed production environments, network timeouts or index partition failures can render one modality unavailable.",
@@ -8153,7 +8153,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verification Audit",
         "say": [
           "Telemetry audits in hybrid retrieval measure candidate overlap, agreement coefficients, and modality diversity.",
@@ -8222,7 +8222,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "SPLADE & Learned Sparse Representations — Foundations & Mathematical Invariants",
         "say": [
           "Traditional BM25 matches only exact terms present in the query and document, suffering from the classic vocabulary mismatch problem.",
@@ -8270,7 +8270,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "SPLADE & Learned Sparse Representations — Core Algorithm & State Representation",
         "say": [
           "Because SPLADE vectors are strictly sparse, they can be indexed inside conventional inverted index posting lists.",
@@ -8318,7 +8318,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "SPLADE & Learned Sparse Representations — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Query execution throughput in sparse indexes depends on efficient score accumulation across posting lists.",
@@ -8366,7 +8366,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "SPLADE & Learned Sparse Representations — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production query parsers must handle empty queries, unmapped terms, and disjoint vocabulary sets without throwing runtime errors.",
@@ -8414,7 +8414,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "SPLADE & Learned Sparse Representations — Production Telemetry & Verification Audit",
         "say": [
           "Monitoring vector sparsity metrics is critical for verifying model behavior and predicting inverted index memory growth.",
@@ -8483,7 +8483,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "ColBERT Late Interaction — Foundations & Mathematical Invariants",
         "say": [
           "Single-vector dense embedding models compress an entire multi-paragraph document into a single fixed-size representation.",
@@ -8531,7 +8531,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "ColBERT Late Interaction — Core Algorithm & State Representation",
         "say": [
           "The core retrieval operator in ColBERT is the MaxSim (Maximum Similarity) reduction function.",
@@ -8579,7 +8579,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "ColBERT Late Interaction — Throughput Optimization & Edge-Case Handling",
         "say": [
           "In high-volume search engines, MaxSim evaluations must be batched across multiple candidate documents simultaneously.",
@@ -8627,7 +8627,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "ColBERT Late Interaction — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production multi-vector engines must handle empty token lists, corrupted documents, and variable sequence lengths.",
@@ -8675,7 +8675,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "ColBERT Late Interaction — Production Telemetry & Verification Audit",
         "say": [
           "While ColBERT delivers state-of-the-art retrieval recall, storing multi-vector embeddings requires careful memory capacity planning.",
@@ -8744,7 +8744,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 7 — Foundations & Mathematical Invariants",
         "say": [
           "Production search architectures must solve the fundamental tradeoff between computational efficiency and retrieval ranking precision.",
@@ -8792,7 +8792,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 7 — Core Algorithm & State Representation",
         "say": [
           "Stage two of the cascade takes the coarse survivors and applies high-fidelity ColBERT token-level late interaction.",
@@ -8840,7 +8840,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "End-to-end integration requires seamless data flow between query encoders, stage one filters, and stage two rerankers.",
@@ -8888,7 +8888,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
         "say": [
           "In high-traffic cloud environments, unexpected surges or temporary data store degradation can compromise second-stage reranking.",
@@ -8936,7 +8936,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 7 — Production Telemetry & Verification Audit",
         "say": [
           "Operating multi-stage retrieval pipelines requires real-time latency auditing across both coarse and fine retrieval stages.",
@@ -9005,7 +9005,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Foundations & Mathematical Invariants",
         "say": [
           "Exhaustive flat vector search compares a query vector against every indexed document, scaling with O(N * D) time complexity.",
@@ -9053,7 +9053,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Core Algorithm & State Representation",
         "say": [
           "Indexing a new vector into an IVF structure begins by identifying its nearest coarse centroid.",
@@ -9101,7 +9101,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Throughput Optimization & Edge-Case Handling",
         "say": [
           "At query time, searching only the single closest centroid (nprobe=1) risks missing relevant vectors lying near Voronoi boundaries.",
@@ -9149,7 +9149,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Resilience Guardrails & Failure Recovery",
         "say": [
           "Resilience guardrails in IVF systems protect against uninitialized centroid matrices and zero-dimension queries.",
@@ -9197,7 +9197,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Production Telemetry & Verification Audit",
         "say": [
           "Production IVF clusters rely on telemetry to quantify search speedup factors and scan volume reductions.",
@@ -9266,7 +9266,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Product Quantization (PQ) — Foundations & Mathematical Invariants",
         "say": [
           "Storing millions of high-dimensional floating-point vectors in RAM creates severe memory capacity and cost bottlenecks.",
@@ -9314,7 +9314,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Product Quantization (PQ) — Core Algorithm & State Representation",
         "say": [
           "Quantizing a subvector involves finding the nearest centroid in the subspace codebook using squared Euclidean distance.",
@@ -9362,7 +9362,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Product Quantization (PQ) — Throughput Optimization & Edge-Case Handling",
         "say": [
           "During retrieval, decoding compressed byte codes back into full floating-point vectors would destroy search throughput.",
@@ -9410,7 +9410,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Recovery",
         "say": [
           "Distance evaluation in ADC computes approximate distances by summing precomputed table values for each subvector code.",
@@ -9458,7 +9458,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Product Quantization (PQ) — Production Telemetry & Verification Audit",
         "say": [
           "Production capacity audits measure the physical memory savings achieved through Product Quantization.",
@@ -9527,7 +9527,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Foundations & Mathematical Invariants",
         "say": [
           "Applying Product Quantization directly to raw vector coordinates across an entire heterogeneous corpus causes significant quantization distortion.",
@@ -9575,7 +9575,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Core Algorithm & State Representation",
         "say": [
           "Encoding an entry in an IVF-PQ composite index involves a three-step algorithmic sequence.",
@@ -9623,7 +9623,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Searching an IVF-PQ composite index combines the multi-probe pruning of IVF with the blazing speed of ADC lookups.",
@@ -9671,7 +9671,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Resilience Guardrails & Failure Recovery",
         "say": [
           "Resilience guardrails in IVF-PQ pipelines validate residual magnitudes and dimensional alignment during ingestion.",
@@ -9719,7 +9719,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Production Telemetry & Verification Audit",
         "say": [
           "Tuning IVF-PQ indexes in production requires balancing the trade-off between retrieval recall and query latency.",
@@ -9788,7 +9788,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Foundations & Mathematical Invariants",
         "say": [
           "Full-precision FP32 vector representations consume four bytes of memory per dimension, creating unsustainable hardware costs at scale.",
@@ -9836,7 +9836,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Core Algorithm & State Representation",
         "say": [
           "Dequantization reconstructs an approximate floating-point coordinate from its stored 8-bit quantized integer code.",
@@ -9884,7 +9884,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Binary Quantization (BQ / 1-bit) pushes compression to the theoretical limit by mapping each coordinate to a single binary bit.",
@@ -9932,7 +9932,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Resilience Guardrails & Failure Recovery",
         "say": [
           "Quantization routines must defend against degenerate domain intervals where minimum and maximum values coincide.",
@@ -9980,7 +9980,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Production Telemetry & Verification Audit",
         "say": [
           "Capacity planning in vector database infrastructure relies on accurate memory footprint audits across quantization formats.",
@@ -10049,7 +10049,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 8 — Foundations & Mathematical Invariants",
         "say": [
           "Modern vector search engines must achieve both extreme query throughput and high nearest-neighbor recall.",
@@ -10097,7 +10097,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 8 — Core Algorithm & State Representation",
         "say": [
           "Stage two of the kernel takes the survivors from the binary filter and applies Asymmetric Distance Computation.",
@@ -10145,7 +10145,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 8 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "The complete Milestone 8 kernel unifies binary candidate filtering and ADC reranking in a single optimized pipeline.",
@@ -10193,7 +10193,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 8 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production binary quantization kernels must pack 1-bit boolean arrays into dense 64-bit unsigned integer words.",
@@ -10241,7 +10241,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 8 — Production Telemetry & Verification Audit",
         "say": [
           "Real-time operational telemetry verifies query throughput, QPS saturation, and execution latency in production search clusters.",
@@ -10310,7 +10310,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Foundations & Mathematical Invariants",
         "say": [
           "Navigable Small World graphs enable logarithmic search complexity by combining short-range cluster edges with long-range highway links.",
@@ -10358,7 +10358,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Core Algorithm & State Representation",
         "say": [
           "Every node in an HNSW graph encapsulates its identifier, full-dimensional vector, assigned maximum layer, and bidirectional adjacency lists.",
@@ -10406,7 +10406,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Throughput Optimization & Edge-Case Handling",
         "say": [
           "If nodes are allowed to accumulate unbounded connections, graph search slows down and memory usage explodes.",
@@ -10454,7 +10454,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Resilience Guardrails & Failure Recovery",
         "say": [
           "Graph search navigation begins at a global entrypoint node residing at the highest active layer in the HNSW hierarchy.",
@@ -10502,7 +10502,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Production Telemetry & Verification Audit",
         "say": [
           "Auditing graph topology metrics is critical for detecting clustering bottlenecks, orphan nodes, and degree violations.",
@@ -10571,7 +10571,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Foundations & Mathematical Invariants",
         "say": [
           "Graph search in HNSW begins at the global top-layer entrypoint and navigates greedily toward the query vector.",
@@ -10619,7 +10619,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Core Algorithm & State Representation",
         "say": [
           "At layer zero, greedy single-hop search is replaced by beam search managed by a priority queue of size efSearch.",
@@ -10667,7 +10667,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Throughput Optimization & Edge-Case Handling",
         "say": [
           "System administrators tune HNSW indexes by mapping the Pareto frontier of recall versus query latency.",
@@ -10715,7 +10715,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production query routers must validate and clamp user-supplied efSearch parameters to prevent resource exhaustion.",
@@ -10763,7 +10763,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Production Telemetry & Verification Audit",
         "say": [
           "Telemetry tracking in HNSW clusters monitors graph hop counts across queries to identify routing anomalies.",
@@ -10832,7 +10832,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Foundations & Mathematical Invariants",
         "say": [
           "In-memory graph indexes like HNSW cannot cost-effectively scale beyond tens of millions of vectors due to RAM capacity limits.",
@@ -10880,7 +10880,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Core Algorithm & State Representation",
         "say": [
           "Unlike HNSW which maintains a multi-layer hierarchy, DiskANN relies on a single-layer graph known as a Vamana graph.",
@@ -10928,7 +10928,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Searching on SSD storage requires minimizing the total count of sequential disk I/O operations.",
@@ -10976,7 +10976,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production SSD-backed search engines must enforce strict I/O budgets to prevent query runaway conditions.",
@@ -11024,7 +11024,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Production Telemetry & Verification Audit",
         "say": [
           "Cost telemetry in DiskANN systems tracks cumulative NVMe read operations and cloud storage expenditure.",
@@ -11093,7 +11093,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Foundations & Mathematical Invariants",
         "say": [
           "Real-world enterprise applications rarely perform pure unconstrained vector similarity search.",
@@ -11141,7 +11141,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Core Algorithm & State Representation",
         "say": [
           "The opposite strategy to pre-filtering is post-filtering: search the vector index first and apply metadata filters second.",
@@ -11189,7 +11189,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Single-stage predicate traversal solves the limitations of both pre-filtering and post-filtering within a unified algorithm.",
@@ -11237,7 +11237,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production metadata engines must guard against missing metadata records, malformed schemas, and unhandled null values.",
@@ -11285,7 +11285,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Production Telemetry & Verification Audit",
         "say": [
           "Optimizing filtered search requires continuous telemetry on predicate selectivity to dynamically select the best execution strategy.",
@@ -11354,7 +11354,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 9 — Foundations & Mathematical Invariants",
         "say": [
           "Enterprise software architectures require strict multi-tenant data isolation across all vector database operations.",
@@ -11402,7 +11402,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 9 — Core Algorithm & State Representation",
         "say": [
           "Simulating disk I/O characteristics is essential for verifying DiskANN performance before physical hardware deployment.",
@@ -11450,7 +11450,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "The complete Milestone 9 pipeline integrates tenant predicate filtering with distance scoring into a unified query flow.",
@@ -11498,7 +11498,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive input validation in Milestone 9 ensures that malformed queries do not crash production search workers.",
@@ -11546,7 +11546,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 9 — Production Telemetry & Verification Audit",
         "say": [
           "Verification auditing in Milestone 9 assesses whether retrieval recall and SSD read counts satisfy production SLA contracts.",
@@ -11615,7 +11615,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Foundations & Mathematical Invariants",
         "say": [
           "Rebuilding an entire HNSW or DiskANN proximity graph for every newly inserted vector creates severe write latency bottlenecks.",
@@ -11664,7 +11664,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Core Algorithm & State Representation",
         "say": [
           "Deleting a vector from an immutable on-disk proximity graph is computationally expensive and fragments graph topology.",
@@ -11712,7 +11712,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Over time, accumulating tombstoned vectors wastes storage space and degrades query search throughput.",
@@ -11760,7 +11760,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Resilience Guardrails & Failure Recovery",
         "say": [
           "Production point-lookup queries must check tombstone state before returning vector data to client applications.",
@@ -11808,7 +11808,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Production Telemetry & Verification Audit",
         "say": [
           "Compaction telemetry audits quantify storage reclamation and disk defragmentation in production vector clusters.",
@@ -11877,7 +11877,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Foundations & Mathematical Invariants",
         "say": [
           "In memory-buffered vector databases, sudden power loss or kernel panics wipe the volatile in-memory MemTable.",
@@ -11925,7 +11925,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Core Algorithm & State Representation",
         "say": [
           "When a database node crashes and reboots, it executes crash recovery by replaying the persistent Write-Ahead Log.",
@@ -11973,7 +11973,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Long-running vector similarity queries cannot acquire global read locks without starving high-frequency ingestion pipelines.",
@@ -12021,7 +12021,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Resilience Guardrails & Failure Recovery",
         "say": [
           "Persistent storage media can suffer from bit rot, partial sector writes, or corruption during sudden power interrupts.",
@@ -12069,7 +12069,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Production Telemetry & Verification Audit",
         "say": [
           "Operational SLAs dictate strict bounds on Mean Time to Recovery (MTTR) when a database node crashes.",
@@ -12138,7 +12138,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Foundations & Mathematical Invariants",
         "say": [
           "Scaling a vector database beyond the capacity of a single physical server requires distributing documents across a cluster of nodes.",
@@ -12186,7 +12186,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Core Algorithm & State Representation",
         "say": [
           "Simple modulo hashing has a fatal flaw: when a new server node is added to the cluster, almost all existing keys must be reshuffled.",
@@ -12234,7 +12234,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Throughput Optimization & Edge-Case Handling",
         "say": [
           "While consistent hashing balances generic documents, multi-tenant enterprise applications often demand physical tenant isolation.",
@@ -12282,7 +12282,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Resilience Guardrails & Failure Recovery",
         "say": [
           "Cluster routers must handle transient partition failures, network splits, and empty ring states gracefully.",
@@ -12330,7 +12330,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Production Telemetry & Verification Audit",
         "say": [
           "Load balance auditing is essential for verifying that hashing algorithms distribute data evenly across cluster shards.",
@@ -12399,7 +12399,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Foundations & Mathematical Invariants",
         "say": [
           "In a sharded vector database where each shard stores a slice of the global corpus, no single node possesses the complete answer.",
@@ -12447,7 +12447,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Core Algorithm & State Representation",
         "say": [
           "Once target shards complete their local search loops, they transmit their top-k candidate results back to the coordinator.",
@@ -12495,7 +12495,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Throughput Optimization & Edge-Case Handling",
         "say": [
           "In large distributed clusters, overall query latency is bounded by the slowest responding node: the tail-latency straggler problem.",
@@ -12543,7 +12543,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive list concatenation in the query coordinator protects against empty, null, or corrupted shard response streams.",
@@ -12591,7 +12591,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Production Telemetry & Verification Audit",
         "say": [
           "Coordinator telemetry tracks cluster coverage percentages, straggler frequencies, and p99 query latency percentiles.",
@@ -12660,7 +12660,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 10 — Foundations & Mathematical Invariants",
         "say": [
           "Single-node vector search engines face insurmountable physical bottlenecks in memory capacity, CPU throughput, and fault tolerance.",
@@ -12708,7 +12708,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 10 — Core Algorithm & State Representation",
         "say": [
           "Ingesting vectors into the distributed cluster requires deterministic partition routing and vector validation.",
@@ -12756,7 +12756,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Distributed search queries are executed by broadcasting the query to all cluster shards and merging local candidates.",
@@ -12804,7 +12804,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 10 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Distributed consensus protocols rely on majority quorum rules to prevent split-brain partition corruption.",
@@ -12852,7 +12852,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 10 — Production Telemetry & Verification Audit",
         "say": [
           "Production verification audits assess cluster throughput, latency percentiles, and operational health status.",
@@ -12921,7 +12921,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Foundations & Mathematical Invariants",
         "say": [
           "In multi-tenant SaaS environments, multiple enterprise clients share the same physical vector database cluster infrastructure.",
@@ -12969,7 +12969,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Core Algorithm & State Representation",
         "say": [
           "Multi-tenant clusters must defend against the 'noisy neighbor' problem, where one runaway client monopolizes all cluster compute.",
@@ -13017,7 +13017,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Within an enterprise tenant account, different departments or environments require isolated logical datasets: namespaces.",
@@ -13065,7 +13065,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive quota checks protect cluster infrastructure from runaway loops or billing overages.",
@@ -13113,7 +13113,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Production Telemetry & Verification Audit",
         "say": [
           "Security telemetry in multi-tenant environments monitors authorization failures, ACL denials, and rate-limiting throttles.",
@@ -13182,7 +13182,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Foundations & Mathematical Invariants",
         "say": [
           "User search queries are frequently short, ambiguous, or phrased with non-standard terminology that misses indexed keywords.",
@@ -13230,7 +13230,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Core Algorithm & State Representation",
         "say": [
           "Bi-encoders encode queries and documents into independent vector embeddings, allowing fast vector distance comparisons.",
@@ -13278,7 +13278,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Because cross-encoders require full forward passes over concatenated text, running them over millions of documents is too slow.",
@@ -13326,7 +13326,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Resilience Guardrails & Failure Recovery",
         "say": [
           "Query normalization guardrails clean up erratic whitespace, control characters, and punctuation before model inference.",
@@ -13374,7 +13374,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Production Telemetry & Verification Audit",
         "say": [
           "Retrieval telemetry audits quantify the recall lift and NDCG improvement delivered by cross-encoder reranking.",
@@ -13443,7 +13443,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Foundations & Mathematical Invariants",
         "say": [
           "When indexing long technical documents, chunking strategies often create adjacent overlapping chunks with identical keywords.",
@@ -13491,7 +13491,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Core Algorithm & State Representation",
         "say": [
           "Maximal Marginal Relevance (MMR) solves the redundancy problem by greedily selecting candidates that maximize marginal novelty.",
@@ -13540,7 +13540,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Evaluating the redundancy penalty requires finding the maximum similarity between an unselected candidate and all chosen items.",
@@ -13588,7 +13588,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive parameter clamping in MMR protects against invalid user-supplied lambda configuration values.",
@@ -13636,7 +13636,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Production Telemetry & Verification Audit",
         "say": [
           "Diversity telemetry audits measure the geometric dispersion and pairwise similarity across final retrieved result sets.",
@@ -13705,7 +13705,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Foundations & Mathematical Invariants",
         "say": [
           "In enterprise LLM and RAG applications, users frequently ask queries that have identical or nearly identical meaning.",
@@ -13753,7 +13753,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Core Algorithm & State Representation",
         "say": [
           "When queries are rephrased ('What is vector search?' vs 'Explain vector search'), lexical hashing misses the match.",
@@ -13801,7 +13801,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Cached responses cannot be held indefinitely because real-world data, prices, and corporate policies change over time.",
@@ -13849,7 +13849,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive threshold validation in semantic caches protects against overly permissive or impossibly strict threshold settings.",
@@ -13897,7 +13897,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Production Telemetry & Verification Audit",
         "say": [
           "Production cache telemetry measures hit rates, latency reductions, and financial cost savings delivered by semantic caching.",
@@ -13966,7 +13966,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 11 — Foundations & Mathematical Invariants",
         "say": [
           "Production vector retrieval pipelines must simultaneously guarantee cryptographic tenant isolation and high result diversity.",
@@ -14014,7 +14014,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 11 — Core Algorithm & State Representation",
         "say": [
           "The complete Milestone 11 pipeline unifies access control filtering with greedy MMR diversity selection.",
@@ -14062,7 +14062,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Compliance auditing in Milestone 11 verifies that authorization checks achieve 100% security compliance across all operations.",
@@ -14110,7 +14110,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 11 — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive input validation in Milestone 11 verifies that caller credentials and candidate lists conform to system invariants.",
@@ -14158,7 +14158,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 11 — Production Telemetry & Verification Audit",
         "say": [
           "Execution latency audits in Milestone 11 verify that access control and MMR diversity ranking execute within strict SLA budgets.",
@@ -14227,7 +14227,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Retrieval Evaluation Suite — Foundations & Mathematical Invariants",
         "say": [
           "Quantifying search engine quality requires standardized statistical metrics evaluated against gold-standard labeled ground truth.",
@@ -14275,7 +14275,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Retrieval Evaluation Suite — Core Algorithm & State Representation",
         "say": [
           "In navigational and known-item search scenarios, users seek a single specific document or authoritative factual answer.",
@@ -14323,7 +14323,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Binary relevant/non-relevant labels fail to distinguish between highly relevant documents and marginally related documents.",
@@ -14371,7 +14371,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive evaluation guardrails verify that calculated metrics remain bounded within valid mathematical probability intervals.",
@@ -14419,7 +14419,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Retrieval Evaluation Suite — Production Telemetry & Verification Audit",
         "say": [
           "Production release pipelines require automated certification audits before deploying updated vector models or index builds.",
@@ -14488,7 +14488,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Embedding Drift Detection — Foundations & Mathematical Invariants",
         "say": [
           "Over months of production operation, the semantic distribution of ingested documents gradually shifts as new topics emerge.",
@@ -14536,7 +14536,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Embedding Drift Detection — Core Algorithm & State Representation",
         "say": [
           "While centroid shift tracks mean displacement, it fails to detect changes in distribution spread, variance, or modality.",
@@ -14584,7 +14584,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Drift detection algorithms must automatically trigger proactive remediation before search recall degrades below SLA boundaries.",
@@ -14632,7 +14632,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Embedding Drift Detection — Resilience Guardrails & Failure Recovery",
         "say": [
           "Defensive boundary clamping in drift calculations protects against numerical artifacts and negative distance metrics.",
@@ -14680,7 +14680,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Embedding Drift Detection — Production Telemetry & Verification Audit",
         "say": [
           "Drift telemetry audits track the health and stability of vector namespaces across multi-tenant enterprise deployments.",
@@ -14749,7 +14749,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Zero-Downtime Dual-Write Index Migrations — Foundations & Mathematical Invariants",
         "say": [
           "Upgrading a live vector database from HNSW to DiskANN or migrating to a new embedding model cannot tolerate downtime.",
@@ -14797,7 +14797,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Zero-Downtime Dual-Write Index Migrations — Core Algorithm & State Representation",
         "say": [
           "Before switching live customer read traffic to a new index, engineering teams must verify that retrieval recall meets parity.",
@@ -14845,7 +14845,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Zero-Downtime Dual-Write Index Migrations — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Once shadow recall agreement satisfies quality criteria, the traffic cutover controller switches read traffic to the new index.",
@@ -14893,7 +14893,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrails & Failure Recovery",
         "say": [
           "Even with rigorous shadow testing, unforeseen edge cases or performance degradation can emerge after live cutover.",
@@ -14941,7 +14941,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry & Verification Audit",
         "say": [
           "Migration telemetry tracks historical backfill progress, replicated document counts, and shadow agreement stability.",
@@ -15010,7 +15010,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Capacity Planning — Foundations & Mathematical Invariants",
         "say": [
           "Under-provisioning vector database hardware causes out-of-memory kernel crashes, page swapping, and severe latency spikes.",
@@ -15062,7 +15062,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Capacity Planning — Core Algorithm & State Representation",
         "say": [
           "Beyond memory sizing, platform architects must determine the maximum query throughput (QPS) a cluster can sustainably process.",
@@ -15111,7 +15111,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Capacity Planning — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Financial cost modeling evaluates the unit economics of operating vector search infrastructure in cloud environments.",
@@ -15159,7 +15159,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Capacity Planning — Resilience Guardrails & Failure Recovery",
         "say": [
           "Resilience guardrails in capacity planning enforce mandatory memory headroom buffers to protect against sudden data spikes.",
@@ -15207,7 +15207,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Capacity Planning — Production Telemetry & Verification Audit",
         "say": [
           "Capacity runway audits forecast the number of months remaining before current cluster hardware resources are fully exhausted.",
@@ -15276,7 +15276,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
     },
     "parts": [
       {
-        "partNumber": 1,
+        "part": 1,
         "title": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
         "say": [
           "Over sixty days of intensive vector search engineering, we have designed and implemented every tier of modern retrieval engines.",
@@ -15324,7 +15324,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 2,
+        "part": 2,
         "title": "Milestone 12 Capstone — Core Algorithm & State Representation",
         "say": [
           "The core distributed search pipeline coordinates parallel shard execution, distance scoring, and global k-way candidate merging.",
@@ -15372,7 +15372,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 3,
+        "part": 3,
         "title": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
         "say": [
           "Formal production readiness certification requires validating retrieval recall, p99 latency, and security compliance simultaneously.",
@@ -15420,7 +15420,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 4,
+        "part": 4,
         "title": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
         "say": [
           "Graceful cluster shutdown is a critical operational safeguard that prevents data corruption during maintenance reboots.",
@@ -15468,7 +15468,7 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         }
       },
       {
-        "partNumber": 5,
+        "part": 5,
         "title": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
         "say": [
           "The Capstone SLA audit compiles high-level operational telemetry over one million queries into an executive reliability summary.",
