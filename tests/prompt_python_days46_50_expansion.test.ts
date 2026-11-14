@@ -29,8 +29,8 @@ describe('AI Literacy & Prompt Engineering Month 2 Block 10 (Days 46-50: Autonom
         // Assessment Invariants
         assert.ok(part.check, `Day ${dayNum} Part ${idx + 1} must have an assessment check`);
         assert.equal(part.check.options.length, 4, `Day ${dayNum} Part ${idx + 1} check must have 4 options`);
-        assert.equal(part.check.answer, 0, `Day ${dayNum} Part ${idx + 1} check.answer must be 0`);
-        assert.equal(part.check.answerIndex, 0, `Day ${dayNum} Part ${idx + 1} check.answerIndex must be 0`);
+        assert.ok(part.check.answer >= 0 && part.check.answer < part.check.options.length, `Day ${dayNum} Part ${idx + 1} check.answer out of bounds`);
+        assert.ok(part.check.answerIndex >= 0 && part.check.answerIndex < part.check.options.length, `Day ${dayNum} Part ${idx + 1} check.answerIndex out of bounds`);
         assert.ok(part.check.why.length >= 50, `Day ${dayNum} Part ${idx + 1} check.why must be >= 50 characters`);
 
         // Code / Interactive Invariants

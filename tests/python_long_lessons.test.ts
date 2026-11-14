@@ -85,6 +85,8 @@ test('Python long lessons are complete, full-length classes with zero robotic bo
       }
       const { options, answer, why } = part.check!;
       assert.ok(options.length >= 2 && answer! >= 0 && answer! < options.length, `${where} "${part.title}": bad check question`);
+      assert.ok(why && why.trim().length >= 15, `${where} "${part.title}": missing or short why explanation`);
+      assert.doesNotMatch(why, /^Verified against .* standards\.$/i, `${where} "${part.title}": contains generic rubber-stamp why`);
       if (why) {
         assert.ok(
           !/\b(the last one is a task|the first option|the last option|both of the above|all of the above)\b/i.test(why),
@@ -92,6 +94,31 @@ test('Python long lessons are complete, full-length classes with zero robotic bo
         );
       }
     }
+  }
+
+  // Verify MCQ length balance and option distribution
+  let totalChecks = 0;
+  let longestWins = 0;
+  const ansCounts = [0, 0, 0, 0];
+  for (const lesson of PYTHON_LONG_LESSONS) {
+    for (const part of lesson.parts) {
+      const lens = part.check.options.map((o) => o.trim().length);
+      const maxLen = Math.max(...lens);
+      if (lens[part.check.answer] === maxLen && lens.filter((l) => l === maxLen).length === 1) {
+        longestWins++;
+      }
+      ansCounts[part.check.answer] = (ansCounts[part.check.answer] || 0) + 1;
+      totalChecks++;
+    }
+  }
+  const longestRate = totalChecks > 0 ? longestWins / totalChecks : 0;
+  assert.ok(
+    longestRate >= 0.18 && longestRate <= 0.35,
+    `Flagship Python: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be 18%-35%`
+  );
+  for (let a = 0; a < 4; a++) {
+    const rate = (ansCounts[a] || 0) / totalChecks;
+    assert.ok(rate <= 0.45, `Flagship Python: option index ${a} bias (${(rate * 100).toFixed(1)}%) must be <= 45%`);
   }
 
   // Verify all six 5-day block tests (Days 1-5 through 26-30) generate 10 valid, self-contained questions

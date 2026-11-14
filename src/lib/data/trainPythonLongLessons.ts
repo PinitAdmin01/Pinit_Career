@@ -41,14 +41,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much memory do the FP16 weights of a 7B model need?",
           "options": [
-            "14 GB",
             "7 GB",
-            "28 GB",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "14 GB",
+            "28 GB"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "A 7B model in 16-bit precision requires 2 bytes per parameter, so 7B * 2 bytes = 14 GB of GPU memory for model weights alone."
         }
       },
       {
@@ -80,12 +79,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Memory in bytes",
             "The number of GPUs",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
             "Total training compute in FLOPs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Standard Chinchilla scaling accounts for 2 FLOPs per parameter on the forward pass and 4 FLOPs on the backward pass, totaling 6 FLOPs per token."
         }
       },
       {
@@ -115,14 +113,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is MFU?",
           "options": [
-            "Memory for users",
-            "A file format",
             "The fraction of the GPU's peak FLOPs actually achieved",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Memory for users",
+            "A file format: measured across host RAM buffers before device offloading"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "MFU (Model FLOPs Utilization) measures the ratio of sustained executed training floating-point operations to theoretical hardware peak capacity."
         }
       },
       {
@@ -158,12 +155,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The model does not fit in memory",
             "Training takes too long",
-            "The data is private",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "The data is private"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "Data parallelism shards the training batch across multiple worker nodes to accelerate overall training throughput when model weights fit on a single GPU."
         }
       },
       {
@@ -197,14 +193,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why raise ValueError for an unknown precision instead of returning 0?",
           "options": [
-            "It is faster",
-            "A clear error prevents silently wrong plans",
+            "It is faster to bypass defensive runtime checks during execution",
             "Python requires it",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "A clear error prevents silently wrong plans"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Raising an explicit ValueError halts invalid configurations immediately before calculating cluster provisioning or submitting long-running jobs."
         }
       },
       {
@@ -236,12 +231,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Raise ValueError",
             "Return 0",
-            "Return infinity",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Return infinity"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "When MFU is zero, execution cannot make forward progress; an explicit ValueError prevents division by zero."
         }
       }
     ],
@@ -295,14 +289,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the backward pass compute?",
           "options": [
-            "Predictions",
+            "Predictions accumulated across local worker ranks before reduction",
             "The learning rate",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
             "Gradients of the loss with respect to the weights"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "The backward pass applies the chain rule of calculus to compute exact partial derivatives of the scalar loss with respect to all model weights."
         }
       },
       {
@@ -332,14 +325,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the MSE when every prediction is exactly right?",
           "options": [
-            "1",
-            "It depends on the data size",
             "0",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "1",
+            "It depends on the data size"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Mean Squared Error calculates the average of squared prediction errors; when all predictions match ground truth, every residual is zero."
         }
       },
       {
@@ -374,13 +366,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "The gradient for w is negative. Which way should w move?",
           "options": [
             "Down",
-            "It should not move",
             "Up",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It should not move"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Gradient descent updates parameters as w = w - lr * grad; subtracting a negative value increases the weight (moves it up)."
         }
       },
       {
@@ -415,13 +406,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does the learning rate control?",
           "options": [
             "The number of data points",
-            "The size of each update step",
-            "The loss function",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "The loss function measured over sustained execution across the cluster",
+            "The size of each update step"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "The learning rate acts as a scaling coefficient controlling the step size of parameter updates along the negative gradient direction."
         }
       },
       {
@@ -457,12 +447,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The loss overshoots and can explode",
             "Training is slow but safe",
-            "Nothing changes",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Nothing changes evaluated across model parameters during training"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'The loss overshoots and can explode' is correct: in choosing the learning rate, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -492,14 +481,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should fit_line start?",
           "options": [
-            "At random values",
-            "At the true answer",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "At w = 0.0 and b = 0.0"
+            "At random values evaluated across model parameters during training",
+            "At w = 0.0 and b = 0.0",
+            "At the true answer"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'At w = 0.0 and b = 0.0' is correct: in practice time: gradients and fitting, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -553,14 +541,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an epoch?",
           "options": [
+            "One full pass over the dataset",
             "One update step",
-            "One GPU",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "One full pass over the dataset"
+            "One GPU evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'One full pass over the dataset' is correct: in why mini-batches, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -595,13 +582,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When does drop_last actually drop something?",
           "options": [
             "Always",
-            "Never",
             "When the dataset size is not a multiple of the batch size",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Never evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'When the dataset size is not a multiple of the batch size' is correct: in making batches, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -635,14 +621,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to gradient noise as the batch grows?",
           "options": [
-            "It grows",
-            "It shrinks, roughly with the square root of the batch size",
+            "It grows evaluated across model parameters during training",
             "It stays the same",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It shrinks, roughly with the square root of the batch size"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It shrinks, roughly with the square root of the batch size' is correct: in batch size and gradient noise, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -674,12 +659,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It is multiplied by 4",
             "It is divided by 4",
-            "It is multiplied by 2",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "It is multiplied by 2"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'It is multiplied by 4' is correct: in learning rate scaling rules, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -713,14 +697,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use a seeded random generator for shuffling?",
           "options": [
+            "It is faster evaluated across model parameters during training",
             "Results become reproducible",
-            "It is faster",
-            "It removes noise",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It removes noise"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Results become reproducible' is correct: in mini-batch training loop, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -750,14 +733,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should scaled_lr do with rule=\"cubic\"?",
           "options": [
-            "Use linear",
+            "Use linear to bypass defensive runtime checks during execution",
             "Return base_lr",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
             "Raise ValueError"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Raise ValueError' is correct: in practice time: batches and scaling, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -812,13 +794,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In data parallelism, what does each GPU hold?",
           "options": [
             "One layer of the model",
-            "Only the optimizer",
             "A full copy of the model and a different slice of the data",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Only the optimizer"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A full copy of the model and a different slice of the data' is correct: in the idea of data parallelism, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -853,13 +834,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the sampler pad the index list?",
           "options": [
             "To add new data",
-            "So every rank gets the same number of examples",
-            "To shuffle",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "To shuffle evaluated across model parameters during training",
+            "So every rank gets the same number of examples"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'So every rank gets the same number of examples' is correct: in the distributed sampler, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -889,14 +869,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does zip(*worker_grads) produce?",
           "options": [
-            "The workers one by one",
             "Tuples of the same position from every worker",
-            "A flat list",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "The workers one by one",
+            "A flat list evaluated across model parameters during training"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Tuples of the same position from every worker' is correct: in averaging gradients, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -930,14 +909,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With equal shards, how does the averaged gradient compare with one big batch?",
           "options": [
-            "It is the same",
             "It is noisier",
-            "It is always smaller",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "It is the same",
+            "It is always smaller"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It is the same' is correct: in same result as one big batch, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -969,12 +947,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A fast GPU",
             "A dropped batch",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
             "A slow worker that delays every step for everyone"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A slow worker that delays every step for everyone' is correct: in where data parallelism struggles, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1008,14 +985,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should shard_indices do for rank 4 when world_size is 4?",
           "options": [
-            "Return an empty list",
-            "Wrap around to rank 0",
             "Raise ValueError",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Return an empty list",
+            "Wrap around to rank 0"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Raise ValueError' is correct: in practice time: sharding and averaging, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -1073,14 +1049,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which collective gives every worker the combined result?",
           "options": [
-            "Reduce",
+            "Reduce evaluated across model parameters during training",
             "Broadcast",
-            "All-reduce",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "All-reduce"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'All-reduce' is correct: in collective operations, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1110,14 +1085,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which all-reduce operation helps detect an overflow on any worker?",
           "options": [
-            "sum",
             "max",
-            "mean",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "sum",
+            "mean"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'max' is correct: in all-reduce, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1147,14 +1121,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the naive leader approach not scale?",
           "options": [
-            "The leader's traffic grows with the number of workers",
             "It uses too little memory",
-            "It is inaccurate",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "The leader's traffic grows with the number of workers",
+            "It is inaccurate evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The leader's traffic grows with the number of workers' is correct: in the naive approach and its bottleneck, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1189,13 +1162,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How much data does each worker send in ring all-reduce?",
           "options": [
             "p times the data",
-            "Nothing",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
+            "Nothing measured over sustained execution across the cluster",
             "2(p - 1)/p times the data, less than twice the data"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'2(p - 1)/p times the data, less than twice the data' is correct: in ring all-reduce, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1225,14 +1197,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if one rank skips a collective call?",
           "options": [
-            "It is ignored",
-            "The result is averaged anyway",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "The other ranks wait and the job can hang"
+            "The other ranks wait and the job can hang",
+            "It is ignored evaluated across model parameters during training",
+            "The result is averaged anyway"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The other ranks wait and the job can hang' is correct: in choosing and using collectives, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1267,13 +1238,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many steps does ring all-reduce take with 8 workers?",
           "options": [
             "8",
-            "16",
             "14",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "16"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'14' is correct: in practice time: collectives, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -1327,14 +1297,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does gradient accumulation trade?",
           "options": [
-            "Accuracy for speed",
             "Time for memory",
-            "Memory for accuracy",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Accuracy for speed",
+            "Memory for accuracy"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Time for memory' is correct: in micro-batches and the memory limit, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1364,14 +1333,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an incomplete final group ignored?",
           "options": [
+            "To save memory evaluated across model parameters during training",
             "An update on fewer micro-batches would change the effective batch",
-            "To save memory",
-            "Python requires it",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Python requires it"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'An update on fewer micro-batches would change the effective batch' is correct: in accumulating correctly, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1401,14 +1369,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the effective batch with micro-batch 4, 8 accumulation steps and 32 GPUs?",
           "options": [
-            "1024",
             "44",
             "128",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "1024"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'1024' is correct: in the effective batch size, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1438,14 +1405,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does DDP's no_sync do during accumulation?",
           "options": [
-            "Stops training",
-            "Zeroes the gradients",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "Skips the all-reduce on intermediate micro-batches"
+            "Skips the all-reduce on intermediate micro-batches",
+            "Stops training evaluated across model parameters during training",
+            "Zeroes the gradients"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Skips the all-reduce on intermediate micro-batches' is correct: in fewer all-reduces, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1480,13 +1446,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When should the scheduler step during accumulation?",
           "options": [
             "After every micro-batch",
-            "Once per epoch only",
             "Once per optimizer update",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Once per epoch only evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Once per optimizer update' is correct: in a full accumulation loop, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1516,14 +1481,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "accum_steps_needed(1000, 8, 16) should...",
           "options": [
-            "Return 7",
-            "Raise ValueError",
+            "Return 7 to bypass defensive runtime checks during execution",
             "Return 8",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Raise ValueError"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Raise ValueError' is correct: in practice time: accumulation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -1581,14 +1545,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does BF16 keep from FP32?",
           "options": [
-            "The precision",
+            "The precision evaluated across model parameters during training",
             "The exponent range",
-            "The size in bytes",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "The size in bytes"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'The exponent range' is correct: in floating-point formats, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1618,14 +1581,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to a gradient of 1e-9 stored in FP16?",
           "options": [
-            "It underflows to zero",
             "It is stored exactly",
-            "It overflows",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "It overflows evaluated across model parameters during training",
+            "It underflows to zero"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It underflows to zero' is correct: in overflow and underflow, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1659,14 +1621,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why multiply the loss by a scale factor?",
           "options": [
+            "To lift small gradients out of the FP16 underflow range",
             "To speed up training",
-            "To reduce memory",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
-            "To lift small gradients out of the FP16 underflow range"
+            "To reduce memory accumulated across local worker ranks before reduction"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To lift small gradients out of the FP16 underflow range' is correct: in loss scaling, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1701,13 +1662,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does dynamic loss scaling do after an overflow?",
           "options": [
             "Doubles the scale",
-            "Stops training",
             "Halves the scale and skips the step",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Stops training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Halves the scale and skips the step' is correct: in dynamic loss scaling, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1738,13 +1698,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is kept in FP32 in mixed-precision training?",
           "options": [
             "Everything",
-            "Nothing",
-            "Master weights and sensitive operations",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Nothing accumulated across local worker ranks before reduction",
+            "Master weights and sensitive operations"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Master weights and sensitive operations' is correct: in mixed precision in practice, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1774,14 +1733,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is fp16_status(65504)?",
           "options": [
-            "OVERFLOW",
             "OK",
-            "UNDERFLOW",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "OVERFLOW",
+            "UNDERFLOW"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'OK' is correct: in practice time: precision, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -1835,14 +1793,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many bytes per parameter does mixed-precision Adam need for model states?",
           "options": [
-            "16",
             "4",
             "2",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "16"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'16' is correct: in where training memory goes, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1872,14 +1829,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much memory does FP16 inference of a 1.3B model need for weights?",
           "options": [
+            "2.6 GB",
             "1.3 GB",
-            "20.8 GB",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "2.6 GB"
+            "20.8 GB"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'2.6 GB' is correct: in comparing setups, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1910,13 +1866,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens to activation memory when the sequence length doubles (ignoring attention)?",
           "options": [
             "It stays the same",
-            "It halves",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "It roughly doubles"
+            "It roughly doubles",
+            "It halves evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It roughly doubles' is correct: in activation memory, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1950,14 +1905,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A 7B model with mixed-precision Adam needs about how much memory for model states alone?",
           "options": [
-            "14 GB",
+            "14 GB: measured across host RAM buffers before device offloading",
             "28 GB",
-            "112 GB",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "112 GB"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'112 GB' is correct: in does it fit?, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -1987,14 +1941,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which memory figure decides whether a step fits?",
           "options": [
-            "The average",
             "The peak",
-            "The reserved amount at start",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "The average",
+            "The reserved amount at start"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The peak' is correct: in reading memory reports, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2024,14 +1977,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "training_memory_gb(7e9, \"inference_fp16\") returns?",
           "options": [
-            "14.0",
             "112.0",
-            "7.0",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "14.0",
+            "7.0"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'14.0' is correct: in practice time: memory accounting, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -2086,13 +2038,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does ZeRO remove?",
           "options": [
             "Duplicated model states across data-parallel GPUs",
-            "Data",
-            "The optimizer",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Data evaluated across model parameters during training",
+            "The optimizer"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Duplicated model states across data-parallel GPUs' is correct: in the redundancy problem, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2123,13 +2074,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which part of model states does ZeRO stage 1 shard?",
           "options": [
             "Weights",
-            "Activations",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "Optimizer states"
+            "Optimizer states",
+            "Activations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Optimizer states' is correct: in stage 1: shard the optimizer states, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2161,12 +2111,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It stays the same",
             "It doubles",
-            "It halves",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It halves"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'It halves' is correct: in stages 2 and 3, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2200,14 +2149,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why round the maximum model size down?",
           "options": [
-            "It looks tidier",
             "Rounding up could suggest a model fits when it does not",
-            "Python requires it",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "It looks tidier evaluated across model parameters during training",
+            "Python requires it"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Rounding up could suggest a model fits when it does not' is correct: in how big can we go?, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2239,12 +2187,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Deletes old checkpoints",
             "Moves states to CPU memory or disk to fit bigger models",
-            "Speeds up the network",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Speeds up the network: measured across host RAM buffers before device offloading"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Moves states to CPU memory or disk to fit bigger models' is correct: in communication and offloading, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2274,14 +2221,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is stage 3 memory per GPU for 7.5B parameters on 64 GPUs?",
           "options": [
-            "About 1.9 GB",
             "120 GB",
             "About 31 GB",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "About 1.9 GB"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'About 1.9 GB' is correct: in practice time: zero, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -2337,13 +2283,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does FSDP do right after a unit's forward pass?",
           "options": [
             "Updates the weights",
-            "Saves a checkpoint",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
-            "Frees the full parameters, keeping only the shard"
+            "Frees the full parameters, keeping only the shard",
+            "Saves a checkpoint accumulated across local worker ranks before reduction"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Frees the full parameters, keeping only the shard' is correct: in fsdp in one picture, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2376,12 +2321,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "3",
             "4",
-            "7",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "7"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'7' is correct: in the schedule layer by layer, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2416,14 +2360,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why pad the flat parameter?",
           "options": [
-            "To add new weights",
-            "To encrypt it",
             "So it splits into equal shards",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "To add new weights",
+            "To encrypt it"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So it splits into equal shards' is correct: in flattening and sharding, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2456,12 +2399,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Parameters",
             "Activations",
-            "Optimizer states",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Optimizer states"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Activations' is correct: in peak memory with fsdp, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2491,14 +2433,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does hybrid sharding do?",
           "options": [
-            "Shards within a node and replicates across nodes",
             "Shards everything everywhere",
-            "Turns off sharding",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Turns off sharding evaluated across model parameters during training",
+            "Shards within a node and replicates across nodes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Shards within a node and replicates across nodes' is correct: in using fsdp well, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2528,14 +2469,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does gather(shards, original_length) remove?",
           "options": [
-            "The first shard",
-            "Duplicate values",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "The padding at the end"
+            "The padding at the end",
+            "The first shard evaluated across model parameters during training",
+            "Duplicate values"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The padding at the end' is correct: in practice time: fsdp, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -2590,13 +2530,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In y = x·W, what does each column of W produce?",
           "options": [
             "One input value",
-            "Nothing",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
+            "Nothing evaluated across model parameters during training",
             "One output value"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'One output value' is correct: in matrix multiplication recap, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2630,14 +2569,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How are column-parallel partial outputs combined?",
           "options": [
-            "Summed",
-            "Averaged",
             "Concatenated",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Summed evaluated across model parameters during training",
+            "Averaged"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Concatenated' is correct: in column parallelism, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2671,14 +2609,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How are row-parallel partial outputs combined?",
           "options": [
-            "Concatenated",
+            "Concatenated evaluated across model parameters during training",
             "Summed with an all-reduce",
-            "The first one is used",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "The first one is used"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Summed with an all-reduce' is correct: in row parallelism, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2712,14 +2649,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many all-reduces does a Megatron MLP block need in the forward pass?",
           "options": [
-            "One",
             "None",
             "One per column",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "One"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'One' is correct: in the megatron mlp pattern, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2751,12 +2687,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It needs an all-reduce in every layer, which requires very fast links",
             "It uses less memory there",
-            "It is a licensing rule",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It is a licensing rule evaluated across model parameters during training"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'It needs an all-reduce in every layer, which requires very fast links' is correct: in where tensor parallelism fits, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2790,14 +2725,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does row_parallel_matmul return besides the output?",
           "options": [
-            "The weights",
-            "The number of rows",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "Each device's partial vector"
+            "The weights evaluated across model parameters during training",
+            "Each device's partial vector",
+            "The number of rows"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Each device's partial vector' is correct: in practice time: splitting layers, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -2851,14 +2785,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do pipeline stages communicate?",
           "options": [
-            "All-reduce in every layer",
-            "They do not communicate",
             "Point-to-point sends between neighbouring stages",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "All-reduce in every layer",
+            "They do not communicate"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Point-to-point sends between neighbouring stages' is correct: in stages and the naive pipeline, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2890,12 +2823,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "4",
             "6",
-            "12",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "12"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'6' is correct: in micro-batches and the gpipe schedule, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2926,13 +2858,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens to the bubble as micro-batches increase?",
           "options": [
             "It grows",
-            "It shrinks",
             "It stays constant",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It shrinks"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It shrinks' is correct: in the bubble fraction, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -2964,12 +2895,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Activation memory",
             "The bubble",
-            "The number of stages",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "The number of stages"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Activation memory' is correct: in 1f1b and memory, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3000,13 +2930,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What sets the speed of a pipeline?",
           "options": [
             "The fastest stage",
-            "The number of GPUs",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
-            "The slowest stage"
+            "The slowest stage",
+            "The number of GPUs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The slowest stage' is correct: in balancing stages, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3038,12 +2967,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0.2",
             "1.0",
-            "0.0",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "0.0"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'0.0' is correct: in practice time: pipelines, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -3097,14 +3025,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are activations kept during the forward pass?",
           "options": [
-            "For logging",
-            "To speed up inference",
+            "For logging accumulated across local worker ranks before reduction",
             "The backward pass needs them to compute gradients",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "To speed up inference"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The backward pass needs them to compute gradients' is correct: in why activations are stored, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3135,13 +3062,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is saved when checkpointing every k layers?",
           "options": [
             "Nothing",
-            "The input of each segment of k layers",
             "Every activation",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "The input of each segment of k layers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The input of each segment of k layers' is correct: in checkpointing every k layers, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3176,13 +3102,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Around which value of k is L/k + k smallest?",
           "options": [
             "The square root of L",
-            "L",
-            "1",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "L evaluated across model parameters during training",
+            "1"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'The square root of L' is correct: in the square-root rule, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3213,13 +3138,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "About how much extra compute does full activation checkpointing add?",
           "options": [
             "None",
-            "It doubles the backward pass",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "About one extra forward pass"
+            "About one extra forward pass",
+            "It doubles the backward pass"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'About one extra forward pass' is correct: in the compute cost, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3255,12 +3179,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "ZeRO stage 1",
             "Mixed precision master weights",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
             "Activation checkpointing"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Activation checkpointing' is correct: in putting the memory tools together, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3290,14 +3213,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should activation_memory(32, 1.5, every=5) do?",
           "options": [
-            "Return 24.9",
-            "Round 5 to 4",
             "Raise ValueError",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Return 24.9",
+            "Round 5 to 4"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Raise ValueError' is correct: in practice time: checkpointing, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -3355,14 +3277,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does SGD have in ravines?",
           "options": [
-            "It uses too much memory",
-            "It zig-zags across the steep direction and crawls along the flat one",
+            "It uses too much memory evaluated across model parameters during training",
             "It cannot compute gradients",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It zig-zags across the steep direction and crawls along the flat one"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It zig-zags across the steep direction and crawls along the flat one' is correct: in plain sgd and its limits, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3398,12 +3319,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A velocity",
             "Nothing",
-            "Two moments",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Two moments"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'A velocity' is correct: in momentum, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3433,14 +3353,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Adam's second moment v track?",
           "options": [
-            "A running average of squared gradients",
             "The learning rate",
-            "The weights",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "A running average of squared gradients",
+            "The weights"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A running average of squared gradients' is correct: in adam, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3472,12 +3391,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0",
             "4",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
             "2"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'2' is correct: in optimizers and memory, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3511,14 +3429,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Adam easy to shard?",
           "options": [
-            "It has no state",
-            "It is always in FP16",
             "Its update for each parameter uses only that parameter's own values",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It has no state accumulated across local worker ranks before reduction",
+            "It is always in FP16"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Its update for each parameter uses only that parameter's own values' is correct: in optimizers in distributed training, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3550,12 +3467,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By its gradient",
             "By about the learning rate",
-            "Not at all",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Not at all evaluated across model parameters during training"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'By about the learning rate' is correct: in practice time: optimizers, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -3609,14 +3525,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use warmup?",
           "options": [
-            "To save memory",
             "Early gradients are erratic, so big steps at the start can destabilise training",
-            "To speed up the end of training",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "To save memory accumulated across local worker ranks before reduction",
+            "To speed up the end of training"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Early gradients are erratic, so big steps at the start can destabilise training' is correct: in why change the learning rate, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3646,14 +3561,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the learning rate at the last warmup step?",
           "options": [
-            "max_lr",
             "0",
-            "Half of max_lr",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "max_lr",
+            "Half of max_lr"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'max_lr' is correct: in linear warmup, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3689,12 +3603,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "max_lr",
             "Zero always",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
             "min_lr"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'min_lr' is correct: in cosine decay, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3724,14 +3637,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does step // every count in step decay?",
           "options": [
-            "Epochs",
-            "The warmup",
             "How many drops have happened",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Epochs",
+            "The warmup"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'How many drops have happened' is correct: in step decay, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3766,13 +3678,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What must a resumed run restore for the schedule?",
           "options": [
             "Nothing",
-            "The random seed only",
             "The step count",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "The random seed only"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The step count' is correct: in schedules in practice, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3803,13 +3714,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does lr_at return for steps at or after total?",
           "options": [
             "max_lr",
-            "min_lr",
             "An error",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "min_lr"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'min_lr' is correct: in practice time: schedules, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -3863,14 +3773,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a loss spike?",
           "options": [
-            "A sudden jump upwards in the loss",
             "A normal drop in loss",
-            "A saved checkpoint",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "A sudden jump upwards in the loss",
+            "A saved checkpoint"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A sudden jump upwards in the loss' is correct: in exploding gradients, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3901,13 +3810,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How is the global gradient norm computed?",
           "options": [
             "Largest gradient value",
-            "Average gradient",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
+            "Average gradient accumulated across local worker ranks before reduction",
             "Square root of the sum of squares of all gradient values"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Square root of the sum of squares of all gradient values' is correct: in the global gradient norm, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3937,14 +3845,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does global-norm clipping preserve?",
           "options": [
+            "The direction of the update",
             "The size of the update",
-            "Nothing",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "The direction of the update"
+            "Nothing evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The direction of the update' is correct: in clipping by global norm, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -3978,14 +3885,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must NaN be checked with math.isnan?",
           "options": [
-            "It is faster",
-            "NaN is a string",
+            "It is faster evaluated across model parameters during training",
             "Comparisons with NaN are always False",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "NaN is a string"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Comparisons with NaN are always False' is correct: in detecting spikes and nans, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4016,13 +3922,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is a common response to a loss spike that does not recover?",
           "options": [
             "Keep going and hope",
-            "Roll back to a checkpoint and skip the offending batches",
             "Delete the model",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Roll back to a checkpoint and skip the offending batches"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Roll back to a checkpoint and skip the offending batches' is correct: in responding to instability, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4053,13 +3958,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should clip_by_global_norm return besides the clipped gradients?",
           "options": [
             "The original global norm",
-            "The learning rate",
-            "The number of layers",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "The learning rate evaluated across model parameters during training",
+            "The number of layers"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'The original global norm' is correct: in practice time: stability, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -4113,14 +4017,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why store the optimizer state in a checkpoint?",
           "options": [
-            "Without it, resuming changes the training trajectory",
-            "It is small",
+            "It is small evaluated across model parameters during training",
             "It is required by JSON",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Without it, resuming changes the training trajectory"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Without it, resuming changes the training trajectory' is correct: in what a checkpoint contains, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4154,14 +4057,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why write to a temporary file and then rename it?",
           "options": [
+            "A crash mid-save cannot leave a half-written checkpoint in place",
             "It is faster",
-            "JSON requires it",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "A crash mid-save cannot leave a half-written checkpoint in place"
+            "JSON requires it"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A crash mid-save cannot leave a half-written checkpoint in place' is correct: in saving and loading safely, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4191,14 +4093,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is a sharded checkpoint valid?",
           "options": [
-            "When any shard exists",
-            "When the newest file exists",
+            "When any shard exists to bypass defensive runtime checks during execution",
             "When every shard is written and none fails its checksum",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "When the newest file exists"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'When every shard is written and none fails its checksum' is correct: in sharded checkpoints, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4229,13 +4130,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do larger clusters checkpoint more often?",
           "options": [
             "They have more storage",
-            "They fail more often",
             "They train more slowly",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "They fail more often"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'They fail more often' is correct: in how often to checkpoint, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4265,14 +4165,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a jump in the loss right after resuming suggest?",
           "options": [
-            "Normal behaviour",
             "Some training state was not restored",
-            "The data finished",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Normal behaviour evaluated across model parameters during training",
+            "The data finished"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Some training state was not restored' is correct: in resuming exactly, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4302,14 +4201,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should latest_valid return if no checkpoint is complete?",
           "options": [
-            "None",
             "0",
-            "The newest step",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "None",
+            "The newest step"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'None' is correct: in practice time: checkpoints, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -4363,14 +4261,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does one failed GPU stop a synchronous job?",
           "options": [
+            "Every step needs every rank to take part in the collectives",
             "It holds all the data",
-            "It is the leader",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
-            "Every step needs every rank to take part in the collectives"
+            "It is the leader measured over sustained execution across the cluster"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Every step needs every rank to take part in the collectives' is correct: in failures at scale, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4400,14 +4297,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is goodput?",
           "options": [
-            "Network speed",
-            "The number of GPUs",
+            "Network speed measured over sustained execution across the cluster",
             "The fraction of time spent on useful training",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "The number of GPUs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The fraction of time spent on useful training' is correct: in the cost of a failure, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4439,12 +4335,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It lowers the learning rate",
             "It drops data",
-            "It increases gradient accumulation",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It increases gradient accumulation"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'It increases gradient accumulation' is correct: in elastic training, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4474,14 +4369,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes spot capacity usable for training?",
           "options": [
-            "Nothing, it never is",
             "Frequent checkpoints and fast restarts",
-            "Bigger batches",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Nothing, it never is",
+            "Bigger batches to bypass defensive runtime checks during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Frequent checkpoints and fast restarts' is correct: in preemption and cloud capacity, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4511,14 +4405,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why run failure drills?",
           "options": [
+            "To slow training evaluated across model parameters during training",
             "Untested recovery paths often fail when needed",
-            "To slow training",
-            "To create checkpoints",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "To create checkpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Untested recovery paths often fail when needed' is correct: in designing for failure, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4550,12 +4443,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "2500",
             "0",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
             "3000"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'3000' is correct: in practice time: resilience, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -4610,13 +4502,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does input-bound mean?",
           "options": [
             "The GPUs are the bottleneck",
-            "The model is too large",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "GPUs wait for data because the pipeline is too slow"
+            "GPUs wait for data because the pipeline is too slow",
+            "The model is too large evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'GPUs wait for data because the pipeline is too slow' is correct: in data at scale, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4650,14 +4541,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why seed the shuffle with the epoch number?",
           "options": [
-            "To speed it up",
+            "To speed it up evaluated across model parameters during training",
             "To avoid shuffling",
-            "So every epoch has a new but reproducible order",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "So every epoch has a new but reproducible order"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'So every epoch has a new but reproducible order' is correct: in deterministic shuffling, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4691,14 +4581,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which worker receives the next file in the greedy method?",
           "options": [
-            "A random one",
             "The one with the least data so far",
-            "Always worker 0",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "A random one evaluated across model parameters during training",
+            "Always worker 0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The one with the least data so far' is correct: in balancing shards across workers, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4728,14 +4617,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does prefetching do?",
           "options": [
-            "Prepares the next batches while the GPU computes",
             "Deletes old batches",
-            "Shuffles the data",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Prepares the next batches while the GPU computes",
+            "Shuffles the data"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Prepares the next batches while the GPU computes' is correct: in avoiding input bottlenecks, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4770,14 +4658,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two numbers make a deterministic data stream resumable?",
           "options": [
-            "Epoch and batches already consumed",
-            "Loss and learning rate",
+            "Loss and learning rate evaluated across model parameters during training",
             "GPU count and seed only",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Epoch and batches already consumed"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Epoch and batches already consumed' is correct: in resuming the data stream, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4807,14 +4694,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes epoch_order reproducible?",
           "options": [
+            "A generator seeded with seed and epoch",
             "Using the current time",
-            "Sorting the data",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "A generator seeded with seed and epoch"
+            "Sorting the data evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A generator seeded with seed and epoch' is correct: in practice time: data pipelines, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -4871,12 +4757,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Latency",
             "Neither",
-            "Bandwidth",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Bandwidth"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Bandwidth' is correct: in the latency-bandwidth model, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4906,14 +4791,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the bandwidth term of ring all-reduce as p grows large?",
           "options": [
-            "It grows linearly",
             "It approaches 2 × size / bandwidth",
-            "It becomes zero",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "It grows linearly",
+            "It becomes zero evaluated across model parameters during training"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It approaches 2 × size / bandwidth' is correct: in ring all-reduce time, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4945,12 +4829,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Sends everything across the cluster",
             "Reduces within each server over fast links",
-            "Broadcasts to all",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Broadcasts to all evaluated across model parameters during training"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Reduces within each server over fast links' is correct: in network topology, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -4985,14 +4868,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is communication cheap?",
           "options": [
-            "When it is shorter than compute and can overlap with it",
             "Always",
-            "Never",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Never evaluated across model parameters during training",
+            "When it is shorter than compute and can overlap with it"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'When it is shorter than compute and can overlap with it' is correct: in is communication the bottleneck?, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5022,14 +4904,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does gradient accumulation do to communication per example?",
           "options": [
+            "Reduces it",
             "Increases it",
-            "Nothing",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
-            "Reduces it"
+            "Nothing"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Reduces it' is correct: in reducing communication, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5060,13 +4941,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is allreduce_ms for one GPU?",
           "options": [
             "The transfer time",
-            "The latency",
             "0.0",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "The latency"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'0.0' is correct: in practice time: communication cost, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -5120,14 +5000,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which layer's gradients are ready first in the backward pass?",
           "options": [
-            "The first layer",
-            "All at the same time",
             "The last layer",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "The first layer",
+            "All at the same time"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The last layer' is correct: in gradients become ready in reverse, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5163,12 +5042,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To compress them",
             "To avoid paying latency for many tiny messages",
-            "To change their values",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "To change their values"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'To avoid paying latency for many tiny messages' is correct: in gradient buckets, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5198,14 +5076,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which communication is always exposed in the overlap model?",
           "options": [
-            "The last bucket's",
             "The first bucket's",
             "None",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "The last bucket's"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The last bucket's' is correct: in simulating overlap, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5235,14 +5112,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When can overlap not hide communication?",
           "options": [
+            "When total communication exceeds the computation it can overlap with",
             "When communication is shorter than compute",
-            "Never",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "When total communication exceeds the computation it can overlap with"
+            "Never evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'When total communication exceeds the computation it can overlap with' is correct: in when overlap is not enough, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5273,13 +5149,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does DDP do at the end of the backward pass?",
           "options": [
             "Starts all communication",
-            "Saves a checkpoint",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "Waits for outstanding all-reduces before the optimizer step"
+            "Waits for outstanding all-reduces before the optimizer step",
+            "Saves a checkpoint measured over sustained execution across the cluster"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Waits for outstanding all-reduces before the optimizer step' is correct: in overlap in real frameworks, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5315,12 +5190,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Layer 0",
             "The largest layer",
-            "The last layer",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "The last layer"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'The last layer' is correct: in practice time: overlap, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -5375,14 +5249,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do scaling laws let researchers do?",
           "options": [
-            "Avoid training",
+            "Avoid training evaluated across model parameters during training",
             "Predict large-run results from small experiments",
-            "Remove the need for data",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Remove the need for data"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Predict large-run results from small experiments' is correct: in scaling laws, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5412,14 +5285,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "About how many tokens per parameter does the Chinchilla rule recommend?",
           "options": [
-            "20",
             "1",
             "1000",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "20"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'20' is correct: in chinchilla: balancing parameters and data, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5451,12 +5323,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It lowers inference cost when the model will be used heavily",
             "It is always cheaper to train",
-            "It removes the need for evaluation",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It removes the need for evaluation"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'It lowers inference cost when the model will be used heavily' is correct: in beyond compute-optimal, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5487,14 +5358,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is GPU-hours computed from FLOPs?",
           "options": [
-            "FLOPs × price",
-            "FLOPs ÷ tokens",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "FLOPs ÷ (peak FLOPs × MFU) ÷ 3600"
+            "FLOPs × price: measured across host RAM buffers before device offloading",
+            "FLOPs ÷ (peak FLOPs × MFU) ÷ 3600",
+            "FLOPs ÷ tokens"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'FLOPs ÷ (peak FLOPs × MFU) ÷ 3600' is correct: in from flops to a budget, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5528,14 +5398,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why present forecasts with a range?",
           "options": [
-            "It looks more scientific",
+            "It looks more scientific evaluated across model parameters during training",
             "Ranges are required by law",
-            "Extrapolation adds uncertainty",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Extrapolation adds uncertainty"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Extrapolation adds uncertainty' is correct: in using scaling laws responsibly, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5565,14 +5434,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What verdict does 4.3 tokens per parameter get?",
           "options": [
-            "BALANCED",
             "UNDERTRAINED",
-            "OVERTRAINED",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "BALANCED evaluated across model parameters during training",
+            "OVERTRAINED"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'UNDERTRAINED' is correct: in practice time: budgets, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -5628,13 +5496,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is throughput for a language model usually measured in?",
           "options": [
             "Parameters",
-            "Tokens per second",
-            "Gigabytes",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Gigabytes evaluated across model parameters during training",
+            "Tokens per second"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Tokens per second' is correct: in throughput, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5668,12 +5535,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "MFU measures only the model's required work",
             "It is too small to count",
-            "It is included",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "It is included evaluated across model parameters during training"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'MFU measures only the model's required work' is correct: in model flops utilisation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5704,14 +5570,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use the median step time?",
           "options": [
-            "It is always larger",
-            "It includes checkpoint time",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
-            "It shows the typical step, unaffected by a few outliers"
+            "It is always larger measured over sustained execution across the cluster",
+            "It shows the typical step, unaffected by a few outliers",
+            "It includes checkpoint time"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It shows the typical step, unaffected by a few outliers' is correct: in step time statistics, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5744,12 +5609,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "They are wrong",
             "They run on the CPU",
-            "They are limited by memory bandwidth, not arithmetic",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "They are limited by memory bandwidth, not arithmetic"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'They are limited by memory bandwidth, not arithmetic' is correct: in where the missing flops go, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5780,14 +5644,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which single number compares efficiency across hardware and model sizes most fairly?",
           "options": [
-            "Tokens per second",
-            "Step time",
             "MFU",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Tokens per second",
+            "Step time"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'MFU' is correct: in reporting performance honestly, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5820,12 +5683,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Any step above the mean",
             "A step taking more than 1.5 × the median",
-            "The slowest step only",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "The slowest step only measured over sustained execution across the cluster"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'A step taking more than 1.5 × the median' is correct: in practice time: measuring speed, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -5883,12 +5745,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Guesses about bottlenecks are often wrong",
             "It is required",
-            "It speeds up training",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It speeds up training"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Guesses about bottlenecks are often wrong' is correct: in profiling a step, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5919,14 +5780,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you do after fixing the biggest bottleneck?",
           "options": [
-            "Stop",
-            "Double the GPUs",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "Profile again, since the bottleneck may move"
+            "Stop evaluated across model parameters during training",
+            "Profile again, since the bottleneck may move",
+            "Double the GPUs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Profile again, since the bottleneck may move' is correct: in three kinds of bottleneck, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5957,14 +5817,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a first fix for an input-bound step?",
           "options": [
-            "Use more GPUs",
+            "Use more GPUs evaluated across model parameters during training",
             "Lower the learning rate",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
             "Add data loader workers and prefetch"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Add data loader workers and prefetch' is correct: in fixes for each bottleneck, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -5995,14 +5854,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does one slow GPU slow down the whole job?",
           "options": [
-            "It holds the data",
-            "It runs the optimizer",
             "Collectives wait for every rank",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "It holds the data evaluated across model parameters during training",
+            "It runs the optimizer"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Collectives wait for every rank' is correct: in stragglers and variation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6039,12 +5897,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It is faster",
             "So you know which change helped",
-            "Frameworks require it",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Frameworks require it"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'So you know which change helped' is correct: in a profiling workflow, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6075,14 +5932,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does top_phase return for an empty profile?",
           "options": [
-            "(None, 0.0)",
             "An error",
-            "(\"\", 0)",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "(\"\", 0) evaluated across model parameters during training",
+            "(None, 0.0)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'(None, 0.0)' is correct: in practice time: bottlenecks, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -6136,14 +5992,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes MoE models efficient?",
           "options": [
+            "They have fewer parameters evaluated across model parameters during training",
             "Each token uses only a few experts",
-            "They have fewer parameters",
-            "They skip the backward pass",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "They skip the backward pass"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Each token uses only a few experts' is correct: in sparse models, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6175,12 +6030,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "All of them",
             "One",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
             "Two"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Two' is correct: in top-k routing, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6214,14 +6068,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to a token whose expert is full?",
           "options": [
-            "It waits for the next batch",
-            "It goes to all experts",
             "It is dropped from that layer and passes through the residual path",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It waits for the next batch",
+            "It goes to all experts evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It is dropped from that layer and passes through the residual path' is correct: in expert capacity, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6254,12 +6107,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Using one expert",
             "Spreading tokens evenly across experts",
-            "Dropping tokens",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Dropping tokens evaluated across model parameters during training"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Spreading tokens evenly across experts' is correct: in load balancing, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6291,13 +6143,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which collective does expert parallelism mainly use?",
           "options": [
             "All-reduce",
-            "All-to-all",
             "Broadcast",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "All-to-all"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'All-to-all' is correct: in expert parallelism, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6329,12 +6180,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "1.0",
             "0.0",
-            "2.0",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "2.0"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'1.0' is correct: in practice time: experts, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -6389,13 +6239,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does freezing weights save memory?",
           "options": [
             "Frozen weights are deleted",
-            "They are compressed",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
+            "They are compressed accumulated across local worker ranks before reduction",
             "Frozen weights need no gradients or optimizer states"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Frozen weights need no gradients or optimizer states' is correct: in why full fine-tuning is expensive, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6425,14 +6274,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many parameters does a rank-r LoRA adapter train for a d_in × d_out matrix?",
           "options": [
-            "d_in × d_out",
-            "r × r",
             "r × (d_in + d_out)",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "d_in × d_out",
+            "r × r evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'r × (d_in + d_out)' is correct: in the low-rank idea, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6467,13 +6315,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is B initialised to zero in LoRA?",
           "options": [
             "To save memory",
-            "It is never trained",
             "So the fine-tuned model starts identical to the original",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It is never trained"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So the fine-tuned model starts identical to the original' is correct: in the lora forward pass, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6503,14 +6350,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does merging a LoRA adapter change about inference?",
           "options": [
-            "The outputs",
-            "Nothing about the outputs; it removes the extra adapter computation",
+            "The outputs evaluated across model parameters during training",
             "The model size doubles",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Nothing about the outputs; it removes the extra adapter computation"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Nothing about the outputs; it removes the extra adapter computation' is correct: in merging adapters, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6542,12 +6388,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A 4-bit quantised frozen base model",
             "More trainable parameters",
-            "Pipeline parallelism",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Pipeline parallelism evaluated across model parameters during training"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'A 4-bit quantised frozen base model' is correct: in qlora and distributed fine-tuning, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6582,13 +6427,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does lora_forward return when B is all zeros?",
           "options": [
             "Zeros",
-            "x·A",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
-            "Exactly x·W"
+            "Exactly x·W",
+            "x·A evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Exactly x·W' is correct: in practice time: lora, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -6642,14 +6486,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many bytes does an INT8 weight take?",
           "options": [
+            "1",
             "2",
-            "0.5",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "1"
+            "0.5"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'1' is correct: in what quantisation does, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6683,14 +6526,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the symmetric INT8 scale chosen?",
           "options": [
-            "Always 1.0",
-            "The average value",
+            "Always 1.0 evaluated across model parameters during training",
             "Largest absolute value divided by 127",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "The average value"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Largest absolute value divided by 127' is correct: in symmetric int8 quantisation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6720,14 +6562,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the maximum error of symmetric INT8 quantisation?",
           "options": [
-            "Zero",
-            "About half a step (scale ÷ 2)",
+            "Zero measured over sustained execution across the cluster",
             "The scale times 127",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "About half a step (scale ÷ 2)"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'About half a step (scale ÷ 2)' is correct: in measuring quantisation error, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6759,12 +6600,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "With only 16 levels, one scale per tensor would give very large errors",
             "They are faster",
-            "They remove outliers",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "They remove outliers"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'With only 16 levels, one scale per tensor would give very large errors' is correct: in 4-bit quantisation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6794,14 +6634,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does weight-only quantisation speed up generation?",
           "options": [
+            "It skips layers: measured across host RAM buffers before device offloading",
             "Loading weights from memory dominates, and smaller weights load faster",
-            "It skips layers",
-            "It uses fewer tokens",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "It uses fewer tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Loading weights from memory dominates, and smaller weights load faster' is correct: in quantisation in training and serving, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6833,12 +6672,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0.0",
             "An error",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
             "1.0"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'1.0' is correct: in practice time: quantisation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -6893,13 +6731,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do teacher probabilities help more than labels alone?",
           "options": [
             "They are faster to compute",
-            "They remove noise",
             "They show which wrong answers are nearly right",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "They remove noise"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'They show which wrong answers are nearly right' is correct: in teachers and students, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6930,13 +6767,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a temperature above 1 do?",
           "options": [
             "Sharpens the distribution",
-            "Softens the distribution",
             "Nothing",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Softens the distribution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Softens the distribution' is correct: in softmax with temperature, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -6966,14 +6802,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the distillation loss when the student matches the teacher exactly?",
           "options": [
-            "1",
             "0",
-            "T squared",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "1",
+            "T squared"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'0' is correct: in the distillation loss, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7003,14 +6838,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must you check before distilling from a commercial model?",
           "options": [
+            "Its colour evaluated across model parameters during training",
             "That its licence and terms allow distillation",
-            "Its colour",
-            "Its file name",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "Its file name"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'That its licence and terms allow distillation' is correct: in distillation in practice, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7042,12 +6876,11 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Always",
             "Never",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states",
             "When a good small base model already exists"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'When a good small base model already exists' is correct: in choosing a small-model strategy, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7077,14 +6910,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should softmax_t do with temperature 0?",
           "options": [
-            "Return one-hot",
-            "Return uniform",
             "Raise ValueError",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Return one-hot to bypass defensive runtime checks during execution",
+            "Return uniform"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Raise ValueError' is correct: in practice time: distillation, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -7139,14 +6971,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is gang scheduling?",
           "options": [
-            "Scheduling by team",
+            "Scheduling by team evaluated across model parameters during training",
             "Running jobs one after another",
-            "Starting all of a job's GPUs together or not at all",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "Starting all of a job's GPUs together or not at all"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "why": "'Starting all of a job's GPUs together or not at all' is correct: in clusters and schedulers, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7177,14 +7008,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does best fit choose the node with the fewest sufficient free GPUs?",
           "options": [
-            "It is random",
             "It keeps larger free blocks available for bigger jobs",
-            "It is faster to compute",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "It is random",
+            "It is faster to compute"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It keeps larger free blocks available for bigger jobs' is correct: in placing jobs well, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7219,14 +7049,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does failure overhead do to cost?",
           "options": [
+            "Nothing evaluated across model parameters during training",
             "Adds extra GPU-hours to pay for",
-            "Nothing",
-            "Reduces the price",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Reduces the price"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Adds extra GPU-hours to pay for' is correct: in the full cost of a run, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7256,14 +7085,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does backfilling do?",
           "options": [
-            "Deletes old jobs",
+            "Deletes old jobs evaluated across model parameters during training",
             "Doubles GPU speed",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values",
             "Runs small jobs in gaps while large jobs wait"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Runs small jobs in gaps while large jobs wait' is correct: in utilisation of shared clusters, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7293,14 +7121,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does peak demand matter for capacity planning?",
           "options": [
-            "It does not",
-            "It sets the price",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication",
-            "Large runs need many GPUs at the same time"
+            "Large runs need many GPUs at the same time",
+            "It does not measured over sustained execution across the cluster",
+            "It sets the price"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Large runs need many GPUs at the same time' is correct: in planning the capacity you need, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7331,13 +7158,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should place_job return when the cluster has too few free GPUs?",
           "options": [
             "An empty dict",
-            "A partial placement",
             "None",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding"
+            "A partial placement"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'None' is correct: in practice time: clusters and cost, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -7396,14 +7222,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why prefer the smallest ZeRO stage that fits?",
           "options": [
-            "It uses more memory",
             "It communicates less and is simpler",
-            "It is required",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "It uses more memory",
+            "It is required evaluated across model parameters during training"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It communicates less and is simpler' is correct: in choosing a strategy that fits, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7438,14 +7263,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a training plan state clearly?",
           "options": [
-            "Its assumptions, such as MFU and prices",
             "Only the model name",
-            "Nothing numerical",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Its assumptions, such as MFU and prices",
+            "Nothing numerical evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Its assumptions, such as MFU and prices' is correct: in the complete plan, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7476,14 +7300,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why exclude NaN when finding the best loss?",
           "options": [
-            "min() with NaN values gives unreliable results",
             "NaN is small",
             "NaN is a string",
-            "Synchronizing model optimizer states using synchronous CPU sockets without NCCL collective communication"
+            "min() with NaN values gives unreliable results"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'min() with NaN values gives unreliable results' is correct: in reporting a training run, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7514,14 +7337,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do first principles matter when frameworks change quickly?",
           "options": [
-            "They do not",
-            "They replace frameworks",
-            "Allocating redundant model parameter replicas across every GPU device without tensor or pipeline sharding",
-            "They let you understand and learn any new framework faster"
+            "They let you understand and learn any new framework faster",
+            "They do not evaluated across model parameters during training",
+            "They replace frameworks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'They let you understand and learn any new framework faster' is correct: in everything you can now calculate, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7553,13 +7375,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should you do before adopting a new training technique?",
           "options": [
             "Adopt it immediately",
-            "Ignore it",
             "Measure its effect on your own setup",
-            "Using unquantized FP32 precision buffers for large language model weights and intermediate optimizer states"
+            "Ignore it evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Measure its effect on your own setup' is correct: in where to go next, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       },
       {
@@ -7589,14 +7410,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does plan_training return when no ZeRO stage fits?",
           "options": [
-            "Stage 3",
-            "Stage None with the stage-3 figure",
+            "Stage 3 evaluated across model parameters during training",
             "An error",
-            "Accumulating unclipped gradient norms that trigger catastrophic numeric overflow and floating-point NaN values"
+            "Stage None with the stage-3 figure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against distributed model training collective communication invariants."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Stage None with the stage-3 figure' is correct: in capstone practice: plan and report, this enforces valid numerical updates and maintains distributed model training invariants."
         }
       }
     ],
@@ -7671,10 +7491,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many total bytes of static VRAM does a single model parameter require during mixed-precision training with AdamW?",
           "options": [
-            "2 bytes: only the raw 16-bit floating-point weights need to reside in high-bandwidth GPU memory. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "16 bytes: 2 bytes for FP16 weights, 2 bytes for FP16 gradients, and 12 bytes for FP32 AdamW optimizer states.",
-            "4 bytes: 2 bytes for weights and 2 bytes for backward pass gradient tensors.",
-            "32 bytes: each parameter requires duplicate 64-bit double precision master weights."
+            "2 bytes: only the raw 16-bit floating-point weights need to reside in high-bandwidth GPU memory",
+            "16 bytes: 2 bytes for FP16 weights, 2 bytes for FP16 gradients, and 12 bytes for FP32 AdamW optimizer states",
+            "4 bytes: 2 bytes for weights and 2 bytes for backward pass gradient tensors: measured across host RAM buffers before device offloading",
+            "32 bytes: each parameter requires duplicate 64-bit double precision master weights"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -7716,13 +7536,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it impossible to train a 7-billion parameter model on a single 80GB GPU using standard full-state AdamW?",
           "options": [
-            "Static states (params, grads, optimizer) require 104.3 GB, exceeding the 80 GB physical capacity of the GPU.",
-            "7-billion parameter models cannot be compiled by the PyTorch JIT compiler without multi-GPU flags.",
-            "Single GPUs lack hardware tensor cores capable of multiplying matrices larger than 4096 dimensions.",
-            "CUDA drivers permanently disable backpropagation on GPUs that possess less than 128 gigabytes of RAM. by bypassing hardware interconnect buffers and disabling collective communication synchronization"
+            "7-billion parameter models cannot be compiled by the PyTorch JIT compiler without multi-GPU flags",
+            "Single GPUs lack hardware tensor cores capable of multiplying matrices larger than 4096 dimensions",
+            "Static states (params, grads, optimizer) require 104.3 GB, exceeding the 80 GB physical capacity of the GPU",
+            "CUDA drivers permanently disable backpropagation on GPUs that possess less than 128 gigabytes of RAMhronization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "At 16 bytes per parameter, a 7B model requires 7e9 * 16 = 112 GB (104.3 GiB) of static memory alone, exceeding an 80GB GPU before accounting for activations."
         }
       },
@@ -7762,10 +7582,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What component of transformer activation memory exhibits quadratic scaling with sequence length?",
           "options": [
-            "The linear feed-forward network (MLP) weights, which scale linearly with vocabulary size. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The root-mean-square layer normalization (RMSNorm) scale parameters.",
-            "The token embedding lookup table located in the initial layer of the model.",
-            "The self-attention score matrix (QK^T), which scales as O(batch_size * num_heads * sequence_length^2)."
+            "The linear feed-forward network (MLP) weights, which scale linearly with vocabulary size workers",
+            "The root-mean-square layer normalization (RMSNorm) scale parameters evaluated across model parameters during training",
+            "The token embedding lookup table located in the initial layer of the model",
+            "The self-attention score matrix (QK^T), which scales as O(batch_size * num_heads * sequence_length^2)"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -7807,13 +7627,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must training orchestrators reserve a 10% memory headroom margin on modern GPUs?",
           "options": [
-            "Because modern GPU firmware permanently locks 10% of VRAM for hardware video decoding.",
-            "To allow the host operating system kernel to store uncompressed system log files in GPU memory. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "To account for PyTorch caching allocator workspace, CUDA communication buffers, and memory fragmentation.",
-            "Because GPU cooling fans will shut down if memory utilization reaches one hundred percent."
+            "To account for PyTorch caching allocator workspace, CUDA communication buffers, and memory fragmentation",
+            "Because modern GPU firmware permanently locks 10% of VRAM for hardware video decoding",
+            "To allow the host operating system kernel to store uncompressed system log files in GPU memory streams",
+            "Because GPU cooling fans will shut down if memory utilization reaches one hundred percent"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "PyTorch's caching allocator, NCCL collective buffers, and memory fragmentation require temporary workspace; reserving 10% headroom prevents unexpected runtime OOMs."
         }
       },
@@ -7854,12 +7674,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a successful cluster memory accounting audit guarantee for an upcoming distributed training run?",
           "options": [
             "The model will achieve zero training loss within the first one hundred optimization steps. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "The enterprise is permanently exempt from paying cloud compute hardware leasing charges.",
-            "Static weights, optimizer states, and dynamic activations fit comfortably within physical GPU capacity with verified headroom.",
-            "All microservice database queries will execute in under ten microseconds unconditionally."
+            "Static weights, optimizer states, and dynamic activations fit comfortably within physical GPU capacity with verified headroom",
+            "The enterprise is permanently exempt from paying cloud compute hardware leasing charges",
+            "All microservice database queries will execute in under ten microseconds unconditionally"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Certification guarantees that all static states and dynamic activations have been mathematically budgeted to fit within physical VRAM with adequate safety headroom."
         }
       }
@@ -7921,13 +7741,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the compute-optimal ratio of training tokens to model parameters established by DeepMind's Chinchilla research?",
           "options": [
-            "Approximately 2 tokens per parameter (parameters should scale ten times faster than dataset tokens).",
-            "Approximately 20 tokens per parameter (e.g., 70 billion parameters trained on 1.4 trillion tokens).",
-            "Approximately 200 tokens per parameter for initial pre-training followed by 1000 tokens for fine-tuning.",
-            "Tokens and parameters have no mathematical correlation with total floating-point training compute."
+            "Approximately 20 tokens per parameter (e.g., 70 billion parameters trained on 1.4 trillion tokens)",
+            "Approximately 2 tokens per parameter (parameters should scale ten times faster than dataset tokens)",
+            "Approximately 200 tokens per parameter for initial pre-training followed by 1000 tokens for fine-tuning",
+            "Tokens and parameters have no mathematical correlation with total floating-point training compute"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Chinchilla proved that for compute-optimal loss, model size and dataset size scale equally, yielding ~20 tokens per parameter (e.g. 70B model on 1.4T tokens)."
         }
       },
@@ -7967,13 +7787,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the standard mathematical formula for estimating total training FLOPs for a transformer model?",
           "options": [
-            "C ~ 6 * N * D (where N is parameter count and D is training token count).",
-            "C ~ 2 * N + D (where parameters and tokens are added linearly).",
-            "C ~ N^2 * D^2 (where compute scales quadratically with both dimensions). across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "C ~ 60 * N / D (where parameter count is divided by token count)."
+            "C ~ 2 * N + D (where parameters and tokens are added linearly) accumulated across local worker ranks before reduction",
+            "C ~ 6 * N * D (where N is parameter count and D is training token count)",
+            "C ~ N^2 * D^2 (where compute scales quadratically with both dimensions)",
+            "C ~ 60 * N / D (where parameter count is divided by token count)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Each token requires ~2 FLOPs per parameter on the forward pass and ~4 FLOPs per parameter on the backward pass (2 for activations, 2 for weights), totaling ~6ND FLOPs."
         }
       },
@@ -8013,13 +7833,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did Meta train Llama-3 8B on 15 trillion tokens (a 1,875:1 ratio) rather than stopping at the Chinchilla-optimal 160 billion tokens?",
           "options": [
-            "Because Chinchilla scaling laws were proven to be completely invalid for models smaller than 10 billion parameters. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Because modern GPU clusters cannot execute training runs that last fewer than twenty-four months.",
-            "To prevent the model from hallucinating by exhausting all available text on the public Internet.",
-            "To create a compact model with exceptional performance that is dramatically cheaper and faster to serve at inference scale."
+            "Because Chinchilla scaling laws were proven to be completely invalid for models smaller than 10 billion parametershronization",
+            "Because modern GPU clusters cannot execute training runs that last fewer than twenty-four months",
+            "To create a compact model with exceptional performance that is dramatically cheaper and faster to serve at inference scale",
+            "To prevent the model from hallucinating by exhausting all available text on the public Internet"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Over-training a smaller model past Chinchilla optimal incurs higher one-time training cost but yields a compact model that is vastly cheaper and faster to serve millions of inference queries."
         }
       },
@@ -8059,10 +7879,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Model FLOPs Utilization (MFU) measure during distributed model training?",
           "options": [
-            "The percentage of GPU high-bandwidth memory occupied by static model parameters.",
-            "The network packet drop rate across inter-node InfiniBand collective communication links. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The speed of cooling fans installed in the server rack chassis.",
-            "The ratio of theoretical floating-point compute executed on model math versus peak theoretical hardware capacity."
+            "The percentage of GPU high-bandwidth memory occupied by static model parameters",
+            "The network packet drop rate across inter-node InfiniBand collective communication links workers",
+            "The speed of cooling fans installed in the server rack chassis evaluated across model parameters during training",
+            "The ratio of theoretical floating-point compute executed on model math versus peak theoretical hardware capacity"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -8105,13 +7925,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful scaling law governance audit guarantee for a multi-million-dollar training initiative?",
           "options": [
-            "The model will pass all legal patent examinations upon completion of the training run. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "All software engineers on the team are exempt from documenting their Python code.",
-            "The training configuration is compute-optimal or strategically inference-optimized, with verified cluster FLOP capacity.",
-            "The cloud provider will provide free electricity to power the training data center."
+            "The training configuration is compute-optimal or strategically inference-optimized, with verified cluster FLOP capacity",
+            "The model will pass all legal patent examinations upon completion of the training run streams",
+            "All software engineers on the team are exempt from documenting their Python code",
+            "The cloud provider will provide free electricity to power the training data center"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Certification guarantees that parameter and token counts are mathematically justified, cluster capacity is adequate, and compute investments are strategically governed."
         }
       }
@@ -8173,13 +7993,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the per-GPU communication volume in Ring All-Reduce considered bandwidth-optimal?",
           "options": [
-            "Ring All-Reduce compresses all gradient tensors into 8-bit integer formats automatically.",
-            "Total data transferred per GPU is bounded by approximately 2 * S bytes, remaining constant regardless of how many GPUs join the cluster.",
+            "Ring All-Reduce compresses all gradient tensors into 8-bit integer formats automatically",
             "Ring All-Reduce requires no network cables because gradients are synchronized via wireless radio waves. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "It eliminates the backward pass entirely, reducing communication volume to zero bytes."
+            "It eliminates the backward pass entirely, reducing communication volume to zero bytes",
+            "Total data transferred per GPU is bounded by approximately 2 * S bytes, remaining constant regardless of how many GPUs join the cluster"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "In Ring All-Reduce, each GPU sends 2 * (N-1)/N * S bytes; as N increases, this approaches 2*S, meaning per-GPU bandwidth does not increase with cluster size."
         }
       },
@@ -8218,10 +8038,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to GPU training efficiency when gradient All-Reduce communication time exceeds backward computation time?",
           "options": [
-            "GPU tensor cores sit idle waiting for network transfers to complete, causing Model FLOPs Utilization (MFU) to plummet.",
-            "The PyTorch runtime automatically cancels the training job and deletes all model weights.",
-            "The operating system kernel converts all gradient tensors into uncompressed CSV text files. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "The physical temperature of the server chassis drops below freezing temperatures."
+            "GPU tensor cores sit idle waiting for network transfers to complete, causing Model FLOPs Utilization (MFU) to plummet",
+            "The PyTorch runtime automatically cancels the training job and deletes all model weights",
+            "The operating system kernel converts all gradient tensors into uncompressed CSV text files",
+            "The physical temperature of the server chassis drops below freezing temperatures"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8264,13 +8084,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does PyTorch DistributedDataParallel (DDP) bucket small gradient tensors into 25MB contiguous buffers before All-Reduce?",
           "options": [
-            "To amortize network link latency (alpha) across large payload transfers, avoiding the latency penalty of hundreds of small transfers.",
-            "Because modern GPU network cards cannot transmit packets smaller than twenty-five megabytes.",
-            "To allow the CPU operating system to inspect and censor gradient values for regulatory compliance. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Because floating-point numbers lose precision if they are transmitted in small memory chunks."
+            "Because modern GPU network cards cannot transmit packets smaller than twenty-five megabytes evaluated across model parameters during training",
+            "To amortize network link latency (alpha) across large payload transfers, avoiding the latency penalty of hundreds of small transfers",
+            "To allow the CPU operating system to inspect and censor gradient values for regulatory compliancehronization",
+            "Because floating-point numbers lose precision if they are transmitted in small memory chunks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Every transfer incurs a fixed link latency; bucketing small tensors into 25MB chunks ensures communication is bandwidth-bound rather than latency-bound."
         }
       },
@@ -8310,13 +8130,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational consequence of a single degraded network link in a Ring All-Reduce cluster?",
           "options": [
-            "The degraded node automatically disconnects and the remaining nodes continue training at full speed. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The training loss automatically diverges to positive infinity within three optimization steps.",
-            "The server chassis housing the degraded link will automatically shut down its power supply.",
-            "The entire cluster's communication speed slows down to match the bandwidth of the slowest degraded link."
+            "The degraded node automatically disconnects and the remaining nodes continue training at full speed workers",
+            "The training loss automatically diverges to positive infinity within three optimization steps",
+            "The entire cluster's communication speed slows down to match the bandwidth of the slowest degraded link",
+            "The server chassis housing the degraded link will automatically shut down its power supply"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Ring All-Reduce is sequential; every GPU must wait for its predecessor to pass data, meaning the slowest link throttles the entire ring."
         }
       },
@@ -8356,13 +8176,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful collective communication certification audit guarantee for a multi-node GPU cluster?",
           "options": [
-            "The cluster will automatically compile all PyTorch code into quantum computing assembly language.",
-            "All software engineers on the project are granted permanent root access to the data center routers. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Ring All-Reduce bandwidth math is verified, step latency is modeled, and network links operate at certified speeds without stragglers.",
-            "Network cables are physically immune to all forms of environmental electromagnetic interference."
+            "The cluster will automatically compile all PyTorch code into quantum computing assembly language",
+            "All software engineers on the project are granted permanent root access to the data center routers streams",
+            "Network cables are physically immune to all forms of environmental electromagnetic interference measured over sustained execution across the cluster",
+            "Ring All-Reduce bandwidth math is verified, step latency is modeled, and network links operate at certified speeds without stragglers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Certification guarantees that collective communication algorithms are calibrated, latency models are accurate, and physical network links operate at peak certified bandwidth."
         }
       }
@@ -8424,13 +8244,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Tree All-Reduce execute dramatically faster than Ring All-Reduce for small tensor payloads on large clusters?",
           "options": [
-            "Tree All-Reduce encrypts small tensors using hardware AES acceleration in network switches.",
-            "Tree All-Reduce executes in O(log2 N) communication steps compared to O(N) steps for Ring All-Reduce.",
-            "Tree All-Reduce deletes the gradient tensors after the first step to save memory.",
+            "Tree All-Reduce encrypts small tensors using hardware AES acceleration in network switches",
+            "Tree All-Reduce deletes the gradient tensors after the first step to save memory",
+            "Tree All-Reduce executes in O(log2 N) communication steps compared to O(N) steps for Ring All-Reduce",
             "Tree All-Reduce requires no network cables because it uses shared host CPU memory exclusively. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "On 1,024 nodes, Tree executes in 2 * log2(1024) = 20 steps, whereas Ring requires 2 * 1023 = 2,046 steps; for small tensors dominated by latency (alpha), Tree is ~100x faster."
         }
       },
@@ -8470,13 +8290,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural disadvantage of Tree All-Reduce when synchronizing very large gradient tensors?",
           "options": [
-            "Tree All-Reduce cannot execute on GPUs manufactured by NVIDIA or AMD.",
-            "The root node must transmit the entire tensor volume S rather than a 1/N chunk, creating a bandwidth bottleneck.",
-            "Tree All-Reduce requires floating-point tensors to be converted into integer strings. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "Tree All-Reduce introduces numerical NaN values into the backward gradient tensors."
+            "Tree All-Reduce cannot execute on GPUs manufactured by NVIDIA or AMD accumulated across local worker ranks before reduction",
+            "Tree All-Reduce requires floating-point tensors to be converted into integer strings",
+            "Tree All-Reduce introduces numerical NaN values into the backward gradient tensors",
+            "The root node must transmit the entire tensor volume S rather than a 1/N chunk, creating a bandwidth bottleneck"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "In Tree All-Reduce, tree root nodes must handle the full tensor volume S, whereas Ring nodes only handle (N-1)/N * S; for large tensors, this saturates root bandwidth."
         }
       },
@@ -8516,10 +8336,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the typical crossover threshold where NVIDIA NCCL switches from Tree All-Reduce to Ring All-Reduce?",
           "options": [
-            "Approximately 512 kilobytes (messages below 512KB use Tree; larger messages use Ring).",
-            "Approximately 10 gigabytes (only foundation model checkpoints use Ring All-Reduce).",
-            "Approximately 4 bytes (every non-scalar tensor uses Ring All-Reduce unconditionally). by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "The threshold is completely random and varies on every training iteration."
+            "Approximately 512 kilobytes (messages below 512KB use Tree; larger messages use Ring)",
+            "Approximately 10 gigabytes (only foundation model checkpoints use Ring All-Reduce)",
+            "Approximately 4 bytes (every non-scalar tensor uses Ring All-Reduce unconditionally)hronization",
+            "The threshold is completely random and varies on every training iteration"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8561,13 +8381,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Tree All-Reduce fall back to Ring All-Reduce on clusters with non-power-of-two node counts (e.g., 48 nodes)?",
           "options": [
-            "Non-power-of-two numbers cannot be represented in binary floating-point arithmetic.",
-            "Network routers refuse to transmit IP packets if the destination subnet mask is an odd number.",
-            "The PyTorch tensor allocator will throw a segmentation fault if cluster size is not a multiple of 64. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "Non-power-of-two node counts produce unbalanced binary trees, creating severe stragglers and synchronization delays."
+            "Non-power-of-two numbers cannot be represented in binary floating-point arithmetic evaluated across model parameters during training",
+            "Non-power-of-two node counts produce unbalanced binary trees, creating severe stragglers and synchronization delays",
+            "Network routers refuse to transmit IP packets if the destination subnet mask is an odd number",
+            "The PyTorch tensor allocator will throw a segmentation fault if cluster size is not a multiple of 64 workers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Binary trees require power-of-two nodes to be fully balanced; non-power-of-two counts create uneven tree depths, causing severe stragglers that eliminate Tree benefits."
         }
       },
@@ -8607,10 +8427,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful collective topology and algorithm routing certification guarantee for an enterprise GPU cluster?",
           "options": [
-            "The cluster will automatically compile all PyTorch code into quantum computing assembly language.",
-            "All software engineers on the project are granted permanent root access to the data center routers. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Small tensors use latency-optimal Tree algorithms, large tensors use bandwidth-optimal Ring algorithms, and topology balance is verified.",
-            "Network cables are physically immune to all forms of environmental electromagnetic interference."
+            "The cluster will automatically compile all PyTorch code into quantum computing assembly language",
+            "All software engineers on the project are granted permanent root access to the data center routers streams",
+            "Small tensors use latency-optimal Tree algorithms, large tensors use bandwidth-optimal Ring algorithms, and topology balance is verified",
+            "Network cables are physically immune to all forms of environmental electromagnetic interference accumulated across local worker ranks before reduction"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -8676,12 +8496,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural objective of the Milestone 7 distributed training planner?",
           "options": [
             "To permanently eliminate all software testing requirements across internal machine learning pipelines. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "To convert unencrypted network packets into encrypted TLS tunnels without certificate configuration.",
-            "To mathematically verify memory fit, compute scaling optimality, and collective communication efficiency before launching expensive training jobs.",
-            "To replace all relational databases with in-memory distributed key-value caches."
+            "To mathematically verify memory fit, compute scaling optimality, and collective communication efficiency before launching expensive training jobs",
+            "To convert unencrypted network packets into encrypted TLS tunnels without certificate configuration",
+            "To replace all relational databases with in-memory distributed key-value caches"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 7 integrates memory accounting, Chinchilla scaling, and collective communication math to mathematically guarantee training viability before allocating cluster resources."
         }
       },
@@ -8721,13 +8541,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the training planner engine calculate the estimated duration of a distributed training job?",
           "options": [
-            "By multiplying the number of Python source files by the average compilation time in seconds.",
-            "By dividing total required FLOPs (6ND) by total sustained cluster compute throughput (GPUs * effective TFLOPs/sec).",
-            "By dividing total dataset size in gigabytes by the download speed of the local office internet connection. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "By measuring the physical temperature of the server room cooling fans."
+            "By multiplying the number of Python source files by the average compilation time in seconds",
+            "By dividing total dataset size in gigabytes by the download speed of the local office internet connection",
+            "By dividing total required FLOPs (6ND) by total sustained cluster compute throughput (GPUs * effective TFLOPs/sec)",
+            "By measuring the physical temperature of the server room cooling fans: measured across host RAM buffers before device offloading"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Duration is computed directly from physics: total FLOPs divided by cluster FLOP throughput per second, converted into calendar days."
         }
       },
@@ -8767,13 +8587,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does increasing the local microbatch size reduce the relative communication overhead of distributed training?",
           "options": [
-            "Computation scales linearly with batch size while gradient All-Reduce communication volume remains fixed, diluting sync cost.",
-            "Larger batch sizes cause network switches to automatically increase physical fiber-optic laser power. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Increasing batch size eliminates the need for backward pass backpropagation calculations.",
-            "Larger batch sizes force all floating-point numbers to be stored as 8-bit integers."
+            "Larger batch sizes cause network switches to automatically increase physical fiber-optic laser powerhronization",
+            "Increasing batch size eliminates the need for backward pass backpropagation calculations",
+            "Larger batch sizes force all floating-point numbers to be stored as 8-bit integers accumulated across local worker ranks before reduction",
+            "Computation scales linearly with batch size while gradient All-Reduce communication volume remains fixed, diluting sync cost"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Gradient size is determined by model parameters, not batch size; larger batches perform more computation per All-Reduce, reducing the percentage of time spent communicating."
         }
       },
@@ -8813,13 +8633,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of an automated OOM pre-flight safety gate?",
           "options": [
-            "It automatically doubles physical GPU high-bandwidth memory capacity using virtual swap files.",
-            "It allows software developers to deploy untested Python scripts directly to production servers. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "It permanently eliminates the need for gradient synchronization across distributed workers.",
-            "It catches memory over-allocations before GPU jobs are scheduled, preventing costly runtime crashes and cluster lockups."
+            "It catches memory over-allocations before GPU jobs are scheduled, preventing costly runtime crashes and cluster lockups",
+            "It automatically doubles physical GPU high-bandwidth memory capacity using virtual swap files",
+            "It allows software developers to deploy untested Python scripts directly to production servers workers",
+            "It permanently eliminates the need for gradient synchronization across distributed workers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Pre-flight validation intercepts OOM configurations before execution begins, avoiding wasted cluster allocation time, node restarts, and developer frustration."
         }
       },
@@ -8859,13 +8679,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 7 certification audit guarantee for an enterprise distributed training platform?",
           "options": [
-            "The model will achieve human-level intelligence on common benchmark datasets within twenty-four hours. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "The organization can legally operate without maintaining offsite disaster recovery data backups.",
-            "All microservice database queries will execute in under ten microseconds unconditionally.",
-            "Memory budgets, compute scaling laws, and collective communication algorithms are mathematically validated for production runs."
+            "The model will achieve human-level intelligence on common benchmark datasets within twenty-four hours streams",
+            "Memory budgets, compute scaling laws, and collective communication algorithms are mathematically validated for production runs",
+            "The organization can legally operate without maintaining offsite disaster recovery data backups",
+            "All microservice database queries will execute in under ten microseconds unconditionally: measured across host RAM buffers before device offloading"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 7 certifies that cluster memory accounting, Chinchilla scaling, collective bandwidth modeling, and preflight safety gates are fully operational."
         }
       }
@@ -8927,13 +8747,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What memory components are partitioned across GPUs in ZeRO Stage 2?",
           "options": [
-            "Model parameters only; optimizer states and gradients remain fully replicated on every GPU.",
-            "Forward activation tensors only; all model weights and gradients remain on host CPU RAM.",
-            "Optimizer states (12 bytes) and parameter gradients (2 bytes) are sharded across all N GPUs.",
-            "Training dataset batches only; all model states remain stored on local NVMe solid-state drives."
+            "Optimizer states (12 bytes) and parameter gradients (2 bytes) are sharded across all N GPUs",
+            "Model parameters only; optimizer states and gradients remain fully replicated on every GPU",
+            "Forward activation tensors only; all model weights and gradients remain on host CPU RAM",
+            "Training dataset batches only; all model states remain stored on local NVMe solid-state drives"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "ZeRO-1 shards optimizer states; ZeRO-2 shards both optimizer states and gradients; ZeRO-3 shards optimizer states, gradients, and model parameters."
         }
       },
@@ -8972,10 +8792,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do engineers prefer ZeRO Stage 2 over ZeRO Stage 3 when model states fit within available GPU memory?",
           "options": [
-            "ZeRO-2 is written in pure C++ while ZeRO-3 requires an external Python interpreter.",
-            "ZeRO-2 introduces zero additional communication overhead compared to baseline DDP, whereas ZeRO-3 incurs 50% more communication.",
+            "ZeRO-2 is written in pure C++ while ZeRO-3 requires an external Python interpreter",
+            "ZeRO-2 introduces zero additional communication overhead compared to baseline DDP, whereas ZeRO-3 incurs 50% more communication",
             "ZeRO-2 automatically disables gradient norm clipping to accelerate floating-point convergence. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "ZeRO-3 is mathematically incompatible with transformer self-attention mechanisms."
+            "ZeRO-3 is mathematically incompatible with transformer self-attention mechanisms"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -9018,13 +8838,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does ZeRO Stage 3 require 3 * S communication volume compared to 2 * S in standard DDP?",
           "options": [
-            "It must All-Gather parameters before the forward pass, All-Gather them again before backward, and Reduce-Scatter gradients.",
-            "It transmits all training dataset text tokens across the network three separate times per step.",
-            "It runs three redundant copies of the AdamW optimizer to prevent floating-point calculation errors. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "It encrypts all network packets three times using nested cryptographic stream ciphers."
+            "It transmits all training dataset text tokens across the network three separate times per step",
+            "It runs three redundant copies of the AdamW optimizer to prevent floating-point calculation errors",
+            "It must All-Gather parameters before the forward pass, All-Gather them again before backward, and Reduce-Scatter gradients",
+            "It encrypts all network packets three times using nested cryptographic stream ciphers accumulated across local worker ranks before reduction"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Because parameters are sharded, ZeRO-3 must all-gather weights on forward (1S), all-gather weights on backward (1S), and reduce-scatter gradients (1S) = 3S total."
         }
       },
@@ -9063,13 +8883,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary risk of enabling ZeRO-Offload (CPU offloading) on systems with standard PCIe interconnects?",
           "options": [
-            "PCIe bandwidth (32 GB/s) is too slow to transfer weights and states quickly, severely throttling GPU tensor core utilization.",
-            "CPU memory cannot store 32-bit floating-point numbers without introducing roundoff errors.",
-            "Enabling CPU offloading permanently disables all multi-threading in the Linux operating system kernel. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Host CPU RAM will overheat and trigger an automated thermal shutdown of the motherboard."
+            "CPU memory cannot store 32-bit floating-point numbers without introducing roundoff errors",
+            "Enabling CPU offloading permanently disables all multi-threading in the Linux operating system kernelhronization",
+            "Host CPU RAM will overheat and trigger an automated thermal shutdown of the motherboard: measured across host RAM buffers before device offloading",
+            "PCIe bandwidth (32 GB/s) is too slow to transfer weights and states quickly, severely throttling GPU tensor core utilization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "PCIe bandwidth is over an order of magnitude slower than GPU HBM; offloading model states over PCIe introduces severe data transfer stalls that throttle compute."
         }
       },
@@ -9109,13 +8929,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful ZeRO memory sharding certification audit guarantee for an enterprise distributed training run?",
           "options": [
-            "The neural network model is guaranteed to win international AI competition benchmarks. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "All software engineers on the project are exempt from writing automated unit tests.",
-            "The cluster will automatically run on solar power without consuming grid electricity.",
-            "Model states are partitioned according to theoretical formulas, communication overhead is modeled, and hardware bandwidth is verified."
+            "Model states are partitioned according to theoretical formulas, communication overhead is modeled, and hardware bandwidth is verified",
+            "The neural network model is guaranteed to win international AI competition benchmarks workers",
+            "All software engineers on the project are exempt from writing automated unit tests",
+            "The cluster will automatically run on solar power without consuming grid electricity"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Certification guarantees that memory sharding formulas are accurate, communication multipliers are budgeted, and interconnect bandwidth satisfies hardware requirements."
         }
       }
@@ -9177,13 +8997,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does FSDP all-gather prefetching hide communication latency during the forward pass?",
           "options": [
-            "It replaces all floating-point numbers with static integer pointers stored on local disk.",
-            "It skips the forward pass calculation entirely and evaluates loss directly from input tokens.",
-            "A dedicated CUDA stream all-gathers layer N+1 parameters while the compute stream executes layer N computation concurrently.",
-            "It forces the GPU to operate at double its certified clock frequency during communication steps. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams"
+            "It replaces all floating-point numbers with static integer pointers stored on local disk accumulated across local worker ranks before reduction",
+            "It skips the forward pass calculation entirely and evaluates loss directly from input tokens",
+            "It forces the GPU to operate at double its certified clock frequency during communication steps streams",
+            "A dedicated CUDA stream all-gathers layer N+1 parameters while the compute stream executes layer N computation concurrently"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "By running communication on a separate CUDA stream concurrently with compute on the main stream, parameter transfer time is completely overlapped and hidden."
         }
       },
@@ -9222,13 +9042,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition is FSDP parameter communication completely hidden (zero exposed latency)?",
           "options": [
-            "When the model parameter count is an exact odd number of billions.",
-            "When layer computation time on the GPU is greater than or equal to the parameter all-gather communication time.",
-            "When all participating GPUs are manufactured by different hardware vendors.",
+            "When layer computation time on the GPU is greater than or equal to the parameter all-gather communication time",
+            "When the model parameter count is an exact odd number of billions",
+            "When all participating GPUs are manufactured by different hardware vendors",
             "When training is executed exclusively using 32-bit floating-point precision. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If the time spent computing on layer N is longer than the time spent all-gathering layer N+1 over the network, communication finishes before compute finishes, hiding all latency."
         }
       },
@@ -9268,10 +9088,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of FSDP Hybrid Sharding on large multi-node GPU clusters?",
           "options": [
-            "It automatically doubles physical GPU high-bandwidth memory capacity using virtual swap files. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "It confines high-frequency parameter all-gathers to fast intra-node NVLink, restricting inter-node traffic to gradient sync.",
-            "It eliminates the need for backward pass backpropagation calculations.",
-            "It forces all floating-point numbers to be stored as 8-bit integers."
+            "It automatically doubles physical GPU high-bandwidth memory capacity using virtual swap files",
+            "It confines high-frequency parameter all-gathers to fast intra-node NVLink, restricting inter-node traffic to gradient sync",
+            "It eliminates the need for backward pass backpropagation calculations",
+            "It forces all floating-point numbers to be stored as 8-bit integers accumulated across local worker ranks before reduction"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -9314,13 +9134,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it recommended to perform FSDP gradient reduction in Float32 even when parameters are in BFloat16?",
           "options": [
-            "Summing thousands of small gradient tensors in Float32 prevents numerical precision loss and underflow divergence.",
-            "Network interface cards cannot transmit BFloat16 numbers across optical fiber cables.",
-            "Float32 gradient reduction reduces the physical temperature of GPU tensor cores.",
-            "The PyTorch runtime automatically converts all Float32 tensors into uncompressed text strings. by bypassing hardware interconnect buffers and disabling collective communication synchronization"
+            "Network interface cards cannot transmit BFloat16 numbers across optical fiber cables",
+            "Float32 gradient reduction reduces the physical temperature of GPU tensor cores accumulated across local worker ranks before reduction",
+            "Summing thousands of small gradient tensors in Float32 prevents numerical precision loss and underflow divergence",
+            "The PyTorch runtime automatically converts all Float32 tensors into uncompressed text stringshronization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "BFloat16 has only 7 mantissa bits; summing thousands of gradients across distributed workers in BF16 causes catastrophic underflow, while FP32 reduction ensures numeric stability."
         }
       },
@@ -9360,10 +9180,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful FSDP sharding architecture certification guarantee for a multi-node GPU cluster?",
           "options": [
-            "The neural network model is guaranteed to achieve zero validation loss on all benchmarks.",
-            "All software developers on the project are granted permanent administrative access to cloud accounts. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The cluster will automatically run on geothermal energy without consuming municipal power.",
-            "CUDA stream prefetching is modeled, hybrid sharding optimizes network tiers, and numerical precision policies prevent NaN divergence."
+            "The neural network model is guaranteed to achieve zero validation loss on all benchmarks evaluated across model parameters during training",
+            "All software developers on the project are granted permanent administrative access to cloud accounts workers",
+            "The cluster will automatically run on geothermal energy without consuming municipal power",
+            "CUDA stream prefetching is modeled, hybrid sharding optimizes network tiers, and numerical precision policies prevent NaN divergence"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -9428,10 +9248,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many collective All-Reduce operations are required across a complete Megatron-LM MLP block?",
           "options": [
-            "4 All-Reduce operations: one before and after every single matrix multiplication.",
-            "Zero All-Reduce operations; tensor parallelism requires no inter-GPU synchronization. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Exactly 1 All-Reduce operation, executed at the end of the Row-Parallel layer to sum partial outputs.",
-            "16 All-Reduce operations, scaled quadratically with the tensor parallel degree."
+            "4 All-Reduce operations: one before and after every single matrix multiplication",
+            "Zero All-Reduce operations; tensor parallelism requires no inter-GPU synchronization streams",
+            "Exactly 1 All-Reduce operation, executed at the end of the Row-Parallel layer to sum partial outputs",
+            "16 All-Reduce operations, scaled quadratically with the tensor parallel degree evaluated across model parameters during training"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -9474,12 +9294,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the weight matrix shape on each GPU for a Row-Parallel linear layer with hidden=4096, intermediate=11008, and TP=8?",
           "options": [
             "(4096, 1376): the output dimension is divided by 8 while the input dimension remains 4096. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "(512, 1376): both input and output dimensions are divided by 8 simultaneously.",
-            "(1376, 4096): the input intermediate dimension 11008 is divided by 8, while the output hidden dimension remains 4096.",
-            "(4096, 11008): row-parallel layers do not shard weight matrices across GPUs."
+            "(512, 1376): both input and output dimensions are divided by 8 simultaneously",
+            "(4096, 11008): row-parallel layers do not shard weight matrices across GPUs",
+            "(1376, 4096): the input intermediate dimension 11008 is divided by 8, while the output hidden dimension remains 4096"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Row-parallel linear layers shard along the input dimension: intermediate_dim (11008) / 8 = 1376, yielding a local weight shape of (1376, 4096)."
         }
       },
@@ -9518,13 +9338,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the number of attention heads in a transformer model be evenly divisible by the Tensor Parallel degree?",
           "options": [
-            "Odd numbers of attention heads cause physical memory corruption on GPU high-bandwidth memory chips.",
-            "Attention heads cannot be split across GPUs; each GPU must host an integer number of complete attention heads.",
-            "Dividing attention heads unevenly causes the PyTorch compiler to disable CUDA tensor core acceleration. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "The number of attention heads must match the exact number of CPU cores on the host motherboard."
+            "Attention heads cannot be split across GPUs; each GPU must host an integer number of complete attention heads",
+            "Odd numbers of attention heads cause physical memory corruption on GPU high-bandwidth memory chips",
+            "Dividing attention heads unevenly causes the PyTorch compiler to disable CUDA tensor core acceleration",
+            "The number of attention heads must match the exact number of CPU cores on the host motherboard"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Attention heads perform independent self-attention; they cannot be fractionally divided across GPUs, requiring total heads to be evenly divisible by the TP degree."
         }
       },
@@ -9564,13 +9384,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must Tensor Parallelism (TP) strictly be confined within a single physical server node (TP <= 8)?",
           "options": [
-            "TP synchronizes on every layer; crossing inter-node networks introduces severe latency that degrades compute efficiency by >60%.",
-            "Linux operating systems forbid inter-node network communication between processes with the same user ID. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Tensor parallelism requires optical lasers that cannot transmit signals through copper ethernet cables.",
-            "GPUs on different physical nodes cannot multiply matrices that share the same floating-point precision."
+            "Linux operating systems forbid inter-node network communication between processes with the same user IDhronization",
+            "TP synchronizes on every layer; crossing inter-node networks introduces severe latency that degrades compute efficiency by >60%",
+            "Tensor parallelism requires optical lasers that cannot transmit signals through copper ethernet cables evaluated across model parameters during training",
+            "GPUs on different physical nodes cannot multiply matrices that share the same floating-point precision"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "TP communicates twice per transformer layer; the microsecond latency and 900 GB/s bandwidth of NVLink is required to prevent extreme communication stalls."
         }
       },
@@ -9610,13 +9430,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Megatron-LM tensor parallelism certification guarantee for a foundation model training job?",
           "options": [
-            "The neural network model is guaranteed to achieve zero validation loss on all benchmarks.",
-            "All software developers on the project are granted permanent administrative access to cloud accounts. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The cluster will automatically run on geothermal energy without consuming municipal power.",
-            "Weight matrices are correctly sharded, attention heads are evenly divisible, and TP communication is confined to intra-node NVLink."
+            "The neural network model is guaranteed to achieve zero validation loss on all benchmarks accumulated across local worker ranks before reduction",
+            "All software developers on the project are granted permanent administrative access to cloud accounts workers",
+            "Weight matrices are correctly sharded, attention heads are evenly divisible, and TP communication is confined to intra-node NVLink",
+            "The cluster will automatically run on geothermal energy without consuming municipal power"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Certification guarantees that column/row sharding is mathematically sound, attention heads divide evenly, and TP is confined to ultra-fast intra-node NVLink."
         }
       }
@@ -9678,13 +9498,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary memory optimization achieved by Megatron-LM Sequence Parallelism?",
           "options": [
-            "It converts transformer attention weights from 16-bit floating point into 1-bit integers. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "It moves optimizer states from GPU High Bandwidth Memory to remote hard drives over NFS.",
-            "It reduces training dataset sequence length by dropping fifty percent of all tokens.",
-            "It shards LayerNorm and Dropout activations along the sequence dimension across TP ranks, eliminating redundant duplicate activations."
+            "It converts transformer attention weights from 16-bit floating point into 1-bit integers streams",
+            "It shards LayerNorm and Dropout activations along the sequence dimension across TP ranks, eliminating redundant duplicate activations",
+            "It moves optimizer states from GPU High Bandwidth Memory to remote hard drives over NFS",
+            "It reduces training dataset sequence length by dropping fifty percent of all tokens evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Sequence Parallelism shards LayerNorm and Dropout activations along the sequence dimension across TP ranks, eliminating duplicate activation copies without adding net communication."
         }
       },
@@ -9725,10 +9545,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Sequence Parallelism replace the standard All-Reduce communication in Megatron-LM?",
           "options": [
-            "It completely disables all communication collectives between GPUs.",
+            "It completely disables all communication collectives between GPUs",
             "It replaces NCCL network calls with point-to-point socket messaging over public WiFi. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "It splits the All-Reduce into a Reduce-Scatter after RowParallel and an All-Gather before ColumnParallel.",
-            "It uses asynchronous parameter servers that update weights every ten epochs."
+            "It splits the All-Reduce into a Reduce-Scatter after RowParallel and an All-Gather before ColumnParallel",
+            "It uses asynchronous parameter servers that update weights every ten epochs"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -9772,13 +9592,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "On an 8-GPU Tensor Parallel setup, what percentage of LayerNorm activation memory does Sequence Parallelism save?",
           "options": [
-            "12.5% reduction across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "87.5% reduction (1 - 1/8)",
+            "12.5% reduction",
             "50.0% reduction",
-            "0% reduction"
+            "0% reduction evaluated across model parameters during training",
+            "87.5% reduction (1 - 1/8)"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because each GPU retains only 1/TP of the sequence activations, on TP 8 it retains 1/8 (12.5%) and saves 87.5%."
         }
       },
@@ -9819,10 +9639,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if sequence length is not evenly divisible by the Tensor Parallel size in Sequence Parallelism?",
           "options": [
-            "Collective communication kernels crash due to uneven tensor slice dimensions across ranks.",
-            "The model automatically generates synthetic tokens to fill the difference silently. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "The GPU clock frequency drops to zero to prevent hardware overheating.",
-            "Training continues with 100% accuracy but logs a minor warning."
+            "Collective communication kernels crash due to uneven tensor slice dimensions across ranks",
+            "The model automatically generates synthetic tokens to fill the difference silentlyhronization",
+            "The GPU clock frequency drops to zero to prevent hardware overheating",
+            "Training continues with 100% accuracy but logs a minor warning"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9866,13 +9686,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do advanced training runtimes eliminate the runtime overhead of Sequence Parallel collectives?",
           "options": [
-            "By overlapping Reduce-Scatter and All-Gather collectives with GEMM matrix multiplications using separate CUDA streams.",
-            "By omitting backward gradient calculations for all sequence-sharded layers. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "By disabling NVLink interconnects and sending tensors through system RAM.",
-            "By running the training loop sequentially on a single CPU core."
+            "By omitting backward gradient calculations for all sequence-sharded layers workers",
+            "By overlapping Reduce-Scatter and All-Gather collectives with GEMM matrix multiplications using separate CUDA streams",
+            "By disabling NVLink interconnects and sending tensors through system RAM",
+            "By running the training loop sequentially on a single CPU core evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Asynchronous CUDA streams allow communication collectives to execute concurrently with matrix multiplication kernels."
         }
       }
@@ -9934,13 +9754,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Tensor Parallelism strictly confined within a single 8-GPU server node in 3D Parallelism?",
           "options": [
-            "GPUs on different server nodes are legally forbidden from sharing tensor weights.",
-            "PyTorch only supports Tensor Parallelism on single-socket motherboard architectures. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Inter-node network cables cannot transmit 16-bit floating point numbers.",
-            "TP requires extremely high All-Reduce bandwidth (900 GB/s NVLink) that inter-node InfiniBand networks cannot sustain."
+            "TP requires extremely high All-Reduce bandwidth (900 GB/s NVLink) that inter-node InfiniBand networks cannot sustain",
+            "GPUs on different server nodes are legally forbidden from sharing tensor weights",
+            "PyTorch only supports Tensor Parallelism on single-socket motherboard architectures streams",
+            "Inter-node network cables cannot transmit 16-bit floating point numbers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "TP performs All-Reduce collectives after every transformer linear layer, requiring intra-node NVLink bandwidth to avoid severe network bottlenecks."
         }
       },
@@ -9982,12 +9802,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In a 3D parallelism setup on 64 GPUs for a 70B model with TP=8 and PP=4, what is the resulting DP size?",
           "options": [
             "DP = 8",
-            "DP = 16 across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
             "DP = 2 (64 / (8 * 4))",
+            "DP = 16 across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
             "DP = 4"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Total GPUs = DP * TP * PP. With 64 GPUs, TP=8 and PP=4, DP = 64 / (8 * 4) = 64 / 32 = 2."
         }
       },
@@ -10028,13 +9848,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How are AdamW optimizer states sharded across the cluster in a 3D mesh with ZeRO-1 enabled?",
           "options": [
-            "They are stored in duplicate on every GPU in the cluster.",
-            "They are sharded across all three dimensions: TP, PP, and DP.",
-            "They are discarded after every forward pass and recomputed from scratch.",
-            "They are sent to an external Redis server over HTTP."
+            "They are stored in duplicate on every GPU in the cluster",
+            "They are discarded after every forward pass and recomputed from scratch",
+            "They are sharded across all three dimensions: TP, PP, and DP",
+            "They are sent to an external Redis server over HTTP"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Under ZeRO-1 combined with 3D parallelism, optimizer states are partitioned across the entire process mesh (TP * PP * DP)."
         }
       },
@@ -10075,13 +9895,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the 3D validation guardrail reject a configuration with TP=16 on standard 8-GPU servers?",
           "options": [
-            "Because PyTorch only allows prime numbers for Tensor Parallelism sizes.",
-            "Because TP=16 crosses physical server boundaries, bottlenecking All-Reduce operations on slower inter-node networks.",
-            "Because 16 is an unlucky number in computer hardware engineering.",
-            "Because 16 GPUs consume more electricity than a standard power grid allows. across distributed GPU cluster nodes during high-throughput foundation model training operations"
+            "Because PyTorch only allows prime numbers for Tensor Parallelism sizes",
+            "Because 16 is an unlucky number in computer hardware engineering evaluated across model parameters during training",
+            "Because 16 GPUs consume more electricity than a standard power grid allows",
+            "Because TP=16 crosses physical server boundaries, bottlenecking All-Reduce operations on slower inter-node networks"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Standard GPU servers contain 8 GPUs connected via NVLink; setting TP > 8 forces All-Reduce collectives across inter-node InfiniBand, destroying throughput."
         }
       },
@@ -10122,10 +9942,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 8 3D parallelism certification audit confirm?",
           "options": [
-            "That the 3D process mesh, rank mapping, memory footprint, and collective latencies are fully verified for production training.",
-            "That the model will achieve 100% test accuracy on the first epoch of training.",
-            "That all GPUs in the data center have been overclocked beyond manufacturer limits.",
-            "That the model architecture has been converted into a convolutional neural network. by bypassing hardware interconnect buffers and disabling collective communication synchronization"
+            "That the 3D process mesh, rank mapping, memory footprint, and collective latencies are fully verified for production training",
+            "That the model will achieve 100% test accuracy on the first epoch of training",
+            "That all GPUs in the data center have been overclocked beyond manufacturer limits",
+            "That the model architecture has been converted into a convolutional neural networkhronization"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10190,7 +10010,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the formula for the pipeline bubble fraction in a pipeline with P stages and M micro-batches?",
           "options": [
-            "Bubble fraction = P * M / (P + M) across high-bandwidth memory allocation pools and background asynchronous serialization workers",
+            "Bubble fraction = P * M / (P + M) workers",
             "Bubble fraction = (P + 1) / M",
             "Bubble fraction = M / (P - 1)",
             "Bubble fraction = (P - 1) / (M + P - 1)"
@@ -10237,13 +10057,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the 1F1B schedule require significantly less activation memory than GPipe?",
           "options": [
-            "Because 1F1B discards all gradients and skips backpropagation entirely. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Because 1F1B compresses activation tensors with lossy JPEG encoding.",
-            "Because 1F1B alternates forward and backward passes in steady state, capping peak activation buffers to P stages.",
-            "Because 1F1B runs only on GPUs with more than 500 GB of memory."
+            "Because 1F1B alternates forward and backward passes in steady state, capping peak activation buffers to P stages",
+            "Because 1F1B discards all gradients and skips backpropagation entirely streams",
+            "Because 1F1B compresses activation tensors with lossy JPEG encoding",
+            "Because 1F1B runs only on GPUs with more than 500 GB of memory"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "1F1B caps activation buffers to P stages because each backward pass frees an activation buffer before the next forward pass is executed."
         }
       },
@@ -10284,13 +10104,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary tradeoff when increasing the number of micro-batches M to reduce the pipeline bubble?",
           "options": [
-            "The model parameters become permanently corrupted by excessive micro-batching.",
+            "The model parameters become permanently corrupted by excessive micro-batching",
+            "Per-microbatch batch size becomes smaller, which can reduce GPU Tensor Core compute efficiency if batch size is too low",
             "InfiniBand network cables overheat due to excessive micro-batch metadata packets. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Per-microbatch batch size becomes smaller, which can reduce GPU Tensor Core compute efficiency if batch size is too low.",
-            "The learning rate must be multiplied by the square of micro-batch count."
+            "The learning rate must be multiplied by the square of micro-batch count"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Smaller micro-batch sizes can reduce matrix multiplication dimensions below the hardware saturation threshold of Tensor Cores."
         }
       },
@@ -10331,13 +10151,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a pipeline configuration with microbatches M < stages P invalid?",
           "options": [
-            "Because PyTorch cannot allocate arrays with length less than eight.",
-            "Because there are not enough microbatches to complete the warmup phase and reach steady state across all stages.",
-            "Because pipeline stages require at least one gigabyte of memory per microbatch.",
-            "Because downstream stages will automatically shut down if idle for more than one millisecond. across distributed GPU cluster nodes during high-throughput foundation model training operations"
+            "Because PyTorch cannot allocate arrays with length less than eight evaluated across model parameters during training",
+            "Because pipeline stages require at least one gigabyte of memory per microbatch",
+            "Because there are not enough microbatches to complete the warmup phase and reach steady state across all stages",
+            "Because downstream stages will automatically shut down if idle for more than one millisecond"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "If M < P, upstream stages will drain before downstream stages even begin processing, causing massive pipeline stall and deadlock."
         }
       },
@@ -10378,13 +10198,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a significant discrepancy between measured and theoretical pipeline bubble fractions typically indicate?",
           "options": [
-            "Stage imbalance, where layers are unevenly partitioned across pipeline stages causing some GPUs to wait for slower stages.",
-            "That the model has finished training ahead of schedule.",
-            "That the cluster has run out of physical disk space.",
-            "That floating-point arithmetic is experiencing roundoff error. by bypassing hardware interconnect buffers and disabling collective communication synchronization"
+            "That the model has finished training ahead of schedule",
+            "That the cluster has run out of physical disk space evaluated across model parameters during training",
+            "That floating-point arithmetic is experiencing roundoff errorhronization",
+            "Stage imbalance, where layers are unevenly partitioned across pipeline stages causing some GPUs to wait for slower stages"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Stage imbalance occurs when some pipeline stages execute heavier layers (e.g. embedding or vocabulary projection), creating bottlenecks."
         }
       }
@@ -10446,13 +10266,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "By what factor does the Interleaved 1F1B schedule reduce the pipeline bubble fraction when using virtual stage factor v?",
           "options": [
-            "The bubble fraction increases by a factor of v squared.",
-            "The bubble fraction is completely eliminated to exactly 0.00%. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The bubble fraction is multiplied by the number of CPU cores.",
-            "The bubble fraction is reduced by a factor of v: (P - 1) / (v * M)"
+            "The bubble fraction increases by a factor of v squared",
+            "The bubble fraction is completely eliminated to exactly 0.00% workers",
+            "The bubble fraction is reduced by a factor of v: (P - 1) / (v * M)",
+            "The bubble fraction is multiplied by the number of CPU cores"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Interleaved 1F1B reduces the pipeline bubble fraction by 1/v because idle warmup and cooldown periods are divided among v smaller chunks."
         }
       },
@@ -10493,8 +10313,8 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an Interleaved 1F1B setup with 8 physical GPUs and virtual stage factor v=2 on a 64-layer model, how many layers are in each chunk?",
           "options": [
-            "8 layers per chunk",
-            "16 layers per chunk through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
+            "8 layers per chunk evaluated across model parameters during training",
+            "16 layers per chunk streams",
             "2 layers per chunk",
             "4 layers per chunk (64 / (8 * 2))"
           ],
@@ -10540,13 +10360,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary trade-off when increasing the virtual stage factor v in Interleaved 1F1B?",
           "options": [
-            "The model parameters are automatically deleted from disk.",
+            "The pipeline bubble fraction decreases, but peer-to-peer communication volume between GPUs increases by a factor of v",
+            "The model parameters are automatically deleted from disk",
             "GPU core temperatures decrease while power consumption triples. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "The pipeline bubble fraction decreases, but peer-to-peer communication volume between GPUs increases by a factor of v.",
-            "The training batch size must be reduced to zero."
+            "The training batch size must be reduced to zero"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Interleaved 1F1B trades increased peer-to-peer communication frequency (v times more transfers) for a reduced idle bubble fraction."
         }
       },
@@ -10587,10 +10407,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an 80-layer model invalid with 8 pipeline stages and virtual stage factor v = 3?",
           "options": [
-            "Because PyTorch cannot support more than 2 virtual stages under any circumstances. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "Because 80 is not evenly divisible by 24 (8 * 3), causing uneven layer distribution across virtual chunks.",
-            "Because 80 layers exceeds the maximum transformer depth supported by modern GPUs.",
-            "Because odd virtual stage factors are mathematically impossible."
+            "Because PyTorch cannot support more than 2 virtual stages under any circumstances",
+            "Because 80 is not evenly divisible by 24 (8 * 3), causing uneven layer distribution across virtual chunks",
+            "Because 80 layers exceeds the maximum transformer depth supported by modern GPUs",
+            "Because odd virtual stage factors are mathematically impossible evaluated across model parameters during training"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -10634,13 +10454,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Interleaved 1F1B production telemetry audit certify?",
           "options": [
-            "That the interleaved virtual schedule achieves a sub-5% bubble fraction with bounded activation memory and optimal P2P link efficiency.",
-            "That the training job has completed without executing any forward passes. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That all physical GPUs have been converted to virtual cloud instances.",
-            "That the model has been deployed to an edge mobile device."
+            "That the training job has completed without executing any forward passeshronization",
+            "That all physical GPUs have been converted to virtual cloud instances",
+            "That the interleaved virtual schedule achieves a sub-5% bubble fraction with bounded activation memory and optimal P2P link efficiency",
+            "That the model has been deployed to an edge mobile device: measured across host RAM buffers before device offloading"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Interleaved 1F1B certification verifies sub-5% bubble fractions, bounded activation memory, and optimal P2P link efficiency in production."
         }
       }
@@ -10702,13 +10522,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Ring Attention prevent GPU out-of-memory errors when processing ultra-long sequences like 128k tokens?",
           "options": [
-            "It shards the sequence across GPUs and circulates Key-Value blocks in a ring, computing attention block-by-block with local Query slices.",
-            "It replaces all text tokens with random noise vectors to reduce file size. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "It truncates all sequences to 512 tokens after the first training step.",
-            "It runs attention entirely on host CPU memory over PCI Express."
+            "It replaces all text tokens with random noise vectors to reduce file size workers",
+            "It shards the sequence across GPUs and circulates Key-Value blocks in a ring, computing attention block-by-block with local Query slices",
+            "It truncates all sequences to 512 tokens after the first training step",
+            "It runs attention entirely on host CPU memory over PCI Express evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Ring Attention shards the sequence across GPUs and circulates KV blocks in a ring, overlapping communication with block attention computation."
         }
       },
@@ -10749,13 +10569,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is transmitted between GPUs during each step of the Ring Attention algorithm?",
           "options": [
-            "The entire model parameter weight matrix.",
-            "AdamW optimizer second-moment momentum vectors. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Operating system process identifiers.",
-            "Key and Value activation blocks corresponding to a sequence chunk."
+            "The entire model parameter weight matrix",
+            "AdamW optimizer second-moment momentum vectors streams",
+            "Key and Value activation blocks corresponding to a sequence chunk",
+            "Operating system process identifiers evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Ring Attention holds Query blocks stationary on each GPU while circulating Key and Value tensor blocks around the ring."
         }
       },
@@ -10796,13 +10616,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Ring Attention achieve near 100% communication overlap efficiency during long-sequence training?",
           "options": [
-            "Because communication is completely eliminated by quantum entanglement.",
+            "Because communication is completely eliminated by quantum entanglement",
             "Because attention weights are set to constant values that require no transmission. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Because the computation of local block attention on Tensor Cores takes longer than transmitting KV blocks over high-speed links.",
-            "Because GPUs skip all backward passes when Context Parallelism is enabled."
+            "Because GPUs skip all backward passes when Context Parallelism is enabled",
+            "Because the computation of local block attention on Tensor Cores takes longer than transmitting KV blocks over high-speed links"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Compute-to-communication overlap succeeds because local block matrix multiplication takes longer than asynchronous peer-to-peer KV block transfer."
         }
       },
@@ -10843,13 +10663,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary requirement for sequence length when configuring Context Parallelism?",
           "options": [
-            "The sequence length must be an odd prime number.",
-            "The sequence length must be an exact integer multiple of the Context Parallel size.",
-            "The sequence length must be less than 1,024 tokens.",
-            "The sequence length must be divisible by the CPU clock speed in Gigahertz. across distributed GPU cluster nodes during high-throughput foundation model training operations"
+            "The sequence length must be an exact integer multiple of the Context Parallel size",
+            "The sequence length must be an odd prime number",
+            "The sequence length must be less than 1,024 tokens",
+            "The sequence length must be divisible by the CPU clock speed in Gigahertz"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The sequence length must be evenly divisible by CP size to ensure that all GPUs receive equal token chunk lengths."
         }
       },
@@ -10890,10 +10710,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Ring Attention telemetry audit verify for an enterprise training cluster?",
           "options": [
-            "That all GPUs have been formatted and reinstalled with consumer operating systems. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That peer-to-peer ring communication achieves over 99% overlap with computation and context scaling is certified.",
-            "That sequence length has been permanently restricted to 512 tokens.",
-            "That the training model has converged to zero loss."
+            "That all GPUs have been formatted and reinstalled with consumer operating systemshronization",
+            "That peer-to-peer ring communication achieves over 99% overlap with computation and context scaling is certified",
+            "That sequence length has been permanently restricted to 512 tokens",
+            "That the training model has converged to zero loss evaluated across model parameters during training"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -10958,10 +10778,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Selective Activation Checkpointing preferred over Full Activation Checkpointing in modern LLM training?",
           "options": [
-            "It recomputes only compute-light memory-heavy operations, achieving 70% memory savings with less than 5% FLOP overhead.",
-            "It completely disables backpropagation and optimizes weights with genetic algorithms. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "It converts floating point calculations into analog electrical signals.",
-            "It saves 100% of memory by never computing forward passes."
+            "It recomputes only compute-light memory-heavy operations, achieving 70% memory savings with less than 5% FLOP overhead",
+            "It completely disables backpropagation and optimizes weights with genetic algorithms workers",
+            "It converts floating point calculations into analog electrical signals",
+            "It saves 100% of memory by never computing forward passes"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11005,13 +10825,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to discarded activation tensors during the backward pass under activation checkpointing?",
           "options": [
-            "They are retrieved from a secondary cloud storage bucket over HTTP.",
-            "They are approximated using linear interpolation from previous batches. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "They are replaced with constant zero tensors.",
-            "They are recomputed on-the-fly just before their gradients are calculated, then immediately deallocated."
+            "They are retrieved from a secondary cloud storage bucket over HTTP",
+            "They are recomputed on-the-fly just before their gradients are calculated, then immediately deallocated",
+            "They are approximated using linear interpolation from previous batches streams",
+            "They are replaced with constant zero tensors accumulated across local worker ranks before reduction"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Checkpointing deallocates activations during the forward pass and recomputes them on-the-fly during the backward pass."
         }
       },
@@ -11103,13 +10923,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should Selective Activation Checkpointing be dynamically triggered by memory guardrails?",
           "options": [
-            "Only when GPU temperatures drop below zero degrees Celsius. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "Whenever training loss drops below 0.01.",
-            "Whenever projected peak activation memory exceeds physical GPU High Bandwidth Memory capacity.",
-            "Only on weekends when electricity prices are low."
+            "Only when GPU temperatures drop below zero degrees Celsius",
+            "Whenever training loss drops below 0.01: measured across host RAM buffers before device offloading",
+            "Only on weekends when electricity prices are low",
+            "Whenever projected peak activation memory exceeds physical GPU High Bandwidth Memory capacity"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Checkpointing is triggered when memory requirements exceed physical HBM limits, preventing fatal Out-Of-Memory crashes."
         }
       },
@@ -11150,13 +10970,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful activation checkpointing telemetry audit confirm?",
           "options": [
-            "That all model weights have been erased to free disk space.",
-            "That selective checkpointing maintains HBM within safe limits while recompute overhead remains below 4%.",
-            "That training has switched to single-threaded CPU execution. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That the learning rate has been increased by 100x."
+            "That selective checkpointing maintains HBM within safe limits while recompute overhead remains below 4%",
+            "That all model weights have been erased to free disk space",
+            "That training has switched to single-threaded CPU executionhronization",
+            "That the learning rate has been increased by 100x"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The audit confirms that selective checkpointing keeps HBM within safe operating limits with less than 4% recomputation overhead."
         }
       }
@@ -11218,13 +11038,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Milestone 9 hybrid architecture map parallel dimensions to physical cluster interconnects?",
           "options": [
-            "Intra-node NVLink handles TP and SP, while inter-node InfiniBand handles CP Ring and PP 1F1B.",
-            "All communication is routed exclusively through USB 2.0 cables.",
-            "TP spans across different data centers over public fiber cables. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "Data Parallelism runs entirely within a single GPU."
+            "All communication is routed exclusively through USB 2.0 cables",
+            "TP spans across different data centers over public fiber cables workers",
+            "Data Parallelism runs entirely within a single GPU evaluated across model parameters during training",
+            "Intra-node NVLink handles TP and SP, while inter-node InfiniBand handles CP Ring and PP 1F1B"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "High-frequency TP/SP collectives require intra-node NVLink bandwidth, while CP Ring and PP point-to-point transfers tolerate inter-node InfiniBand latency."
         }
       },
@@ -11265,13 +11085,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a 64-GPU cluster configured for 128k sequence length with TP=8 and CP=8, what is the local sequence length per GPU?",
           "options": [
+            "2,048 tokens per GPU (131,072 / (8 * 8))",
             "16,384 tokens per GPU",
             "64 tokens per GPU",
-            "128,000 tokens per GPU through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "2,048 tokens per GPU (131,072 / (8 * 8))"
+            "128,000 tokens per GPU streams"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The global sequence of 131,072 tokens is sharded across TP and CP ranks: 131,072 / (8 * 8) = 2,048 tokens per GPU."
         }
       },
@@ -11312,13 +11132,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a 70B model with 128k context fit on an 80GB GPU under the Milestone 9 hybrid configuration?",
           "options": [
-            "Because the model is compressed into an 8-bit ZIP file before training.",
-            "Because all intermediate calculations are performed in single-precision FP32.",
-            "Because context length is truncated to 512 tokens during backward propagation. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Because weights and optimizer states are sharded across TP and PP, while activations are sharded across CP and compressed with selective checkpointing."
+            "Because the model is compressed into an 8-bit ZIP file before training",
+            "Because weights and optimizer states are sharded across TP and PP, while activations are sharded across CP and compressed with selective checkpointing",
+            "Because all intermediate calculations are performed in single-precision FP32",
+            "Because context length is truncated to 512 tokens during backward propagation. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Combining TP, PP, CP, and selective checkpointing partitions weights, optimizer states, and activations across the entire cluster."
         }
       },
@@ -11358,10 +11178,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the preflight validator reject a hybrid configuration with TP=16?",
           "options": [
-            "Because 16 is an invalid number in distributed computing. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "Because PyTorch cannot run on more than 8 GPUs.",
-            "Because TP=16 exceeds single-node 8-GPU NVLink domain limits, severely degrading All-Reduce performance over InfiniBand.",
-            "Because TP requires exactly 3 GPUs."
+            "Because 16 is an invalid number in distributed computing",
+            "Because PyTorch cannot run on more than 8 GPUs",
+            "Because TP=16 exceeds single-node 8-GPU NVLink domain limits, severely degrading All-Reduce performance over InfiniBand",
+            "Because TP requires exactly 3 GPUs evaluated across model parameters during training"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -11404,13 +11224,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 9 certification audit confirm for an enterprise training cluster?",
           "options": [
-            "That the model has finished all training epochs and is ready for retirement.",
-            "That the hybrid TP+CP+PP+DP mesh achieves 128k context processing with <2.5ms ring latency and sub-7% pipeline bubble.",
-            "That all GPUs in the cluster have been converted into Bitcoin mining rigs.",
-            "That the model architecture has been converted into a recurrent neural network. by bypassing hardware interconnect buffers and disabling collective communication synchronization"
+            "That the model has finished all training epochs and is ready for retirement",
+            "That all GPUs in the cluster have been converted into Bitcoin mining rigs evaluated across model parameters during training",
+            "That the model architecture has been converted into a recurrent neural networkhronization",
+            "That the hybrid TP+CP+PP+DP mesh achieves 128k context processing with <2.5ms ring latency and sub-7% pipeline bubble"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Milestone 9 certification verifies that the hybrid multi-parallel mesh achieves 128k context processing with low latency and minimal pipeline idle bubble."
         }
       }
@@ -11472,13 +11292,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Bfloat16 (BF16) avoid the gradient underflow problems that plague standard FP16 training?",
           "options": [
-            "BF16 uses 8 exponent bits, matching the dynamic range of FP32 and preventing small gradients from rounding to zero.",
-            "BF16 stores numbers as exact rational fractions instead of floating point.",
-            "BF16 automatically triples the learning rate whenever gradients become small. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "BF16 uses 64 bits of storage per parameter."
+            "BF16 stores numbers as exact rational fractions instead of floating point",
+            "BF16 automatically triples the learning rate whenever gradients become small workers",
+            "BF16 uses 8 exponent bits, matching the dynamic range of FP32 and preventing small gradients from rounding to zero",
+            "BF16 uses 64 bits of storage per parameter accumulated across local worker ranks before reduction"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "BF16 allocates 8 bits to the exponent (identical to FP32), allowing it to represent tiny numbers down to 1e-38 without underflowing."
         }
       },
@@ -11519,13 +11339,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action does a Dynamic Loss Scaler take when an Inf or NaN is detected in the gradient buffer?",
           "options": [
-            "It skips the optimizer update step and halves the loss scale factor.",
-            "It ignores the NaN and applies the corrupted update anyway.",
-            "It terminates the Python process and deletes all checkpoint files. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "It doubles the loss scale factor immediately."
+            "It ignores the NaN and applies the corrupted update anyway",
+            "It terminates the Python process and deletes all checkpoint files streams",
+            "It doubles the loss scale factor immediately",
+            "It skips the optimizer update step and halves the loss scale factor"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When an overflow is detected, the optimizer step is skipped to protect weights from corruption, and the loss scale is halved."
         }
       },
@@ -11566,13 +11386,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are master weights and AdamW optimizer states stored in FP32 during mixed precision training?",
           "options": [
-            "Because GPUs cannot store integer numbers in memory.",
+            "To preserve small gradient updates across thousands of iterations without losing precision due to floating-point truncation",
+            "Because GPUs cannot store integer numbers in memory",
             "Because modern operating systems require all memory to be allocated in 32-bit words. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Because FP16 optimizer states cause the GPU fan to run at maximum speed.",
-            "To preserve small gradient updates across thousands of iterations without losing precision due to floating-point truncation."
+            "Because FP16 optimizer states cause the GPU fan to run at maximum speed"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Master weights and optimizer states must remain in FP32 to accurately accumulate small gradient updates over millions of steps."
         }
       },
@@ -11611,13 +11431,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical risk if non-finite gradients (NaN or Inf) are applied to model weights during training?",
           "options": [
-            "They cause the training dataset to be deleted from disk.",
-            "They convert the transformer attention layers into convolutional filters. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "They permanently corrupt weight matrices, causing loss divergence that ruins the entire training run.",
-            "They reduce the GPU clock speed by fifty percent."
+            "They cause the training dataset to be deleted from disk",
+            "They permanently corrupt weight matrices, causing loss divergence that ruins the entire training run",
+            "They convert the transformer attention layers into convolutional filters",
+            "They reduce the GPU clock speed by fifty percent accumulated across local worker ranks before reduction"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Applying NaN or Inf gradients propagates through weight matrices, permanently corrupting model weights and causing loss to diverge to infinity."
         }
       },
@@ -11655,13 +11475,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Mixed Precision production telemetry audit verify?",
           "options": [
-            "That the model has finished all training without utilizing any GPU memory. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That BF16 mixed precision achieves 0.00% NaN/Inf steps with bounded gradient norms and rock-solid numerical stability.",
-            "That all weights have been converted to 8-bit integers.",
-            "That training speed has increased by 1000x."
+            "That the model has finished all training without utilizing any GPU memoryhronization",
+            "That all weights have been converted to 8-bit integers",
+            "That BF16 mixed precision achieves 0.00% NaN/Inf steps with bounded gradient norms and rock-solid numerical stability",
+            "That training speed has increased by 1000x accumulated across local worker ranks before reduction"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The telemetry audit verifies that BF16 mixed precision achieves 0.00% NaN/Inf occurrences with bounded gradient norms and verified stability."
         }
       }
@@ -11723,10 +11543,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the standard hybrid FP8 training recipe use E4M3 for forward passes and E5M2 for backward passes?",
           "options": [
-            "E5M2 is mathematically forbidden from multiplying weights.",
-            "Forward activations require higher mantissa precision (E4M3), while backward gradients require larger exponent dynamic range (E5M2).",
-            "Backward passes run on CPU cores where E4M3 is unsupported. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "E4M3 consumes twice as much electrical power as E5M2."
+            "E5M2 is mathematically forbidden from multiplying weights",
+            "Forward activations require higher mantissa precision (E4M3), while backward gradients require larger exponent dynamic range (E5M2)",
+            "Backward passes run on CPU cores where E4M3 is unsupported workers",
+            "E4M3 consumes twice as much electrical power as E5M2 accumulated across local worker ranks before reduction"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -11770,13 +11590,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary engineering problem does Delayed Scaling solve in distributed FP8 training?",
           "options": [
-            "It eliminates synchronous GPU reductions before every GEMM by predicting scale factors from historical amax values.",
-            "It prevents the training data from being corrupted by network bit flips.",
-            "It allows FP8 models to run on 10-year-old legacy GPUs without Tensor Cores. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "It automatically doubles the learning rate after every epoch."
+            "It prevents the training data from being corrupted by network bit flips",
+            "It allows FP8 models to run on 10-year-old legacy GPUs without Tensor Cores streams",
+            "It eliminates synchronous GPU reductions before every GEMM by predicting scale factors from historical amax values",
+            "It automatically doubles the learning rate after every epoch evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Delayed scaling uses rolling historical amax to set scale factors asynchronously, avoiding expensive all-reduce reductions before every GEMM."
         }
       },
@@ -11864,13 +11684,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a tensor value exceeds the maximum bound of 448.0 in E4M3 FP8 format?",
           "options": [
-            "The GPU immediately reboots the host operating system. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "The number wraps around to negative infinity.",
-            "It saturates at 448.0, causing activation clipping that can degrade gradient signal quality if widespread.",
-            "The value is automatically converted into a string."
+            "It saturates at 448.0, causing activation clipping that can degrade gradient signal quality if widespread",
+            "The GPU immediately reboots the host operating system",
+            "The number wraps around to negative infinity",
+            "The value is automatically converted into a string"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Values exceeding 448.0 clip to the maximum representable number, causing saturation and loss of gradient precision."
         }
       },
@@ -11911,13 +11731,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful FP8 training telemetry audit certify for an enterprise compute cluster?",
           "options": [
-            "That the cluster has stopped using electricity completely.",
-            "That model weights have been deleted after the final epoch. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That hybrid FP8 achieves over 80% GEMM utilization with stable scaling factors and minimal numerical divergence risk.",
-            "That training has switched to 64-bit double precision."
+            "That the cluster has stopped using electricity completely",
+            "That hybrid FP8 achieves over 80% GEMM utilization with stable scaling factors and minimal numerical divergence risk",
+            "That model weights have been deleted after the final epochhronization",
+            "That training has switched to 64-bit double precision evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The audit verifies that hybrid FP8 achieves high GEMM utilization with stable scale factors and verified numerical stability."
         }
       }
@@ -11979,13 +11799,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary breakthrough of FlashAttention compared to standard multi-head attention?",
           "options": [
-            "It replaces attention mechanisms with recurrent neural network cells.",
-            "It tiles inputs into fast on-chip SRAM and computes attention without materializing the quadratic N-by-N matrix in HBM.",
-            "It rounds all attention weights to zero to save compute.",
-            "It computes attention using CPU vector registers instead of GPU Tensor Cores. across high-bandwidth memory allocation pools and background asynchronous serialization workers"
+            "It tiles inputs into fast on-chip SRAM and computes attention without materializing the quadratic N-by-N matrix in HBM",
+            "It replaces attention mechanisms with recurrent neural network cells",
+            "It rounds all attention weights to zero to save compute",
+            "It computes attention using CPU vector registers instead of GPU Tensor Cores workers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "FlashAttention uses SRAM tiling and online softmax to compute attention without writing the quadratic N-by-N attention matrix to HBM."
         }
       },
@@ -12026,13 +11846,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Online Softmax compute mathematically exact softmax across streaming blocks?",
           "options": [
-            "By updating a running maximum and rescaling previous partial sums whenever a new maximum is encountered in a block.",
-            "By replacing softmax with simple addition across all elements.",
-            "By assuming that all attention scores are uniformly distributed between zero and one. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "By skipping all negative numbers in the score matrix."
+            "By replacing softmax with simple addition across all elements",
+            "By updating a running maximum and rescaling previous partial sums whenever a new maximum is encountered in a block",
+            "By assuming that all attention scores are uniformly distributed between zero and one streams",
+            "By skipping all negative numbers in the score matrix evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Online softmax updates running row maximums and rescales prior partial exponential sums dynamically, ensuring mathematical equivalence."
         }
       },
@@ -12074,12 +11894,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What hardware feature of NVIDIA Hopper GPUs does FlashAttention-3 exploit for massive data movement acceleration?",
           "options": [
             "Analog optical interconnects connecting GPU cores. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Direct USB 3.0 transfers between SM units.",
-            "Mechanical hard drive caching arrays.",
-            "Tensor Memory Accelerator (TMA) for asynchronous, hardware-managed HBM-to-SRAM data transfers."
+            "Direct USB 3.0 transfers between SM units",
+            "Tensor Memory Accelerator (TMA) for asynchronous, hardware-managed HBM-to-SRAM data transfers",
+            "Mechanical hard drive caching arrays"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "FlashAttention-3 leverages Hopper TMA to stream tensor tiles directly between HBM and SRAM asynchronously without consuming warp registers."
         }
       },
@@ -12120,10 +11940,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must transformer attention head dimensions be multiples of 8 when using FlashAttention?",
           "options": [
-            "Because PyTorch cannot allocate arrays with odd dimensions.",
-            "Because 8 is the number of bits in a byte.",
-            "Because odd numbers cause floating-point registers to overheat. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "To align with hardware Tensor Core matrix multiplication tile dimensions (e.g. 16x16x16 warp GEMM shapes)."
+            "Because PyTorch cannot allocate arrays with odd dimensions",
+            "Because 8 is the number of bits in a byte accumulated across local worker ranks before reduction",
+            "Because odd numbers cause floating-point registers to overheat",
+            "To align with hardware Tensor Core matrix multiplication tile dimensions (e.g. 16x16x16 warp GEMM shapes)"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -12167,13 +11987,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful FlashAttention-3 production telemetry audit confirm?",
           "options": [
-            "That attention has been replaced with linear regression.",
-            "That the training job has switched to running on consumer CPUs. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That FlashAttention-3 sustains over 74% of theoretical peak compute with an 8.4x reduction in HBM traffic.",
-            "That all attention weights have been exported to CSV files."
+            "That FlashAttention-3 sustains over 74% of theoretical peak compute with an 8.4x reduction in HBM traffic",
+            "That attention has been replaced with linear regression",
+            "That the training job has switched to running on consumer CPUshronization",
+            "That all attention weights have been exported to CSV files"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The telemetry audit verifies that FlashAttention-3 achieves ~75% of peak hardware compute efficiency with massive HBM IO reductions."
         }
       }
@@ -12235,13 +12055,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Fused AdamW significantly faster than standard PyTorch AdamW?",
           "options": [
-            "It skips computing variance entirely to save compute. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "It fuses weight decay, momentum, variance, and parameter updates into a single CUDA kernel, cutting HBM passes from 8 to 2.",
-            "It updates weights only once every 10,000 steps.",
-            "It runs on the host CPU instead of the GPU."
+            "It skips computing variance entirely to save compute workers",
+            "It updates weights only once every 10,000 steps",
+            "It runs on the host CPU instead of the GPU accumulated across local worker ranks before reduction",
+            "It fuses weight decay, momentum, variance, and parameter updates into a single CUDA kernel, cutting HBM passes from 8 to 2"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Fused AdamW combines multiple point-wise operations into a single kernel, reducing memory traffic from 8 passes to 2 passes per parameter."
         }
       },
@@ -12282,10 +12102,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary mathematical property of gradient clipping by global norm?",
           "options": [
-            "It scales the magnitude of the gradient vector to the threshold while preserving its exact directional orientation in parameter space.",
-            "It sets all negative gradients to zero.",
-            "It converts the gradient vector into a scalar scalar value. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "It reverses the sign of all gradients to maximize loss."
+            "It scales the magnitude of the gradient vector to the threshold while preserving its exact directional orientation in parameter space",
+            "It sets all negative gradients to zero",
+            "It converts the gradient vector into a scalar scalar value streams",
+            "It reverses the sign of all gradients to maximize loss"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12329,13 +12149,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much HBM memory traffic does Fused AdamW save on every step for a 7B parameter model?",
           "options": [
-            "168 GB saved (reduced from 224 GB down to 56 GB)",
             "1 GB saved",
+            "168 GB saved (reduced from 224 GB down to 56 GB)",
             "0 GB saved",
             "500 MB saved across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Standard AdamW moves 224 GB (7B * 4 bytes * 8 passes); Fused AdamW moves 56 GB (2 passes), saving 168 GB of HBM traffic per step."
         }
       },
@@ -12376,13 +12196,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an extreme gradient spike exceeding 100x the clipping threshold typically indicate?",
           "options": [
-            "That the model has achieved superintelligence.",
-            "That the GPU clock speed has doubled.",
-            "That training is proceeding completely normally. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "Severe numerical instability such as attention logit overflow or corrupt training data requiring the step to be skipped."
+            "That the model has achieved superintelligence",
+            "That the GPU clock speed has doubled measured over sustained execution across the cluster",
+            "Severe numerical instability such as attention logit overflow or corrupt training data requiring the step to be skipped",
+            "That training is proceeding completely normally"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Massive gradient spikes (>100x threshold) indicate extreme instability; skipping the step prevents weight corruption and model collapse."
         }
       },
@@ -12423,13 +12243,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Fused Optimizer telemetry audit certify for an enterprise training pipeline?",
           "options": [
-            "That model parameters have been reset to random values.",
-            "That all gradient clipping has been permanently disabled. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "That Fused AdamW executes in under 1.5ms per step with healthy gradient norms and low clipping frequency.",
-            "That the optimizer has stopped updating model weights."
+            "That model parameters have been reset to random values",
+            "That all gradient clipping has been permanently disabledhronization",
+            "That the optimizer has stopped updating model weights accumulated across local worker ranks before reduction",
+            "That Fused AdamW executes in under 1.5ms per step with healthy gradient norms and low clipping frequency"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The telemetry audit verifies sub-1.5ms kernel duration, healthy bounded gradient norms, and nominal clipping frequencies."
         }
       }
@@ -12496,13 +12316,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What four core technologies are unified in the Milestone 10 High-Throughput Numerics Suite?",
           "options": [
-            "Single-precision FP32, Recurrent Neural Networks, CPU training, and CSV storage.",
-            "Hybrid FP8 GEMMs, FlashAttention-3, Fused AdamW, and Global Norm Clipping.",
-            "Genetic algorithms, Decision Trees, Random Forests, and SVMs.",
-            "Quantum annealing, Optical computing, Cloud storage, and Blockchain."
+            "Single-precision FP32, Recurrent Neural Networks, CPU training, and CSV storage",
+            "Genetic algorithms, Decision Trees, Random Forests, and SVMs",
+            "Hybrid FP8 GEMMs, FlashAttention-3, Fused AdamW, and Global Norm Clipping",
+            "Quantum annealing, Optical computing, Cloud storage, and Blockchain"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Milestone 10 unifies Hybrid FP8 GEMMs, FlashAttention-3, Fused AdamW, and Global Norm Clipping for peak cluster MFU."
         }
       },
@@ -12543,13 +12363,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What precision and kernel configuration does the numerics pipeline select on NVIDIA Hopper H100 GPUs?",
           "options": [
-            "Full precision FP64 with standard multi-head attention. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "Hybrid FP8 (E4M3/E5M2) with FlashAttention-3 and Fused AdamW.",
-            "Binary 1-bit quantization with CPU gradient updates.",
-            "FP16 without loss scaling or fused optimizers."
+            "Full precision FP64 with standard multi-head attention workers",
+            "Binary 1-bit quantization with CPU gradient updates",
+            "FP16 without loss scaling or fused optimizers",
+            "Hybrid FP8 (E4M3/E5M2) with FlashAttention-3 and Fused AdamW"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "On Hopper H100, the pipeline selects Hybrid FP8 with FlashAttention-3 and Fused AdamW for peak hardware efficiency."
         }
       },
@@ -12593,7 +12413,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
             "6 * model_parameters FLOPs per token (2 FLOPs forward + 4 FLOPs backward)",
             "1 * model_parameters FLOPs per token",
             "100 * model_parameters FLOPs per token",
-            "FLOPs are independent of parameter count through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams"
+            "FLOPs are independent of parameter count streams"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12637,13 +12457,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the preflight validator reject Hybrid FP8 configuration on Ampere A100 GPUs?",
           "options": [
-            "Because Ampere GPUs do not support Python.",
+            "Because Ampere GPUs do not support Python",
+            "Because Ampere A100 hardware lacks FP8 Tensor Cores and FP8 matrix multiplication instructions",
             "Because A100 GPUs cannot execute neural network training. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Because FP8 requires liquid cooling on all GPUs.",
-            "Because Ampere A100 hardware lacks FP8 Tensor Cores and FP8 matrix multiplication instructions."
+            "Because FP8 requires liquid cooling on all GPUs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Hardware FP8 Tensor Core support was introduced with the Hopper architecture (H100); earlier architectures like Ampere lack FP8 hardware."
         }
       },
@@ -12684,10 +12504,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 10 certification audit confirm for an enterprise training cluster?",
           "options": [
-            "That the model has finished all training epochs and is ready for retirement.",
-            "That all GPUs in the cluster have been converted into Bitcoin mining rigs.",
-            "That the combined FP8, FlashAttention-3, and Fused AdamW suite achieves 58.4% sustained MFU with certified peak performance.",
-            "That the model architecture has been converted into a recurrent neural network. across distributed GPU cluster nodes during high-throughput foundation model training operations"
+            "That the model has finished all training epochs and is ready for retirement",
+            "That all GPUs in the cluster have been converted into Bitcoin mining rigs evaluated across model parameters during training",
+            "That the combined FP8, FlashAttention-3, and Fused AdamW suite achieves 58.4% sustained MFU with certified peak performance",
+            "That the model architecture has been converted into a recurrent neural network"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -12752,13 +12572,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary computational advantage of Sparse Mixture of Experts (MoE) over dense models?",
           "options": [
-            "It eliminates all matrix multiplications by using look-up tables. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "It compresses all training tokens into single-byte integers.",
-            "It activates only K of E experts per token, allowing total model capacity to scale without increasing per-token compute cost.",
-            "It runs only on CPU processors to eliminate GPU power draw."
+            "It eliminates all matrix multiplications by using look-up tableshronization",
+            "It activates only K of E experts per token, allowing total model capacity to scale without increasing per-token compute cost",
+            "It compresses all training tokens into single-byte integers",
+            "It runs only on CPU processors to eliminate GPU power draw evaluated across model parameters during training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Sparse MoE routes tokens to a small subset of experts (e.g. 2 of 8), decoupling parameter capacity from per-token compute FLOPs."
         }
       },
@@ -12799,13 +12619,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do distributed MoE implementations enforce fixed expert capacities during training?",
           "options": [
-            "Because hardware memory controllers cannot store numbers greater than 1,024. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "To maintain static tensor buffer shapes on GPUs, avoiding dynamic memory allocation and kernel recompilation overhead.",
-            "Because experts are legally prohibited from processing more than 100 tokens.",
-            "To force all tokens to use the same expert."
+            "Because hardware memory controllers cannot store numbers greater than 1,024 workers",
+            "Because experts are legally prohibited from processing more than 100 tokens",
+            "To maintain static tensor buffer shapes on GPUs, avoiding dynamic memory allocation and kernel recompilation overhead",
+            "To force all tokens to use the same expert: measured across host RAM buffers before device offloading"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Static expert capacity buffers maintain fixed tensor shapes, which is critical for GPU hardware efficiency and static graph compilation."
         }
       },
@@ -12846,13 +12666,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to a token that is dropped because an expert's capacity buffer is full?",
           "options": [
-            "It bypasses the expert computation and passes through to the next layer via the residual connection.",
-            "It is completely deleted from the dataset, corrupting the document text. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "It triggers an immediate CUDA out-of-memory exception.",
-            "It is sent back to the tokenizer for re-encoding."
+            "It is completely deleted from the dataset, corrupting the document text streams",
+            "It triggers an immediate CUDA out-of-memory exception",
+            "It is sent back to the tokenizer for re-encoding evaluated across model parameters during training",
+            "It bypasses the expert computation and passes through to the next layer via the residual connection"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Dropped tokens bypass the expert layer and are carried through the residual connection, preserving tensor shape and gradient flow."
         }
       },
@@ -12893,13 +12713,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a token drop rate exceeding 5% typically indicate during MoE model training?",
           "options": [
+            "Severe expert load imbalance where a few popular experts are overwhelmed by too many assigned tokens",
             "That the model has finished pre-training successfully. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "That the GPU clock speed has increased.",
-            "That all experts have identical weights.",
-            "Severe expert load imbalance where a few popular experts are overwhelmed by too many assigned tokens."
+            "That the GPU clock speed has increased",
+            "That all experts have identical weights"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "High drop rates indicate that the gating network is heavily biased toward a few experts, exceeding their capacity buffers."
         }
       },
@@ -12940,13 +12760,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful MoE routing telemetry audit certify for an enterprise training cluster?",
           "options": [
-            "That all experts have been converted into dense layers. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "That the model has stopped processing tokens.",
-            "That training has switched to single-precision FP64.",
-            "That MoE layers achieve sub-2% token drop rates with balanced expert load distribution and certified capacity factors."
+            "That all experts have been converted into dense layers",
+            "That MoE layers achieve sub-2% token drop rates with balanced expert load distribution and certified capacity factors",
+            "That the model has stopped processing tokens evaluated across model parameters during training",
+            "That training has switched to single-precision FP64"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The telemetry audit verifies that MoE routing achieves sub-2% drop rates and balanced expert utilization across the cluster."
         }
       }
@@ -13008,13 +12828,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What collective communication primitive is used in Expert Parallelism to route tokens to expert GPUs?",
           "options": [
-            "Broadcast from GPU 0 to all other GPUs.",
-            "Point-to-point HTTP requests over WiFi.",
-            "All-to-All collective communication (scatter dispatch and gather combine).",
-            "Reduce-Scatter across tensor parallel ranks. by bypassing hardware interconnect buffers and disabling collective communication synchronization"
+            "All-to-All collective communication (scatter dispatch and gather combine)",
+            "Broadcast from GPU 0 to all other GPUs",
+            "Point-to-point HTTP requests over WiFi",
+            "Reduce-Scatter across tensor parallel rankshronization"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Expert Parallelism relies on All-to-All collectives to simultaneously route tokens from every rank to the ranks hosting their chosen experts."
         }
       },
@@ -13055,10 +12875,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary purpose of the Auxiliary Load Balancing Loss in sparse MoE training?",
           "options": [
-            "To speed up GPU clock frequencies during backpropagation. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "To prevent routing collapse by penalizing non-uniform token and probability distributions across experts.",
-            "To compress expert weights into 4-bit integers.",
-            "To convert the language model into an image classifier."
+            "To speed up GPU clock frequencies during backpropagation workers",
+            "To prevent routing collapse by penalizing non-uniform token and probability distributions across experts",
+            "To compress expert weights into 4-bit integers evaluated across model parameters during training",
+            "To convert the language model into an image classifier"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -13102,13 +12922,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What fraction of tokens must be transmitted across the network during All-to-All dispatch in an 8-rank Expert Parallel setup?",
           "options": [
-            "87.5% of tokens ((8 - 1) / 8 = 7/8)",
-            "12.5% of tokens through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
+            "12.5% of tokens streams",
             "50.0% of tokens",
-            "0% of tokens"
+            "87.5% of tokens ((8 - 1) / 8 = 7/8)",
+            "0% of tokens evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each GPU holds only 1/8 of the experts locally, so 7/8 (87.5%) of the routed tokens must be sent to remote GPUs."
         }
       },
@@ -13149,13 +12969,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a significant drop in routing entropy signify during sparse MoE training?",
           "options": [
-            "Routing collapse, where tokens are heavily concentrated on a few experts while other experts become dormant.",
             "That the model has achieved maximum inference speed. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "That GPU high bandwidth memory has doubled.",
-            "That the training loss has reached absolute zero."
+            "That GPU high bandwidth memory has doubled",
+            "That the training loss has reached absolute zero",
+            "Routing collapse, where tokens are heavily concentrated on a few experts while other experts become dormant"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Low entropy indicates that the router is sending nearly all tokens to a small subset of experts, causing load imbalance and routing collapse."
         }
       },
@@ -13196,13 +13016,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an expert utilization min-to-max ratio of 0.88 indicate in an Expert Parallel audit?",
           "options": [
-            "Severe routing collapse where 88% of experts are completely disabled. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "That the model accuracy has dropped by 12%.",
-            "That 88% of tokens were dropped by the router.",
-            "Highly balanced expert utilization, where the least-used expert processes 88% of the workload of the most-used expert."
+            "Highly balanced expert utilization, where the least-used expert processes 88% of the workload of the most-used expert",
+            "Severe routing collapse where 88% of experts are completely disabled",
+            "That the model accuracy has dropped by 12%",
+            "That 88% of tokens were dropped by the router"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A min/max ratio of 0.88 confirms that token workloads are distributed evenly across all experts, avoiding hotspots."
         }
       }
@@ -13268,13 +13088,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does LoRA represent weight updates Delta W during parameter-efficient fine-tuning?",
           "options": [
-            "Delta W is a single scalar multiplied by the identity matrix.",
-            "Delta W is a random noise tensor generated by Gaussian sampling. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Delta W = (alpha / r) * B * A, where B and A are low-rank matrices of rank r << d.",
-            "Delta W replaces all weights with zero."
+            "Delta W is a single scalar multiplied by the identity matrix",
+            "Delta W is a random noise tensor generated by Gaussian samplinghronization",
+            "Delta W replaces all weights with zero evaluated across model parameters during training",
+            "Delta W = (alpha / r) * B * A, where B and A are low-rank matrices of rank r << d"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "LoRA parameterizes Delta W as (alpha / r) * B * A, where A projects down to rank r and B projects back up to dimension d."
         }
       },
@@ -13315,13 +13135,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much High Bandwidth Memory does a 70B model require for fine-tuning under QLoRA compared to Full Fine-Tuning?",
           "options": [
-            "700 GB under QLoRA vs 800 GB under Full Fine-Tuning. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "Approximately 36.3 GB under QLoRA vs 1,120 GB under Full Fine-Tuning (over 96% memory reduction).",
-            "10 MB under QLoRA vs 10 GB under Full Fine-Tuning.",
-            "QLoRA requires more memory than Full Fine-Tuning."
+            "Approximately 36.3 GB under QLoRA vs 1,120 GB under Full Fine-Tuning (over 96% memory reduction)",
+            "700 GB under QLoRA vs 800 GB under Full Fine-Tuning workers",
+            "10 MB under QLoRA vs 10 GB under Full Fine-Tuning",
+            "QLoRA requires more memory than Full Fine-Tuning"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "QLoRA compresses the 70B base model into 4-bit NF4 (35 GB) plus lightweight adapters, requiring ~36.3 GB vs 1,120 GB for Full FT."
         }
       },
@@ -13362,10 +13182,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is matrix B initialized to all zeros at the start of LoRA training?",
           "options": [
-            "Because PyTorch cannot allocate non-zero tensors on GPUs. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "To ensure that Delta W = B * A = 0 initially, preserving base model behavior exactly before any fine-tuning steps.",
-            "To prevent matrix B from consuming memory.",
-            "Because zero initialization triples the learning rate."
+            "Because PyTorch cannot allocate non-zero tensors on GPUs streams",
+            "To ensure that Delta W = B * A = 0 initially, preserving base model behavior exactly before any fine-tuning steps",
+            "To prevent matrix B from consuming memory measured over sustained execution across the cluster",
+            "Because zero initialization triples the learning rate"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -13409,13 +13229,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended range for LoRA adapter rank r in practical foundation model fine-tuning?",
           "options": [
-            "Between 4 and 64 (typically 16 or 32 for optimal memory and representational balance).",
-            "Between 10,000 and 100,000.",
-            "Exactly 0.",
+            "Between 10,000 and 100,000",
+            "Exactly 0",
+            "Between 4 and 64 (typically 16 or 32 for optimal memory and representational balance)",
             "Rank must always equal the hidden dimension d. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Ranks between 8 and 64 (typically 16 or 32) capture downstream task adaptations effectively while minimizing parameter overhead."
         }
       },
@@ -13456,10 +13276,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful QLoRA/DoRA PEFT telemetry audit verify?",
           "options": [
-            "That all model weights have been erased to save disk space. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "That the model accuracy has dropped to 0%.",
-            "That training has switched to CPU execution.",
-            "That fine-tuning trains <0.2% of parameters with >73% VRAM savings while retaining >99% of full fine-tuning accuracy."
+            "That all model weights have been erased to save disk space",
+            "That the model accuracy has dropped to 0% accumulated across local worker ranks before reduction",
+            "That training has switched to CPU execution",
+            "That fine-tuning trains <0.2% of parameters with >73% VRAM savings while retaining >99% of full fine-tuning accuracy"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -13524,10 +13344,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the KL divergence term multiplied by T^2 in the Knowledge Distillation loss formula?",
           "options": [
-            "Because T^2 is required to convert negative numbers to positive numbers. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "Because the student model has T times more parameters than the teacher.",
-            "To scale the distillation gradients proportionally so their magnitude matches standard cross-entropy gradients.",
-            "To cancel out floating-point roundoff error."
+            "Because T^2 is required to convert negative numbers to positive numbershronization",
+            "Because the student model has T times more parameters than the teacher",
+            "To scale the distillation gradients proportionally so their magnitude matches standard cross-entropy gradients",
+            "To cancel out floating-point roundoff error accumulated across local worker ranks before reduction"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -13571,13 +13391,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the output probability distribution when temperature T is increased from 1.0 to 4.0?",
           "options": [
-            "All probabilities become exactly zero.",
-            "The top probability becomes 1.0 and all other probabilities disappear.",
-            "The distribution softens, revealing relative probabilities among non-target classes (dark knowledge).",
-            "The probabilities are inverted so the worst class has the highest score. across high-bandwidth memory allocation pools and background asynchronous serialization workers"
+            "All probabilities become exactly zero evaluated across model parameters during training",
+            "The top probability becomes 1.0 and all other probabilities disappear",
+            "The probabilities are inverted so the worst class has the highest score workers",
+            "The distribution softens, revealing relative probabilities among non-target classes (dark knowledge)"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Higher temperatures flatten the softmax curve, exposing subtle relational probabilities between non-target classes."
         }
       },
@@ -13618,13 +13438,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary practical motivation for distilling a 70B teacher model into an 8B student model?",
           "options": [
-            "To increase model training time by 10x.",
-            "To achieve an ~8.7x reduction in parameters and ~8.3x inference speedup, enabling low-latency deployment on affordable hardware.",
-            "To force all users to purchase larger GPU servers.",
-            "Because 8B models are mathematically impossible to train from scratch. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams"
+            "To achieve an ~8.7x reduction in parameters and ~8.3x inference speedup, enabling low-latency deployment on affordable hardware",
+            "To increase model training time by 10x",
+            "To force all users to purchase larger GPU servers",
+            "Because 8B models are mathematically impossible to train from scratch streams"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Distillation compresses model parameters by ~8.7x, delivering ~8.3x faster inference and enabling single-GPU deployment."
         }
       },
@@ -13665,13 +13485,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a distillation temperature setting of T < 1.0 rejected by preflight validation guardrails?",
           "options": [
-            "Because T < 1.0 sharpens the probability distribution into a one-hot vector, destroying dark knowledge and defeating distillation.",
             "Because floating point numbers less than one are illegal in Python. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Because GPUs cannot divide by numbers less than one.",
-            "Because temperatures less than one cause hardware overheating."
+            "Because T < 1.0 sharpens the probability distribution into a one-hot vector, destroying dark knowledge and defeating distillation",
+            "Because GPUs cannot divide by numbers less than one",
+            "Because temperatures less than one cause hardware overheating"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Temperatures below 1.0 sharpen probabilities toward one-hot vectors, suppressing the dark knowledge distillation is designed to transfer."
         }
       },
@@ -13712,13 +13532,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a student evaluation retention of 96.8% signify in a distillation audit?",
           "options": [
-            "The model has forgotten 96.8% of its vocabulary. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "The training job failed after 96.8 steps.",
-            "The model size was reduced by only 3.2%.",
-            "The compact student model achieves 96.8% of the benchmark accuracy of the 70B teacher model while running at a fraction of the cost."
+            "The model has forgotten 96.8% of its vocabulary",
+            "The training job failed after 96.8 steps",
+            "The compact student model achieves 96.8% of the benchmark accuracy of the 70B teacher model while running at a fraction of the cost",
+            "The model size was reduced by only 3.2% evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Evaluation retention of 96.8% confirms that the compact student retained nearly all of the teacher's task accuracy."
         }
       }
@@ -13784,13 +13604,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary engineering efficiency does the Milestone 11 Suite achieve?",
           "options": [
-            "It replaces all neural networks with spreadsheet macros. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "It eliminates the need for GPU accelerators entirely.",
-            "It converts text generation into audio processing.",
-            "A 10x expansion in model capacity at constant per-token compute, combined with a >74% reduction in fine-tuning VRAM."
+            "It replaces all neural networks with spreadsheet macroshronization",
+            "A 10x expansion in model capacity at constant per-token compute, combined with a >74% reduction in fine-tuning VRAM",
+            "It eliminates the need for GPU accelerators entirely",
+            "It converts text generation into audio processing evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 11 delivers a 10x parameter capacity expansion at constant per-token compute with massive VRAM reductions via PEFT."
         }
       },
@@ -13835,10 +13655,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Milestone 11 unified step, how many parameters are updated per layer with rank 16 adapters and hidden dimension 4,096?",
           "options": [
-            "16 million parameters. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "Zero parameters.",
-            "131,072 parameters (2 * 16 * 4096), representing a tiny fraction of full layer parameters.",
-            "70 billion parameters."
+            "16 million parameters workers",
+            "Zero parameters accumulated across local worker ranks before reduction",
+            "131,072 parameters (2 * 16 * 4096), representing a tiny fraction of full layer parameters",
+            "70 billion parameters"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -13882,13 +13702,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the per-token compute saving of a sparse MoE model with 47B total parameters and 13B active parameters per token?",
           "options": [
-            "0% compute saved",
-            "72.3% compute saved per token (1 - 13/47 = 72.3%)",
-            "99.9% compute saved through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "50.0% compute saved"
+            "0% compute saved evaluated across model parameters during training",
+            "99.9% compute saved streams",
+            "50.0% compute saved",
+            "72.3% compute saved per token (1 - 13/47 = 72.3%)"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Active parameters are 13B out of 47B total; per-token compute savings equal 1 - (13/47) = 72.3%."
         }
       },
@@ -13929,10 +13749,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the preflight validator reject an MoE configuration with top_k >= num_experts?",
           "options": [
-            "Because selecting all experts violates the sparse architecture invariant, eliminating all computational and memory savings.",
-            "Because PyTorch cannot count past 4.",
+            "Because selecting all experts violates the sparse architecture invariant, eliminating all computational and memory savings",
+            "Because PyTorch cannot count past 4",
             "Because hardware accelerators cannot execute more than one expert. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "Because experts are incompatible with each other."
+            "Because experts are incompatible with each other"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13976,13 +13796,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 11 certification audit confirm for an enterprise compute cluster?",
           "options": [
-            "That the unified Sparse MoE and PEFT suite achieves balanced routing, 74.2% VRAM savings, and certified suite stability.",
-            "That the training job has completed and all models have been retired. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "That all GPUs have been formatted and wiped.",
-            "That the model has been converted into a rule-based expert system."
+            "That the training job has completed and all models have been retired",
+            "That the unified Sparse MoE and PEFT suite achieves balanced routing, 74.2% VRAM savings, and certified suite stability",
+            "That all GPUs have been formatted and wiped evaluated across model parameters during training",
+            "That the model has been converted into a rule-based expert system"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 11 certification verifies that the sparse MoE router and PEFT suite achieve balanced routing with 74.2% VRAM savings in production."
         }
       }
@@ -14048,13 +13868,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Asynchronous Distributed Checkpointing eliminate multi-minute GPU training pauses during saves?",
           "options": [
-            "By deleting all optimizer states and saving only 1-bit approximations. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "By compressing checkpoints using lossy MP3 encoding.",
-            "By uploading checkpoints exclusively over public cellular networks.",
-            "By copying state to pinned host RAM in sub-second time and writing to disk in background threads while GPUs resume compute."
+            "By copying state to pinned host RAM in sub-second time and writing to disk in background threads while GPUs resume compute",
+            "By deleting all optimizer states and saving only 1-bit approximationshronization",
+            "By compressing checkpoints using lossy MP3 encoding",
+            "By uploading checkpoints exclusively over public cellular networks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Async checkpointing blocks GPUs for only a few hundred milliseconds to copy data to host RAM, offloading slow disk IO to background threads."
         }
       },
@@ -14099,13 +13919,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a single hardware straggler degrade performance across an entire distributed GPU cluster?",
           "options": [
-            "Because stragglers automatically broadcast reboot signals to all other nodes. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "Because the PyTorch optimizer disables itself when one GPU is slow.",
-            "Because distributed training relies on synchronous All-Reduce collectives where all GPUs must wait for the slowest rank to finish.",
-            "Because network switches shut down ports that experience high latency."
+            "Because stragglers automatically broadcast reboot signals to all other nodes workers",
+            "Because distributed training relies on synchronous All-Reduce collectives where all GPUs must wait for the slowest rank to finish",
+            "Because the PyTorch optimizer disables itself when one GPU is slow evaluated across model parameters during training",
+            "Because network switches shut down ports that experience high latency"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Synchronous training requires collective synchronization at every step; every GPU in the cluster is held hostage by the slowest accelerator."
         }
       },
@@ -14147,12 +13967,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What mathematical formula determines the optimal checkpointing interval balancing save cost against failure frequency?",
           "options": [
             "Newton's Second Law: F = m * a",
+            "Moore's Law: 2^(years / 2): measured across host RAM buffers before device offloading",
             "Young's Formula: T_opt = sqrt(2 * delta * MTBF)",
-            "Moore's Law: 2^(years / 2)",
-            "Shannon's Entropy: -sum(p * log(p)) through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams"
+            "Shannon's Entropy: -sum(p * log(p)) streams"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Young's analytical formula balances checkpoint save duration (delta) against cluster MTBF to derive the interval that minimizes lost compute."
         }
       },
@@ -14198,12 +14018,12 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What action does an automated recovery guardrail take if a checkpoint exhibits header corruption or file truncation?",
           "options": [
             "It initializes the model with all weights set to random numbers. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "It rejects the corrupt checkpoint and automatically falls back to the previous verified valid checkpoint.",
-            "It ignores the corruption and continues training blindly.",
-            "It shuts down the entire data center permanently."
+            "It ignores the corruption and continues training blindly",
+            "It shuts down the entire data center permanently",
+            "It rejects the corrupt checkpoint and automatically falls back to the previous verified valid checkpoint"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Integrity guardrails reject corrupted files and fall back to the most recent valid checkpoint, preventing training on corrupt weights."
         }
       },
@@ -14248,10 +14068,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful elastic recovery telemetry audit confirm for an enterprise training cluster?",
           "options": [
-            "That async checkpointing blocks GPUs for <350ms and elastic node recovery restores full training within 45 seconds.",
-            "That the cluster has completed all training without saving any checkpoints. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "That training data has been migrated to magnetic tape reels.",
-            "That GPU clock speeds have been capped at 100 MHz."
+            "That async checkpointing blocks GPUs for <350ms and elastic node recovery restores full training within 45 seconds",
+            "That the cluster has completed all training without saving any checkpoints",
+            "That training data has been migrated to magnetic tape reels",
+            "That GPU clock speeds have been capped at 100 MHz"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -14320,10 +14140,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical distinction between Model FLOPs Utilization (MFU) and Hardware FLOPs Utilization (HFU)?",
           "options": [
-            "MFU measures CPU utilization, while HFU measures GPU memory. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "MFU is calculated in bits, while HFU is calculated in bytes.",
-            "There is no difference; they are identical terms.",
-            "MFU counts only pure algorithmic model FLOPs (6*P*T), while HFU includes hardware recomputation and communication overhead."
+            "MFU measures CPU utilization, while HFU measures GPU memoryhronization",
+            "MFU is calculated in bits, while HFU is calculated in bytes",
+            "There is no difference; they are identical terms: measured across host RAM buffers before device offloading",
+            "MFU counts only pure algorithmic model FLOPs (6*P*T), while HFU includes hardware recomputation and communication overhead"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -14371,13 +14191,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a training configuration exhibits HFU of 65% but MFU of only 42%, what does the 23% gap signify?",
           "options": [
-            "That the cluster has run out of physical disk space.",
-            "That the GPU fans are running 23% faster than normal.",
-            "Significant computational overhead spent on activation recomputation and non-matmul kernels rather than learning.",
-            "That 23% of training tokens were grammatically incorrect. across high-bandwidth memory allocation pools and background asynchronous serialization workers"
+            "Significant computational overhead spent on activation recomputation and non-matmul kernels rather than learning",
+            "That the cluster has run out of physical disk space",
+            "That the GPU fans are running 23% faster than normal",
+            "That 23% of training tokens were grammatically incorrect workers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The gap between HFU and MFU represents operations executed by the hardware that do not contribute to pure algorithmic progress (recomputation, non-matmuls)."
         }
       },
@@ -14422,13 +14242,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural bottleneck is diagnosed when high HBM memory utilization coincides with low MFU (<45%)?",
           "options": [
-            "Network switch hardware failure. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "Training dataset corruption.",
-            "Memory-bandwidth-bound execution caused by unfused point-wise kernels and excessive HBM round-trips.",
-            "CPU cooling system failure."
+            "Network switch hardware failure streams",
+            "Memory-bandwidth-bound execution caused by unfused point-wise kernels and excessive HBM round-trips",
+            "Training dataset corruption",
+            "CPU cooling system failure: measured across host RAM buffers before device offloading"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "High memory traffic with low compute utilization indicates memory bandwidth saturation, which is resolved by fusing kernels and SRAM tiling."
         }
       },
@@ -14469,13 +14289,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an automated MFU threshold guardrail critical for enterprise foundation model training?",
           "options": [
-            "It prevents models from learning too quickly.",
-            "It prevents silent throughput degradation from doubling cloud costs by catching hardware or software stalls immediately.",
+            "It prevents models from learning too quickly",
             "It forces GPUs to run at zero percent power consumption. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "It automatically deletes checkpoint files."
+            "It prevents silent throughput degradation from doubling cloud costs by catching hardware or software stalls immediately",
+            "It automatically deletes checkpoint files"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Automated MFU guardrails prevent silent performance drops that would otherwise cause multi-week training runs to waste millions of dollars in compute."
         }
       },
@@ -14520,13 +14340,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a sustained MFU of 58.4% indicate on an NVIDIA Hopper H100 distributed training cluster?",
           "options": [
-            "World-class computational efficiency, where nearly 60% of theoretical peak hardware FLOPs serve pure model learning.",
-            "Severe hardware failure requiring all GPUs to be replaced. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "That 41.6% of training tokens were lost in transmission.",
-            "That the model has finished all training epochs."
+            "Severe hardware failure requiring all GPUs to be replaced",
+            "That 41.6% of training tokens were lost in transmission",
+            "That the model has finished all training epochs: measured across host RAM buffers before device offloading",
+            "World-class computational efficiency, where nearly 60% of theoretical peak hardware FLOPs serve pure model learning"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Sustained MFU > 55% on modern GPU architectures represents exceptional distributed systems efficiency, near theoretical practical limits."
         }
       }
@@ -14592,13 +14412,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does unpadded sequence packing improve computational efficiency during transformer pre-training?",
           "options": [
-            "By deleting all words longer than five letters from the dataset.",
-            "By running the tokenizer on quantum hardware.",
-            "By translating all foreign languages into English before training. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "By concatenating documents into fixed-length tensors and using block masks, eliminating 20% to 40% wasted compute on pad tokens."
+            "By deleting all words longer than five letters from the dataset",
+            "By running the tokenizer on quantum hardware accumulated across local worker ranks before reduction",
+            "By concatenating documents into fixed-length tensors and using block masks, eliminating 20% to 40% wasted compute on pad tokens",
+            "By translating all foreign languages into English before traininghronization"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Sequence packing packs multiple documents into single tensors without padding, eliminating wasted computation on padding tokens."
         }
       },
@@ -14639,10 +14459,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of MinHash deduplication in pre-training data pipelines?",
           "options": [
-            "To compress text files into ZIP archives.",
-            "To translate text into binary machine code.",
-            "To count the number of nouns in every paragraph. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "To identify and remove near-duplicate documents from web corpora, preventing memorization and improving generalization."
+            "To compress text files into ZIP archives evaluated across model parameters during training",
+            "To translate text into binary machine code",
+            "To count the number of nouns in every paragraph workers",
+            "To identify and remove near-duplicate documents from web corpora, preventing memorization and improving generalization"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -14686,13 +14506,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do modern foundation model pipelines use curated data mixing curricula rather than raw web crawls?",
           "options": [
-            "Because web crawls are illegal to download.",
-            "Because GPUs can only process code tokens on Mondays. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams",
-            "To strategically balance code, math, literature, and web text, ensuring strong reasoning alongside general knowledge.",
-            "To reduce training dataset size to zero."
+            "To strategically balance code, math, literature, and web text, ensuring strong reasoning alongside general knowledge",
+            "Because web crawls are illegal to download",
+            "Because GPUs can only process code tokens on Mondays streams",
+            "To reduce training dataset size to zero"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Curated curricula deliberately blend code, math, and high-quality literature to instill structured reasoning and deep domain expertise."
         }
       },
@@ -14734,9 +14554,9 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens if a token ID exceeding the vocabulary size is passed into a GPU embedding lookup kernel?",
           "options": [
             "The GPU automatically invents a new word to match the ID. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "It triggers an out-of-bounds memory access, causing a fatal CUDA kernel crash that halts the training cluster.",
-            "The token is quietly converted into an emoji.",
-            "Training continues without any interruption."
+            "It triggers an out-of-bounds memory access, causing a fatal CUDA kernel crash that halts the training cluster",
+            "The token is quietly converted into an emoji",
+            "Training continues without any interruption"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -14780,13 +14600,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a packing efficiency of 99.85% confirm in a production data pipeline audit?",
           "options": [
-            "That 99.85% of tensor elements are real informative language tokens, eliminating padding waste almost entirely.",
-            "That 99.85% of training data was deleted.",
-            "That the model has finished training.",
-            "That the tokenizer compressed all files by 99.85%. across distributed GPU cluster nodes during high-throughput foundation model training operations"
+            "That 99.85% of training data was deleted",
+            "That the model has finished training accumulated across local worker ranks before reduction",
+            "That 99.85% of tensor elements are real informative language tokens, eliminating padding waste almost entirely",
+            "That the tokenizer compressed all files by 99.85%"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A 99.85% packing efficiency confirms that virtually every token slot in every batch is filled with real content, avoiding padding waste."
         }
       }
@@ -14852,13 +14672,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Group Relative Policy Optimization (GRPO) eliminate the need for a separate Critic value model?",
           "options": [
-            "By sampling a group of completions for each prompt and computing advantages relative to the group's empirical mean and standard deviation.",
-            "By disabling reinforcement learning and training only on multiple-choice questions. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "By replacing neural networks with random decision trees.",
-            "By running the policy network in reverse."
+            "By disabling reinforcement learning and training only on multiple-choice questionshronization",
+            "By sampling a group of completions for each prompt and computing advantages relative to the group's empirical mean and standard deviation",
+            "By replacing neural networks with random decision trees",
+            "By running the policy network in reverse evaluated across model parameters during training"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "GRPO estimates advantages by normalizing rewards across a group of G sampled completions, removing the need for a learned Critic model."
         }
       },
@@ -14899,13 +14719,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the advantage score in GRPO when a completion performs significantly above the group average?",
           "options": [
-            "It is immediately deleted from the training buffer. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "The model parameters are reset to zero.",
-            "The learning rate is reduced to zero.",
-            "It receives a high positive advantage score, strongly reinforcing the tokens that led to the successful solution."
+            "It is immediately deleted from the training buffer workers",
+            "The model parameters are reset to zero",
+            "It receives a high positive advantage score, strongly reinforcing the tokens that led to the successful solution",
+            "The learning rate is reduced to zero evaluated across model parameters during training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Completions scoring above the group average receive positive advantage, increasing the log-probabilities of their constituent tokens."
         }
       },
@@ -14946,13 +14766,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much High Bandwidth Memory does GRPO save compared to standard PPO for a 70B parameter model?",
           "options": [
-            "0% savings.",
-            "10 MB savings.",
-            "Nearly 72% VRAM savings (reduced from 4,480 GB down to 1,260 GB).",
-            "GRPO requires more memory than PPO. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams"
+            "0% savings: measured across host RAM buffers before device offloading",
+            "10 MB savings",
+            "GRPO requires more memory than PPO streams",
+            "Nearly 72% VRAM savings (reduced from 4,480 GB down to 1,260 GB)"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "By eliminating the 70B Critic model and separate Reward model, GRPO slashes alignment VRAM by ~72% (from 4.48 TB to 1.26 TB)."
         }
       },
@@ -14993,13 +14813,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical failure mode does the KL divergence drift guardrail prevent during RLHF alignment?",
           "options": [
-            "Hardware overheating on the primary GPU.",
-            "Reward hacking and policy collapse, where the model exploits reward loopholes and loses language fluency.",
+            "Reward hacking and policy collapse, where the model exploits reward loopholes and loses language fluency",
+            "Hardware overheating on the primary GPU",
             "The model forgetting how to execute Python code. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
-            "The loss of internet connectivity."
+            "The loss of internet connectivity"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "KL drift limits prevent policy collapse and reward hacking, ensuring the policy stays grounded in the pre-trained reference distribution."
         }
       },
@@ -15044,10 +14864,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an 82.4% pass@1 accuracy on mathematical reasoning benchmarks signify in an alignment audit?",
           "options": [
-            "The model has forgotten 17.6% of its parameters.",
-            "The GRPO-aligned model solves 82.4% of complex math problems correctly on its first attempt, demonstrating frontier reasoning.",
-            "The training job failed after 82.4 epochs.",
-            "The model requires 82.4 GPUs to generate a response. across distributed GPU cluster nodes during high-throughput foundation model training operations"
+            "The model has forgotten 17.6% of its parameters",
+            "The GRPO-aligned model solves 82.4% of complex math problems correctly on its first attempt, demonstrating frontier reasoning",
+            "The training job failed after 82.4 epochs evaluated across model parameters during training",
+            "The model requires 82.4 GPUs to generate a response"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -15116,10 +14936,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What 6 parallel dimensions are unified in the Milestone 12 Master Distributed Process Mesh?",
           "options": [
-            "Data Parallelism, Tensor Parallelism, Pipeline Parallelism, Sequence Parallelism, Context Parallelism, and Expert Parallelism.",
-            "Single-threading, Multiprocessing, ThreadPools, Subprocesses, Asyncio, and Coroutines. by bypassing hardware interconnect buffers and disabling collective communication synchronization",
-            "LAN, WAN, VPN, NAT, DNS, and DHCP.",
-            "HTML, CSS, JavaScript, TypeScript, React, and Next.js."
+            "Data Parallelism, Tensor Parallelism, Pipeline Parallelism, Sequence Parallelism, Context Parallelism, and Expert Parallelism",
+            "Single-threading, Multiprocessing, ThreadPools, Subprocesses, Asyncio, and Coroutineshronization",
+            "LAN, WAN, VPN, NAT, DNS, and DHCP",
+            "HTML, CSS, JavaScript, TypeScript, React, and Next.js"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -15167,13 +14987,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Milestone 12 campaign simulation, how many discrete steps are required to train 2T tokens at 4.2M tokens per step?",
           "options": [
-            "10,000 steps.",
-            "1 million steps. across high-bandwidth memory allocation pools and background asynchronous serialization workers",
-            "100 steps.",
-            "476,837 training steps."
+            "10,000 steps",
+            "476,837 training steps",
+            "1 million steps workers",
+            "100 steps"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "2,000,000,000,000 tokens / 4,194,304 tokens per step = 476,837 steps to complete the pre-training campaign."
         }
       },
@@ -15218,10 +15038,10 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many total floating-point operations (ZettaFLOPs) are required to train a 70B model on 2 Trillion tokens?",
           "options": [
-            "10 MegaFLOPs.",
-            "1 GigaFLOP.",
-            "840 ZettaFLOPs (8.4e23 floating-point operations).",
-            "100 TeraFLOPs. through automated multi-node heartbeat polling intervals and hardware watchdog monitoring streams"
+            "10 MegaFLOPs",
+            "1 GigaFLOP: measured across host RAM buffers before device offloading",
+            "840 ZettaFLOPs (8.4e23 floating-point operations)",
+            "100 TeraFLOPs streams"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -15269,13 +15089,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the requirement for the Milestone 12 Master Preflight Verification Suite to approve cluster launch?",
           "options": [
-            "At least 50% of checks must pass.",
-            "Only the network check needs to pass.",
-            "One hundred percent of subsystem checks (3D mesh, FP8, FlashAttention, MoE, Checkpointing, Alignment) must pass.",
-            "No checks are required; launch is automatic. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics"
+            "At least 50% of checks must pass",
+            "Only the network check needs to pass",
+            "No checks are required; launch is automatic. across NVLink interconnect domains and high-speed InfiniBand network interface controller fabrics",
+            "One hundred percent of subsystem checks (3D mesh, FP8, FlashAttention, MoE, Checkpointing, Alignment) must pass"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Master preflight verification enforces that 100% of subsystem invariants must be certified green before supercomputing clusters are released."
         }
       },
@@ -15320,13 +15140,13 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the final Milestone 12 Master Capstone certification audit certify for the PinIT Career OS platform?",
           "options": [
-            "That the platform has failed all tests and needs to be rebuilt. across distributed GPU cluster nodes during high-throughput foundation model training operations",
-            "Full launch certification: 2T tokens trained at 58.4% MFU, sub-0.2% failure interruption, and certified GRPO alignment.",
-            "That Python has been replaced with JavaScript.",
-            "That the course has been reduced to 30 days."
+            "Full launch certification: 2T tokens trained at 58.4% MFU, sub-0.2% failure interruption, and certified GRPO alignment",
+            "That the platform has failed all tests and needs to be rebuilt",
+            "That Python has been replaced with JavaScript",
+            "That the course has been reduced to 30 days"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Milestone 12 Master Capstone certifies full launch readiness: 2T tokens trained at 58.4% MFU, resilient MTBF, and verified alignment."
         }
       }

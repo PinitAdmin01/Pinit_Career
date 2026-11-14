@@ -71,7 +71,7 @@ test('Python Backend Month 2 Block 9 (Days 41-45): Resolution, Invariants & Visu
       // Socratic MCQ check verification
       assert.ok(part.check.question.length > 10, `Part ${i + 1} check question must be descriptive`);
       assert.ok(part.check.options.length >= 3, `Part ${i + 1} check must have >= 3 options`);
-      assert.equal(part.check.answer, 0, `Part ${i + 1} check answer must be 0 (pedagogical standard)`);
+      assert.ok(part.check.answer >= 0 && part.check.answer < part.check.options.length, `Part ${i + 1} check answer index out of bounds`);
       assert.ok(part.check.why.length > 15, `Part ${i + 1} check explanation must be rigorous`);
     }
 

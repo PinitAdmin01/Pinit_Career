@@ -37,13 +37,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is NOT a main reason to distribute a system?",
           "options": [
-            "Making the code simpler",
             "Scaling throughput beyond one host",
             "Staying available on node failures",
-            "Cutting cross-region query latency"
+            "Cutting cross-region query latency",
+            "Making the code simpler"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Distribution adds complexity; we accept it for scale, availability and latency."
         }
       },
@@ -70,13 +70,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which fallacy leads to code with no timeouts?",
           "options": [
+            "Latency is zero",
             "Network bandwidth stays infinite",
             "Only one admin manages ops",
-            "Links are reliably persistent",
-            "Latency is zero"
+            "Links are reliably persistent"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If you assume calls are instant, you never plan for a call that hangs."
         }
       },
@@ -108,12 +108,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "After a timeout, what does the caller know for certain?",
           "options": [
             "The downstream worker crashed mid-call",
-            "The request never reached the remote host",
             "Only that no reply arrived in time",
+            "The request never reached the remote host",
             "A network switch dropped outgoing packets"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The request may have been processed, lost, or still be running; the caller cannot tell."
         }
       },
@@ -149,12 +149,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is sleep passed in as a parameter?",
           "options": [
             "Because Python stdlib omits a deterministic clock module",
-            "So tests can record the waits instead of really waiting",
             "So backoff jitter compiles away during production calls",
+            "So tests can record the waits instead of really waiting",
             "To guarantee constant linear retry intervals in worker pods"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Injecting sleep keeps the logic testable and the tests instant."
         }
       },
@@ -186,12 +186,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does jitter prevent?",
           "options": [
             "Longer cumulative wait durations across single flows",
-            "Many clients retrying at exactly the same moment",
             "Unhandled timeout exceptions reaching caller handlers",
-            "Exponential backoff ceilings growing past integer bounds"
+            "Exponential backoff ceilings growing past integer bounds",
+            "Many clients retrying at exactly the same moment"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Randomness spreads retries out so they do not arrive as a synchronised wave."
         }
       },
@@ -285,11 +285,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A read query aborted due to an active quorum timeout error",
             "A read routed strictly to a warm edge memory cache instance",
-            "A read failing checksum validation during disk compaction",
-            "A read that returns data older than the latest write"
+            "A read that returns data older than the latest write",
+            "A read failing checksum validation during disk compaction"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A replica that has not received the latest update returns old data."
         }
       },
@@ -322,11 +322,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Accepts diverging concurrent writes on both split halves",
             "Suspends replication checkpoints until links recover",
-            "Refuses some requests to avoid conflicting data",
-            "Drops uncommitted append entries locally on followers"
+            "Drops uncommitted append entries locally on followers",
+            "Refuses some requests to avoid conflicting data"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "CP keeps consistency by giving up availability on the minority side."
         }
       },
@@ -353,13 +353,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the \"ELC\" part of PACELC describe?",
           "options": [
+            "The latency versus consistency choice when there is no partition",
             "Replica recovery behavior after a severe network split closes",
             "Transport cipher choices across internal cluster TLS sockets",
-            "The latency versus consistency choice when there is no partition",
-            "Maximum retry backoff durations under transient node churn"
+            "Maximum retry backoff durations under transient node churn subjected to unbounded network packet transmission delay"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Else (normal operation), a system trades latency against consistency."
         }
       },
@@ -423,13 +423,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With N = 3 replicas, which setting guarantees reads see the latest write?",
           "options": [
-            "W = 2, R = 2",
             "W = 1, R = 1",
             "W = 1, R = 2",
+            "W = 2, R = 2",
             "W = 0, R = 3"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "2 + 2 = 4 > 3, so every read overlaps every write."
         }
       },
@@ -522,12 +522,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a client stub do in RPC?",
           "options": [
             "Executes the remote procedure body locally inside the caller's own thread stack",
+            "Turns the call into bytes, sends them, and turns the reply back into a result",
             "Persists outgoing RPC payloads inside a transactional SQL queue prior to send",
-            "Compresses HTTP response JSON headers before caching them at edge reverse proxies",
-            "Turns the call into bytes, sends them, and turns the reply back into a result"
+            "Compresses HTTP response JSON headers before caching them at edge reverse proxies"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The stub hides serialisation and networking behind a normal-looking function call."
         }
       },
@@ -600,12 +600,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is 300 as a varint?",
           "options": [
             "[0x01, 0x2C]",
-            "[0xAC, 0x02]",
             "[0x12, 0xC0]",
-            "[0x2C, 0x01]"
+            "[0x2C, 0x01]",
+            "[0xAC, 0x02]"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Low 7 bits 0x2C plus the flag make 0xAC; the remaining bits are 0x02."
         }
       },
@@ -677,13 +677,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a deleted field's number never be reused?",
           "options": [
-            "Old messages with that number would be misread as the new field",
             "Protobuf wire descriptors cap total schema fields at 15 tags max",
+            "Old messages with that number would be misread as the new field",
             "Varint encoding reserves deleted numeric identifiers for checksums",
             "Code generators raise compilation failures on monotonic tag gaps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Old senders may still send the old field under that number, which would now be misinterpreted."
         }
       },
@@ -716,11 +716,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "So downstream replicas serialize replies in strictly faster frames",
             "Because Protobuf HTTP framing forbids missing deadline metadata headers",
-            "To allow edge proxies to cache partial replies safely past caller aborts",
-            "So they stop work that the original caller will no longer wait for"
+            "So they stop work that the original caller will no longer wait for",
+            "To allow edge proxies to cache partial replies safely past caller aborts"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Work finished after the caller gave up is wasted capacity."
         }
       }
@@ -776,13 +776,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What goes wrong with hash(key) % N when a server is added?",
           "options": [
+            "Most keys map to a different server",
             "Cluster keys spread slightly faster locally",
             "Existing keys stay pinned cleanly in memory",
-            "Most keys map to a different server",
             "Modulo division raises zero-division faults"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Changing N changes almost every result of the modulo."
         }
       },
@@ -856,12 +856,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When a node is removed from the ring, which keys move?",
           "options": [
             "Every key stored across all healthy shards",
-            "Only the keys that the removed node owned",
             "Strictly keys owned by the previous clockwise node",
+            "Only the keys that the removed node owned",
             "Half of the global cluster keyspace uniformly"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Other nodes keep their keys; only the removed node's keys go to their clockwise neighbours."
         }
       },
@@ -893,13 +893,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem do virtual nodes solve?",
           "options": [
-            "Uneven key shares caused by a few randomly placed points",
             "Excessive cryptographic digest runtime latency per read",
             "Runaway cluster shard counts exceeding RAM descriptors",
-            "Clockwise ring wrap-around collisions on integer overflow"
+            "Clockwise ring wrap-around collisions on integer overflow",
+            "Uneven key shares caused by a few randomly placed points"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Many points per server average out the arc sizes, balancing the load."
         }
       },
@@ -930,13 +930,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Adding one node to a ring of 4 moves about what share of keys?",
           "options": [
+            "20%",
             "80%",
             "40%",
-            "25%",
-            "20%"
+            "25%"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "1 / (4 + 1) = 20%."
         }
       },
@@ -968,12 +968,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why skip nodes already in the list when choosing replicas?",
           "options": [
             "Skipping duplicate entries shrinks linear ring traversal latency by avoiding redundant hashes",
-            "Clock-ordered rings cannot assign more than two keys to adjacent neighbor positions safely",
             "Virtual nodes mean one server appears many times, and replicas must be on different servers",
+            "Clock-ordered rings cannot assign more than two keys to adjacent neighbor positions safely",
             "Consistent hash lookup tables forbid overlapping ring segments from routing consecutive reads"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Two copies on the same server would not protect against that server failing."
         }
       }
@@ -1030,11 +1030,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The read returns a stale error immediately so clients fall back cleanly to offline",
             "The cache daemon queries the upstream database automatically via internal hooks",
-            "The app loads from the database, stores the value in the cache, and returns it",
-            "The router replays the lookup against a secondary cold archive tier directly"
+            "The router replays the lookup against a secondary cold archive tier directly",
+            "The app loads from the database, stores the value in the cache, and returns it"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The application fills the cache itself after reading from the database."
         }
       },
@@ -1065,13 +1065,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "An entry is stored at t = 0 with ttl = 60. Is it a hit at t = 60?",
           "options": [
-            "Yes, until t = 61 ticks",
             "No, it expires at 60",
+            "Yes, until t = 61 ticks",
             "Only when DB replicas stall",
             "Yes, inside LRU hot queues"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "It is valid only while its expiry (60) is greater than now; at 60 it has expired."
         }
       },
@@ -1102,13 +1102,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a thundering herd?",
           "options": [
-            "Many requests missing the cache at once and all hitting the database",
             "Sequential slow TCP handshakes choking an under-provisioned DB host",
-            "Oversized cache clusters evicting cold read entries continuously",
+            "Many requests missing the cache at once and all hitting the database",
+            "Oversized cache clusters evicting cold read entries continuously synchronized across distributed service instances",
             "Broadcast gossip traffic saturating east-west microservice links"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A popular key expiring sends a wave of identical queries to the database."
         }
       },
@@ -1141,11 +1141,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "So newly inserted hot entries survive noticeably longer on average",
             "To shrink cache shard key memory overhead cleanly in Python",
-            "To balance CPU cache line reads evenly across worker cores",
-            "So keys cached together do not all expire at the same moment"
+            "So keys cached together do not all expire at the same moment",
+            "To balance CPU cache line reads evenly across worker cores"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Spreading expiries avoids a sudden wave of database reloads."
         }
       },
@@ -1217,13 +1217,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which entry does an LRU cache evict?",
           "options": [
+            "The entry unused for the longest time",
             "The most recently inserted cache entry",
             "A uniformly sampled random active entry",
-            "The entry unused for the longest time",
             "The entry carrying the largest byte size"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Least recently used means the one that has waited longest since its last access."
         }
       }
@@ -1280,12 +1280,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What problem does a distributed lock solve?",
           "options": [
             "Elevated median TCP round-trip times across wide-area links",
-            "Two machines doing the same critical work at the same time",
             "Single worker processes exhausting local Python heap memory",
+            "Two machines doing the same critical work at the same time",
             "Replica nodes falling slightly behind primary append streams"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A lock ensures only one machine performs the protected operation."
         }
       },
@@ -1317,13 +1317,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do distributed locks expire?",
           "options": [
-            "So a crashed holder does not block everyone forever",
             "To keep lock server RAM footprint within fixed bounds",
             "To make mutual exclusion acquisitions run faster locally",
-            "To flush stale TCP keepalive sockets periodically"
+            "To flush stale TCP keepalive sockets periodically",
+            "So a crashed holder does not block everyone forever"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "A lease that expires lets others take over after the holder dies."
         }
       },
@@ -1359,7 +1359,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does a fencing token stop a paused worker from corrupting data?",
           "options": [
             "Storage rejects writes carrying a token older than the newest it has seen",
-            "The fencing service accelerates paused garbage collection loops remotely",
+            "The fencing service accelerates paused garbage collection loops remotely synchronized across distributed service instances",
             "Lock coordinators kill stalled worker containers prior to issuing tokens",
             "Clients encrypt outgoing payloads with temporary lease expiration stamps"
           ],
@@ -1392,12 +1392,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why subtract a drift margin when checking a lease?",
           "options": [
             "Adding buffer margins stretches total lock lease durations safely across slow jobs",
+            "Clocks disagree, so the holder must stop before the lease could have expired elsewhere",
             "Monotonic drift calculations let coordinators issue overlapping fast-path leases",
-            "Subtracting drift eliminates all network partition risks during leader renewals",
-            "Clocks disagree, so the holder must stop before the lease could have expired elsewhere"
+            "Subtracting drift eliminates all network partition risks during leader renewals"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The margin covers the difference between the holder's clock and the lock service's clock."
         }
       },
@@ -1466,12 +1466,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does compare-and-set avoid a separate lock?",
           "options": [
             "It takes an exclusive table lock across the entire storage partition",
-            "The write only succeeds if the version is unchanged since it was read",
             "It overwrites concurrent updates automatically in last-write order",
-            "It queues competing transactions sequentially in a global lock manager"
+            "It queues competing transactions sequentially in a global lock manager",
+            "The write only succeeds if the version is unchanged since it was read"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Conflicting writers are detected by the version check and must retry."
         }
       }
@@ -1561,13 +1561,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a follower only suspect, not know, that the leader failed?",
           "options": [
-            "A missing heartbeat could also be a slow network or a partition",
             "Followers lack permission to inspect coordinator health statuses",
             "Signed RPC heartbeat packets use asymmetric cipher headers",
+            "A missing heartbeat could also be a slow network or a partition",
             "TCP heartbeats always get dropped during normal election terms"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Silence has many possible causes in a distributed system."
         }
       },
@@ -1636,13 +1636,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many votes does a candidate need in a 7-node cluster?",
           "options": [
+            "4",
             "3",
             "7",
-            "4",
             "5"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "7 // 2 + 1 = 4."
         }
       },
@@ -1675,12 +1675,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does Raft use randomised election timeouts?",
           "options": [
             "To conserve cluster CPU cycles during quiet low-traffic intervals",
-            "To obscure active election cadences against external traffic snoops",
             "To make split votes unlikely, so one candidate usually wins quickly",
+            "To obscure active election cadences against external traffic snoops",
             "To guarantee followers flush pending WAL entries ahead of restarts"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Different timeouts mean one node usually starts and wins before others begin."
         }
       },
@@ -1708,12 +1708,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "During a partition, which side of a Raft cluster can elect a leader?",
           "options": [
             "Both sides simultaneously via local leases",
-            "Only the side with a majority of nodes",
             "Strictly the side retaining the prior leader",
+            "Only the side with a majority of nodes",
             "Neither side regardless of cluster member size"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A leader needs majority votes, which only one side can have."
         }
       }
@@ -1800,12 +1800,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are the timestamp bits placed at the top of a Snowflake ID?",
           "options": [
             "So generated keys consume fewer bytes on wire",
+            "So IDs sort in creation-time order",
             "Because relational B-trees demand bit-shifted highs",
-            "To isolate multi-tenant shard ranges automatically",
-            "So IDs sort in creation-time order"
+            "To isolate multi-tenant shard ranges automatically"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The highest bits decide numeric order, so time order becomes ID order."
         }
       },
@@ -1843,11 +1843,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Keep minting sequential keys directly from NTP",
             "Reset the worker per-millisecond sequence to 4095",
-            "Swap worker ID bits cleanly with sequence bits",
-            "Raise an error or wait, to avoid duplicate IDs"
+            "Raise an error or wait, to avoid duplicate IDs",
+            "Swap worker ID bits cleanly with sequence bits"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Going back in time could repeat an earlier timestamp and sequence."
         }
       },
@@ -1881,11 +1881,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "id >> 12",
             "id << 22",
-            "id & 4095",
-            "id | 4095"
+            "id | 4095",
+            "id & 4095"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "4095 has twelve 1-bits, so AND keeps just the lowest 12 bits."
         }
       },
@@ -1916,13 +1916,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is time_prefix(36)?",
           "options": [
-            "\"Z0\"",
             "\"10\"",
+            "\"Z0\"",
             "\"36\"",
             "\"A0\""
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "36 in base 36 is one 36 and zero units: \"10\"."
         }
       },
@@ -1949,13 +1949,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a downside of Snowflake IDs compared with UUID v7?",
           "options": [
-            "Worker ids must be assigned and clocks handled carefully",
             "Fixed 64-bit Snowflake IDs fail strict time-order sorting",
+            "Worker ids must be assigned and clocks handled carefully",
             "Snowflake keys allocate 256 storage bits per generated row",
             "Snowflake formats cannot generate more than one ID per sec"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Snowflake needs unique worker ids and protection against clock problems."
         }
       }
@@ -2011,13 +2011,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do replicated state machines end in the same state?",
           "options": [
-            "They apply the same commands in the same order, deterministically",
             "All replicas read directly from shared distributed DRAM pages",
             "Leaders snapshot and ship complete memory heaps every second",
-            "Followers sort local writes monotonically by physical host clock"
+            "Followers sort local writes monotonically by physical host clock",
+            "They apply the same commands in the same order, deterministically"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Deterministic commands applied in one agreed order produce identical results."
         }
       },
@@ -2045,13 +2045,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do prev_index and prev_term let a follower check?",
           "options": [
+            "That its log matches the leader's just before the new entries",
             "That available local storage capacity can store incoming slabs",
             "That the leader's DNS hostname matches the active term config",
-            "That pending entries carry strictly higher wall timestamps",
-            "That its log matches the leader's just before the new entries"
+            "That pending entries carry strictly higher wall timestamps"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If the entry before matches, the logs agree up to that point."
         }
       },
@@ -2087,12 +2087,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the follower drop entries after prev_index?",
           "options": [
             "Dropping trailing uncommitted items shrinks local WAL disk consumption ahead of compaction",
-            "Raft consensus bounds every active follower append log strictly to three trailing slots",
             "They may be uncommitted entries from an old leader, and the current leader's log wins",
+            "Raft consensus bounds every active follower append log strictly to three trailing slots",
             "Conflicting entries belong cleanly to follower transactions awaiting two-phase commits"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Conflicting uncommitted entries are replaced by the leader's entries."
         }
       },
@@ -2125,12 +2125,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In a 5-node cluster, how many nodes must store an entry before it is committed?",
           "options": [
             "2",
-            "3",
             "5",
+            "3",
             "4"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "More than half: 3 of 5."
         }
       },
@@ -2163,12 +2163,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does the leader do when a follower rejects AppendEntries?",
           "options": [
             "Steps down from leadership immediately and drops its term",
-            "Steps next_index back and retries until the logs match",
             "Truncates its entire leader WAL log down to committed index",
-            "Continues sending newer indices while ignoring trailing gaps"
+            "Continues sending newer indices while ignoring trailing gaps",
+            "Steps next_index back and retries until the logs match"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Stepping back finds the last matching entry, and then the follower is brought up to date."
         }
       },
@@ -2260,11 +2260,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Transactions bypass durable disk fsync steps",
             "At least one fast cohort finishes commits early",
-            "Queries skip isolation locks across shards",
-            "All participants commit, or all abort"
+            "All participants commit, or all abort",
+            "Queries skip isolation locks across shards"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Atomicity means no partial outcome across participants."
         }
       },
@@ -2298,11 +2298,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Zero durability guarantees beyond local RAM",
             "That all read locks already released cleanly",
-            "That it can commit later, even after a crash",
-            "That sibling cohorts also voted yes on prepare"
+            "That sibling cohorts also voted yes on prepare",
+            "That it can commit later, even after a crash"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "A yes vote is binding: the prepared state is saved so the commit can always complete."
         }
       },
@@ -2334,13 +2334,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After one ABORT vote, which cohorts receive abort()?",
           "options": [
+            "Every cohort",
             "Only the aborting cohort",
             "None after logging locally",
-            "Every cohort",
             "Strictly read-only replicas"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "All participants must release their prepared work and locks."
         }
       },
@@ -2406,13 +2406,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 2PC called a blocking protocol?",
           "options": [
-            "Prepared participants must wait, holding locks, if the coordinator fails",
-            "Two-phase messaging blocks TCP sockets across every unrelated host",
+            "Two-phase messaging blocks TCP sockets",
             "Transaction coordinators allow only one global write flight globally",
+            "Prepared participants must wait, holding locks, if the coordinator fails",
             "Abort phases force participating databases to replay full WAL backups"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Without the decision, participants can neither commit nor abort safely."
         }
       },
@@ -2498,13 +2498,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a saga undo completed steps after a failure?",
           "options": [
-            "A distributed XA database rollback across all nodes",
+            "A distributed XA database rollback",
+            "Compensating actions for each completed step",
             "Silent truncation ignoring partial downstream edits",
-            "Replaying the entire workflow forward from step one",
-            "Compensating actions for each completed step"
+            "Replaying the entire workflow forward from step one"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Each step was committed locally, so the saga runs explicit compensations."
         }
       },
@@ -2579,12 +2579,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In which order are compensations run?",
           "options": [
             "Oldest forward",
-            "Newest first",
             "Randomly shuffled",
-            "Parallel unsequenced"
+            "Parallel unsequenced",
+            "Newest first"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Undoing in reverse respects dependencies between steps."
         }
       },
@@ -2654,13 +2654,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a main advantage of orchestration?",
           "options": [
-            "The whole flow is visible and controlled in one place",
             "Zero participating services hold knowledge of peer steps",
+            "The whole flow is visible and controlled in one place",
             "Orchestrators eliminate all custom retry and error code",
-            "Individual workers automatically coordinate state without logs"
+            "Individual workers automatically coordinate state"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A central orchestrator makes the flow easy to understand, monitor and change."
         }
       },
@@ -2694,11 +2694,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "An exclusive row-level SQL mutex held until all steps commit",
             "An encrypted HMAC signature attached cleanly inside JSON rows",
-            "A pessimistic coordinator lease blocking external API reads",
-            "A status like PENDING that tells other code a record is mid-saga"
+            "A status like PENDING that tells other code a record is mid-saga",
+            "A pessimistic coordinator lease blocking external API reads synchronized across distributed service instances"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The status warns others without holding real locks."
         }
       }
@@ -2754,13 +2754,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a slow consumer not slow down the producer in Kafka?",
           "options": [
+            "The producer writes to the log, and each consumer reads at its own pace",
             "Kafka brokers disconnect slow consumer processes permanently after stalls",
             "Producers block write acks until the slowest consumer group commits offsets",
-            "The producer writes to the log, and each consumer reads at its own pace",
             "Topics split messages uniformly onto per-consumer temporary RAM queues"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The log decouples writing from reading."
         }
       },
@@ -2831,12 +2831,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens with 2 partitions and 3 consumers in one group?",
           "options": [
             "All three split two partitions",
-            "One consumer sits idle",
             "Kafka spins up a third partition",
+            "One consumer sits idle",
             "Two consumers sit disconnected"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each partition goes to one consumer, so the third has nothing to read."
         }
       },
@@ -2864,13 +2864,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a sticky assignor try to do during rebalancing?",
           "options": [
-            "Keep existing assignments and move as few partitions as possible",
             "Re-shuffle every active topic partition cleanly from scratch on join",
             "Pause topic production globally across all consumer group members",
-            "Broadcast duplicate messages to standby idle consumers during splits"
+            "Broadcast duplicate messages to standby idle consumers during splits",
+            "Keep existing assignments and move as few partitions as possible"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Fewer moves mean less disruption and less re-reading."
         }
       },
@@ -2906,13 +2906,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Committing offsets after processing gives which guarantee?",
           "options": [
+            "At-least-once",
             "At-most-once",
             "Never-once",
-            "Zero-loss",
-            "At-least-once"
+            "Zero-loss synchronized across distributed service instances"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A crash before the commit causes redelivery, so each message is processed at least once."
         }
       },
@@ -2941,12 +2941,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why can a consumer group not use more consumers than partitions?",
           "options": [
             "Kafka brokers hard-limit consumer groups to 4 workers",
-            "Active consumers share one global monotonic offset cursor",
             "Each partition goes to only one consumer in a group",
+            "Active consumers share one global monotonic offset cursor",
             "Idle partitions rebalance across unrelated topic names"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Extra consumers beyond the partition count have nothing assigned."
         }
       }
@@ -3004,11 +3004,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "At-most-once delivery",
             "Strict single delivery",
-            "At-least-once",
-            "Best-effort lossy push"
+            "Best-effort lossy push",
+            "At-least-once"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "At-least-once never loses messages, and duplicates are handled by the receiver."
         }
       },
@@ -3040,13 +3040,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which operation is idempotent?",
           "options": [
-            "Increment an unkeyed counter by 1",
             "Set an order's status to SHIPPED",
+            "Increment an unkeyed counter by 1",
             "Dispatch a confirmation customer mail",
             "Append a new duplicate audit line row"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Setting a value to the same thing twice has the same effect as once."
         }
       },
@@ -3082,13 +3082,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when a known message id arrives with a different payload?",
           "options": [
-            "Return an error such as PAYLOAD_MISMATCH",
             "Execute the new request body a second time",
+            "Return an error such as PAYLOAD_MISMATCH",
             "Silently overwrite the saved cached response",
             "Ignore the differing fields and return older ID"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Reusing an id for different content is a bug or attack and must not be processed silently."
         }
       },
@@ -3122,11 +3122,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because deterministic hash keys produce fewer hex chars",
             "Because database primary indexes require compound UUID strings",
-            "So unrelated actions share one deduplication bucket cleanly",
-            "So every retry of the same operation carries the same key"
+            "So every retry of the same operation carries the same key",
+            "So unrelated actions share one deduplication bucket cleanly"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The same logical operation must always produce the same key."
         }
       },
@@ -3196,13 +3196,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an upsert safer than an insert with at-least-once delivery?",
           "options": [
-            "Database upsert operations skip write-ahead log syncs to commit faster",
-            "Plain SQL inserts never trigger constraint violations during broker replays",
             "A repeated upsert updates the same row instead of creating a duplicate",
+            "Database upsert operations skip write-ahead log syncs to commit faster",
+            "Plain SQL inserts never trigger constraint violations",
             "Upserts eliminate the need for primary or unique key constraints totally"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Keyed writes turn duplicates into harmless overwrites."
         }
       }
@@ -3259,12 +3259,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is a poison pill so harmful in an ordered partition?",
           "options": [
             "Poison payloads corrupt adjacent messages stored on disk",
-            "Messages behind it cannot be processed while it keeps failing",
             "Failing JSON schemas force producers offline immediately",
+            "Messages behind it cannot be processed while it keeps failing",
             "Offset commits advance ahead of skipped messages silently"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Ordered processing means the failing message blocks the rest."
         }
       },
@@ -3296,13 +3296,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen to a message that fails with \"amount is negative\"?",
           "options": [
-            "Send it to the dead letter queue",
             "Retry infinitely at fixed backoff",
             "Drop it quietly without logging",
-            "Coerce amount cleanly to positive"
+            "Coerce amount cleanly to positive",
+            "Send it to the dead letter queue"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Invalid data will fail every time, so it should be set aside for investigation."
         }
       },
@@ -3341,7 +3341,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
             "The failing message is set aside so the rest of the queue can continue",
             "Quarantine stages automatically patch malformed numeric payloads cleanly",
             "Dead letter routing purges corrupted customer records forever immediately",
-            "The consumer advances partition offsets without recording error stack data"
+            "The consumer advances partition offsets"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3377,12 +3377,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why group DLQ entries by error message?",
           "options": [
             "Grouping rows speeds up permanent log truncation sweeps on brokers",
+            "Many entries with the same error usually point to one bug to fix",
             "Dead letter storage drivers mandate sorted error-type partitions",
-            "Redrive APIs forbid processing ungrouped payloads across batches",
-            "Many entries with the same error usually point to one bug to fix"
+            "Redrive APIs forbid processing ungrouped payloads across batches"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Patterns show which fix will clear the most failures."
         }
       },
@@ -3411,7 +3411,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is redriving DLQ messages safe only with idempotent processing?",
           "options": [
             "Dead letter topics reassign randomized UUID message identifiers during storage",
-            "Redrive consumers erase original primary records ahead of re-execution",
+            "Redrive consumers erase original primary records ahead of re-execution synchronized across distributed service instances",
             "A redriven message may have partly succeeded before, so repeats must be harmless",
             "Non-idempotent jobs automatically bypass partition offset commit checks"
           ],
@@ -3449,12 +3449,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why might you park later messages for a key after one of its messages fails?",
           "options": [
             "Parking trailing per-key items slashes consumer RAM utilization across idle topic reads",
-            "Processing them out of order could give wrong results, such as a withdrawal before its deposit",
             "Dead letter queues cannot accept consecutive failure records belonging to identical accounts",
-            "Parking messages triggers immediate broker-wide partition leadership transfers cleanly"
+            "Parking messages triggers immediate broker-wide partition leadership transfers cleanly synchronized across distributed service instances",
+            "Processing them out of order could give wrong results, such as a withdrawal before its deposit"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Per-key order matters for data like balances."
         }
       }
@@ -3544,13 +3544,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should the idempotency key be recorded as COMMITTED?",
           "options": [
-            "After all saga steps succeed",
             "Before invoking any saga handler",
             "Upon receiving the raw HTTP call",
+            "After all saga steps succeed",
             "Right before starting step one"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Recording only after success lets failed events be retried after a fix."
         }
       },
@@ -3590,7 +3590,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the idempotency key of a failed transaction?",
           "options": [
-            "It stays saved forever as COMMITTED cleanly",
+            "It stays saved forever as COMMITTED cleanly synchronized",
             "The key attribute gets stripped off the payload",
             "A synthetic compensation mark blocks retries",
             "It is not stored, so the event can be retried after a fix"
@@ -3628,13 +3628,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does tx_duration(1000, 1125) return?",
           "options": [
+            "\"125ms\"",
             "\"1125ms\"",
             "\"0.125s\"",
-            "\"125ms\"",
             "\"1000ms\""
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "1125 - 1000 = 125, formatted as \"125ms\"."
         }
       },
@@ -3666,13 +3666,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check the exact order of compensations in tests?",
           "options": [
-            "Step ordering rarely matters once transactions roll back safely",
-            "Adding sequence assertions stretches execution logs cleanly in CI",
+            "Step ordering rarely matters once transactions roll back safely synchronized across distributed service instances",
             "Undoing in the wrong order is a real bug that simple success tests miss",
+            "Adding sequence assertions stretches execution logs cleanly in CI",
             "Happy-path unit tests execute backward undo hooks automatically"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Only an explicit check catches compensations running oldest first."
         }
       },
@@ -3709,12 +3709,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What problem does the transactional outbox solve?",
           "options": [
             "Making slow relational joins respond noticeably quicker on read",
+            "Splitting oversized Kafka broker topics cleanly",
             "Keeping database changes and published events in step without 2PC",
-            "Splitting oversized Kafka broker topics cleanly across regions",
             "Eliminating idempotent consumers inside downstream microservices"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Saving the event with the change guarantees it is eventually published, and only if the change happened."
         }
       }
@@ -3804,12 +3804,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When are two events concurrent?",
           "options": [
             "When both carry identical wall-clock ms",
+            "When neither happened before the other",
             "When both events ran on one local node",
-            "When one message directly caused the next",
-            "When neither happened before the other"
+            "When one message directly caused the next"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Concurrent means no chain of messages links them."
         }
       },
@@ -3843,11 +3843,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "50",
             "13",
-            "90",
-            "10"
+            "10",
+            "90"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "max(4, 9) + 1 = 10."
         }
       },
@@ -3881,11 +3881,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Node N2 runs across 3 active vCPU cores",
             "Host N2 lags wall time by 3 full seconds",
-            "The holder has seen 3 events from N2",
-            "Replica N2 failed 3 prior quorum pings"
+            "Replica N2 failed 3 prior quorum pings",
+            "The holder has seen 3 events from N2"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Each entry counts the events seen from that node."
         }
       },
@@ -3916,13 +3916,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Clocks {\"N1\": 2, \"N2\": 1} and {\"N1\": 1, \"N2\": 2} are...",
           "options": [
-            "A_BEFORE_B",
             "CONCURRENT",
+            "A_BEFORE_B",
             "EQUAL_STATE",
             "B_BEFORE_A"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Each clock is ahead in one entry, so the events are concurrent."
         }
       },
@@ -3954,13 +3954,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is last-write-wins risky for concurrent writes?",
           "options": [
-            "It silently throws away one of the conflicting changes",
             "Vector clock comparisons run noticeably too slow in Python",
+            "It silently throws away one of the conflicting changes",
             "LWW mandates heavyweight consensus quorums on every write",
             "Timestamps cannot sort sequential edits on single hosts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Only one version survives; the other edit is lost without anyone noticing."
         }
       }
@@ -4016,13 +4016,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which property means merging the same state twice changes nothing?",
           "options": [
-            "Idempotent",
             "Commutative",
             "Associative",
-            "Monotonicity"
+            "Monotonicity",
+            "Idempotent"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "An idempotent merge gives the same result however many times it is repeated."
         }
       },
@@ -4054,13 +4054,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a G-Counter merge use max for each entry?",
           "options": [
+            "Each entry only grows and is owned by one node, so the larger value is the newest",
             "Element-wise maximum executes slightly quicker in C loops than numeric addition",
             "Distributed grow-only maps cannot evaluate sum operations over replicated dicts",
-            "Max merges automatically compress vector clocks across idle gossip partitions",
-            "Each entry only grows and is owned by one node, so the larger value is the newest"
+            "Max merges automatically compress vector clocks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Ownership plus growth make max the correct combination."
         }
       },
@@ -4092,13 +4092,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a PN-Counter use two grow-only maps?",
           "options": [
-            "To compress active vector counters tightly inside low-RAM edge storage nodes",
-            "Because positive-negative CRDTs forbid subtracting values from local counters",
+            "To compress active vector counters tightly inside low-RAM edge storage nodes synchronized across distributed service instances",
             "So both maps only grow and the max merge stays correct while the value can fall",
+            "Because positive-negative CRDTs forbid subtracting values from local counters",
             "So conflicting decrements get silently discarded during state synchronization"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Separating increments and decrements keeps each half mergeable with max."
         }
       },
@@ -4131,12 +4131,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does an LWW register need a tie-break on node id?",
           "options": [
             "So merge operations avoid checking slow wall timestamps completely",
-            "So replicas with equal timestamps still choose the same value",
             "Because static integer node IDs stay safer than physical clocks",
+            "So replicas with equal timestamps still choose the same value",
             "To break causality ties strictly in favor of recent writers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A deterministic tie-break guarantees convergence."
         }
       },
@@ -4173,12 +4173,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In an add-wins set, why does a concurrent add survive a remove?",
           "options": [
             "CRDT merge engines always apply element additions ahead of pending deletions",
-            "The remove only deletes the tags it had seen, and the new add has a new tag",
             "Concurrent tombstone remove tags get dropped automatically on message arrival",
-            "Observed-remove sets require strict linearizable locks before updating tags"
+            "Observed-remove sets require strict linearizable locks before updating tags",
+            "The remove only deletes the tags it had seen, and the new add has a new tag"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Unique tags let the set tell old additions from new ones."
         }
       },
@@ -4209,7 +4209,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A limit like \"stock can never go below zero\"",
             "Supporting offline mobile edits seamlessly",
-            "Converging identically in any merge order",
+            "Converging identically in any merge order synchronized across distributed service instances",
             "Keeping grow-only event counters idempotent"
           ],
           "answer": 0,
@@ -4267,11 +4267,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Complete identical copies of every table globally",
             "Strictly secondary search index metadata pages",
-            "Transaction write-ahead logs separated from rows",
-            "The rows of a table, so each server holds a subset"
+            "The rows of a table, so each server holds a subset",
+            "Transaction write-ahead logs separated from rows"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each shard holds part of the data; together they hold all of it."
         }
       },
@@ -4305,11 +4305,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Ordered primary key range scans become abnormally slow",
             "Monotonic sequential inserts risk losing recent row IDs",
-            "All new writes hit the last shard, creating a hot spot",
-            "Shard directories exceed memory capacity prematurely"
+            "Shard directories exceed memory capacity prematurely",
+            "All new writes hit the last shard, creating a hot spot"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Monotonically increasing keys concentrate writes at the end of the range."
         }
       },
@@ -4341,13 +4341,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a downside of hash sharding?",
           "options": [
+            "Range queries must ask every shard",
             "Uniform keys cluster onto a single shard",
             "Lookups require a central key directory",
-            "Range queries must ask every shard",
             "Hash functions skew monotonically upward"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Hashing scatters neighbouring keys, so ranges touch all shards."
         }
       },
@@ -4417,13 +4417,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why create many logical shards up front?",
           "options": [
-            "So resharding moves whole logical shards instead of rehashing every key",
             "So storage engines pre-allocate larger contiguous SSD file extents early",
             "Because individual logical partitions execute single-row reads noticeably faster",
+            "So resharding moves whole logical shards instead of rehashing every key",
             "So SQL planners eliminate cross-shard scatter-gather joins automatically"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A fixed key-to-logical-shard mapping never changes; only placement does."
         }
       },
@@ -4519,12 +4519,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is replication lag?",
           "options": [
             "Total wall duration of a primary WAL disk sync",
+            "The delay before replicas receive the primary's changes",
             "Packet framing errors on saturated NIC links",
-            "Time spent rebuilding secondary B-tree pages",
-            "The delay before replicas receive the primary's changes"
+            "Time spent rebuilding secondary B-tree pages"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Asynchronous replicas trail the primary by some time."
         }
       },
@@ -4594,13 +4594,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why store last_write in the session rather than globally?",
           "options": [
-            "Global variables serialize reads sequentially across single-threaded Python nodes",
-            "Only the user who wrote needs to read from the primary; others can use replicas",
+            "Global variables serialize reads sequentially",
             "Signed cookie sessions encrypt LSN offsets safely against replay tampering",
-            "Storing global offsets prevents followers from streaming WAL logs asynchronously"
+            "Storing global offsets prevents followers from streaming WAL logs asynchronously",
+            "Only the user who wrote needs to read from the primary; others can use replicas"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Pinning everyone to the primary after any write would defeat the replicas."
         }
       },
@@ -4666,13 +4666,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does semi-synchronous replication wait for?",
           "options": [
-            "At least one replica",
             "Every cluster replica",
+            "At least one replica",
             "Zero follower replicas",
             "Half of inactive regions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Waiting for one replica bounds data loss without waiting for the slowest."
         }
       },
@@ -4707,11 +4707,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Reads always reflect fresh uncommitted writes",
             "Returned lists always appear sorted by ID",
-            "Replica reads bypass primary WAL offsets",
-            "A user never sees data go backwards in time"
+            "A user never sees data go backwards in time",
+            "Replica reads bypass primary WAL offsets"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Once a user has seen a version, later reads never show an older one."
         }
       }
@@ -4765,13 +4765,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a cascading failure?",
           "options": [
+            "A failure in one service spreading to the services that call it",
             "A single slow indexed query timing out cleanly on startup",
             "A broken optical transceiver dropping physical core traffic",
-            "A failure in one service spreading to the services that call it",
             "A full WAL disk halting single-node checkpoint compaction"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Waiting callers run out of resources and fail too."
         }
       },
@@ -4800,7 +4800,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to calls while the breaker is OPEN?",
           "options": [
-            "They sit buffered inside unbounded local wait queues",
+            "They sit buffered inside unbounded local wait queues synchronized across distributed service instances",
             "They are rejected immediately without calling the dependency",
             "They execute three synchronous retries with linear waits",
             "They route silently onto stale read-only cold archives"
@@ -4844,12 +4844,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens if the HALF_OPEN trial call fails?",
           "options": [
             "The breaker transitions to CLOSED directly",
-            "The breaker opens again straight away",
             "The trailing failure counter resets cleanly",
+            "The breaker opens again straight away",
             "Requests queue asynchronously for 30s"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A failed trial shows the dependency is still unhealthy."
         }
       },
@@ -4881,13 +4881,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does format_circuit_status(\"OPEN\") return?",
           "options": [
-            "\"[CIRCUIT]: OPEN\"",
             "\"OPEN_STATE\"",
             "\"circuit_open\"",
-            "\"BREAKER:OPEN\""
+            "\"BREAKER:OPEN\"",
+            "\"[CIRCUIT]: OPEN\""
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The fixed prefix makes lines easy to search."
         }
       },
@@ -4919,13 +4919,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a bulkhead protect against?",
           "options": [
+            "One failing dependency using up all shared resources",
             "Slow single-table SQL joins locking read rows",
-            "Excessive circuit breaker transitions during peak loads",
-            "Unencrypted traffic sneaking past API edge proxies",
-            "One failing dependency using up all shared resources"
+            "Excessive circuit breaker transitions",
+            "Unencrypted traffic sneaking past API edge proxies"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Separate pools contain the damage to the failing dependency."
         }
       },
@@ -4958,12 +4958,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When should a fallback NOT pretend to succeed?",
           "options": [
             "For optional item recommendation cards",
-            "For static cached homepage banner blocks",
             "For critical operations like payments",
+            "For static cached homepage banner blocks",
             "For non-binding catalog search hints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Faking success on critical paths causes real harm."
         }
       }
@@ -5021,11 +5021,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Internal backend frameworks cannot enforce token rate limit checks",
             "Reverse proxy gateways parse HTTP JSON far faster than app servers",
-            "Applying shared rules once at the edge is simpler and consistent",
-            "Edge firewalls eliminate downstream service health monitoring"
+            "Edge firewalls eliminate downstream service health monitoring",
+            "Applying shared rules once at the edge is simpler and consistent"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Central enforcement avoids duplicating the logic in every service."
         }
       },
@@ -5057,13 +5057,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does each client get its own bucket?",
           "options": [
-            "Token buckets consume negligible RAM allocation across tiers",
             "So one busy client cannot use up everyone else's allowance",
+            "Token buckets consume negligible RAM allocation across tiers",
             "External SDK clients explicitly mandate isolated leaky buckets",
             "Isolated buckets speed up upstream TLS connection pooling"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Per-client limits keep the system fair."
         }
       },
@@ -5099,13 +5099,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which status should a client get when the backend's circuit is open?",
           "options": [
-            "503",
             "429",
+            "503",
             "500",
             "401"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "503 Service Unavailable signals a temporary problem on the server side."
         }
       },
@@ -5139,11 +5139,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Adding correlation UUID headers accelerates downstream DB connection pools",
             "Upstream HTTP/2 specifications require unique trace IDs on all POSTs",
-            "Gateway caches use request IDs to deduplicate identical static reads",
-            "So logs from every service handling the request can be joined together"
+            "So logs from every service handling the request can be joined together",
+            "Gateway caches use request IDs to deduplicate identical static reads"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "One id followed through all services makes debugging possible."
         }
       },
@@ -5176,7 +5176,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How can a test prove a rate-limited request never reached the backend?",
           "options": [
             "By measuring sub-millisecond end-to-end socket response timing stats",
-            "Edge rejection behavior remains fundamentally untestable without live servers",
+            "Edge rejection behavior remains fundamentally untestable",
             "By parsing client browser console warnings after simulated floods",
             "By using fakes that record calls and checking the record is empty"
           ],
@@ -5209,13 +5209,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why run several gateway instances?",
           "options": [
+            "So one instance failing does not stop all traffic",
             "To consume spare allocated cluster RAM quotas evenly",
             "Because gateways cap open sockets strictly at 100",
-            "So one instance failing does not stop all traffic",
-            "To split SSL certificate chains across separate domains"
+            "To split SSL certificate chains"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The gateway is on every request path, so it must not be a single point of failure."
         }
       }
@@ -5273,12 +5273,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many rounds does gossip roughly need to reach N nodes?",
           "options": [
             "Exact N linear rounds",
-            "About log(N) rounds",
             "Fixed 3 broadcast hops",
+            "About log(N) rounds",
             "Quadratic N^2 rounds"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The informed set multiplies each round, so growth is exponential."
         }
       },
@@ -5310,13 +5310,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why shuffle the peer list each gossip round?",
           "options": [
-            "So information travels along different paths and does not get stuck",
             "Shuffling peer arrays releases dead socket descriptors cleanly from RAM",
             "Epidemic SWIM specifications forbid iterating unsorted peer sets directly",
-            "Randomized peer ordering reduces UDP packet payload serialization bytes"
+            "Randomized peer ordering reduces UDP packet payload serialization bytes",
+            "So information travels along different paths and does not get stuck"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Random peers make the spread fast and robust."
         }
       },
@@ -5391,12 +5391,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a suspected node do if it is actually alive?",
           "options": [
             "Remains quiet until suspicion lease intervals elapse safely",
+            "Gossips an \"alive\" message with a higher incarnation number",
             "Restarts its daemon PID immediately to acquire a fresh identity",
-            "Sends a synchronous Paxos prepare request to every peer",
-            "Gossips an \"alive\" message with a higher incarnation number"
+            "Sends a synchronous Paxos prepare request to every peer"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The higher incarnation overrides the old suspicion."
         }
       },
@@ -5459,12 +5459,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which information is a poor fit for gossip?",
           "options": [
             "Which cluster peers look alive",
-            "Who currently holds a lock",
             "Node CPU usage metrics",
-            "Software build version tags"
+            "Software build version tags",
+            "Who currently holds a lock"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Lock ownership must be agreed exactly, which gossip does not guarantee."
         }
       }
@@ -5559,13 +5559,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many times is a server with weight 5 chosen in a cycle of total weight 7?",
           "options": [
-            "5",
             "1",
             "7",
+            "5",
             "2"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each server is chosen exactly its weight times per cycle."
         }
       },
@@ -5631,13 +5631,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why prefer stateless servers even when using sticky routing?",
           "options": [
+            "Any server can then take over a user if their server fails",
             "Stateless HTTP handlers compute JSON serialization noticeably faster",
             "Cookie-based sticky load balancers forbid session memory state",
-            "Any server can then take over a user if their server fails",
             "Stateless workers bypass TLS handshake verification steps safely"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "With no essential state on one server, stickiness becomes a harmless optimisation."
         }
       },
@@ -5671,12 +5671,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why use thresholds such as \"3 failures in a row\" for health checks?",
           "options": [
             "To reduce periodic health probe UDP bandwidth",
-            "Because active health endpoints stay unreliable",
             "To avoid flapping from single, brief errors",
+            "Because active health endpoints stay unreliable",
             "To allow failing instances 30 extra grace secs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Thresholds keep one blip from repeatedly removing and re-adding a server."
         }
       },
@@ -5706,12 +5706,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which algorithm fits servers with different capacities best?",
           "options": [
             "Strict plain round-robin",
-            "Weighted round-robin",
             "Blind random selection",
+            "Weighted round-robin",
             "Source IP modulo hash"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Weights send traffic in proportion to each server's capacity."
         }
       }
@@ -5807,12 +5807,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens to an instance that stops sending heartbeats?",
           "options": [
             "Its IP remains routed until manually removed",
+            "Its lease expires and the registry forgets it",
             "The service registry SSHs in and reboots it",
-            "Client proxies wait infinitely for next pings",
-            "Its lease expires and the registry forgets it"
+            "Client proxies wait infinitely for next pings"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Without renewals, the lease runs out and the instance is dropped."
         }
       },
@@ -5846,11 +5846,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Local instances always hold newer code versions",
             "Cross-zone internal traffic bypasses TLS rules",
-            "Remote availability zones fail quorum votes",
-            "Lower latency and lower data-transfer cost"
+            "Lower latency and lower data-transfer cost",
+            "Remote availability zones fail quorum votes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Staying within a zone is faster and often cheaper."
         }
       },
@@ -5885,11 +5885,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Eliminating client registries cuts an internal network hop",
             "Server-side routers operate safely without any registry DB",
-            "Clients stay simple; the balancer handles lookup and choice",
-            "Clients gain full local failover caching automatically"
+            "Clients gain full local failover caching automatically",
+            "Clients stay simple; the balancer handles lookup and choice"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Clients call one stable address; the infrastructure does the rest."
         }
       },
@@ -5921,13 +5921,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the risk of a long DNS TTL for service discovery?",
           "options": [
-            "Authoritative DNS servers receive excessive query floods",
             "Clients keep calling instances that no longer exist",
+            "Authoritative DNS servers receive excessive query floods",
             "Local OS resolvers disable A-record caching completely",
             "Instances automatically drop active health check leases"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Cached answers outlive the instances they point to."
         }
       },
@@ -5961,13 +5961,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between liveness and readiness?",
           "options": [
-            "Liveness: the process runs; readiness: it can serve traffic now",
             "Both Kubernetes probes check the exact same TCP socket state",
+            "Liveness: the process runs; readiness: it can serve traffic now",
             "Readiness executes once at boot whereas liveness runs per call",
             "Failing readiness restarts pods immediately while liveness pauses"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A running process may still be unable to serve requests."
         }
       }
@@ -6019,13 +6019,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does a backend-for-frontend solve?",
           "options": [
-            "Clients making many slow round trips and knowing every service",
             "Single slow analytical SQL queries choking primary read replicas",
             "Backend pods running out of ephemeral port numbers under burst",
-            "Large container binary sizes delaying horizontal autoscaling"
+            "Large container binary sizes delaying horizontal autoscaling",
+            "Clients making many slow round trips and knowing every service"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The BFF gathers data server-side and returns it in one tailored response."
         }
       },
@@ -6061,13 +6061,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why return partial: True instead of failing when reviews are down?",
           "options": [
+            "The screen can still show the essential data with a small note",
             "To conceal downstream microservice outages silently from alerts",
             "Because product reviews never contribute value on mobile UIs",
-            "So clients cache the failing empty array for 24 full hours",
-            "The screen can still show the essential data with a small note"
+            "So clients cache the failing empty array for 24 full hours"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Graceful degradation keeps the main experience working."
         }
       },
@@ -6100,12 +6100,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the total time of three independent calls taking 40, 120 and 90 ms in parallel?",
           "options": [
             "250 ms",
-            "40 ms",
             "120 ms",
+            "40 ms",
             "90 ms"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Parallel calls finish when the slowest one does."
         }
       },
@@ -6138,12 +6138,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why only echo origins from an allow-list?",
           "options": [
             "Modern browser CORS engines strictly reject large allow-list headers",
-            "Allowing any origin lets malicious sites call your API as your users",
             "Limiting echoed Origin domains shrinks TLS handshake frame sizes",
+            "Allowing any origin lets malicious sites call your API as your users",
             "Wildcard echoes prevent mobile native apps from reaching endpoints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "CORS is a security control; opening it widely defeats its purpose."
         }
       },
@@ -6176,12 +6176,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should NOT go into a BFF?",
           "options": [
             "Screen-specific JSON payload shaping for mobile UI",
-            "Core business rules shared by all clients",
             "Parallel aggregation fanning out to backend APIs",
-            "Client-tailored HTTP response pagination headers"
+            "Client-tailored HTTP response pagination headers",
+            "Core business rules shared by all clients"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Business logic in BFFs gets duplicated and drifts apart."
         }
       },
@@ -6273,11 +6273,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The complete multi-service user HTTP session request tree",
             "A plain unstructured syslog archive file stored on host disk",
-            "A global monotonic request counter emitted at ingress proxies",
-            "One unit of work inside a trace, with its own id and parent"
+            "One unit of work inside a trace, with its own id and parent",
+            "A global monotonic request counter emitted at ingress proxies"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Spans are the pieces; the trace is the whole tree of spans."
         }
       },
@@ -6307,11 +6307,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The parent id",
             "The trace flags",
-            "The trace id",
-            "The local clock"
+            "The local clock",
+            "The trace id"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The trace id identifies the whole request; each span gets its own id."
         }
       },
@@ -6347,13 +6347,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When a service receives a valid traceparent, what becomes its span's parent?",
           "options": [
+            "The span id in the incoming header",
             "None; each service opens a root span",
             "The shared global request trace hex id",
-            "The span id in the incoming header",
             "The caller host's internal container ID"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The caller's span id is the parent of the new span."
         }
       },
@@ -6423,13 +6423,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why sample deterministically from the trace id?",
           "options": [
-            "Every service makes the same keep-or-drop decision without coordinating",
             "Random uniform coin-flips vary slightly between worker hosts gracefully",
             "Trace IDs embed secret server-side encryption salts cleanly inside hex",
+            "Every service makes the same keep-or-drop decision without coordinating",
             "Deterministic sampling collects 100% of passing baseline calls safely"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Hashing the shared id gives a consistent decision across the whole trace."
         }
       },
@@ -6462,7 +6462,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why include the trace id in every log line?",
           "options": [
             "Including 128-bit IDs makes JSON structured logs compress neatly",
-            "Because centralized log shippers drop un-indexed lines without traces",
+            "Because centralized log shippers drop un-indexed lines",
             "So individual containers skip writing explicit local error messages",
             "So logs from all services for one request can be found together"
           ],
@@ -6524,12 +6524,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does linearizability guarantee?",
           "options": [
             "Disconnected replicas converge to identical state once background gossip ends",
+            "Once a write completes, every later read sees it, as if there were one copy",
             "Read operations execute without network round trips regardless of links",
-            "Causal replies never appear earlier in history than their originating posts",
-            "Once a write completes, every later read sees it, as if there were one copy"
+            "Causal replies never appear earlier in history than their originating posts"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "It matches real-time order, as with a single copy."
         }
       },
@@ -6600,12 +6600,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A write of v2 completes at t=50. A read starts at t=70 and returns v1. Is that linearizable?",
           "options": [
             "Yes, because writes overlap",
-            "No, it is a stale read",
             "Only when v1 was sequential",
-            "Yes, inside LWW registers"
+            "Yes, inside LWW registers",
+            "No, it is a stale read"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The read began after v2 completed, so it must return v2."
         }
       },
@@ -6667,13 +6667,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does eventual consistency promise?",
           "options": [
-            "Replicas converge to the same value once writes stop",
             "Every subsequent read observes the newest write at once",
+            "Replicas converge to the same value once writes stop",
             "Zero updates can ever get overwritten during splits",
             "Partitioned minority nodes continue linearizable commits"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "It guarantees convergence, not immediate visibility."
         }
       },
@@ -6703,11 +6703,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Incrementing public post like counts",
             "Refreshing a movie recommendations list",
-            "Appending non-critical click analytics",
-            "Booking the last seat on a flight"
+            "Booking the last seat on a flight",
+            "Appending non-critical click analytics"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Two people must not both get the last seat."
         }
       }
@@ -6759,13 +6759,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens on a CDN cache miss?",
           "options": [
+            "The edge fetches the content from the origin, then usually caches it",
             "The edge node immediately returns HTTP 504 directly to clients",
             "The edge waits passively for background replication push streams",
-            "The edge fetches the content from the origin, then usually caches it",
             "The browser retries the origin IP directly bypassing the edge"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Misses go to the origin, and the response is stored for future requests."
         }
       },
@@ -6832,12 +6832,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "With max-age=60 and stale-while-revalidate=30, what is the status at age 80?",
           "options": [
             "FRESH_EDGE_HIT",
+            "HARD_EXPIRED synchronized across distributed service instances",
             "STALE_REVALIDATING",
-            "HARD_EXPIRED",
             "ORIGIN_BYPASS"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "80 is past 60 but within 60 + 30 = 90."
         }
       },
@@ -6869,13 +6869,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are surrogate keys better than purging by URL for a price change?",
           "options": [
-            "One key finds every page showing that product, however many there are",
             "Opaque surrogate tag strings occupy noticeably shorter cache headers",
             "HTTP edge proxies forbid exact URL path invalidations globally",
-            "Purging by surrogate keys skips origin revalidation fetches safely"
+            "Purging by surrogate keys skips origin revalidation fetches safely",
+            "One key finds every page showing that product, however many there are"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Tags group all affected pages under one purge."
         }
       },
@@ -6907,13 +6907,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the danger of caching a personalised page in a CDN?",
           "options": [
+            "One user's private page could be served to other users",
             "Dynamic personalized pages parse noticeably slowly at edges",
             "CDN edge caches corrupt UTF-8 HTML templates on disk",
-            "Origin servers double billing when serving cached HTML",
-            "One user's private page could be served to other users"
+            "Origin servers double billing when serving cached HTML"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Shared caches serve the same copy to everyone who requests that URL."
         }
       },
@@ -6941,13 +6941,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does request collapsing do?",
           "options": [
-            "Purges duplicate trailing query parameters ahead of key hashing",
-            "Compresses simultaneous small asset payloads into single archives",
+            "Purges duplicate trailing query parameters ahead of key hashing synchronized across distributed service instances",
             "Sends one origin request per object while other requests wait for it",
+            "Compresses simultaneous small asset payloads into single archives",
             "Splits large video files automatically into chunked range requests"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Collapsing stops a herd of misses from overwhelming the origin."
         }
       }
@@ -7001,11 +7001,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Maximum transaction window of data loss allowed on crash",
             "Steady-state WAL replication delay between active primaries",
-            "How long the service can be down before it must be restored",
-            "Duration required to warm empty edge CDN memory pools"
+            "Duration required to warm empty edge CDN memory pools",
+            "How long the service can be down before it must be restored"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "RTO is the maximum acceptable downtime."
         }
       },
@@ -7037,13 +7037,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A service loses 10 minutes of data against an RPO target of 5, but restores in 8 minutes against an RTO of 15. Is it compliant?",
           "options": [
-            "Yes, recovery beat target",
             "No, the RPO is breached",
+            "Yes, recovery beat target",
             "No, the RTO is breached",
             "Yes, because both pass"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Both targets must be met; the data loss exceeds the RPO."
         }
       },
@@ -7075,13 +7075,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which strategy gives the lowest RPO and RTO?",
           "options": [
-            "Active-active",
             "Cold backup restore",
+            "Active-active",
             "Standby pilot light",
             "Warm regional cold"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Both regions are live, so failover is nearly instant with little data loss."
         }
       },
@@ -7115,11 +7115,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "So legacy standby replication links save egress bandwidth after promotion",
             "Because DNS TTL expiration speeds up automatically once hosts shut down",
-            "To clear buffered cache shards prior to draining mobile traffic",
-            "So the old region cannot accept writes if it comes back, avoiding split brain"
+            "So the old region cannot accept writes if it comes back, avoiding split brain",
+            "To clear buffered cache shards prior to draining mobile traffic"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Two primaries accepting writes would make the data diverge."
         }
       },
@@ -7188,13 +7188,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why run regular disaster recovery drills?",
           "options": [
+            "Untested plans fail; drills measure real RPO and RTO and reveal problems",
             "International compliance laws universally enforce monthly live failovers",
             "Drills utilize spare standby servers ahead of annual contract renewal",
-            "Untested plans fail; drills measure real RPO and RTO and reveal problems",
             "Automated DNS failovers cannot execute without manual test sign-offs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Only practice shows whether recovery actually works in time."
         }
       }
@@ -7251,12 +7251,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must the lock always be released, even after a failure?",
           "options": [
             "Because held lock lease entries consume high RAM locally",
-            "Otherwise the account stays frozen until the lease expires",
             "Because prompt unlocking speeds up WAL replica compaction",
+            "Otherwise the account stays frozen until the lease expires",
             "So competing transactions skip fencing token checks next"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A leaked lock blocks every later trade on that account."
         }
       },
@@ -7293,13 +7293,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is release inside a finally block?",
           "options": [
-            "It runs whether the trade succeeds or raises, so the lock is never leaked",
             "Python executes finally blocks faster than explicit error handlers",
-            "Python syntax strictly requires try/finally around dict lookups",
-            "Running inside finally rolls back partial ledger mutations at once"
+            "Python syntax strictly requires try/finally around dict lookups synchronized across distributed service instances",
+            "Running inside finally rolls back partial ledger mutations at once",
+            "It runs whether the trade succeeds or raises, so the lock is never leaked"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Cleanup in finally happens on every path out of the try block."
         }
       },
@@ -7370,12 +7370,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does the ledger use fencing tokens?",
           "options": [
             "It sorts incoming account trade rows monotonically by closing price",
+            "It rejects records carrying a token lower than the highest already applied",
             "It signs committed ledger blocks asymmetrically against replay bugs",
-            "It grants higher token holders priority CPU scheduling queues",
-            "It rejects records carrying a token lower than the highest already applied"
+            "It grants higher token holders priority CPU scheduling queues"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Stale holders' writes are refused, whatever they believe about their lock."
         }
       },
@@ -7443,12 +7443,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which skill matters most for designing distributed systems?",
           "options": [
             "Memorizing textbook consensus pseudocode lines purely from memory",
-            "Explaining trade-offs in consistency, failure behaviour and cost",
             "Migrating every microservice onto the newest trending DB engine",
-            "Tuning single-thread micro-benchmarks over realistic fault tests"
+            "Tuning single-thread micro-benchmarks over realistic fault tests",
+            "Explaining trade-offs in consistency, failure behaviour and cost"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Every design choice is a trade-off, and good engineers make it explicitly."
         }
       }
@@ -7540,13 +7540,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does appending node_id to (clock, node_id) create a strict total order?",
           "options": [
-            "Unique node IDs break ties when concurrent counters equal",
             "Appending text identifiers synchronizes host quartz drift cycles",
             "Tuple keys eliminate the need to tick counters on receive",
+            "Unique node IDs break ties when concurrent counters equal",
             "Node IDs identify which concurrent message happened earlier"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Concurrent events can share the same logical counter L; pairing with a globally unique node identifier makes every event key strictly distinct across replicas."
         },
         "output": "identical: True\n(4, 'node-a', 'put(k, 10)')\n(4, 'node-b', 'put(k, 15)')\n(4, 'node-c', 'put(k, 30)')\n(5, 'node-b', 'put(k, 20)')"
@@ -7614,13 +7614,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can an unauthenticated client trigger logical clock poisoning across a cluster?",
           "options": [
+            "Sending a huge counter forces receivers to jump via max()",
             "Broadcasting counter 0 forces peer logs back to epoch zero",
             "Reusing identical IDs crashes lexicographical Python sorting",
-            "Sending a huge counter forces receivers to jump via max()",
             "Sending negative floats resets monotonic wall-clock drift"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because Lamport update takes max(local, incoming) + 1, one forged giant integer drags every touched server's counter near overflow."
         },
         "output": "accepted: 251\nblocked: anomalous clock jump: 999999748"
@@ -7654,12 +7654,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which pair of invariants proves a recorded Lamport trace satisfies weak consistency?",
           "options": [
             "Equal counter values across all cluster replicas per tick",
-            "Every physical wall timestamp aligns inside one millisecond",
             "Strict per-node increase plus L(send) < L(recv) on edges",
+            "Every physical wall timestamp aligns inside one millisecond",
             "Every pair of concurrent writes shares matching counter IDs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Local monotonicity within each host combined with L(send) < L(recv) across every message edge inductively preserves transitive happens-before."
         },
         "output": "(True, 'ALL_INVARIANTS_OK')\n(False, 'causal violation e1->e2')"
@@ -7711,13 +7711,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When are two vector clocks V_a and V_b strictly concurrent?",
           "options": [
-            "When every coordinate in V_a stays below or equal to V_b",
             "When V_a exceeds V_b in one slot while V_b exceeds in another",
-            "Whenever total sum of coordinates differs across both maps across cluster worker nodes during high-throughput network operations",
+            "When every coordinate in V_a stays below or equal to V_b",
+            "Whenever total sum of coordinates differs across both maps",
             "Whenever both vectors contain zero shared actor entry keys"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If neither vector dominates all coordinates of the other, each branch observed at least one local event unknown to the other, proving true concurrency."
         },
         "output": "va vs vb: CONCURRENT\nva vs vc: BEFORE\nvb vs vc: BEFORE"
@@ -7750,13 +7750,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should Dynamo-style servers key vector clocks by storage coordinator IDs rather than client IDs?",
           "options": [
-            "Server counts stay bounded while ephemeral clients grow unboundedly",
             "Client devices lack deterministic random UUID generators locally",
+            "Server counts stay bounded while ephemeral clients grow unboundedly",
             "Server dictionaries skip key union sorting when comparing clocks",
             "Client IDs convert concurrent siblings straight to causal ancestors"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Millions of transient clients would inflate metadata headers unboundedly, whereas the set of storage replica actors stays small and controlled."
         },
         "output": "siblings count: 2\nafter client reconcile: [({'n1': 2, 'n2': 1}, 'cart:[book,pen]')]"
@@ -7785,13 +7785,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can plain server-keyed version vectors lose a concurrent write through the same coordinator?",
           "options": [
-            "Dictionaries fail Python equality comparisons above three server keys by disabling operating system socket buffers and connection timeouts",
+            "Dictionaries fail Python equality comparisons above three server keys",
             "Deleting stale node slots freezes all active replication channels",
-            "Vector clocks automatically truncate negative counter values at zero",
-            "Same-node writes advance one counter without isolating client contexts"
+            "Same-node writes advance one counter without isolating client contexts",
+            "Vector clocks automatically truncate negative counter values at zero"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "If two clients share the same coordinator slot n1 concurrently without separate per-write dots, one write increments past the other and falsely looks causally newer."
         },
         "output": "kept actors: ['n2', 'n4']\ndetails: {'n2': (8, 500), 'n4': (9, 450)}"
@@ -7858,13 +7858,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes a causal holdback queue to starve indefinitely without NACK recovery?",
           "options": [
-            "Concurrent messages carry equal vector slot values across links",
-            "Element-wise maximum overflowed 64-bit unsigned integer bounds",
             "A sender dies before delivering a predecessor known to peers",
+            "Concurrent messages carry equal vector slot values",
+            "Element-wise maximum overflowed 64-bit unsigned integer bounds",
             "Receiver nodes cleared empty slots containing zero counters"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If Charlie expects missing msg 1 from dead Alice to unlock msg 2 from Bob, without peer retransmission or epoch reset the buffer stalls forever."
         },
         "output": "raw inversions: 1\ncausal inversions: 0"
@@ -7913,12 +7913,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which dual problem do Hybrid Logical Clocks solve compared to pure Lamport and wall clocks?",
           "options": [
             "Replaces consensus majority voting across cross-region clusters",
-            "Preserves causal monotonicity while staying near real wall time",
             "Eliminates NTP clock drift completely via GPS atomic crystals",
-            "Stores one independent vector entry per cluster participant"
+            "Stores one independent vector entry per cluster participant",
+            "Preserves causal monotonicity while staying near real wall time"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "HLC tracks both causal happens-before via (l, c) and closeness to real wall time pt so MVCC timestamp reads work cleanly on commodity VMs."
         },
         "output": "strictly ordered: True\nunpacked t2: (1700000000100, 1)"
@@ -7948,9 +7948,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When does an HLC receive step reset its logical counter c cleanly back to 0?",
           "options": [
             "When local wall time pt strictly beats both l_prev and l_m",
-            "Whenever incoming sender counter c_m equals local counter across distributed persistent storage layers and background workers",
+            "Whenever incoming sender counter c_m equals local counter",
             "When incoming physical l_m sits behind local clock l_prev",
-            "On every periodic heartbeat ACK received across replicas"
+            "On every periodic heartbeat ACK received"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7981,13 +7981,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must HLC nodes enforce a hard max_offset limit on incoming timestamps?",
           "options": [
+            "Reduces 64-bit HLC bit widths cleanly down to 32-bit floats",
             "Stops one drifted clock from pinning l ahead and overflowing c",
-            "Reduces 64-bit HLC bit widths cleanly down to 32-bit floats through automated background thread polling and heartbeat intervals",
-            "Ensures concurrent events carry identical logical counters",
+            "Ensures concurrent events carry identical logical counters synchronized across distributed service instances",
             "Allows un-synchronized clusters to skip NTP setup globally"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If a rogue ahead clock pulls l years into the future, pt cannot catch up to reset c, rapidly saturating the bounded sub-millisecond counter field."
         },
         "output": "ok 120ms ahead: (5120, 3)\nrejected: excessive remote skew: 1000ms > 250ms"
@@ -8017,12 +8017,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In bounded-skew MVCC, what does reading a version stamped inside (t_read, t_read + max_offset] trigger?",
           "options": [
             "Permanent transaction abort rolling back prior commits",
-            "Global stop-the-world leader freeze across cluster zones across multi-zone container instances and local filesystem caches",
-            "Immediate deletion of newer conflicting replica values",
-            "An uncertainty restart advancing t_read to the version stamp"
+            "Global stop-the-world leader freeze across cluster zones",
+            "An uncertainty restart advancing t_read to the version stamp",
+            "Immediate deletion of newer conflicting replica values"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Because bounded clock skew could invert wall-clock ordering inside max_offset, restarting at the higher timestamp cleanly captures causally earlier commits."
         },
         "output": "attempt 1: ('UNCERTAINTY_RESTART', 1040, None)\nattempt 2: ('READ_OK', 1040, 'v2')"
@@ -8056,11 +8056,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Follower clock pt matches local machine timezone cleanly",
             "No client write happened on that row within two seconds",
-            "Query ts <= closed_ts and follower WAL applied past ts",
-            "Leader heartbeat interval stayed below 250 milliseconds"
+            "Leader heartbeat interval stayed below 250 milliseconds",
+            "Query ts <= closed_ts and follower WAL applied past ts"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Both guarantees are required: leader promises no future write <= closed_ts, and the follower has physically replicated and applied logs through ts."
         },
         "output": "closed without inflight: 10000\nserve ts=9500: True\nserve ts=10200: False\nclamped by inflight: 9199"
@@ -8108,13 +8108,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Push-Pull gossip finish tail convergence much faster than pure Push?",
           "options": [
-            "Push-Pull skips peer sampling and broadcasts via hardware multicast across cluster worker nodes during high-throughput network operations",
-            "Remaining uninformed nodes quickly pull from high-share infected peers",
+            "Push-Pull skips peer sampling and broadcasts via hardware multicast",
             "Pull messages remove infected states from cluster peer tables early",
+            "Remaining uninformed nodes quickly pull from high-share infected peers",
             "Pure Push loses TCP packets whenever cluster sizes exceed 32 hosts"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "When 99% of nodes already hold the state, random pulls hit an informed peer immediately (~99% chance), compressing the tail phase into O(log log N)."
         },
         "output": "64-node push rounds: 5\n64-node push_pull rounds: 4"
@@ -8142,13 +8142,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must clusters pair rumor mongering with periodic background anti-entropy?",
           "options": [
-            "Anti-entropy broadcasts unencrypted credentials faster than push by disabling operating system socket buffers and connection timeouts",
-            "Rumor rumors expire, leaving recovered nodes stale without full sync",
+            "Anti-entropy broadcasts unencrypted credentials faster than push",
             "Rumor mongering violates causal order within single sender links",
-            "Scuttlebutt requires halting client traffic before digest syncs"
+            "Scuttlebutt requires halting client traffic before digest syncs",
+            "Rumor rumors expire, leaving recovered nodes stale without full sync"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because active rumor spreading retires hot items to cap network traffic, partitioned or rebooted nodes need background anti-entropy to heal missed deltas."
         },
         "output": "push: [('n1', 9, 10), ('n3', 1, 7)]\nneed: [('n2', 5, 9), ('n4', 1, 3)]"
@@ -8184,7 +8184,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
             "A single top root hash per replica key range",
             "All sorted primary key strings and version numbers",
             "One digest per individual active row stored on disk",
-            "Every internal node hash across all tree levels upfront"
+            "Every internal node hash"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8220,12 +8220,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must anti-entropy replicas keep explicit versioned tombstones instead of deleting keys instantly?",
           "options": [
             "Deleting keys instantly breaks SHA-256 deterministic rounding",
+            "Without tombstones, stale peers resurrect deleted items as live",
             "Merkle trees reject leaf buckets holding empty dictionary entries",
-            "Tombstones force push-pull gossip into fewer log(N) steps",
-            "Without tombstones, stale peers resurrect deleted items as live"
+            "Tombstones force push-pull gossip into fewer log(N) steps"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If replica A erases a key completely while replica B missed the delete, sync sees B has a key A lacks and copies the deleted row back onto A."
         },
         "output": "buckets: {'user:1': 5, 'user:2': 0, 'order:9': 4}\nreconciled: {'order:9': (4, 'PAID'), 'user:1': (5, 'TOMBSTONE')}"
@@ -8306,12 +8306,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In Milestone 7, why do ValueRecords pair Vector Clocks alongside Hybrid Logical Clocks?",
           "options": [
             "Vector Clocks compress 64-bit HLC values down to 16 bits",
-            "HLC timestamps eliminate the need to track tombstones cleanly across distributed persistent storage layers and background workers",
             "Vector Clocks isolate siblings while HLC anchors real wall time",
+            "HLC timestamps eliminate the need to track tombstones cleanly",
             "Combining both halves push-pull gossip hop convergence counts"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "HLC preserves monotonic real-time proximity for MVCC/TTLs while Vector Clocks prove exact concurrency so siblings never vanish silently."
         },
         "output": "init peer: PeerEntry(node_id='n1', status='ALIVE', incarnation=1, hlc_ms=2000)"
@@ -8342,13 +8342,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a falsely suspected healthy node override an incoming SUSPECT rumor cleanly?",
           "options": [
-            "Reboots its process PID without notifying neighbor peers",
-            "Increments its own incarnation and gossips ALIVE state",
+            "Reboots its process PID",
             "Sends raw wall-clock NTP readings beating peer hosts",
+            "Increments its own incarnation and gossips ALIVE state",
             "Resets peer suspicion rank ordering back below ALIVE"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Bumping incarnation above the suspicion message creates an unambiguous higher-lattice state that defeats older SUSPECT/DEAD rumors uniformly."
         },
         "output": "order independent: True {'node': 'C', 'status': 'ALIVE', 'incarnation': 5}"
@@ -8375,13 +8375,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When merging two replicas' sibling lists for the same key, which versions must be discarded?",
           "options": [
-            "Any version causally BEFORE another record in the union",
             "Every sibling written by the lexicographically larger host",
             "Both siblings whenever HLC timestamps tie identically",
-            "The older version solely by local wall-clock epoch time"
+            "The older version solely by local wall-clock epoch time",
+            "Any version causally BEFORE another record in the union"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "If record Y causally follows record X (X < Y), X was definitively superseded by client reconciliation or direct causal continuation."
         },
         "output": "merged: [{'vc': {'n1': 1, 'n2': 2}, 'val': 'purple'}]\nconcurrent: [{'vc': {'n2': 2}, 'val': 'blue'}, {'vc': {'n1': 2}, 'val': 'green'}]"
@@ -8408,13 +8408,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After healing a partition where both halves updated the same key concurrently, what state converges cleanly?",
           "options": [
+            "Every node retains both concurrent siblings uniformly",
             "Only the partition with higher host RAM survives",
             "Both conflicting edits get truncated back to empty null",
-            "Merkle hashes permanently lock both halves out of sync",
-            "Every node retains both concurrent siblings uniformly"
+            "Merkle hashes permanently lock both halves out of sync"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Vector clock OR-set sibling merge is commutative and idempotent, guaranteeing all nodes converge onto the identical multi-sibling set without silent loss."
         },
         "output": "before heal digest match: False\nafter heal match: True\npreserved siblings: [{'vc': {'n0': 1}, 'val': 42}, {'vc': {'n3': 1}, 'val': 39}]"
@@ -8441,13 +8441,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which check proves an anti-entropy sync engine does not resurrect deleted keys from lagging replicas?",
           "options": [
-            "Asserting random gossip fan-out stays strictly below three through automated background thread polling and heartbeat intervals",
+            "Asserting random gossip fan-out stays strictly below three",
+            "Checking newer versioned tombstones override older live keys",
             "Requiring client applications to halt writes during syncs",
-            "Checking wall clocks synchronize within one microsecond",
-            "Checking newer versioned tombstones override older live keys"
+            "Checking wall clocks synchronize within one microsecond synchronized across distributed service instances"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If deleted keys keep explicit versioned tombstone markers, older live copies on recovering replicas lose version comparisons cleanly."
         },
         "output": "M7 gates: {'hlc_monotonic': True, 'vc_concurrent': True, 'swim_refute': True, 'tombstone_kept': True, 'no_silent_drop': True} PASS=5/5"
@@ -8495,13 +8495,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does SWIM iterate a shuffled permutation of peers instead of sampling purely at random?",
           "options": [
+            "Bounds worst-case probe delay evenly across every cluster peer",
             "Eliminates the need for Ping-Req indirect relays over WAN links",
             "Forces all nodes to execute probes synchronously in lockstep",
-            "Bounds worst-case probe delay evenly across every cluster peer",
             "Ensures UDP packets compress smaller than 64 bytes per hop"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Pure uniform sampling can starve an unlucky peer indefinitely, while shuffled round-robin guarantees every node gets probed within one cluster cycle."
         },
         "output": "N=  10 | all-to-all=     90 pkt/s | swim=   10 pkt/s\nN=  50 | all-to-all=   2450 pkt/s | swim=   50 pkt/s\nN= 200 | all-to-all=  39800 pkt/s | swim=  200 pkt/s\nN=1000 | all-to-all= 999000 pkt/s | swim= 1000 pkt/s"
@@ -8529,10 +8529,10 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What common real-world failure does SWIM's k-relay PING_REQ distinguish from an actual host crash?",
           "options": [
-            "Slow local garbage collection stops lasting several whole seconds across multi-zone container instances and local filesystem caches",
+            "Slow local garbage collection stops lasting several whole seconds",
             "Asymmetric link failures affecting one pair while peers reach target",
             "Split-brain leader elections electing duplicate Raft candidates",
-            "Silent SSD corruption mutating local membership tables on disk"
+            "Silent SSD corruption mutating local membership tables on disk synchronized across distributed service instances"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -8568,13 +8568,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does SWIM prevent healthy busy nodes experiencing brief GC stalls from suffering immediate eviction?",
           "options": [
-            "Places failed probes into SUSPECT probation so node can refute",
-            "Suspends failure detection globally whenever any GC starts across cluster worker nodes during high-throughput network operations",
+            "Suspends failure detection globally whenever any GC starts",
             "Disables all gossip messages while cluster load sits high",
+            "Places failed probes into SUSPECT probation so node can refute",
             "Resets peer incarnation numbers automatically down to zero"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "SUSPECT holds off marking DEAD until a bounded gossip window elapses, giving healthy hosts time to observe the rumor and refute with inc+1."
         },
         "output": "suspect B: ('ESCALATED', 1)\nafter ttl: {'status': 'DEAD', 'inc': 1, 'suspect_age': 3}\nB refutes: ('REFUTED', 2)"
@@ -8606,13 +8606,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In what priority order should a SWIM piggyback buffer pack rumors into outgoing packets?",
           "options": [
-            "Smallest transmit count first so fresh rumors bypass old chatter",
-            "Largest transmit count first so legacy cluster views stay warm by disabling operating system socket buffers and connection timeouts",
+            "Largest transmit count first so legacy cluster views stay warm",
             "Strict alphabetical node ID order regardless of rumor age",
-            "Only DEAD messages first while dropping all ALIVE updates"
+            "Only DEAD messages first while dropping all ALIVE updates",
+            "Smallest transmit count first so fresh rumors bypass old chatter"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Selecting items with the fewest prior transmissions ensures new state changes jump immediately to every peer ahead of well-propagated older news."
         },
         "output": "limit: 10\npkt 1: [('n9', 'DEAD', 3), ('n4', 'SUSPECT', 1)] queued_left: 2\npkt 2: [('n9', 'DEAD', 3), ('n4', 'SUSPECT', 1)] queued_left: 2\npkt 3: [('n9', 'DEAD', 3), ('n4', 'SUSPECT', 1)] queued_left: 2"
@@ -8639,13 +8639,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Lifeguard's Local Health Multiplier stop overloaded probers from crying wolf?",
           "options": [
+            "Scales observer timeouts upward dynamically during self-stalls",
             "Pauses all membership gossip globally whenever CPU hits 50%",
             "Demotes the overloaded observer node immediately to DEAD",
-            "Replaces direct UDP pings completely with synchronous HTTP POSTs",
-            "Scales observer timeouts upward dynamically during self-stalls"
+            "Replaces direct UDP pings completely with synchronous HTTP POSTs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "When an observer detects missed self-deadlines or dropped replies, raising LHM stretches its timeouts before blaming innocent neighbors."
         },
         "output": "normal: 200\nunder CPU pressure: 600\nrecovering: 400"
@@ -8692,13 +8692,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does phi = 3 mean physically in a Phi Accrual Failure Detector?",
           "options": [
-            "Exactly three consecutive TCP pings dropped across host links",
+            "Exactly three consecutive TCP pings dropped",
             "Average heartbeat interval stretched to three full seconds",
-            "Roughly 0.1% probability a live heartbeat would arrive later",
-            "Cluster consensus quorum requires three votes to mark DEAD"
+            "Cluster consensus quorum requires three votes to mark DEAD",
+            "Roughly 0.1% probability a live heartbeat would arrive later"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Since phi = -log10(P_later), phi = 3 corresponds to P_later = 10^-3 = 0.001 (0.1% tail chance under historical inter-arrival statistics)."
         },
         "output": "p_later=       0.5 -> phi=0.301\np_later=       0.1 -> phi=1.0\np_later=      0.01 -> phi=2.0\np_later=     0.001 -> phi=3.0\np_later=     1e-08 -> phi=8.0"
@@ -8730,13 +8730,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a Phi Accrual Failure Detector enforce a positive min_std_ms floor?",
           "options": [
-            "Python deque appends raise ZeroDivisionError past capacity",
             "Zero-jitter intervals would otherwise spike phi on tiny delays",
+            "Python deque appends raise ZeroDivisionError past capacity synchronized across distributed service instances",
             "Negative variances occur whenever mean latency drops cleanly",
-            "Logarithm scaling fails unless standard deviation tops 1000ms across distributed persistent storage layers and background workers"
+            "Logarithm scaling fails unless standard deviation tops 1000ms"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If recent heartbeats arrive identically at 100.0ms, raw sigma = 0 turns even 101ms into infinite z-score; clamping sigma prevents trivial false alarms."
         },
         "output": "after steady 100ms, +150ms: 2.207\nafter steady 100ms, +250ms: 12.0"
@@ -8763,9 +8763,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Cassandra use an exponential accrual curve instead of pure unbuffered Gaussian tails?",
           "options": [
-            "Exponential curves track zero-mean timestamps without divisions through automated background thread polling and heartbeat intervals",
+            "Exponential curves track zero-mean timestamps without divisions",
             "Real network jitter has heavy tails causing false Gaussian spikes",
-            "Gaussian normal math forbids sliding window lengths past 200",
+            "Gaussian normal math forbids sliding window lengths past 200 subjected to unbounded network packet transmission delay",
             "Exponential decay automatically skips dead member gossip checks"
           ],
           "answer": 1,
@@ -8796,13 +8796,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core benefit does continuous phi output provide over a boolean dead/alive ping?",
           "options": [
-            "Subsystems tune independent thresholds for draining vs eviction",
-            "Replaces consensus leader elections across odd-sized quorums across multi-zone container instances and local filesystem caches",
+            "Replaces consensus leader elections across odd-sized quorums",
             "Cuts heartbeat packet sizes cleanly down to zero bytes",
+            "Subsystems tune independent thresholds for draining vs eviction",
             "Guarantees failed nodes never send delayed TCP packets later"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "One shared detector serves fast load-balancer traffic shedding at low phi while stateful shard rebalancing waits safely until high phi."
         },
         "output": "phi=0.5 -> state=ACTIVE\nphi=3.2 -> state=DRAIN_TRAFFIC\nphi=1.0 -> state=DRAIN_TRAFFIC\nphi=0.8 -> state=ACTIVE\nphi=4.1 -> state=DRAIN_TRAFFIC\nphi=8.5 -> state=EVICTED"
@@ -8833,8 +8833,8 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Phi Accrual tuning, what trade-off governs sliding window size W?",
           "options": [
-            "Larger W shrinks memory cost while raising detection speed",
-            "Smaller W raises false crashes only on steady localhost hosts across cluster worker nodes during high-throughput network operations",
+            "Larger W shrinks memory cost while raising detection speed synchronized across distributed service instances",
+            "Smaller W raises false crashes only on steady localhost hosts",
             "Window size fixes the maximum cluster node capacity strictly",
             "Smaller W adapts quicker to shifts while larger W resists noise"
           ],
@@ -8887,7 +8887,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why cannot a client prove lease validity merely by checking its own wall clock before sending a write?",
           "options": [
-            "Python time.monotonic ticks backwards during NTP adjustments by disabling operating system socket buffers and connection timeouts",
+            "Python time.monotonic ticks backwards during NTP adjustments",
             "Storage TCP sockets automatically reorder concurrent headers",
             "Process pauses or network delays occur after check before disk commit",
             "Lock services assign duplicate string names across tenants"
@@ -8923,11 +8923,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Inside the caller's worker thread right ahead of socket send",
             "Within an intermediate client-side LRU connection pool",
-            "At the destination storage engine executing state writes",
-            "Across periodic SWIM membership heartbeats in background"
+            "Across periodic SWIM membership heartbeats in background",
+            "At the destination storage engine executing state writes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Only the target storage engine can check the arriving token atomically against the highest seen token right at commit time."
         },
         "output": "('COMMITTED', 'balance', 500, 102)\nblocked: fenced stale token 101 < 102\nsafe final: {'balance': 500}"
@@ -8955,13 +8955,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do quorum leader leases anchor expiration on send_start_ms rather than ack receipt time?",
           "options": [
-            "Python monotonic timers reject values captured after replies",
             "Followers start election timers from when they got earlier beats",
-            "Anchoring on send_start guarantees zero network packet latency across distributed persistent storage layers and background workers",
-            "Followers extend lease timers infinitely upon sending ACKs"
+            "Python monotonic timers reject values captured after replies",
+            "Anchoring on send_start guarantees zero network packet latency",
+            "Followers extend lease timers infinitely upon sending ACKs synchronized across distributed service instances"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because round-trip RPC latency sits between send_start and ack receipt, measuring locally from send_start safely bounds the worst-case time any follower could expire its no-election promise."
         },
         "output": "safe_until: 10902.38\nread at 10850ms: True\nread at 10950ms: False"
@@ -8989,13 +8989,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does fencing a strict majority of storage replicas stop a deposed primary from committing stale quorum writes?",
           "options": [
-            "Pigeonhole overlap prevents old writes reaching a full quorum",
             "Fencing erases all historical entries inside unfenced replicas",
+            "Pigeonhole overlap prevents old writes reaching a full quorum",
             "Disk sectors reset monotonic counters automatically on reboot",
             "Unfenced bookies drop TCP sockets upon seeing lower epochs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Since any fence quorum and any write quorum in an N-node set intersect by at least one replica, at least one bookie on the write path knows the new epoch and rejects the write."
         },
         "output": "old leader acks: 1 | quorum=2 -> BLOCKED\nnew leader acks: 3 | quorum=2 -> COMMITTED"
@@ -9022,12 +9022,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which two invariants prove a split-brain chaos simulation protected storage integrity?",
           "options": [
             "Old leader receives HTTP 200 replies during active partition",
-            "Cluster read latency stays unchanged throughout quorum changes through automated background thread polling and heartbeat intervals",
-            "Both split halves successfully issue independent new epochs",
-            "Zombie lower epochs fail and history epochs stay non-decreasing"
+            "Cluster read latency stays unchanged throughout quorum changes",
+            "Zombie lower epochs fail and history epochs stay non-decreasing",
+            "Both split halves successfully issue independent new epochs synchronized across distributed service instances"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Rejecting stale epoch writes plus asserting committed token/epoch sequence monotonicity across the entire log guarantees zero split-brain overwrites."
         },
         "output": "stale zombie rejected: True\nmonotonic epochs: True | log: [(1, 'W1', 'x=10'), (2, 'W2', 'x=20')]"
@@ -9075,12 +9075,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a Raft follower do when an AppendEntries RPC arrives with term < current_term?",
           "options": [
             "Appends the entries temporarily behind an uncommitted guard",
+            "Rejects the RPC and replies with its own higher term",
             "Resets its local election timer so split votes clear cleanly",
-            "Truncates local committed log tail back to matching index",
-            "Rejects the RPC and replies with its own higher term"
+            "Truncates local committed log tail back to matching index"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Stale terms belong to deposed leaders; returning current_term forces any partitioned former primary to step down immediately to Follower."
         },
         "output": "stale term 3: (False, 4)\nvalid term 4: (True, 4)\nnewer term 5: (True, 5)"
@@ -9143,13 +9143,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Fast Conflict Backtracking avoid O(K) network round trips on divergent Raft followers?",
           "options": [
-            "Leader resets next_index straight back to index 1 immediately",
-            "Follower returns conflict_term and first index to skip whole terms",
+            "Leader resets next_index straight back to index 1 immediately synchronized across distributed service instances",
             "Follower wipes its local disk log whenever any append rejects",
-            "Leader compresses all uncommitted logs into JSON tarballs first across multi-zone container instances and local filesystem caches"
+            "Leader compresses all uncommitted logs into JSON tarballs first",
+            "Follower returns conflict_term and first index to skip whole terms"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Returning the conflicting term and its starting index allows the leader to jump directly past every entry of that bad term in one RTT."
         },
         "output": "leap straight to: 3\nshort log leap: 2"
@@ -9179,7 +9179,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why may a Raft leader advance commit_index by majority count ONLY on entries from its current_term?",
           "options": [
             "Prevents future leaders with higher stale-slot terms overwriting it",
-            "Saves followers from writing current-term logs synchronously first across cluster worker nodes during high-throughput network operations",
+            "Saves followers from writing current-term logs synchronously first",
             "Guarantees older terms use smaller integer dictionary memory",
             "Permits uncommitted entries to commit with minority votes safely"
           ],
@@ -9210,13 +9210,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a Raft follower clamp commit_index to min(leader_commit, index_of_last_new_entry)?",
           "options": [
-            "Ensures local divergent un-truncated tail entries stay unapplied",
             "Reduces follower WAL fsync latency during slow disk checkpoints",
+            "Ensures local divergent un-truncated tail entries stay unapplied",
             "Forces leaders to hold uncommitted entries indefinitely in memory",
             "Skips checking term matching across AppendEntries RPC messages"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If a follower only replicated up to index N so far, entries past N were not validated by the current RPC and could belong to an older conflicting branch."
         },
         "output": "leader: last_applied=3, state={'x': '99', 'y': '20'}\nf1: last_applied=3, state={'x': '99', 'y': '20'}\nf2: last_applied=2, state={'x': '10', 'y': '20'}"
@@ -9262,13 +9262,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does packing (raft_term, log_index) yield a collision-free fencing token for downstream storage?",
           "options": [
-            "Packing shrinks transaction data payloads cleanly into 64 bits total by disabling operating system socket buffers and connection timeouts",
+            "Terms increase per leader and indices increase per entry monotonically",
+            "Packing shrinks transaction data payloads cleanly into 64 bits total",
             "Storage servers disable majority voting when tokens exceed zero",
-            "Bit-packing bypasses SWIM indirect relay probes across zones",
-            "Terms increase per leader and indices increase per entry monotonically"
+            "Bit-packing bypasses SWIM indirect relay probes across zones"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because higher consensus terms supersede all prior leaders and indices strictly advance per append, (term << 32) | idx is strictly increasing across committed history."
         },
         "output": "leader role: LEADER generated token: 0x300000001 pair: (3, 1)"
@@ -9300,12 +9300,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In Raft Section 5.4.1, which candidate has the more up-to-date log when comparing (last_term, last_idx)?",
           "options": [
             "Longer raw log length first regardless of entry creation term",
-            "Candidate node carrying the lowest integer identifier string",
             "Higher last_term first, breaking equal terms by larger index",
+            "Candidate node carrying the lowest integer identifier string",
             "Whichever node accumulated fewer network packet drops recently"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A log ending with a higher term always reflects a more recent consensus election even if an abandoned older term accumulated longer divergent entries."
         },
         "output": "false jitter storm blocked: (False, 3, 'LEADER_STILL_PROBABLE')\nincomplete candidate blocked: (False, 3, 'INCOMPLETE_LOG')\nvalid failover vote: (True, 4, 'VOTE_GRANTED')"
@@ -9333,12 +9333,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "During a 2-vs-3 partition, what stops old leader writes from corrupting downstream state?",
           "options": [
             "Old leader automatically erases local memory upon link errors",
+            "Storage drops all connections lacking five active peer sockets",
             "Minority cannot reach commit quorum and storage fences low tokens",
-            "Storage drops all connections lacking five active peer sockets across distributed persistent storage layers and background workers",
             "Clients broadcast conflicting edits directly to every follower"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Consensus requires majority 3/5 to commit, while storage token comparison rejects any stale-term packet already in flight past the new term."
         },
         "output": "t2 commit: True (True, 'APPLIED(acct=100, tok=2:1)')\nt3 commit: True (True, 'APPLIED(acct=250, tok=3:3)')\nminority replicate: False\ndelayed store write: (False, 'FENCED_OUT(8589934594 < 12884901891)')\nfinal safe state: {'acct': 250}"
@@ -9365,12 +9365,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is truncating n0's term-2 entry at index 2 safe when partition heals?",
           "options": [
             "Raft allows deleting previously committed rows on minority fail",
-            "An entry without majority quorum never committed on any machine",
             "Storage fencing tokens restore deleted client writes from RAM",
-            "Rejoining leaders always keep dual divergent log branches permanently"
+            "Rejoining leaders always keep dual divergent log branches permanently",
+            "An entry without majority quorum never committed on any machine"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because isolated minority {n0, n1} lacked quorum 3, slot 2 was never committed anywhere and deleting it preserves committed safety cleanly."
         },
         "output": "heal ok: True\nlogs match 100%: True"
@@ -9451,7 +9451,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Allows followers to replay historical deleted overwrites slowly",
             "Guarantees uncommitted client writes survive node crash boots",
-            "Replaces majority quorum counting during leader elections cleanly",
+            "Replaces majority quorum counting",
             "Anchors prev_log_index/prev_log_term checks on next appends"
           ],
           "answer": 3,
@@ -9481,13 +9481,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must Raft snapshots serialize an isolated immutable view instead of iterating a live mutable state dict?",
           "options": [
+            "Mixing mutations across indices produces torn inconsistent snapshots",
             "Immutable views compress JSON text ten times smaller on disk",
             "Live state dictionaries forbid integer string values in Python",
-            "Mixing mutations across indices produces torn inconsistent snapshots",
             "Background snapshotting advances leader election terms automatically"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If foreground applies interleave mid-scan, half the keys reflect index N while other keys reflect index N+5, corrupting state determinism."
         },
         "output": "consistent frozen v2 snap: {'balance': 100, 'tier': 'gold'}\nlive v4 history balance: (3, 999)"
@@ -9520,12 +9520,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must a follower keep its previous live state untouched until the final done=True InstallSnapshot chunk completes?",
           "options": [
             "Incremental state updates slow down gzip decompression on disk",
-            "Offset 0 packets lack the leader term required for validation",
             "Partial crashes or mid-stream aborts would otherwise corrupt live reads",
-            "Raft requires copying uncommitted entries ahead of chunk byte zero through automated background thread polling and heartbeat intervals"
+            "Offset 0 packets lack the leader term required for validation synchronized across distributed service instances",
+            "Raft requires copying uncommitted entries ahead of chunk byte zero"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Staging chunks separately prevents torn half-snapshots from destroying live follower state if the leader fails mid-transfer."
         },
         "output": "(True, 'BUFFERED(10)')\n(False, 'OFFSET_MISMATCH(got=99, expected=10)')\n(True, 'INSTALLED(idx=500, keys=3)')\nfollower synced state: {'a': 1, 'b': 2, 'c': 3} snap_idx: 500"
@@ -9552,13 +9552,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a follower accepts an InstallSnapshot carrying last_included_index < commit_index?",
           "options": [
-            "Trailing compacted keys turn into tombstones across shards across multi-zone container instances and local filesystem caches",
-            "Applying it would illegally rewind the state machine backward",
+            "Trailing compacted keys turn into tombstones across shards",
             "Leader immediately steps down to candidate on stale term",
+            "Applying it would illegally rewind the state machine backward",
             "Offset validation loops infinitely starting back from zero"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Reinstalling an earlier snapshot overwrites newer committed mutations and reverts linearizable applied state."
         },
         "output": "stale snap ignored: ('IGNORE_OLDER_SNAPSHOT', [])\nmatching suffix: ('INSTALL_AND_KEEP_SUFFIX', [(3, None), (3, 'c')])\ndivergent wipe: ('INSTALL_AND_WIPE_LOG', [(9, None)])"
@@ -9584,13 +9584,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do production Raft nodes keep a rolling trailing buffer of recent entries instead of compacting right up to commit_index?",
           "options": [
-            "Brief follower restarts catch up via small AppendEntries diffs",
-            "Keeping raw tail entries reduces state-machine dictionary RAM across cluster worker nodes during high-throughput network operations",
-            "AppendEntries forbids shipping chunks past snap_idx + 10",
-            "Followers reject InstallSnapshot RPCs during active elections"
+            "Keeping raw tail entries reduces state-machine dictionary RAM",
+            "AppendEntries forbids shipping chunks past snap_idx + 10 synchronized across distributed service instances",
+            "Followers reject InstallSnapshot RPCs during active elections",
+            "Brief follower restarts catch up via small AppendEntries diffs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "A small trailing raw-log window lets temporarily lagged followers catch up cleanly via tiny incremental diffs without transferring whole snapshots."
         },
         "output": "healthy lag follower (next=495, compacted=500): ('INSTALL_SNAPSHOT', 500)\nup-to-date follower (next=502, compacted=500): ('APPEND_ENTRIES', 501)"
@@ -9639,11 +9639,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Participant write of PREPARED ahead of replying YES",
             "Coordinator write of TX_START prior to Phase 1 sends",
-            "First cohort replying ACK after finishing Phase 2 apply by disabling operating system socket buffers and connection timeouts",
-            "Coordinator fsync of DECISION_COMMIT after all YES votes"
+            "Coordinator fsync of DECISION_COMMIT after all YES votes",
+            "First cohort replying ACK after finishing Phase 2 apply"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Before coordinator logs DECISION_COMMIT, a coordinator crash defaults safely to abort; once DECISION_COMMIT lands on disk, every recovery path must commit."
         },
         "output": "states: COMMIT COMMIT coord_wal: [('tx9', 'DECISION_COMMIT')]"
@@ -9671,9 +9671,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does a prepared 2PC participant remain strictly blocked under coordinator failure?",
           "options": [
-            "At least one sibling cohort already committed locally on disk across distributed persistent storage layers and background workers",
+            "At least one sibling cohort already committed locally on disk",
             "Any cohort locally holds a pre-commit VOTE_ABORT log marker",
-            "Coordinator WAL contains an explicit DECISION_ABORT line",
+            "Coordinator WAL contains an explicit DECISION_ABORT line synchronized across distributed service instances",
             "Every reachable sibling participant sits uncertain in PREPARED"
           ],
           "answer": 3,
@@ -9704,13 +9704,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Presumed Abort halve disk fsync overhead on failed 2PC transactions?",
           "options": [
-            "Participants release locks ahead of answering Phase 1 prepares through automated background thread polling and heartbeat intervals",
-            "Cohorts bypass WAL logging permanently on successful commits",
             "Unknown forgotten tx IDs answer inquiries with ABORT without logging",
-            "Coordinators merge Phase 1 votes into Raft gossip packets"
+            "Participants release locks ahead of answering Phase 1 prepares",
+            "Cohorts bypass WAL logging permanently on successful commits",
+            "Coordinators merge Phase 1 votes into Raft gossip packets synchronized across distributed service instances"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If absent records default safely to ABORT on recovery queries, the coordinator avoids durable WAL flushes for aborts and incomplete prepares."
         },
         "output": "recovery plan: {'tx1': 'ALREADY_DONE', 'tx2': 'REPLAY_COMMIT_TO_ALL', 'tx3': 'REPLAY_ABORT_TO_ALL'}\norphan inquiry tx99: ABORT"
@@ -9737,7 +9737,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do systems like Google Spanner eliminate classic single-coordinator 2PC blocking?",
           "options": [
-            "Let prepared participants break row locks automatically after timeout across multi-zone container instances and local filesystem caches",
+            "Let prepared participants break row locks automatically after timeout",
             "Replicate the coordinator state inside a fault-tolerant Raft/Paxos group",
             "Skip Phase 1 WAL disk durability flushes across fast networks",
             "Replace multi-shard transactions completely with async Sagas only"
@@ -9769,13 +9769,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does strict Wound-Wait timestamp ordering eliminate distributed cross-shard deadlocks?",
           "options": [
-            "Wait edges point strictly one way in age, forbidding wait cycles",
             "Prepared coordinators never take exclusive locks on primary rows",
             "Younger transactions automatically gain higher Raft commit terms",
+            "Wait edges point strictly one way in age, forbidding wait cycles",
             "Phase 2 broadcasts run ahead of Phase 1 participant votes cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "If younger waiters only wait on older holders (and older ones wound younger holders), every edge in the wait-for graph decreases monotonically, making cycles impossible."
         },
         "output": "T1 -> locked by T2: WOUND_HOLDER_AND_PREEMPT\nT2 -> locked by T1: WAIT_FOR_HOLDER"
@@ -9822,13 +9822,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does calling db.commit() followed sequentially by kafka.produce() break consistency?",
           "options": [
+            "PostgreSQL ACID commits prohibit outgoing TCP sockets locally",
             "Crashes between both calls leave DB updated while dropping events",
-            "PostgreSQL ACID commits prohibit outgoing TCP sockets locally across cluster worker nodes during high-throughput network operations",
             "Kafka producers require Two-Phase Commit coordinators per row",
             "Outbox tables strip schema primary keys during batch inserts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Without wrapping both state change and event intent in one atomic local DB commit, process crashes or broker outages between the two steps leave permanent drift."
         },
         "output": "COMMITTED_TOGETHER\nROLLED_BACK_TOGETHER(invalid amount)\norders: {'ord-1': 120} outbox_len: 1"
@@ -9858,11 +9858,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Missing CDC polls corrupt historical committed rows cleanly",
             "Database ACID transactions automatically block across clients",
-            "Kafka topics delete prior partition offsets upon consumer stall",
-            "Pinned replication slot prevents WAL cleanup until disk fills"
+            "Pinned replication slot prevents WAL cleanup until disk fills",
+            "Kafka topics delete prior partition offsets upon consumer stall"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "PostgreSQL holds all WAL segments past the inactive slot LSN so the consumer can resume—left unchecked, disk exhaustion takes down the primary DB."
         },
         "output": "batch 1 published: 1 cursor: 2\nbatch 2 published: 1 broker len: 2"
@@ -9892,11 +9892,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Deletes Kafka partition logs ahead of reading message headers",
             "Configures the CDC relay to skip saving checkpoint LSN offsets",
-            "Commits domain write plus unique event_id key in one local tx",
-            "Checks message delivery timestamps against host wall clocks"
+            "Checks message delivery timestamps against host wall clocks",
+            "Commits domain write plus unique event_id key in one local tx"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Recording event_id in a deduplication table inside the exact same ACID transaction as the business mutation rejects replays atomically."
         },
         "output": "1st delivery: ('CHARGED', 'lsn-42-1', 50)\ncrash-replay duplicate: ('DEDUP_SKIP', 'lsn-42-1', 50)\nfinal balance: {'cust1': 50}"
@@ -9928,13 +9928,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does naive `WHERE id > last_seen_id` SQL outbox polling silently lose rows under concurrency?",
           "options": [
-            "Auto-increment IDs repeat identically whenever indexes lock rows by disabling operating system socket buffers and connection timeouts",
             "Slower transactions commit lower auto-increment IDs after higher ones",
+            "Auto-increment IDs repeat identically whenever indexes lock rows",
             "Kafka brokers discard events unless sequential IDs start at zero",
             "Primary keys sort lexicographically inside relational tables"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Sequences allocate IDs at insert time before commit; a faster later transaction committing id=101 advances the cursor past slower uncommitted id=100."
         },
         "output": "(10, 'ord-9', 'OrderCreated', 3)\n(11, 'ord-7', 'OrderCreated', 2)\n(15, 'ord-9', 'OrderCanceled', 3)\nnaive cursor missed slow tx id: [100]"
@@ -9960,9 +9960,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is immediate-delete within a CDC outbox transaction valid for Debezium WAL pipelines?",
           "options": [
-            "Debezium bypasses PostgreSQL logs and scans heap blocks asynchronously across distributed persistent storage layers and background workers",
+            "Debezium bypasses PostgreSQL logs and scans heap blocks asynchronously",
             "Transaction WAL retains the INSERT record cleanly even after row delete",
-            "PostgreSQL blocks deleting outbox rows until Kafka consumer acks",
+            "PostgreSQL blocks deleting outbox rows until Kafka consumer acks synchronized across distributed service instances",
             "Immediate deletion automatically triggers Two-Phase Commit rollbacks"
           ],
           "answer": 1,
@@ -10014,7 +10014,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In saga design, where must an irreversible action that lacks a compensation sit relative to failure-prone steps?",
           "options": [
             "Strictly after every step that might fail and trigger rollback",
-            "Always first at step zero ahead of compensatable steps through automated background thread polling and heartbeat intervals",
+            "Always first at step zero ahead of compensatable steps",
             "Concurrently inside parallel fan-out worker threads",
             "Between two compensatable payment capture steps safely"
           ],
@@ -10046,12 +10046,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must a Saga Orchestrator persist step transitions to durable storage before issuing the next step RPC?",
           "options": [
             "Forces downstream microservices to release database ACID row locks",
-            "Converts retriable network failures automatically into business aborts across multi-zone container instances and local filesystem caches",
-            "Eliminates the need for deterministic idempotency keys on retries",
-            "Enables exact resume or reverse unwind without re-running completed work"
+            "Enables exact resume or reverse unwind without re-running completed work",
+            "Converts retriable network failures automatically into business aborts",
+            "Eliminates the need for deterministic idempotency keys on retries synchronized across distributed service instances"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If the orchestrator crashes mid-workflow, durable logs tell the restarted instance which steps finished and whether it is moving forward or compensating."
         },
         "output": "after crash recovery: RESUME_COMPENSATE_AT_2 wal: [('FORWARD', 1), ('FORWARD', 2), ('COMPENSATING', 2)]"
@@ -10113,11 +10113,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Snapshot dictionaries consume too much PostgreSQL WAL buffer",
             "Delta math skips generating deterministic idempotency keys safely",
-            "Restoring snapshots overwrites valid concurrent inter-saga writes",
-            "Relative adjustments force downstream services into ACID locks"
+            "Relative adjustments force downstream services into ACID locks",
+            "Restoring snapshots overwrites valid concurrent inter-saga writes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because sagas lack global isolation across steps, other concurrent sagas may update the entity between T_k and C_k; restoring a stale snapshot erases their work."
         },
         "output": "{'corrupt_snapshot_bal': 100, 'safe_commutative_bal': 200}"
@@ -10142,13 +10142,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which combined properties make Saga compensations crash-safe under orchestrator restarts?",
           "options": [
-            "Global exclusive 2PC locks held across third-party HTTP APIs across cluster worker nodes during high-throughput network operations",
             "Deterministic idempotency keys plus commutative inverse updates",
+            "Global exclusive 2PC locks held across third-party HTTP APIs",
             "Dropping durable WAL writes ahead of outbound network calls",
-            "Reversing compensation steps in FIFO forward order purely"
+            "Reversing compensation steps in FIFO forward order purely synchronized across distributed service instances"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Idempotency keys prevent double refunds on crash replays while commutative deltas protect interleaved concurrent sagas from lost updates."
         },
         "output": "after crash-replayed abort: {'inv': 10, 'cash': 500} restored cleanly: True"
@@ -10194,13 +10194,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a saga worker commit its domain state, dedup record, and reply event inside one local transaction?",
           "options": [
-            "Eliminates dual-write crashes stalling workflows between DB and broker",
-            "Allows skipping reverse compensations whenever downstream fails by disabling operating system socket buffers and connection timeouts",
+            "Allows skipping reverse compensations whenever downstream fails",
             "Enforces cross-service Two-Phase Commit global row locks",
-            "Prevents Kafka consumers from needing aggregate partition keys"
+            "Prevents Kafka consumers from needing aggregate partition keys",
+            "Eliminates dual-write crashes stalling workflows between DB and broker"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "If a worker commits DB changes then crashes before publishing its saga reply, the orchestrator stalls permanently; atomic outbox guarantees every committed step publishes."
         },
         "output": "charge 100 fail: {'ok': False, 'reason': 'INSUFFICIENT'}\ncharge 50 ok: {'ok': True, 'bal': 30}\natomic outbox count: 2 bal: 30"
@@ -10226,13 +10226,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is a Transactional Outbox Saga strictly preferable over Two-Phase Commit?",
           "options": [
+            "Workflows spanning slow external APIs or autonomous microservices",
             "Updating two tables inside one single local PostgreSQL instance",
             "Intra-datacenter SQL ledger writes needing zero intermediate reads",
-            "Requiring blocking row locks held across 30-second webhooks",
-            "Workflows spanning slow external APIs or autonomous microservices"
+            "Requiring blocking row locks held across 30-second webhooks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "2PC cannot coordinate external REST webhooks without holding catastrophic long-duration database locks; Outbox Sagas decouple each step cleanly."
         },
         "output": "single DB transfer: SINGLE_LOCAL_ACID_TX\ncross-shard SQL ledger: REPLICATED_2PC_OR_PARALLEL_COMMIT\npayment + shipping API: TRANSACTIONAL_OUTBOX_SAGA"
@@ -10260,13 +10260,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the integrated Outbox + Saga pipeline, what guarantees zero double refunds if the CDC relay crashes right before committing its LSN offset?",
           "options": [
-            "Debezium stalls PostgreSQL writes globally during consumer restarts",
+            "Debezium stalls PostgreSQL writes globally",
+            "Worker dedup ledger atomically ignores repeated command IDs",
             "Payment workers roll back completed compensations after 30s",
-            "Orchestrator erases prior WAL transitions ahead of recovery",
-            "Worker dedup ledger atomically ignores repeated command IDs"
+            "Orchestrator erases prior WAL transitions ahead of recovery"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Because worker dedup checks command_id inside the exact same transaction updating balance, CDC replays bounce safely with zero extra side effects."
         },
         "output": "status: COMPENSATED_ABORT restored exact balances: {'inv': 10, 'pay': 200}\nwal trace: [('saga-501', 'START'), ('saga-501', 'STEP1_OK'), ('saga-501', 'COMPENSATING'), ('saga-501', 'COMPENSATED_ABORT')]"
@@ -10294,7 +10294,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How must an orchestrator treat a compensating transaction C_k that fails repeatedly past retry limits?",
           "options": [
             "Skip C_k cleanly and continue compensating C_{k-1} silently",
-            "Delete the orchestrator WAL row to clear alert counters fast across distributed persistent storage layers and background workers",
+            "Delete the orchestrator WAL row to clear alert counters fast",
             "Escalate to manual triage alert while keeping state unresolved",
             "Mark the overall workflow COMPLETED to release user seats"
           ],
@@ -10327,12 +10327,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which five invariants together certify an Outbox + Saga Coordinator for production billing?",
           "options": [
             "Shortest prompt length, HTTP caching, sorted JSON, zero retries",
-            "2PC safety, atomic outbox, idempotent CDC, tombstones, triage",
             "Polling interval speed, raw RAM compression, blind overwrites",
-            "Disabled replication slots, shared passwords, silent failures"
+            "Disabled replication slots, shared passwords, silent failures",
+            "2PC safety, atomic outbox, idempotent CDC, tombstones, triage"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Covering DB+broker atomicity, replay idempotency, late-packet tombstones, 2PC fallbacks, and poison compensation alerts closes all dual-write failure modes."
         },
         "output": "M9 certification: {'2pc_presumed_abort': True, 'outbox_atomic_rollback': True, 'cdc_replay_safe': True, 'tombstone_blocks_late_fwd': True, 'poison_comp_escalates': True} ALL_PASS= True"
@@ -10379,13 +10379,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a 5-replica Dynamo store configured with W=2, why must R be at least 4 to enforce quorum overlap?",
           "options": [
-            "R + W > N requires R >= 4 so read and write sets overlap",
             "Write latency drops cleanly whenever R exceeds W times two",
             "Consistent hash rings reject read quorums smaller than four",
+            "R + W > N requires R >= 4 so read and write sets overlap",
             "Hinted handoff only executes past four healthy replicas"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "2 + 4 = 6 > 5 guarantees at least 1 overlapping node holds the newest write; R=3 gives 2+3=5 allowing disjoint non-overlapping subsets."
         },
         "output": "{'N': 3, 'W': 2, 'R': 2, 'overlap': 1, 'strict_intersect': True, 'max_down_for_writes': 1, 'max_down_for_reads': 1}\n{'N': 3, 'W': 3, 'R': 1, 'overlap': 1, 'strict_intersect': True, 'max_down_for_writes': 0, 'max_down_for_reads': 2}\n{'N': 3, 'W': 1, 'R': 2, 'overlap': 0, 'strict_intersect': False, 'max_down_for_writes': 2, 'max_down_for_reads': 1}\n{'N': 5, 'W': 3, 'R': 3, 'overlap': 1, 'strict_intersect': True, 'max_down_for_writes': 2, 'max_down_for_reads': 2}"
@@ -10412,13 +10412,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does N=3, W=2, R=2 resist single-node GC tail spikes better than N=3, W=3, R=1?",
           "options": [
-            "Waiting for 2 fastest responses ignores 1 lagging straggler host",
             "Quorum W=2 bypasses local WAL disk persistence on followers",
-            "Read quorum R=2 skips comparing version stamps across replies through automated background thread polling and heartbeat intervals",
-            "Smaller W counts automatically compress stored value bytes"
+            "Read quorum R=2 skips comparing version stamps across replies",
+            "Smaller W counts automatically compress stored value bytes synchronized across distributed service instances",
+            "Waiting for 2 fastest responses ignores 1 lagging straggler host"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Writes finish once any 2 of 3 healthy replicas acknowledge, completely masking single-replica GC pauses or disk stalls from client latency."
         },
         "output": "QUORUM(2,2) {'write_ms': 3.4, 'read_ms': 3.4}\nFAST_WRITE(1,3) {'write_ms': 2.1, 'read_ms': 180.0}\nALL_WRITE(3,1) {'write_ms': 180.0, 'read_ms': 2.1}"
@@ -10446,13 +10446,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which strict guarantee temporarily breaks when a store accepts writes via Sloppy Quorum fallback?",
           "options": [
-            "Write payloads drop vector clock metadata tags during transit across multi-zone container instances and local filesystem caches",
-            "Consistent hash rings stop assigning adjacent server nodes",
-            "Down replicas lose historical data already flushed to disk",
-            "Readers checking home replicas may miss values held on standbys"
+            "Readers checking home replicas may miss values held on standbys",
+            "Write payloads drop vector clock metadata tags during transit",
+            "Consistent hash rings stop assigning adjacent server nodes synchronized across distributed service instances",
+            "Down replicas lose historical data already flushed to disk"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because writes temporarily parked onto non-home standby nodes (`D`), reading `R` home replicas (`B, C`) can fail to observe those writes until hinted handoff drains."
         },
         "output": "write landed on: ['A', 'D'] | stored hints: [('D', 'B')]"
@@ -10485,12 +10485,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do distributed stores expire buffered hinted-handoff writes after max_hint_window?",
           "options": [
             "Forces clients cleanly onto Two-Phase Commit global locks",
-            "Reduces Merkle tree hash lengths across adjacent leaf ranges across cluster worker nodes during high-throughput network operations",
             "Stops prolonged node outages from filling healthy peers' SSDs",
+            "Reduces Merkle tree hash lengths across adjacent leaf ranges",
             "Upgrades Sloppy Quorum writes into strict W=N guarantees"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If a dead node stays offline indefinitely, un-capped hint storage eventually exhausts standby host disk space and cascades outages."
         },
         "output": "drain summary: {'delivered': 1, 'expired': 1} | safe B store: {'k2': (7, 'newer_already_on_B')}"
@@ -10517,13 +10517,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Sloppy Quorums, what phase heals home replicas that missed writes parked onto standby nodes?",
           "options": [
-            "Raising read threshold R strictly above total ring node counts by disabling operating system socket buffers and connection timeouts",
-            "Hinted Handoff draining standby buffers once homes return alive",
+            "Raising read threshold R strictly above total ring node counts",
             "Disabling vector clocks across temporary standby dictionaries",
-            "Triggering synchronous Two-Phase Commit rollbacks on clients"
+            "Hinted Handoff draining standby buffers once homes return alive",
+            "Triggering synchronous Two-Phase Commit rollbacks on clients synchronized across distributed service instances"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Hinted handoff delivers queued standby hints back to restored home owners cleanly, restoring strict quorum visibility afterward."
         },
         "output": "T1 healthy R=2 [B,C]: (1, 'v1')\nT3 pre-handoff [B,C] stale risk: (1, 'v1')\nT4 post-handoff [B,C] healed: (2, 'v2')"
@@ -10571,7 +10571,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Cryptographic hashes compute faster than reading RAM bytes",
             "Avoids shipping redundant large values whenever replicas agree",
-            "Replicas delete older key versions upon hashing raw payloads across distributed persistent storage layers and background workers",
+            "Replicas delete older key versions upon hashing raw payloads",
             "Digest queries lower read quorum R strictly down toward one"
           ],
           "answer": 1,
@@ -10606,13 +10606,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "During vector-clock read repair across 3 replicas, what happens to an older version causally BEFORE two newer concurrent siblings?",
           "options": [
-            "Dominated ancestor drops while both concurrent siblings remain",
             "All three versions stay permanently inside client read responses",
             "Coordinator discards the newer sibling with lower host name",
+            "Dominated ancestor drops while both concurrent siblings remain",
             "Read repair wipes every sibling down to an empty tombstone"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Because both newer branches causally succeeded the old ancestor, pruning dominated entries leaves only the active irreducible concurrent frontier."
         },
         "output": "surviving siblings: [{'vc': {'n1': 1, 'n2': 1}, 'val': 'cart:[hat]'}, {'vc': {'n1': 1, 'n3': 1}, 'val': 'cart:[tie]'}]\nreconcile ctx for client next PUT: {'n1': 1, 'n2': 1, 'n3': 1}"
@@ -10638,8 +10638,8 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an Observed-Remove Set (OR-Set) allow removing an item concurrently without wiping a separate client's fresh re-add?",
           "options": [
-            "Replays client cart history backwards through Two-Phase Commit through automated background thread polling and heartbeat intervals",
-            "Locks all concurrent carts globally until writes synchronize",
+            "Replays client cart history backwards through Two-Phase Commit",
+            "Locks all concurrent carts globally until writes synchronize synchronized across distributed service instances",
             "Replaces shopping cart lists cleanly with integer timestamps",
             "Removes tombstone only seen element tags, sparing fresh add tags"
           ],
@@ -10670,13 +10670,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What common application coding mistake triggers runaway 'sibling explosion' in Dynamo/Riak systems?",
           "options": [
-            "Enabling digest hashes on R=2 quorum read paths",
-            "Reconciling siblings via OR-Set add-tag union rules across multi-zone container instances and local filesystem caches",
             "Issuing repeated writes with empty client read contexts",
+            "Enabling digest hashes on R=2 quorum read paths",
+            "Reconciling siblings via OR-Set add-tag union rules",
             "Storing explicit tombstone flags on deleted keys"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Writing without passing the prior read context vector forces every mutation to appear concurrent with all existing versions indefinitely."
         },
         "output": "bloat trigger: ('SIBLING_EXPLOSION_GUARD(count=5 > 4)', [({'n0': 1}, 'v0'), ({'n1': 1}, 'v1'), ({'n2': 1}, 'v2'), ({'n3': 1}, 'v3'), ({'n9': 1}, 'v9')])"
@@ -10702,12 +10702,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Between Read Repair and Client Context Reconciliation, which stage deletes old concurrent siblings?",
           "options": [
             "Digest hashing drops older vectors ahead of read merge",
-            "Read Repair deletes random concurrent siblings automatically",
             "Client PUT carrying merged context vector supersedes siblings",
+            "Read Repair deletes random concurrent siblings automatically",
             "Consistent hash rebalancing clears active key siblings on disk"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Read repair brings all replicas to equal sibling visibility; only a new write anchored past the combined merged context causally dominates both branches."
         },
         "output": "converged 3 replicas cleanly: True [{'vc': {'n1': 2, 'n2': 1}, 'val': 'cart:[pen,pad]'}]"
@@ -10753,13 +10753,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an LSM-Tree issue deletes by appending a tombstone marker instead of removing the row from disk?",
           "options": [
-            "Tombstones force B-tree page splits immediately in RAM memory",
             "Existing SSTables are strictly immutable so deletes cannot edit files",
-            "WAL logs reject deleting keys exceeding sixteen characters long across cluster worker nodes during high-throughput network operations",
+            "Tombstones force B-tree page splits immediately in RAM memory",
+            "WAL logs reject deleting keys exceeding sixteen characters long",
             "Disk sectors lock strings alphabetically unless marked deleted"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because flushed SSTables are immutable sequential disk files, deletes must write a newer marker overriding older file versions until compaction discards both."
         },
         "output": "sstables newest-first: [[('a', '1'), ('b', '2'), ('c', '3')]]\nactive memtable: {'b': '20'} wal_len: 1"
@@ -10785,13 +10785,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if an LSM point lookup forgets to stop upon hitting __TOMBSTONE__ in L0?",
           "options": [
+            "Binary search throws IndexError",
             "Read falls through to older SSTables and resurrects deleted values",
-            "Binary search throws IndexError across empty memory arrays",
             "WAL logs automatically roll back uncommitted in-memory keys",
-            "All sorted keys across older files reverse into descending order by disabling operating system socket buffers and connection timeouts"
+            "All sorted keys across older files reverse into descending order"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Continuing deeper into older files after seeing a delete marker reads shadowed obsolete values back as live records."
         },
         "output": "get(k1) -> None\nget(k2) -> latest_in_mem\nget(k3) -> v3_new\nget(k4) -> v4_only\nget(k99) -> None"
@@ -10819,13 +10819,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is compaction allowed to permanently discard a delete tombstone from output SSTables?",
           "options": [
-            "On every minor L0 flush as soon as MemTable clears memory",
-            "Immediately whenever binary search encounters zero range matches across distributed persistent storage layers and background workers",
-            "After at least two identical tombstones collide in size tiers",
-            "Strictly when compacting into the bottommost layer with nothing older"
+            "On every minor L0 flush as soon as MemTable clears memory synchronized across distributed service instances",
+            "Immediately whenever binary search encounters zero range matches",
+            "Strictly when compacting into the bottommost layer with nothing older",
+            "After at least two identical tombstones collide in size tiers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "If older uncompacted SSTables still sit beneath the compacted tier, stripping the tombstone exposes old stale values underneath as live zombie rows."
         },
         "output": "mid-level compact (keeps tombstone): [('a', '__TOMBSTONE__'), ('b', '2'), ('c', '30')]\nbottommost compact (drops tombstone): [('b', '2'), ('c', '30')]"
@@ -10884,13 +10884,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do RocksDB and Cassandra intentionally slow down or halt client writes when uncompacted L0 files accumulate?",
           "options": [
-            "Python dictionaries lose sorted order past eight L0 SSTables through automated background thread polling and heartbeat intervals",
-            "WAL logs overwrite existing flushed files if L0 exceeds four",
             "Overlapping L0 files degrade every read linearly toward OOM stalls",
-            "Compaction cannot remove tombstones when writes run slowly"
+            "Python dictionaries lose sorted order past eight L0 SSTables",
+            "WAL logs overwrite existing flushed files if L0 exceeds four",
+            "Compaction cannot remove tombstones when writes run slowly synchronized across distributed service instances"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because L0 SSTables hold overlapping key ranges from chronological flushes, unbounded L0 pileups crush point-read latency and burst compaction backlogs."
         },
         "output": "recovered RAM after power cut: {'u1': '__TOMBSTONE__', 'u2': '200'}\nL0_files=2 -> ALLOW_FULL_SPEED\nL0_files=5 -> THROTTLE_WRITES\nL0_files=9 -> HARD_STOP_WRITES"
@@ -10938,12 +10938,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When a Bloom filter returns False for key K against an SSTable, what do you know with 100% certainty?",
           "options": [
             "Key K moved recently into a newer Level 0 SSTable file",
-            "Key K does not exist inside that SSTable so disk seek skips",
             "All k hashed bit positions collided onto value 1 simultaneously",
-            "Key K holds a deleted __TOMBSTONE__ entry in that file"
+            "Key K holds a deleted __TOMBSTONE__ entry in that file",
+            "Key K does not exist inside that SSTable so disk seek skips"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Since inserting K flips all k positions to 1 and bits are never cleared, any 0 bit proves K was never added (zero false negatives)."
         },
         "output": "{'false_negatives': 0, 'false_positives': 0, 'fp_rate': 0.0}"
@@ -10975,8 +10975,8 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Roughly how many RAM bits per stored key achieve a 1% Bloom filter false-positive rate?",
           "options": [
             "About 10 bits per key regardless of payload size",
-            "Exactly 64 bits per key matching SHA digests",
-            "Over 512 bits per key to isolate prefix blocks across multi-zone container instances and local filesystem caches",
+            "Exactly 64 bits per key matching SHA digests synchronized across distributed service instances",
+            "Over 512 bits per key to isolate prefix blocks",
             "Roughly 1 bit per key with two hash functions"
           ],
           "answer": 0,
@@ -11007,13 +11007,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many disk block reads does a sparse fence index + sorted data block take to locate a present key?",
           "options": [
-            "Exactly one bounded block read after RAM fence bisect",
             "O(log N) random SSD page seeks down tree pointers",
-            "Full sequential scan from byte 0 up to EOF",
-            "k independent disk seeks matching Bloom hash count k across cluster worker nodes during high-throughput network operations"
+            "Exactly one bounded block read after RAM fence bisect",
+            "Full sequential scan from byte 0 up to EOF synchronized across distributed service instances",
+            "k independent disk seeks matching Bloom hash count k"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Binary searching the tiny sorted fence index completely in RAM pinpoints the single disk offset interval holding the target key in 1 SSD read."
         },
         "output": "sparse index fence keys: ['k010', 'k018', 'k026', 'k034', 'k042']\nfind k024: ('val_24', 1)\nbefore min k001 (0 block reads): (None, 0)"
@@ -11042,11 +11042,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Whole-key Bloom filters disable SHA-256 bit masking on reads",
             "Sparse block offsets consume all remaining heap space on scans",
-            "LSM MemTables drop prefix metadata once flushes finish",
-            "Hash digests scramble lexical order, hiding range membership"
+            "Hash digests scramble lexical order, hiding range membership",
+            "LSM MemTables drop prefix metadata once flushes finish"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Hashing whole strings destroys sort adjacency; checking explicit key-prefix hashes (Prefix Bloom) recovers instant pruning for scoped prefix scans."
         },
         "output": "prefix acct:42 might hit: True\nprefix acct:55 skipped in RAM: False"
@@ -11073,11 +11073,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Negative lookups still inspect every L0 block due to sparse fences",
             "False negative drops skip ~1% of valid live records silently",
-            "Negative seeks drop by roughly 99% while keeping 100% hit recall",
-            "Write throughput halves because Bloom arrays flush to every WAL"
+            "Write throughput halves because Bloom arrays flush to every WAL",
+            "Negative seeks drop by roughly 99% while keeping 100% hit recall"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "10 bits/key yields ~1% false positive rate and strictly 0% false negatives, eliminating ~99% of wasted SSD reads on missing keys."
         },
         "output": "{'seeks_without_bloom': 600, 'seeks_with_bloom': 7}"
@@ -11123,13 +11123,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Milestone 10, why do replicas store Vector Clock siblings inside LSM SSTables instead of raw overwritten strings?",
           "options": [
-            "Bloom filters only hash nested JSON sibling dictionaries reliably by disabling operating system socket buffers and connection timeouts",
-            "Preserves partition concurrency metadata across compaction flushes",
+            "Bloom filters only hash nested JSON sibling dictionaries reliably",
             "WAL logs reject scalar string values exceeding eight characters",
+            "Preserves partition concurrency metadata across compaction flushes",
             "Size-tiered compaction requires vector arrays to balance tiers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "If LSM storage kept bare scalars without vector metadata, read repair and compaction across partitioned replicas could not merge siblings safely."
         },
         "output": "hit acct:1: ([({'n0': 1}, 'active')], True)\nbloom miss acct:9: (None, False)"
@@ -11156,12 +11156,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why would naive key overwrite compaction corrupt multi-replica sibling writes across separate SSTables?",
           "options": [
             "Bloom filters forget keys after sorting lexicographically",
-            "Concurrent branches flushed separately would overwrite one another",
-            "Tombstones drop MemTable WAL pointers prematurely in RAM",
-            "Vector clocks fail element comparison on sorted tuple keys across distributed persistent storage layers and background workers"
+            "Tombstones drop MemTable WAL pointers prematurely in RAM synchronized across distributed service instances",
+            "Vector clocks fail element comparison on sorted tuple keys",
+            "Concurrent branches flushed separately would overwrite one another"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "If replica SSTables accumulated concurrent siblings across separate flushes or hint replays, compaction must take sibling union minus dominated ancestors."
         },
         "output": "sibling-safe mid merge: [('cart:5', [({'n1': 1}, 'eggs'), ({'n0': 1}, 'milk')]), ('k_del', [({'n0': 2}, '__TOMBSTONE__')])]\nbottommost tombstone wipe: [('cart:5', [({'n1': 1}, 'eggs'), ({'n0': 1}, 'milk')])]"
@@ -11188,8 +11188,8 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Inside each storage replica, why does WAL recovery stay concise once MemTables flush cleanly to SSTables?",
           "options": [
             "Flushed immutable SSTables are already durable so old WAL truncates",
-            "Bloom filters compress historical WAL mutations onto 10 bits",
-            "Read repair rebuilds lost MemTables automatically without logs through automated background thread polling and heartbeat intervals",
+            "Bloom filters compress historical WAL mutations onto 10 bits synchronized across distributed service instances",
+            "Read repair rebuilds lost MemTables automatically without logs",
             "Quorum W=2 never persists un-flushed entries locally on disk"
           ],
           "answer": 0,
@@ -11219,12 +11219,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which layer in the Quorum KV + LSM Engine prevents non-existent keys from thrashing SSD reads across SSTables?",
           "options": [
             "Increasing sloppy quorum standby replica write thresholds",
-            "Replaying Write-Ahead Logs before every client point lookup across multi-zone container instances and local filesystem caches",
-            "Disabling Size-Tiered Compaction merges across L1 tiers",
-            "Per-SSTable RAM Bloom filters paired with sparse fence bounds"
+            "Per-SSTable RAM Bloom filters paired with sparse fence bounds",
+            "Replaying Write-Ahead Logs before every client point lookup",
+            "Disabling Size-Tiered Compaction merges across L1 tiers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Checking RAM Bloom filters skips any SSTable missing the key immediately (0% false negatives), leaving zero SSD disk seeks on negative misses."
         },
         "output": "M10 fault matrix: {'wal_recovery': True, 'quorum_overlap': True, 'tombstone_no_zombie': True, 'bloom_zero_false_neg': True} ALL_PASS= True"
@@ -11250,9 +11250,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a rising `read_repair_rate` combined with growing `hint_queue_age` indicate operationally?",
           "options": [
             "Bloom filters achieved 100% RAM cache hit perfection globally",
-            "Bottommost compaction finished reclaiming old tombstones cleanly across cluster worker nodes during high-throughput network operations",
+            "Bottommost compaction finished reclaiming old tombstones cleanly",
             "Replicas are drifting persistently due to outage past hint limits",
-            "Quorum latency shrunk below intra-zone round-trip minimums"
+            "Quorum latency shrunk below intra-zone round-trip minimums synchronized across distributed service instances"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -11302,12 +11302,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What critical burst vulnerability affects Fixed Window counters at minute transitions?",
           "options": [
             "Sorted timestamp deques leak memory across single host cores",
-            "Monotonic Python timers jump backward every sixty seconds cleanly",
             "Bursting right before and after the seam permits 2x allowed load",
+            "Monotonic Python timers jump backward every sixty seconds cleanly",
             "Modulo bucketing rejects idle users carrying zero recent hits"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Hitting full limit at 00:59 plus resetting fresh capacity at 01:00 doubles allowed sustained request rate across any consecutive 2-second boundary."
         },
         "output": "t= 98ms -> (True, 1)\nt= 99ms -> (True, 2)\nt=101ms -> (False, 2)\nt=102ms -> (False, 2)\nt=200ms -> (True, 1)"
@@ -11338,13 +11338,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do distributed gateways run rate-limit token checks inside Redis Lua scripts rather than GET followed by SET?",
           "options": [
-            "Lua scripts bypass Redis TCP serialization headers automatically by disabling operating system socket buffers and connection timeouts",
+            "Lua scripts bypass Redis TCP serialization headers automatically",
+            "Separate GET/SET calls drop integer precision on Python floats synchronized across distributed service instances",
             "Executes refill, check, and deduct atomically without concurrent races",
-            "Separate GET/SET calls drop integer precision on Python floats",
             "Lua automatically replicates rate buckets across isolated zones"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Because Redis executes each Lua script atomically without interleaving other commands, parallel gateway pods cannot double-spend remaining tokens."
         },
         "output": "t=  0ms -> {'allowed': True, 'remaining': 2.0, 'ttl_ms': 3000}\nt=  0ms -> {'allowed': True, 'remaining': 1.0, 'ttl_ms': 3000}\nt=  0ms -> {'allowed': True, 'remaining': 0.0, 'ttl_ms': 3000}\nt=100ms -> {'allowed': False, 'remaining': 0.2, 'retry_ms': 400.0}\nt=600ms -> {'allowed': True, 'remaining': 0.2, 'ttl_ms': 3000}"
@@ -11374,13 +11374,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do multi-key Redis Cluster rate limiters wrap tenant identifiers in `{tenant_id}` curly braces?",
           "options": [
-            "Colocates keys on one hash slot so atomic Lua scripts succeed",
             "Encrypts tenant identifiers inside Redis Cluster TLS frames cleanly",
             "Prevents fixed windows from overflowing at minute boundaries",
-            "Automatically spreads one hot key evenly across every cluster host"
+            "Automatically spreads one hot key evenly across every cluster host",
+            "Colocates keys on one hash slot so atomic Lua scripts succeed"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Redis Cluster evaluates slot hashes solely over `{...}` substrings when present, forcing multi-key Lua scripts onto one consistent shard."
         },
         "output": "with hash tag same slot: True 12637\nwithout tag slot match: False (10894, 8532)\nallowed: 12 rejected: 2 redis_calls: 5"
@@ -11407,13 +11407,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When central rate-limit Redis goes unreachable, which route type should enforce Fail-Closed rather than unrestricted Fail-Open?",
           "options": [
+            "Costly SMS OTP or login brute-force authentication endpoints",
             "Read-only public healthcheck or static CDN asset endpoints",
             "Low-risk catalog browsing endpoints backed by local caches",
-            "Internal Prometheus metrics scraping routes on private subnets",
-            "Costly SMS OTP or login brute-force authentication endpoints"
+            "Internal Prometheus metrics scraping routes on private subnets"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Failing open blindly on SMS/LLM billing endpoints or password login allows unlimited monetary drain or brute-force credential stuffing during outages."
         },
         "output": "STANDARD_API redis down: (200, 'FAIL_OPEN_LOCAL_CAP')\nEXPENSIVE_OTP_OR_LOGIN redis down: (503, 'FAIL_CLOSED_PROTECTION')"
@@ -11437,13 +11437,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which test outcome confirms per-tenant rate buckets prevent noisy-neighbor starvation cleanly?",
           "options": [
-            "All active tenants pause equally until flood traffic subsides",
-            "Central Redis drops all older keys uniformly during peak bursts across distributed persistent storage layers and background workers",
-            "Polite users receive doubled capacity limits during peer spikes",
-            "Polite tenant achieves 100% pass rate while flood tenant gets 429"
+            "All active tenants pause equally until flood traffic subsides synchronized across distributed service instances",
+            "Polite tenant achieves 100% pass rate while flood tenant gets 429",
+            "Central Redis drops all older keys uniformly during peak bursts",
+            "Polite users receive doubled capacity limits during peer spikes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Isolating buckets per tenant ID confines HTTP 429 rejections strictly to offending accounts while normal traffic proceeds unaffected."
         },
         "output": "{'noisy_allowed_of_6': 3, 'polite_allowed_of_4': 4, 'isolated': True}"
@@ -11489,13 +11489,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does unbounded FIFO queuing collapse backend useful goodput to near zero under sustained overload?",
           "options": [
-            "LIFO stacks allocate quadratic heap fragmentation per tick",
-            "Clients stop retrying whenever queues stay completely empty through automated background thread polling and heartbeat intervals",
             "Requests expire in queue before service, wasting CPU on timeouts",
+            "LIFO stacks allocate quadratic heap fragmentation per tick",
+            "Clients stop retrying whenever queues stay completely empty",
             "HTTP 503 status headers double response packet bandwidth"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "When queue wait exceeds client timeout, servers spend 100% of CPU finishing expired zombie work while upstream callers retry relentlessly."
         },
         "output": "{'mode': 'unbounded_fifo', 'goodput': 12, 'wasted_zombie': 0, 'stuck_queue': 18}\n{'mode': 'shed_cap_4', 'goodput': 12, 'wasted_zombie': 0, 'stuck_queue': 2}\n{'mode': 'lifo', 'goodput': 12, 'wasted_zombie': 0, 'stuck_queue': 18}"
@@ -11524,8 +11524,8 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Per-tenant Redis Lua keys expire past two-hour windows",
             "Observed request latency climbs past baseline no-load RTT",
-            "CPU idle time reaches ninety percent during peak bursts across multi-zone container instances and local filesystem caches",
-            "Network packet payload length shrinks under 100 bytes"
+            "CPU idle time reaches ninety percent during peak bursts",
+            "Network packet payload length shrinks under 100 bytes subjected to unbounded network packet transmission delay"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -11558,13 +11558,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does CoDel track queue sojourn time instead of static fixed item count caps?",
           "options": [
+            "Counting queued Python items breaks multi-threaded CPU caches",
+            "Item counts allow unbounded memory bursts",
             "Sojourn time catches real waiting stalls even when job speeds vary",
-            "Counting queued Python items breaks multi-threaded CPU caches across cluster worker nodes during high-throughput network operations",
-            "Item counts allow unbounded memory bursts during slow reads",
             "Sojourn tracking bypasses client timeout propagation cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "20 queued fast cache hits drain in 1ms (healthy), whereas 20 slow DB locks wait seconds; actual wait milliseconds isolate true backlog stall directly."
         },
         "output": "late downstream call: (False, 'SHED_EXPIRED_BUDGET(rem=18 <= need=25)')\nfresh downstream call: (True, 'ADMIT')\ncodel head purge: ([100, 120], [145, 148])"
@@ -11590,13 +11590,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When cluster saturation reaches 85%, why should progressive shedding target SHEDDABLE tiers first instead of random uniform drops?",
           "options": [
-            "Preserves capacity for core revenue and safety operations seamlessly",
             "Lowers Redis hash slot contention on random batch requests",
             "Doubles TCP keepalive connection speeds across edge proxies",
-            "Eliminates gradient concurrency estimation inside backend hosts by disabling operating system socket buffers and connection timeouts"
+            "Eliminates gradient concurrency estimation inside backend hosts",
+            "Preserves capacity for core revenue and safety operations seamlessly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Dropping low-impact background badges and analytics keeps essential checkout, login, and billing endpoints 100% responsive under heavy surges."
         },
         "output": "util=50% -> {'CRITICAL_PLUS': True, 'CRITICAL': True, 'SHEDDABLE_PLUS': True, 'SHEDDABLE': True}\nutil=75% -> {'CRITICAL_PLUS': True, 'CRITICAL': True, 'SHEDDABLE_PLUS': True, 'SHEDDABLE': False}\nutil=88% -> {'CRITICAL_PLUS': True, 'CRITICAL': True, 'SHEDDABLE_PLUS': False, 'SHEDDABLE': False}\nutil=97% -> {'CRITICAL_PLUS': True, 'CRITICAL': False, 'SHEDDABLE_PLUS': False, 'SHEDDABLE': False}"
@@ -11623,13 +11623,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What combined metric best proves a load-shedding system succeeded during an extreme 3x traffic surge?",
           "options": [
-            "CPU utilization rises smoothly to 100% servicing timed-out items across distributed persistent storage layers and background workers",
-            "Equal random percentages of all traffic tiers drop evenly",
-            "Internal FIFO queue depths grow past ten seconds smoothly",
-            "High-priority goodput stays near 100% while low-priority traffic sheds"
+            "High-priority goodput stays near 100% while low-priority traffic sheds",
+            "CPU utilization rises smoothly to 100% servicing timed-out items",
+            "Equal random percentages of all traffic tiers drop evenly synchronized across distributed service instances",
+            "Internal FIFO queue depths grow past ten seconds smoothly"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Success under overload means protecting critical business transactions cleanly at full SLAs by sacrificing sheddable non-essential traffic early."
         },
         "output": "{'naive_crit_success': '3/10', 'priority_shedder_crit_success': '10/10'}"
@@ -11676,11 +11676,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Exactly 1% uniformly regardless of parallel fan-out width",
             "Zero percent because parallel threads share one fast lock",
-            "About 63% of requests wait for at least one slow straggler",
-            "Ninety-nine percent of requests complete faster than median"
+            "Ninety-nine percent of requests complete faster than median",
+            "About 63% of requests wait for at least one slow straggler"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "1 - (0.99)^100 = 0.634: parallel composition multiplies exposure across N independent draws, amplifying rare stalls dramatically."
         },
         "output": "fanout=  1 (p=1% slow) -> P(page hits >=1 straggler)=1.0%\nfanout= 10 (p=1% slow) -> P(page hits >=1 straggler)=9.6%\nfanout= 50 (p=1% slow) -> P(page hits >=1 straggler)=39.5%\nfanout=100 (p=1% slow) -> P(page hits >=1 straggler)=63.4%\nfanout=300 (p=1% slow) -> P(page hits >=1 straggler)=95.1%"
@@ -11707,13 +11707,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do systems delay hedged backup dispatches past the p95 normal latency instead of firing at t=0?",
           "options": [
-            "Python async tasks prohibit dispatching two sockets simultaneously through automated background thread polling and heartbeat intervals",
             "Avoids doubling cluster load while still catching slow tail outliers",
+            "Python async tasks prohibit dispatching two sockets simultaneously",
             "Delayed hedges skip checking replica vector clock staleness",
             "Primary requests automatically cancel once hedge delay passes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Waiting until ~p95 means 95% of healthy calls never fire any backup RPC, keeping total extra traffic around ~5% while racing every slow straggler."
         },
         "output": "{'raw_tail': 250.0, 'hedged_tail': 21.0, 'extra_rpc_pct': 5.0}"
@@ -11739,9 +11739,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an asymmetric hedge token budget stop hedged requests from worsening a global cluster overload?",
           "options": [
-            "Replaces primary TCP requests cleanly with background UDP pings",
+            "Replaces primary TCP requests cleanly with background UDP pings synchronized across distributed service instances",
             "Credits drain quickly under widespread slowdowns, halting extra load",
-            "Deletes duplicate slow workers automatically during traffic peaks across multi-zone container instances and local filesystem caches",
+            "Deletes duplicate slow workers automatically during traffic peaks",
             "Forces all leaf nodes into synchronous sequential lockstep calls"
           ],
           "answer": 1,
@@ -11772,13 +11772,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Tied Requests, when does Replica B actually save its disk/CPU work after Replica A fires a cancel notice?",
           "options": [
-            "When B receives the cancel message before popping B's local queue",
             "Whenever B finishes computing and drops its HTTP payload afterward",
             "Strictly when client timeouts fire across downstream TCP links",
+            "When B receives the cancel message before popping B's local queue",
             "On every request regardless of cross-server arrival timings"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "If A enters execution while B still sits queued behind heavier work, A's fast cancel pops B's unstarted request safely ahead of disk I/O."
         },
         "output": "A jammed (80ms queue), B idle (0ms): {'latency_ms': 5.0, 'canceled_idle_peer': True, 'executions': 1}\nBoth nearly tied idle (0.5ms vs 0.8ms): {'latency_ms': 5.5, 'canceled_idle_peer': False, 'executions': 2}"
@@ -11858,7 +11858,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Rehashes the entire cluster keyspace modulo N across all shards",
             "Drops incoming viral hot-key reads unconditionally with HTTP 429",
             "Walks clockwise past overloaded servers until hitting an under-cap peer",
-            "Duplicates virtual node points onto the overloaded target machine across cluster worker nodes during high-throughput network operations"
+            "Duplicates virtual node points onto the overloaded target machine"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -11890,11 +11890,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Eliminates cross-zone TCP encryption overhead for writes cleanly",
             "Reduces total virtual node counts stored inside ring memory",
-            "Ensures a single zone failure never wipes quorum copies together",
-            "Enforces bounded cache load limits strictly inside local racks"
+            "Enforces bounded cache load limits strictly inside local racks",
+            "Ensures a single zone failure never wipes quorum copies together"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Isolating replicas across independent zones guarantees a single AZ power/network outage drops at most 1 replica out of RF=3, keeping quorum intact."
         },
         "output": "acct:1 -> [('n4', 'az-b'), ('n1', 'az-a'), ('n5', 'az-c')] | distinct_zones= 3\nacct:2 -> [('n6', 'az-c'), ('n3', 'az-b'), ('n2', 'az-a')] | distinct_zones= 3\nacct:3 -> [('n4', 'az-b'), ('n5', 'az-c'), ('n1', 'az-a')] | distinct_zones= 3"
@@ -11920,13 +11920,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Adding one new node to a healthy 9-node vnode ring moves approximately what fraction of stored keys?",
           "options": [
-            "Nearly 90% because modulo divisor shifts across every slot",
             "About 10% matching optimal 1 / (N + 1) fair share",
+            "Nearly 90% because modulo divisor shifts across every slot",
             "Exactly 50% divided evenly across adjacent ring neighbors",
             "Zero percent unless manual offline resharding triggers first"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "With virtual nodes partitioning the ring evenly, the new 10th node steals roughly 1/10 (10%) uniformly from the 9 existing nodes."
         },
         "output": "added 5th node (expected ~20%): moved=211/1000 (21.1%)"
@@ -11951,13 +11951,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should stateless storage routers prefer a local-zone replica when healthy and under bounded load?",
           "options": [
+            "Eliminates the need for durable WAL logging on write quorums",
             "Cuts sub-millisecond read latency and cross-AZ egress charges",
-            "Eliminates the need for durable WAL logging on write quorums by disabling operating system socket buffers and connection timeouts",
             "Doubles consistent hash virtual token counts automatically",
             "Forces write replication into synchronous single-zone copies"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Intra-AZ calls avoid inter-datacenter RTTs and cloud per-GB cross-zone transfer fees while keeping failover intact."
         },
         "output": "healthy local: ('n3', 'az-b', 'LOCAL_ZONE_FAST')\nlocal n3 overloaded: ('n1', 'az-a', 'CROSS_ZONE_FALLBACK')"
@@ -11984,11 +11984,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Modulo hashing, shared-rack placement, and unbounded retries",
             "Fixed static arrays, zero virtual nodes, and FIFO load spills",
-            "Single-zone placement, greedy deadlines, and disabled Bloom bits",
-            "Bounded hot-key caps, multi-zone diversity, and ~1/N scale churn"
+            "Bounded hot-key caps, multi-zone diversity, and ~1/N scale churn",
+            "Single-zone placement, greedy deadlines, and disabled Bloom bits"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Together they prevent hot-shard collapse, eliminate single-AZ outage loss, and preserve warm caches when scaling cluster nodes."
         },
         "output": "{'zone_diversity_200_keys': True, 'nodes': 6, 'vnodes_per_node': 64}"
@@ -12035,12 +12035,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In what exact order must edge ingress filters run before dispatching a backend storage call?",
           "options": [
             "Hedge Read -> Rate Limit -> Priority Shed -> Zone Affinity Route",
+            "Rate Limit -> Deadline & Priority Shed -> Bounded Route -> Hedge",
             "Zone Route -> Unbounded Retry -> Token Bucket -> Deadline Drop",
-            "Priority Shed -> Cache Read -> Token Refill -> Random Host Pick",
-            "Rate Limit -> Deadline & Priority Shed -> Bounded Route -> Hedge"
+            "Priority Shed -> Cache Read -> Token Refill -> Random Host Pick"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Dropping quota abusers, impossible deadlines, and low-tier work upfront protects shard routing and hedge budgets cleanly from amplification."
         },
         "output": "classified: RoutedRequest(tenant='acme', key='acct:99', tier='CRITICAL_PLUS', caller_zone='az-a', rem_deadline_ms=80, est_cost_ms=10, is_read=True)"
@@ -12098,13 +12098,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Milestone 11, what happens when a viral read for `CRITICAL_PLUS` reaches a saturated shard `n1` during 85% cluster load?",
           "options": [
-            "Viral read drops immediately at HTTP 503 ahead of SHEDDABLE",
-            "Bounded Load walks to healthy peer while SHEDDABLE calls shed first",
-            "Router pauses until `n1` drains its internal FIFO queue completely across distributed persistent storage layers and background workers",
-            "Hedge budget fires blind duplicate requests onto every node"
+            "Viral read drops immediately at HTTP 503 ahead of SHEDDABLE synchronized across distributed service instances",
+            "Router pauses until `n1` drains its internal FIFO queue completely",
+            "Hedge budget fires blind duplicate requests onto every node",
+            "Bounded Load walks to healthy peer while SHEDDABLE calls shed first"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Low-criticality sheddable work frees capacity at Gate 2, and Bounded Load shifts hot critical reads onto healthy under-cap peers at Gate 3."
         },
         "output": "noisy x3: [(200, 'ROUTED', {'target': 'n2', 'hedged': True}), (200, 'ROUTED', {'target': 'n2', 'hedged': True}), (429, 'RATE_LIMITED', None)]\nexpired: (504, 'DEADLINE_SHED', None)\nsheddable under load: (503, 'PRIORITY_SHED', None)\ncritical hot spillover: (200, 'ROUTED', {'target': 'n2', 'hedged': True})"
@@ -12163,13 +12163,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which five invariants establish production readiness for Milestone 11's Sharding Router?",
           "options": [
+            "Unlimited FIFO buffering, blind 2x retries, static modulo routing",
             "Quota isolation, priority conservation, load caps, hedge caps, clean faults",
-            "Unlimited FIFO buffering, blind 2x retries, static modulo routing through automated background thread polling and heartbeat intervals",
-            "Unkeyed Redis GET/SET loops, random drops, single-AZ replicas",
+            "Unkeyed Redis GET/SET loops, random drops, single-AZ replicas synchronized",
             "Disabled deadline headers, synchronous global locks, empty logs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Together these five guarantees defend clusters from noisy tenants, brownouts, viral hot keys, tail storms, and self-inflicted breaker blackouts."
         },
         "output": "M11 gates: {'noisy_tenant_isolated': True, 'critical_preserved_at_85pct': True, 'bounded_load_respects_cap': True, 'hedge_credits_prevent_2x_storm': True, 'shed_never_trips_breaker': True} ALL_PASS= True"
@@ -12217,13 +12217,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is physical exactly-once delivery across unreliable distributed networks formally impossible without idempotence?",
           "options": [
-            "Operating system TCP buffers flush message payloads to disk asynchronously across multi-zone container instances and local filesystem caches",
+            "Network acknowledgments can be dropped after state commits, forcing retries",
+            "Operating system TCP buffers flush message payloads to disk asynchronously",
             "Stream consumers lack monotonic wall-clock synchronization across servers",
-            "Hash partitioners reorder producer records when message keys collide",
-            "Network acknowledgments can be dropped after state commits, forcing retries"
+            "Hash partitioners reorder producer records when message keys collide"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because an ACK can be lost in transit, the sender cannot distinguish between a dropped message and a lost receipt without receiver-side deduplication."
         },
         "output": "idempotent log len: 1 status: COMMITTED"
@@ -12252,13 +12252,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of barrier alignment in Chandy-Lamport stream checkpointing?",
           "options": [
-            "Compresses serialized state objects using dictionary delta encoding across cluster worker nodes during high-throughput network operations",
-            "Encrypts inter-node network payloads using ephemeral TLS sessions",
+            "Compresses serialized state objects using dictionary delta encoding",
             "Ensures local operator snapshots reflect identical global stream positions",
-            "Rebalances consumer partitions across surviving worker hosts"
+            "Encrypts inter-node network payloads using ephemeral TLS sessions",
+            "Rebalances consumer partitions"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Alignment prevents pre-barrier records from one channel and post-barrier records from another from corrupting consistent snapshot boundaries."
         },
         "output": "ALIGNED_WAITING_FOR_{'chan_1'}\nCHECKPOINT_1_COMMITTED_STATE_40\npersisted snapshots: {1: 40}"
@@ -12287,13 +12287,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do unaligned checkpoints avoid backpressure when stream input channels experience severe latency skew?",
           "options": [
-            "Slow channels are dropped permanently from DAG routing topologies",
-            "In-flight channel buffers are saved into snapshot state without blocking",
+            "Slow channels are dropped permanently from DAG routing topologies synchronized across distributed service instances",
             "Records arriving after barriers are discarded and recomputed later",
-            "State is written to volatile RAM caches without persistent disk sync by disabling operating system socket buffers and connection timeouts"
+            "In-flight channel buffers are saved into snapshot state without blocking",
+            "State is written to volatile RAM caches without persistent disk sync"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Persisting in-flight buffers directly into the snapshot allows fast channels to continue processing without waiting for slow channel alignment."
         },
         "output": "pre_commit ok: True\ncommit status: TX_COMMITTED\ncommitted store: {'acct:100': 2500}"
@@ -12322,13 +12322,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must stream recovery bump fencing epochs when restarting operators after node failures?",
           "options": [
-            "Forces consumer groups to rebalance across available network ports across distributed persistent storage layers and background workers",
-            "Prevents slow zombie workers from committing writes to external sinks",
+            "Forces consumer groups to rebalance across available network ports",
             "Recovers deleted rocksdb files from local filesystem trash bins",
-            "Clears TLS session keys before establishing new TCP handshakes"
+            "Clears TLS session keys before establishing new TCP handshakes",
+            "Prevents slow zombie workers from committing writes to external sinks"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Fencing tokens ensure external sinks reject delayed writes from stale or partitioned workers that have been superseded by new instances."
         },
         "output": "failover recovery plan: {'new_epoch': 2, 'resume_offsets': {'p0': 1040, 'p1': 2080}, 'restored_state': {'sum': 550}}\nzombie epoch 1 allowed: False\nvalid epoch 2 allowed: True"
@@ -12357,8 +12357,8 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which telemetry condition indicates that an operator is suffering from channel skew during stream checkpointing?",
           "options": [
             "Alignment duration consumes a dominant proportion of checkpoint duration",
-            "Garbage collection pause duration drops to zero across worker processes through automated background thread polling and heartbeat intervals",
-            "State persistence sizes decrease continuously on each snapshot cycle",
+            "Garbage collection pause duration drops to zero across worker processes",
+            "State persistence sizes decrease continuously on each snapshot cycle synchronized across distributed service instances",
             "Network egress packets remain exactly equal across all output channels"
           ],
           "answer": 0,
@@ -12412,7 +12412,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Processing Time requires sub-nanosecond atomic clock hardware on all hosts",
             "Event Time eliminates the need for durable state snapshots on operator disks",
-            "Processing Time restricts stream window aggregations to strictly prime intervals across multi-zone container instances and local filesystem caches",
+            "Processing Time restricts stream window aggregations to strictly prime intervals",
             "Event Time guarantees deterministic results regardless of network latency or replays"
           ],
           "answer": 3,
@@ -12445,13 +12445,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What failure scenario occurs if an upstream partition goes idle without watermark idleness detection?",
           "options": [
-            "RocksDB storage engines exhaust all file descriptors during compaction across cluster worker nodes during high-throughput network operations",
-            "Upstream producers trigger unbounded TCP retransmission resets",
             "Downstream watermarks freeze, preventing event-time windows from closing",
+            "RocksDB storage engines exhaust all file descriptors during compaction",
+            "Upstream producers trigger unbounded TCP retransmission resets synchronized across distributed service instances",
             "Window aggregators emit infinite duplicate side-output records"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because downstream watermarks equal the minimum of all inputs, a stagnant input freezes the global watermark, stalling window triggers."
         },
         "output": "watermark with slow part_2: 40\nwatermark after part_2 marked idle: 95"
@@ -12480,12 +12480,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary benefit of routing late-arriving stream records to side outputs rather than discarding them?",
           "options": [
             "Increases memory buffer allocation on upstream partition network cards",
-            "Guarantees that downstream tumbling windows execute with zero CPU overhead by disabling operating system socket buffers and connection timeouts",
             "Prevents silent revenue or audit data loss by enabling manual or batch reconciliation",
-            "Forces consumer group offsets to seek backwards automatically"
+            "Guarantees that downstream tumbling windows execute with zero CPU overhead",
+            "Forces consumer group offsets to seek backwards automatically synchronized"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Side outputs capture delayed events into dedicated error queues so finance, audit, and analytics teams can reconcile discrepancies."
         },
         "output": "ROUTED_TO_WINDOW_0_60\nROUTED_TO_WINDOW_0_60\nLATE_DATA_ROUTED_SIDE_OUTPUT\nside outputs: [{'time': 15, 'val': 99, 'reason': 'EXCEEDED_LATENESS'}]"
@@ -12515,12 +12515,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must watermark generators clamp incoming event timestamps against wall-clock thresholds?",
           "options": [
             "Eliminates the need for local memory buffers inside stateful operators",
+            "Synchronizes thread execution across heterogeneous GPU processing cores",
             "Prevents corrupted future timestamps from prematurely closing all active windows",
-            "Synchronizes thread execution across heterogeneous GPU processing cores across distributed persistent storage layers and background workers",
             "Forces Apache Kafka brokers to compress partition message segments"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "An unchecked future timestamp would jump the watermark forward, causing all subsequent normal events to be treated as late and dropped."
         },
         "output": "('ACCEPTED', 95)\n('ACCEPTED', 103)\n('POISON_TIMESTAMP_REJECTED', 103)\nfinal clean watermark: 103"
@@ -12548,13 +12548,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational action should engineers consider if late_data_drop_pct consistently exceeds 10% in production?",
           "options": [
-            "Increase bounded-out-of-orderness tolerance or review mobile client network delays",
-            "Reduce disk IOPS allocations on backend durable storage clusters",
-            "Switch stream window processing from Event Time to Processing Time immediately through automated background thread polling and heartbeat intervals",
-            "Disable Chandy-Lamport barrier alignment across all DAG operators"
+            "Reduce disk IOPS allocations on backend durable storage clusters subjected to unbounded network packet transmission delay",
+            "Switch stream window processing from Event Time to Processing Time immediately",
+            "Disable Chandy-Lamport barrier alignment across all DAG operators",
+            "Increase bounded-out-of-orderness tolerance or review mobile client network delays"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "A high drop rate indicates legitimate events are arriving later than the allowed window threshold, necessitating wider out-of-order tolerances."
         },
         "output": "healthy telemetry: {'status': 'STABLE', 'diagnostics': ['METRICS_WITHIN_NORMAL_BOUNDS']}\ndegraded telemetry: {'status': 'INVESTIGATE', 'diagnostics': ['WATERMARK_LAG_BREACH_SCALE_UPSTREAM_WORKERS', 'HIGH_LATE_DATA_RATE_EXPAND_OUT_OF_ORDER_TOLERANCE']}"
@@ -12604,11 +12604,11 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The 8-byte ephemeral Parent Span ID",
             "The 1-byte specification version number",
-            "The 2-digit hex sampling trace flag",
-            "The 16-byte hex-encoded Trace ID"
+            "The 16-byte hex-encoded Trace ID",
+            "The 2-digit hex sampling trace flag"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The Trace ID remains constant across all service boundaries, enabling tracing engines to assemble spans into a unified causal DAG."
         },
         "output": "parsed trace context: {'version': '00', 'trace_id': '4bf92f3577b34da6a3ce929d0e0e4736', 'parent_span_id': '00f067aa0ba902b7', 'sampled': True}\ninvalid context: None"
@@ -12671,13 +12671,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is tail-based sampling superior to pure head-based sampling for diagnosing rare production outages?",
           "options": [
-            "Reduces the number of network hops required to transmit HTTP requests",
-            "Eliminates the requirement for unique trace identifiers across microservices across multi-zone container instances and local filesystem caches",
             "Guarantees that spans containing errors or latency spikes are captured 100% of the time",
+            "Reduces the number of network hops required to transmit HTTP requests subjected to unbounded network packet transmission delay",
+            "Eliminates the requirement for unique trace identifiers across microservices",
             "Stores serialized span payloads directly inside client web browser cookies"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Head sampling makes decisions before errors occur, often missing bugs; tail sampling inspects the completed trace and saves all interesting anomalies."
         },
         "output": "t1 decision: ('DISCARD_NORMAL_TRACE', None)\nt2 decision: ('RETAIN_FOR_STORAGE', {'trace_id': 't2', 'spans': 2, 'total_ms': 350})"
@@ -12705,7 +12705,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must performance optimization efforts focus exclusively on operations on the trace Critical Path?",
           "options": [
-            "Spans outside the critical path are automatically deleted by the tracing collector across cluster worker nodes during high-throughput network operations",
+            "Spans outside the critical path are automatically deleted by the tracing collector",
             "Speeding up operations outside the critical path does not reduce overall request latency",
             "Non-critical spans are executed on separate CPU cores that ignore optimizations",
             "The W3C traceparent standard only permits modifying critical path headers"
@@ -12739,13 +12739,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What failure condition occurs when a microservice forgets to inject the W3C traceparent header into outgoing requests?",
           "options": [
-            "Downstream spans become disconnected orphans, breaking end-to-end trace graphs",
             "The microservice operating system terminates the process with SIGSEGV",
-            "Upstream load balancers immediately drop all active TCP connections",
-            "Downstream databases reject incoming queries with authentication errors by disabling operating system socket buffers and connection timeouts"
+            "Upstream load balancers immediately drop all active TCP connections synchronized across distributed service instances",
+            "Downstream spans become disconnected orphans, breaking end-to-end trace graphs",
+            "Downstream databases reject incoming queries with authentication errors"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Dropping headers severs the causal link, making downstream work appear as an unrelated new trace rather than a continuation of the caller's request."
         },
         "output": "{'total_spans': 4, 'root_spans': 1, 'orphan_count': 1, 'continuity_pct': 75.0, 'status': 'BROKEN_CONTEXT'}"
@@ -12793,13 +12793,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of formulating a steady-state hypothesis before executing a chaos engineering test?",
           "options": [
+            "Forces all running worker processes to write logs directly to local temporary directories",
             "Defines measurable normal behavior to objectively determine whether a fault breached system SLAs",
-            "Forces all running worker processes to write logs directly to local temporary directories across distributed persistent storage layers and background workers",
             "Disables active firewall filters across testing subnet ranges temporarily",
             "Resets database schema definitions to default factory configurations"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A crisp steady-state hypothesis gives engineers a verifiable benchmark to determine whether automated failover succeeded or customer SLAs degraded."
         },
         "output": "experiment outcome: PASS_RESILIENT"
@@ -12827,13 +12827,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deterministic reproducibility crucial when executing fault injection experiments against distributed databases?",
           "options": [
-            "Eliminates the requirement for running unit tests in continuous integration pipelines through automated background thread polling and heartbeat intervals",
+            "Eliminates the requirement for running unit tests in continuous integration pipelines",
             "Ensures that network packet headers remain unencrypted across testing subnets",
-            "Decreases disk storage requirements by disabling operating system swap space",
-            "Enables engineers to debug, isolate, and verify fixes for rare concurrency race conditions"
+            "Enables engineers to debug, isolate, and verify fixes for rare concurrency race conditions",
+            "Decreases disk storage requirements by disabling operating system swap space synchronized"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Without deterministic fault scheduling, intermittent concurrency bugs cannot be reliably reproduced or verified after code modifications."
         },
         "output": "n1 -> n2 (within minority): True\nn1 -> n3 (across partition): False\nn3 -> n4 (within majority): True"
@@ -12861,13 +12861,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What specific consistency violation does a Jepsen checker detect when a read returns a stale value after a write completed?",
           "options": [
-            "Eventual consistency convergence timeout on background anti-entropy",
+            "Eventual consistency convergence timeout on background anti-entropy synchronized across distributed service instances",
             "Transport layer security certificate expiration across cluster nodes",
-            "Linearizability violation (stale read breaks sequential real-time ordering)",
-            "Operating system file system inode exhaustion during SSTable compaction across multi-zone container instances and local filesystem caches"
+            "Operating system file system inode exhaustion during SSTable compaction",
+            "Linearizability violation (stale read breaks sequential real-time ordering)"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Linearizability requires that once a write completes in real time, all subsequent reads must observe that write or a later one."
         },
         "output": "valid history: (True, 'LINEARIZABLE')\nstale violation: (False, 'VIOLATION: read expected 10 but observed 0')"
@@ -12895,13 +12895,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must chaos engineering platforms incorporate automated emergency kill switches?",
           "options": [
-            "Automatically increases CPU clock speeds across overloaded virtual machines",
             "Instantly halts and heals active faults if production safety metrics breach emergency thresholds",
+            "Automatically increases CPU clock speeds across overloaded virtual machines",
             "Generates random synthetic test data to replace dropped customer payloads",
-            "Encrypts hard drive partitions before executing destructive fault injections across cluster worker nodes during high-throughput network operations"
+            "Encrypts hard drive partitions before executing destructive fault injections"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "An automated kill switch ensures that if an experiment causes unintended collateral damage, faults are healed immediately without human delay."
         },
         "output": "first node down: (True, 'APPROVED')\nsecond node down: (False, 'REJECTED_BLAST_RADIUS_LIMIT')\nemergency kill switch: ALL_FAULTS_HEALED_EMERGENCY_STOP"
@@ -12984,7 +12984,7 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which core architectural guarantee does the unified Milestone 12 Capstone platform deliver?",
           "options": [
             "Linearizable quorum storage combined with exactly-once stream processing and fault resilience",
-            "Single-threaded in-memory processing without durable disk persistence or replication by disabling operating system socket buffers and connection timeouts",
+            "Single-threaded in-memory processing without durable disk persistence or replication",
             "Unconstrained FIFO queue buffers operating without concurrency limits or shedding",
             "Static hash modulo routing pinned to a single availability zone"
           ],
@@ -13019,12 +13019,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does the platform bridge transactional storage writes to the analytical streaming engine?",
           "options": [
             "Executes periodic cron scripts that dump entire database tables to CSV",
+            "Emits change events to the stream buffer concurrently with WAL commits",
             "Polls storage state using unindexed linear table scans every five minutes",
-            "Forces stream consumers to write directly into internal storage MemTables",
-            "Emits change events to the stream buffer concurrently with WAL commits"
+            "Forces stream consumers to write directly into internal storage MemTables"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Change data capture (CDC) from the storage WAL ensures streaming consumers receive clean, ordered mutation streams without polling overhead."
         },
         "output": "TX_COMMITTED_DURABLE\nTX_COMMITTED_DURABLE\ncommitted storage: {'user:101:balance': 5000, 'user:102:balance': 2500}\nstreamed events: 2"
@@ -13054,9 +13054,9 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the geo-distributed platform serve read requests from local region replicas rather than global quorums?",
           "options": [
             "Eliminates the requirement for local disk storage on edge server hardware",
-            "Forces all client devices to maintain continuous peer-to-peer TCP connections across distributed persistent storage layers and background workers",
+            "Forces all client devices to maintain continuous peer-to-peer TCP connections",
             "Slashes read latency from >100ms cross-region round trips down to sub-millisecond speeds",
-            "Prevents relational databases from executing schema index rebalances"
+            "Prevents relational databases from executing schema index rebalances subjected to unbounded network packet transmission delay"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -13088,12 +13088,12 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What core behavior proves that the integrated platform survived the simultaneous multi-failure chaos simulation?",
           "options": [
             "All background compaction threads are terminated permanently across cluster hosts",
-            "The system drops all client transactions until human operators restart server processes through automated background thread polling and heartbeat intervals",
-            "Critical transactions maintain 100% completion while storage quorum and stream state survive intact",
-            "Network packet headers are stripped of W3C tracing metadata to save bandwidth"
+            "The system drops all client transactions until human operators restart server processes",
+            "Network packet headers are stripped of W3C tracing metadata to save bandwidth",
+            "Critical transactions maintain 100% completion while storage quorum and stream state survive intact"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "True resilience means maintaining critical business SLAs and data integrity autonomously even during concurrent network and node outages."
         },
         "output": "integrated capstone resilience test: {'passed': True, 'metrics': {'critical_survival_pct': 100.0, 'quorum_available': True, 'stream_resumed_clean': True, 'trace_continuity_pct': 100.0}}"
@@ -13121,13 +13121,13 @@ export const DIST_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which milestone criteria officially certifies the completion of Distributed Systems in Python?",
           "options": [
-            "The cluster operates on a single server without network communication protocols across multi-zone container instances and local filesystem caches",
             "All five dimensions (storage, streaming, traffic, tracing, chaos) pass verification across 60 days",
+            "The cluster operates on a single server without network communication protocols",
             "All client requests are processed using FIFO queues without deadline budgets",
-            "Storage engines disable Write-Ahead Logs to maximize write throughput"
+            "Storage engines disable Write-Ahead Logs to maximize write throughput synchronized"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Full certification requires deterministic verification of all storage, streaming, traffic, observability, and chaos invariants."
         },
         "output": "Capstone Certification: {'course': 'Distributed Systems in Python', 'milestone': 12, 'days_completed': 60, 'certified': True, 'audit': {'storage_linearizability': 'PASS', 'stream_state_integrity': 'PASS', 'traffic_goodput_protection': 'PASS', 'observability_trace_continuity': 'PASS', 'chaos_self_healing_mttr': 'PASS'}}"

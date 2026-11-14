@@ -171,7 +171,7 @@
     },
     {
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Core Algorithm & State Representation",
-      "codeHash": "a19c8aa9d42245bae961747430f25abd255c4f889e1c84707b221c8eaa397037",
+      "codeHash": "888ea01dcb9ee87e6aec016b0fdf273f438dc6c900dcc61677e0b5ed3dcae7a2",
       "spec": {
         "template": "sequence",
         "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",

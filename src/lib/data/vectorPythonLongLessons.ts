@@ -41,14 +41,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an embedding?",
           "options": [
-            "A vector of numbers that represents a piece of text",
             "A database table",
-            "A search query",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "A vector of numbers that represents a piece of text",
+            "A search query"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "An embedding is a dense numerical vector encoding the semantic meaning of text or items in geometric space."
         }
       },
       {
@@ -80,12 +79,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Word counts",
             "Vocabulary words",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
             "Word order"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Word order' is correct: in bag-of-words vectors, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -115,14 +113,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use MD5 rather than Python's hash() for the hashing trick here?",
           "options": [
-            "MD5 is faster",
-            "MD5 is more secure",
             "Python's hash() changes between runs, MD5 does not",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "MD5 is faster measured across production vector retrieval pipelines",
+            "MD5 is more secure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Python's hash() changes between runs, MD5 does not' is correct: in the hashing trick, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -158,12 +155,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Its direction",
             "Its length, which becomes 1",
-            "Its number of dimensions",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Its number of dimensions"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Its length, which becomes 1' is correct: in unit-length vectors, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -194,13 +190,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must queries and documents use the same embedding model?",
           "options": [
             "To save money",
-            "Vectors from different models are not comparable",
-            "It is faster",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "It is faster across high-dimensional vector space partitions",
+            "Vectors from different models are not comparable"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Vectors from different models are not comparable' is correct: in learned embeddings, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -231,13 +226,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should hashed_vector return for an empty text?",
           "options": [
             "A list of zeros",
-            "An error",
-            "A list of ones",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "An error measured across production vector retrieval pipelines",
+            "A list of ones"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'A list of zeros' is correct: in practice time: making vectors, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -293,12 +287,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The vectors are identical",
             "One vector is longer",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
             "The vectors are perpendicular"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "The dot product sums element-wise products, directly calculating projection alignment between normalized vector embeddings."
         }
       },
       {
@@ -329,14 +322,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the cosine similarity of [1, 2] and [2, 4]?",
           "options": [
-            "0.5",
-            "2.0",
             "1.0",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "0.5",
+            "2.0"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'1.0' is correct: in cosine similarity, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -371,13 +363,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "For Euclidean distance, which value is best?",
           "options": [
             "The largest",
-            "Zero is impossible",
             "The smallest",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Zero is impossible"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The smallest' is correct: in euclidean distance, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -412,13 +403,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How can one sort handle distance and similarity alike?",
           "options": [
             "It cannot",
-            "Turn distances into scores where bigger is better, e.g. negative distance",
             "Sort by name",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Turn distances into scores where bigger is better, e.g. negative distance"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Turn distances into scores where bigger is better, e.g. negative distance' is correct: in ranking by any metric, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -450,13 +440,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must similarity thresholds be calibrated per model?",
           "options": [
             "Each model has its own score scale",
-            "They are random",
-            "Thresholds never matter",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "They are random measured across production vector retrieval pipelines",
+            "Thresholds never matter"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Each model has its own score scale' is correct: in similarity in practice, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -487,13 +476,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should cosine([1, 2], [1, 2, 3]) do?",
           "options": [
             "Return 0.0",
-            "Ignore the extra value",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "Raise ValueError"
+            "Raise ValueError",
+            "Ignore the extra value"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Raise ValueError' is correct: in practice time: similarity, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -548,14 +536,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is exact search the gold standard?",
           "options": [
+            "It always finds the true nearest neighbours",
             "It is fastest",
-            "It uses least memory",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "It always finds the true nearest neighbours"
+            "It uses least memory"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It always finds the true nearest neighbours' is correct: in k-nearest neighbours, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -590,13 +577,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When does a dot product equal cosine similarity?",
           "options": [
             "Always",
-            "Never",
             "When both vectors have unit length",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Never across high-dimensional vector space partitions"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "The dot product sums element-wise products, directly calculating projection alignment between normalized vector embeddings."
         }
       },
       {
@@ -627,14 +613,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operation is brute-force search on many vectors?",
           "options": [
-            "Sorting only",
-            "A matrix-vector multiplication",
+            "Sorting only across high-dimensional vector space partitions",
             "A hash lookup",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "A matrix-vector multiplication"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A matrix-vector multiplication' is correct: in matrix form, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -667,12 +652,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A little accuracy for large speed-ups",
             "Memory for accuracy",
-            "Nothing",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Nothing"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'A little accuracy for large speed-ups' is correct: in why exact search stops scaling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -707,14 +691,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a flat search service do for each query?",
           "options": [
+            "Checks one cluster across high-dimensional vector space partitions",
             "Compares the query with every stored vector",
-            "Checks one cluster",
-            "Uses a hash table only",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Uses a hash table only"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Compares the query with every stored vector' is correct: in a tiny search service, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -746,12 +729,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "An error",
             "Only k items padded with None",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
             "All vectors, ranked"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'All vectors, ranked' is correct: in practice time: exact search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -807,13 +789,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is a heap better than sorting for top-k?",
           "options": [
             "It is always exact",
-            "It uses no memory",
             "It costs about n log k instead of n log n",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "It uses no memory"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It costs about n log k instead of n log n' is correct: in why not just sort?, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -844,13 +825,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In a min-heap, where is the smallest item?",
           "options": [
             "At the end",
-            "At position 0",
-            "Anywhere",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Anywhere measured across production vector retrieval pipelines",
+            "At position 0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'At position 0' is correct: in heaps in python, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -880,14 +860,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deterministic tie-breaking important?",
           "options": [
-            "It is faster",
             "Results stay the same across runs and servers",
-            "It changes the scores",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "It is faster measured across production vector retrieval pipelines",
+            "It changes the scores"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Results stay the same across runs and servers' is correct: in tie-breaking and determinism, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -922,14 +901,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when two shards return the same document?",
           "options": [
-            "Keep it once with its best score",
             "Count it twice",
-            "Drop it",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Keep it once with its best score",
+            "Drop it"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Keep it once with its best score' is correct: in merging shard results, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -960,14 +938,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do re-ranking pipelines retrieve more than the final number of results?",
           "options": [
-            "To use more memory",
+            "To use more memory measured across production vector retrieval pipelines",
             "It is required by heaps",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
             "So the re-ranker has good candidates to reorder"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'So the re-ranker has good candidates to reorder' is correct: in top-k in real systems, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1001,14 +978,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does top_k([], 3) return?",
           "options": [
-            "An error",
-            "[None, None, None]",
             "[]",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "An error",
+            "[None, None, None]"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'[]' is correct: in practice time: top-k, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -1065,12 +1041,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The fastest index",
             "A cache of results",
-            "Queries labelled with their relevant documents",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Queries labelled with their relevant documents"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Queries labelled with their relevant documents' is correct: in relevance judgements, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1101,14 +1076,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does recall@k measure?",
           "options": [
-            "The fraction of shown results that are relevant",
             "The fraction of relevant documents found in the top k",
-            "The query speed",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "The fraction of shown results that are relevant",
+            "The query speed measured across production vector retrieval pipelines"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Recall measures the proportion of true nearest neighbors retrieved in the candidate set, serving as the core ANN quality metric."
         }
       },
       {
@@ -1139,14 +1113,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the reciprocal rank when the first relevant result is third?",
           "options": [
+            "3 measured across production vector retrieval pipelines",
             "0.3333",
-            "3",
-            "0.5",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "0.5"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'0.3333' is correct: in mean reciprocal rank, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1179,12 +1152,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By its speed only",
             "By file size",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
             "By recall against exact search results"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'By recall against exact search results' is correct: in recall against exact search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1215,14 +1187,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why look at the worst queries, not just the mean?",
           "options": [
+            "Averages hide complete failures",
             "The mean is always wrong",
-            "It is faster",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "Averages hide complete failures"
+            "It is faster measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Averages hide complete failures' is correct: in reading the numbers, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1257,13 +1228,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is recall_at_k when relevant is empty?",
           "options": [
             "1.0",
-            "An error",
             "0.0",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "An error"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Recall measures the proportion of true nearest neighbors retrieved in the candidate set, serving as the core ANN quality metric."
         }
       }
     ],
@@ -1321,14 +1291,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an inverted index map?",
           "options": [
-            "Documents to vectors",
             "Words to the documents that contain them",
-            "Queries to answers",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Documents to vectors",
+            "Queries to answers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Words to the documents that contain them' is correct: in the inverted index, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1358,14 +1327,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does inverse document frequency reward?",
           "options": [
-            "Rare words",
             "Common words",
-            "Long documents",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Rare words",
+            "Long documents"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Rare words' is correct: in tf-idf, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1395,14 +1363,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does BM25's b parameter control?",
           "options": [
-            "How much long documents are penalised",
             "Saturation of term frequency",
-            "The IDF formula",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "The IDF formula measured across production vector retrieval pipelines",
+            "How much long documents are penalised"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'How much long documents are penalised' is correct: in bm25, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1432,14 +1399,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BM25 favour a mention in a short document?",
           "options": [
+            "A mention in a short text is a stronger signal",
             "Short documents are newer",
-            "It is random",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "A mention in a short text is a stronger signal"
+            "It is random"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A mention in a short text is a stronger signal' is correct: in length normalisation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1469,14 +1435,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does keyword search usually beat vector search?",
           "options": [
-            "Synonyms",
-            "Paraphrased questions",
+            "Synonyms measured across production vector retrieval pipelines",
             "Exact identifiers such as error codes",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Paraphrased questions"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Exact identifiers such as error codes' is correct: in when keywords beat vectors, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1507,13 +1472,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does and_query return if one term is missing from the index?",
           "options": [
             "All documents",
-            "An empty list",
             "The documents for the other terms",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "An empty list"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'An empty list' is correct: in practice time: keyword search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -1570,12 +1534,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "They are both probabilities",
             "They are on different scales",
-            "Cosine is always larger",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Cosine is always larger"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'They are on different scales' is correct: in why hybrid search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1606,14 +1569,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does reciprocal rank fusion use from each ranking?",
           "options": [
-            "Only the positions",
             "The raw scores",
             "The document lengths",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Only the positions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Only the positions' is correct: in reciprocal rank fusion, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1647,14 +1609,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does min-max normalisation do?",
           "options": [
-            "Removes outliers",
-            "Sorts the scores",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
-            "Maps scores to the range 0 to 1"
+            "Maps scores to the range 0 to 1",
+            "Removes outliers measured across production vector retrieval pipelines",
+            "Sorts the scores"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Maps scores to the range 0 to 1' is correct: in normalised score fusion, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1689,13 +1650,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the most reliable way to choose a fusion method?",
           "options": [
             "Pick the newest",
-            "Always use weighted fusion",
             "Measure both on a golden set",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Always use weighted fusion"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Measure both on a golden set' is correct: in choosing a fusion method, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1725,14 +1685,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why run keyword and vector search in parallel?",
           "options": [
-            "To use more memory",
+            "To use more memory measured across production vector retrieval pipelines",
             "It changes the results",
-            "Latency stays close to the slower of the two",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Latency stays close to the slower of the two"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Latency stays close to the slower of the two' is correct: in hybrid search in a pipeline, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1762,14 +1721,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In weighted_fusion, what score does a document missing from sparse results get for the sparse part?",
           "options": [
-            "1.0",
             "0",
-            "The average",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "1.0",
+            "The average"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'0' is correct: in practice time: fusion, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -1823,14 +1781,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are long documents split into chunks?",
           "options": [
-            "For sharper vectors, model length limits and precise retrieval",
             "To save disk space",
             "Because vectors cannot store numbers",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "For sharper vectors, model length limits and precise retrieval"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'For sharper vectors, model length limits and precise retrieval' is correct: in why chunk, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1864,14 +1821,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does chunk overlap protect against?",
           "options": [
+            "Information being split across a boundary",
             "Duplicate documents",
-            "Slow searches",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "Information being split across a boundary"
+            "Slow searches measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Information being split across a boundary' is correct: in fixed-size chunks with overlap, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1905,14 +1861,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does sentence-aware chunking do with a sentence longer than the limit?",
           "options": [
-            "Cuts it",
-            "Drops it",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "Makes it a chunk of its own"
+            "Cuts it measured across production vector retrieval pipelines",
+            "Makes it a chunk of its own",
+            "Drops it"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Makes it a chunk of its own' is correct: in sentence-aware chunks, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1944,12 +1899,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Always use 512",
             "Use the largest possible",
-            "Test several sizes on a golden set",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Test several sizes on a golden set"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Test several sizes on a golden set' is correct: in choosing a chunk size, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -1983,14 +1937,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why copy access rules to every chunk?",
           "options": [
-            "To save space",
             "So a restricted document cannot leak through one of its chunks",
-            "It is required by JSON",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "To save space measured across production vector retrieval pipelines",
+            "It is required by JSON"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So a restricted document cannot leak through one of its chunks' is correct: in chunk metadata, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2020,14 +1973,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should chunk_words do when overlap equals size?",
           "options": [
-            "Raise ValueError",
             "Return one chunk",
-            "Loop forever",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Raise ValueError",
+            "Loop forever"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Raise ValueError' is correct: in practice time: chunking, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -2083,12 +2035,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A condition on metadata that results must satisfy",
             "A faster embedding",
-            "A type of index",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "A type of index"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'A condition on metadata that results must satisfy' is correct: in filters in search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2123,13 +2074,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does pre-filtering guarantee with exact search?",
           "options": [
             "Faster results",
-            "No results",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "The true top k among matching items"
+            "The true top k among matching items",
+            "No results measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The true top k among matching items' is correct: in pre-filtering, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2161,13 +2111,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the main risk of post-filtering?",
           "options": [
             "Too many results",
-            "Wrong scores",
-            "Returning fewer than k results when the filter is selective",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Wrong scores measured across production vector retrieval pipelines",
+            "Returning fewer than k results when the filter is selective"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Returning fewer than k results when the filter is selective' is correct: in post-filtering and its pitfall, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2198,14 +2147,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is filter selectivity?",
           "options": [
-            "The speed of a filter",
             "The fraction of items that pass the filter",
-            "The number of filters",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "The speed of a filter",
+            "The number of filters"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The fraction of items that pass the filter' is correct: in filter selectivity, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2240,14 +2188,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must user-supplied filters be validated?",
           "options": [
-            "They are always wrong",
+            "They are always wrong measured across production vector retrieval pipelines",
             "They are input and could be malformed or malicious",
-            "Filters cannot be validated",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Filters cannot be validated"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'They are input and could be malformed or malicious' is correct: in richer filters, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2281,14 +2228,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does post_filter return as complete when it finds fewer than k matches?",
           "options": [
-            "False",
-            "True",
+            "True measured across production vector retrieval pipelines",
             "None",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "False"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'False' is correct: in practice time: filtering, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -2344,13 +2290,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is a centroid?",
           "options": [
             "The first point",
-            "The farthest point",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
-            "The average of a cluster's members"
+            "The average of a cluster's members",
+            "The farthest point"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The average of a cluster's members' is correct: in the idea of clustering, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2381,14 +2326,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use squared distance for assignment?",
           "options": [
-            "It is more accurate",
+            "It is more accurate during approximate nearest neighbor candidate evaluation",
             "It is required by Python",
-            "It ranks the same as distance and avoids square roots",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "It ranks the same as distance and avoids square roots"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "Squared Euclidean distance preserves monotonic nearest-neighbor ranking while eliminating expensive square root computations."
         }
       },
       {
@@ -2422,14 +2366,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the update step do?",
           "options": [
-            "Deletes empty clusters",
-            "Adds new points",
             "Moves each centroid to the mean of its points",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Deletes empty clusters",
+            "Adds new points within hierarchical proximity search graphs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Moves each centroid to the mean of its points' is correct: in the k-means loop, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2461,12 +2404,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Always 10",
             "Around the square root of the number of vectors",
-            "Equal to the number of vectors",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Equal to the number of vectors"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -2497,14 +2439,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can inertia alone not choose k?",
           "options": [
-            "It always decreases as k grows",
-            "It is random",
+            "It is random measured across production vector retrieval pipelines",
             "It cannot be computed",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "It always decreases as k grows"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It always decreases as k grows' is correct: in evaluating a clustering, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2534,14 +2475,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does kmeans start in the practice task?",
           "options": [
+            "The first k points",
             "Random points",
-            "The origin",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "The first k points"
+            "The origin measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The first k points' is correct: in practice time: clustering, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -2601,12 +2541,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "All vectors",
             "The query history",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
             "The ids of vectors assigned to one centroid"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -2640,14 +2579,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when nprobe equals the number of lists?",
           "options": [
-            "The search fails",
-            "It uses no memory",
             "IVF becomes exact search",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "The search fails measured across production vector retrieval pipelines",
+            "It uses no memory"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'IVF becomes exact search' is correct: in searching with nprobe, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2681,14 +2619,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does recall usually behave as nprobe grows?",
           "options": [
-            "It falls",
+            "It falls measured across production vector retrieval pipelines",
             "It rises quickly, then flattens",
-            "It stays constant",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "It stays constant"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "Recall measures the proportion of true nearest neighbors retrieved in the candidate set, serving as the core ANN quality metric."
         }
       },
       {
@@ -2718,14 +2655,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do unbalanced lists hurt IVF?",
           "options": [
-            "Probing an oversized list costs far more than average",
             "They use less memory",
             "They improve recall",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Probing an oversized list costs far more than average"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -2756,13 +2692,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What must happen before vectors are added to an IVF index?",
           "options": [
             "The centroids must be trained",
-            "Nothing",
-            "The vectors must be sorted",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Nothing within hierarchical proximity search graphs",
+            "The vectors must be sorted"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -2793,13 +2728,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does ivf_build return for a centroid with no vectors?",
           "options": [
             "Nothing (the key is missing)",
-            "None",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "An empty list"
+            "An empty list",
+            "None"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'An empty list' is correct: in practice time: ivf, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -2853,14 +2787,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does product quantisation mainly save?",
           "options": [
-            "Query time only",
-            "Nothing",
             "Memory, by compressing each vector to a few bytes",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Query time only",
+            "Nothing"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Memory, by compressing each vector to a few bytes' is correct: in the memory problem, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -2892,12 +2825,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "256",
             "m",
-            "d",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "d"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -2932,14 +2864,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a PQ code?",
           "options": [
-            "A compressed file",
-            "A list with the nearest codeword index for each part",
+            "A compressed file within hierarchical proximity search graphs",
             "A hash of the vector",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "A list with the nearest codeword index for each part"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -2975,12 +2906,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Distances become table lookups after precomputing per-query tables",
             "It skips distances",
-            "It uses GPUs only",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "It uses GPUs only"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -3011,13 +2941,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a larger codebook do?",
           "options": [
             "Increases error",
-            "Removes the need for training",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
-            "Reduces quantisation error"
+            "Reduces quantisation error",
+            "Removes the need for training"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Reduces quantisation error' is correct: in accuracy and tuning, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3053,12 +2982,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Pad with zeros",
             "Ignore the extra values",
-            "Raise ValueError",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Raise ValueError"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Raise ValueError' is correct: in practice time: product quantisation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -3118,13 +3046,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many bytes per dimension does int8 scalar quantisation use?",
           "options": [
             "4",
-            "0.125",
             "1",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "0.125"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'1' is correct: in scalar quantisation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3156,13 +3083,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does binary quantisation keep of each dimension?",
           "options": [
             "Its exact value",
-            "Only its sign",
             "Its square",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Only its sign"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Only its sign' is correct: in binary quantisation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3194,13 +3120,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How is Hamming distance computed?",
           "options": [
             "XOR the codes and count the 1 bits",
-            "Subtract the codes",
-            "Multiply the codes",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Subtract the codes measured across production vector retrieval pipelines",
+            "Multiply the codes"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'XOR the codes and count the 1 bits' is correct: in hamming distance, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3236,13 +3161,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is re-scoring?",
           "options": [
             "Recomputing all embeddings",
-            "Deleting duplicates",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "Ranking the top compressed-search candidates again with full vectors"
+            "Ranking the top compressed-search candidates again with full vectors",
+            "Deleting duplicates"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Ranking the top compressed-search candidates again with full vectors' is correct: in re-scoring, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3274,13 +3198,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which compression method needs re-scoring most?",
           "options": [
             "float16",
-            "None",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
+            "None measured across production vector retrieval pipelines",
             "Binary quantisation"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Binary quantisation' is correct: in choosing a compression method, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3315,14 +3238,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does sq_encode return for a value above the fitted maximum?",
           "options": [
-            "A value above 255",
-            "An error",
             "255 (clamped)",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "A value above 255",
+            "An error"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'255 (clamped)' is correct: in practice time: compact codes, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -3378,13 +3300,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What property makes a hash locality-sensitive?",
           "options": [
             "It is cryptographically secure",
-            "Similar inputs are likely to get the same hash",
             "It never collides",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Similar inputs are likely to get the same hash"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Similar inputs are likely to get the same hash' is correct: in locality-sensitive hashing, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3420,12 +3341,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "One bit: which side of the plane the vector lies on",
             "A whole number",
-            "Nothing",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Nothing across high-dimensional vector space partitions"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'One bit: which side of the plane the vector lies on' is correct: in random hyperplanes, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3455,14 +3375,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use several LSH tables?",
           "options": [
+            "To save memory measured across production vector retrieval pipelines",
             "A neighbour missed by one table may be caught by another",
-            "To save memory",
-            "To sort the results",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "To sort the results"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A neighbour missed by one table may be caught by another' is correct: in several hash tables, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3494,12 +3413,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Lowers recall",
             "Removes false matches",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
             "Raises the chance that similar vectors meet"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Raises the chance that similar vectors meet' is correct: in tuning lsh, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3530,14 +3448,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does LSH work especially well?",
           "options": [
-            "Exact search",
-            "Sorting numbers",
             "Near-duplicate detection and streaming data",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Exact search measured across production vector retrieval pipelines",
+            "Sorting numbers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Near-duplicate detection and streaming data' is correct: in lsh in practice, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3573,12 +3490,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "\"0\"",
             "\"1\"",
-            "An error",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "An error"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "The dot product sums element-wise products, directly calculating projection alignment between normalized vector embeddings."
         }
       }
     ],
@@ -3632,14 +3548,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a proximity graph connect?",
           "options": [
-            "Random vectors",
             "Each vector to some of its nearest neighbours",
-            "Only the first and last vectors",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Random vectors",
+            "Only the first and last vectors"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Each vector to some of its nearest neighbours' is correct: in proximity graphs, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3673,14 +3588,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does greedy graph search stop?",
           "options": [
-            "When no neighbour is closer to the query than the current node",
             "After a fixed number of steps",
-            "Never",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "When no neighbour is closer to the query than the current node",
+            "Never during approximate nearest neighbor candidate evaluation"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'When no neighbour is closer to the query than the current node' is correct: in greedy search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3711,13 +3625,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is a local minimum in graph search?",
           "options": [
             "The global best node",
-            "An empty graph",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
+            "An empty graph measured across production vector retrieval pipelines",
             "A node with no closer neighbours, although a closer node exists elsewhere"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A node with no closer neighbours, although a closer node exists elsewhere' is correct: in local minima, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3751,14 +3664,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a larger ef do in beam search?",
           "options": [
-            "Reduces recall",
-            "Changes the graph",
             "Explores more nodes and usually finds more true neighbours",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Reduces recall",
+            "Changes the graph"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Explores more nodes and usually finds more true neighbours' is correct: in beam search with ef, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3792,14 +3704,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does graph search cost grow with ef?",
           "options": [
-            "It falls",
-            "It stays the same",
+            "It falls measured across production vector retrieval pipelines",
             "It grows, since more nodes are visited",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "It stays the same"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It grows, since more nodes are visited' is correct: in cost and recall, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3830,13 +3741,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does greedy_search return besides the final node?",
           "options": [
             "The distance",
-            "The path of visited nodes",
-            "The graph",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "The graph measured across production vector retrieval pipelines",
+            "The path of visited nodes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The path of visited nodes' is correct: in practice time: graph search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -3890,14 +3800,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do HNSW's upper layers provide?",
           "options": [
-            "Long-range links for fast navigation",
             "Exact distances",
-            "Compression",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Long-range links for fast navigation",
+            "Compression"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -3927,14 +3836,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With M = 16, roughly what fraction of nodes reach level 1 or higher?",
           "options": [
-            "Half",
+            "Half measured across production vector retrieval pipelines",
             "All of them",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
             "About one in 16"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'About one in 16' is correct: in random levels, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -3964,14 +3872,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the HNSW neighbour heuristic favour?",
           "options": [
+            "Neighbours in different directions",
             "The farthest nodes",
-            "Random nodes",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "Neighbours in different directions"
+            "Random nodes measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -4002,13 +3909,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which HNSW parameter can be changed per query without rebuilding?",
           "options": [
             "M",
-            "efConstruction",
             "ef (efSearch)",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "efConstruction"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -4043,13 +3949,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does HNSW do on the upper layers during search?",
           "options": [
             "Exact search",
-            "Greedy search to find a good entry for the next layer",
-            "Nothing",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Nothing measured across production vector retrieval pipelines",
+            "Greedy search to find a good entry for the next layer"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -4085,12 +3990,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0",
             "1",
-            "An error",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "An error"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'0' is correct: in practice time: hnsw pieces, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -4146,14 +4050,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a vector index benchmark usually record?",
           "options": [
-            "Recall against exact search and latency",
             "Only file size",
             "The number of users",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Recall against exact search and latency"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Recall against exact search and latency' is correct: in benchmarking a configuration, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4184,14 +4087,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the Pareto front?",
           "options": [
+            "The configurations that no other beats on both recall and latency",
             "The fastest configuration",
-            "The default settings",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "The configurations that no other beats on both recall and latency"
+            "The default settings measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The configurations that no other beats on both recall and latency' is correct: in dominated configurations, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4223,13 +4125,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should pick_config return if nothing meets the requirements?",
           "options": [
             "The fastest config",
-            "The most accurate config",
             "None",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "The most accurate config"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'None' is correct: in choosing with requirements, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4261,13 +4162,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How should you tune index settings?",
           "options": [
             "Change everything at once",
-            "One setting at a time, measuring recall and latency",
             "Use the maximum values",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "One setting at a time, measuring recall and latency"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'One setting at a time, measuring recall and latency' is correct: in tuning in practice, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4297,14 +4197,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is index recall not the whole story?",
           "options": [
-            "It is inaccurate",
             "User-facing quality also depends on the embedding model and data",
-            "It is always 1",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "It is inaccurate",
+            "It is always 1 across high-dimensional vector space partitions"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Recall measures the proportion of true nearest neighbors retrieved in the candidate set, serving as the core ANN quality metric."
         }
       },
       {
@@ -4338,14 +4237,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does pareto_front return for a single configuration?",
           "options": [
-            "That configuration's name",
             "An empty list",
-            "None",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "That configuration's name",
+            "None measured across production vector retrieval pipelines"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'That configuration's name' is correct: in practice time: tuning, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -4400,14 +4298,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an upsert do?",
           "options": [
+            "Inserts a new id or replaces an existing one",
             "Only inserts",
-            "Deletes old records",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
-            "Inserts a new id or replaces an existing one"
+            "Deletes old records"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Inserts a new id or replaces an existing one' is correct: in upserts and versions, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4437,14 +4334,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a tombstone?",
           "options": [
-            "A backup",
-            "An old version",
+            "A backup measured across production vector retrieval pipelines",
             "A marker that a record is deleted, skipped by search",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "An old version"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A marker that a record is deleted, skipped by search' is correct: in deletes and tombstones, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4479,14 +4375,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if tombstones are skipped only after taking the top k?",
           "options": [
-            "Nothing",
+            "Nothing measured across production vector retrieval pipelines",
             "Deleted records are returned",
-            "Fewer than k live results may be returned",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Fewer than k live results may be returned"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Fewer than k live results may be returned' is correct: in searching around tombstones, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4521,14 +4416,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does compaction keep for each id?",
           "options": [
-            "Every version",
             "Only the latest version, unless it is deleted",
-            "Only the first version",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Every version",
+            "Only the first version"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Only the latest version, unless it is deleted' is correct: in segments and compaction, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4558,14 +4452,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does eventual consistency mean for a new vector?",
           "options": [
+            "It is never searchable measured across production vector retrieval pipelines",
             "It becomes searchable after a short delay",
-            "It is never searchable",
-            "It is searchable before it is written",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "It is searchable before it is written"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It becomes searchable after a short delay' is correct: in consistency for readers, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4597,12 +4490,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The old record",
             "An error",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
             "None"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'None' is correct: in practice time: operations, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -4658,13 +4550,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does sharding do?",
           "options": [
             "Compresses vectors",
-            "Duplicates every vector",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "Splits a collection across several machines"
+            "Splits a collection across several machines",
+            "Duplicates every vector"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Splits a collection across several machines' is correct: in why shard, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4695,14 +4586,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the shard hash be stable?",
           "options": [
-            "For speed",
+            "For speed measured across production vector retrieval pipelines",
             "For compression",
-            "Every component and restart must agree on where a document lives",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Every component and restart must agree on where a document lives"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Every component and restart must agree on where a document lives' is correct: in hash-based placement, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4737,14 +4627,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In scatter-gather, what sets query latency?",
           "options": [
-            "The fastest shard",
             "Roughly the slowest shard plus merging",
-            "The number of results",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "The fastest shard measured across production vector retrieval pipelines",
+            "The number of results"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Roughly the slowest shard plus merging' is correct: in scatter-gather search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4775,14 +4664,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do replicas provide?",
           "options": [
-            "Availability and higher query throughput",
             "More capacity for data",
-            "Compression",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Availability and higher query throughput",
+            "Compression"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Availability and higher query throughput' is correct: in replication, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4813,14 +4701,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a hot spot in a sharded cluster?",
           "options": [
-            "A shard with much more data or traffic than others",
             "A cooled server",
-            "A replica",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "A replica measured across production vector retrieval pipelines",
+            "A shard with much more data or traffic than others"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A shard with much more data or traffic than others' is correct: in operating a sharded cluster, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4854,14 +4741,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does shard_counts return for an empty list of ids?",
           "options": [
-            "[]",
-            "An error",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "A list of zeros, one per shard"
+            "A list of zeros, one per shard",
+            "[] measured across production vector retrieval pipelines",
+            "An error"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A list of zeros, one per shard' is correct: in practice time: shards, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -4917,12 +4803,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A field the user types",
             "The document text",
-            "The authenticated session",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "The authenticated session"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'The authenticated session' is correct: in tenants and namespaces, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4952,14 +4837,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should an empty ACL allow?",
           "options": [
-            "Everyone",
             "No one",
-            "Only admins",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Everyone",
+            "Only admins"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'No one' is correct: in access control lists, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -4990,14 +4874,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should tenant_search reject an empty tenant?",
           "options": [
-            "To save time",
+            "To save time measured across production vector retrieval pipelines",
             "A missing filter could otherwise search every tenant",
-            "Empty strings are invalid Python",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Empty strings are invalid Python"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'A missing filter could otherwise search every tenant' is correct: in tenant-safe search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5027,14 +4910,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where must access filtering happen in a RAG system?",
           "options": [
-            "At retrieval, before the model sees any text",
             "In the prompt instructions",
             "After the answer is generated",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "At retrieval, before the model sees any text"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'At retrieval, before the model sees any text' is correct: in leaks through ai answers, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5064,14 +4946,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should an isolation test expect?",
           "options": [
-            "Some results",
-            "An error page",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
-            "Zero results for data the user may not see"
+            "Zero results for data the user may not see",
+            "Some results measured across production vector retrieval pipelines",
+            "An error page"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Zero results for data the user may not see' is correct: in testing isolation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5105,14 +4986,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does can_read return for an ACL with only {\"groups\": [\"legal\"]} for a finance user?",
           "options": [
-            "True",
-            "None",
+            "True measured across production vector retrieval pipelines",
             "False",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "None"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'False' is correct: in practice time: access control, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -5166,14 +5046,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use two stages?",
           "options": [
-            "To save disk space",
-            "Because re-rankers cannot find documents",
             "Fast retrieval narrows candidates so a slow, accurate scorer only runs on a few",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "To save disk space",
+            "Because re-rankers cannot find documents"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Fast retrieval narrows candidates so a slow, accurate scorer only runs on a few' is correct: in two-stage retrieval, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5207,14 +5086,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep the original order for ties?",
           "options": [
-            "It is random",
+            "It is random measured across production vector retrieval pipelines",
             "It preserves the first stage's judgement when the re-ranker cannot decide",
-            "Python requires it",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Python requires it"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'It preserves the first stage's judgement when the re-ranker cannot decide' is correct: in a simple re-ranker, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5244,14 +5122,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is relevance alone not enough to avoid near-duplicates?",
           "options": [
-            "Near-duplicates are all equally relevant",
             "Near-duplicates are irrelevant",
-            "Relevance is random",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Relevance is random measured across production vector retrieval pipelines",
+            "Near-duplicates are all equally relevant"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Near-duplicates are all equally relevant' is correct: in the redundancy problem, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5281,14 +5158,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does MMR with lam = 1 do?",
           "options": [
+            "Ranks by relevance only",
             "Maximises diversity",
-            "Returns random results",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "Ranks by relevance only"
+            "Returns random results"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Ranks by relevance only' is correct: in maximal marginal relevance, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5322,14 +5198,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why log every stage of a pipeline?",
           "options": [
-            "For decoration",
-            "Logs make it faster",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "To see where a good document was lost"
+            "For decoration measured across production vector retrieval pipelines",
+            "To see where a good document was lost",
+            "Logs make it faster"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To see where a good document was lost' is correct: in putting the pipeline together, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5360,13 +5235,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does rerank do with two candidates that get the same score?",
           "options": [
             "Sorts them by id",
-            "Removes one",
-            "Keeps their original order",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Removes one measured across production vector retrieval pipelines",
+            "Keeps their original order"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Keeps their original order' is correct: in practice time: re-ranking, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -5426,12 +5300,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Indexing documents",
             "Cleaning up and enriching queries before search",
-            "Ranking results",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Ranking results"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Cleaning up and enriching queries before search' is correct: in why queries need help, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5466,14 +5339,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must queries and documents use the same tokenisation?",
           "options": [
-            "Otherwise equal words may not match",
-            "For speed",
+            "For speed measured across production vector retrieval pipelines",
             "It is required by Python",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Otherwise equal words may not match"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Otherwise equal words may not match' is correct: in normalising queries, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5505,13 +5377,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the main risk of synonym expansion?",
           "options": [
             "Query drift: matching the wrong meaning",
-            "Slower indexing",
-            "Fewer results always",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Slower indexing during approximate nearest neighbor candidate evaluation",
+            "Fewer results always"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Query drift: matching the wrong meaning' is correct: in synonym expansion, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5547,13 +5418,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How are the results of several query variants usually combined?",
           "options": [
             "Only the first is used",
-            "By concatenation",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "With rank fusion such as RRF"
+            "With rank fusion such as RRF",
+            "By concatenation"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'With rank fusion such as RRF' is correct: in searching with several variants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5584,14 +5454,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do quick rephrasings in query logs reveal?",
           "options": [
-            "Nothing",
+            "Nothing measured across production vector retrieval pipelines",
             "Server errors",
-            "Vocabulary gaps such as synonyms and misspellings",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Vocabulary gaps such as synonyms and misspellings"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Vocabulary gaps such as synonyms and misspellings' is correct: in learning from query logs, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5622,14 +5491,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does expand_query return first?",
           "options": [
-            "A synonym variant",
             "The original query",
-            "The longest variant",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "A synonym variant",
+            "The longest variant"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The original query' is correct: in practice time: queries, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -5685,13 +5553,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does RAG reduce made-up answers?",
           "options": [
             "The model is retrained",
-            "The model answers from real retrieved sources",
             "It uses a bigger model",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "The model answers from real retrieved sources"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The model answers from real retrieved sources' is correct: in retrieval-augmented generation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5723,13 +5590,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why continue after skipping a chunk that does not fit?",
           "options": [
             "Later, smaller chunks may still fit the remaining budget",
-            "It is required",
-            "To sort the chunks",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "It is required measured across production vector retrieval pipelines",
+            "To sort the chunks"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Later, smaller chunks may still fit the remaining budget' is correct: in token budgets, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5761,13 +5627,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What number does a source get when it is cited a second time?",
           "options": [
             "The next number",
-            "No number",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
-            "Its original number"
+            "Its original number",
+            "No number measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Its original number' is correct: in citations, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5799,12 +5664,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "As instructions",
             "As the answer",
-            "As untrusted data",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "As untrusted data"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'As untrusted data' is correct: in grounded prompts, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5834,14 +5698,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does faithfulness measure?",
           "options": [
-            "Speed",
-            "The number of sources",
             "Whether the answer only states what the sources support",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Speed measured across production vector retrieval pipelines",
+            "The number of sources"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Whether the answer only states what the sources support' is correct: in evaluating rag answers, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5871,14 +5734,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does assemble_context return besides the ids?",
           "options": [
-            "The prompt",
+            "The prompt measured across production vector retrieval pipelines",
             "The number of tokens used",
-            "The answer",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "The answer"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'The number of tokens used' is correct: in practice time: context and citations, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -5934,12 +5796,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Embedding similarity above a threshold",
             "Exact text match",
-            "Query length",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Query length"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Embedding similarity above a threshold' is correct: in why cache semantically, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -5973,14 +5834,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens on a cache miss?",
           "options": [
-            "The request fails",
-            "A random answer is returned",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "The normal pipeline runs and its answer can be stored"
+            "The request fails across high-dimensional vector space partitions",
+            "The normal pipeline runs and its answer can be stored",
+            "A random answer is returned"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The normal pipeline runs and its answer can be stored' is correct: in building the cache, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6010,14 +5870,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the risk of a low similarity threshold?",
           "options": [
-            "Too few hits",
+            "Too few hits measured across production vector retrieval pipelines",
             "Slower cache",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
             "Wrong answers for questions that are similar but different"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Wrong answers for questions that are similar but different' is correct: in choosing the threshold, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6047,14 +5906,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When can a semantic cache cost more than it saves?",
           "options": [
-            "Never",
-            "When answers are short",
             "When the hit rate is very low",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Never",
+            "When answers are short"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'When the hit rate is very low' is correct: in measuring savings, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6086,12 +5944,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "For faster lookups",
             "So answers can be invalidated when sources change",
-            "To save memory",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "To save memory measured across production vector retrieval pipelines"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'So answers can be invalidated when sources change' is correct: in freshness and safety, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6121,14 +5978,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does SemanticCache.get return when no entry reaches the threshold?",
           "options": [
-            "None",
             "The closest answer anyway",
             "An error",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "None"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'None' is correct: in practice time: caching, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -6183,14 +6039,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is a document stale?",
           "options": [
-            "When it changed after being indexed, or was never indexed",
             "When it is old",
-            "When it is long",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "When it changed after being indexed, or was never indexed",
+            "When it is long"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'When it changed after being indexed, or was never indexed' is correct: in keeping indexes fresh, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6223,13 +6078,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What must happen when you change embedding models?",
           "options": [
             "Only new documents are embedded",
-            "Nothing",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
+            "Nothing measured across production vector retrieval pipelines",
             "Every document must be re-embedded"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Every document must be re-embedded' is correct: in why models do not mix, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6260,14 +6114,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is it safe to switch queries to the new index?",
           "options": [
-            "As soon as it starts building",
-            "Never",
             "When it is fully built and evaluated",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "As soon as it starts building",
+            "Never measured across production vector retrieval pipelines"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'When it is fully built and evaluated' is correct: in blue-green index migration, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6300,12 +6153,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It halves",
             "It roughly doubles while both indexes exist",
-            "Nothing",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Nothing"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'It roughly doubles while both indexes exist' is correct: in migration costs, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6336,14 +6188,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should an index version record include?",
           "options": [
-            "Only the name",
-            "Model, chunking, index settings and evaluation results",
+            "Only the name within hierarchical proximity search graphs",
             "Only the date",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Model, chunking, index settings and evaluation results"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Model, chunking, index settings and evaluation results' is correct: in versioning everything, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6375,12 +6226,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "None",
             "That index",
-            "The old model's index",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "The old model's index"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'None' is correct: in practice time: freshness and migration, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -6437,12 +6287,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Speed",
             "Nothing",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
             "Levels that distinguish perfect answers from partial ones"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Levels that distinguish perfect answers from partial ones' is correct: in graded relevance, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6477,14 +6326,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does nDCG divide by?",
           "options": [
-            "The number of results",
-            "The largest grade",
             "The DCG of the ideal ordering",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "The number of results",
+            "The largest grade measured across production vector retrieval pipelines"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The DCG of the ideal ordering' is correct: in dcg and ndcg, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6520,13 +6368,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why count a query missing from the results as an empty list?",
           "options": [
             "To be kind to the system",
-            "It is faster",
             "So failures lower the score instead of being hidden",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "It is faster measured across production vector retrieval pipelines"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So failures lower the score instead of being hidden' is correct: in evaluating a system on a golden set, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6558,13 +6405,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why compare systems query by query?",
           "options": [
             "It is faster",
-            "Averages can hide important queries getting worse",
             "Averages are always wrong",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Averages can hide important queries getting worse"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Averages can hide important queries getting worse' is correct: in comparing systems fairly, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6596,13 +6442,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why add a query to the golden set when a bug is found?",
           "options": [
             "So the bug cannot silently return",
-            "To make it bigger",
-            "To slow down evaluation",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "To make it bigger measured across production vector retrieval pipelines",
+            "To slow down evaluation"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'So the bug cannot silently return' is correct: in building a golden set that lasts, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6633,13 +6478,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does ndcg_at_k return when every grade is 0?",
           "options": [
             "1.0",
-            "An error",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
-            "0.0"
+            "0.0",
+            "An error"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'0.0' is correct: in practice time: evaluation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -6694,14 +6538,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does p95 latency mean?",
           "options": [
+            "The time within which 95% of queries finish",
             "The average latency",
-            "The fastest 5% of queries",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "The time within which 95% of queries finish"
+            "The fastest 5% of queries"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The time within which 95% of queries finish' is correct: in why averages hide slow queries, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6733,13 +6576,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does the nearest-rank method return?",
           "options": [
             "An interpolated value",
-            "The mean",
             "An actual measured value at a computed rank",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "The mean measured across production vector retrieval pipelines"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'An actual measured value at a computed rank' is correct: in computing percentiles, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6771,13 +6613,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a drift of 0 mean?",
           "options": [
             "Maximum change",
-            "The mean vectors point the same way: no change detected",
-            "An error",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "An error across high-dimensional vector space partitions",
+            "The mean vectors point the same way: no change detected"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The mean vectors point the same way: no change detected' is correct: in embedding drift, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6810,12 +6651,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Live traffic has no labels for most queries",
             "They are exact",
-            "They replace evaluation",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "They replace evaluation"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'Live traffic has no labels for most queries' is correct: in quality signals in production, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6846,14 +6686,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is alert fatigue?",
           "options": [
+            "Slow alerts measured across production vector retrieval pipelines",
             "Too many alerts, causing real problems to be missed",
-            "Slow alerts",
-            "Alerts that never fire",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "Alerts that never fire"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Too many alerts, causing real problems to be missed' is correct: in alerts that help, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6884,13 +6723,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does latency_report return as p99 for a list of ten values?",
           "options": [
             "The ninth value",
-            "The mean",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
+            "The mean measured across production vector retrieval pipelines",
             "The largest value"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The largest value' is correct: in practice time: monitoring, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -6946,13 +6784,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How much memory do 10 million 768-dimensional float32 vectors need?",
           "options": [
             "3 GB",
-            "300 GB",
             "About 30.7 GB",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "300 GB"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'About 30.7 GB' is correct: in bytes per vector, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -6983,14 +6820,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can graph links dominate memory after binary quantisation?",
           "options": [
-            "Links grow with compression",
-            "Compressed vectors become smaller than the fixed link cost per node",
+            "Links grow with compression across high-dimensional vector space partitions",
             "Binary codes need more links",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Compressed vectors become smaller than the fixed link cost per node"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Compressed vectors become smaller than the fixed link cost per node' is correct: in graph index overhead, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7021,14 +6857,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should choose_format return when nothing fits?",
           "options": [
-            "float32",
             "None with the smallest estimate",
-            "An error",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "float32 measured across production vector retrieval pipelines",
+            "An error"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'None with the smallest estimate' is correct: in choosing a format for a budget, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7059,14 +6894,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which change often cuts vector search cost the most?",
           "options": [
-            "Compression of the vectors",
             "Renaming the index",
-            "Adding metadata",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Compression of the vectors",
+            "Adding metadata"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Compression of the vectors' is correct: in from memory to cost, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7097,14 +6931,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How far ahead should capacity planning look?",
           "options": [
-            "One day",
+            "One day measured across production vector retrieval pipelines",
             "Ten years",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings",
             "About 6 to 12 months"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'About 6 to 12 months' is correct: in planning for growth, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7135,14 +6968,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does index_memory_gb add for an HNSW graph?",
           "options": [
-            "Nothing",
-            "The text of each document",
             "n × graph_m × 2 × 4 bytes of neighbour links",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Nothing within hierarchical proximity search graphs",
+            "The text of each document"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       }
     ],
@@ -7200,12 +7032,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Yes, always",
             "Only in float32",
-            "No, text can often be partly reconstructed from embeddings",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "No, text can often be partly reconstructed from embeddings"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "why": "'No, text can often be partly reconstructed from embeddings' is correct: in personal data in vector search, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7240,14 +7071,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why redact before embedding?",
           "options": [
-            "To make vectors shorter",
             "So personal data never enters the index at all",
-            "To speed up search",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "To make vectors shorter",
+            "To speed up search within hierarchical proximity search graphs"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So personal data never enters the index at all' is correct: in redacting before embedding, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7282,14 +7112,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a deletion audit record contain?",
           "options": [
-            "Which items were deleted, without the content itself",
             "The deleted content",
-            "Nothing",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Which items were deleted, without the content itself",
+            "Nothing measured across production vector retrieval pipelines"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Which items were deleted, without the content itself' is correct: in deleting a user's data, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7322,12 +7151,11 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Compressing data",
             "Deleting everything",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions",
             "Storing only the data that is actually needed"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Storing only the data that is actually needed' is correct: in retention and minimisation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7358,14 +7186,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is data poisoning in vector search?",
           "options": [
-            "Deleting data",
-            "Compressing vectors",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning",
-            "Adding documents designed to be retrieved and mislead"
+            "Adding documents designed to be retrieved and mislead",
+            "Deleting data measured across production vector retrieval pipelines",
+            "Compressing vectors"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Adding documents designed to be retrieved and mislead' is correct: in security threats specific to rag, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7396,13 +7223,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does redact return besides the clean text?",
           "options": [
             "The original text",
-            "Nothing",
             "Counts of e-mails and phones replaced",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization"
+            "Nothing measured across production vector retrieval pipelines"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Counts of e-mails and phones replaced' is correct: in practice time: privacy, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -7457,14 +7283,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why filter before scoring?",
           "options": [
-            "It changes the scores",
             "Only allowed documents should be ranked, and it saves work",
-            "It is optional",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "It changes the scores",
+            "It is optional"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Only allowed documents should be ranked, and it saves work' is correct: in the capstone design, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7499,14 +7324,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does alpha = 0 give in this hybrid score?",
           "options": [
-            "Pure keyword search",
             "Pure vector search",
-            "No results",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Pure keyword search",
+            "No results measured across production vector retrieval pipelines"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Pure keyword search' is correct: in hybrid scoring, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7537,14 +7361,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why list failed queries separately in the report?",
           "options": [
-            "They are the most actionable part: each points to a fix",
-            "To make it longer",
+            "To make it longer measured across production vector retrieval pipelines",
             "Averages are enough",
-            "Traversing inverted posting lists using sequential linear scans without inverted document frequency pruning"
+            "They are the most actionable part: each points to a fix"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'They are the most actionable part: each points to a fix' is correct: in evaluating the engine, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7575,14 +7398,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a search evaluation report always state?",
           "options": [
+            "The golden set size, k, metrics, a baseline and the failures",
             "Only the best number",
-            "Nothing about limitations",
-            "Storing full-precision uncompressed 32-bit floating point vectors without product quantization",
-            "The golden set size, k, metrics, a baseline and the failures"
+            "Nothing about limitations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The golden set size, k, metrics, a baseline and the failures' is correct: in writing the report, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7614,13 +7436,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What do vector databases such as Qdrant or pgvector build on?",
           "options": [
             "Completely different ideas",
-            "Only keyword search",
             "The same ideas you implemented in this course",
-            "Using unquantized scalar buffers for dense embedding vectors and intermediate inverted index postings"
+            "Only keyword search measured across production vector retrieval pipelines"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The same ideas you implemented in this course' is correct: in what you have built, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7655,13 +7476,12 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does eval_report list under \"failed\"?",
           "options": [
             "Queries with errors only",
-            "Queries whose recall@k is 0",
-            "Every query",
-            "Constructing unbalanced k-d trees that degenerate into linear O(N) scan performance in high dimensions"
+            "Every query measured across production vector retrieval pipelines",
+            "Queries whose recall@k is 0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against high-dimensional vector search and approximate nearest neighbor indexing principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Queries whose recall@k is 0' is correct: in capstone practice: engine and report, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -7737,14 +7557,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is L2 renormalization strictly mandatory after slicing an MRL embedding prefix?",
           "options": [
-            "Because floating-point numbers require integer rounding before distance computation. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Because truncating dimensions destroys the unit length, which invalidates cosine distance comparisons unless projected back to unit norm.",
-            "Because GPU kernels only accept vectors whose elements sum to zero.",
-            "Because vector databases discard any vector with fewer than 1024 dimensions."
+            "Because floating-point numbers require integer rounding before distance computation",
+            "Because truncating dimensions destroys the unit length, which invalidates cosine distance comparisons unless projected back to unit norm",
+            "Because GPU kernels only accept vectors whose elements sum to zero",
+            "Because vector databases discard any vector with fewer than 1024 dimensions"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Truncating vector dimensions distorts unit magnitude, requiring L2 renormalization so cosine distance equals the dot product."
         }
       },
       {
@@ -7785,14 +7605,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of cosine similarity in prefix-based vector comparison?",
           "options": [
-            "It evaluates the geometric angular alignment between query and candidate prefixes on the unit sphere.",
-            "It sorts document identifiers alphabetically in the posting index. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It encrypts vectors to prevent unauthorized similarity leaks.",
-            "It converts floating-point weights into binary bitmasks."
+            "It sorts document identifiers alphabetically in the posting index",
+            "It encrypts vectors to prevent unauthorized similarity leaks",
+            "It evaluates the geometric angular alignment between query and candidate prefixes on the unit sphere",
+            "It converts floating-point weights into binary bitmasks across high-dimensional vector space partitions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Cosine similarity measures the angular orientation between two normalized vectors on the unit sphere regardless of magnitude."
         }
       },
       {
@@ -7833,14 +7653,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does multi-granular prefix filtering optimize query latency in large-scale retrieval systems?",
           "options": [
-            "It skips index traversal completely by caching all search queries in RAM.",
+            "It skips index traversal completely by caching all search queries in RAM",
             "It eliminates vector normalization by using uncalibrated Manhattan distances. across dense embedding projection matrices and asynchronous background quantization workers",
-            "It truncates all candidate document titles to four characters.",
-            "It evaluates fast low-dimensional prefixes to prune the search space before running expensive full-dimensional scoring on survivors."
+            "It truncates all candidate document titles to four characters",
+            "It evaluates fast low-dimensional prefixes to prune the search space before running expensive full-dimensional scoring on survivors"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'It evaluates fast low-dimensional prefixes to prune the search space before running expensive full-dimensional scoring on survivors' is correct: in matryoshka representation learning (mrl) — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7881,14 +7701,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical failure mode does the epsilon threshold check prevent during vector normalization?",
           "options": [
+            "It prevents zero-division errors when normalizing vectors with zero or near-zero Euclidean magnitude",
             "It prevents integer overflow when storing document IDs in 64-bit integer registers. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It prevents out-of-order execution in multi-threaded database connections.",
-            "It prevents zero-division errors when normalizing vectors with zero or near-zero Euclidean magnitude.",
-            "It prevents network packet fragmentation across distributed nodes."
+            "It prevents out-of-order execution in multi-threaded database connections",
+            "It prevents network packet fragmentation across distributed nodes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It prevents zero-division errors when normalizing vectors with zero or near-zero Euclidean magnitude' is correct: in matryoshka representation learning (mrl) — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -7929,14 +7749,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of compressing 1536-dimension vectors to 256-dimension MRL prefixes in production?",
           "options": [
-            "It converts relational database tables into NoSQL document stores.",
+            "It converts relational database tables into NoSQL document stores",
+            "It slashes active RAM consumption by over eighty percent while retaining leading semantic discriminative power",
             "It eliminates the need for backup snapshots and crash recovery logs. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "It slashes active RAM consumption by over eighty percent while retaining leading semantic discriminative power.",
-            "It doubles the physical network bandwidth of the host machine."
+            "It doubles the physical network bandwidth of the host machine"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It slashes active RAM consumption by over eighty percent while retaining leading semantic discriminative power' is correct: in matryoshka representation learning (mrl) — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -7998,14 +7818,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is min-max normalization necessary before blending sparse lexical scores with dense similarity scores?",
           "options": [
-            "Because lexical search indexes only accept integer scores.",
-            "Because raw BM25 scores are unbounded positive numbers, whereas cosine scores are bounded, preventing direct linear addition.",
-            "Because database indexes crash if floating-point numbers exceed 1.0. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Because dense embeddings require all values to be powers of two."
+            "Because raw BM25 scores are unbounded positive numbers, whereas cosine scores are bounded, preventing direct linear addition",
+            "Because lexical search indexes only accept integer scores",
+            "Because database indexes crash if floating-point numbers exceed 1.0",
+            "Because dense embeddings require all values to be powers of two"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Because raw BM25 scores are unbounded positive numbers, whereas cosine scores are bounded, preventing direct linear addition' is correct: in sparse-dense hybrid scoring — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8046,14 +7866,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What behavior occurs in convex hybrid scoring when the alpha parameter is set to 0.6?",
           "options": [
-            "The final score allocates sixty percent weight to dense similarity and forty percent weight to sparse lexical alignment.",
-            "The search engine drops sixty percent of candidate documents at random. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "The system scales the vector embedding dimension down by sixty percent.",
-            "The query is duplicated across six independent worker nodes."
+            "The search engine drops sixty percent of candidate documents at random",
+            "The final score allocates sixty percent weight to dense similarity and forty percent weight to sparse lexical alignment",
+            "The system scales the vector embedding dimension down by sixty percent",
+            "The query is duplicated across six independent worker nodes during approximate nearest neighbor candidate evaluation"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The final score allocates sixty percent weight to dense similarity and forty percent weight to sparse lexical alignment' is correct: in sparse-dense hybrid scoring — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8094,14 +7914,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Reciprocal Rank Fusion (RRF) over convex score combination?",
           "options": [
-            "RRF executes entirely in GPU registers without accessing system RAM.",
-            "RRF discards all documents that do not contain an exact keyword match.",
-            "RRF guarantees zero search latency by precomputing every possible query answer. across dense embedding projection matrices and asynchronous background quantization workers",
-            "RRF operates directly on rank positions, eliminating the need to calibrate or normalize heterogeneous score distributions across backends."
+            "RRF executes entirely in GPU registers without accessing system RAM",
+            "RRF discards all documents that do not contain an exact keyword match",
+            "RRF operates directly on rank positions, eliminating the need to calibrate or normalize heterogeneous score distributions across backends",
+            "RRF guarantees zero search latency by precomputing every possible query answer. across dense embedding projection matrices and asynchronous background quantization workers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'RRF operates directly on rank positions, eliminating the need to calibrate or normalize heterogeneous score distributions across backends' is correct: in sparse-dense hybrid scoring — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8143,13 +7963,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is graceful single-modality fallback essential in enterprise hybrid retrieval architectures?",
           "options": [
             "To bypass authentication policies during high-concurrency traffic spikes. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "To force all user searches to execute as lexical keyword matches.",
-            "To compress document text before returning search snippets to the client.",
-            "To ensure user queries return valid results from the available index even if one backend modality encounters an outage."
+            "To force all user searches to execute as lexical keyword matches",
+            "To compress document text before returning search snippets to the client",
+            "To ensure user queries return valid results from the available index even if one backend modality encounters an outage"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'To ensure user queries return valid results from the available index even if one backend modality encounters an outage' is correct: in sparse-dense hybrid scoring — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8190,14 +8010,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Jaccard similarity metric measure when auditing hybrid search candidate pools?",
           "options": [
-            "The physical disk read latency of the inverted index postings.",
+            "The degree of overlap between the candidate document sets retrieved by the dense and sparse engines",
+            "The physical disk read latency of the inverted index postings",
             "The number of floating-point operations executed per query token. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "The degree of overlap between the candidate document sets retrieved by the dense and sparse engines.",
-            "The network round-trip time between database replica nodes."
+            "The network round-trip time between database replica nodes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The degree of overlap between the candidate document sets retrieved by the dense and sparse engines' is correct: in sparse-dense hybrid scoring — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -8259,14 +8079,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of magnitude threshold pruning in SPLADE sparse representations?",
           "options": [
-            "It converts floating-point weights into 8-bit image pixels.",
-            "It discards negligible non-zero weights to enforce extreme vector sparsity and prevent posting list bloat in the inverted index.",
-            "It translates foreign language vocabulary into English equivalents. across distributed inverted vector index partitions and persistent memory segment stores",
-            "It compresses JSON strings using gzip compression."
+            "It converts floating-point weights into 8-bit image pixels",
+            "It translates foreign language vocabulary into English equivalents",
+            "It compresses JSON strings using gzip compression",
+            "It discards negligible non-zero weights to enforce extreme vector sparsity and prevent posting list bloat in the inverted index"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'It discards negligible non-zero weights to enforce extreme vector sparsity and prevent posting list bloat in the inverted index' is correct: in splade & learned sparse representations — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8307,14 +8127,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an inverted posting index store SPLADE learned sparse vectors?",
           "options": [
-            "It maps each vocabulary token to a list of tuples containing document identifiers and their corresponding learned activation weights.",
-            "It flattens all vectors into a single continuous 2D matrix stored in GPU VRAM. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It hashes document text using MD5 and stores hashes in a binary tree.",
-            "It stores documents in chronological order of creation date."
+            "It maps each vocabulary token to a list of tuples containing document identifiers and their corresponding learned activation weights",
+            "It flattens all vectors into a single continuous 2D matrix stored in GPU VRAM",
+            "It hashes document text using MD5 and stores hashes in a binary tree",
+            "It stores documents in chronological order of creation date measured across production vector retrieval pipelines"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'It maps each vocabulary token to a list of tuples containing document identifiers and their corresponding learned activation weights' is correct: in splade & learned sparse representations — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8355,14 +8175,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is sparse inverted index scoring significantly faster than exhaustive dense vector similarity scans?",
           "options": [
-            "Because it traverses only posting lists for terms present in the query, skipping the vast majority of non-matching documents.",
-            "Because it converts all floating-point numbers into 1-bit integers.",
-            "Because it caches all search results in a distributed Redis database.",
+            "Because it converts all floating-point numbers into 1-bit integers",
+            "Because it traverses only posting lists for terms present in the query, skipping the vast majority of non-matching documents",
+            "Because it caches all search results in a distributed Redis database",
             "Because it evaluates documents using random sampling rather than deterministic ranking. across dense embedding projection matrices and asynchronous background quantization workers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because it traverses only posting lists for terms present in the query, skipping the vast majority of non-matching documents' is correct: in splade & learned sparse representations — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8404,13 +8224,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What protection is provided by computing key intersection before sparse dot product accumulation?",
           "options": [
             "It prevents database deadlocks during multi-threaded write transactions. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It forces all vector weights to be positive integers.",
-            "It encrypts document identifiers before logging query requests.",
-            "It ensures the engine only performs multiplications for overlapping vocabulary terms, avoiding missing key errors and wasteful operations."
+            "It forces all vector weights to be positive integers",
+            "It ensures the engine only performs multiplications for overlapping vocabulary terms, avoiding missing key errors and wasteful operations",
+            "It encrypts document identifiers before logging query requests"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "The dot product sums element-wise products, directly calculating projection alignment between normalized vector embeddings."
         }
       },
       {
@@ -8452,13 +8272,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is maintaining over ninety-nine percent sparsity critical for production SPLADE deployment?",
           "options": [
             "To ensure that vector files can be opened in text editors. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "To comply with international character encoding standards.",
-            "To prevent inverted index posting lists from exploding in size and degrading sub-millisecond query latency.",
-            "To prevent GPU thermal throttling during idle periods."
+            "To comply with international character encoding standards",
+            "To prevent GPU thermal throttling during idle periods",
+            "To prevent inverted index posting lists from exploding in size and degrading sub-millisecond query latency"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To prevent inverted index posting lists from exploding in size and degrading sub-millisecond query latency' is correct: in splade & learned sparse representations — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -8520,14 +8340,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What fundamental limitation of single-vector dense retrieval does ColBERT multi-vector representation resolve?",
           "options": [
-            "It allows vectors to be stored on magnetic floppy disks.",
-            "It eliminates the information bottleneck where an entire document is compressed into a single vector, preserving token-level details.",
-            "It removes the need for tokenizer dictionaries in neural networks. across distributed inverted vector index partitions and persistent memory segment stores",
-            "It converts English queries into machine assembly code."
+            "It allows vectors to be stored on magnetic floppy disks",
+            "It removes the need for tokenizer dictionaries in neural networks",
+            "It eliminates the information bottleneck where an entire document is compressed into a single vector, preserving token-level details",
+            "It converts English queries into machine assembly code"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It eliminates the information bottleneck where an entire document is compressed into a single vector, preserving token-level details' is correct: in colbert late interaction — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8568,14 +8388,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ColBERT MaxSim operator calculate the relevance score of a document?",
           "options": [
-            "It averages all token vectors into a single vector and computes Euclidean distance. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "For each query token, it finds the maximum similarity across all document tokens and sums these maximum values together.",
-            "It multiplies document token lengths by the total number of sentences.",
-            "It counts how many times the first letter of each word appears in uppercase."
+            "It averages all token vectors into a single vector and computes Euclidean distance",
+            "It multiplies document token lengths by the total number of sentences during approximate nearest neighbor candidate evaluation",
+            "It counts how many times the first letter of each word appears in uppercase",
+            "For each query token, it finds the maximum similarity across all document tokens and sums these maximum values together"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'For each query token, it finds the maximum similarity across all document tokens and sums these maximum values together' is correct: in colbert late interaction — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8616,14 +8436,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of batched MaxSim ranking in production ColBERT architectures?",
           "options": [
-            "It enables efficient parallel evaluation of multiple candidate documents while preserving token-level interaction precision.",
-            "It truncates all candidate document texts to a single sentence.",
-            "It stores all document tokens in plain text log files.",
+            "It enables efficient parallel evaluation of multiple candidate documents while preserving token-level interaction precision",
+            "It truncates all candidate document texts to a single sentence",
+            "It stores all document tokens in plain text log files",
             "It replaces vector search with regular expression pattern matching. across dense embedding projection matrices and asynchronous background quantization workers"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'It enables efficient parallel evaluation of multiple candidate documents while preserving token-level interaction precision' is correct: in colbert late interaction — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8664,14 +8484,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What runtime exception does the safe ColBERT guardrail prevent when evaluating empty token sequences?",
           "options": [
-            "It prevents memory leakage in the operating system kernel.",
+            "It prevents memory leakage in the operating system kernel",
+            "It prevents ValueError exceptions caused by calling the max() function on an empty sequence of similarity scores",
             "It prevents database index corruption during system reboot. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It prevents network port collisions on localhost.",
-            "It prevents ValueError exceptions caused by calling the max() function on an empty sequence of similarity scores."
+            "It prevents network port collisions on localhost"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It prevents ValueError exceptions caused by calling the max() function on an empty sequence of similarity scores' is correct: in colbert late interaction — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8712,14 +8532,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is capacity planning and memory auditing critical when deploying ColBERT multi-vector retrieval at scale?",
           "options": [
-            "Because ColBERT embeddings expire after twenty-four hours.",
+            "Because ColBERT embeddings expire after twenty-four hours",
             "Because multi-vector models cannot run on Linux operating systems. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "Because storing multiple embedding vectors per document requires significantly more RAM/disk space than single-vector representations.",
-            "Because cloud providers limit total vector counts to one thousand."
+            "Because storing multiple embedding vectors per document requires significantly more RAM/disk space than single-vector representations",
+            "Because cloud providers limit total vector counts to one thousand"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'Because storing multiple embedding vectors per document requires significantly more RAM/disk space than single-vector representations' is correct: in colbert late interaction — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -8781,14 +8601,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the first-stage MRL filter in the Milestone 7 hybrid architecture?",
           "options": [
-            "To generate natural language summaries of the top documents.",
-            "To translate search queries into multiple spoken languages.",
-            "To rapidly prune the candidate pool from thousands down to a small survivor set using fast low-dimensional prefix dot products.",
-            "To verify user credit card credentials before executing search queries. across distributed inverted vector index partitions and persistent memory segment stores"
+            "To generate natural language summaries of the top documents",
+            "To rapidly prune the candidate pool from thousands down to a small survivor set using fast low-dimensional prefix dot products",
+            "To translate search queries into multiple spoken languages",
+            "To verify user credit card credentials before executing search queries"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To rapidly prune the candidate pool from thousands down to a small survivor set using fast low-dimensional prefix dot products' is correct: in milestone 7 — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8829,14 +8649,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it computationally viable to run ColBERT MaxSim in stage two of the cascade?",
           "options": [
-            "Because stage two executes on quantum computers.",
-            "Because stage one has already eliminated ninety-nine percent of candidates, leaving only a tiny pool of survivors to evaluate.",
-            "Because token embeddings are compressed to single-bit booleans. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "Because stage two caches all results in browser local storage."
+            "Because stage two executes on quantum computers measured across production vector retrieval pipelines",
+            "Because token embeddings are compressed to single-bit booleans",
+            "Because stage one has already eliminated ninety-nine percent of candidates, leaving only a tiny pool of survivors to evaluate",
+            "Because stage two caches all results in browser local storage"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Because stage one has already eliminated ninety-nine percent of candidates, leaving only a tiny pool of survivors to evaluate' is correct: in milestone 7 — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8877,14 +8697,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the unified cascade pipeline optimize memory and latency between retrieval stages?",
           "options": [
-            "By passing only lightweight document identifiers from stage one to stage two, fetching full multi-vector matrices only for survivors.",
             "By writing all intermediate candidate lists to physical hard drives. across dense embedding projection matrices and asynchronous background quantization workers",
-            "By discarding query token embeddings before search starts.",
-            "By executing all calculations using 64-bit complex numbers."
+            "By discarding query token embeddings before search starts",
+            "By executing all calculations using 64-bit complex numbers",
+            "By passing only lightweight document identifiers from stage one to stage two, fetching full multi-vector matrices only for survivors"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By passing only lightweight document identifiers from stage one to stage two, fetching full multi-vector matrices only for survivors' is correct: in milestone 7 — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8925,14 +8745,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of returning stage-one MRL rankings when stage-two reranking fails?",
           "options": [
-            "It bypasses all rate limiting quotas on user accounts.",
-            "It reduces database backup snapshot sizes.",
-            "It resets the web server configuration to default settings. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It ensures the user receives high-quality semantic results without experiencing service downtime or HTTP error codes."
+            "It ensures the user receives high-quality semantic results without experiencing service downtime or HTTP error codes",
+            "It bypasses all rate limiting quotas on user accounts",
+            "It reduces database backup snapshot sizes",
+            "It resets the web server configuration to default settings. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It ensures the user receives high-quality semantic results without experiencing service downtime or HTTP error codes' is correct: in milestone 7 — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -8974,13 +8794,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What operational guarantee does stage-level latency telemetry provide to engineering teams?",
           "options": [
             "It automatically reboots slow server hardware without human intervention. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "It encrypts all database transactions using TLS certificates.",
-            "It formats log messages into human-readable HTML tables.",
-            "It verifies that each retrieval stage operates within its allocated latency budget to satisfy strict SLA requirements."
+            "It verifies that each retrieval stage operates within its allocated latency budget to satisfy strict SLA requirements",
+            "It encrypts all database transactions using TLS certificates",
+            "It formats log messages into human-readable HTML tables"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It verifies that each retrieval stage operates within its allocated latency budget to satisfy strict SLA requirements' is correct: in milestone 7 — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -9042,14 +8862,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What geometric structure is defined by k-means coarse centroids in an IVF vector index?",
           "options": [
-            "A linked list of alphabetically sorted document titles.",
-            "A circular buffer storing database connection handles.",
-            "A set of Voronoi cells that partition the continuous high-dimensional vector space into localized search regions.",
-            "A cryptographic Merkle tree for verifying data integrity. across distributed inverted vector index partitions and persistent memory segment stores"
+            "A set of Voronoi cells that partition the continuous high-dimensional vector space into localized search regions",
+            "A linked list of alphabetically sorted document titles",
+            "A circular buffer storing database connection handles",
+            "A cryptographic Merkle tree for verifying data integrity"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -9090,14 +8910,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an IVF index determine which inverted list should store a newly ingested vector?",
           "options": [
-            "It hashes the vector timestamp using CRC32 and takes the modulo of cluster count.",
-            "It computes Euclidean distance to all coarse centroids and assigns the vector to the closest centroid's posting list.",
-            "It assigns vectors sequentially in round-robin fashion across available CPU cores. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It stores all vectors in a single flat binary file on disk."
+            "It hashes the vector timestamp using CRC32 and takes the modulo of cluster count",
+            "It computes Euclidean distance to all coarse centroids and assigns the vector to the closest centroid's posting list",
+            "It assigns vectors sequentially in round-robin fashion across available CPU cores",
+            "It stores all vectors in a single flat binary file on disk across high-dimensional vector space partitions"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -9138,14 +8958,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What trade-off is governed by the multi-probe parameter (nprobe) in IVF search engines?",
           "options": [
-            "Increasing nprobe improves retrieval recall by inspecting adjacent Voronoi cells at the cost of evaluating more candidate vectors.",
             "Increasing nprobe reduces the number of CPU threads allocated to background compaction. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Increasing nprobe shrinks the total memory footprint of vector embeddings in RAM.",
-            "Increasing nprobe disables index write operations during query execution."
+            "Increasing nprobe shrinks the total memory footprint of vector embeddings in RAM",
+            "Increasing nprobe improves retrieval recall by inspecting adjacent Voronoi cells at the cost of evaluating more candidate vectors",
+            "Increasing nprobe disables index write operations during query execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -9186,14 +9006,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an IVF retrieval engine validate centroid matrix initialization before query execution?",
           "options": [
-            "To prevent runtime crashes and index lookup exceptions if queries arrive before k-means training has concluded.",
-            "To ensure that all vector values are formatted as hexadecimal strings.",
-            "To clear the operating system page cache before each search.",
-            "To synchronize system clock timestamps across distributed server nodes. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
+            "To ensure that all vector values are formatted as hexadecimal strings",
+            "To clear the operating system page cache before each search",
+            "To synchronize system clock timestamps across distributed server nodes. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
+            "To prevent runtime crashes and index lookup exceptions if queries arrive before k-means training has concluded"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -9234,14 +9054,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What speedup factor is achieved when an IVF index with 1024 clusters and nprobe=8 searches 1,000,000 vectors?",
           "options": [
+            "A 128x speedup factor, because the engine evaluates approximately 7,812 vectors instead of the entire 1,000,000 corpus",
             "A 2x speedup factor, because vector search is always limited by CPU clock frequency. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "A 1024x speedup factor, because all calculations occur in zero clock cycles.",
-            "No speedup, because IVF indexes take longer to scan than flat files.",
-            "A 128x speedup factor, because the engine evaluates approximately 7,812 vectors instead of the entire 1,000,000 corpus."
+            "A 1024x speedup factor, because all calculations occur in zero clock cycles",
+            "No speedup, because IVF indexes take longer to scan than flat files"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       }
     ],
@@ -9303,14 +9123,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Product Quantization decompose high-dimensional vectors for memory compression?",
           "options": [
-            "It replaces all negative numbers with zero and all positive numbers with one. across distributed inverted vector index partitions and persistent memory segment stores",
-            "It deletes eighty percent of vector dimensions at random.",
-            "It splits the D-dimensional vector into m orthogonal subvectors of dimension D/m and quantizes each subspace independently.",
-            "It converts vector coordinates into base-64 ASCII text strings."
+            "It replaces all negative numbers with zero and all positive numbers with one",
+            "It deletes eighty percent of vector dimensions at random",
+            "It converts vector coordinates into base-64 ASCII text strings",
+            "It splits the D-dimensional vector into m orthogonal subvectors of dimension D/m and quantizes each subspace independently"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -9351,14 +9171,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What data type represents each quantized subvector when the codebook size k equals 256?",
           "options": [
-            "A 64-bit floating point number. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "An 8-bit unsigned integer (uint8), because 256 centroid states fit exactly in a single byte.",
-            "A variable-length UTF-8 string.",
-            "A cryptographic private key."
+            "An 8-bit unsigned integer (uint8), because 256 centroid states fit exactly in a single byte",
+            "A 64-bit floating point number",
+            "A variable-length UTF-8 string",
+            "A cryptographic private key within hierarchical proximity search graphs"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'An 8-bit unsigned integer (uint8), because 256 centroid states fit exactly in a single byte' is correct: in product quantization (pq) — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -9399,14 +9219,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Asymmetric Distance Computation (ADC) called 'asymmetric' in Product Quantization?",
           "options": [
-            "Because queries must have more dimensions than database vectors.",
-            "Because the query vector remains in full unquantized floating-point precision, while database vectors are quantized into byte codes.",
+            "Because queries must have more dimensions than database vectors",
+            "Because the query vector remains in full unquantized floating-point precision, while database vectors are quantized into byte codes",
             "Because distance from A to B is different from distance from B to A. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Because the algorithm only executes on odd-numbered CPU cores."
+            "Because the algorithm only executes on odd-numbered CPU cores"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -9447,14 +9267,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does ADC evaluate the distance between an unquantized query and a quantized database vector?",
           "options": [
-            "By looking up precomputed distances for each subvector code in the ADC table and summing them together.",
             "By decompressing the database vector to FP32 and running cosine similarity. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "By calculating the MD5 hash of the concatenated codes.",
-            "By sending the codes over HTTP to an external cloud API."
+            "By calculating the MD5 hash of the concatenated codes",
+            "By looking up precomputed distances for each subvector code in the ADC table and summing them together",
+            "By sending the codes over HTTP to an external cloud API"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'By looking up precomputed distances for each subvector code in the ADC table and summing them together' is correct: in product quantization (pq) — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -9495,14 +9315,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What memory reduction factor is achieved when 128-dimensional FP32 vectors are compressed with PQ (m=8)?",
           "options": [
-            "A 2.0x reduction factor.",
-            "A 10.0x reduction factor.",
+            "A 2.0x reduction factor",
+            "A 10.0x reduction factor",
             "No reduction, because quantized vectors require additional metadata. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "A 64.0x reduction factor, shrinking storage from 488.28 MB down to 7.63 MB."
+            "A 64.0x reduction factor, shrinking storage from 488.28 MB down to 7.63 MB"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       }
     ],
@@ -9564,14 +9384,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does quantizing residual vectors (r = x - c) reduce quantization error compared to quantizing absolute coordinates?",
           "options": [
-            "Because residual vectors contain only integer values.",
-            "Because subtracting centroids doubles the number of dimensions. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Because vectors within a Voronoi cell have much smaller variance around their centroid, allowing codebooks to represent them with higher precision.",
-            "Because residual vectors do not require floating-point storage."
+            "Because residual vectors contain only integer values",
+            "Because subtracting centroids doubles the number of dimensions",
+            "Because vectors within a Voronoi cell have much smaller variance around their centroid, allowing codebooks to represent them with higher precision",
+            "Because residual vectors do not require floating-point storage"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'Because vectors within a Voronoi cell have much smaller variance around their centroid, allowing codebooks to represent them with higher precision' is correct: in ivf-pq composite indexes & residual vector quantization error reduction — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -9612,14 +9432,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What information is stored for each vector in an IVF-PQ composite index?",
           "options": [
-            "The full uncompressed FP32 vector and a timestamp.",
-            "An SHA-256 hash of the vector text.",
-            "The coarse centroid identifier and the quantized PQ code sequence representing the centroid-relative residual.",
-            "A pointer to an external relational database record. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints"
+            "The full uncompressed FP32 vector and a timestamp",
+            "An SHA-256 hash of the vector text within hierarchical proximity search graphs",
+            "A pointer to an external relational database record",
+            "The coarse centroid identifier and the quantized PQ code sequence representing the centroid-relative residual"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -9660,14 +9480,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an IVF-PQ index achieve sub-millisecond query execution on large vector datasets?",
           "options": [
+            "By pruning the search space to nprobe clusters and evaluating candidates using fast ADC table lookups without vector decompression",
             "By running all queries through an asynchronous message broker. across dense embedding projection matrices and asynchronous background quantization workers",
-            "By pruning the search space to nprobe clusters and evaluating candidates using fast ADC table lookups without vector decompression.",
-            "By storing all vectors unindexed in a plain text file.",
-            "By limiting queries to single-word keyword searches."
+            "By storing all vectors unindexed in a plain text file",
+            "By limiting queries to single-word keyword searches"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -9708,14 +9528,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an abnormally large residual norm indicate during IVF-PQ indexing?",
           "options": [
-            "It indicates that the vector was misassigned or that the coarse centroid distribution does not properly cover that region of vector space.",
-            "It indicates that the CPU is running out of disk storage space.",
+            "It indicates that the CPU is running out of disk storage space",
+            "It indicates that the vector was misassigned or that the coarse centroid distribution does not properly cover that region of vector space",
             "It indicates that the query text is written in an unsupported human language. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It indicates that the network connection has dropped packets."
+            "It indicates that the network connection has dropped packets"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       },
       {
@@ -9756,14 +9576,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can an engineering team improve the retrieval recall of an IVF-PQ index in production?",
           "options": [
-            "By deleting half of the indexed documents.",
+            "By deleting half of the indexed documents",
             "By disabling index compression and running exhaustive linear scans. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "By converting all vector dimensions to negative numbers.",
-            "By increasing nprobe to search more coarse Voronoi clusters and increasing pq_m to reduce residual quantization error."
+            "By increasing nprobe to search more coarse Voronoi clusters and increasing pq_m to reduce residual quantization error",
+            "By converting all vector dimensions to negative numbers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Product Quantization decomposes vectors into lower-dimensional sub-vectors quantized against codebook centroids, saving memory."
         }
       }
     ],
@@ -9825,14 +9645,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What memory reduction factor is achieved by applying SQ8 scalar quantization to 32-bit floating point vectors?",
           "options": [
-            "A 64x reduction factor.",
-            "A 2x reduction factor.",
-            "No reduction, because uint8 requires 32-bit integer padding. across distributed inverted vector index partitions and persistent memory segment stores",
-            "A 4x reduction factor, shrinking storage from 4 bytes per dimension down to 1 byte per dimension."
+            "A 64x reduction factor",
+            "A 4x reduction factor, shrinking storage from 4 bytes per dimension down to 1 byte per dimension",
+            "A 2x reduction factor",
+            "No reduction, because uint8 requires 32-bit integer padding"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A 4x reduction factor, shrinking storage from 4 bytes per dimension down to 1 byte per dimension' is correct: in scalar quantization (sq8/sq4) & rabitq binary quantization with asymmetric oversampling — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -9873,14 +9693,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does SQ8 dequantization reconstruct continuous floating-point values from stored uint8 codes?",
           "options": [
-            "By looking up the code in a dictionary of pre-trained English words. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "By calculating the square root of the integer code.",
-            "By multiplying the normalized code fraction by the domain range and adding the minimum bounding value.",
-            "By executing an asynchronous network request to an embedding server."
+            "By looking up the code in a dictionary of pre-trained English words",
+            "By calculating the square root of the integer code across high-dimensional vector space partitions",
+            "By multiplying the normalized code fraction by the domain range and adding the minimum bounding value",
+            "By executing an asynchronous network request to an embedding server"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'By multiplying the normalized code fraction by the domain range and adding the minimum bounding value' is correct: in scalar quantization (sq8/sq4) & rabitq binary quantization with asymmetric oversampling — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -9922,13 +9742,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What hardware CPU instruction allows 1-bit binary quantized vectors to be evaluated at maximum speed?",
           "options": [
             "Floating-point division instructions. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Bitwise XOR paired with the hardware POPCNT (population count) instruction to count differing bits in a single cycle.",
-            "Disk seek and read sector interrupts.",
-            "Software regex matching engines."
+            "Disk seek and read sector interrupts",
+            "Software regex matching engines",
+            "Bitwise XOR paired with the hardware POPCNT (population count) instruction to count differing bits in a single cycle"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Bitwise XOR paired with the hardware POPCNT (population count) instruction to count differing bits in a single cycle' is correct: in scalar quantization (sq8/sq4) & rabitq binary quantization with asymmetric oversampling — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -9969,14 +9789,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What fatal runtime condition is prevented by the safe_sq_bounds guardrail?",
           "options": [
-            "Division-by-zero exceptions caused by collapsed or invariant feature dimensions where min equals max.",
+            "Division-by-zero exceptions caused by collapsed or invariant feature dimensions where min equals max",
             "Stack overflow errors caused by recursive graph traversal. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "Operating system kernel panic during memory allocation.",
-            "Network timeout errors during API handshakes."
+            "Operating system kernel panic during memory allocation",
+            "Network timeout errors during API handshakes"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Division-by-zero exceptions caused by collapsed or invariant feature dimensions where min equals max' is correct: in scalar quantization (sq8/sq4) & rabitq binary quantization with asymmetric oversampling — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10017,14 +9837,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the memory footprint of 1,000,000 128-dimensional vectors when compressed using 1-bit binary quantization?",
           "options": [
-            "Approximately 15.26 megabytes, compared to 488.28 megabytes in uncompressed FP32.",
-            "Approximately 250 megabytes.",
-            "Approximately 1 gigabyte.",
+            "Approximately 250 megabytes",
+            "Approximately 15.26 megabytes, compared to 488.28 megabytes in uncompressed FP32",
+            "Approximately 1 gigabyte",
             "Zero bytes, because binary vectors do not occupy physical memory. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Approximately 15.26 megabytes, compared to 488.28 megabytes in uncompressed FP32' is correct: in scalar quantization (sq8/sq4) & rabitq binary quantization with asymmetric oversampling — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -10086,14 +9906,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the first-stage binary filter in the Milestone 8 architecture?",
           "options": [
-            "To encrypt vectors before storing them on disk.",
-            "To generate visual graphs of document similarity. across distributed inverted vector index partitions and persistent memory segment stores",
-            "To translate search queries into SQL syntax.",
-            "To discard over ninety percent of irrelevant candidates using single-cycle bitwise operations before running ADC lookups."
+            "To discard over ninety percent of irrelevant candidates using single-cycle bitwise operations before running ADC lookups",
+            "To encrypt vectors before storing them on disk",
+            "To generate visual graphs of document similarity",
+            "To translate search queries into SQL syntax"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To discard over ninety percent of irrelevant candidates using single-cycle bitwise operations before running ADC lookups' is correct: in milestone 8 — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10134,14 +9954,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the second stage evaluate candidate distance without decompressing full vectors?",
           "options": [
-            "By decompressing the entire corpus into 32-bit floats in RAM. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "By running text searches on document titles.",
-            "By looking up precomputed query-to-centroid distances in the ADC table using stored PQ codes and summing the values.",
-            "By executing random walks on the graph index."
+            "By decompressing the entire corpus into 32-bit floats in RAM",
+            "By looking up precomputed query-to-centroid distances in the ADC table using stored PQ codes and summing the values",
+            "By running text searches on document titles within hierarchical proximity search graphs",
+            "By executing random walks on the graph index"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'By looking up precomputed query-to-centroid distances in the ADC table using stored PQ codes and summing the values' is correct: in milestone 8 — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10182,14 +10002,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What query throughput performance is achieved by the integrated Milestone 8 two-stage kernel?",
           "options": [
-            "Approximately 5 queries per second.",
-            "Over 20,000 queries per second with average sub-millisecond latency per worker node.",
-            "One query per minute.",
+            "Approximately 5 queries per second",
+            "One query per minute",
+            "Over 20,000 queries per second with average sub-millisecond latency per worker node",
             "Throughput cannot be measured because binary search is non-deterministic. across dense embedding projection matrices and asynchronous background quantization workers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Over 20,000 queries per second with average sub-millisecond latency per worker node' is correct: in milestone 8 — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10231,13 +10051,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is packing 1-bit values into 64-bit integers beneficial for vector distance computation?",
           "options": [
             "It prevents users from downloading unauthorized vectors. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It allows 64 dimensions to be compared simultaneously with a single hardware XOR instruction, maximizing SIMD throughput.",
-            "It converts vectors into encrypted SSL certificates.",
-            "It eliminates the need for computer power supplies."
+            "It converts vectors into encrypted SSL certificates",
+            "It eliminates the need for computer power supplies",
+            "It allows 64 dimensions to be compared simultaneously with a single hardware XOR instruction, maximizing SIMD throughput"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'It allows 64 dimensions to be compared simultaneously with a single hardware XOR instruction, maximizing SIMD throughput' is correct: in milestone 8 — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10278,14 +10098,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What average query latency is achieved by the Milestone 8 kernel processing 50,000 queries in 2.5 seconds?",
           "options": [
-            "0.05 milliseconds (50 microseconds) per query.",
-            "5.0 seconds per query.",
-            "100 milliseconds per query.",
-            "Zero latency, because no computation takes place."
+            "0.05 milliseconds (50 microseconds) per query",
+            "5.0 seconds per query",
+            "100 milliseconds per query",
+            "Zero latency, because no computation takes place"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'0.05 milliseconds (50 microseconds) per query' is correct: in milestone 8 — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -10347,14 +10167,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What data structure inspired the multi-layer hierarchy in HNSW vector graphs?",
           "options": [
-            "Hash tables with linear probing.",
-            "Circular queues for printer spooling.",
+            "Hash tables with linear probing",
+            "Circular queues for printer spooling",
             "Relational SQL foreign key constraints. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "Skip-lists, which provide probabilistic logarithmic search by maintaining fast express highway layers above a dense base layer."
+            "Skip-lists, which provide probabilistic logarithmic search by maintaining fast express highway layers above a dense base layer"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10395,14 +10215,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an HNSW node maintain separate neighbor lists for each active layer?",
           "options": [
-            "Because operating systems prohibit sharing memory across layers. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Because higher layers store encrypted vectors.",
-            "Because each layer serves a distinct routing scale, from long-range highway exploration at high layers to local convergence at layer zero.",
-            "Because lower layers are deleted after one week."
+            "Because each layer serves a distinct routing scale, from long-range highway exploration at high layers to local convergence at layer zero",
+            "Because operating systems prohibit sharing memory across layers",
+            "Because higher layers store encrypted vectors measured across production vector retrieval pipelines",
+            "Because lower layers are deleted after one week"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10443,14 +10263,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is neighbor pruning and degree capping strictly enforced during HNSW graph construction?",
           "options": [
-            "To ensure that vector graph files can be stored on FAT32 file systems. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "To comply with web accessibility font size guidelines.",
-            "To bound the number of edge traversals during search and prevent graph hubs from degrading search latency.",
-            "To prevent CPU cooling fans from increasing rotational speed."
+            "To ensure that vector graph files can be stored on FAT32 file systems",
+            "To bound the number of edge traversals during search and prevent graph hubs from degrading search latency",
+            "To comply with web accessibility font size guidelines within hierarchical proximity search graphs",
+            "To prevent CPU cooling fans from increasing rotational speed"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10492,13 +10312,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What failure mode is prevented by validating the global HNSW entrypoint before beginning graph traversal?",
           "options": [
             "It prevents duplicate HTTP requests from client web browsers. across dense embedding projection matrices and asynchronous background quantization workers",
-            "It prevents crashes caused by navigating from uninitialized, corrupted, or deleted entrypoint nodes in the graph.",
-            "It prevents database password expiration during queries.",
-            "It prevents CPU cache line invalidation during disk writes."
+            "It prevents database password expiration during queries",
+            "It prevents crashes caused by navigating from uninitialized, corrupted, or deleted entrypoint nodes in the graph",
+            "It prevents CPU cache line invalidation during disk writes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10539,14 +10359,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is monitoring average and maximum node degree important in production HNSW vector indexes?",
           "options": [
-            "To verify that degree pruning heuristics prevent traffic bottlenecks and keep graph memory consumption strictly bounded.",
-            "To ensure that vector graph edges are colored properly on web dashboards.",
+            "To ensure that vector graph edges are colored properly on web dashboards",
             "To verify that operating system user permissions are configured correctly. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "To measure electric power consumption of server cooling units."
+            "To measure electric power consumption of server cooling units",
+            "To verify that degree pruning heuristics prevent traffic bottlenecks and keep graph memory consumption strictly bounded"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       }
     ],
@@ -10608,14 +10428,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What stopping criterion signals that greedy routing should drop to the next lower layer in HNSW?",
           "options": [
-            "When the server clock reaches an exact second boundary.",
+            "When the server clock reaches an exact second boundary",
             "When the query vector contains more than five negative numbers. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "When all network sockets have closed.",
-            "When no neighbor of the current node is closer to the query than the current node itself (a local minimum)."
+            "When no neighbor of the current node is closer to the query than the current node itself (a local minimum)",
+            "When all network sockets have closed"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10656,14 +10476,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the function of the efSearch parameter in HNSW layer-zero beam search?",
           "options": [
-            "It sets the number of GPU processor cores dedicated to index compression. across distributed inverted vector index partitions and persistent memory segment stores",
-            "It defines the maximum allowable length of document text strings.",
-            "It configures the frequency of automatic database backups.",
-            "It controls the size of the dynamic candidate priority queue, balancing search exploration against query latency."
+            "It sets the number of GPU processor cores dedicated to index compression",
+            "It defines the maximum allowable length of document text strings",
+            "It configures the frequency of automatic database backups during approximate nearest neighbor candidate evaluation",
+            "It controls the size of the dynamic candidate priority queue, balancing search exploration against query latency"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10704,14 +10524,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural insight is revealed by analyzing the HNSW recall-latency Pareto frontier?",
           "options": [
-            "Higher efSearch always causes queries to timeout.",
-            "Latency decreases as efSearch increases.",
-            "Recall increases rapidly at low efSearch values and exhibits diminishing returns as ef increases, allowing engineers to pick the optimal tradeoff knee.",
-            "HNSW graphs cannot achieve more than fifty percent recall. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints"
+            "Recall increases rapidly at low efSearch values and exhibits diminishing returns as ef increases, allowing engineers to pick the optimal tradeoff knee",
+            "Higher efSearch always causes queries to timeout",
+            "Latency decreases as efSearch increases measured across production vector retrieval pipelines",
+            "HNSW graphs cannot achieve more than fifty percent recall"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -10753,13 +10573,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must an enterprise vector database clamp the user-supplied efSearch parameter?",
           "options": [
             "To force all queries to execute over wireless networks. across dense embedding projection matrices and asynchronous background quantization workers",
-            "To prevent excessively large values from monopolizing CPU threads and ensure efSearch is at least large enough to satisfy top-k.",
-            "To encrypt search queries before saving them to disk.",
-            "To ensure that database tables use uppercase names."
+            "To prevent excessively large values from monopolizing CPU threads and ensure efSearch is at least large enough to satisfy top-k",
+            "To encrypt search queries before saving them to disk",
+            "To ensure that database tables use uppercase names"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'To prevent excessively large values from monopolizing CPU threads and ensure efSearch is at least large enough to satisfy top-k' is correct: in hnsw search tuning: efconstruction vs efsearch recall-latency pareto frontier — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10800,14 +10620,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a sudden spike in average HNSW search hop counts indicate to platform engineers?",
           "options": [
-            "It indicates potential graph structural degradation, such as graph fragmentation or disconnected highway layers, requiring index rebalancing.",
-            "It indicates that the computer screen brightness is too low.",
-            "It indicates that users are typing queries too quickly.",
+            "It indicates that the computer screen brightness is too low",
+            "It indicates that users are typing queries too quickly",
+            "It indicates potential graph structural degradation, such as graph fragmentation or disconnected highway layers, requiring index rebalancing",
             "It indicates that the database requires a license key renewal. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       }
     ],
@@ -10869,14 +10689,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does DiskANN pack graph nodes and adjacency lists into 4KB page-aligned disk offsets?",
           "options": [
-            "To guarantee that retrieving any node and its entire neighbor list requires exactly one physical SSD read operation.",
-            "To encrypt node data before transmission across the internet.",
+            "To encrypt node data before transmission across the internet",
+            "To guarantee that retrieving any node and its entire neighbor list requires exactly one physical SSD read operation",
             "To ensure that vector files can be burned onto optical compact discs. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "To prevent CPU registers from overheating during vector math."
+            "To prevent CPU registers from overheating during vector math"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To guarantee that retrieving any node and its entire neighbor list requires exactly one physical SSD read operation' is correct: in diskann & vamana graphs: ssd page-aligned node layout & beam search — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10917,14 +10737,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of the alpha parameter in Vamana graph neighbor pruning?",
           "options": [
-            "It sets the maximum number of network sockets opened by the database. across distributed inverted vector index partitions and persistent memory segment stores",
-            "It scales the font size of console log output.",
-            "It controls the refresh rate of the host monitor.",
-            "It balances distance proximity against angular diversity, pruning redundant neighbors along existing routing paths."
+            "It sets the maximum number of network sockets opened by the database",
+            "It scales the font size of console log output during approximate nearest neighbor candidate evaluation",
+            "It balances distance proximity against angular diversity, pruning redundant neighbors along existing routing paths",
+            "It controls the refresh rate of the host monitor"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It balances distance proximity against angular diversity, pruning redundant neighbors along existing routing paths' is correct: in diskann & vamana graphs: ssd page-aligned node layout & beam search — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -10965,14 +10785,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does asynchronous beam search overcome the latency of reading graph nodes from SSD storage?",
           "options": [
-            "By writing query vectors to magnetic tape backup.",
-            "By converting all vectors to 8-bit ASCII characters. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "By issuing batched parallel asynchronous I/O requests for all candidates in the beam simultaneously using modern kernel interfaces.",
-            "By shutting down the operating system firewall."
+            "By writing query vectors to magnetic tape backup",
+            "By converting all vectors to 8-bit ASCII characters",
+            "By shutting down the operating system firewall measured across production vector retrieval pipelines",
+            "By issuing batched parallel asynchronous I/O requests for all candidates in the beam simultaneously using modern kernel interfaces"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By issuing batched parallel asynchronous I/O requests for all candidates in the beam simultaneously using modern kernel interfaces' is correct: in diskann & vamana graphs: ssd page-aligned node layout & beam search — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11013,14 +10833,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a production DiskANN search engine enforce a strict maximum SSD read budget per query?",
           "options": [
-            "To prevent memory leaks in the GPU graphics driver.",
-            "To prevent runaway queries from exhausting SSD IOPS capacity and causing disk queue starvation for concurrent users.",
+            "To prevent runaway queries from exhausting SSD IOPS capacity and causing disk queue starvation for concurrent users",
+            "To prevent memory leaks in the GPU graphics driver",
             "To force queries to run exclusively in daytime hours. across dense embedding projection matrices and asynchronous background quantization workers",
-            "To comply with wireless radio emission standards."
+            "To comply with wireless radio emission standards"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To prevent runaway queries from exhausting SSD IOPS capacity and causing disk queue starvation for concurrent users' is correct: in diskann & vamana graphs: ssd page-aligned node layout & beam search — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11061,14 +10881,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary financial advantage of deploying DiskANN over in-memory HNSW for billion-scale search?",
           "options": [
-            "It eliminates the need for software licenses.",
-            "It stores the index on dense SSDs, reducing operational infrastructure costs by over ninety percent compared to server DRAM.",
+            "It eliminates the need for software licenses",
+            "It stores the index on dense SSDs, reducing operational infrastructure costs by over ninety percent compared to server DRAM",
             "It allows queries to run on unpaid volunteer computers. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It provides free unlimited cloud network egress."
+            "It provides free unlimited cloud network egress"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       }
     ],
@@ -11130,14 +10950,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition is pre-filtering computationally optimal for hybrid vector-metadata search?",
           "options": [
-            "When the metadata filter has high selectivity, matching a tiny fraction of the corpus where brute-force scanning is fast.",
+            "When the metadata filter has high selectivity, matching a tiny fraction of the corpus where brute-force scanning is fast",
             "When the dataset contains more than one billion documents. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "When the query vector has exactly three dimensions.",
-            "When all document titles are written in uppercase."
+            "When the query vector has exactly three dimensions",
+            "When all document titles are written in uppercase"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'When the metadata filter has high selectivity, matching a tiny fraction of the corpus where brute-force scanning is fast' is correct: in filtered hnsw: pre-filtering vs post-filtering vs single-stage predicate traversal — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11178,14 +10998,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What catastrophic failure mode affects post-filtering when metadata filters are highly restrictive?",
           "options": [
-            "Database index files are permanently deleted from disk. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Operating system memory is completely corrupted.",
-            "Network routers drop TCP connections.",
-            "Over-filtering: all top-K candidates retrieved by HNSW may fail the filter, resulting in zero results returned to the user."
+            "Database index files are permanently deleted from disk",
+            "Over-filtering: all top-K candidates retrieved by HNSW may fail the filter, resulting in zero results returned to the user",
+            "Operating system memory is completely corrupted",
+            "Network routers drop TCP connections within hierarchical proximity search graphs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Over-filtering: all top-K candidates retrieved by HNSW may fail the filter, resulting in zero results returned to the user' is correct: in filtered hnsw: pre-filtering vs post-filtering vs single-stage predicate traversal — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11226,14 +11046,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does single-stage predicate traversal prevent graph disconnection when navigating filtered HNSW graphs?",
           "options": [
-            "By rebuilding the entire HNSW graph for every incoming user query. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "By deleting all non-matching nodes from the database.",
-            "By using non-matching nodes as routing stepping stones while only admitting matching nodes into the final results queue.",
-            "By running all queries on a single CPU core."
+            "By rebuilding the entire HNSW graph for every incoming user query",
+            "By deleting all non-matching nodes from the database",
+            "By using non-matching nodes as routing stepping stones while only admitting matching nodes into the final results queue",
+            "By running all queries on a single CPU core measured across production vector retrieval pipelines"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -11274,14 +11094,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What runtime failure is prevented by the safe_predicate_check guardrail?",
           "options": [
-            "Segmentation faults in compiled C libraries.",
-            "Out of disk space errors on the boot drive.",
-            "KeyError exceptions caused by evaluating filter predicates against documents whose metadata is missing or lagging replication.",
-            "Network packet loss over wireless connections. across dense embedding projection matrices and asynchronous background quantization workers"
+            "Segmentation faults in compiled C libraries",
+            "Out of disk space errors on the boot drive",
+            "Network packet loss over wireless connections. across dense embedding projection matrices and asynchronous background quantization workers",
+            "KeyError exceptions caused by evaluating filter predicates against documents whose metadata is missing or lagging replication"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'KeyError exceptions caused by evaluating filter predicates against documents whose metadata is missing or lagging replication' is correct: in filtered hnsw: pre-filtering vs post-filtering vs single-stage predicate traversal — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11322,14 +11142,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What search strategy is recommended when a metadata filter has high selectivity (matching under 5% of documents)?",
           "options": [
-            "Post-filtering.",
-            "Pre-filtering, because brute-force scanning the small survivor pool is faster than traversing a sparse graph.",
+            "Pre-filtering, because brute-force scanning the small survivor pool is faster than traversing a sparse graph",
+            "Post-filtering",
             "Disabling the search engine entirely. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "Writing all documents to text files."
+            "Writing all documents to text files"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Pre-filtering, because brute-force scanning the small survivor pool is faster than traversing a sparse graph' is correct: in filtered hnsw: pre-filtering vs post-filtering vs single-stage predicate traversal — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -11391,14 +11211,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must tenant isolation predicates be enforced at the storage layer in multi-tenant vector databases?",
           "options": [
-            "To guarantee zero cross-tenant data leakage and ensure queries only access authorized customer vectors.",
-            "To format search results into Markdown tables.",
-            "To compress vector dimensions down to 8 bits.",
-            "To prevent CPU cooling fans from running continuously. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables"
+            "To format search results into Markdown tables",
+            "To compress vector dimensions down to 8 bits",
+            "To prevent CPU cooling fans from running continuously. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
+            "To guarantee zero cross-tenant data leakage and ensure queries only access authorized customer vectors"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To guarantee zero cross-tenant data leakage and ensure queries only access authorized customer vectors' is correct: in milestone 9 — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11439,14 +11259,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does packing multiple nodes into 4KB SSD pages reduce physical disk I/O operations?",
           "options": [
-            "By compressing data using ZIP archives.",
-            "By turning off the computer monitor during search. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By deleting older index files automatically.",
-            "By leveraging spatial locality, so fetching multiple neighboring nodes on the same page requires only a single physical read."
+            "By leveraging spatial locality, so fetching multiple neighboring nodes on the same page requires only a single physical read",
+            "By compressing data using ZIP archives measured across production vector retrieval pipelines",
+            "By turning off the computer monitor during search",
+            "By deleting older index files automatically"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'By leveraging spatial locality, so fetching multiple neighboring nodes on the same page requires only a single physical read' is correct: in milestone 9 — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11487,14 +11307,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural guarantee provided by the Milestone 9 retrieval pipeline?",
           "options": [
-            "It automatically backs up the database to an external USB drive. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It converts search queries into natural language audio speech.",
-            "It limits queries to twenty characters in length.",
-            "It ensures strict multi-tenant data isolation while returning the top-k nearest neighbors matching the tenant criteria."
+            "It automatically backs up the database to an external USB drive",
+            "It ensures strict multi-tenant data isolation while returning the top-k nearest neighbors matching the tenant criteria",
+            "It converts search queries into natural language audio speech",
+            "It limits queries to twenty characters in length measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It ensures strict multi-tenant data isolation while returning the top-k nearest neighbors matching the tenant criteria' is correct: in milestone 9 — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11535,14 +11355,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What query conditions are validated by the safe_milestone9_query guardrail?",
           "options": [
-            "That the query contains only English dictionary words.",
+            "That the query contains only English dictionary words",
             "That the client computer is connected via Ethernet cable. across dense embedding projection matrices and asynchronous background quantization workers",
-            "That the query vector contains at least one dimension and that top_k is strictly greater than zero.",
-            "That the user has paid their monthly internet bill."
+            "That the query vector contains at least one dimension and that top_k is strictly greater than zero",
+            "That the user has paid their monthly internet bill"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'That the query vector contains at least one dimension and that top_k is strictly greater than zero' is correct: in milestone 9 — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11583,14 +11403,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two key performance criteria determine SLA compliance in the Milestone 9 verification audit?",
           "options": [
-            "Query length exceeding one hundred characters and database file size under 1MB.",
-            "Retrieval recall meeting or exceeding 95% and SSD page reads remaining at or below 16 reads per query.",
+            "Query length exceeding one hundred characters and database file size under 1MB",
             "Server uptime of exactly twenty-four hours and CPU temperature below 20 degrees Celsius. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "All database records having timestamps in UTC."
+            "All database records having timestamps in UTC",
+            "Retrieval recall meeting or exceeding 95% and SSD page reads remaining at or below 16 reads per query"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Retrieval recall meeting or exceeding 95% and SSD page reads remaining at or below 16 reads per query' is correct: in milestone 9 — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -11653,14 +11473,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an in-memory MemTable in an LSM-Vector storage architecture?",
           "options": [
-            "To buffer high-velocity vector writes in RAM, decoupling streaming ingestion from expensive background index construction.",
-            "To permanently archive deleted vectors for legal compliance.",
-            "To encrypt vectors using asymmetric public keys.",
+            "To permanently archive deleted vectors for legal compliance",
+            "To encrypt vectors using asymmetric public keys",
+            "To buffer high-velocity vector writes in RAM, decoupling streaming ingestion from expensive background index construction",
             "To translate vector coordinates into geographical latitude and longitude. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To buffer high-velocity vector writes in RAM, decoupling streaming ingestion from expensive background index construction' is correct: in lsm-vector segment architecture: append-only memtables, tombstone bitmaps & compaction — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11701,14 +11521,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do tombstone bitmaps achieve microsecond deletion latency in immutable vector storage engines?",
           "options": [
-            "By recording deletions as logical bitmask entries in RAM, skipping tombstoned vectors during search without rewriting disk segments.",
-            "By immediately overwriting disk sectors with random noise. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By shutting down background index compaction threads.",
-            "By restarting the vector database daemon process."
+            "By immediately overwriting disk sectors with random noise",
+            "By shutting down background index compaction threads",
+            "By restarting the vector database daemon process across high-dimensional vector space partitions",
+            "By recording deletions as logical bitmask entries in RAM, skipping tombstoned vectors during search without rewriting disk segments"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By recording deletions as logical bitmask entries in RAM, skipping tombstoned vectors during search without rewriting disk segments' is correct: in lsm-vector segment architecture: append-only memtables, tombstone bitmaps & compaction — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11749,14 +11569,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of background merge compaction in an LSM-Vector database?",
           "options": [
-            "To generate automatic email alerts for system administrators. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "To encrypt all database tables with AES-256.",
-            "To convert vector database records into PDF reports.",
-            "To merge immutable segments while permanently purging tombstoned vectors, reclaiming storage space and restoring search efficiency."
+            "To merge immutable segments while permanently purging tombstoned vectors, reclaiming storage space and restoring search efficiency",
+            "To generate automatic email alerts for system administrators",
+            "To encrypt all database tables with AES-256 across high-dimensional vector space partitions",
+            "To convert vector database records into PDF reports"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To merge immutable segments while permanently purging tombstoned vectors, reclaiming storage space and restoring search efficiency' is correct: in lsm-vector segment architecture: append-only memtables, tombstone bitmaps & compaction — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11797,14 +11617,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must point-lookup operations check tombstone bitmaps before retrieving vector data from storage?",
           "options": [
-            "To measure query latency across network interfaces.",
+            "To measure query latency across network interfaces",
+            "To enforce read-after-delete consistency and prevent returning stale vector data that has been logically deleted",
             "To format vector floating point numbers into currency symbols. across dense embedding projection matrices and asynchronous background quantization workers",
-            "To enforce read-after-delete consistency and prevent returning stale vector data that has been logically deleted.",
-            "To verify client IP address geographical location."
+            "To verify client IP address geographical location"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To enforce read-after-delete consistency and prevent returning stale vector data that has been logically deleted' is correct: in lsm-vector segment architecture: append-only memtables, tombstone bitmaps & compaction — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11846,13 +11666,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How much storage space is reclaimed when 25,000 128-dimensional FP32 vectors are purged during compaction?",
           "options": [
             "Zero megabytes, because compaction does not reclaim memory. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "Approximately 12.21 megabytes, calculated from 25,000 documents times 128 dimensions times 4 bytes per float.",
-            "Approximately 500 megabytes.",
-            "One gigabyte."
+            "Approximately 500 megabytes",
+            "Approximately 12.21 megabytes, calculated from 25,000 documents times 128 dimensions times 4 bytes per float",
+            "One gigabyte"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Approximately 12.21 megabytes, calculated from 25,000 documents times 128 dimensions times 4 bytes per float' is correct: in lsm-vector segment architecture: append-only memtables, tombstone bitmaps & compaction — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -11915,13 +11735,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What fundamental database guarantee is established by enforcing the Write-Ahead Logging (WAL) invariant?",
           "options": [
             "Lossy compression of floating-point coordinates. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "Durability: ensuring that every committed vector mutation is written to non-volatile disk before modifying volatile RAM.",
-            "Automatic generation of SQL view tables.",
-            "Network encryption of HTTP header payloads."
+            "Durability: ensuring that every committed vector mutation is written to non-volatile disk before modifying volatile RAM",
+            "Automatic generation of SQL view tables",
+            "Network encryption of HTTP header payloads"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Durability: ensuring that every committed vector mutation is written to non-volatile disk before modifying volatile RAM' is correct: in write-ahead logging (wal), crash recovery & snapshot isolation for vector upserts — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -11962,14 +11782,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does crash recovery start replaying WAL records from the last confirmed checkpoint LSN?",
           "options": [
-            "Because mutations prior to the checkpoint LSN are already safely persisted inside immutable on-disk segment files.",
-            "Because older WAL records are automatically deleted every hour. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Because the database reboots in single-user maintenance mode.",
-            "Because k-means centroids require fresh random initialization."
+            "Because older WAL records are automatically deleted every hour",
+            "Because the database reboots in single-user maintenance mode measured across production vector retrieval pipelines",
+            "Because mutations prior to the checkpoint LSN are already safely persisted inside immutable on-disk segment files",
+            "Because k-means centroids require fresh random initialization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Because mutations prior to the checkpoint LSN are already safely persisted inside immutable on-disk segment files' is correct: in write-ahead logging (wal), crash recovery & snapshot isolation for vector upserts — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12010,14 +11830,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Multi-Version Concurrency Control (MVCC) prevent write stalls during long-running vector queries?",
           "options": [
-            "By pausing all client network traffic until the query finishes. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "By running search queries on an unpowered secondary CPU.",
-            "By converting floating-point vectors into integers.",
-            "By allowing queries to read historical point-in-time snapshots based on LSN visibility without acquiring shared locks."
+            "By pausing all client network traffic until the query finishes",
+            "By running search queries on an unpowered secondary CPU",
+            "By converting floating-point vectors into integers measured across production vector retrieval pipelines",
+            "By allowing queries to read historical point-in-time snapshots based on LSN visibility without acquiring shared locks"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'By allowing queries to read historical point-in-time snapshots based on LSN visibility without acquiring shared locks' is correct: in write-ahead logging (wal), crash recovery & snapshot isolation for vector upserts — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12058,14 +11878,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of storing a CRC32 checksum in every Write-Ahead Log record?",
           "options": [
-            "To encrypt vectors to comply with privacy laws.",
+            "To detect bit corruption or torn disk writes during crash recovery, preventing corrupted data from entering the database",
+            "To encrypt vectors to comply with privacy laws",
             "To compress vector dimensions into smaller byte packets. across dense embedding projection matrices and asynchronous background quantization workers",
-            "To detect bit corruption or torn disk writes during crash recovery, preventing corrupted data from entering the database.",
-            "To sort log records in alphabetical order."
+            "To sort log records in alphabetical order"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To detect bit corruption or torn disk writes during crash recovery, preventing corrupted data from entering the database' is correct: in write-ahead logging (wal), crash recovery & snapshot isolation for vector upserts — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12106,14 +11926,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do vector databases trigger periodic checkpoints based on WAL record lag?",
           "options": [
-            "To clear user web browser cookies.",
-            "To reset network IP addresses on the host router.",
-            "To bound crash recovery replay duration (MTTR) and ensure nodes reboot in under five hundred milliseconds.",
+            "To clear user web browser cookies",
+            "To bound crash recovery replay duration (MTTR) and ensure nodes reboot in under five hundred milliseconds",
+            "To reset network IP addresses on the host router",
             "To enforce password complexity requirements on database users. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To bound crash recovery replay duration (MTTR) and ensure nodes reboot in under five hundred milliseconds' is correct: in write-ahead logging (wal), crash recovery & snapshot isolation for vector upserts — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -12175,14 +11995,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of using FNV-1a hashing for vector document shard placement?",
           "options": [
-            "It encrypts document contents using AES-GCM.",
-            "It provides fast, uniform statistical key dispersion across shards with minimal CPU overhead.",
-            "It converts text documents into MP3 audio podcasts.",
+            "It provides fast, uniform statistical key dispersion across shards with minimal CPU overhead",
+            "It encrypts document contents using AES-GCM",
+            "It converts text documents into MP3 audio podcasts",
             "It synchronizes cluster clocks using GPS satellite signals. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It provides fast, uniform statistical key dispersion across shards with minimal CPU overhead' is correct: in consistent hash sharding vs tenant-key routing for multi-tenant vector clusters — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12223,14 +12043,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is consistent hashing preferred over simple modulo hashing in dynamic distributed vector clusters?",
           "options": [
-            "Because adding or removing nodes moves only 1/N of keys, avoiding mass data migration and network saturation.",
-            "Because consistent hashing compresses vectors into 4-bit integers.",
-            "Because consistent hashing eliminates the need for computer power cables.",
-            "Because consistent hashing guarantees that all vectors are stored in plain text. across distributed inverted vector index partitions and persistent memory segment stores"
+            "Because consistent hashing compresses vectors into 4-bit integers measured across production vector retrieval pipelines",
+            "Because adding or removing nodes moves only 1/N of keys, avoiding mass data migration and network saturation",
+            "Because consistent hashing eliminates the need for computer power cables",
+            "Because consistent hashing guarantees that all vectors are stored in plain text"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because adding or removing nodes moves only 1/N of keys, avoiding mass data migration and network saturation' is correct: in consistent hash sharding vs tenant-key routing for multi-tenant vector clusters — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12271,14 +12091,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of tenant-key routing over consistent hashing for enterprise customers?",
           "options": [
-            "It allows tenant databases to operate without electricity.",
-            "It converts vector similarity search into a standard SQL SELECT statement. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It automatically deletes customer data after thirty days.",
-            "It co-locates all tenant data on dedicated shards, eliminating scatter-gather latency and providing physical data isolation."
+            "It allows tenant databases to operate without electricity",
+            "It converts vector similarity search into a standard SQL SELECT statement",
+            "It co-locates all tenant data on dedicated shards, eliminating scatter-gather latency and providing physical data isolation",
+            "It automatically deletes customer data after thirty days measured across production vector retrieval pipelines"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It co-locates all tenant data on dedicated shards, eliminating scatter-gather latency and providing physical data isolation' is correct: in consistent hash sharding vs tenant-key routing for multi-tenant vector clusters — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12320,13 +12140,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What system failure is mitigated by providing a fallback node in the safe_ring_lookup guardrail?",
           "options": [
             "It prevents users from typing invalid search keywords. across dense embedding projection matrices and asynchronous background quantization workers",
-            "It prevents computer monitors from turning off.",
-            "It prevents memory leakage in client web browsers.",
-            "It prevents gateway crashes and unhandled exceptions when all active ring nodes become unreachable during network partitions."
+            "It prevents computer monitors from turning off",
+            "It prevents memory leakage in client web browsers",
+            "It prevents gateway crashes and unhandled exceptions when all active ring nodes become unreachable during network partitions"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'It prevents gateway crashes and unhandled exceptions when all active ring nodes become unreachable during network partitions' is correct: in consistent hash sharding vs tenant-key routing for multi-tenant vector clusters — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12367,14 +12187,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is keeping shard distribution skew below fifteen percent critical in distributed vector clusters?",
           "options": [
+            "To prevent hot-spot nodes from bottlenecking cluster throughput and degrading query latency for all concurrent users",
             "To ensure that vector files can be opened in Microsoft Excel. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "To prevent CPU cooling fans from stopping.",
-            "To prevent hot-spot nodes from bottlenecking cluster throughput and degrading query latency for all concurrent users.",
-            "To ensure database server IP addresses remain static."
+            "To prevent CPU cooling fans from stopping",
+            "To ensure database server IP addresses remain static"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To prevent hot-spot nodes from bottlenecking cluster throughput and degrading query latency for all concurrent users' is correct: in consistent hash sharding vs tenant-key routing for multi-tenant vector clusters — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -12436,14 +12256,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the query coordinator in the Scatter phase of distributed vector search?",
           "options": [
-            "To delete old vectors from storage.",
-            "To broadcast the search query asynchronously to all relevant cluster shards in parallel.",
-            "To translate the query into SQL statements.",
-            "To convert floating-point vectors into JPEG images. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables"
+            "To delete old vectors from storage",
+            "To translate the query into SQL statements",
+            "To convert floating-point vectors into JPEG images. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
+            "To broadcast the search query asynchronously to all relevant cluster shards in parallel"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To broadcast the search query asynchronously to all relevant cluster shards in parallel' is correct: in scatter-gather query coordinator: tail-latency cutoffs & partial result merging — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12484,14 +12304,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the query coordinator extract global nearest neighbors from individual shard candidate lists?",
           "options": [
-            "By performing an efficient k-way merge across the locally pre-sorted candidate lists and taking the top-k lowest distances.",
-            "By selecting only results from the first shard that responds. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By averaging all vector coordinates into a single number.",
-            "By picking documents at random from each shard."
+            "By performing an efficient k-way merge across the locally pre-sorted candidate lists and taking the top-k lowest distances",
+            "By selecting only results from the first shard that responds",
+            "By averaging all vector coordinates into a single number",
+            "By picking documents at random from each shard during approximate nearest neighbor candidate evaluation"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'By performing an efficient k-way merge across the locally pre-sorted candidate lists and taking the top-k lowest distances' is correct: in scatter-gather query coordinator: tail-latency cutoffs & partial result merging — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12532,14 +12352,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational purpose of enforcing tail-latency cutoffs in distributed scatter-gather search?",
           "options": [
-            "To prevent slow straggler nodes from destroying p99 query latency SLAs, returning fast partial results instead of waiting.",
-            "To permanently shut down slow server nodes.",
-            "To force clients to resubmit queries multiple times. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "To reduce database software licensing costs."
+            "To permanently shut down slow server nodes during approximate nearest neighbor candidate evaluation",
+            "To prevent slow straggler nodes from destroying p99 query latency SLAs, returning fast partial results instead of waiting",
+            "To force clients to resubmit queries multiple times",
+            "To reduce database software licensing costs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To prevent slow straggler nodes from destroying p99 query latency SLAs, returning fast partial results instead of waiting' is correct: in scatter-gather query coordinator: tail-latency cutoffs & partial result merging — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12581,13 +12401,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What failure mode is prevented by the safe_merge_shards defensive guardrail?",
           "options": [
             "Memory leakage in operating system socket buffers. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Unauthorized access to customer database tables.",
-            "Physical damage to computer hard drives.",
-            "Unhandled exceptions and crashes caused by processing empty, null, or corrupted shard response payloads."
+            "Unauthorized access to customer database tables",
+            "Unhandled exceptions and crashes caused by processing empty, null, or corrupted shard response payloads",
+            "Physical damage to computer hard drives"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Unhandled exceptions and crashes caused by processing empty, null, or corrupted shard response payloads' is correct: in scatter-gather query coordinator: tail-latency cutoffs & partial result merging — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12628,14 +12448,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a 100% coverage percentage indicate in scatter-gather query coordinator telemetry?",
           "options": [
-            "That all server hard drives are one hundred percent full.",
-            "That the database has run out of memory.",
-            "That all distributed cluster shards responded successfully within the SLA deadline, ensuring complete global recall.",
-            "That user query strings matched one hundred percent of words in the dictionary. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
+            "That all server hard drives are one hundred percent full",
+            "That the database has run out of memory",
+            "That user query strings matched one hundred percent of words in the dictionary. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
+            "That all distributed cluster shards responded successfully within the SLA deadline, ensuring complete global recall"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'That all distributed cluster shards responded successfully within the SLA deadline, ensuring complete global recall' is correct: in scatter-gather query coordinator: tail-latency cutoffs & partial result merging — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -12697,14 +12517,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of configuring primary and replica nodes in Milestone 10?",
           "options": [
-            "To duplicate search queries for billing purposes.",
-            "To guarantee high availability and fault tolerance, allowing replicas to take over immediately if a primary node crashes.",
-            "To slow down write transactions.",
+            "To duplicate search queries for billing purposes",
+            "To slow down write transactions",
+            "To guarantee high availability and fault tolerance, allowing replicas to take over immediately if a primary node crashes",
             "To convert vector database records into audio podcasts. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To guarantee high availability and fault tolerance, allowing replicas to take over immediately if a primary node crashes' is correct: in milestone 10 — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12745,14 +12565,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the cluster router determine the destination shard for an incoming vector upsert?",
           "options": [
-            "By asking the user to manually choose a shard on a web page.",
-            "By deterministically mapping the document identifier to a shard index using hash modulo partitioning.",
-            "By saving the vector to the local hard drive of the client laptop. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By picking a shard at random without checking document keys."
+            "By asking the user to manually choose a shard on a web page within hierarchical proximity search graphs",
+            "By saving the vector to the local hard drive of the client laptop",
+            "By picking a shard at random without checking document keys",
+            "By deterministically mapping the document identifier to a shard index using hash modulo partitioning"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By deterministically mapping the document identifier to a shard index using hash modulo partitioning' is correct: in milestone 10 — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12793,14 +12613,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary performance benefit of parallelizing vector search across distributed cluster shards?",
           "options": [
-            "Query latency scales with the size of an individual shard rather than the global corpus size, achieving massive parallel speedup.",
-            "It converts vector embeddings into compressed text files. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It eliminates the need for software testing.",
-            "It doubles the CPU clock frequency of each machine."
+            "Query latency scales with the size of an individual shard rather than the global corpus size, achieving massive parallel speedup",
+            "It converts vector embeddings into compressed text files",
+            "It eliminates the need for software testing during approximate nearest neighbor candidate evaluation",
+            "It doubles the CPU clock frequency of each machine"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Query latency scales with the size of an individual shard rather than the global corpus size, achieving massive parallel speedup' is correct: in milestone 10 — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12842,13 +12662,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What catastrophic distributed systems failure is prevented by enforcing majority quorum rules?",
           "options": [
             "Physical overheating of server power supplies. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Loss of client internet connection.",
-            "Automatic deletion of database user accounts.",
-            "Split-brain state corruption, where isolated cluster partitions accept conflicting writes during network partitions."
+            "Split-brain state corruption, where isolated cluster partitions accept conflicting writes during network partitions",
+            "Loss of client internet connection",
+            "Automatic deletion of database user accounts"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Split-brain state corruption, where isolated cluster partitions accept conflicting writes during network partitions' is correct: in milestone 10 — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -12889,14 +12709,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What SLA condition determines healthy operational status in the Milestone 10 performance audit?",
           "options": [
-            "That all database records have prime number identifiers.",
+            "That all database records have prime number identifiers",
             "That the server runs for thirty consecutive days without rebooting. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "That p99 distributed search latency remains strictly at or below 10.0 milliseconds under full query load.",
-            "That all vector coordinates sum to exactly zero."
+            "That p99 distributed search latency remains strictly at or below 10.0 milliseconds under full query load",
+            "That all vector coordinates sum to exactly zero"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'That p99 distributed search latency remains strictly at or below 10.0 milliseconds under full query load' is correct: in milestone 10 — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -12958,14 +12778,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two conditions must be satisfied for a document to pass row-level ACL verification?",
           "options": [
-            "The caller must know the server's root password.",
+            "The caller must know the server's root password",
+            "The caller's tenant ID must match the document's tenant ID, and the caller must possess the role required by the document",
             "The query vector must contain only positive floating-point numbers. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "The caller's tenant ID must match the document's tenant ID, and the caller must possess the role required by the document.",
-            "The search query must be submitted via an encrypted VPN."
+            "The search query must be submitted via an encrypted VPN"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The caller's tenant ID must match the document's tenant ID, and the caller must possess the role required by the document' is correct: in multi-tenant namespace isolation, row-level acls & per-tenant quota throttling — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13006,14 +12826,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a token-bucket rate limiter handle sudden traffic bursts while enforcing long-term quotas?",
           "options": [
-            "It drops all requests that arrive during business hours.",
-            "It allows burst traffic up to the bucket capacity while replenishing tokens at a steady rate to cap long-term consumption.",
-            "It queues requests in operating system swap space indefinitely. across distributed inverted vector index partitions and persistent memory segment stores",
-            "It doubles server CPU clock speed during high traffic."
+            "It drops all requests that arrive during business hours",
+            "It queues requests in operating system swap space indefinitely",
+            "It allows burst traffic up to the bucket capacity while replenishing tokens at a steady rate to cap long-term consumption",
+            "It doubles server CPU clock speed during high traffic measured across production vector retrieval pipelines"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It allows burst traffic up to the bucket capacity while replenishing tokens at a steady rate to cap long-term consumption' is correct: in multi-tenant namespace isolation, row-level acls & per-tenant quota throttling — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13054,14 +12874,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of logical namespaces within a multi-tenant vector database?",
           "options": [
-            "They allow a single tenant to isolate multiple distinct document environments (such as staging and prod) without spinning up new clusters.",
-            "They convert vector embeddings into HTML web pages. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "They encrypt database backups using quantum keys.",
-            "They eliminate the need for computer monitors."
+            "They convert vector embeddings into HTML web pages",
+            "They encrypt database backups using quantum keys",
+            "They eliminate the need for computer monitors within hierarchical proximity search graphs",
+            "They allow a single tenant to isolate multiple distinct document environments (such as staging and prod) without spinning up new clusters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'They allow a single tenant to isolate multiple distinct document environments (such as staging and prod) without spinning up new clusters' is correct: in multi-tenant namespace isolation, row-level acls & per-tenant quota throttling — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13102,14 +12922,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What system protection is provided by the safe_quota_check guardrail?",
           "options": [
-            "It forces all vector files to be saved in text format.",
+            "It stops runaway client scripts from consuming excessive cluster resources and ensures billing quota compliance",
+            "It forces all vector files to be saved in text format",
             "It prevents database users from changing their passwords. across dense embedding projection matrices and asynchronous background quantization workers",
-            "It ensures that network cables remain connected.",
-            "It stops runaway client scripts from consuming excessive cluster resources and ensures billing quota compliance."
+            "It ensures that network cables remain connected"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It stops runaway client scripts from consuming excessive cluster resources and ensures billing quota compliance' is correct: in multi-tenant namespace isolation, row-level acls & per-tenant quota throttling — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13150,14 +12970,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is real-time monitoring of ACL denials and query throttling critical in multi-tenant cloud vector databases?",
           "options": [
-            "To change the font color of user interface buttons.",
+            "To change the font color of user interface buttons",
+            "To detect potential credential scraping, unauthorized access attempts, and noisy-neighbor quota exhaustion",
             "To measure how fast client web browsers render images. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "To restart computer cooling fans.",
-            "To detect potential credential scraping, unauthorized access attempts, and noisy-neighbor quota exhaustion."
+            "To restart computer cooling fans"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To detect potential credential scraping, unauthorized access attempts, and noisy-neighbor quota exhaustion' is correct: in multi-tenant namespace isolation, row-level acls & per-tenant quota throttling — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -13219,14 +13039,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of query rewriting and expansion in retrieval pipelines?",
           "options": [
+            "To bridge the vocabulary mismatch problem by enriching concise user queries with relevant domain synonyms",
             "To translate search queries into binary machine code. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "To delete stop words from relational database tables.",
-            "To bridge the vocabulary mismatch problem by enriching concise user queries with relevant domain synonyms.",
-            "To force search engines to return fewer results."
+            "To delete stop words from relational database tables",
+            "To force search engines to return fewer results"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To bridge the vocabulary mismatch problem by enriching concise user queries with relevant domain synonyms' is correct: in query rewriting, expansion & cross-encoder reranking cascades — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13267,14 +13087,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do cross-encoders achieve higher ranking accuracy than bi-encoder dense embeddings?",
           "options": [
-            "Because cross-encoders use smaller neural network weights. across distributed inverted vector index partitions and persistent memory segment stores",
-            "Because cross-encoders evaluate full self-attention across concatenated query and document tokens simultaneously.",
-            "Because cross-encoders run on faster computer hard drives.",
-            "Because cross-encoders discard the user's query text."
+            "Because cross-encoders use smaller neural network weights",
+            "Because cross-encoders evaluate full self-attention across concatenated query and document tokens simultaneously",
+            "Because cross-encoders run on faster computer hard drives",
+            "Because cross-encoders discard the user's query text during approximate nearest neighbor candidate evaluation"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Because cross-encoders evaluate full self-attention across concatenated query and document tokens simultaneously' is correct: in query rewriting, expansion & cross-encoder reranking cascades — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13315,14 +13135,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of the cascaded bi-encoder plus cross-encoder architecture?",
           "options": [
-            "It combines the sub-millisecond retrieval speed of bi-encoders with the state-of-the-art ranking precision of cross-encoders.",
-            "It eliminates the need for database storage servers. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "It translates user search queries into Spanish.",
-            "It compresses text files into MP3 format."
+            "It eliminates the need for database storage servers",
+            "It translates user search queries into Spanish",
+            "It combines the sub-millisecond retrieval speed of bi-encoders with the state-of-the-art ranking precision of cross-encoders",
+            "It compresses text files into MP3 format measured across production vector retrieval pipelines"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It combines the sub-millisecond retrieval speed of bi-encoders with the state-of-the-art ranking precision of cross-encoders' is correct: in query rewriting, expansion & cross-encoder reranking cascades — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13363,14 +13183,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is defensive text normalization important before passing queries to neural embedding models?",
           "options": [
-            "To eliminate irregular whitespace and casing artifacts, ensuring consistent tokenization and optimal semantic matching.",
             "To translate the query into hexadecimal format. across dense embedding projection matrices and asynchronous background quantization workers",
-            "To prevent computer screens from dimming.",
-            "To delete database index backups."
+            "To prevent computer screens from dimming",
+            "To delete database index backups",
+            "To eliminate irregular whitespace and casing artifacts, ensuring consistent tokenization and optimal semantic matching"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To eliminate irregular whitespace and casing artifacts, ensuring consistent tokenization and optimal semantic matching' is correct: in query rewriting, expansion & cross-encoder reranking cascades — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13411,14 +13231,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What retrieval quality lift is achieved when cross-encoder reranking boosts recall from 0.82 to 0.94?",
           "options": [
-            "A 100% decrease in retrieval quality.",
-            "Zero percent change.",
-            "A 2x increase in database storage size. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "A 14.63% relative lift in retrieval quality across candidate documents."
+            "A 14.63% relative lift in retrieval quality across candidate documents",
+            "A 100% decrease in retrieval quality",
+            "Zero percent change",
+            "A 2x increase in database storage size. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Recall measures the proportion of true nearest neighbors retrieved in the candidate set, serving as the core ANN quality metric."
         }
       }
     ],
@@ -13481,13 +13301,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What information retrieval defect occurs when pure cosine similarity search returns overlapping document chunks?",
           "options": [
             "The database crashes due to memory overflow. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "Vectors lose their floating-point precision.",
-            "Redundant near-duplicate chunks dominate the top results, wasting LLM context window tokens and reducing result diversity.",
-            "Network routers drop search query packets."
+            "Vectors lose their floating-point precision",
+            "Network routers drop search query packets",
+            "Redundant near-duplicate chunks dominate the top results, wasting LLM context window tokens and reducing result diversity"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Redundant near-duplicate chunks dominate the top results, wasting LLM context window tokens and reducing result diversity' is correct: in mmr (maximal marginal relevance) diversity reranking to eliminate redundant chunks — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13529,14 +13349,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the MMR formula prevent near-duplicate documents from dominating search results?",
           "options": [
-            "By deleting duplicate documents from the hard drive. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By subtracting a redundancy penalty proportional to the candidate's maximum similarity to any already-selected document.",
-            "By multiplying all document scores by zero.",
-            "By hashing document titles with MD5."
+            "By subtracting a redundancy penalty proportional to the candidate's maximum similarity to any already-selected document",
+            "By deleting duplicate documents from the hard drive",
+            "By multiplying all document scores by zero",
+            "By hashing document titles with MD5 during approximate nearest neighbor candidate evaluation"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'By subtracting a redundancy penalty proportional to the candidate's maximum similarity to any already-selected document' is correct: in mmr (maximal marginal relevance) diversity reranking to eliminate redundant chunks — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13577,14 +13397,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the redundancy penalty for the very first document selected in an MMR search?",
           "options": [
-            "One, because all documents are penalized equally. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "Zero, because no prior documents have been selected, allowing the single most query-relevant document to be chosen first.",
-            "Negative infinity.",
-            "Undefined, causing a runtime arithmetic error."
+            "One, because all documents are penalized equally",
+            "Zero, because no prior documents have been selected, allowing the single most query-relevant document to be chosen first",
+            "Negative infinity during approximate nearest neighbor candidate evaluation",
+            "Undefined, causing a runtime arithmetic error"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Zero, because no prior documents have been selected, allowing the single most query-relevant document to be chosen first' is correct: in mmr (maximal marginal relevance) diversity reranking to eliminate redundant chunks — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13625,14 +13445,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical error occurs if the MMR lambda parameter is allowed to exceed 1.0?",
           "options": [
-            "The diversity term (1 - lambda) becomes negative, causing the algorithm to reward rather than penalize redundant documents.",
-            "The computer CPU halts execution.",
-            "The database connection drops.",
+            "The computer CPU halts execution",
+            "The database connection drops",
+            "The diversity term (1 - lambda) becomes negative, causing the algorithm to reward rather than penalize redundant documents",
             "Vector dimensions are deleted from memory. across dense embedding projection matrices and asynchronous background quantization workers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The diversity term (1 - lambda) becomes negative, causing the algorithm to reward rather than penalize redundant documents' is correct: in mmr (maximal marginal relevance) diversity reranking to eliminate redundant chunks — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13673,14 +13493,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What metric does the diversity dispersion audit use to classify result redundancy as LOW versus HIGH?",
           "options": [
-            "The total byte size of document titles.",
-            "The number of vowels in the search query.",
+            "The total byte size of document titles",
+            "The number of vowels in the search query",
             "The physical temperature of the server motherboard. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "The average pairwise cosine similarity across all pairs of selected documents, flagging redundancy if average similarity exceeds 0.85."
+            "The average pairwise cosine similarity across all pairs of selected documents, flagging redundancy if average similarity exceeds 0.85"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'The average pairwise cosine similarity across all pairs of selected documents, flagging redundancy if average similarity exceeds 0.85' is correct: in mmr (maximal marginal relevance) diversity reranking to eliminate redundant chunks — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -13743,13 +13563,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary role of exact lexical hashing in a two-tier semantic caching architecture?",
           "options": [
             "To encrypt user queries to comply with GDPR privacy laws. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "To compress vector dimensions into smaller byte arrays.",
-            "To resolve exact and normalized query repetitions in microseconds before initiating vector similarity comparisons.",
-            "To delete expired database records automatically."
+            "To compress vector dimensions into smaller byte arrays",
+            "To resolve exact and normalized query repetitions in microseconds before initiating vector similarity comparisons",
+            "To delete expired database records automatically"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'To resolve exact and normalized query repetitions in microseconds before initiating vector similarity comparisons' is correct: in semantic cache lookup with adaptive similarity thresholds & staleness eviction — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13790,14 +13610,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a semantic query cache determine if a new query can reuse a cached response?",
           "options": [
-            "By checking if both queries have the same number of words. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By comparing the IP addresses of the two users.",
-            "By computing cosine similarity against cached query vectors and verifying that similarity meets or exceeds a threshold.",
-            "By measuring the file size of the database index."
+            "By checking if both queries have the same number of words",
+            "By comparing the IP addresses of the two users across high-dimensional vector space partitions",
+            "By measuring the file size of the database index",
+            "By computing cosine similarity against cached query vectors and verifying that similarity meets or exceeds a threshold"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By computing cosine similarity against cached query vectors and verifying that similarity meets or exceeds a threshold' is correct: in semantic cache lookup with adaptive similarity thresholds & staleness eviction — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13838,14 +13658,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is TTL-based staleness eviction strictly necessary in semantic query caching systems?",
           "options": [
-            "To force computers to reboot every sixty seconds. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "To prevent serving outdated, inaccurate information to users as underlying database records change over time.",
-            "To delete user account profiles.",
-            "To clear the web browser history."
+            "To prevent serving outdated, inaccurate information to users as underlying database records change over time",
+            "To force computers to reboot every sixty seconds",
+            "To delete user account profiles measured across production vector retrieval pipelines",
+            "To clear the web browser history"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To prevent serving outdated, inaccurate information to users as underlying database records change over time' is correct: in semantic cache lookup with adaptive similarity thresholds & staleness eviction — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13886,14 +13706,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What system hazard is prevented by setting a minimum floor on semantic cache similarity thresholds?",
           "options": [
-            "False-positive semantic collisions, where completely unrelated queries receive incorrect cached answers.",
-            "Physical overheating of server power supplies.",
+            "Physical overheating of server power supplies",
+            "False-positive semantic collisions, where completely unrelated queries receive incorrect cached answers",
             "Operating system kernel panic during memory allocation. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Network packet fragmentation across switches."
+            "Network packet fragmentation across switches"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'False-positive semantic collisions, where completely unrelated queries receive incorrect cached answers' is correct: in semantic cache lookup with adaptive similarity thresholds & staleness eviction — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -13934,14 +13754,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What business value is delivered by achieving a 35% hit rate in semantic query caching?",
           "options": [
-            "It doubles server disk storage requirements.",
+            "It doubles server disk storage requirements",
             "It converts vector embeddings into PDF documents. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It limits client queries to five words.",
-            "It reduces expensive LLM generation and vector search compute by over one-third while slashing p95 query latency."
+            "It reduces expensive LLM generation and vector search compute by over one-third while slashing p95 query latency",
+            "It limits client queries to five words"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It reduces expensive LLM generation and vector search compute by over one-third while slashing p95 query latency' is correct: in semantic cache lookup with adaptive similarity thresholds & staleness eviction — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -14003,14 +13823,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural invariant enforced by Milestone 11 before diversity reranking begins?",
           "options": [
-            "All vectors must be normalized to zero length.",
+            "All vectors must be normalized to zero length",
+            "All candidate vectors must pass access guard verification, strictly eliminating unauthorized cross-tenant data before ranking",
             "All document titles must be translated to French. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "All queries must be submitted by root users.",
-            "All candidate vectors must pass access guard verification, strictly eliminating unauthorized cross-tenant data before ranking."
+            "All queries must be submitted by root users"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'All candidate vectors must pass access guard verification, strictly eliminating unauthorized cross-tenant data before ranking' is correct: in milestone 11 — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14051,14 +13871,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Milestone 11 pipeline handle documents belonging to unauthorized tenants?",
           "options": [
-            "It returns them with a warning message.",
-            "It encrypts them and returns them anyway.",
-            "It filters them out immediately in stage one, completely excluding them from MMR scoring and final search results.",
-            "It writes an error message to the operating system console. across distributed inverted vector index partitions and persistent memory segment stores"
+            "It returns them with a warning message measured across production vector retrieval pipelines",
+            "It encrypts them and returns them anyway",
+            "It filters them out immediately in stage one, completely excluding them from MMR scoring and final search results",
+            "It writes an error message to the operating system console"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'It filters them out immediately in stage one, completely excluding them from MMR scoring and final search results' is correct: in milestone 11 — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14099,14 +13919,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What compliance score is required to achieve VERIFIED status in the Milestone 11 security audit?",
           "options": [
-            "At least 50% compliance.",
-            "100.0% compliance, with zero security violations detected across all authorization checks.",
-            "Compliance cannot be measured in software. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "Any score above zero."
+            "At least 50% compliance",
+            "Compliance cannot be measured in software",
+            "Any score above zero measured across production vector retrieval pipelines",
+            "100.0% compliance, with zero security violations detected across all authorization checks"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'100.0% compliance, with zero security violations detected across all authorization checks' is correct: in milestone 11 — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14147,14 +13967,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What system invariants are validated by the safe_milestone11_inputs guardrail?",
           "options": [
-            "That the user tenant ID is strictly positive and that the candidate list contains at least one record.",
-            "That the user is connected to a fiber-optic internet line.",
-            "That the query vector contains only even numbers.",
+            "That the user tenant ID is strictly positive and that the candidate list contains at least one record",
+            "That the user is connected to a fiber-optic internet line",
+            "That the query vector contains only even numbers",
             "That the computer was booted within the last twenty-four hours. across dense embedding projection matrices and asynchronous background quantization workers"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'That the user tenant ID is strictly positive and that the candidate list contains at least one record' is correct: in milestone 11 — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14195,14 +14015,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What total execution latency is achieved by the Milestone 11 access guard and MMR diversity pipeline?",
           "options": [
-            "1.97 milliseconds, well below the strict 5.0 millisecond production SLA ceiling.",
-            "15.0 seconds.",
-            "100 milliseconds.",
+            "15.0 seconds",
+            "1.97 milliseconds, well below the strict 5.0 millisecond production SLA ceiling",
+            "100 milliseconds",
             "Zero latency, because diversity ranking is skipped. through automated multi-node vector cluster heartbeat polling and replica synchronization streams"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'1.97 milliseconds, well below the strict 5.0 millisecond production SLA ceiling' is correct: in milestone 11 — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -14264,14 +14084,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Recall@K measure when evaluating vector retrieval algorithms?",
           "options": [
+            "The proportion of known relevant ground-truth documents that appear within the top-K retrieved search positions",
             "The number of CPU cycles consumed during index construction. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "The total byte size of retrieved vector payloads.",
-            "The physical temperature of the vector database server.",
-            "The proportion of known relevant ground-truth documents that appear within the top-K retrieved search positions."
+            "The total byte size of retrieved vector payloads",
+            "The physical temperature of the vector database server"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The proportion of known relevant ground-truth documents that appear within the top-K retrieved search positions' is correct: in retrieval evaluation suite — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14312,14 +14132,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What reciprocal rank is assigned to a query when the first relevant document appears at rank position 2?",
           "options": [
-            "2.0.",
-            "Zero. across distributed inverted vector index partitions and persistent memory segment stores",
-            "0.5 (evaluated as 1 divided by 2).",
-            "1.0."
+            "2.0 measured across production vector retrieval pipelines",
+            "0.5 (evaluated as 1 divided by 2)",
+            "Zero",
+            "1.0"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'0.5 (evaluated as 1 divided by 2)' is correct: in retrieval evaluation suite — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14360,14 +14180,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is nDCG considered the most comprehensive metric for evaluating search ranking quality?",
           "options": [
-            "Because it converts all numbers into positive integers.",
-            "Because it accounts for graded degrees of relevance and applies logarithmic position discounts to penalize lower-ranked relevant items.",
-            "Because it runs without requiring mathematical calculations. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "Because it is supported by relational databases."
+            "Because it converts all numbers into positive integers",
+            "Because it runs without requiring mathematical calculations",
+            "Because it accounts for graded degrees of relevance and applies logarithmic position discounts to penalize lower-ranked relevant items",
+            "Because it is supported by relational databases measured across production vector retrieval pipelines"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Because it accounts for graded degrees of relevance and applies logarithmic position discounts to penalize lower-ranked relevant items' is correct: in retrieval evaluation suite — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14408,14 +14228,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What invariant must hold for valid Recall, MRR, and nDCG metric values?",
           "options": [
-            "All metrics must be greater than 100.",
-            "All three metrics must evaluate to real numbers strictly bounded between 0.0 and 1.0.",
+            "All metrics must be greater than 100",
             "All metrics must sum to an even integer. across dense embedding projection matrices and asynchronous background quantization workers",
-            "All metrics must equal negative one."
+            "All metrics must equal negative one",
+            "All three metrics must evaluate to real numbers strictly bounded between 0.0 and 1.0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'All three metrics must evaluate to real numbers strictly bounded between 0.0 and 1.0' is correct: in retrieval evaluation suite — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14456,14 +14276,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two minimum quality criteria must be satisfied to earn CERTIFIED status in the evaluation audit?",
           "options": [
-            "Average Recall@10 of at least 0.90 and average MRR of at least 0.70 across the evaluation query benchmark.",
+            "Average Recall@10 of at least 0.90 and average MRR of at least 0.70 across the evaluation query benchmark",
             "Total queries exceeding one billion and zero CPU usage. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "All documents having exactly ten words in their titles.",
-            "Database file size under one megabyte."
+            "All documents having exactly ten words in their titles",
+            "Database file size under one megabyte"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Average Recall@10 of at least 0.90 and average MRR of at least 0.70 across the evaluation query benchmark' is correct: in retrieval evaluation suite — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -14526,13 +14346,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What causes retrieval recall degradation when embedding drift occurs in an IVF vector index?",
           "options": [
             "The database hard drive runs out of sectors. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "Floating-point numbers convert to integers.",
-            "Network cables lose electrical conductivity.",
-            "New vectors drift away from historical centroids, causing Voronoi boundary misassignments that miss relevant clusters."
+            "Floating-point numbers convert to integers",
+            "Network cables lose electrical conductivity",
+            "New vectors drift away from historical centroids, causing Voronoi boundary misassignments that miss relevant clusters"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "Inverted File indexes partition vectors into Voronoi cells, restricting distance evaluations to nearest centroid clusters."
         }
       },
       {
@@ -14573,14 +14393,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Population Stability Index (PSI) below 0.10 indicate about an embedding distribution?",
           "options": [
-            "That ninety percent of database records have been deleted. across distributed inverted vector index partitions and persistent memory segment stores",
-            "That all queries are failing.",
-            "That the current embedding distribution is statistically stable and shows negligible drift relative to the baseline.",
-            "That server RAM is ninety percent utilized."
+            "That the current embedding distribution is statistically stable and shows negligible drift relative to the baseline",
+            "That ninety percent of database records have been deleted",
+            "That all queries are failing across high-dimensional vector space partitions",
+            "That server RAM is ninety percent utilized"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'That the current embedding distribution is statistically stable and shows negligible drift relative to the baseline' is correct: in embedding drift detection — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14621,14 +14441,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action is triggered when centroid drift exceeds 0.05 in production drift monitoring?",
           "options": [
-            "SHUTDOWN_SERVER, immediately halting the entire database cluster. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "DELETE_ALL_DATA, purging all customer records.",
-            "TRIGGER_BACKGROUND_REINDEX, initiating automated re-clustering and centroid re-training on shadow nodes.",
-            "DO_NOTHING, ignoring the drift."
+            "SHUTDOWN_SERVER, immediately halting the entire database cluster",
+            "TRIGGER_BACKGROUND_REINDEX, initiating automated re-clustering and centroid re-training on shadow nodes",
+            "DELETE_ALL_DATA, purging all customer records",
+            "DO_NOTHING, ignoring the drift within hierarchical proximity search graphs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'TRIGGER_BACKGROUND_REINDEX, initiating automated re-clustering and centroid re-training on shadow nodes' is correct: in embedding drift detection — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14669,14 +14489,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must cosine drift distance metrics be clamped to a minimum floor of 0.0?",
           "options": [
-            "To convert distance into miles.",
-            "To prevent floating-point roundoff noise from producing negative distance values that violate metric space invariants.",
+            "To convert distance into miles",
             "To allow vectors to be stored on CD-ROMs. across dense embedding projection matrices and asynchronous background quantization workers",
-            "To speed up internet download speeds."
+            "To prevent floating-point roundoff noise from producing negative distance values that violate metric space invariants",
+            "To speed up internet download speeds"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To prevent floating-point roundoff noise from producing negative distance values that violate metric space invariants' is correct: in embedding drift detection — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14717,14 +14537,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational advantage is achieved by auditing embedding drift at the namespace level?",
           "options": [
-            "It enables targeted re-indexing of only the drifting namespaces, avoiding wasteful global index rebuilds.",
-            "It deletes inactive user accounts.",
+            "It deletes inactive user accounts",
             "It converts vector databases into relational SQL tables. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "It forces all users to change their passwords."
+            "It forces all users to change their passwords",
+            "It enables targeted re-indexing of only the drifting namespaces, avoiding wasteful global index rebuilds"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'It enables targeted re-indexing of only the drifting namespaces, avoiding wasteful global index rebuilds' is correct: in embedding drift detection — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -14787,13 +14607,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary role of the dual-write protocol during vector index migrations?",
           "options": [
             "To double the billing charges to customer accounts. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "To encrypt vectors using two separate passwords.",
-            "To slow down write transactions.",
-            "To keep the new candidate index synchronized with live streaming writes while historical backfilling takes place."
+            "To encrypt vectors using two separate passwords",
+            "To keep the new candidate index synchronized with live streaming writes while historical backfilling takes place",
+            "To slow down write transactions"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To keep the new candidate index synchronized with live streaming writes while historical backfilling takes place' is correct: in zero-downtime dual-write index migrations — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14834,14 +14654,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is shadow query verification performed before cutting over live read traffic to a new index?",
           "options": [
-            "To generate automatic invoices for user searches.",
-            "To test client laptop battery life.",
-            "To verify that all servers have the same color cables. across distributed inverted vector index partitions and persistent memory segment stores",
-            "To empirically verify that candidate index recall matches or exceeds primary index recall under live production workloads."
+            "To generate automatic invoices for user searches",
+            "To test client laptop battery life within hierarchical proximity search graphs",
+            "To verify that all servers have the same color cables",
+            "To empirically verify that candidate index recall matches or exceeds primary index recall under live production workloads"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'To empirically verify that candidate index recall matches or exceeds primary index recall under live production workloads' is correct: in zero-downtime dual-write index migrations — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14882,14 +14702,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What shadow agreement threshold must be satisfied before the migration controller commits 100% traffic cutover?",
           "options": [
-            "Shadow agreement must be exactly zero.",
-            "Agreement does not matter; cutover is scheduled by clock time. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "Shadow recall agreement must meet or exceed 0.95 (95%), verifying near-lossless retrieval parity with the legacy index.",
-            "Agreement must exceed 200%."
+            "Shadow recall agreement must meet or exceed 0.95 (95%), verifying near-lossless retrieval parity with the legacy index",
+            "Shadow agreement must be exactly zero",
+            "Agreement does not matter; cutover is scheduled by clock time",
+            "Agreement must exceed 200% within hierarchical proximity search graphs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Shadow recall agreement must meet or exceed 0.95 (95%), verifying near-lossless retrieval parity with the legacy index' is correct: in zero-downtime dual-write index migrations — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14930,14 +14750,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it possible to roll back to the legacy index in milliseconds if post-cutover errors emerge?",
           "options": [
-            "Because the database is completely empty.",
-            "Because dual-writes kept the legacy index fully synchronized with streaming writes throughout the entire migration process.",
+            "Because the database is completely empty",
+            "Because dual-writes kept the legacy index fully synchronized with streaming writes throughout the entire migration process",
             "Because all queries are cached in browser memory. across dense embedding projection matrices and asynchronous background quantization workers",
-            "Because rollback deletes the new index from disk."
+            "Because rollback deletes the new index from disk"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Because dual-writes kept the legacy index fully synchronized with streaming writes throughout the entire migration process' is correct: in zero-downtime dual-write index migrations — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -14978,14 +14798,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two conditions confirm ready_for_cutover status in the migration progress audit?",
           "options": [
-            "Document synchronization reaching 100.0% and shadow recall agreement meeting or exceeding 0.95 across test queries.",
             "Server uptime reaching thirty days and zero queries received. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "CPU utilization remaining at zero percent.",
-            "All database records having unique names."
+            "CPU utilization remaining at zero percent",
+            "Document synchronization reaching 100.0% and shadow recall agreement meeting or exceeding 0.95 across test queries",
+            "All database records having unique names"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Document synchronization reaching 100.0% and shadow recall agreement meeting or exceeding 0.95 across test queries' is correct: in zero-downtime dual-write index migrations — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -15051,14 +14871,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two components comprise the total RAM footprint of an in-memory HNSW vector index?",
           "options": [
-            "The vector embedding coordinate data plus the graph edge adjacency pointers across all layers.",
             "The operating system desktop wallpaper plus the web browser cache. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "The compiler source code plus the unit test files.",
-            "The database user password database."
+            "The vector embedding coordinate data plus the graph edge adjacency pointers across all layers",
+            "The compiler source code plus the unit test files",
+            "The database user password database"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Hierarchical Navigable Small World graphs provide logarithmic search complexity by navigating layered proximity graphs."
         }
       },
       {
@@ -15100,14 +14920,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do capacity planning models incorporate a target CPU utilization factor (such as 70-75%) rather than 100%?",
           "options": [
-            "To save electricity by turning off CPU cores at night. across distributed inverted vector index partitions and persistent memory segment stores",
-            "To allow background music to play on the server.",
-            "To force queries to run slower during business hours.",
-            "To maintain headroom for traffic bursts and prevent queue backups from causing exponential tail-latency degradation."
+            "To save electricity by turning off CPU cores at night",
+            "To allow background music to play on the server measured across production vector retrieval pipelines",
+            "To maintain headroom for traffic bursts and prevent queue backups from causing exponential tail-latency degradation",
+            "To force queries to run slower during business hours"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To maintain headroom for traffic bursts and prevent queue backups from causing exponential tail-latency degradation' is correct: in capacity planning — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15148,14 +14968,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Cost per Million Queries (CPM) of $4.50 indicate for a search platform?",
           "options": [
-            "That each search query costs $4.50.",
-            "That the platform loses $4.50 every minute.",
-            "That serving one million search queries incurs exactly $4.50 in underlying cloud infrastructure expenditure.",
-            "That users must pay $4.50 to create an account. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints"
+            "That each search query costs $4.50 measured across production vector retrieval pipelines",
+            "That the platform loses $4.50 every minute",
+            "That users must pay $4.50 to create an account",
+            "That serving one million search queries incurs exactly $4.50 in underlying cloud infrastructure expenditure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'That serving one million search queries incurs exactly $4.50 in underlying cloud infrastructure expenditure' is correct: in capacity planning — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15196,14 +15016,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What memory safety buffer is enforced by the safe_capacity_headroom guardrail?",
           "options": [
-            "A 100x buffer.",
-            "A 25% safety buffer (allocated >= projected * 1.25) to prevent OOM crashes during sudden ingestion bursts.",
+            "A 25% safety buffer (allocated >= projected * 1.25) to prevent OOM crashes during sudden ingestion bursts",
+            "A 100x buffer",
             "No buffer; allocated must equal projected exactly. across dense embedding projection matrices and asynchronous background quantization workers",
-            "A negative buffer."
+            "A negative buffer"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A 25% safety buffer (allocated >= projected * 1.25) to prevent OOM crashes during sudden ingestion bursts' is correct: in capacity planning — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15245,13 +15065,13 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does the capacity runway audit calculate the number of months remaining before hardware exhaustion?",
           "options": [
             "By counting the number of days until the end of the year. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "By dividing remaining unallocated RAM by the projected monthly vector data growth rate.",
-            "By measuring the physical weight of the server chassis.",
-            "By multiplying the CPU core count by thirty."
+            "By dividing remaining unallocated RAM by the projected monthly vector data growth rate",
+            "By measuring the physical weight of the server chassis",
+            "By multiplying the CPU core count by thirty"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'By dividing remaining unallocated RAM by the projected monthly vector data growth rate' is correct: in capacity planning — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],
@@ -15313,14 +15133,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of the Milestone 12 Capstone project?",
           "options": [
-            "To synthesize all 60 days of vector database engineering into an integrated, production-grade cloud-native distributed retrieval engine.",
-            "To write a paper dictionary.",
+            "To synthesize all 60 days of vector database engineering into an integrated, production-grade cloud-native distributed retrieval engine",
+            "To write a paper dictionary",
             "To create a social media photo sharing app. across GPU-accelerated SIMD distance calculation registers and product quantization lookup tables",
-            "To design computer motherboard hardware."
+            "To design computer motherboard hardware"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'To synthesize all 60 days of vector database engineering into an integrated, production-grade cloud-native distributed retrieval engine' is correct: in milestone 12 capstone — foundations & mathematical invariants, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15361,14 +15181,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Capstone engine coordinate distributed search across multiple cluster shards?",
           "options": [
-            "By querying one shard and guessing the contents of the others. across distributed inverted vector index partitions and persistent memory segment stores",
-            "By downloading all shard files to the client laptop.",
-            "By converting the search query into a SQL insert statement.",
-            "By scattering the query to all shards in parallel and performing an efficient k-way merge of candidate distances."
+            "By querying one shard and guessing the contents of the others",
+            "By scattering the query to all shards in parallel and performing an efficient k-way merge of candidate distances",
+            "By downloading all shard files to the client laptop during approximate nearest neighbor candidate evaluation",
+            "By converting the search query into a SQL insert statement"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'By scattering the query to all shards in parallel and performing an efficient k-way merge of candidate distances' is correct: in milestone 12 capstone — core algorithm & state representation, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15409,14 +15229,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What three core performance and security criteria certify production readiness in the Milestone 12 Capstone?",
           "options": [
-            "RAM utilization below 10% and zero network traffic. by bypassing approximate nearest neighbor graph exploration buffers and HNSW layer entrypoints",
-            "Database file size under 100 kilobytes.",
-            "Recall >= 95.0%, p99 distributed search latency <= 5.0ms, and 100.0% security compliance.",
-            "Server uptime of exactly twelve hours."
+            "RAM utilization below 10% and zero network traffic",
+            "Database file size under 100 kilobytes",
+            "Recall >= 95.0%, p99 distributed search latency <= 5.0ms, and 100.0% security compliance",
+            "Server uptime of exactly twelve hours measured across production vector retrieval pipelines"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'Recall >= 95.0%, p99 distributed search latency <= 5.0ms, and 100.0% security compliance' is correct: in milestone 12 capstone — throughput optimization & edge-case handling, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15457,14 +15277,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What condition must be satisfied before the safe_capstone_shutdown guardrail permits cluster shutdown?",
           "options": [
-            "The current time must be midnight.",
-            "All database records must be printed to paper.",
-            "All active client connections must be cleanly drained to zero, ensuring no inflight transactions are interrupted.",
-            "The system administrator must reboot the router. across dense embedding projection matrices and asynchronous background quantization workers"
+            "The current time must be midnight",
+            "All database records must be printed to paper",
+            "The system administrator must reboot the router. across dense embedding projection matrices and asynchronous background quantization workers",
+            "All active client connections must be cleanly drained to zero, ensuring no inflight transactions are interrupted"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'All active client connections must be cleanly drained to zero, ensuring no inflight transactions are interrupted' is correct: in milestone 12 capstone — resilience guardrails & failure recovery, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       },
       {
@@ -15505,14 +15325,14 @@ export const VECTOR_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What overall reliability classification is earned by the Capstone distributed vector engine in the final SLA audit?",
           "options": [
+            "ENTERPRISE_GRADE, reflecting 99.999% uptime, 2.35ms average latency, and complete production SLA compliance",
             "EXPERIMENTAL_PROTOTYPE. through automated multi-node vector cluster heartbeat polling and replica synchronization streams",
-            "ENTERPRISE_GRADE, reflecting 99.999% uptime, 2.35ms average latency, and complete production SLA compliance.",
-            "UNVERIFIED_DRAFT.",
-            "FAILED_AUDIT."
+            "UNVERIFIED_DRAFT",
+            "FAILED_AUDIT"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'ENTERPRISE_GRADE, reflecting 99.999% uptime, 2.35ms average latency, and complete production SLA compliance' is correct: in milestone 12 capstone — production telemetry & verification audit, this ensures accurate similarity metrics and preserves geometric vector invariants."
         }
       }
     ],

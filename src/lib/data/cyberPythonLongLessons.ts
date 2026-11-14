@@ -40,13 +40,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A tampered exam result harms which property?",
           "options": [
-            "Integrity",
             "Confidentiality",
-            "Availability",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Integrity",
+            "Availability"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Unauthorised changes break integrity."
         }
       },
@@ -76,13 +75,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which STRIDE category is \"a user gains admin powers through a bug\"?",
           "options": [
-            "Spoofing",
+            "Spoofing monitored through centralized security audit logging",
             "Repudiation",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
             "Elevation of privilege"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Gaining powers you should not have is elevation of privilege."
         }
       },
@@ -112,13 +110,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A risk rated likelihood 4 and impact 5 scores?",
           "options": [
-            "9",
-            "45",
             "20",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "9",
+            "45"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "4 × 5 = 20, which is critical."
         }
       },
@@ -148,10 +145,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use defence in depth?",
           "options": [
-            "It is cheaper",
+            "It is cheaper across validated high-throughput system boundaries during execution",
             "If one control fails, others still protect",
-            "Attackers prefer it",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Attackers prefer it"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -185,12 +181,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When is it legal to test a system for vulnerabilities?",
           "options": [
             "Whenever you are curious",
-            "Only with the owner's permission, within agreed scope",
-            "If it is a big company",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "If it is a big company monitored through centralized security audit logging",
+            "Only with the owner's permission, within agreed scope"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Authorisation and scope are essential."
         }
       },
@@ -221,9 +216,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "risk_score(3, 6) should?",
           "options": [
             "Raise ValueError",
-            "Return 18",
-            "Return CRITICAL",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Return 18 monitored through centralized security audit logging",
+            "Return CRITICAL"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -284,13 +278,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the root cause of SQL injection?",
           "options": [
-            "Weak passwords",
+            "Weak passwords across validated high-throughput system boundaries during execution",
             "Slow databases",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
             "Mixing user data into SQL code as text"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Code and data must be kept separate."
         }
       },
@@ -324,13 +317,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do parameterised queries prevent injection?",
           "options": [
-            "They encrypt the query",
-            "They block quotes",
             "Values are sent separately and treated only as data",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "They encrypt the query",
+            "They block quotes monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The query structure is fixed before values arrive."
         }
       },
@@ -360,13 +352,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which can be sent as a query parameter?",
           "options": [
-            "A table name",
-            "A column name",
+            "A table name monitored through centralized security audit logging",
             "A value such as an email address",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "A column name"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Only values can be parameterised."
         }
       },
@@ -397,12 +388,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the main role of injection detection?",
           "options": [
             "Replacing parameterised queries",
-            "Alerting defenders to probing as an extra layer",
-            "Fixing the query",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Fixing the query across validated high-throughput system boundaries during execution",
+            "Alerting defenders to probing as an extra layer"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Detection complements prevention."
         }
       },
@@ -433,9 +423,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does least privilege achieve for a database?",
           "options": [
             "A successful attack can do far less damage",
-            "Faster queries",
-            "No need for parameterisation",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Faster queries monitored through centralized security audit logging",
+            "No need for parameterisation"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -473,12 +462,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "build_query(\"users\", {\"name OR 1=1\": \"x\"}) should?",
           "options": [
             "Return a query",
-            "Escape the column",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "Raise ValueError"
+            "Raise ValueError",
+            "Escape the column"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Column names must match the identifier pattern."
         }
       }
@@ -532,13 +520,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is stored XSS?",
           "options": [
-            "A slow database",
-            "An encrypted page",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "A malicious script saved by the site and shown to other users"
+            "A malicious script saved by the site and shown to other users",
+            "A slow database across validated high-throughput system boundaries during execution",
+            "An encrypted page"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The payload is stored and served to victims."
         }
       },
@@ -568,13 +555,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must & be escaped first?",
           "options": [
-            "It is most common",
-            "Browsers require alphabetical order",
+            "It is most common monitored through centralized security audit logging",
             "Otherwise the & in new entities would be escaped again",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Browsers require alphabetical order"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Order prevents double escaping."
         }
       },
@@ -604,13 +590,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"script-src 'self'\" do?",
           "options": [
-            "Allows all scripts",
-            "Allows only scripts from your own origin, blocking injected inline scripts",
-            "Disables JavaScript",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Allows all scripts bypassing input validation sanitization filters",
+            "Disables JavaScript across validated high-throughput system boundaries during execution",
+            "Allows only scripts from your own origin, blocking injected inline scripts"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Scripts must come from trusted sources."
         }
       },
@@ -641,9 +626,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are user-supplied links dangerous?",
           "options": [
             "A javascript: URL can run code when clicked",
-            "They are long",
-            "Links are always unsafe",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "They are long across validated high-throughput system boundaries during execution",
+            "Links are always unsafe"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -676,13 +660,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the HttpOnly cookie flag do?",
           "options": [
+            "Encrypts the cookie monitored through centralized security audit logging",
             "Prevents JavaScript from reading the cookie",
-            "Encrypts the cookie",
-            "Sends it only over HTTP",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Sends it only over HTTP"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Scripts cannot access HttpOnly cookies."
         }
       },
@@ -714,11 +697,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Return the header",
             "Remove the source silently",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
             "Raise ValueError"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Policies that allow inline scripts are refused."
         }
       }
@@ -773,12 +755,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does CSRF work?",
           "options": [
             "Passwords are weak",
-            "HTTPS is broken",
             "Browsers attach cookies to requests even when another site started them",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "HTTPS is broken across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Automatic cookies make forged requests look authenticated."
         }
       },
@@ -812,13 +793,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why compare CSRF tokens with hmac.compare_digest?",
           "options": [
-            "It is shorter",
-            "Its timing does not reveal how many characters matched",
+            "It is shorter monitored through centralized security audit logging",
             "It encrypts the token",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Its timing does not reveal how many characters matched"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Constant-time comparison resists timing attacks."
         }
       },
@@ -848,13 +828,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does SameSite=Strict do?",
           "options": [
-            "Encrypts the cookie",
             "Never sends the cookie on cross-site requests",
-            "Sends it only to Strict sites",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Encrypts the cookie monitored through centralized security audit logging",
+            "Sends it only to Strict sites"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Strict cookies stay on same-site requests."
         }
       },
@@ -884,13 +863,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Secure flag do?",
           "options": [
-            "Sends the cookie only over HTTPS",
             "Encrypts the value",
-            "Blocks JavaScript",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Sends the cookie only over HTTPS",
+            "Blocks JavaScript across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Secure cookies never travel over plain HTTP."
         }
       },
@@ -920,13 +898,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are header-token APIs not vulnerable to classic CSRF?",
           "options": [
-            "They are faster",
-            "They use GET",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
+            "They are faster across validated high-throughput system boundaries during execution",
+            "They use GET monitored through centralized security audit logging",
             "Browsers do not attach those headers automatically to cross-site requests"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Only cookies are sent automatically."
         }
       },
@@ -956,13 +933,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "set_cookie(\"a\", \"b\", \"None\", False) should?",
           "options": [
-            "Return a header",
-            "Set Secure automatically",
             "Raise ValueError",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Return a header",
+            "Set Secure automatically"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "SameSite=None requires Secure."
         }
       }
@@ -1016,10 +992,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a WAF not a replacement for secure code?",
           "options": [
-            "WAFs are illegal",
+            "WAFs are illegal across validated high-throughput system boundaries during execution",
             "WAFs only work on weekends",
-            "Patterns can miss disguised attacks and block good users",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Patterns can miss disguised attacks and block good users"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1056,13 +1031,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is path traversal?",
           "options": [
-            "A slow network",
             "Using ../ sequences to access files outside the intended folder",
-            "A type of encryption",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "A slow network monitored through centralized security audit logging",
+            "A type of encryption"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Traversal escapes the allowed directory."
         }
       },
@@ -1092,13 +1066,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why lower-case the request text before matching?",
           "options": [
+            "To save memory monitored through centralized security audit logging",
             "So mixed-case attacks like <ScRiPt> are still caught",
-            "To save memory",
-            "Regular expressions require it",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Regular expressions require it"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Normalisation defeats simple disguises."
         }
       },
@@ -1132,13 +1105,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use an allow-list of characters for filenames?",
           "options": [
-            "It is shorter",
+            "It is shorter across validated high-throughput system boundaries during execution",
             "Filenames must be English",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
             "Listing what is permitted is safer than guessing every dangerous character"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Allow-lists fail safe."
         }
       },
@@ -1168,13 +1140,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why test security rules with legitimate inputs too?",
           "options": [
-            "To make tests longer",
-            "It is required by law",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "To catch false positives that would block real users"
+            "To catch false positives that would block real users",
+            "To make tests longer monitored through centralized security audit logging",
+            "It is required by law"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Blocking good users is a failure too."
         }
       },
@@ -1209,12 +1180,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "waf_check with \"<SCRIPT>\" in the body returns which rule?",
           "options": [
             "SQLI",
-            "None",
             "XSS",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "None"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Lower-casing makes the script check case-insensitive."
         }
       }
@@ -1268,13 +1238,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What characterises symmetric encryption?",
           "options": [
-            "Two different keys",
             "The same secret key encrypts and decrypts",
-            "No key at all",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Two different keys",
+            "No key at all across validated high-throughput system boundaries during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "One shared secret key."
         }
       },
@@ -1304,13 +1273,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does authenticated encryption add?",
           "options": [
+            "Speed utilizing unverified cryptographic primitive implementations",
             "Detection of any tampering with the ciphertext",
-            "Speed",
-            "Shorter keys",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Shorter keys"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The tag verifies integrity."
         }
       },
@@ -1344,13 +1312,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In public-key encryption, which key decrypts messages sent to you?",
           "options": [
-            "Your private key",
             "Your public key",
             "The sender's private key",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Your private key"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Only the private key decrypts."
         }
       },
@@ -1384,13 +1351,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a MAC differ from a plain hash?",
           "options": [
-            "It is longer",
-            "It can be decrypted",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "It uses a secret key, so only key holders can create or verify it"
+            "It uses a secret key, so only key holders can create or verify it",
+            "It is longer across validated high-throughput system boundaries during execution",
+            "It can be decrypted"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "MACs add a secret key."
         }
       },
@@ -1421,12 +1387,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which is considered weak today?",
           "options": [
             "AES-256",
-            "ECC P-256",
             "RSA-1024",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "ECC P-256"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "RSA below 2048 bits is weak."
         }
       },
@@ -1461,12 +1426,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "key_strength(\"AES\", 100) should?",
           "options": [
             "Return WEAK",
-            "Raise ValueError",
-            "Return OK",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Return OK monitored through centralized security audit logging",
+            "Raise ValueError"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "100 is not a valid AES key size."
         }
       }
@@ -1520,10 +1484,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a system store for each user password?",
           "options": [
-            "The password encrypted",
+            "The password encrypted across validated high-throughput system boundaries during execution",
             "A salted, slow hash of the password",
-            "The password in plain text",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "The password in plain text"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -1556,13 +1519,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a salt defeat?",
           "options": [
-            "Precomputed tables and identical hashes for identical passwords",
             "Slow logins",
-            "Phishing",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Phishing utilizing unverified cryptographic primitive implementations",
+            "Precomputed tables and identical hashes for identical passwords"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Unique salts make each hash distinct."
         }
       },
@@ -1596,13 +1558,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should password hashing be slow?",
           "options": [
-            "To annoy users",
-            "To save storage",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
-            "So attackers can test far fewer guesses per second"
+            "So attackers can test far fewer guesses per second",
+            "To annoy users monitored through centralized security audit logging",
+            "To save storage"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Slowness multiplies the attacker's cost."
         }
       },
@@ -1632,13 +1593,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should login errors not say \"wrong password\" versus \"unknown user\"?",
           "options": [
-            "It is rude",
-            "It is slower",
+            "It is rude across validated high-throughput system boundaries during execution",
             "It would help attackers discover valid usernames",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It is slower"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Uniform errors avoid account enumeration."
         }
       },
@@ -1668,10 +1628,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does modern guidance favour?",
           "options": [
-            "Forced monthly changes",
+            "Forced monthly changes monitored through centralized security audit logging",
             "Exactly one symbol and one digit",
-            "Long passwords checked against breach lists, plus MFA",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Long passwords checked against breach lists, plus MFA"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1708,13 +1667,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "verify_password(\"pw\", \"garbage\") should?",
           "options": [
-            "Raise an error",
             "Return False",
-            "Return True",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Raise an error",
+            "Return True"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Malformed records never verify and never crash."
         }
       }
@@ -1768,13 +1726,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does TLS provide?",
           "options": [
-            "Encryption and server identity verification for data in transit",
             "Faster pages only",
-            "Password hashing",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Password hashing across validated high-throughput system boundaries during execution",
+            "Encryption and server identity verification for data in transit"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Confidentiality, integrity and authentication in transit."
         }
       },
@@ -1804,13 +1761,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a certificate bind together?",
           "options": [
+            "A public key and names such as domain names",
             "A password and a username",
-            "Two private keys",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "A public key and names such as domain names"
+            "Two private keys utilizing unverified cryptographic primitive implementations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Certificates bind identities to public keys."
         }
       },
@@ -1840,13 +1796,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does *.example.com match a.b.example.com?",
           "options": [
-            "Yes",
-            "Only on weekends",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "No, a wildcard covers exactly one label"
+            "Yes monitored through centralized security audit logging",
+            "No, a wildcard covers exactly one label",
+            "Only on weekends"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Wildcards match a single label."
         }
       },
@@ -1880,10 +1835,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must a certificate chain end at?",
           "options": [
-            "Any certificate",
+            "Any certificate across validated high-throughput system boundaries during execution",
             "The server itself",
-            "A root certificate authority in the trusted store",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "A root certificate authority in the trusted store"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1916,13 +1870,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is disabling certificate verification dangerous?",
           "options": [
-            "It slows the app",
             "It removes protection against impersonation and interception",
-            "It is illegal",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "It slows the app",
+            "It is illegal monitored through centralized security audit logging"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Without verification, any certificate is accepted."
         }
       },
@@ -1952,13 +1905,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "chain_trusted([], roots) returns?",
           "options": [
-            "False",
             "True",
-            "An error",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "False",
+            "An error"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "An empty chain proves nothing."
         }
       }
@@ -2017,9 +1969,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Is the payload of a signed JWT secret?",
           "options": [
             "No, anyone with the token can read it",
-            "Yes, it is encrypted",
-            "Only the header is readable",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Yes, it is encrypted across validated high-throughput system boundaries during execution",
+            "Only the header is readable"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2056,13 +2007,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does changing the payload of an HS256 JWT do?",
           "options": [
-            "Nothing",
-            "Changes the secret",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "Breaks the signature, so verification fails"
+            "Nothing monitored through centralized security audit logging",
+            "Breaks the signature, so verification fails",
+            "Changes the secret"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The signature covers the payload."
         }
       },
@@ -2096,10 +2046,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you prevent the \"alg: none\" attack?",
           "options": [
-            "Use longer tokens",
+            "Use longer tokens monitored through centralized security audit logging",
             "Encrypt the header",
-            "Have the server require its expected algorithm and reject others",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Have the server require its expected algorithm and reject others"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2132,13 +2081,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep JWT lifetimes short?",
           "options": [
-            "To save bandwidth",
             "Because stateless tokens are hard to revoke before they expire",
-            "Browsers require it",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "To save bandwidth across validated high-throughput system boundaries during execution",
+            "Browsers require it"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Short lifetimes limit the damage of a stolen token."
         }
       },
@@ -2170,8 +2118,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "In the Authorization header",
             "In URLs, which leak into logs and history",
-            "In HttpOnly cookies",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "In HttpOnly cookies monitored through centralized security audit logging"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2212,13 +2159,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "verify_jwt with an \"alg: none\" token raises?",
           "options": [
-            "bad alg",
             "bad signature",
             "expired",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "bad alg"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The algorithm check comes first."
         }
       }
@@ -2272,13 +2218,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is MFA effective?",
           "options": [
-            "Passwords become longer",
-            "It encrypts the database",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
-            "A stolen password alone is no longer enough to log in"
+            "Passwords become longer across validated high-throughput system boundaries during execution",
+            "A stolen password alone is no longer enough to log in",
+            "It encrypts the database"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Attackers need a second, different factor."
         }
       },
@@ -2309,9 +2254,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What do the server and the authenticator app share to produce the same codes?",
           "options": [
             "The user's password",
-            "The phone number",
-            "A secret key and the current time",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "The phone number utilizing unverified cryptographic primitive implementations",
+            "A secret key and the current time"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2348,13 +2292,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why test a TOTP implementation against RFC vectors?",
           "options": [
-            "To make it faster",
-            "Vectors are required by law",
             "Small mistakes produce plausible codes that never match real apps",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "To make it faster monitored through centralized security audit logging",
+            "Vectors are required by law"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Known answers catch subtle bugs."
         }
       },
@@ -2384,10 +2327,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a verification window allow?",
           "options": [
-            "Any old code",
+            "Any old code across validated high-throughput system boundaries during execution",
             "Codes from neighbouring time steps, to handle clock drift",
-            "Codes without a secret",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Codes without a secret"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2420,13 +2362,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are security keys resistant to phishing?",
           "options": [
-            "They only sign challenges for the genuine website domain",
             "They are expensive",
-            "They use SMS",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "They use SMS monitored through centralized security audit logging",
+            "They only sign challenges for the genuine website domain"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Domain binding defeats look-alike sites."
         }
       },
@@ -2456,13 +2397,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "totp(secret, 1111111109, digits=8) for the RFC key returns?",
           "options": [
+            "07081804",
             "7081804",
-            "70818040",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "07081804"
+            "70818040"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Codes are zero-padded to the full length."
         }
       }
@@ -2521,13 +2461,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does authorisation decide?",
           "options": [
-            "Who the user is",
+            "Who the user is across validated high-throughput system boundaries during execution",
             "The user's password",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
             "What the user is allowed to do"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Authorisation is about permissions."
         }
       },
@@ -2562,13 +2501,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does RBAC assign permissions to?",
           "options": [
-            "Individual users only",
-            "Computers",
             "Roles, which users are then given",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Individual users only",
+            "Computers monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Permissions attach to roles."
         }
       },
@@ -2598,10 +2536,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does ABAC use to make decisions?",
           "options": [
-            "Only roles",
+            "Only roles monitored through centralized security audit logging",
             "Attributes of user, resource, action and context",
-            "Random choice",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Random choice"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2634,13 +2571,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is privilege creep?",
           "options": [
-            "Accumulating access over time beyond what the current role needs",
-            "A slow computer",
+            "A slow computer across validated high-throughput system boundaries during execution",
             "A type of malware",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Accumulating access over time beyond what the current role needs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Old access is never removed."
         }
       },
@@ -2671,9 +2607,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why include negative tests in authorisation testing?",
           "options": [
             "Most access bugs are actions that should be denied but are allowed",
-            "They are faster",
-            "They are required by browsers",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "They are faster monitored through centralized security audit logging",
+            "They are required by browsers"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2710,13 +2645,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "rbac_allowed with a cyclic inheritance should?",
           "options": [
-            "Loop forever",
-            "Raise RecursionError",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "Finish and return the correct answer"
+            "Loop forever monitored through centralized security audit logging",
+            "Finish and return the correct answer",
+            "Raise RecursionError"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The seen set breaks cycles."
         }
       }
@@ -2771,13 +2705,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes BOLA?",
           "options": [
-            "Weak passwords",
-            "Slow servers",
             "Not checking that the user may access the specific object requested",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Weak passwords",
+            "Slow servers across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Object-level checks are missing."
         }
       },
@@ -2810,8 +2743,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "SELECT * FROM invoices WHERE id = ?",
             "SELECT * FROM invoices WHERE id = ? AND owner_id = ?",
-            "SELECT * FROM invoices",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "SELECT * FROM invoices monitored through centralized security audit logging"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2845,13 +2777,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Do random IDs fix BOLA on their own?",
           "options": [
-            "Yes",
-            "No, IDs leak; authorisation checks are still required",
+            "Yes without cryptographically verified digital signatures",
             "Only for small databases",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "No, IDs leak; authorisation checks are still required"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Obscurity is a layer, not a fix."
         }
       },
@@ -2883,8 +2814,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A prioritised list of routes for human review",
             "A guarantee of safety",
-            "Automatic fixes",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Automatic fixes across validated high-throughput system boundaries during execution"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2917,13 +2847,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is mass assignment?",
           "options": [
-            "Assigning many users at once",
-            "A database backup",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
-            "Copying all request fields into an object, letting users set fields they should not"
+            "Assigning many users at once across validated high-throughput system boundaries during execution",
+            "Copying all request fields into an object, letting users set fields they should not",
+            "A database backup monitored through centralized security audit logging"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Allow-list writable fields."
         }
       },
@@ -2954,9 +2883,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "idor_risks flags a route when?",
           "options": [
             "It is a GET route",
-            "It is slow",
-            "It has an ID parameter and does not check ownership",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It is slow monitored through centralized security audit logging",
+            "It has an ID parameter and does not check ownership"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -3014,13 +2942,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a half-open TCP connection?",
           "options": [
-            "A slow connection",
-            "An encrypted connection",
+            "A slow connection across validated high-throughput system boundaries during execution",
             "One where the server replied to SYN but the final ACK has not arrived",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "An encrypted connection"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The handshake is incomplete."
         }
       },
@@ -3050,13 +2977,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do SYN cookies help?",
           "options": [
-            "They encrypt traffic",
-            "The server avoids storing state for half-open connections",
+            "They encrypt traffic monitored through centralized security audit logging",
             "They block all SYN packets",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "The server avoids storing state for half-open connections"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "No table to fill up."
         }
       },
@@ -3087,9 +3013,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the best defence against port scanning?",
           "options": [
             "Exposing only the services you really need",
-            "Hiding the server name",
-            "Using port 80 for everything",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Hiding the server name monitored through centralized security audit logging",
+            "Using port 80 for everything"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3126,13 +3051,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"default deny\" mean for a firewall?",
           "options": [
-            "Everything is allowed",
-            "Only port 80 is blocked",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "Traffic not explicitly allowed by a rule is blocked"
+            "Everything is allowed across validated high-throughput system boundaries during execution",
+            "Traffic not explicitly allowed by a rule is blocked",
+            "Only port 80 is blocked"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Unmatched traffic is refused."
         }
       },
@@ -3162,13 +3086,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does network segmentation limit?",
           "options": [
-            "Download speed",
+            "Download speed monitored through centralized security audit logging",
             "The number of users",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
             "An attacker's ability to move between parts of the network"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It contains lateral movement."
         }
       },
@@ -3198,13 +3121,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "firewall with no matching rule returns?",
           "options": [
-            "allow",
-            "None",
             "deny",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "allow",
+            "None"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Zero-trust and secure firewall architectures enforce a default-deny posture whenever no explicit rule matches."
         }
       }
@@ -3260,12 +3182,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are security headers valuable?",
           "options": [
             "They speed up pages",
-            "They switch on browser protections for every page and user",
-            "They replace HTTPS",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "They replace HTTPS across validated high-throughput system boundaries during execution",
+            "They switch on browser protections for every page and user"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "One configuration protects everything."
         }
       },
@@ -3296,9 +3217,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What attack does HSTS prevent?",
           "options": [
             "Downgrading or intercepting the first plain HTTP connection",
-            "SQL injection",
-            "Password guessing",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "SQL injection monitored through centralized security audit logging",
+            "Password guessing"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3332,13 +3252,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does X-Frame-Options: DENY prevent?",
           "options": [
-            "Other sites loading your pages inside frames (clickjacking)",
             "File type guessing",
-            "Cookie theft",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Other sites loading your pages inside frames (clickjacking)",
+            "Cookie theft monitored through centralized security audit logging"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "No framing, no clickjacking."
         }
       },
@@ -3373,13 +3292,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why normalise header names to lower case?",
           "options": [
-            "To save space",
+            "To save space across validated high-throughput system boundaries during execution",
             "Browsers require lower case",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
             "HTTP header names are case-insensitive"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Content-Type and content-type are the same header."
         }
       },
@@ -3409,13 +3327,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why remove version information from headers?",
           "options": [
-            "To save bandwidth",
-            "Browsers reject it",
             "It helps attackers find known vulnerabilities for that version",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "To save bandwidth monitored through centralized security audit logging",
+            "Browsers reject it"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Less information, less targeting."
         }
       },
@@ -3447,8 +3364,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Return max_age 0",
             "Raise ValueError because max-age is required",
-            "Return None",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Return None monitored through centralized security audit logging"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -3505,13 +3421,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check the lockout before the password?",
           "options": [
-            "It is alphabetical",
             "Locked accounts cannot be used to test passwords, and it avoids expensive hashing",
-            "Passwords are optional",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "It is alphabetical across validated high-throughput system boundaries during execution",
+            "Passwords are optional"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Stop early and cheaply."
         }
       },
@@ -3541,13 +3456,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why show the same message for a wrong password and a wrong code?",
           "options": [
+            "To save space monitored through centralized security audit logging",
             "So attackers cannot confirm that a password was correct",
-            "To save space",
-            "Codes are unimportant",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Codes are unimportant"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Do not reveal partial success."
         }
       },
@@ -3578,12 +3492,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is password spraying?",
           "options": [
             "Many passwords against one account",
-            "Encrypting passwords",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
+            "Encrypting passwords monitored through centralized security audit logging",
             "One common password tried against many accounts"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Per-IP limits catch spraying that per-account lockouts miss."
         }
       },
@@ -3621,13 +3534,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep decisions separate from side effects like logging?",
           "options": [
-            "It is faster",
-            "Logs are optional",
             "The decision logic becomes easy to test with plain inputs and outputs",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It is faster across validated high-throughput system boundaries during execution",
+            "Logs are optional"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Pure functions are easy to test."
         }
       },
@@ -3658,12 +3570,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which control addresses denial of service on the login page?",
           "options": [
             "Uniform error messages",
-            "TLS certificates",
             "Progressive lockouts and rate limits",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "TLS certificates monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Limits keep the service available."
         }
       },
@@ -3694,12 +3605,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "login for a user with failed = 5 and correct details returns?",
           "options": [
             "OK",
-            "LOCKED",
             "BAD_CODE",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "LOCKED"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The lockout check comes first."
         }
       }
@@ -3753,13 +3663,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does SSRF make the server do?",
           "options": [
+            "Store passwords across validated high-throughput system boundaries during execution",
             "Fetch a URL chosen by the attacker, possibly on the internal network",
-            "Store passwords",
-            "Crash immediately",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Crash immediately"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The server makes the request for the attacker."
         }
       },
@@ -3790,12 +3699,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is 169.254.169.254 dangerous in SSRF attacks?",
           "options": [
             "It is a public website",
-            "It is slow",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
+            "It is slow monitored through centralized security audit logging",
             "Cloud metadata there can hand out server credentials"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Metadata services expose credentials."
         }
       },
@@ -3829,13 +3737,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must file:// URLs be rejected?",
           "options": [
-            "They are slow",
-            "Browsers do not support them",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "They can read files from the server itself"
+            "They can read files from the server itself",
+            "They are slow monitored through centralized security audit logging",
+            "Browsers do not support them"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Only http and https should be fetched."
         }
       },
@@ -3866,12 +3773,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the userinfo trick?",
           "options": [
             "A password manager feature",
-            "A DNS record type",
             "Putting a trusted name before @ so the real host comes after it",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "A DNS record type across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "https://trusted@evil goes to evil."
         }
       },
@@ -3901,13 +3807,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why run URL fetching in an isolated service?",
           "options": [
-            "It is faster",
-            "If abused, it cannot reach internal systems or credentials",
+            "It is faster monitored through centralized security audit logging",
             "It is cheaper",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "If abused, it cannot reach internal systems or credentials"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Isolation limits the damage."
         }
       },
@@ -3942,9 +3847,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "ssrf_check(\"http://169.254.169.254/\") returns?",
           "options": [
             "(False, \"PRIVATE_IP\")",
-            "(True, \"OK\")",
-            "(False, \"BAD_URL\")",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "(True, \"OK\") monitored through centralized security audit logging",
+            "(False, \"BAD_URL\")"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -4002,13 +3906,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is unpickling untrusted data dangerous?",
           "options": [
-            "Recreating objects can run attacker-chosen code",
-            "It is slow",
+            "It is slow across validated high-throughput system boundaries during execution",
             "Pickle files are large",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Recreating objects can run attacker-chosen code"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Object deserialisation can execute code."
         }
       },
@@ -4042,13 +3945,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a type allow-list do during deserialisation?",
           "options": [
-            "Speeds it up",
-            "Encrypts the data",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "Refuses any type not explicitly permitted, even deep inside the data"
+            "Refuses any type not explicitly permitted, even deep inside the data",
+            "Speeds it up monitored through centralized security audit logging",
+            "Encrypts the data across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Only named types are accepted."
         }
       },
@@ -4079,12 +3981,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which PyYAML call is safe for untrusted input?",
           "options": [
             "yaml.load(text)",
-            "yaml.full_load(text)",
             "yaml.safe_load(text)",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "yaml.full_load(text)"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "safe_load produces only plain data."
         }
       },
@@ -4118,13 +4019,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use ast rather than searching the text for \"pickle.loads\"?",
           "options": [
-            "It is shorter",
-            "It understands code structure, ignoring comments and strings",
+            "It is shorter across validated high-throughput system boundaries during execution",
             "Text search is illegal",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It understands code structure, ignoring comments and strings"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Structure-aware scanning avoids false alarms."
         }
       },
@@ -4154,13 +4054,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does verifying a download's published hash detect?",
           "options": [
-            "Slow downloads",
             "Corruption or tampering of the file",
-            "Viruses in general",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Slow downloads monitored through centralized security audit logging",
+            "Viruses in general"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A mismatch means the file changed."
         }
       },
@@ -4190,13 +4089,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "safe_load with a forbidden \"__type__\" nested in a list should?",
           "options": [
-            "Raise ValueError",
             "Ignore it",
-            "Remove that item",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Raise ValueError",
+            "Remove that item"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Forbidden types anywhere are rejected."
         }
       }
@@ -4250,13 +4148,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deleting a leaked secret in a new commit not enough?",
           "options": [
-            "Deleting is slow",
-            "Git forbids deletion",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
-            "The secret remains in version control history"
+            "The secret remains in version control history",
+            "Deleting is slow across validated high-throughput system boundaries during execution",
+            "Git forbids deletion"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "History keeps old versions; rotate the secret."
         }
       },
@@ -4288,12 +4185,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a high Shannon entropy suggest about a string?",
           "options": [
             "It is a real word",
-            "It is short",
             "It looks random, like a key or token",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It is short utilizing unverified cryptographic primitive implementations"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Random-looking strings have high entropy."
         }
       },
@@ -4327,10 +4223,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do scanners combine patterns with entropy?",
           "options": [
-            "It is faster",
-            "Entropy is required by law",
-            "Patterns catch known formats; entropy catches unknown random-looking secrets",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "It is faster monitored through centralized security audit logging",
+            "Entropy is required by law across validated high-throughput system boundaries during execution",
+            "Patterns catch known formats; entropy catches unknown random-looking secrets"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4364,13 +4259,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should production secrets live?",
           "options": [
-            "In the source code",
             "In a secrets manager or environment, loaded at runtime",
-            "In the README",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "In the source code",
+            "In the README across validated high-throughput system boundaries during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Keep secrets out of code."
         }
       },
@@ -4400,13 +4294,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the first response to a leaked API key?",
           "options": [
-            "Rotate and revoke the key",
             "Delete the commit",
-            "Wait and see",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Rotate and revoke the key",
+            "Wait and see utilizing unverified cryptographic primitive implementations"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A leaked key must stop working."
         }
       },
@@ -4438,11 +4331,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0.5",
             "2.0",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
             "1.0"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Two symbols, each half the time: 1 bit per character."
         }
       }
@@ -4498,12 +4390,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What are transitive dependencies?",
           "options": [
             "Packages you wrote",
-            "Deleted packages",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "Dependencies of your dependencies"
+            "Dependencies of your dependencies",
+            "Deleted packages across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "They come in indirectly."
         }
       },
@@ -4534,10 +4425,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an SBOM?",
           "options": [
-            "A security bug",
+            "A security bug monitored through centralized security audit logging",
             "A firewall rule",
-            "A list of all components and versions in a piece of software",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "A list of all components and versions in a piece of software"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4571,13 +4461,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why compare versions as tuples of integers?",
           "options": [
-            "It is shorter",
             "Text comparison puts 1.10 before 1.9",
-            "Tuples are encrypted",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "It is shorter monitored through centralized security audit logging",
+            "Tuples are encrypted"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Numbers must compare as numbers."
         }
       },
@@ -4607,13 +4496,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which licence family can require you to share your own source code?",
           "options": [
-            "Copyleft (GPL/AGPL)",
             "Permissive (MIT)",
-            "None",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Copyleft (GPL/AGPL)",
+            "None across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Copyleft licences carry sharing obligations."
         }
       },
@@ -4643,13 +4531,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are good tests important for dependency updates?",
           "options": [
-            "They make it safe to merge updates quickly",
             "They make updates slower",
-            "They replace updates",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "They replace updates monitored through centralized security audit logging",
+            "They make it safe to merge updates quickly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Confidence to update is a security control."
         }
       },
@@ -4679,13 +4566,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Is a component at exactly the fixed_in version vulnerable?",
           "options": [
-            "Yes",
-            "Only on Linux",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "No, only versions lower than fixed_in are"
+            "No, only versions lower than fixed_in are",
+            "Yes monitored through centralized security audit logging",
+            "Only on Linux"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The fixed version contains the fix."
         }
       }
@@ -4741,8 +4627,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "404",
             "500",
-            "429",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "429"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4779,13 +4664,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a token bucket allow?",
           "options": [
-            "Unlimited requests",
             "Short bursts up to capacity while enforcing an average rate",
-            "Exactly one request per second",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Unlimited requests monitored through centralized security audit logging",
+            "Exactly one request per second"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Bursts plus a long-run average."
         }
       },
@@ -4819,10 +4703,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does OAuth solve?",
           "options": [
-            "Faster logins",
+            "Faster logins monitored through centralized security audit logging",
             "Letting apps act for a user without seeing their password",
-            "Encrypting disks",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Encrypting disks"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -4855,13 +4738,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does PKCE stop?",
           "options": [
-            "An attacker using a stolen authorisation code",
             "Password guessing",
             "SQL injection",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "An attacker using a stolen authorisation code"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Without the verifier, the code cannot be exchanged."
         }
       },
@@ -4891,13 +4773,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are zombie APIs?",
           "options": [
-            "Very fast APIs",
-            "APIs that return errors",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
-            "Forgotten old API versions that lack current protections"
+            "Forgotten old API versions that lack current protections",
+            "Very fast APIs monitored through centralized security audit logging",
+            "APIs that return errors"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Old endpoints are often unprotected."
         }
       },
@@ -4928,12 +4809,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "pkce_challenge(\"short\") should?",
           "options": [
             "Return a short hash",
-            "Pad it",
             "Raise ValueError because verifiers need 43-128 characters",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Pad it monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Verifiers have a minimum length."
         }
       }
@@ -4987,13 +4867,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a benefit of an API gateway?",
           "options": [
-            "It removes the need for backend security",
-            "It makes APIs slower on purpose",
             "Shared controls are applied consistently to every call",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "It removes the need for backend security",
+            "It makes APIs slower on purpose"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Central, consistent controls."
         }
       },
@@ -5027,10 +4906,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why give each client its own bucket?",
           "options": [
-            "It is simpler",
+            "It is simpler monitored through centralized security audit logging",
             "So one noisy client cannot use up everyone else's allowance",
-            "Redis requires it",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Redis requires it"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5067,13 +4945,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the gateway do with a call that fails the SSRF check?",
           "options": [
-            "Records BLOCKED_SSRF without spending a token",
-            "Allows it",
+            "Allows it without cryptographically verified digital signatures",
             "Rate limits the client",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Records BLOCKED_SSRF without spending a token"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "SSRF is checked first and does not use tokens."
         }
       },
@@ -5107,13 +4984,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What might a rise in BLOCKED_SSRF decisions indicate?",
           "options": [
+            "Someone probing for internal services",
             "Normal traffic growth",
-            "A slow database",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "Someone probing for internal services"
+            "A slow database"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "SSRF attempts target internal addresses."
         }
       },
@@ -5144,12 +5020,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the essence of defence in depth?",
           "options": [
             "One very strong layer",
-            "Hiding the servers",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "Several layers, each assuming the others might fail"
+            "Several layers, each assuming the others might fail",
+            "Hiding the servers monitored through centralized security audit logging"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Independent, overlapping layers."
         }
       },
@@ -5180,9 +5055,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "decision_summary([]) returns?",
           "options": [
             "An error",
-            "None",
-            "{\"blocked_pct\": 0.0}",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "None monitored through centralized security audit logging",
+            "{\"blocked_pct\": 0.0}"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5245,8 +5119,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A full hard disk",
             "Writing more data into a buffer than it can hold, corrupting nearby memory",
-            "A slow network",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "A slow network"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5283,13 +5156,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a stack canary do?",
           "options": [
-            "Detects that an overflow changed memory before the function returns",
             "Prevents all overflows",
-            "Encrypts the stack",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Encrypts the stack monitored through centralized security audit logging",
+            "Detects that an overflow changed memory before the function returns"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It detects corruption and stops the program."
         }
       },
@@ -5320,9 +5192,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does ASLR do?",
           "options": [
             "Places code and data at random addresses so attackers cannot predict them",
-            "Encrypts memory",
-            "Blocks all network traffic",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Encrypts memory monitored through centralized security audit logging",
+            "Blocks all network traffic"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5356,12 +5227,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a bounded copy guarantee?",
           "options": [
             "Faster copying",
-            "Encryption",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "Never writing past the destination buffer"
+            "Never writing past the destination buffer",
+            "Encryption"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The size limit is always respected."
         }
       },
@@ -5392,9 +5262,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Roughly what share of serious bugs do major vendors attribute to memory safety?",
           "options": [
             "About 5 percent",
-            "None",
-            "About 70 percent",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "None monitored through centralized security audit logging",
+            "About 70 percent"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5431,13 +5300,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "bounded_copy(8, b\"overflowing\") returns?",
           "options": [
-            "(b\"overflowing\", False)",
             "(b\"overflo\\x00\", True)",
-            "An error",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "(b\"overflowing\", False)",
+            "An error"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Seven bytes plus the terminator, and truncated."
         }
       }
@@ -5492,12 +5360,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is temporal memory safety about?",
           "options": [
             "Where memory is accessed",
-            "When memory is accessed relative to its lifetime",
             "How fast memory is",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "When memory is accessed relative to its lifetime"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Time, not place."
         }
       },
@@ -5529,8 +5396,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Freed memory may hold other data that the program then reads or changes",
             "It always crashes safely",
-            "It wastes disk space",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "It wastes disk space monitored through centralized security audit logging"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5567,13 +5433,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a memory leak?",
           "options": [
-            "Reading freed memory",
-            "Freeing memory twice",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
-            "Memory that stays allocated but is no longer needed"
+            "Reading freed memory monitored through centralized security audit logging",
+            "Memory that stays allocated but is no longer needed",
+            "Freeing memory twice"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Leaks are allocations never freed."
         }
       },
@@ -5609,8 +5474,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Encryption errors",
             "Network failures",
-            "That a slot was freed and reused since the handle was issued",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "That a slot was freed and reused since the handle was issued"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5643,13 +5507,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a TOCTOU bug?",
           "options": [
-            "A slow check",
-            "A type of encryption",
             "Checking something, then acting later after it may have changed",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "A slow check monitored through centralized security audit logging",
+            "A type of encryption"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Time of check differs from time of use."
         }
       },
@@ -5681,8 +5544,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "USE_AFTER_FREE",
             "DOUBLE_FREE",
-            "LEAK",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "LEAK"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5746,8 +5608,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Attacks span many systems, so correlation needs all the logs together",
             "To save disk space",
-            "Logs are illegal locally",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Logs are illegal locally"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5781,13 +5642,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use sliding windows for detection?",
           "options": [
-            "They use less memory",
-            "They are required by law",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "Attacks can straddle fixed time boundaries"
+            "They use less memory monitored through centralized security audit logging",
+            "Attacks can straddle fixed time boundaries",
+            "They are required by law"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Sliding windows catch bursts at any time."
         }
       },
@@ -5818,12 +5678,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is an indicator of compromise?",
           "options": [
             "A strong password",
-            "A firewall rule",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
+            "A firewall rule utilizing unverified cryptographic primitive implementations",
             "A known sign of malicious activity, such as a bad IP or file hash"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "IOCs describe known-bad artefacts."
         }
       },
@@ -5853,13 +5712,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is alert fatigue?",
           "options": [
-            "Tired servers",
-            "Slow networks",
             "People ignoring alerts because too many are false alarms",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Tired servers",
+            "Slow networks"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Too much noise hides real attacks."
         }
       },
@@ -5889,10 +5747,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a runbook?",
           "options": [
-            "A log file",
+            "A log file monitored through centralized security audit logging",
             "Written steps for responding to a specific alert type",
-            "A type of malware",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "A type of malware"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5925,13 +5782,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "brute_force_ips ignores which lines?",
           "options": [
-            "Lines without FAILED_LOGIN",
             "Lines with IP addresses",
-            "Lines from the morning",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Lines from the morning monitored through centralized security audit logging",
+            "Lines without FAILED_LOGIN"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Only failed logins count."
         }
       }
@@ -5986,13 +5842,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an IPS differ from an IDS?",
           "options": [
-            "It sits in the traffic path and can block traffic, not just alert",
             "It is slower",
-            "It only reads logs",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "It sits in the traffic path and can block traffic, not just alert",
+            "It only reads logs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Prevention means blocking."
         }
       },
@@ -6027,13 +5882,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the sid option provide?",
           "options": [
-            "The severity",
+            "The severity monitored through centralized security audit logging",
             "The source IP",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
             "A unique ID for the rule"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "sid identifies the rule."
         }
       },
@@ -6067,13 +5921,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does a rule with content match a packet?",
           "options": [
-            "When any field matches",
-            "Always",
             "When all header fields match and the content appears in the payload",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "When any field matches",
+            "Always bypassing input validation sanitization filters"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "All conditions must be satisfied."
         }
       },
@@ -6106,8 +5959,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It is unexplainable",
             "It only catches known patterns and is evaded by small changes",
-            "It never fires",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It never fires"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -6145,12 +5997,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How should a new IPS rule be deployed?",
           "options": [
             "Immediately in blocking mode",
-            "In alert-only mode first, until its false positives are understood",
-            "Only on weekends",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Only on weekends monitored through centralized security audit logging",
+            "In alert-only mode first, until its false positives are understood"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Observe before blocking."
         }
       },
@@ -6182,8 +6033,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Raise ValueError",
             "Assign sid 0",
-            "Ignore it",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Ignore it monitored through centralized security audit logging"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6242,11 +6092,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A new server",
             "A public announcement",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
             "Written authorisation and an agreed scope"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Permission and scope first."
         }
       },
@@ -6276,13 +6125,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What CVSS rating does a score of 7.5 have?",
           "options": [
-            "Medium",
-            "Critical",
             "High",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Medium",
+            "Critical"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "7.0-8.9 is High."
         }
       },
@@ -6317,12 +6165,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does the CVSS round-up function do?",
           "options": [
             "Rounds to the nearest whole number",
-            "Truncates",
             "Rounds up to one decimal place, carefully avoiding floating point errors",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Truncates monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Base scores always round up to one decimal."
         }
       },
@@ -6353,12 +6200,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is CVSS alone not enough to prioritise?",
           "options": [
             "It is inaccurate",
-            "Context such as exposure and active exploitation also matters",
             "It is secret",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Context such as exposure and active exploitation also matters"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Scores describe the flaw; context decides urgency."
         }
       },
@@ -6390,8 +6236,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It is specific about what to change and where",
             "It is generic",
-            "It is long",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "It is long monitored through centralized security audit logging"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6425,12 +6270,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "cvss_severity(vector, 0.0) returns which rating?",
           "options": [
             "Low",
-            "Medium",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
-            "None"
+            "None",
+            "Medium"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A zero score is rated None."
         }
       }
@@ -6489,13 +6333,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does zero trust assume?",
           "options": [
+            "No request is trusted just because of its network location",
             "The internal network is safe",
-            "Firewalls are unnecessary",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "No request is trusted just because of its network location"
+            "Firewalls are unnecessary"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Location alone never grants trust."
         }
       },
@@ -6530,13 +6373,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does STEP_UP mean in a zero trust decision?",
           "options": [
-            "Grant admin rights",
-            "Block the device forever",
+            "Grant admin rights monitored through centralized security audit logging",
             "Ask the user to verify again, for example with MFA",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Block the device forever"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Extra verification before access."
         }
       },
@@ -6567,13 +6409,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does micro-segmentation limit?",
           "options": [
-            "Download speed",
-            "Which services can talk to which, containing a compromise",
+            "Download speed monitored through centralized security audit logging",
             "The number of users",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Which services can talk to which, containing a compromise"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Fine-grained allowed paths."
         }
       },
@@ -6605,8 +6446,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Strong identity and verified devices",
             "The office firewall",
-            "Physical locks",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Physical locks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6640,13 +6480,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should be the first step in adopting zero trust?",
           "options": [
+            "Buy a firewall monitored through centralized security audit logging",
             "Inventory users, devices, applications and data flows",
-            "Buy a firewall",
-            "Remove all passwords",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Remove all passwords"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Visibility comes first."
         }
       },
@@ -6679,11 +6518,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "STEP_UP",
             "ALLOW",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
             "DENY"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Deny rules are checked first."
         }
       }
@@ -6739,12 +6577,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What causes most cloud breaches?",
           "options": [
             "Provider hardware failures",
-            "Solar flares",
             "Customer misconfiguration",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Solar flares"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Misconfiguration is the main cause."
         }
       },
@@ -6774,13 +6611,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Action \"*\" dangerous?",
           "options": [
-            "It is slow",
-            "It allows every action, far beyond what any application needs",
+            "It is slow monitored through centralized security audit logging",
             "It is invalid JSON",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "It allows every action, far beyond what any application needs"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Wildcards grant everything."
         }
       },
@@ -6811,13 +6647,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does S3 Block Public Access do?",
           "options": [
-            "Encrypts data",
             "Overrides ACLs and policies that would make data public",
-            "Deletes old files",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Encrypts data monitored through centralized security audit logging",
+            "Deletes old files"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "It is a safety net against public exposure."
         }
       },
@@ -6847,13 +6682,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is envelope encryption?",
           "options": [
-            "Encrypting data with a data key, and that key with a master key in KMS",
             "Encrypting emails",
-            "A type of hash",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "Encrypting data with a data key, and that key with a master key in KMS",
+            "A type of hash"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Keys protect keys."
         }
       },
@@ -6884,12 +6718,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Where should cloud audit logs be stored?",
           "options": [
             "In the same account they record",
-            "Nowhere",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals",
+            "Nowhere monitored through centralized security audit logging",
             "In a separate, locked-down account"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Attackers try to delete logs."
         }
       },
@@ -6919,13 +6752,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "bucket_public with block_public_access True returns?",
           "options": [
-            "[\"PUBLIC_ACL\"]",
-            "An error",
             "[]",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "[\"PUBLIC_ACL\"]",
+            "An error"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Block Public Access overrides everything."
         }
       }
@@ -6982,8 +6814,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Recovery",
             "Eradication",
-            "Preparation",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Preparation"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -7017,13 +6848,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why isolate a compromised machine instead of switching it off?",
           "options": [
-            "It is faster",
             "Memory evidence is preserved while the network threat is stopped",
-            "Switching off is illegal",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "It is faster monitored through centralized security audit logging",
+            "Switching off is illegal"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Isolation contains without destroying evidence."
         }
       },
@@ -7054,13 +6884,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a hash chain make a log tamper-evident?",
           "options": [
+            "It encrypts the log utilizing unverified cryptographic primitive implementations",
             "Changing any entry changes all later hashes",
-            "It encrypts the log",
-            "It deletes old entries",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "It deletes old entries"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Every hash depends on everything before it."
         }
       },
@@ -7097,11 +6926,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It cannot be",
             "By the file size",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification",
             "The number of entries no longer matches the stored hashes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Lengths differ, and the stored final hash no longer matches."
         }
       },
@@ -7132,13 +6960,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are post-incident reviews blameless?",
           "options": [
-            "To protect managers",
-            "Because nobody is ever at fault",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities",
-            "So people report problems honestly and the focus stays on fixing systems"
+            "So people report problems honestly and the focus stays on fixing systems",
+            "To protect managers monitored through centralized security audit logging",
+            "Because nobody is ever at fault"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Honesty improves learning."
         }
       },
@@ -7168,13 +6995,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "first_tampered on an intact log returns?",
           "options": [
-            "0",
-            "-1",
+            "0 monitored through centralized security audit logging",
             "None",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images"
+            "-1"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "No mismatch means None."
         }
       }
@@ -7229,13 +7055,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why multiply severity by asset criticality?",
           "options": [
-            "It is traditional",
             "The same alert matters more on a critical system",
-            "To make numbers bigger",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "It is traditional",
+            "To make numbers bigger"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Context changes urgency."
         }
       },
@@ -7270,13 +7095,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why show the list of gaps alongside the score?",
           "options": [
-            "A single number hides which controls actually need work",
             "To make the report longer",
-            "Grades are unreliable",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "A single number hides which controls actually need work",
+            "Grades are unreliable monitored through centralized security audit logging"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Gaps drive action."
         }
       },
@@ -7307,13 +7131,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What ties the course's lessons together?",
           "options": [
-            "Defence in depth: independent layers that cover each other",
-            "A single tool",
+            "A single tool monitored through centralized security audit logging",
             "One programming language",
-            "Disabling TLS certificate hostname verification and accepting unvetted self-signed root authorities"
+            "Defence in depth: independent layers that cover each other"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Layers, from Day 1 to Day 30."
         }
       },
@@ -7343,13 +7166,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What matters most for a security career?",
           "options": [
+            "Practical, ethical experience and continuous learning",
             "Only certificates",
-            "Knowing one tool",
-            "Hardcoding static symmetric encryption keys across distributed microservice container images",
-            "Practical, ethical experience and continuous learning"
+            "Knowing one tool"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Skills, ethics and curiosity."
         }
       },
@@ -7381,12 +7203,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why run security checks on a schedule?",
           "options": [
             "To fill calendars",
-            "Tools expire",
             "Threats and systems change, so defences must be rechecked",
-            "Disabling multi-factor authentication requirements for external privileged administrative portals"
+            "Tools expire monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Continuous checking keeps up with change."
         }
       },
@@ -7421,12 +7242,11 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "triage treats an alert on an unknown asset how?",
           "options": [
             "Ignores it",
-            "Uses criticality 1",
             "Uses criticality 5",
-            "Using deprecated weak hashing algorithms such as MD5 or SHA-1 for password storage verification"
+            "Uses criticality 1"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Unknown assets default to low criticality, and should be inventoried."
         }
       }
@@ -7504,7 +7324,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Counting raw network connection drops across external egress perimeter firewalls without normalization",
             "Computing the arithmetic mean of Damage, Reproducibility, Exploitability, Affected Users, and Discoverability scores",
-            "Multiplying cryptographic hash bit lengths by symmetric cipher block sizes to calculate encryption strength across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "Multiplying cryptographic hash bit lengths by symmetric cipher block sizes to calculate encryption strength",
             "Measuring CPU utilization spikes during active distributed denial of service volume floods"
           ],
           "answer": 1,
@@ -7550,13 +7370,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a security attack tree, how is the minimum attacker effort calculated for an OR gate versus an AND gate?",
           "options": [
-            "OR gates take the minimum child cost while AND gates accumulate the sum of all child branch costs",
             "OR gates multiply child costs together while AND gates take the average of all subordinate milestones",
             "OR gates require all child branches to succeed while AND gates evaluate only the lowest-cost branch",
+            "OR gates take the minimum child cost while AND gates accumulate the sum of all child branch costs",
             "OR gates invert the boolean traversal state while AND gates reset the cost counter to zero"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In attack trees, an OR gate represents alternative paths (minimum cost), whereas an AND gate represents required conjuncts (sum of costs)."
         },
         "tryIt": "Add a child node P3 ('Social Engineering Phishing') with cost_hours=6.0 to the root OR gate and verify minimum effort."
@@ -7599,8 +7419,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is memoized dynamic programming essential when evaluating large enterprise attack graphs?",
           "options": [
             "To automatically generate cryptographic public keys for all nodes across the network perimeter",
-            "To bypass firewall rules without triggering security event logging alerts in centralized SIEM systems across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To convert asynchronous network packet captures into synchronous TCP stream buffers",
+            "To bypass firewall rules without triggering security event logging alerts in centralized SIEM systems",
+            "To convert asynchronous network packet captures into synchronous TCP stream buffers bypassing input validation sanitization filters",
             "To prevent exponential combinatorial explosion by caching previously evaluated intermediate exploit path costs"
           ],
           "answer": 3,
@@ -7646,13 +7466,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary action taken by a CI/CD threat modeling guardrail when an unmitigated high-DREAD threat is discovered?",
           "options": [
+            "Halting the build pipeline and returning prescriptive control recommendations based on the STRIDE category",
             "Silently suppressing the warning to allow deployment into production environments without delay",
             "Encrypting the source code repository using an unrecoverable one-way hashing function",
-            "Halting the build pipeline and returning prescriptive control recommendations based on the STRIDE category",
-            "Increasing the logging level of external DNS servers to debug mode across all network interfaces across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Increasing the logging level of external DNS servers to debug mode across all network interfaces"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "CI/CD security guardrails must fail closed, blocking builds with high-risk unmitigated threats and providing specific remediation controls."
         },
         "tryIt": "Add an unmitigated Elevation of Privilege threat with DREAD 8.5 to sample_threats and verify that the guardrail fails closed."
@@ -7694,13 +7514,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of continuous runtime telemetry correlation in production threat modeling?",
           "options": [
-            "To disable encrypted TLS sessions when server network bandwidth utilization exceeds capacity limits across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To randomly cycle database user passwords every microsecond to prevent credential guessing attacks",
+            "To disable encrypted TLS sessions when server network bandwidth utilization exceeds capacity limits",
             "To dynamically validate and update threat risk scores against real-world WAF and CSPM operational security events",
-            "To compress application log files using lossy audio encoding formats to minimize disk consumption"
+            "To randomly cycle database user passwords every microsecond to prevent credential guessing attacks",
+            "To compress application log files using lossy audio encoding formats to minimize disk consumption monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Continuous telemetry correlation ensures static threat models adapt dynamically based on observed real-world attack attempts."
         },
         "tryIt": "Introduce an invalid DREAD score of 12.0 to sample_threats and observe Gate 3 failing in the telemetry certification report."
@@ -7763,13 +7583,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the catastrophic cryptographic consequence of reusing a 96-bit nonce in AES-GCM under the same key?",
           "options": [
-            "The underlying operating system memory buffer is immediately wiped and rebooted",
             "The GHASH authentication key H is exposed, allowing an attacker to forge arbitrary valid authentication tags",
+            "The underlying operating system memory buffer is immediately wiped and rebooted",
             "The symmetric cipher automatically falls back to DES encryption with 56-bit keys",
-            "All network packets are converted into uncompressed high-resolution bitmap images across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "All network packets are converted into uncompressed high-resolution bitmap images"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Nonce reuse in AES-GCM allows an adversary to solve the linear equations over GF(2^128), exposing the GHASH key H and enabling arbitrary tag forgery."
         },
         "tryIt": "Change the block integer to 0x12345678 and observe how finite field multiplication produces an avalanche effect."
@@ -7811,13 +7631,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Associated Authenticated Data (AAD) incorporated into the AES-GCM authentication tag calculation?",
           "options": [
+            "To double the symmetric key length from 256 bits to 512 bits during transmission",
             "To cryptographically bind unencrypted protocol headers and routing metadata against tampering without encrypting them",
-            "To double the symmetric key length from 256 bits to 512 bits during transmission across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To compress large binary payloads before executing symmetric stream encryption",
+            "To compress large binary payloads before executing symmetric stream encryption utilizing unverified cryptographic primitive implementations",
             "To bypass firewall deep packet inspection engines across public transit routes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "AAD allows protocol headers to remain in plaintext for network routing while ensuring they cannot be modified in transit without invalidating the authentication tag."
         },
         "tryIt": "Attempt to call aes.encrypt with the exact same nonce twice and confirm that NonceReuseCatastropheError is thrown."
@@ -7859,13 +7679,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of chunked AEAD streaming encryption over monolithic file encryption?",
           "options": [
-            "It eliminates the need for secret cryptographic keys during payload transmission",
-            "It permits the reuse of identical nonces across different encrypted customer files across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It converts symmetric cipher block operations into asymmetric RSA exponentiations",
-            "It allows constant-memory O(1) processing and immediate incremental tag verification of streaming segments"
+            "It eliminates the need for secret cryptographic keys during payload transmission monitored through centralized security audit logging",
+            "It permits the reuse of identical nonces across different encrypted customer files",
+            "It allows constant-memory O(1) processing and immediate incremental tag verification of streaming segments",
+            "It converts symmetric cipher block operations into asymmetric RSA exponentiations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Chunked AEAD streaming processes fixed-size segments with constant memory, allowing receivers to verify and reject tampered chunks immediately."
         },
         "tryIt": "Add a third chunk with index 2 and verify that the 32-bit counter produces an independent unique authentication tag."
@@ -7907,7 +7727,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does NIST SP 800-38D establish invocation limits (e.g. 2^32 invocations) for a single AES-GCM key?",
           "options": [
-            "To prevent hard drive sector fragmentation during high-throughput database writes across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "To prevent hard drive sector fragmentation during high-throughput database writes",
             "To comply with legacy telecommunications baud rate restrictions from 1985",
             "To limit power consumption across mobile device battery hardware modules",
             "To prevent birthday paradox nonce collisions and preserve mathematical authenticity guarantees"
@@ -7955,13 +7775,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must cryptographic authentication tags be compared using constant-time comparison functions like hmac.compare_digest?",
           "options": [
-            "To speed up tag evaluation by skipping cryptographic hash computation steps",
-            "To convert binary tag hashes into human-readable ASCII hexadecimal strings",
             "To prevent timing side-channel attacks where adversaries infer tag bytes from microsecond latency differences",
-            "To allow database indexes to perform prefix range scans across authentication records across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To speed up tag evaluation by skipping cryptographic hash computation steps",
+            "To convert binary tag hashes into human-readable ASCII hexadecimal strings monitored through centralized security audit logging",
+            "To allow database indexes to perform prefix range scans across authentication records"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Constant-time comparisons prevent timing side-channel attacks by ensuring the comparison executes in identical time regardless of which byte differs."
         },
         "tryIt": "Simulate an active forgery by passing forged_tag_rejected=False and observe Gate 3 failing in the audit suite."
@@ -8026,12 +7846,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Argon2id preferred over traditional SHA-256 for password hashing and key derivation?",
           "options": [
             "It compresses stored password strings to zero bytes to eliminate database storage overhead",
-            "It enforces memory-hardness, requiring large RAM allocations that neutralize GPU and ASIC hardware cracking attacks",
-            "It allows passwords to be reversed back into plaintext by system administrators during password resets across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It automatically emails verification codes to users every time a password hash is computed"
+            "It allows passwords to be reversed back into plaintext by system administrators during password resets",
+            "It automatically emails verification codes to users every time a password hash is computed",
+            "It enforces memory-hardness, requiring large RAM allocations that neutralize GPU and ASIC hardware cracking attacks"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Argon2id forces memory-hard block allocations, making mass parallel cracking on GPUs and ASICs economically and technically infeasible."
         },
         "tryIt": "Increase memory_cost_kb from 32 to 64 and observe the derived key changing while memory hardness doubles."
@@ -8075,8 +7895,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does early-exit string comparison (==) introduce security vulnerabilities into authentication systems?",
           "options": [
             "It leaks timing information that allows attackers to deduce hash bytes by measuring response latency differences",
-            "It causes memory leaks by allocating redundant string pointers in the operating system kernel across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It converts sensitive password digests into cleartext HTTP response headers",
+            "It causes memory leaks by allocating redundant string pointers in the operating system kernel",
+            "It converts sensitive password digests into cleartext HTTP response headers utilizing unverified cryptographic primitive implementations",
             "It disables multi-factor authentication requirements for administrative login accounts"
           ],
           "answer": 0,
@@ -8123,13 +7943,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Unicode normalization (NFKC) mandatory before feeding passwords into a Key Derivation Function?",
           "options": [
+            "To translate foreign language passwords into standardized English vocabulary words utilizing unverified cryptographic primitive implementations",
             "To ensure visually identical character representations produce identical binary byte inputs for the hash function",
-            "To translate foreign language passwords into standardized English vocabulary words",
             "To convert non-alphanumeric special characters into random 64-bit floating point numbers",
-            "To reduce the password length to a maximum of 8 characters for legacy database compatibility across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To reduce the password length to a maximum of 8 characters for legacy database compatibility"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Unicode normalization ensures that visually identical characters with different underlying byte representations are normalized to consistent binary forms."
         },
         "tryIt": "Evaluate memory steps up to 128KB and verify that derivation execution tags scale linearly with allocated memory."
@@ -8173,12 +7993,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary benefit of the needs_rehash architectural pattern in password authentication systems?",
           "options": [
             "It automatically shares user password credentials with external threat intelligence feeds",
-            "It bypasses multi-factor authentication checks for legacy users who created accounts before 2020 across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It forces all users to reset their passwords every Monday morning before accessing systems",
-            "It transparently upgrades user password hashes to modern cost parameters upon successful login without requiring bulk resets"
+            "It bypasses multi-factor authentication checks for legacy users who created accounts before 2020",
+            "It transparently upgrades user password hashes to modern cost parameters upon successful login without requiring bulk resets",
+            "It forces all users to reset their passwords every Monday morning before accessing systems"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The needs_rehash pattern allows transparent, on-the-fly upgrades of password hashes to new security parameters as users log in."
         },
         "tryIt": "Update user_old_hash memory_kb to 64 and confirm that check_needs_rehash returns False under current policy."
@@ -8221,13 +8041,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational threat can be identified when monitoring latency and throughput telemetry on KDF authentication endpoints?",
           "options": [
-            "Hardware hard drive controller firmware corruption across database cluster storage nodes across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "Hardware hard drive controller firmware corruption across database cluster storage nodes",
             "Network switch power supply voltage fluctuations during nighttime maintenance windows",
-            "Credential stuffing attacks attempting to exhaust server CPU threads through mass parallel password guesses",
-            "Fiber optic cable degradation caused by underwater oceanic seismic activity"
+            "Fiber optic cable degradation caused by underwater oceanic seismic activity monitored through centralized security audit logging",
+            "Credential stuffing attacks attempting to exhaust server CPU threads through mass parallel password guesses"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Abnormal spikes in KDF computation volume often signal credential stuffing attacks attempting to exhaust server compute resources or guess passwords."
         },
         "tryIt": "Set timing_safe=False in the certification call and verify that the KDF subsystem fails institutional certification."
@@ -8291,12 +8111,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What constitutes the Subject Public Key Info (SPKI) fingerprint in modern certificate validation?",
           "options": [
             "The MD5 checksum of the domain name's DNS TXT verification record",
-            "The SHA-256 digest of the DER-encoded public key algorithm identifier and public key bitstring",
             "The operating system process identifier of the web server daemon process",
-            "The total number of intermediate certificate authority hops in the trust path across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "The SHA-256 digest of the DER-encoded public key algorithm identifier and public key bitstring",
+            "The total number of intermediate certificate authority hops in the trust path"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The SPKI fingerprint is the SHA-256 hash of the Subject Public Key Info DER bytes, identifying the public key independent of certificate metadata."
         },
         "tryIt": "Modify the public key string and observe how the calculated Subject Public Key Info fingerprint changes completely."
@@ -8338,13 +8158,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens during X.509 chain validation if an intermediate certificate in the path has is_ca=False?",
           "options": [
-            "The validator automatically promotes the intermediate certificate to a root authority across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Validation immediately fails because only authorized CA certificates are permitted to issue child certificates",
+            "The validator automatically promotes the intermediate certificate to a root authority",
             "The connection switches to unencrypted HTTP to bypass security restrictions",
-            "The certificate's expiration date is extended by 30 days automatically"
+            "The certificate's expiration date is extended by 30 days automatically without cryptographically verified digital signatures",
+            "Validation immediately fails because only authorized CA certificates are permitted to issue child certificates"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Basic Constraints require is_ca=True for any certificate that issues subordinate certificates; failure to have this flag invalidates the trust chain."
         },
         "tryIt": "Alter the intermediate certificate issuer to 'CN=Unknown CA' and verify that chain validation rejects the broken link."
@@ -8387,8 +8207,8 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does OCSP Stapling improve user privacy and TLS handshake performance compared to direct OCSP queries?",
           "options": [
             "The server periodically fetches and attaches the CA's signed revocation response directly into the TLS handshake, eliminating client queries",
-            "It bypasses all certificate validation checks when clients connect over cellular data networks across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It replaces asymmetric RSA public key operations with symmetric XOR block operations",
+            "It bypasses all certificate validation checks when clients connect over cellular data networks",
+            "It replaces asymmetric RSA public key operations with symmetric XOR block operations monitored through centralized security audit logging",
             "It stores all global certificate revocations in the local web browser cookie storage"
           ],
           "answer": 0,
@@ -8434,13 +8254,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should enterprise public key pinning configurations always include at least one backup pin?",
           "options": [
-            "To allow secondary domain names to share the exact same private key across different cloud providers across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "To allow secondary domain names to share the exact same private key across different cloud providers",
+            "To prevent service outages and client lockouts when the primary certificate expires or requires emergency rotation",
             "To satisfy legacy telecommunications protocol requirements for dial-up modems",
-            "To enable third-party advertisers to track user sessions across different web applications",
-            "To prevent service outages and client lockouts when the primary certificate expires or requires emergency rotation"
+            "To enable third-party advertisers to track user sessions across different web applications"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Backup pins ensure that if the primary certificate private key is compromised or expires, the system can rotate to the backup key without breaking client connections."
         },
         "tryIt": "Provide an unapproved public key string to the pinning guard and verify that a PermissionError is thrown."
@@ -8482,10 +8302,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security issue is commonly indicated by a localized cluster of untrusted root certificate errors in client telemetry?",
           "options": [
-            "A sudden reduction in external network transit latency across transatlantic undersea cables across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "A sudden reduction in external network transit latency across transatlantic undersea cables",
             "Hardware CPU thermal throttling across server database clusters during peak load",
             "Client-side malware or corporate proxy firewalls attempting unauthorized TLS man-in-the-middle inspection",
-            "Excessive database query indexing on unindexed relational database tables"
+            "Excessive database query indexing on unindexed relational database tables without cryptographically verified digital signatures"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -8548,13 +8368,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of envelope encryption over encrypting all records with a single master key?",
           "options": [
-            "It eliminates the need for computer RAM memory during symmetric cipher execution across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It converts relational database tables into uncompressed static HTML web pages",
+            "It eliminates the need for computer RAM memory during symmetric cipher execution",
             "Rotating the master Key Encryption Key requires only re-encrypting small DEKs rather than re-encrypting petabytes of payload data",
+            "It converts relational database tables into uncompressed static HTML web pages",
             "It allows public unauthenticated users to decrypt confidential financial data"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Envelope encryption means rotating the master key only requires re-wrapping the lightweight DEKs, avoiding expensive re-encryption of massive datasets."
         },
         "tryIt": "Add a fifth pillar for Quantum-Resistant Hybrid Key Encapsulation and verify specification output display."
@@ -8598,12 +8418,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What security mechanism prevents an attacker from swapping routing metadata in an envelope encryption container?",
           "options": [
             "Storing the metadata in an unindexed SQLite database table on the host file system",
+            "Encoding the metadata using standard base64 encoding without padding characters without cryptographically verified digital signatures",
             "Binding the metadata directly into the Associated Authenticated Data (AAD) validated by the cryptographic tag",
-            "Encoding the metadata using standard base64 encoding without padding characters",
-            "Limiting the metadata string length to a maximum of 32 alphanumeric ASCII characters across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Limiting the metadata string length to a maximum of 32 alphanumeric ASCII characters"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Associated Authenticated Data is cryptographically bound into the authentication tag; altering any metadata bit causes tag verification to fail."
         },
         "tryIt": "Modify the metadata AAD to 'classification=CONFIDENTIAL' and verify that the sealed envelope binds the new header."
@@ -8646,13 +8466,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is active memory zeroization of temporary key buffers essential in secure server applications?",
           "options": [
-            "To prevent sensitive plaintext keys from lingering in physical RAM where they could be extracted via memory scraping or core dumps",
             "To free up operating system disk space by automatically deleting log directories",
-            "To convert volatile dynamic RAM into non-volatile solid-state drive storage",
-            "To increase CPU clock speeds by reducing thermal dissipation across motherboard buses across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To convert volatile dynamic RAM into non-volatile solid-state drive storage utilizing unverified cryptographic primitive implementations",
+            "To increase CPU clock speeds by reducing thermal dissipation across motherboard buses",
+            "To prevent sensitive plaintext keys from lingering in physical RAM where they could be extracted via memory scraping or core dumps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Active zeroization overwrites key memory immediately after use, preventing secrets from remaining in unmanaged memory buffers vulnerable to memory inspection."
         },
         "tryIt": "Inspect the byte array values before and after zeroization to verify that every single memory byte is overwritten with 0."
@@ -8695,13 +8515,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can an enterprise recover from a master KEK compromise in minutes when using envelope encryption?",
           "options": [
+            "Because only the small wrapped DEKs must be re-encrypted under the new master key, leaving massive data payloads untouched",
             "Because all encrypted customer data is automatically published to public cloud storage buckets",
-            "Because the system temporarily switches to unencrypted plaintext storage while keys are rotated across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Because the master key is stored in cleartext in the operating system environment variables",
-            "Because only the small wrapped DEKs must be re-encrypted under the new master key, leaving massive data payloads untouched"
+            "Because the system temporarily switches to unencrypted plaintext storage while keys are rotated",
+            "Because the master key is stored in cleartext in the operating system environment variables"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Envelope encryption decouples data from master keys; rotating the master key requires re-wrapping only the tiny DEKs, which is computationally trivial."
         },
         "tryIt": "Pass two non-matching authentication tags to verify_envelope_integrity and confirm that tamper detection raises PermissionError."
@@ -8744,13 +8564,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which set of capabilities is fully certified upon passing the Milestone 7 verification suite?",
           "options": [
-            "Frontend CSS grid responsiveness, JavaScript bundle compression, and image lazy loading across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Relational database B-tree indexing, foreign key cascade deletion, and CSV file export",
-            "DNS round-robin load balancing, HTTP/2 multiplexing, and server rack cooling fan speed",
-            "AEAD AES-GCM integrity, Argon2id memory-hard KDF, X.509 PKI chain validation, envelope sealing, and key zeroization"
+            "Frontend CSS grid responsiveness, JavaScript bundle compression, and image lazy loading",
+            "AEAD AES-GCM integrity, Argon2id memory-hard KDF, X.509 PKI chain validation, envelope sealing, and key zeroization",
+            "Relational database B-tree indexing, foreign key cascade deletion, and CSV file export utilizing unverified cryptographic primitive implementations",
+            "DNS round-robin load balancing, HTTP/2 multiplexing, and server rack cooling fan speed"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 7 certifies the end-to-end cryptographic foundation: AEAD encryption, memory-hard key derivation, X.509 PKI trust, envelope sealing, and key zeroization."
         },
         "tryIt": "Set memory_zeroized=False in the Milestone 7 certification suite and verify that the security audit fails."
@@ -8814,13 +8634,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the plain PKCE code challenge method deprecated in favor of mandatory S256 in OAuth 2.1?",
           "options": [
+            "Because the plain method transmits the verifier in plaintext, offering zero protection if the authorization request is inspected",
             "Because plain strings cannot be transmitted over HTTPS network connections",
             "Because the plain method consumes more server memory than computing a SHA-256 hash",
-            "Because the plain method transmits the verifier in plaintext, offering zero protection if the authorization request is inspected",
-            "Because web browsers cannot render alphanumeric ASCII characters without S256 encoding across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Because web browsers cannot render alphanumeric ASCII characters without S256 encoding"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The plain method sets challenge = verifier, failing to protect against attackers inspecting the initial authorization request URL; S256 enforces a one-way cryptographic hash."
         },
         "tryIt": "Generate a second random code_verifier string and observe that S256 produces a distinct 43-character challenge."
@@ -8863,10 +8683,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mandatory operational behavior of an OAuth 2.1 authorization code upon redemption?",
           "options": [
-            "It remains valid for 24 hours to allow multiple client applications to reuse it across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "It remains valid for 24 hours to allow multiple client applications to reuse it",
             "It must be strictly single-use and invalidated immediately upon first presentation",
             "It is automatically transformed into a public cryptographic root certificate",
-            "It must be cached in client local storage to bypass future login prompts"
+            "It must be cached in client local storage to bypass future login prompts monitored through centralized security audit logging"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -8912,13 +8732,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a cryptographically signed state parameter prevent OAuth Cross-Site Request Forgery (CSRF)?",
           "options": [
+            "It encrypts all network packets passing through the client's home wireless router without cryptographically verified digital signatures",
+            "It automatically forces the user's browser to clear all third-party advertising cookies",
             "It binds the authorization callback to the specific user's session, ensuring the client cannot be tricked into redeeming an attacker's grant",
-            "It encrypts all network packets passing through the client's home wireless router",
-            "It automatically forces the user's browser to clear all third-party advertising cookies across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
             "It prevents the authorization server from requiring password credentials during login"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The state parameter ties the authorization callback directly to the initiating browser session, ensuring an attacker cannot inject their own authorization code into a victim's session."
         },
         "tryIt": "Alter the session ID in the state token and verify that the HMAC signature check fails constant-time validation."
@@ -8961,13 +8781,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended security response when an OAuth server detects an authorization code reuse attempt?",
           "options": [
-            "Reject the request and immediately revoke all access and refresh tokens previously issued from that grant",
-            "Silently issue a new access token to avoid interrupting user activity across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "Silently issue a new access token to avoid interrupting user activity",
             "Extend the authorization code validity window by another 10 minutes",
-            "Convert the authorization code into a public JWT access token"
+            "Convert the authorization code into a public JWT access token",
+            "Reject the request and immediately revoke all access and refresh tokens previously issued from that grant"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "OAuth 2.1 dictates that detecting code reuse indicates potential interception, requiring immediate revocation of all tokens derived from that authorization grant."
         },
         "tryIt": "Call redeem_code with 'AUTH_CODE_BETA' twice and verify that the single-use invariant trips the permission error."
@@ -9010,13 +8830,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which legacy OAuth flow is completely deprecated in OAuth 2.1 due to browser URL fragment token leakage?",
           "options": [
+            "The Implicit Grant flow",
             "The Authorization Code flow with PKCE",
             "The Client Credentials flow for microservices",
-            "The Device Authorization flow for smart TVs",
-            "The Implicit Grant flow"
+            "The Device Authorization flow for smart TVs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The Implicit Grant flow returned access tokens directly in URL hash fragments, making them vulnerable to access log leakage and browser history extraction."
         },
         "tryIt": "Toggle implicit_grant_blocked to False and observe the OAuth 2.1 compliance audit failing immediately."
@@ -9076,13 +8896,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an Algorithm Confusion attack compromise JWT signature verification?",
           "options": [
-            "An attacker inverts the base64 character encoding table to produce invalid JSON strings across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "An attacker inverts the base64 character encoding table to produce invalid JSON strings",
             "An attacker forces the server CPU to execute infinite floating-point division loops",
-            "An attacker changes the header algorithm from RS256 to HS256, tricking the server into using its public RSA key as an HMAC symmetric secret",
-            "An attacker bypasses DNS resolution by hardcoding IP addresses in the JWT payload"
+            "An attacker bypasses DNS resolution by hardcoding IP addresses in the JWT payload",
+            "An attacker changes the header algorithm from RS256 to HS256, tricking the server into using its public RSA key as an HMAC symmetric secret"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Algorithm confusion tricks a server expecting RS256 into evaluating HS256 using its public RSA key as the HMAC shared secret, allowing the attacker to forge signatures."
         },
         "tryIt": "Add an explanation for JWKS URI injection to the threat model and verify that the taxonomy displays all vectors."
@@ -9125,13 +8945,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary defensive rule for preventing algorithm confusion and alg: none attacks in JWT validators?",
           "options": [
-            "Allowing the client application to dynamically negotiate whatever encryption algorithm it prefers across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
             "Enforcing a strict, immutable server-side whitelist of permitted algorithms and ignoring untrusted header alg claims",
+            "Allowing the client application to dynamically negotiate whatever encryption algorithm it prefers",
             "Disabling signature verification for all internal microservice communication",
-            "Encoding the entire JWT payload in XML format instead of JSON format"
+            "Encoding the entire JWT payload in XML format instead of JSON format monitored through centralized security audit logging"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The server must enforce a strict whitelist of permitted algorithms, never trusting the client-supplied alg header to dictate verification logic."
         },
         "tryIt": "Craft a token header asserting alg='none' and confirm that HardenedJWTValidator rejects the token with an error."
@@ -9174,10 +8994,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can an attacker exploit an unsanitized Key Identifier (kid) header parameter in a JWT?",
           "options": [
-            "By increasing the token file size beyond the maximum MTU of Ethernet network interfaces across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "By increasing the token file size beyond the maximum MTU of Ethernet network interfaces",
             "By injecting path traversal strings (e.g. ../../dev/null) or SQL syntax to manipulate server key retrieval",
             "By forcing the client browser to restart its operating system graphics driver",
-            "By clearing all DNS resolver caches across the local area network"
+            "By clearing all DNS resolver caches across the local area network utilizing unverified cryptographic primitive implementations"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -9223,13 +9043,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a token revocation blacklist (checking jti claims) necessary in stateless JWT architectures?",
           "options": [
-            "To allow immediate invalidation of tokens upon user logout or account compromise before the token expires",
-            "To compress JSON payload strings into binary Protocol Buffer representations across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "To compress JSON payload strings into binary Protocol Buffer representations",
             "To eliminate the need for HTTPS encryption between microservice endpoints",
+            "To allow immediate invalidation of tokens upon user logout or account compromise before the token expires",
             "To prevent users from bookmarking web pages in their internet browser"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Stateless JWTs remain valid until their exp timestamp; a revocation registry checking jti claims allows immediate invalidation when security events occur."
         },
         "tryIt": "Add a second token UUID to the blacklist and confirm that is_revoked returns True for both invalid session tokens."
@@ -9272,9 +9092,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational action should be triggered when telemetry detects repeated alg: none assertions at an API gateway?",
           "options": [
-            "Automatically generating a new RSA public key and publishing it to social media across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "Automatically generating a new RSA public key and publishing it to social media",
             "Disabling all database firewall rules across production database clusters",
-            "Converting all incoming HTTP requests into cleartext Telnet sessions",
+            "Converting all incoming HTTP requests into cleartext Telnet sessions monitored through centralized security audit logging",
             "Immediately alerting the security operations center and rate-limiting or blocking the offending client IP address"
           ],
           "answer": 3,
@@ -9344,7 +9164,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the canonical syntax of a Google Zanzibar relation tuple?",
           "options": [
             "user:password@hostname:port/database",
-            "SELECT permission FROM roles WHERE user_id = ? across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "SELECT permission FROM roles WHERE user_id = ?",
             "object#relation@user (or object#relation@userset)",
             "chmod -R 777 /var/data/enterprise"
           ],
@@ -9394,12 +9214,12 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does a Zanzibar ReBAC engine resolve permissions when a tuple specifies a userset (e.g. group:analysts#member) instead of a direct user?",
           "options": [
             "It prompts the user to enter their two-factor authentication code again",
-            "It converts the user account into an administrative root account automatically across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It recursively evaluates whether the target user possesses the specified membership relation on that group object",
-            "It drops all active database connection pools to preserve memory"
+            "It converts the user account into an administrative root account automatically",
+            "It drops all active database connection pools to preserve memory monitored through centralized security audit logging",
+            "It recursively evaluates whether the target user possesses the specified membership relation on that group object"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When encountering a userset, the engine recursively checks if the user has the required relation on that userset entity, enabling transitive inheritance."
         },
         "tryIt": "Add an editor relation and query whether Charlie inherits editor permissions through his group membership."
@@ -9443,13 +9263,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is cycle detection mandatory in relationship-based access control engines?",
           "options": [
-            "To ensure database primary keys increment by odd numbers only",
             "To prevent infinite recursion and stack overflow crashes caused by circular group memberships",
-            "To convert directed acyclic graphs into linear linked list structures across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To allow users to log in without entering their username"
+            "To ensure database primary keys increment by odd numbers only",
+            "To convert directed acyclic graphs into linear linked list structures",
+            "To allow users to log in without entering their username monitored through centralized security audit logging"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Circular group memberships in ReBAC graphs cause infinite recursive loops unless detected and pruned by cycle detection guardrails."
         },
         "tryIt": "Add an edge from C to D and D to A to create a 4-node cycle and verify that cycle detection identifies the loop."
@@ -9493,13 +9313,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of ABAC contextual filters when layered on top of ReBAC relationship graphs?",
           "options": [
-            "To enforce dynamic environmental guardrails (e.g. IP subnet, device health, risk score) even when valid relationships exist",
             "To permanently disable relational database foreign key constraints",
+            "To enforce dynamic environmental guardrails (e.g. IP subnet, device health, risk score) even when valid relationships exist",
             "To translate SQL database queries into GraphQL mutation documents",
-            "To encrypt client web browser local storage caches using XOR stream ciphers across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To encrypt client web browser local storage caches using XOR stream ciphers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "ABAC filters evaluate dynamic environmental attributes (location, risk, device) to block access even when a user holds valid static ReBAC permissions."
         },
         "tryIt": "Change client IP to '172.16.0.5' and confirm that the ABAC filter rejects access because the subnet is not whitelisted."
@@ -9543,13 +9363,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What fundamental security principle is enforced by the default-deny fallback gate in an authorization engine?",
           "options": [
-            "All users are granted administrator access whenever central database servers go offline across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Passwords are automatically reset to blank strings after 30 days of inactivity",
-            "Network firewalls open all TCP ports during nighttime backup maintenance windows",
-            "Access is rejected unless explicit, verified authorization rules affirmatively grant access"
+            "All users are granted administrator access whenever central database servers go offline",
+            "Passwords are automatically reset to blank strings after 30 days of inactivity without cryptographically verified digital signatures",
+            "Access is rejected unless explicit, verified authorization rules affirmatively grant access",
+            "Network firewalls open all TCP ports during nighttime backup maintenance windows"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Default-deny mandates that access is strictly forbidden unless an affirmative, valid authorization path explicitly grants permission."
         },
         "tryIt": "Set default_deny to False in PolicyEngineAuditor and verify that the enterprise access governance audit fails."
@@ -9610,13 +9430,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the fundamental mathematical reason that parameterized queries eliminate SQL injection vulnerabilities?",
           "options": [
-            "The database engine translates SQL queries into encrypted binary strings before parsing them across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "All user input strings are automatically truncated to a maximum of 8 characters across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The operating system executes database queries within isolated hardware hypervisor containers across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "User input is bound strictly to pre-allocated data leaf nodes in the AST, preventing it from altering grammar and syntax structure"
+            "The database engine translates SQL queries into encrypted binary strings before parsing them",
+            "User input is bound strictly to pre-allocated data leaf nodes in the AST, preventing it from altering grammar and syntax structure",
+            "All user input strings are automatically truncated to a maximum of 8 characters",
+            "The operating system executes database queries within isolated hardware hypervisor containers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Parameterized queries separate SQL code structure from literal data; user arguments can only bind to existing data slots and can never alter AST syntax."
         }
       },
@@ -9659,10 +9479,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an attacker execute a NoSQL injection in a MongoDB-based REST API?",
           "options": [
-            "By appending multiple semicolons to HTTP query string parameters across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "By modifying the client IP address in the X-Forwarded-For HTTP header across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "By appending multiple semicolons to HTTP query string parameters",
+            "By modifying the client IP address in the X-Forwarded-For HTTP header",
             "By submitting a JSON object containing operator keys like {\"$gt\": \"\"} where a scalar string was expected",
-            "By converting JSON payloads into XML SOAP envelope documents across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "By converting JSON payloads into XML SOAP envelope documents utilizing unverified cryptographic primitive implementations"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -9708,13 +9528,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What distinguishes a Second-Order SQL injection from a traditional First-Order SQL injection?",
           "options": [
-            "The payload is executed twice concurrently by two independent database worker threads across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The payload is safely stored in the database initially and only executed later when a downstream query concatenates the stored data",
-            "The attack only affects databases running on secondary backup hardware clusters across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The attack requires the adversary to possess physical access to the database server motherboard across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "The payload is executed twice concurrently by two independent database worker threads",
+            "The attack only affects databases running on secondary backup hardware clusters bypassing input validation sanitization filters",
+            "The attack requires the adversary to possess physical access to the database server motherboard",
+            "The payload is safely stored in the database initially and only executed later when a downstream query concatenates the stored data"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Second-order injection occurs when malicious input is stored safely at write time, but later executed when read and concatenated into an unsafe secondary query."
         }
       },
@@ -9758,9 +9578,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary function of a pre-execution query invariant guard?",
           "options": [
             "To assert that user input values contain zero syntax-altering tokens, failing closed if accidental concatenation occurs",
-            "To automatically re-index database B-trees every time a SELECT query executes across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To compress database network packets using gzip compression algorithms across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To convert SQL queries into JSON documents for web browser consumption across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To automatically re-index database B-trees every time a SELECT query executes",
+            "To compress database network packets using gzip compression algorithms",
+            "To convert SQL queries into JSON documents for web browser consumption"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9806,13 +9626,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational action should be triggered when production telemetry detects a cluster of query invariant trips?",
           "options": [
+            "Shut down all database servers permanently and delete all stored backups",
             "Alert the security operations center and rate-limit or block the offending client IP address or user account",
-            "Shut down all database servers permanently and delete all stored backups across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Disable query parameterization to speed up query execution latency across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Publish the raw query strings to a public web page for external review across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Disable query parameterization to speed up query execution latency monitored through centralized security audit logging",
+            "Publish the raw query strings to a public web page for external review"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Repeated query invariant trips indicate active injection attempts, warranting immediate SOC notification and automated IP-level mitigation."
         }
       }
@@ -9873,13 +9693,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core premise of Zero Trust Architecture (NIST SP 800-207)?",
           "options": [
-            "Trust all network connections originating from inside the corporate office building across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Disable firewalls and access controls to maximize inter-service network throughput across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Rely exclusively on passwords without requiring multi-factor authentication or cryptographic tokens across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Never trust, always verify: every request must be explicitly authenticated, authorized, and inspected regardless of network location"
+            "Never trust, always verify: every request must be explicitly authenticated, authorized, and inspected regardless of network location",
+            "Trust all network connections originating from inside the corporate office building",
+            "Disable firewalls and access controls to maximize inter-service network throughput",
+            "Rely exclusively on passwords without requiring multi-factor authentication or cryptographic tokens"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Zero Trust mandates explicit verification for every request, rejecting implicit trust based on network location or perimeter boundaries."
         }
       },
@@ -9922,13 +9742,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens in the UnifiedZeroTrustGateway if a request with a valid JWT attempts to access a resource without the required ReBAC relation?",
           "options": [
-            "The gateway automatically grants the user administrator privileges across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The gateway prompts the user to solve a CAPTCHA challenge before granting access across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "The gateway automatically grants the user administrator privileges without cryptographically verified digital signatures",
             "The gateway rejects the request at Stage 3 with an authorization failure, enforcing principle of least privilege",
-            "The gateway redirects the request to an unencrypted public cloud storage bucket across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "The gateway prompts the user to solve a CAPTCHA challenge before granting access",
+            "The gateway redirects the request to an unencrypted public cloud storage bucket"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A valid JWT only proves identity (authentication); access is rejected at Stage 3 if the user lacks the specific ReBAC relation on the resource (authorization)."
         }
       },
@@ -9971,13 +9791,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are short Time-to-Live (TTL) windows used for caching zero-trust authorization decisions?",
           "options": [
-            "To force web browsers to refresh their CSS stylesheets every 30 seconds across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "To force web browsers to refresh their CSS stylesheets every 30 seconds monitored through centralized security audit logging",
+            "To prevent hard drives from overheating during high-volume database queries",
             "To balance sub-microsecond evaluation throughput with rapid propagation of permission revocations",
-            "To prevent hard drives from overheating during high-volume database queries across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To allow unauthorized users to test system security without being logged across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To allow unauthorized users to test system security without being logged"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Short TTLs provide extreme cache throughput while ensuring that when a user's access is revoked, the change takes effect within seconds."
         }
       },
@@ -10020,13 +9840,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the security rationale behind the Fail-Closed architectural principle in zero-trust gateways?",
           "options": [
-            "To automatically delete all user database records whenever an error occurs across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To guarantee that system failures or latency spikes never allow uninspected traffic to bypass security controls",
-            "To restart the physical server hardware whenever a single network packet is dropped across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To share all error stack traces publicly on social media for transparency across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To automatically delete all user database records whenever an error occurs",
+            "To restart the physical server hardware whenever a single network packet is dropped",
+            "To share all error stack traces publicly on social media for transparency",
+            "To guarantee that system failures or latency spikes never allow uninspected traffic to bypass security controls"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Failing closed ensures that during an outage or attack, traffic is blocked rather than allowed through uninspected, preventing security bypasses."
         }
       },
@@ -10069,9 +9889,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which combination of capabilities is certified upon passing the Milestone 8 verification suite?",
           "options": [
             "OAuth 2.1 PKCE, hardened JWT validation, ReBAC/ABAC authorization, AST injection defense, and fail-closed posture",
-            "Frontend React state management, Tailwind CSS typography, and SVG icon rendering across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Database foreign key indexing, CSV file generation, and email newsletter templates across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Wireless Bluetooth pairing, audio codec decoding, and battery charge optimization across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Frontend React state management, Tailwind CSS typography, and SVG icon rendering without cryptographically verified digital signatures",
+            "Database foreign key indexing, CSV file generation, and email newsletter templates",
+            "Wireless Bluetooth pairing, audio codec decoding, and battery charge optimization"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10134,9 +9954,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the link-local IP address 169.254.169.254 a critical target in cloud SSRF attacks?",
           "options": [
-            "It is the public root DNS server for all internet domain name lookups across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It converts relational database tables into uncompressed static text files across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "It controls the physical server cooling fans inside cloud provider data centers across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "It is the public root DNS server for all internet domain name lookups",
+            "It converts relational database tables into uncompressed static text files",
+            "It controls the physical server cooling fans inside cloud provider data centers",
             "It hosts the cloud Instance Metadata Service (IMDS), which provides temporary IAM role credentials and instance access tokens"
           ],
           "answer": 3,
@@ -10183,13 +10003,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following IP ranges must be strictly blocked by an egress SSRF firewall?",
           "options": [
-            "Only public DNS servers belonging to Google and Cloudflare (8.8.8.8 and 1.1.1.1) across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Only web servers listening on standard HTTPS port 443 across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
             "Loopback (127.0.0.0/8), RFC 1918 private subnets (10/8, 172.16/12, 192.168/16), and link-local metadata (169.254.0.0/16)",
-            "All IP addresses that end with an even number across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Only public DNS servers belonging to Google and Cloudflare (8.8.8.8 and 1.1.1.1)",
+            "Only web servers listening on standard HTTPS port 443",
+            "All IP addresses that end with an even number monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "SSRF firewalls must block all internal and non-routable IP ranges: loopback (127/8), private subnets (10/8, 172.16/12, 192.168/16), and cloud metadata (169.254/16)."
         }
       },
@@ -10232,13 +10052,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does DNS Resolution Pinning prevent Time-of-Check to Time-of-Use (TOCTOU) DNS rebinding attacks?",
           "options": [
-            "By disabling DNS resolution entirely and requiring users to input raw 32-bit integer IP addresses across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "By caching DNS records in browser local storage for a minimum of 365 days across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "By disabling DNS resolution entirely and requiring users to input raw 32-bit integer IP addresses",
             "By resolving the hostname once, validating the IP, and connecting directly to that pinned IP without secondary DNS lookups",
-            "By encrypting the hostname using rot13 encoding before transmitting DNS queries across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "By caching DNS records in browser local storage for a minimum of 365 days monitored through centralized security audit logging",
+            "By encrypting the hostname using rot13 encoding before transmitting DNS queries"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Resolution pinning ensures the socket connects directly to the specific IP address that was validated, preventing secondary lookups from switching to internal targets."
         }
       },
@@ -10282,13 +10102,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must HTTP redirects be intercepted and re-validated by an SSRF firewall?",
           "options": [
-            "To speed up web page rendering times by skipping HTTP header processing across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "To speed up web page rendering times by skipping HTTP header processing",
+            "To convert HTTP GET requests into HTTP POST requests automatically",
             "To prevent attackers from using public redirectors that respond with HTTP 302 pointing to internal metadata services",
-            "To convert HTTP GET requests into HTTP POST requests automatically across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To compress redirect cookies before storing them in operating system caches across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "To compress redirect cookies before storing them in operating system caches"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Attackers use public open redirectors to bypass initial URL checks; re-validating every redirect target ensures the final request cannot target internal IPs."
         }
       },
@@ -10331,13 +10151,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security threat is indicated by a sudden cluster of blocked connection attempts to 169.254.169.254 in egress firewall telemetry?",
           "options": [
-            "An active SSRF exploitation attempt seeking to harvest cloud IAM credentials from the instance metadata service",
-            "Normal background NTP clock synchronization between server motherboard clocks across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "A failure in local CPU hardware cooling fan rotation sensors across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "A routine database backup job exporting transaction logs to local hard drives across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Normal background NTP clock synchronization between server motherboard clocks",
+            "A failure in local CPU hardware cooling fan rotation sensors bypassing input validation sanitization filters",
+            "A routine database backup job exporting transaction logs to local hard drives",
+            "An active SSRF exploitation attempt seeking to harvest cloud IAM credentials from the instance metadata service"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Outbound attempts to 169.254.169.254 indicate an SSRF attack attempting to steal IAM role credentials from the cloud metadata service."
         }
       }
@@ -10397,13 +10217,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does CSP Level 3 with 'strict-dynamic' and cryptographic nonces neutralize inline script injection attacks?",
           "options": [
-            "The browser converts all JavaScript code into static HTML tables before rendering across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The browser disables all network connections whenever a web page contains images across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The browser forces the user to solve a CAPTCHA challenge before executing any JavaScript function across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The browser strictly refuses to execute any script unless it contains a secret cryptographic nonce generated uniquely for that specific HTTP response"
+            "The browser converts all JavaScript code into static HTML tables before rendering",
+            "The browser disables all network connections whenever a web page contains images",
+            "The browser strictly refuses to execute any script unless it contains a secret cryptographic nonce generated uniquely for that specific HTTP response",
+            "The browser forces the user to solve a CAPTCHA challenge before executing any JavaScript function"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A strict nonce-based CSP tells the browser to execute only scripts with the matching cryptographic nonce, automatically ignoring attacker-injected inline scripts."
         }
       },
@@ -10442,9 +10262,9 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is base-uri 'none' a critical directive in a strict Content Security Policy?",
           "options": [
-            "To prevent users from bookmarking web pages in their internet browser across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To force web browsers to use IPv6 instead of IPv4 for all network connections across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "To disable CSS stylesheet animations during high CPU load across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "To prevent users from bookmarking web pages in their internet browser",
+            "To force web browsers to use IPv6 instead of IPv4 for all network connections",
+            "To disable CSS stylesheet animations during high CPU load bypassing input validation sanitization filters",
             "To prevent attackers from injecting <base> tags that redirect relative script URLs to external malicious servers"
           ],
           "answer": 3,
@@ -10487,13 +10307,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does DOMElementSanitizer neutralize Cross-Site Scripting payloads embedded in HTML attributes?",
           "options": [
-            "By converting all HTML tags into raw plaintext entities (&lt; and &gt;) across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "By compressing the HTML string using gzip before inserting it into the DOM across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
             "By replacing inline event handlers (on* attributes) and neutralizing javascript: URI schemes",
-            "By deleting all image tags from the web page automatically across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "By converting all HTML tags into raw plaintext entities (&lt; and &gt;)",
+            "By compressing the HTML string using gzip before inserting it into the DOM",
+            "By deleting all image tags from the web page automatically monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The sanitizer targets the specific vectors that trigger script execution in HTML attributes: inline event handlers (onerror, onload) and javascript: links."
         }
       },
@@ -10532,10 +10352,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural effect of enabling the W3C Trusted Types standard in a web application?",
           "options": [
-            "All JavaScript files are converted into static WebAssembly binaries at compile time across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
+            "All JavaScript files are converted into static WebAssembly binaries at compile time",
             "The browser engine forbids passing raw strings to dangerous DOM sinks (innerHTML, eval), requiring audited TrustedHTML objects",
-            "Users are forbidden from typing special characters into form input fields across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "The web browser automatically closes when an untrusted website is visited across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Users are forbidden from typing special characters into form input fields",
+            "The web browser automatically closes when an untrusted website is visited"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -10581,13 +10401,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What valuable security insight is provided by monitoring Content Security Policy violation reports in production?",
           "options": [
+            "Measurement of client computer screen resolution and refresh rates bypassing input validation sanitization filters",
+            "Estimation of local client internet connection upload and download bandwidth",
             "Real-time detection of active XSS injection attempts, misconfigured script assets, and malicious browser extensions",
-            "Measurement of client computer screen resolution and refresh rates across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Estimation of local client internet connection upload and download bandwidth across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines",
-            "Calculation of client battery consumption during video streaming playback across enterprise zero-trust microsegmentation boundaries and automated SIEM threat intelligence pipelines"
+            "Calculation of client battery consumption during video streaming playback"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "CSP violation reports provide immediate telemetry when browsers block unauthorized script execution, revealing active XSS attacks or asset misconfigurations."
         }
       }
@@ -10647,13 +10467,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural reason that Python pickle deserialization is fundamentally unsafe for untrusted input?",
           "options": [
-            "Pickle bytecode contains opcodes like REDUCE that execute arbitrary callables during stream unmarshalling.",
-            "Pickle uses an outdated encryption algorithm that is vulnerable to standard brute-force mathematical attacks.",
-            "Pickle streams cannot be parsed by multithreaded network workers without causing fatal race conditions.",
-            "Pickle payloads require excessive memory allocations that automatically trigger system-wide kernel panics."
+            "Pickle uses an outdated encryption algorithm that is vulnerable to standard brute-force mathematical attacks",
+            "Pickle bytecode contains opcodes like REDUCE that execute arbitrary callables during stream unmarshalling",
+            "Pickle streams cannot be parsed by multithreaded network workers without causing fatal race conditions",
+            "Pickle payloads require excessive memory allocations that automatically trigger system-wide kernel panics"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Pickle serialization represents an expressive virtual stack machine whose opcodes include REDUCE, which instructs the interpreter to invoke an arbitrary callable with arguments supplied in the stream."
         }
       },
@@ -10692,13 +10512,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does strict schema unmarshalling reject payloads containing undeclared keys?",
           "options": [
-            "JSON parsers will immediately crash with segmentation faults when encountering unmapped dictionary keys.",
-            "Network firewalls cannot forward HTTP request bodies that exceed the exact byte count of declared fields.",
-            "Underlying relational databases will corrupt indexes if unmapped fields are received in network buffers.",
-            "Rejecting extra keys prevents mass assignment attacks where clients overwrite internal security attributes."
+            "JSON parsers will immediately crash with segmentation faults when encountering unmapped dictionary keys utilizing unverified cryptographic primitive implementations",
+            "Network firewalls cannot forward HTTP request bodies that exceed the exact byte count of declared fields",
+            "Rejecting extra keys prevents mass assignment attacks where clients overwrite internal security attributes",
+            "Underlying relational databases will corrupt indexes if unmapped fields are received in network buffers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Undeclared keys in unmarshalled payloads can silently populate internal model attributes such as is_admin or permissions, leading to severe privilege escalation via mass assignment."
         }
       },
@@ -10737,13 +10557,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does bytecode opcode inspection prevent remote code execution in binary deserializers?",
           "options": [
-            "It re-encrypts the entire binary payload using an ephemeral AES key before memory allocation.",
-            "It converts the binary stream into raw XML strings that cannot execute within the Python runtime.",
-            "It scans the raw byte stream for callable invocation opcodes and blocks them before object unmarshalling.",
-            "It isolates the entire process inside an ephemeral Linux container for every incoming message packet."
+            "It re-encrypts the entire binary payload using an ephemeral AES key before memory allocation monitored through centralized security audit logging",
+            "It converts the binary stream into raw XML strings that cannot execute within the Python runtime",
+            "It isolates the entire process inside an ephemeral Linux container for every incoming message packet",
+            "It scans the raw byte stream for callable invocation opcodes and blocks them before object unmarshalling"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Opcode inspection analyzes the virtual machine instructions in the serialized stream, halting execution if dangerous instructions (such as REDUCE or GLOBAL) are present."
         }
       },
@@ -10782,13 +10602,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of enforcing payload size and recursion depth limits during deserialization?",
           "options": [
-            "To ensure that all incoming data structures can be stored directly within 32-bit database primary keys.",
-            "To prevent resource exhaustion attacks such as compression bombs and stack overflow crashes.",
-            "To compress network packets into smaller MTU frames for faster fiber-optic routing across regions.",
-            "To guarantee that the serialization engine operates strictly under single-threaded synchronous loops."
+            "To prevent resource exhaustion attacks such as compression bombs and stack overflow crashes",
+            "To ensure that all incoming data structures can be stored directly within 32-bit database primary keys",
+            "To compress network packets into smaller MTU frames for faster fiber-optic routing across regions",
+            "To guarantee that the serialization engine operates strictly under single-threaded synchronous loops"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Enforcing payload size caps and maximum recursion depth prevents denial-of-service attacks where malicious entities expand exponentially or trigger stack exhaustion in parser threads."
         }
       },
@@ -10827,10 +10647,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must security audit logs avoid recording full raw payloads of blocked deserialization attempts?",
           "options": [
-            "Because modern SIEM systems cannot parse log records that contain non-alphanumeric punctuation characters.",
-            "To prevent accidental logging of sensitive user credentials, personal data, or payment information.",
-            "Because recording raw payloads causes disk fragmentation that permanently degrades database performance.",
-            "To ensure that downstream monitoring dashboards render charts using standard fixed-width table layouts."
+            "Because modern SIEM systems cannot parse log records that contain non-alphanumeric punctuation characters",
+            "To prevent accidental logging of sensitive user credentials, personal data, or payment information",
+            "Because recording raw payloads causes disk fragmentation that permanently degrades database performance",
+            "To ensure that downstream monitoring dashboards render charts using standard fixed-width table layouts"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -10893,10 +10713,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of maintaining an automated Software Bill of Materials (SBOM) for enterprise applications?",
           "options": [
-            "It enables immediate identification of affected systems when new vulnerabilities are disclosed in third-party libraries.",
-            "It automatically recompiles third-party C extensions into pure Python bytecode for higher execution performance.",
-            "It prevents network firewalls from dropping encrypted HTTPS packets originating from approved vendors.",
-            "It compresses application binary assets by eliminating redundant function declarations across modules."
+            "It enables immediate identification of affected systems when new vulnerabilities are disclosed in third-party libraries",
+            "It automatically recompiles third-party C extensions into pure Python bytecode for higher execution performance",
+            "It prevents network firewalls from dropping encrypted HTTPS packets originating from approved vendors",
+            "It compresses application binary assets by eliminating redundant function declarations across modules"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10938,13 +10758,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of a Package URL (purl) in an SBOM component specification?",
           "options": [
-            "It serves as an ephemeral authentication token required to download packages from private registries.",
-            "It defines the DNS name of the mirror server used to cache application dependencies locally.",
-            "It specifies the CSS styling rules applied when rendering the SBOM document in browser interfaces.",
-            "It provides a standardized, universal format to reliably identify packages across programming ecosystems."
+            "It serves as an ephemeral authentication token required to download packages from private registries",
+            "It provides a standardized, universal format to reliably identify packages across programming ecosystems",
+            "It defines the DNS name of the mirror server used to cache application dependencies locally monitored through centralized security audit logging",
+            "It specifies the CSS styling rules applied when rendering the SBOM document in browser interfaces"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Package URL (purl) is a universal specification for reliably identifying software packages across diverse languages, package managers, and repositories."
         }
       },
@@ -10983,10 +10803,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must vulnerability scanners analyze the entire transitive dependency graph rather than only direct dependencies?",
           "options": [
-            "Direct dependencies are compiled into kernel modules that cannot be exploited by network-level attackers.",
-            "Package managers automatically patch direct dependencies but leave transitive dependencies completely untouched.",
-            "Critical vulnerabilities often reside in transitive dependencies that are automatically pulled in by direct libraries.",
-            "Transitive dependencies run with root privileges while direct dependencies run inside restricted user sandboxes."
+            "Direct dependencies are compiled into kernel modules that cannot be exploited by network-level attackers monitored through centralized security audit logging",
+            "Package managers automatically patch direct dependencies but leave transitive dependencies completely untouched",
+            "Critical vulnerabilities often reside in transitive dependencies that are automatically pulled in by direct libraries",
+            "Transitive dependencies run with root privileges while direct dependencies run inside restricted user sandboxes"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -11028,13 +10848,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What legal risk does an automated license compliance auditor prevent in commercial software development?",
           "options": [
-            "Inability to patent machine learning algorithms that reference third-party utility functions.",
-            "Automatic forfeiture of commercial trademark registrations upon software deployment to public clouds.",
-            "Inadvertent inclusion of strong copyleft licenses that could compel the disclosure of proprietary source code.",
-            "Fines imposed by internet service providers for transmitting uncompressed source code over broadband lines."
+            "Inability to patent machine learning algorithms that reference third-party utility functions",
+            "Automatic forfeiture of commercial trademark registrations upon software deployment to public clouds",
+            "Fines imposed by internet service providers for transmitting uncompressed source code over broadband lines",
+            "Inadvertent inclusion of strong copyleft licenses that could compel the disclosure of proprietary source code"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Strong copyleft licenses like GPL and AGPL contain reciprocity clauses that may legally require proprietary software linked with them to be released as open source."
         }
       },
@@ -11073,13 +10893,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should organizations continuously monitor their SBOM repository rather than scanning dependencies only at build time?",
           "options": [
-            "Build-time scanners cannot parse compiled binary artifacts without access to original compiler debug symbols.",
-            "New CVEs are frequently discovered and published against dependencies that have already been deployed to production.",
-            "Cloud providers automatically delete all build-time vulnerability logs after twenty-four hours of inactivity.",
-            "Continuous monitoring allows web application firewalls to dynamically rewrite third-party bytecode in flight."
+            "New CVEs are frequently discovered and published against dependencies that have already been deployed to production",
+            "Build-time scanners cannot parse compiled binary artifacts without access to original compiler debug symbols monitored through centralized security audit logging",
+            "Cloud providers automatically delete all build-time vulnerability logs after twenty-four hours of inactivity",
+            "Continuous monitoring allows web application firewalls to dynamically rewrite third-party bytecode in flight"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Vulnerabilities are constantly discovered in existing software; an application deployed today as secure may have critical CVEs disclosed against its dependencies next month."
         }
       }
@@ -11139,13 +10959,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What common architectural principle unites SSRF egress filtering and SBOM supply chain scanning?",
           "options": [
-            "Zero-trust verification: both enforce strict policy invariants on external resources rather than assuming implicit trust.",
-            "Both require replacing all relational databases with distributed key-value caches to achieve linear scalability.",
-            "Both operate strictly at the kernel network socket layer without any application-level data processing.",
-            "Both eliminate the need for Transport Layer Security (TLS) certificates across internal microservices."
+            "Both require replacing all relational databases with distributed key-value caches to achieve linear scalability",
+            "Both operate strictly at the kernel network socket layer without any application-level data processing",
+            "Both eliminate the need for Transport Layer Security (TLS) certificates across internal microservices",
+            "Zero-trust verification: both enforce strict policy invariants on external resources rather than assuming implicit trust"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Both defense systems apply zero-trust principles: egress filters refuse to trust destination IPs blindly, and SBOM scanners refuse to trust third-party dependencies without rigorous verification."
         }
       },
@@ -11184,13 +11004,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it beneficial to coordinate network egress controls and supply chain vulnerability telemetry within a unified engine?",
           "options": [
-            "It eliminates the need for software engineers to write unit tests for backend business logic services.",
-            "It enables the web server to cache static image assets directly inside network router memory buffers.",
-            "It automatically converts single-threaded Python services into distributed asynchronous clusters.",
-            "It allows security teams to dynamically isolate outbound network access for workloads discovered to run vulnerable libraries."
+            "It allows security teams to dynamically isolate outbound network access for workloads discovered to run vulnerable libraries",
+            "It eliminates the need for software engineers to write unit tests for backend business logic services",
+            "It enables the web server to cache static image assets directly inside network router memory buffers",
+            "It automatically converts single-threaded Python services into distributed asynchronous clusters monitored through centralized security audit logging"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Integrating network and supply chain telemetry enables automated quarantine: if a workload is found to contain a critical CVE, its egress network access can be instantly restricted."
         }
       },
@@ -11229,13 +11049,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the milestone engine handle obfuscated IP formats such as IPv6-mapped IPv4 addresses in egress checks?",
           "options": [
-            "By rejecting all network traffic that contains colon characters anywhere within the URL host string.",
-            "By converting incoming hostnames into MD5 hashes and matching them against a static database table.",
-            "By delegating all outbound HTTP requests to an unmonitored third-party public proxy service.",
-            "By normalizing all IP formats through ipaddress.ip_address parser before performing CIDR subnet checks."
+            "By rejecting all network traffic that contains colon characters anywhere within the URL host string",
+            "By normalizing all IP formats through ipaddress.ip_address parser before performing CIDR subnet checks",
+            "By converting incoming hostnames into MD5 hashes and matching them against a static database table",
+            "By delegating all outbound HTTP requests to an unmonitored third-party public proxy service monitored through centralized security audit logging"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Python's ipaddress library normalizes alternate representations (IPv6-mapped IPv4, decimal, octal) into canonical IP objects, preventing obfuscation bypasses."
         }
       },
@@ -11274,10 +11094,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary rationale behind implementing fail-secure defaults in security boundary controls?",
           "options": [
-            "To reduce memory utilization by immediately discarding all error logs and exception stack traces.",
-            "To allow developers to bypass security controls by intentionally throwing unhandled exceptions in code.",
-            "To ensure that unexpected system errors or network timeouts result in denied access rather than unauthorized entry.",
-            "To guarantee that the application continues running even if cryptographic certificates have expired."
+            "To reduce memory utilization by immediately discarding all error logs and exception stack traces",
+            "To allow developers to bypass security controls by intentionally throwing unhandled exceptions in code",
+            "To ensure that unexpected system errors or network timeouts result in denied access rather than unauthorized entry",
+            "To guarantee that the application continues running even if cryptographic certificates have expired"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -11319,13 +11139,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 9 certification audit guarantee for an enterprise application?",
           "options": [
-            "The application is completely impervious to all future distributed denial-of-service volumetric attacks.",
-            "Outbound SSRF vectors to metadata services are blocked, and third-party dependencies meet strict CVE criteria.",
-            "Database queries will automatically optimize their execution plans without requiring database indexes.",
-            "All microservice network traffic will be compressed by ninety percent using proprietary algorithms."
+            "The application is completely impervious to all future distributed denial-of-service volumetric attacks",
+            "Database queries will automatically optimize their execution plans without requiring database indexes",
+            "All microservice network traffic will be compressed by ninety percent using proprietary algorithms monitored through centralized security audit logging",
+            "Outbound SSRF vectors to metadata services are blocked, and third-party dependencies meet strict CVE criteria"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Milestone 9 certifies that egress network requests cannot reach private or cloud metadata IPs, and that all third-party software dependencies have been audited against CVE catalogs."
         }
       }
@@ -11385,13 +11205,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do cryptographic secrets typically exhibit significantly higher Shannon entropy than natural language prose?",
           "options": [
-            "Cryptographic tokens utilize uniform pseudo-random character distributions that maximize unpredictable information density.",
-            "Natural language uses non-standard UTF-8 byte encodings that confuse standard logarithmic summation functions.",
-            "Programming languages automatically encrypt string literals before storing them in compiled AST nodes.",
-            "Secret keys contain invisible whitespace characters that artificially increase character frequency counts."
+            "Natural language uses non-standard UTF-8 byte encodings that confuse standard logarithmic summation functions",
+            "Programming languages automatically encrypt string literals before storing them in compiled AST nodes",
+            "Cryptographic tokens utilize uniform pseudo-random character distributions that maximize unpredictable information density",
+            "Secret keys contain invisible whitespace characters that artificially increase character frequency counts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Cryptographic tokens are designed to be statistically indistinguishable from uniform random noise, maximizing character variety and producing high Shannon entropy."
         }
       },
@@ -11430,13 +11250,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do production secret scanners combine regex pattern matching with Shannon entropy analysis?",
           "options": [
-            "Regex accurately detects known provider formats while entropy catches arbitrary high-randomness passwords.",
-            "Regex is required to decrypt base64 strings before entropy can calculate character frequencies.",
-            "Entropy cannot process uppercase letters without regex pre-processing to convert them to ASCII bytes.",
-            "Combining both techniques allows the scanner to automatically rotate the detected credentials in real time."
+            "Regex is required to decrypt base64 strings before entropy can calculate character frequencies",
+            "Entropy cannot process uppercase letters without regex pre-processing to convert them to ASCII bytes",
+            "Combining both techniques allows the scanner to automatically rotate the detected credentials in real time",
+            "Regex accurately detects known provider formats while entropy catches arbitrary high-randomness passwords"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Regex provides zero-false-positive detection for structured keys (like AWS AKIA keys), while Shannon entropy identifies unstructured secrets like high-entropy passwords and private tokens."
         }
       },
@@ -11475,13 +11295,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should git diff scanners inspect only added lines (+) rather than deleted lines (-) in commit hunks?",
           "options": [
-            "Deleted lines are automatically encrypted by the git version control system upon staging.",
-            "Inspecting deleted lines causes git merge conflicts when pushing to remote feature branches.",
-            "Deleted lines never contain valid ASCII characters due to git delta compression algorithms.",
-            "Added lines represent newly introduced code that will reside in the repository going forward."
+            "Added lines represent newly introduced code that will reside in the repository going forward",
+            "Deleted lines are automatically encrypted by the git version control system upon staging monitored through centralized security audit logging",
+            "Inspecting deleted lines causes git merge conflicts when pushing to remote feature branches",
+            "Deleted lines never contain valid ASCII characters due to git delta compression algorithms"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Added lines (+) represent the current code being introduced into the project; deleted lines are being removed, so flagging them would block remediation commits that remove secrets."
         }
       },
@@ -11520,13 +11340,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is committing a subsequent 'delete secret' commit insufficient to remediate a leaked API key in git?",
           "options": [
-            "Git will automatically restore deleted strings during the next branch merge operation.",
-            "Remote git servers refuse to synchronize commits that contain fewer bytes than the preceding commit.",
-            "Git is an immutable history tree; previous commits and their file contents remain accessible in the history log.",
-            "The issuing API provider permanently caches all committed keys even after the repository is deleted."
+            "Git will automatically restore deleted strings during the next branch merge operation",
+            "Git is an immutable history tree; previous commits and their file contents remain accessible in the history log",
+            "Remote git servers refuse to synchronize commits that contain fewer bytes than the preceding commit",
+            "The issuing API provider permanently caches all committed keys even after the repository is deleted"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Git preserves complete commit history; deleting a secret in a new commit leaves the secret permanently visible in the historical commit objects and diff logs."
         }
       },
@@ -11565,13 +11385,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of canary tokens in verifying secret scanning infrastructure?",
           "options": [
-            "They replace real passwords in production databases to eliminate the need for credential storage.",
-            "They act as synthetic, monitored credentials that trigger alerts when scanned or accessed, validating the detection pipeline.",
-            "They compress source code repositories by removing duplicate cryptographic key declarations.",
-            "They speed up git clone operations by caching large binary files on decentralized peer nodes."
+            "They replace real passwords in production databases to eliminate the need for credential storage",
+            "They compress source code repositories by removing duplicate cryptographic key declarations monitored through centralized security audit logging",
+            "They act as synthetic, monitored credentials that trigger alerts when scanned or accessed, validating the detection pipeline",
+            "They speed up git clone operations by caching large binary files on decentralized peer nodes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Canary tokens are tracked dummy credentials placed in repositories or systems; if scanned or invoked, they immediately verify that monitoring and alerting pipelines are operational."
         }
       }
@@ -11632,10 +11452,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of using the Sigma specification for SIEM detection engineering?",
           "options": [
-            "It automatically accelerates hard drive input-output performance across storage server nodes.",
-            "It provides a vendor-neutral rule format that can be compiled to any target SIEM query dialect.",
-            "It converts unencrypted network packets into encrypted TLS tunnels without certificate configuration.",
-            "It replaces all relational databases with in-memory distributed key-value caches."
+            "It automatically accelerates hard drive input-output performance across storage server nodes",
+            "It provides a vendor-neutral rule format that can be compiled to any target SIEM query dialect",
+            "It converts unencrypted network packets into encrypted TLS tunnels without certificate configuration",
+            "It replaces all relational databases with in-memory distributed key-value caches"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -11678,13 +11498,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does compiling Sigma rules into closure predicates improve stream-processing performance?",
           "options": [
-            "It eliminates the need to repeatedly parse YAML syntax and rule dictionaries for every incoming event.",
-            "It enables the Python virtual machine to compile bytecode into raw GPU shader instructions.",
-            "It forces all network cards to process packets using single-cycle hardware interrupts.",
-            "It bypasses all operating system security privilege boundaries during log evaluation."
+            "It enables the Python virtual machine to compile bytecode into raw GPU shader instructions",
+            "It forces all network cards to process packets using single-cycle hardware interrupts",
+            "It eliminates the need to repeatedly parse YAML syntax and rule dictionaries for every incoming event",
+            "It bypasses all operating system security privilege boundaries during log evaluation monitored through centralized security audit logging"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Compiling once into a functional closure executes direct attribute lookups, avoiding costly dictionary lookups and YAML parsing on high-frequency log streams."
         }
       },
@@ -11724,10 +11544,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary problem does sliding-window temporal correlation solve in security monitoring?",
           "options": [
-            "It encrypts database transaction logs before writing them to magnetic tape backups.",
-            "It automatically provisions additional virtual machine instances when CPU utilization spikes.",
-            "It synchronizes server motherboard clocks using satellite GPS signals.",
-            "It links sequences of individually benign or ambiguous events to detect multi-stage attack patterns."
+            "It encrypts database transaction logs before writing them to magnetic tape backups",
+            "It automatically provisions additional virtual machine instances when CPU utilization spikes",
+            "It synchronizes server motherboard clocks using satellite GPS signals monitored through centralized security audit logging",
+            "It links sequences of individually benign or ambiguous events to detect multi-stage attack patterns"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -11770,13 +11590,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is automated schema validation essential before deploying new Sigma rules to production SIEM systems?",
           "options": [
-            "To ensure that all log files are compressed into ZIP archives before transmission across the network.",
-            "To convert all Windows event logs into Linux syslog messages automatically.",
-            "To prevent malformed rule definitions from crashing real-time ingestion pipelines or causing detection blindspots.",
-            "To verify that the author of the rule possesses an active government security clearance."
+            "To prevent malformed rule definitions from crashing real-time ingestion pipelines or causing detection blindspots",
+            "To ensure that all log files are compressed into ZIP archives before transmission across the network",
+            "To convert all Windows event logs into Linux syslog messages automatically",
+            "To verify that the author of the rule possesses an active government security clearance"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Automated validation ensures that invalid syntax or missing conditions do not halt production stream workers or create silent detection gaps."
         }
       },
@@ -11816,13 +11636,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of having an excessively high false-positive rate in SIEM detection rules?",
           "options": [
-            "Immediate hardware failure of the physical storage controllers hosting the SIEM database.",
-            "Automatic revocation of all corporate SSL certificates across external public domains.",
-            "Analyst alert fatigue, where genuine high-severity attack alerts are missed among thousands of false alarms.",
-            "Inability of network routers to route outbound email traffic to external recipients."
+            "Immediate hardware failure of the physical storage controllers hosting the SIEM database",
+            "Analyst alert fatigue, where genuine high-severity attack alerts are missed among thousands of false alarms",
+            "Automatic revocation of all corporate SSL certificates across external public domains",
+            "Inability of network routers to route outbound email traffic to external recipients monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "High false-positive rates overwhelm security analysts with noise, leading to alert fatigue where critical true-positive attacks are overlooked or ignored."
         }
       }
@@ -11882,13 +11702,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the physical principle underlying the 'impossible travel' detection heuristic?",
           "options": [
-            "Computer motherboards cannot communicate across international boundaries without fiber-optic repeaters.",
-            "A human user cannot physically travel between two distant geographical locations faster than commercial air speeds.",
-            "Internet IP addresses are permanently bound to specific physical cellular towers that cannot be moved.",
-            "User authentication tokens expire automatically whenever a laptop enters a pressurized aircraft cabin."
+            "A human user cannot physically travel between two distant geographical locations faster than commercial air speeds",
+            "Computer motherboards cannot communicate across international boundaries without fiber-optic repeaters",
+            "Internet IP addresses are permanently bound to specific physical cellular towers that cannot be moved",
+            "User authentication tokens expire automatically whenever a laptop enters a pressurized aircraft cabin"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Impossible travel relies on physical constraints: if consecutive logins from distant coordinates imply a velocity exceeding commercial flight speeds, credentials have been compromised."
         }
       },
@@ -11927,13 +11747,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should impossible travel systems trigger step-up MFA rather than immediately terminating user accounts?",
           "options": [
-            "To account for legitimate corporate VPN usage while verifying user possession of second authentication factors.",
-            "Because modern identity providers do not have the administrative capability to revoke active session cookies.",
-            "To allow attackers sufficient time to exfiltrate database records for forensic logging purposes.",
-            "Because step-up MFA automatically rotates the user's Active Directory password in the background."
+            "Because modern identity providers do not have the administrative capability to revoke active session cookies",
+            "To account for legitimate corporate VPN usage while verifying user possession of second authentication factors",
+            "To allow attackers sufficient time to exfiltrate database records for forensic logging purposes without cryptographically verified digital signatures",
+            "Because step-up MFA automatically rotates the user's Active Directory password in the background"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Corporate VPNs frequently route traffic through remote country gateways; triggering MFA prompts confirms legitimate user ownership without disrupting valid work."
         }
       },
@@ -11972,13 +11792,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a minimum historical baseline sample size required before activating Z-score anomaly detection?",
           "options": [
-            "Standard deviation calculations require at least 1,000 observations to avoid floating-point overflow exceptions.",
-            "The Python math library will throw a segmentation fault if variance is calculated on fewer than twenty numbers.",
-            "To ensure that all historical logs have been replicated across three different cloud availability zones.",
-            "Small sample sizes produce unreliable mean and variance estimates, leading to rampant false-positive alerts."
+            "Standard deviation calculations require at least 1,000 observations to avoid floating-point overflow exceptions",
+            "The Python math library will throw a segmentation fault if variance is calculated on fewer than twenty numbers",
+            "Small sample sizes produce unreliable mean and variance estimates, leading to rampant false-positive alerts",
+            "To ensure that all historical logs have been replicated across three different cloud availability zones"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Statistical metrics like variance are volatile with very small sample sizes; establishing an adequate baseline ensures stable and reliable anomaly thresholds."
         }
       },
@@ -12017,10 +11837,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should a UEBA system handle login events originating from private RFC 1918 internal IP addresses?",
           "options": [
-            "Automatically assign the coordinates of the cloud provider's primary data center in Virginia.",
-            "Raise a critical security incident for every internal login regardless of authentication status.",
-            "Attempt to look up the private IP address in public WHOIS domain registries.",
-            "Bypass public Geo-IP calculation and apply dedicated internal subnet and office location policies."
+            "Automatically assign the coordinates of the cloud provider's primary data center in Virginia",
+            "Raise a critical security incident for every internal login regardless of authentication status",
+            "Attempt to look up the private IP address in public WHOIS domain registries",
+            "Bypass public Geo-IP calculation and apply dedicated internal subnet and office location policies"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -12062,13 +11882,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of logging full mathematical justifications for UEBA anomaly alerts?",
           "options": [
-            "To enable the database engine to recalculate all historical square roots during backup cycles.",
-            "To reduce network bandwidth consumption by replacing human-readable text with raw floating-point numbers.",
-            "To provide clear transparency for security analysts and compliance auditors investigating why an alert fired.",
-            "To satisfy browser rendering requirements for displaying animated CSS graphs on monitoring screens."
+            "To provide clear transparency for security analysts and compliance auditors investigating why an alert fired",
+            "To enable the database engine to recalculate all historical square roots during backup cycles monitored through centralized security audit logging",
+            "To reduce network bandwidth consumption by replacing human-readable text with raw floating-point numbers",
+            "To satisfy browser rendering requirements for displaying animated CSS graphs on monitoring screens"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Clear mathematical justification (e.g., distance 5,500 km, elapsed time 0.5h, speed 11,000 km/h) allows analysts to immediately verify and explain the alert during incident triage."
         }
       }
@@ -12129,13 +11949,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is DNS frequently chosen by attackers as a covert data exfiltration channel?",
           "options": [
-            "DNS queries are encrypted by default using quantum-resistant cryptographic hardware modules.",
-            "Outbound UDP port 53 DNS queries are almost universally permitted through enterprise firewalls without inspection.",
-            "DNS servers automatically compress outgoing payloads to achieve multi-gigabit exfiltration bandwidth.",
-            "Operating system kernels prevent endpoint security software from monitoring port 53 traffic."
+            "DNS queries are encrypted by default using quantum-resistant cryptographic hardware modules",
+            "DNS servers automatically compress outgoing payloads to achieve multi-gigabit exfiltration bandwidth",
+            "Operating system kernels prevent endpoint security software from monitoring port 53 traffic",
+            "Outbound UDP port 53 DNS queries are almost universally permitted through enterprise firewalls without inspection"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Enterprises must allow DNS resolution for network connectivity; attackers exploit this permissive egress policy by encoding stolen data into DNS query labels."
         }
       },
@@ -12175,10 +11995,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What combination of characteristics reliably distinguishes DGA domain names from legitimate corporate domains?",
           "options": [
-            "High Shannon entropy and long, pseudo-random character strings lacking natural linguistic structure.",
-            "Presence of standard top-level domains like .com and .org in the root domain name.",
-            "Low query volume originating exclusively from mobile smartphone operating systems.",
-            "Execution of DNS queries using TCP port 53 instead of standard UDP datagrams."
+            "High Shannon entropy and long, pseudo-random character strings lacking natural linguistic structure",
+            "Presence of standard top-level domains like .com and .org in the root domain name",
+            "Low query volume originating exclusively from mobile smartphone operating systems",
+            "Execution of DNS queries using TCP port 53 instead of standard UDP datagrams monitored through centralized security audit logging"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12221,13 +12041,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does vowel-ratio analysis complement Shannon entropy in detecting algorithmic domain names?",
           "options": [
-            "It detects unpronounceable consonant clusters in strings that may have artificially depressed entropy scores.",
-            "It translates foreign language domain names into English before parsing DNS records.",
-            "It prevents DNS amplification attacks by discarding malformed UDP response packets.",
-            "It automatically registers legitimate domains with international trademark authorities."
+            "It translates foreign language domain names into English before parsing DNS records",
+            "It detects unpronounceable consonant clusters in strings that may have artificially depressed entropy scores",
+            "It prevents DNS amplification attacks by discarding malformed UDP response packets monitored through centralized security audit logging",
+            "It automatically registers legitimate domains with international trademark authorities"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Vowel ratio analysis captures phonetic implausibility (e.g. consonant clusters), catching DGA variants that craft character frequencies to evade raw entropy thresholds."
         }
       },
@@ -12267,13 +12087,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do DNS exfiltration protocols incorporate sequence numbers in subdomain query labels?",
           "options": [
-            "Sequence numbers are required by DNS RFC specifications for all subdomain lookups.",
-            "Sequence numbers encrypt the payload using symmetric stream ciphers during transit.",
-            "To instruct the recursive DNS resolver to cache the records for exactly that many seconds.",
-            "UDP DNS queries are connectionless and may arrive out of order or over alternate network paths."
+            "Sequence numbers are required by DNS RFC specifications for all subdomain lookups",
+            "Sequence numbers encrypt the payload using symmetric stream ciphers during transit",
+            "UDP DNS queries are connectionless and may arrive out of order or over alternate network paths",
+            "To instruct the recursive DNS resolver to cache the records for exactly that many seconds"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "UDP transport is connectionless and does not guarantee packet ordering; sequence numbers allow the receiving server to reassemble fragments in correct order."
         }
       },
@@ -12313,13 +12133,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational value of capturing the client internal IP address in DNS threat alerts?",
           "options": [
-            "It is required by the internet registry to update public DNS WHOIS contact records.",
-            "It enables the web browser to automatically reinstall the operating system kernel.",
-            "It allows SOC analysts to immediately pinpoint and isolate the specific compromised physical endpoint on the network.",
-            "It allows the firewall to compress all outbound HTTP connections into a single TCP socket."
+            "It is required by the internet registry to update public DNS WHOIS contact records",
+            "It enables the web browser to automatically reinstall the operating system kernel monitored through centralized security audit logging",
+            "It allows the firewall to compress all outbound HTTP connections into a single TCP socket",
+            "It allows SOC analysts to immediately pinpoint and isolate the specific compromised physical endpoint on the network"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Capturing the internal client IP identifies the exact infected machine initiating the malicious DNS queries, enabling rapid containment and remediation."
         }
       }
@@ -12380,13 +12200,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is composite multi-domain risk scoring more effective than isolated single-event alerting?",
           "options": [
-            "It allows database administrators to eliminate all indexes from the primary security data warehouse.",
-            "Correlating indicators across endpoint, network, and identity domains dramatically lowers false positives while identifying true attacks.",
-            "It converts unencrypted network packets into encrypted TLS tunnels without certificate configuration.",
-            "It replaces all relational databases with in-memory distributed key-value caches."
+            "It allows database administrators to eliminate all indexes from the primary security data warehouse",
+            "It converts unencrypted network packets into encrypted TLS tunnels without certificate configuration",
+            "Correlating indicators across endpoint, network, and identity domains dramatically lowers false positives while identifying true attacks",
+            "It replaces all relational databases with in-memory distributed key-value caches"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Adversaries operate across domains (host, identity, network); combining signals from all three provides high-confidence detection with minimal false alarms."
         }
       },
@@ -12426,13 +12246,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of composite risk scoring in high-volume security monitoring environments?",
           "options": [
-            "To encrypt all database tables using AES-GCM before writing records to persistent storage disks.",
-            "To quantify threat severity across multiple dimensions and prioritize analyst triage queues effectively.",
-            "To eliminate the need for multi-factor authentication across internal corporate services.",
-            "To compress network log files into smaller binary chunks for faster wide-area transmission."
+            "To encrypt all database tables using AES-GCM before writing records to persistent storage disks",
+            "To eliminate the need for multi-factor authentication across internal corporate services monitored through centralized security audit logging",
+            "To compress network log files into smaller binary chunks for faster wide-area transmission",
+            "To quantify threat severity across multiple dimensions and prioritize analyst triage queues effectively"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Composite risk scoring assigns an objective severity score to events based on multiple factors, ensuring security analysts focus on the highest-risk threats first."
         }
       },
@@ -12472,10 +12292,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a binary heap (priority queue) preferable to a standard FIFO queue for security event triage dispatch?",
           "options": [
-            "It ensures that critical high-risk threats are investigated immediately, regardless of when they arrived in the queue.",
-            "It automatically deletes all events that have been in the queue for longer than sixty seconds.",
-            "It allows network routers to compress TCP packet payloads using hardware acceleration.",
-            "It eliminates the need for synchronization locks in multi-threaded application servers."
+            "It ensures that critical high-risk threats are investigated immediately, regardless of when they arrived in the queue",
+            "It automatically deletes all events that have been in the queue for longer than sixty seconds",
+            "It allows network routers to compress TCP packet payloads using hardware acceleration monitored through centralized security audit logging",
+            "It eliminates the need for synchronization locks in multi-threaded application servers"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12518,13 +12338,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of automated incident response playbooks over manual analyst containment?",
           "options": [
-            "It allows the organization to completely disband its internal security operations center.",
-            "It eliminates the need for software developers to patch security vulnerabilities in code.",
-            "It automatically generates legal indemnification contracts for affected customers.",
-            "Containment actions execute in milliseconds, stopping lateral movement and data exfiltration before human analysts can intervene."
+            "It allows the organization to completely disband its internal security operations center",
+            "Containment actions execute in milliseconds, stopping lateral movement and data exfiltration before human analysts can intervene",
+            "It eliminates the need for software developers to patch security vulnerabilities in code",
+            "It automatically generates legal indemnification contracts for affected customers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Modern malware and automated attack scripts operate at machine speed; automated containment executes countermeasures in milliseconds to stop attacks before humans can respond."
         }
       },
@@ -12564,10 +12384,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 10 certification audit guarantee for an enterprise security platform?",
           "options": [
-            "The enterprise network is permanently immune to all future social engineering and phishing attacks.",
-            "The organization can legally operate without maintaining offsite data backups.",
-            "All five threat hunting gates are operational, achieving real-time detection, priority triage, and automated incident response.",
-            "All microservice database queries will execute in under ten microseconds unconditionally."
+            "The enterprise network is permanently immune to all future social engineering and phishing attacks",
+            "The organization can legally operate without maintaining offsite data backups monitored through centralized security audit logging",
+            "All five threat hunting gates are operational, achieving real-time detection, priority triage, and automated incident response",
+            "All microservice database queries will execute in under ten microseconds unconditionally"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -12632,13 +12452,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of analyzing NetFlow or IPFIX connection records rather than full packet capture (PCAP)?",
           "options": [
-            "Flow records are automatically decrypted by hardware routers without needing SSL certificates.",
-            "Flow records eliminate all transmission delays across submarine fiber-optic cables.",
-            "Flow records provide high-level traffic metadata with a fraction of the storage and processing overhead of full PCAP.",
-            "Flow records allow web browsers to render HTML pages using hardware GPU acceleration."
+            "Flow records are automatically decrypted by hardware routers without needing SSL certificates",
+            "Flow records provide high-level traffic metadata with a fraction of the storage and processing overhead of full PCAP",
+            "Flow records eliminate all transmission delays across submarine fiber-optic cables",
+            "Flow records allow web browsers to render HTML pages using hardware GPU acceleration"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Flow records summarize connection metadata (IPs, ports, packet counts), enabling cost-effective multi-gigabit monitoring without storing petabytes of raw payloads."
         }
       },
@@ -12678,13 +12498,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the SYN cookie defensive mechanism mitigate TCP SYN flood attacks on server operating systems?",
           "options": [
-            "It blocks all incoming network traffic from IP addresses that have not previously registered an account.",
-            "It encodes connection state into the initial TCP sequence number, avoiding server memory allocation until the client sends ACK.",
-            "It re-encrypts all incoming TCP packet payloads using ephemeral elliptic-curve cryptographic keys.",
-            "It forces all connecting clients to solve a complex proof-of-work puzzle before transmitting SYN packets."
+            "It blocks all incoming network traffic from IP addresses that have not previously registered an account",
+            "It re-encrypts all incoming TCP packet payloads using ephemeral elliptic-curve cryptographic keys monitored through centralized security audit logging",
+            "It encodes connection state into the initial TCP sequence number, avoiding server memory allocation until the client sends ACK",
+            "It forces all connecting clients to solve a complex proof-of-work puzzle before transmitting SYN packets"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "SYN cookies eliminate the half-open connection backlog table by encoding state cryptographically in the sequence number, allocating memory only when the final ACK arrives."
         }
       },
@@ -12725,13 +12545,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is detecting horizontal port scanning critical for network defense operations?",
           "options": [
-            "Port scanning represents the initial reconnaissance phase; blocking the scanner prevents subsequent targeted exploitation.",
-            "Port scans permanently damage the physical network interface cards on target destination servers.",
-            "Port scanning consumes all available electrical power supplied to the primary server rack.",
-            "Port scanning invalidates the target server's operating system software license activation."
+            "Port scans permanently damage the physical network interface cards on target destination servers",
+            "Port scanning consumes all available electrical power supplied to the primary server rack bypassing input validation sanitization filters",
+            "Port scanning invalidates the target server's operating system software license activation",
+            "Port scanning represents the initial reconnaissance phase; blocking the scanner prevents subsequent targeted exploitation"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Port scanning is the initial reconnaissance step in an attack lifecycle; detecting and blocking the scanner prevents the attacker from finding vulnerable services."
         }
       },
@@ -12772,13 +12592,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a low jitter ratio (standard deviation / mean < 0.15) strongly indicate malware command-and-control beaconing?",
           "options": [
-            "Low jitter indicates that the connection is using uncompressed raw ASCII text rather than binary data.",
-            "Low jitter causes network switches to prioritize the packet stream over all other corporate traffic.",
-            "Low jitter proves that the remote server is hosted inside an authorized sovereign cloud data center.",
-            "Automated malware loops execute on rigid periodic timers, whereas human user activity is bursty and irregular."
+            "Automated malware loops execute on rigid periodic timers, whereas human user activity is bursty and irregular",
+            "Low jitter indicates that the connection is using uncompressed raw ASCII text rather than binary data",
+            "Low jitter causes network switches to prioritize the packet stream over all other corporate traffic",
+            "Low jitter proves that the remote server is hosted inside an authorized sovereign cloud data center"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Human web activity is naturally erratic with high timing variance; programmatic malware callbacks run on fixed loops, resulting in very low timing jitter."
         }
       },
@@ -12818,13 +12638,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful network forensics pipeline certification guarantee for an enterprise perimeter?",
           "options": [
-            "All application source code repositories are automatically converted into compiled native binaries.",
-            "Network cables are physically protected against environmental electromagnetic radiation.",
-            "The enterprise is permanently exempt from compliance audits under international privacy frameworks.",
-            "Transport-layer DoS floods, reconnaissance port scans, and covert C2 beaconing channels are actively detected."
+            "All application source code repositories are automatically converted into compiled native binaries",
+            "Transport-layer DoS floods, reconnaissance port scans, and covert C2 beaconing channels are actively detected",
+            "Network cables are physically protected against environmental electromagnetic radiation monitored through centralized security audit logging",
+            "The enterprise is permanently exempt from compliance audits under international privacy frameworks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Certification guarantees that the network monitoring layer actively detects transport-layer exhaustion attacks, reconnaissance scans, and automated C2 heartbeats."
         }
       }
@@ -12886,13 +12706,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do security gateways verify binary magic bytes rather than trusting file extensions like .pdf or .jpg?",
           "options": [
-            "File extensions cannot be stored on modern cloud object storage buckets like Amazon S3.",
-            "Operating systems will automatically delete any file whose extension contains more than three characters.",
-            "Attackers routinely rename malicious executable files with benign extensions to deceive users and bypass simple filename filters.",
-            "Binary magic bytes are required by web browsers to calculate the correct CSS color palette for images."
+            "Attackers routinely rename malicious executable files with benign extensions to deceive users and bypass simple filename filters",
+            "File extensions cannot be stored on modern cloud object storage buckets like Amazon S3",
+            "Operating systems will automatically delete any file whose extension contains more than three characters",
+            "Binary magic bytes are required by web browsers to calculate the correct CSS color palette for images"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "File extensions are trivial to alter; checking binary magic bytes (like MZ for executables) ensures that files are identified by their true binary nature."
         }
       },
@@ -12932,10 +12752,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security vulnerability is directly prevented by verifying file magic headers during file uploads?",
           "options": [
-            "Cross-Site Scripting (XSS) in client-side React component rendering engines.",
-            "Executable masquerading, where an attacker uploads malware disguised as an innocent document or image.",
-            "SQL injection within parameterized database queries executed by the application backend.",
-            "Man-in-the-middle interception of unencrypted HTTP traffic over wireless local area networks."
+            "Cross-Site Scripting (XSS) in client-side React component rendering engines monitored through centralized security audit logging",
+            "Executable masquerading, where an attacker uploads malware disguised as an innocent document or image",
+            "SQL injection within parameterized database queries executed by the application backend",
+            "Man-in-the-middle interception of unencrypted HTTP traffic over wireless local area networks"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -12978,13 +12798,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of YARA rules in security operations and incident response?",
           "options": [
-            "To identify and classify malware samples by searching for distinctive text, hex, and regex byte patterns.",
-            "To automatically patch memory leaks in long-running Python background worker processes.",
-            "To configure routing tables across distributed Cisco edge routers automatically.",
-            "To compress video files for high-definition streaming over cellular data connections."
+            "To automatically patch memory leaks in long-running Python background worker processes",
+            "To configure routing tables across distributed Cisco edge routers automatically monitored through centralized security audit logging",
+            "To identify and classify malware samples by searching for distinctive text, hex, and regex byte patterns",
+            "To compress video files for high-definition streaming over cellular data connections"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "YARA is the standard tool for identifying and classifying malware by matching distinctive text, hex byte sequences, and patterns within files or memory dumps."
         }
       },
@@ -13024,13 +12844,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must file scanners enforce minimum buffer size checks before attempting to slice header bytes?",
           "options": [
-            "To prevent index-out-of-bounds errors or unhandled exceptions that could crash ingestion worker processes.",
-            "To comply with federal regulations governing the maximum size of compressed archives.",
-            "To ensure that all files uploaded to the server can be indexed in a relational database table.",
-            "To allow the operating system to automatically defragment physical storage drives."
+            "To comply with federal regulations governing the maximum size of compressed archives",
+            "To ensure that all files uploaded to the server can be indexed in a relational database table",
+            "To allow the operating system to automatically defragment physical storage drives",
+            "To prevent index-out-of-bounds errors or unhandled exceptions that could crash ingestion worker processes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Attempting to read header bytes from empty or 1-byte files without size validation can cause index exceptions or parser crashes, leading to denial of service."
         }
       },
@@ -13070,13 +12890,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the standard EICAR test file in security software auditing?",
           "options": [
-            "It exploits zero-day vulnerabilities in Linux operating systems to test kernel patching pipelines.",
-            "It compresses hard drive storage blocks to accelerate file system input-output performance.",
-            "It validates the mathematical precision of floating-point arithmetic units on modern CPUs.",
-            "It provides a completely safe, standardized synthetic string used to verify that antivirus scanners are operational."
+            "It provides a completely safe, standardized synthetic string used to verify that antivirus scanners are operational",
+            "It exploits zero-day vulnerabilities in Linux operating systems to test kernel patching pipelines",
+            "It compresses hard drive storage blocks to accelerate file system input-output performance",
+            "It validates the mathematical precision of floating-point arithmetic units on modern CPUs monitored through centralized security audit logging"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The EICAR standard test string is a benign 68-byte file recognized by all compliant antivirus and signature scanners to safely verify that detection engines are active."
         }
       }
@@ -13138,13 +12958,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is running a container process as root (UID 0) fundamentally dangerous on shared container hosts?",
           "options": [
-            "Root processes consume twice as much network bandwidth as non-root processes due to encryption headers.",
-            "The Linux kernel will automatically reboot if more than five root containers are launched simultaneously.",
-            "Containers share the host kernel; UID 0 inside an unconfined container has root privileges against kernel subsystems.",
-            "Running as root causes container images to exceed maximum allowable size limits on public registries."
+            "Root processes consume twice as much network bandwidth as non-root processes due to encryption headers",
+            "The Linux kernel will automatically reboot if more than five root containers are launched simultaneously",
+            "Running as root causes container images to exceed maximum allowable size limits on public registries",
+            "Containers share the host kernel; UID 0 inside an unconfined container has root privileges against kernel subsystems"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because containers share the host kernel, UID 0 in a container maps directly to host root unless user namespaces are strictly isolated; dropping root eliminates breakout risks."
         }
       },
@@ -13184,13 +13004,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the industry-recommended best practice for configuring Linux capabilities in Kubernetes pod specifications?",
           "options": [
-            "Grant all capabilities to ensure that third-party library updates never fail due to permission errors.",
-            "Drop all capabilities by default (drop: ['ALL']) and add back only strictly necessary non-administrative privileges.",
-            "Assign the CAP_SYS_ADMIN capability to all pods to allow automatic memory garbage collection.",
-            "Rotate capabilities dynamically every twenty-four hours using automated shell scripts."
+            "Drop all capabilities by default (drop: ['ALL']) and add back only strictly necessary non-administrative privileges",
+            "Grant all capabilities to ensure that third-party library updates never fail due to permission errors",
+            "Assign the CAP_SYS_ADMIN capability to all pods to allow automatic memory garbage collection",
+            "Rotate capabilities dynamically every twenty-four hours using automated shell scripts monitored through centralized security audit logging"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Dropping ALL capabilities by default and adding back only specific required privileges adheres to the principle of least privilege and prevents container breakouts."
         }
       },
@@ -13230,10 +13050,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the system call 'ptrace' considered dangerous when permitted inside containerized environments?",
           "options": [
-            "ptrace causes physical hard drives to overheat by executing continuous read-write cycles.",
-            "ptrace allows a process to inspect and manipulate the memory and registers of other processes, enabling privilege escalation.",
-            "ptrace forces network adapters to drop all incoming TCP connections automatically.",
-            "ptrace permanently deletes the host server's BIOS firmware during container startup."
+            "ptrace causes physical hard drives to overheat by executing continuous read-write cycles",
+            "ptrace allows a process to inspect and manipulate the memory and registers of other processes, enabling privilege escalation",
+            "ptrace forces network adapters to drop all incoming TCP connections automatically monitored through centralized security audit logging",
+            "ptrace permanently deletes the host server's BIOS firmware during container startup"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -13276,13 +13096,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary attack technique is neutralized by enforcing a read-only root filesystem (readOnlyRootFilesystem: true)?",
           "options": [
-            "Malware persistence: attackers cannot write malicious binaries, webshells, or scripts to the filesystem.",
-            "Denial-of-service attacks targeting the host server's physical power supply.",
-            "SQL injection attacks originating from external client web form submissions.",
-            "Phishing emails sent to corporate employees through third-party email providers."
+            "Denial-of-service attacks targeting the host server's physical power supply",
+            "SQL injection attacks originating from external client web form submissions",
+            "Malware persistence: attackers cannot write malicious binaries, webshells, or scripts to the filesystem",
+            "Phishing emails sent to corporate employees through third-party email providers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A read-only root filesystem prevents attackers from writing, downloading, or modifying executable binaries, neutralizing malware persistence and tool installation."
         }
       },
@@ -13322,10 +13142,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful container runtime security certification guarantee for a cloud infrastructure deployment?",
           "options": [
-            "The cloud provider will waive all monthly data transfer and compute billing charges.",
-            "Software developers are no longer required to write automated unit tests for business logic.",
-            "All microservice network traffic is routed exclusively over satellite communication links.",
-            "Containers run with minimal privileges, dropped capabilities, syscall filtering, and immutable root filesystems."
+            "The cloud provider will waive all monthly data transfer and compute billing charges monitored through centralized security audit logging",
+            "Software developers are no longer required to write automated unit tests for business logic",
+            "All microservice network traffic is routed exclusively over satellite communication links",
+            "Containers run with minimal privileges, dropped capabilities, syscall filtering, and immutable root filesystems"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -13390,10 +13210,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an indirect privilege escalation path in cloud Identity and Access Management (IAM)?",
           "options": [
-            "An automatic software update pushed by the cloud vendor that restarts all virtual machine instances.",
-            "A physical security breach where an unauthorized individual enters the public cloud provider's data center.",
-            "A sequence of seemingly low-privilege actions that allows an identity to attain higher or administrative permissions.",
-            "A compiler optimization that converts interpreted Python scripts into compiled C machine code."
+            "An automatic software update pushed by the cloud vendor that restarts all virtual machine instances",
+            "A physical security breach where an unauthorized individual enters the public cloud provider's data center",
+            "A sequence of seemingly low-privilege actions that allows an identity to attain higher or administrative permissions",
+            "A compiler optimization that converts interpreted Python scripts into compiled C machine code"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -13436,13 +13256,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Breadth-First Search (BFS) the preferred graph traversal algorithm for discovering IAM escalation paths?",
           "options": [
-            "BFS requires less memory than Depth-First Search on extremely deep linear graphs.",
-            "BFS automatically encrypts all graph edges using asymmetric public-key cryptography.",
-            "BFS explores graph levels uniformly, guaranteeing discovery of the shortest attack path in unweighted graphs.",
-            "BFS runs exclusively on GPU shader hardware to achieve microsecond execution times."
+            "BFS requires less memory than Depth-First Search on extremely deep linear graphs monitored through centralized security audit logging",
+            "BFS automatically encrypts all graph edges using asymmetric public-key cryptography",
+            "BFS runs exclusively on GPU shader hardware to achieve microsecond execution times",
+            "BFS explores graph levels uniformly, guaranteeing discovery of the shortest attack path in unweighted graphs"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "BFS explores nodes level by level, ensuring that the first path found from an initial identity to an admin role is the shortest possible attack chain."
         }
       },
@@ -13482,13 +13302,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What defines a 'shadow administrator' in cloud identity governance?",
           "options": [
-            "An administrator account that has not been logged into for more than ninety consecutive days.",
-            "An identity that lacks formal administrative titles but holds permissions allowing it to grant itself admin rights.",
-            "A user account that was created during a scheduled maintenance window without a change ticket.",
-            "An account whose password contains fewer than twelve alphanumeric characters."
+            "An identity that lacks formal administrative titles but holds permissions allowing it to grant itself admin rights",
+            "An administrator account that has not been logged into for more than ninety consecutive days",
+            "A user account that was created during a scheduled maintenance window without a change ticket",
+            "An account whose password contains fewer than twelve alphanumeric characters monitored through centralized security audit logging"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Shadow administrators are accounts that appear unprivileged but possess dangerous permissions (like iam:PutUserPolicy) allowing them to grant themselves full control."
         }
       },
@@ -13528,13 +13348,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is calculating the blast radius of an IAM identity essential for incident response planning?",
           "options": [
-            "It quantifies exactly which cloud assets and databases could be compromised if the identity's credentials are stolen.",
-            "It calculates the physical heat dissipation required to cool the cloud provider's server racks.",
-            "It determines the electrical power consumption of the virtual machines managed by the user.",
-            "It measures the network ping latency between developer workstations and the cloud gateway."
+            "It calculates the physical heat dissipation required to cool the cloud provider's server racks",
+            "It quantifies exactly which cloud assets and databases could be compromised if the identity's credentials are stolen",
+            "It determines the electrical power consumption of the virtual machines managed by the user",
+            "It measures the network ping latency between developer workstations and the cloud gateway"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Blast radius calculation identifies all downstream assets an identity can reach, allowing incident responders to immediately understand the maximum possible exposure."
         }
       },
@@ -13574,13 +13394,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Cloud IAM posture audit guarantee for an enterprise cloud environment?",
           "options": [
-            "The cloud provider will automatically resolve all software bugs in third-party Python libraries.",
-            "All employee laptop hard drives are physically encrypted using external biometric security dongles.",
-            "The enterprise is permanently exempt from compliance audits under international data privacy laws.",
-            "Multi-hop escalation paths, shadow administrator permissions, and asset blast radiuses are actively identified and monitored."
+            "The cloud provider will automatically resolve all software bugs in third-party Python libraries monitored through centralized security audit logging",
+            "All employee laptop hard drives are physically encrypted using external biometric security dongles",
+            "Multi-hop escalation paths, shadow administrator permissions, and asset blast radiuses are actively identified and monitored",
+            "The enterprise is permanently exempt from compliance audits under international data privacy laws"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Certification guarantees that identity graphs are continuously analyzed for indirect escalation paths, shadow admins are flagged, and asset blast radiuses are bounded."
         }
       }
@@ -13641,13 +13461,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must cloud security architectures evaluate both container runtime contexts and cloud IAM permissions simultaneously?",
           "options": [
-            "Container images will not compile unless the host operating system has an active AWS IAM user account.",
-            "It allows database administrators to eliminate all indexes from the primary security data warehouse.",
-            "It converts unencrypted network packets into encrypted TLS tunnels without certificate configuration.",
-            "A container breakout combined with a high-privilege cloud IAM role allows an attacker to compromise the entire cloud tenant."
+            "Container images will not compile unless the host operating system has an active AWS IAM user account",
+            "A container breakout combined with a high-privilege cloud IAM role allows an attacker to compromise the entire cloud tenant",
+            "It allows database administrators to eliminate all indexes from the primary security data warehouse",
+            "It converts unencrypted network packets into encrypted TLS tunnels without certificate configuration"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If a container suffers a breakout, any IAM role attached to the container becomes accessible to the attacker; securing both layers is essential to prevent full tenant compromise."
         }
       },
@@ -13687,10 +13507,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of coordinating container and IAM checks within a single security engine?",
           "options": [
-            "It eliminates the need for software engineers to write automated unit tests for web controllers.",
-            "It enables the web server to cache static images directly in network router memory buffers.",
-            "It ensures that a workload is certified only when both its runtime execution context and cloud permissions are secure.",
-            "It converts single-threaded Python services into distributed asynchronous worker clusters."
+            "It eliminates the need for software engineers to write automated unit tests for web controllers",
+            "It enables the web server to cache static images directly in network router memory buffers",
+            "It ensures that a workload is certified only when both its runtime execution context and cloud permissions are secure",
+            "It converts single-threaded Python services into distributed asynchronous worker clusters monitored through centralized security audit logging"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -13733,13 +13553,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do shorter attack paths (fewer intermediate role hops) receive higher risk scores in IAM path analysis?",
           "options": [
-            "Shorter paths consume more electrical power across the cloud provider's network switches.",
-            "Shorter paths require fewer exploitation steps, making them faster and easier for attackers to execute successfully.",
-            "Shorter paths cause database deadlocks during automated transaction processing cycles.",
-            "Shorter paths bypass all cryptographic hashing algorithms implemented in the Linux kernel."
+            "Shorter paths consume more electrical power across the cloud provider's network switches",
+            "Shorter paths cause database deadlocks during automated transaction processing cycles bypassing input validation sanitization filters",
+            "Shorter paths bypass all cryptographic hashing algorithms implemented in the Linux kernel",
+            "Shorter paths require fewer exploitation steps, making them faster and easier for attackers to execute successfully"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "A shorter path requires fewer role hops and fewer conditions to satisfy, making it significantly easier and faster for an attacker to exploit."
         }
       },
@@ -13779,10 +13599,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of stripping one permission from a toxic pair rather than revoking all user permissions?",
           "options": [
-            "It neutralizes the escalation vector while allowing legitimate business operations to continue without interruption.",
-            "It permanently reduces cloud hosting fees by eliminating database index storage overhead.",
-            "It forces all microservice network traffic to use hardware-accelerated TLS encryption.",
-            "It enables the web browser to automatically reinstall operating system security patches."
+            "It neutralizes the escalation vector while allowing legitimate business operations to continue without interruption",
+            "It permanently reduces cloud hosting fees by eliminating database index storage overhead",
+            "It forces all microservice network traffic to use hardware-accelerated TLS encryption",
+            "It enables the web browser to automatically reinstall operating system security patches"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13825,13 +13645,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful Milestone 11 certification audit guarantee for an enterprise cloud platform?",
           "options": [
-            "Container runtime environments are strictly hardened, and multi-hop IAM privilege escalation vectors are eliminated.",
-            "The enterprise is permanently immune to all future social engineering and email phishing campaigns.",
-            "The organization can legally operate without maintaining offsite disaster recovery data backups.",
-            "All microservice database queries will execute in under ten microseconds unconditionally."
+            "The enterprise is permanently immune to all future social engineering and email phishing campaigns",
+            "Container runtime environments are strictly hardened, and multi-hop IAM privilege escalation vectors are eliminated",
+            "The organization can legally operate without maintaining offsite disaster recovery data backups",
+            "All microservice database queries will execute in under ten microseconds unconditionally monitored through centralized security audit logging"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 11 certifies that container runtime controls (rootless, seccomp) and cloud IAM protections (pathfinding, shadow admin removal, remediation) are fully operational."
         }
       }
@@ -13893,13 +13713,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the fundamental architectural cause of prompt injection vulnerabilities in Large Language Models?",
           "options": [
-            "LLMs are compiled using unpatched C++ compiler toolchains that introduce buffer overflow flaws.",
-            "Language models require unencrypted HTTP network connections to download token vocabulary weights.",
-            "Model transformer attention heads overheat during multi-turn conversational inference.",
-            "LLMs process system instructions and untrusted user data within the same unified natural language context window."
+            "LLMs process system instructions and untrusted user data within the same unified natural language context window",
+            "LLMs are compiled using unpatched C++ compiler toolchains that introduce buffer overflow flaws",
+            "Language models require unencrypted HTTP network connections to download token vocabulary weights",
+            "Model transformer attention heads overheat during multi-turn conversational inference"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Because instructions and data are both natural language text in the context window, the model cannot distinguish between author instructions and attacker text."
         }
       },
@@ -13939,13 +13759,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is regular expression screening often combined with semantic classifiers in production AI guardrails?",
           "options": [
-            "Regex is required to convert natural language text into token embeddings before inference.",
-            "Semantic classifiers cannot process text containing punctuation marks without regex preprocessing.",
-            "Regex provides fast detection of known keywords while semantic classifiers catch paraphrased injection concepts.",
-            "Combining both techniques allows the model to double its token output generation speed."
+            "Regex is required to convert natural language text into token embeddings before inference",
+            "Regex provides fast detection of known keywords while semantic classifiers catch paraphrased injection concepts",
+            "Semantic classifiers cannot process text containing punctuation marks without regex preprocessing",
+            "Combining both techniques allows the model to double its token output generation speed utilizing unverified cryptographic primitive implementations"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Regex provides zero-latency detection for known exact phrases, while semantic models catch nuanced variations and novel phrasing that convey the same malicious intent."
         }
       },
@@ -13985,13 +13805,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an application validate tool-call parameters deterministically rather than trusting the LLM to format them safely?",
           "options": [
-            "Tool calls cannot be transmitted over HTTP unless they are pre-validated by a Python closure.",
-            "LLMs are probabilistic and susceptible to prompt injection; they can easily be manipulated into emitting malicious commands.",
-            "Operating system kernels refuse to execute system calls originating from artificial intelligence models.",
-            "Deterministic validation reduces the physical temperature of the server's CPU processing cores."
+            "Tool calls cannot be transmitted over HTTP unless they are pre-validated by a Python closure bypassing input validation sanitization filters",
+            "Operating system kernels refuse to execute system calls originating from artificial intelligence models",
+            "LLMs are probabilistic and susceptible to prompt injection; they can easily be manipulated into emitting malicious commands",
+            "Deterministic validation reduces the physical temperature of the server's CPU processing cores"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "LLMs can be tricked via prompt injection into generating malicious tool parameters; deterministic code gates must validate every argument before execution."
         }
       },
@@ -14031,13 +13851,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does markdown image tag exfiltration operate in web-based LLM chat applications?",
           "options": [
-            "The markdown parser converts the image into an executable binary that installs malware on the client PC.",
-            "The browser automatically fetches the image URL via GET request, sending stolen context in the URL query string.",
-            "The image tag forces the web server to shut down its primary database connections.",
-            "Markdown image tags consume all available client-side battery power within seconds."
+            "The markdown parser converts the image into an executable binary that installs malware on the client PC",
+            "The image tag forces the web server to shut down its primary database connections",
+            "Markdown image tags consume all available client-side battery power within seconds",
+            "The browser automatically fetches the image URL via GET request, sending stolen context in the URL query string"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Browsers automatically fetch image sources; if an LLM includes user secrets in the image URL query string, the browser leaks the data to the attacker's server upon rendering."
         }
       },
@@ -14077,10 +13897,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful AI security pipeline certification guarantee for an enterprise application?",
           "options": [
-            "Input prompt injections are filtered, tool invocations are strictly bounded, and output data leaks are neutralized.",
-            "The generative model will achieve one hundred percent factual accuracy on every natural language query.",
-            "The enterprise is exempt from international copyright laws governing training datasets.",
-            "Model training costs will automatically be reduced by ninety percent across all cloud regions."
+            "Input prompt injections are filtered, tool invocations are strictly bounded, and output data leaks are neutralized",
+            "The generative model will achieve one hundred percent factual accuracy on every natural language query",
+            "The enterprise is exempt from international copyright laws governing training datasets bypassing input validation sanitization filters",
+            "Model training costs will automatically be reduced by ninety percent across all cloud regions"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -14145,10 +13965,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of the parameter epsilon in differential privacy calculations?",
           "options": [
-            "It specifies the encryption key length in bits used to encrypt database table columns.",
-            "It measures the network latency in milliseconds between the client and the analytical database.",
-            "It defines the maximum number of concurrent users allowed to query the database simultaneously.",
-            "It quantifies the privacy budget; smaller epsilon values provide stronger mathematical privacy guarantees."
+            "It specifies the encryption key length in bits used to encrypt database table columns",
+            "It measures the network latency in milliseconds between the client and the analytical database",
+            "It defines the maximum number of concurrent users allowed to query the database simultaneously",
+            "It quantifies the privacy budget; smaller epsilon values provide stronger mathematical privacy guarantees"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -14191,13 +14011,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the global sensitivity of a COUNT query always equal to 1 in differential privacy?",
           "options": [
-            "Count queries can only return binary true or false values in relational databases.",
-            "The database index stores all counts as 1-byte unsigned integers in memory.",
-            "Adding or removing a single individual record from the dataset can change the count by at most 1.",
-            "SQL standards require all aggregate functions to execute in single-threaded mode."
+            "Adding or removing a single individual record from the dataset can change the count by at most 1",
+            "Count queries can only return binary true or false values in relational databases",
+            "The database index stores all counts as 1-byte unsigned integers in memory monitored through centralized security audit logging",
+            "SQL standards require all aggregate functions to execute in single-threaded mode"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A single person's record either matches the query criteria or does not; hence, adding or removing that record changes the total count by at most 1."
         }
       },
@@ -14237,13 +14057,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical principle necessitates tracking cumulative epsilon in a privacy budget ledger?",
           "options": [
-            "The Pythagorean Theorem, which calculates the distance between multi-dimensional database vectors.",
-            "Moore's Law, which predicts that transistor density on silicon chips doubles every two years.",
-            "The Composition Theorem, which states that privacy loss accumulates additively across sequential queries.",
-            "Amdahl's Law, which bounds the speedup of parallel computing programs."
+            "The Pythagorean Theorem, which calculates the distance between multi-dimensional database vectors",
+            "The Composition Theorem, which states that privacy loss accumulates additively across sequential queries",
+            "Moore's Law, which predicts that transistor density on silicon chips doubles every two years",
+            "Amdahl's Law, which bounds the speedup of parallel computing programs monitored through centralized security audit logging"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The Composition Theorem dictates that privacy loss accumulates with every query; without tracking and capping total epsilon, repeated queries would destroy privacy."
         }
       },
@@ -14283,13 +14103,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is value clamping required before calculating differential privacy noise for SUM queries?",
           "options": [
-            "It converts floating-point numbers into 64-bit integers for faster database storage.",
-            "It establishes a finite, bounded global sensitivity by eliminating the impact of unbounded extreme outliers.",
-            "It ensures that all database records are stored in alphabetical order by primary key.",
-            "It prevents database transactions from deadlocking during high-concurrency write operations."
+            "It converts floating-point numbers into 64-bit integers for faster database storage",
+            "It ensures that all database records are stored in alphabetical order by primary key",
+            "It establishes a finite, bounded global sensitivity by eliminating the impact of unbounded extreme outliers",
+            "It prevents database transactions from deadlocking during high-concurrency write operations"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Unbounded values mean unbounded sensitivity, requiring infinite noise; clamping restricts values to a fixed range, ensuring a finite sensitivity for noise scaling."
         }
       },
@@ -14329,13 +14149,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful differential privacy audit guarantee for an enterprise analytical platform?",
           "options": [
-            "Query results are perturbated with calibrated mathematical noise and cumulative privacy loss is bounded by an immutable ledger.",
-            "The analytical database will achieve zero network latency across global user queries.",
-            "Software engineers are exempt from writing automated unit tests for reporting microservices.",
-            "All database records are automatically translated into multiple foreign languages."
+            "The analytical database will achieve zero network latency across global user queries",
+            "Software engineers are exempt from writing automated unit tests for reporting microservices",
+            "All database records are automatically translated into multiple foreign languages monitored through centralized security audit logging",
+            "Query results are perturbated with calibrated mathematical noise and cumulative privacy loss is bounded by an immutable ledger"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Certification guarantees that the platform applies calibrated noise, bounds sensitivity via clamping, and enforces hard limits on cumulative privacy loss via the ledger."
         }
       }
@@ -14397,13 +14217,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational objective of automated SOAR containment playbooks?",
           "options": [
-            "To permanently eliminate the need for enterprise data backups across public cloud regions.",
-            "To automatically rewrite vulnerable application source code and push changes to production.",
-            "To compress network packets to achieve higher throughput on fiber-optic links.",
-            "To execute immediate containment actions in milliseconds to stop lateral movement and data theft before humans can intervene."
+            "To permanently eliminate the need for enterprise data backups across public cloud regions",
+            "To automatically rewrite vulnerable application source code and push changes to production",
+            "To execute immediate containment actions in milliseconds to stop lateral movement and data theft before humans can intervene",
+            "To compress network packets to achieve higher throughput on fiber-optic links"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Automated SOAR playbooks respond at machine speed, isolating infected endpoints and revoking tokens within milliseconds to prevent attack spread."
         }
       },
@@ -14443,10 +14263,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must credential revocation accompany host network quarantine during account compromise containment?",
           "options": [
-            "Network switches will refuse to isolate endpoints whose user passwords remain active.",
-            "Revoking credentials automatically deletes all malicious files from the host hard drive.",
-            "Identity providers charge additional fees if compromised sessions remain active for more than an hour.",
-            "The attacker may have already stolen valid session tokens to access cloud services from other unquarantined locations."
+            "Network switches will refuse to isolate endpoints whose user passwords remain active without cryptographically verified digital signatures",
+            "Revoking credentials automatically deletes all malicious files from the host hard drive",
+            "Identity providers charge additional fees if compromised sessions remain active for more than an hour",
+            "The attacker may have already stolen valid session tokens to access cloud services from other unquarantined locations"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -14489,13 +14309,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary legal purpose of maintaining a cryptographic evidence manifest in digital forensics?",
           "options": [
-            "To compress large memory dumps so they can be transmitted over cellular data connections.",
-            "To automatically decrypt proprietary file formats used by threat actors.",
-            "To prove that digital evidence has remained intact and untampered with since the moment of collection.",
-            "To satisfy browser rendering requirements for displaying charts in incident reports."
+            "To prove that digital evidence has remained intact and untampered with since the moment of collection",
+            "To compress large memory dumps so they can be transmitted over cellular data connections",
+            "To automatically decrypt proprietary file formats used by threat actors monitored through centralized security audit logging",
+            "To satisfy browser rendering requirements for displaying charts in incident reports"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Cryptographic hashes prove evidence integrity; matching hashes between collection and trial proves that the artifact was not altered or fabricated."
         }
       },
@@ -14535,10 +14355,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must SOAR platforms enforce protected infrastructure guardrails on automated containment actions?",
           "options": [
-            "Because critical infrastructure servers do not have network interface cards that can be disabled.",
-            "To prevent automated false positives from accidentally isolating critical servers (like domain controllers) and causing widespread outages.",
-            "To allow attackers sufficient time to finish downloading database files for forensic analysis.",
-            "Because automated playbooks are legally forbidden from modifying Windows servers."
+            "Because critical infrastructure servers do not have network interface cards that can be disabled",
+            "To prevent automated false positives from accidentally isolating critical servers (like domain controllers) and causing widespread outages",
+            "To allow attackers sufficient time to finish downloading database files for forensic analysis",
+            "Because automated playbooks are legally forbidden from modifying Windows servers"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -14581,13 +14401,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful SOAR automation certification guarantee for an enterprise security operations center?",
           "options": [
-            "Containment playbooks execute reliably in sub-second times, evidence is cryptographically preserved, and critical systems are safeguarded.",
-            "The enterprise is permanently immune to all future zero-day hardware vulnerabilities.",
-            "Software developers are no longer required to conduct code reviews on pull requests.",
-            "All microservice database queries will execute in under ten microseconds unconditionally."
+            "The enterprise is permanently immune to all future zero-day hardware vulnerabilities",
+            "Software developers are no longer required to conduct code reviews on pull requests monitored through centralized security audit logging",
+            "Containment playbooks execute reliably in sub-second times, evidence is cryptographically preserved, and critical systems are safeguarded",
+            "All microservice database queries will execute in under ten microseconds unconditionally"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Certification guarantees that the SOAR engine can reliably execute automated containment, hash evidence for legal validity, and protect critical assets from accidental disruption."
         }
       }
@@ -14649,13 +14469,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the qualitative severity rating for a vulnerability with a CVSS v3.1 base score of 9.8?",
           "options": [
-            "Critical (scores from 9.0 to 10.0 represent Critical severity).",
-            "Moderate (scores from 8.0 to 10.0 represent Moderate severity).",
-            "Informational (scores above 9.0 require no operational remediation).",
-            "Low (scores above 9.0 represent low real-world exploitation risk)."
+            "Moderate (scores from 8.0 to 10.0 represent Moderate severity)",
+            "Critical (scores from 9.0 to 10.0 represent Critical severity)",
+            "Informational (scores above 9.0 require no operational remediation)",
+            "Low (scores above 9.0 represent low real-world exploitation risk)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Under the CVSS v3.1 standard specification, scores from 9.0 to 10.0 are classified as Critical severity, requiring immediate expedited remediation."
         }
       },
@@ -14695,13 +14515,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does requiring User Interaction (UI:R) affect the calculated CVSS base score?",
           "options": [
-            "It automatically increases the severity score to Critical regardless of other metrics.",
-            "It forces the vulnerability to be classified as an internal hardware defect.",
-            "It permanently disables all automated vulnerability scanning tools.",
-            "It reduces the exploitability sub-score because an attacker requires a victim to perform an action (e.g., clicking a link)."
+            "It automatically increases the severity score to Critical regardless of other metrics",
+            "It forces the vulnerability to be classified as an internal hardware defect",
+            "It reduces the exploitability sub-score because an attacker requires a victim to perform an action (e.g., clicking a link)",
+            "It permanently disables all automated vulnerability scanning tools bypassing input validation sanitization filters"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Requiring user interaction makes exploitation harder because the attacker cannot exploit the flaw autonomously; this lowers the exploitability score and overall base score."
         }
       },
@@ -14741,13 +14561,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the standard enterprise remediation SLA for a Critical severity vulnerability (CVSS >= 9.0)?",
           "options": [
-            "30 days (addressed during normal monthly software release cycles).",
-            "90 days (scheduled for the subsequent quarterly feature roadmap).",
-            "24 hours (immediate expedited patching or temporary containment mitigation required).",
-            "1 year (addressed during annual infrastructure renewal periods)."
+            "30 days (addressed during normal monthly software release cycles)",
+            "90 days (scheduled for the subsequent quarterly feature roadmap)",
+            "1 year (addressed during annual infrastructure renewal periods) monitored through centralized security audit logging",
+            "24 hours (immediate expedited patching or temporary containment mitigation required)"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Critical vulnerabilities represent active, catastrophic risk; enterprise security policies almost universally mandate remediation within 24 hours."
         }
       },
@@ -14787,13 +14607,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a CVSS vector syntax guardrail verify the presence of all eight Base metrics?",
           "options": [
-            "The National Vulnerability Database automatically deletes incomplete vectors from public internet servers.",
-            "Omitting any metric makes accurate mathematical calculation of the base score impossible.",
-            "SQL database engines will crash if a vector string contains fewer than forty characters.",
-            "Incomplete vectors cause network firewalls to drop all incoming HTTPS traffic."
+            "Omitting any metric makes accurate mathematical calculation of the base score impossible",
+            "The National Vulnerability Database automatically deletes incomplete vectors from public internet servers",
+            "SQL database engines will crash if a vector string contains fewer than forty characters",
+            "Incomplete vectors cause network firewalls to drop all incoming HTTPS traffic"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The CVSS formula requires all eight base metrics to compute exploitability, scope, and impact; a missing metric results in an undefined or invalid score."
         }
       },
@@ -14833,10 +14653,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a successful vulnerability triage infrastructure certification guarantee for an enterprise?",
           "options": [
-            "All enterprise software codebases are permanently guaranteed to be free of security vulnerabilities.",
-            "Vulnerabilities are objectively scored using standard CVSS mathematics and routed to strict, policy-driven remediation SLAs.",
-            "The organization is exempt from conducting annual third-party penetration testing.",
-            "All microservice database queries will execute in under ten microseconds unconditionally."
+            "All enterprise software codebases are permanently guaranteed to be free of security vulnerabilities",
+            "Vulnerabilities are objectively scored using standard CVSS mathematics and routed to strict, policy-driven remediation SLAs",
+            "The organization is exempt from conducting annual third-party penetration testing monitored through centralized security audit logging",
+            "All microservice database queries will execute in under ten microseconds unconditionally"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -14900,10 +14720,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core mathematical and operational philosophy of Zero Trust architecture?",
           "options": [
-            "Never trust, always verify: every request must be continuously authenticated and authorized regardless of network location.",
-            "Trust all internal network traffic once an employee has successfully passed the perimeter firewall.",
-            "Eliminate all password requirements by trusting mobile phone Bluetooth proximity signals unconditionally.",
-            "Compress all database tables to reduce hard drive storage utilization across cloud data centers."
+            "Never trust, always verify: every request must be continuously authenticated and authorized regardless of network location",
+            "Trust all internal network traffic once an employee has successfully passed the perimeter firewall",
+            "Eliminate all password requirements by trusting mobile phone Bluetooth proximity signals unconditionally",
+            "Compress all database tables to reduce hard drive storage utilization across cloud data centers"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -14946,13 +14766,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the SecOps platform engine execute automated host isolation and token revocation for CVSS >= 9.0 incidents?",
           "options": [
-            "Isolating hosts automatically resolves all software bugs in the underlying operating system.",
-            "Cloud providers will terminate the enterprise's account if critical incidents are not isolated immediately.",
-            "Automated containment reduces the physical electricity consumption of server motherboards.",
-            "Critical severity vulnerabilities represent catastrophic risk; automated containment stops attack spread in milliseconds."
+            "Isolating hosts automatically resolves all software bugs in the underlying operating system",
+            "Critical severity vulnerabilities represent catastrophic risk; automated containment stops attack spread in milliseconds",
+            "Cloud providers will terminate the enterprise's account if critical incidents are not isolated immediately",
+            "Automated containment reduces the physical electricity consumption of server motherboards monitored through centralized security audit logging"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Critical vulnerabilities (CVSS >= 9.0) pose immediate catastrophe; machine-speed containment isolates the asset before lateral movement or data theft occurs."
         }
       },
@@ -14992,10 +14812,10 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of computing a cryptographic hash of raw incident logs at the beginning of the pipeline?",
           "options": [
-            "It compresses the log data into smaller packets for faster wide-area network transmission.",
-            "It translates foreign language log messages into English for security analyst review.",
-            "It guarantees an unbroken chain of custody, proving that forensic evidence was not altered after collection.",
-            "It allows the database engine to execute queries using GPU acceleration."
+            "It compresses the log data into smaller packets for faster wide-area network transmission",
+            "It translates foreign language log messages into English for security analyst review",
+            "It guarantees an unbroken chain of custody, proving that forensic evidence was not altered after collection",
+            "It allows the database engine to execute queries using GPU acceleration monitored through centralized security audit logging"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -15038,13 +14858,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Zero Trust require continuous re-evaluation of device health and behavioral invariants?",
           "options": [
-            "Operating system kernels automatically delete user session tokens every sixty seconds.",
-            "Continuous verification consumes less electrical power than single initial authentication checks.",
-            "A device or credential that was clean at login time could become compromised or infected during an active session.",
-            "Zero Trust architecture requires all network traffic to be processed exclusively by public cloud vendors."
+            "Operating system kernels automatically delete user session tokens every sixty seconds",
+            "Continuous verification consumes less electrical power than single initial authentication checks",
+            "Zero Trust architecture requires all network traffic to be processed exclusively by public cloud vendors",
+            "A device or credential that was clean at login time could become compromised or infected during an active session"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Context changes dynamically; a laptop can be infected or credentials stolen while a session is active. Continuous re-verification detects and blocks compromised sessions in real time."
         }
       },
@@ -15084,13 +14904,13 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does successful Milestone 12 Capstone certification signify for a cybersecurity engineer?",
           "options": [
-            "Exemption from all future corporate software license fees across cloud providers.",
-            "Full mastery of enterprise defensive engineering: from low-level network forensics to AI security, zero-trust, and automated SOAR.",
-            "The ability to bypass all public cloud provider identity and access management controls.",
-            "Automatic qualification for federal patent registrations on all software algorithms."
+            "Full mastery of enterprise defensive engineering: from low-level network forensics to AI security, zero-trust, and automated SOAR",
+            "Exemption from all future corporate software license fees across cloud providers monitored through centralized security audit logging",
+            "The ability to bypass all public cloud provider identity and access management controls",
+            "Automatic qualification for federal patent registrations on all software algorithms"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Milestone 12 certifies comprehensive mastery across the entire 60-day curriculum: network flow analysis, binary signatures, cloud IAM, container security, AI safety, and automated SOAR."
         }
       }

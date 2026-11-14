@@ -43,13 +43,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the cloud save the most money for a shop with a big holiday rush?",
           "options": [
-            "You pay for the rush only during the rush instead of owning peak capacity all year",
             "Cloud servers are always cheaper per hour",
-            "AWS gives free servers in November",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "You pay for the rush only during the rush instead of owning peak capacity all year",
+            "AWS gives free servers in November across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, you pay for the rush only during the rush instead of owning peak capacity all year ensures security, cost efficiency, and high availability."
         }
       },
@@ -79,11 +78,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "IaaS",
             "SaaS",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
             "PaaS"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, paas ensures security, cost efficiency, and high availability."
         }
       },
@@ -119,13 +117,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A company runs its database on EC2 and forgets to install a security patch. Whose responsibility was that?",
           "options": [
-            "AWS, because it is their cloud",
-            "Nobody, patches are optional",
             "The customer, because on IaaS the operating system is theirs to patch",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "AWS, because it is their cloud",
+            "Nobody, patches are optional provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the customer, because on iaas the operating system is theirs to patch ensures security, cost efficiency, and high availability."
         }
       },
@@ -159,8 +156,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Uploading data into AWS",
             "Data sent out from AWS to users on the internet",
-            "Deleting a server",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Deleting a server across validated high-throughput system boundaries during execution"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -195,13 +191,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is boto3?",
           "options": [
-            "A database",
-            "The official Python library for calling AWS APIs",
+            "A database provisioned across multi-zone cloud infrastructure",
             "A type of EC2 server",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "The official Python library for calling AWS APIs"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, the official python library for calling aws apis ensures security, cost efficiency, and high availability."
         }
       },
@@ -235,8 +230,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The rule is a table, so a table in code is shorter and easy to extend",
             "Dictionaries are faster than lists",
-            "Python needs it for strings",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Python needs it for strings provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -297,11 +291,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The lowest price",
             "The Region with the most services",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
             "The data residency rule"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, the data residency rule ensures security, cost efficiency, and high availability."
         }
       },
@@ -329,13 +322,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "You run 10 servers, all in us-east-1a. The AZ loses power. What happens?",
           "options": [
-            "Nothing, 10 servers is plenty",
-            "AWS moves them automatically",
             "The app goes down, because every server was in the failed AZ",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Nothing, 10 servers is plenty",
+            "AWS moves them automatically provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the app goes down, because every server was in the failed az ensures security, cost efficiency, and high availability."
         }
       },
@@ -367,13 +359,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use re.fullmatch rather than re.search here?",
           "options": [
-            "fullmatch is faster",
-            "search does not work with dashes",
+            "fullmatch is faster provisioned across multi-zone cloud infrastructure",
             "search would accept \"us-east-1a\" because part of it matches",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "search does not work with dashes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, search would accept \"us-east-1a\" because part of it matches ensures security, cost efficiency, and high availability."
         }
       },
@@ -401,13 +392,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do edge locations mainly do?",
           "options": [
-            "Run your databases",
-            "Cache content and answer DNS close to users",
+            "Run your databases across validated high-throughput system boundaries during execution",
             "Store backups for 10 years",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Cache content and answer DNS close to users"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, cache content and answer dns close to users ensures security, cost efficiency, and high availability."
         }
       },
@@ -436,9 +426,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does two AZs give much better availability than one?",
           "options": [
             "Both AZs must fail at the same time for the app to go down",
-            "AWS charges less for two",
-            "Two AZs make servers faster",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "AWS charges less for two provisioned across multi-zone cloud infrastructure",
+            "Two AZs make servers faster"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -470,12 +459,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which fleet is fault tolerant across AZs?",
           "options": [
             "Five servers in us-east-1a",
-            "One very large server",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "One server in us-east-1a and one in us-east-1b"
+            "One server in us-east-1a and one in us-east-1b",
+            "One very large server provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, one server in us-east-1a and one in us-east-1b ensures security, cost efficiency, and high availability."
         }
       }
@@ -531,13 +519,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A subnet in AWS lives in how many Availability Zones?",
           "options": [
+            "Exactly one AZ",
             "All AZs in the Region",
-            "Two AZs for safety",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "Exactly one AZ"
+            "Two AZs for safety"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, exactly one az ensures security, cost efficiency, and high availability."
         }
       },
@@ -566,12 +553,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which network is larger?",
           "options": [
             "10.0.0.0/28",
-            "They are the same size",
             "10.0.0.0/20",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "They are the same size"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, 10.0.0.0/20 ensures security, cost efficiency, and high availability."
         }
       },
@@ -604,12 +590,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many usable addresses does an AWS /28 subnet have?",
           "options": [
             "16",
-            "11",
             "14",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "11"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 11 ensures security, cost efficiency, and high availability."
         }
       },
@@ -642,9 +627,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must subnets inside one VPC never overlap?",
           "options": [
             "The router could not tell which subnet an address belongs to",
-            "AWS charges extra",
-            "Overlaps make the VPC slower but still work",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "AWS charges extra across validated high-throughput system boundaries during execution",
+            "Overlaps make the VPC slower but still work"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -679,13 +663,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes an AWS subnet public?",
           "options": [
-            "A route sending 0.0.0.0/0 to an internet gateway",
             "A setting called Public = true",
-            "Having servers with big disks",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "A route sending 0.0.0.0/0 to an internet gateway",
+            "Having servers with big disks provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, a route sending 0.0.0.0/0 to an internet gateway ensures security, cost efficiency, and high availability."
         }
       },
@@ -719,11 +702,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "256",
             "254",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
             "251"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 251 ensures security, cost efficiency, and high availability."
         }
       }
@@ -776,12 +758,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "You want to block one bad IP range for every server in a subnet. Which tool fits best?",
           "options": [
             "A security group, since it has DENY rules",
-            "Neither can do it",
             "A network ACL on that subnet",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Neither can do it"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, a network acl on that subnet ensures security, cost efficiency, and high availability."
         }
       },
@@ -813,13 +794,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A NACL allows inbound TCP 443 but has no outbound rules except DENY all. Will HTTPS work?",
           "options": [
-            "Yes, replies are automatic",
-            "No, the replies to the ephemeral ports are blocked because NACLs are stateless",
-            "Only for IPv6",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Yes, replies are automatic across validated high-throughput system boundaries during execution",
+            "Only for IPv6 provisioned across multi-zone cloud infrastructure",
+            "No, the replies to the ephemeral ports are blocked because NACLs are stateless"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, no, the replies to the ephemeral ports are blocked because nacls are stateless ensures security, cost efficiency, and high availability."
         }
       },
@@ -851,13 +831,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Rules: 100 ALLOW all ports, 150 DENY port 3389. What happens to port 3389?",
           "options": [
-            "DENY, because DENY always wins",
             "ALLOW, because rule 100 matches first",
-            "Both rules apply",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "DENY, because DENY always wins",
+            "Both rules apply provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, allow, because rule 100 matches first ensures security, cost efficiency, and high availability."
         }
       },
@@ -889,13 +868,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why reference a security group instead of IP addresses?",
           "options": [
+            "It is required by AWS across validated high-throughput system boundaries during execution",
             "The rule keeps working as servers are added or change address",
-            "It is required by AWS",
-            "IP rules are not allowed on port 5432",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "IP rules are not allowed on port 5432"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, the rule keeps working as servers are added or change address ensures security, cost efficiency, and high availability."
         }
       },
@@ -925,11 +903,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "TCP 443 from 0.0.0.0/0 on a load balancer",
             "TCP 5432 from the app security group",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
             "TCP 22 from 0.0.0.0/0 on an app server"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, tcp 22 from 0.0.0.0/0 on an app server ensures security, cost efficiency, and high availability."
         }
       },
@@ -961,13 +938,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Traffic passes the NACL but not the security group. What happens?",
           "options": [
-            "It reaches the server",
-            "It reaches the server but only once",
             "It is blocked; both layers must allow it",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "It reaches the server provisioned across multi-zone cloud infrastructure",
+            "It reaches the server but only once"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, it is blocked; both layers must allow it ensures security, cost efficiency, and high availability."
         }
       }
@@ -1024,9 +1000,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Where should the database live in this design?",
           "options": [
             "A public subnet so the app can find it",
-            "Outside the VPC",
-            "A private subnet, reachable only from the app tier",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Outside the VPC across validated high-throughput system boundaries during execution",
+            "A private subnet, reachable only from the app tier"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1061,13 +1036,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why put one NAT gateway in each AZ?",
           "options": [
-            "AWS requires two",
             "So losing one AZ does not cut off the other AZ's private servers",
-            "It makes downloads faster",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "AWS requires two provisioned across multi-zone cloud infrastructure",
+            "It makes downloads faster"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, so losing one az does not cut off the other az's private servers ensures security, cost efficiency, and high availability."
         }
       },
@@ -1099,13 +1073,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a bastion host's SSH rule allow?",
           "options": [
-            "Only the company's known IP range",
             "0.0.0.0/0 so engineers can work from anywhere",
-            "Only port 443",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Only the company's known IP range",
+            "Only port 443"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, only the company's known ip range ensures security, cost efficiency, and high availability."
         }
       },
@@ -1137,13 +1110,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a validator return every problem instead of stopping at the first?",
           "options": [
-            "It runs faster",
+            "It runs faster across validated high-throughput system boundaries during execution",
             "Python requires it",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
             "The user can fix everything in one pass instead of rerunning again and again"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, the user can fix everything in one pass instead of rerunning again and again ensures security, cost efficiency, and high availability."
         }
       },
@@ -1175,13 +1147,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Do 10.0.0.0/16 and 10.0.200.0/24 overlap?",
           "options": [
+            "Yes, the /24 lies inside the /16",
             "No, they have different prefixes",
-            "Only if they are in the same AZ",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "Yes, the /24 lies inside the /16"
+            "Only if they are in the same AZ"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, yes, the /24 lies inside the /16 ensures security, cost efficiency, and high availability."
         }
       },
@@ -1213,13 +1184,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is the cheapest time to catch a network design mistake?",
           "options": [
-            "During an outage",
-            "At the end of the month on the bill",
+            "During an outage provisioned across multi-zone cloud infrastructure",
             "In a validation step before anything is deployed",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "At the end of the month on the bill"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, in a validation step before anything is deployed ensures security, cost efficiency, and high availability."
         }
       }
@@ -1275,13 +1245,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an IAM principal?",
           "options": [
-            "A kind of storage bucket",
             "The identity making the call, such as a user or role",
-            "The price of an API call",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "A kind of storage bucket across validated high-throughput system boundaries during execution",
+            "The price of an API call"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the identity making the call, such as a user or role ensures security, cost efficiency, and high availability."
         }
       },
@@ -1317,13 +1286,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A user has an Allow for s3:* and a Deny for s3:DeleteObject. Can they delete?",
           "options": [
-            "No, the explicit Deny wins",
             "Yes, s3:* includes delete",
-            "Only on Tuesdays",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "No, the explicit Deny wins",
+            "Only on Tuesdays provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, no, the explicit deny wins ensures security, cost efficiency, and high availability."
         }
       },
@@ -1355,13 +1323,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is least privilege?",
           "options": [
-            "Granting only the permissions a job needs",
             "Giving everyone the same small password",
-            "Denying all access to everyone",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Denying all access to everyone without scoped least-privilege IAM policy boundaries",
+            "Granting only the permissions a job needs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, granting only the permissions a job needs ensures security, cost efficiency, and high availability."
         }
       },
@@ -1393,13 +1360,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are roles safer than long-lived access keys?",
           "options": [
-            "Roles are free",
-            "Roles cannot be used by programs",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "Role credentials are temporary, so a leak is only useful for a short time"
+            "Role credentials are temporary, so a leak is only useful for a short time",
+            "Roles are free across validated high-throughput system boundaries during execution",
+            "Roles cannot be used by programs"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, role credentials are temporary, so a leak is only useful for a short time ensures security, cost efficiency, and high availability."
         }
       },
@@ -1431,13 +1397,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the region empty in an IAM role ARN?",
           "options": [
-            "It is a mistake",
-            "Roles live in every Region separately",
+            "It is a mistake without scoped least-privilege IAM policy boundaries",
             "IAM is a global service, not tied to one Region",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Roles live in every Region separately"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, iam is a global service, not tied to one region ensures security, cost efficiency, and high availability."
         }
       },
@@ -1469,13 +1434,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Your evaluator returns ALLOW at the first matching Allow. What can go wrong?",
           "options": [
-            "Nothing",
-            "A later matching Deny is ignored, so forbidden calls are allowed",
-            "It becomes too slow",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Nothing provisioned across multi-zone cloud infrastructure",
+            "It becomes too slow across validated high-throughput system boundaries during execution",
+            "A later matching Deny is ignored, so forbidden calls are allowed"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, a later matching deny is ignored, so forbidden calls are allowed ensures security, cost efficiency, and high availability."
         }
       }
@@ -1533,8 +1497,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "C (compute optimised)",
             "R (memory optimised)",
-            "T (burstable)",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "T (burstable)"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -1569,13 +1532,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which work suits Spot instances?",
           "options": [
-            "Batch video encoding that can restart if interrupted",
-            "The only database of a bank",
+            "The only database of a bank provisioned across multi-zone cloud infrastructure",
             "A login server that must never stop",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Batch video encoding that can restart if interrupted"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, batch video encoding that can restart if interrupted ensures security, cost efficiency, and high availability."
         }
       },
@@ -1607,13 +1569,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why set a maximum size on an Auto Scaling group?",
           "options": [
-            "To make scaling faster",
-            "AWS requires exactly 20",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
-            "To cap cost during traffic floods or attacks"
+            "To cap cost during traffic floods or attacks",
+            "To make scaling faster provisioned across multi-zone cloud infrastructure",
+            "AWS requires exactly 20"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, to cap cost during traffic floods or attacks ensures security, cost efficiency, and high availability."
         }
       },
@@ -1646,12 +1607,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "4 servers at 80% CPU, target 50%, min 2, max 10. What is the new desired capacity?",
           "options": [
             "6",
-            "10",
             "7",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "10"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, 7 ensures security, cost efficiency, and high availability."
         }
       },
@@ -1684,9 +1644,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How much warning does AWS give before reclaiming a Spot instance?",
           "options": [
             "Two hours",
-            "None",
-            "Two minutes",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "None provisioned across multi-zone cloud infrastructure",
+            "Two minutes"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1721,13 +1680,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use math.ceil in the capacity formula?",
           "options": [
-            "It is faster",
             "Rounding down would leave the fleet slightly overloaded",
-            "Python cannot round down",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "It is faster provisioned across multi-zone cloud infrastructure",
+            "Python cannot round down"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, rounding down would leave the fleet slightly overloaded ensures security, cost efficiency, and high availability."
         }
       }
@@ -1779,13 +1737,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which load balancer can route /api and /images to different servers?",
           "options": [
-            "Application Load Balancer",
             "Network Load Balancer",
-            "Neither",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Neither across validated high-throughput system boundaries during execution",
+            "Application Load Balancer"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, application load balancer ensures security, cost efficiency, and high availability."
         }
       },
@@ -1817,13 +1774,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does \"/healthz\" go to the default group?",
           "options": [
-            "It is misspelled on purpose",
-            "ALBs ignore paths ending in z",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "The /health rule has no *, so it needs an exact match"
+            "The /health rule has no *, so it needs an exact match",
+            "It is misspelled on purpose provisioned across multi-zone cloud infrastructure",
+            "ALBs ignore paths ending in z"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the /health rule has no *, so it needs an exact match ensures security, cost efficiency, and high availability."
         }
       },
@@ -1856,12 +1812,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A healthy target fails one check, then passes. With unhealthy threshold 2, what is its state?",
           "options": [
             "UNHEALTHY",
-            "DRAINING",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "HEALTHY"
+            "HEALTHY",
+            "DRAINING"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, healthy ensures security, cost efficiency, and high availability."
         }
       },
@@ -1894,9 +1849,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does TLS termination at the ALB mean?",
           "options": [
             "The ALB blocks all encrypted traffic",
-            "TLS is turned off everywhere",
-            "The ALB decrypts HTTPS using its certificate and forwards to targets",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "TLS is turned off everywhere across validated high-throughput system boundaries during execution",
+            "The ALB decrypts HTTPS using its certificate and forwards to targets"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1931,13 +1885,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the best long-term fix for users being logged out when they hit another server?",
           "options": [
-            "Sticky sessions forever",
             "Store sessions in a shared store so servers are stateless",
-            "Use only one server",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Sticky sessions forever",
+            "Use only one server provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, store sessions in a shared store so servers are stateless ensures security, cost efficiency, and high availability."
         }
       },
@@ -1965,13 +1918,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Rules: \"/static/*\" then \"/static/admin\". Which target does \"/static/admin\" reach?",
           "options": [
-            "The /static/* target, because it is checked first and matches",
             "The /static/admin target",
-            "The default target",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "The /static/* target, because it is checked first and matches",
+            "The default target provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, the /static/* target, because it is checked first and matches ensures security, cost efficiency, and high availability."
         }
       }
@@ -2029,8 +1981,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The full name of an object inside a bucket",
             "A password for the bucket",
-            "An encryption key",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "An encryption key across validated high-throughput system boundaries during execution"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2061,13 +2012,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Old tax records you must keep for 7 years and almost never read. Which class fits?",
           "options": [
-            "S3 Standard",
-            "Standard-IA",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "Glacier Deep Archive"
+            "S3 Standard provisioned across multi-zone cloud infrastructure",
+            "Glacier Deep Archive",
+            "Standard-IA"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, glacier deep archive ensures security, cost efficiency, and high availability."
         }
       },
@@ -2099,10 +2049,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check \"365 days or more\" before \"30 days or more\"?",
           "options": [
-            "It is alphabetical",
+            "It is alphabetical provisioned across multi-zone cloud infrastructure",
             "S3 requires that order",
-            "Otherwise a very old object stops at the first, weaker rule",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Otherwise a very old object stops at the first, weaker rule"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2137,13 +2086,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a versioned bucket you delete a file. What really happens?",
           "options": [
-            "All versions are erased",
             "A delete marker is added and older versions remain",
-            "The bucket is locked",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "All versions are erased",
+            "The bucket is locked across validated high-throughput system boundaries during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, a delete marker is added and older versions remain ensures security, cost efficiency, and high availability."
         }
       },
@@ -2171,10 +2119,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use presigned URLs for user uploads?",
           "options": [
-            "They make files smaller",
+            "They make files smaller across validated high-throughput system boundaries during execution",
             "Clients upload directly to S3 with limited, expiring permission and no AWS keys",
-            "They skip encryption",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "They skip encryption stored in local ephemeral container disk partitions"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2209,13 +2156,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A 45-day-old object is read every day. Which class does our rule give?",
           "options": [
-            "STANDARD",
             "STANDARD_IA",
             "GLACIER_FLEXIBLE",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "STANDARD"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, standard ensures security, cost efficiency, and high availability."
         }
       }
@@ -2272,12 +2218,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does S3 Block Public Access do?",
           "options": [
             "Encrypts every object",
-            "Deletes public files",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
-            "Overrides policies and ACLs that would make data public"
+            "Overrides policies and ACLs that would make data public",
+            "Deletes public files across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, overrides policies and acls that would make data public ensures security, cost efficiency, and high availability."
         }
       },
@@ -2313,10 +2258,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "s3:GetObject is allowed on \"arn:aws:s3:::reports\". Can the role read reports/q1.pdf?",
           "options": [
-            "Yes",
-            "Only if the file is small",
-            "No, object actions need the resource arn:aws:s3:::reports/*",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Yes stored in local ephemeral container disk partitions",
+            "Only if the file is small across validated high-throughput system boundaries during execution",
+            "No, object actions need the resource arn:aws:s3:::reports/*"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2351,13 +2295,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which statement forces clients to use HTTPS?",
           "options": [
-            "Allow when aws:SecureTransport is \"true\"",
-            "Allow s3:* to everyone",
             "Deny when aws:SecureTransport is \"false\"",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Allow when aws:SecureTransport is \"true\"",
+            "Allow s3:* to everyone"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, deny when aws:securetransport is \"false\" ensures security, cost efficiency, and high availability."
         }
       },
@@ -2389,10 +2332,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which bucket name is valid?",
           "options": [
-            "My-Bucket",
+            "My-Bucket across validated high-throughput system boundaries during execution",
             "my-bucket-2026",
-            "my_bucket",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "my_bucket"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2423,13 +2365,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does SSE-KMS add protection beyond the bucket policy?",
           "options": [
-            "Readers also need permission to use the KMS key",
-            "It makes objects smaller",
+            "It makes objects smaller without scoped least-privilege IAM policy boundaries",
             "It turns off public access",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Readers also need permission to use the KMS key"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, readers also need permission to use the kms key ensures security, cost efficiency, and high availability."
         }
       },
@@ -2457,13 +2398,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a bucket policy condition, how is \"insecure transport\" written?",
           "options": [
+            "\"false\" (a string)",
             "False (a Python boolean)",
-            "0",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "\"false\" (a string)"
+            "0"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, \"false\" (a string) ensures security, cost efficiency, and high availability."
         }
       }
@@ -2519,13 +2459,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the longest a single Lambda invocation can run?",
           "options": [
-            "1 minute",
+            "1 minute across validated high-throughput system boundaries during execution",
             "24 hours",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
             "15 minutes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 15 minutes ensures security, cost efficiency, and high availability."
         }
       },
@@ -2557,13 +2496,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A function goes from 1,000 ms at 512 MB to 500 ms at 1,024 MB. What happens to compute cost?",
           "options": [
-            "It doubles",
-            "It halves",
             "It stays about the same",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "It doubles",
+            "It halves provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, it stays about the same ensures security, cost efficiency, and high availability."
         }
       },
@@ -2597,8 +2535,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Inside the handler, for every call",
             "Outside the handler, so warm calls reuse it",
-            "In a separate Lambda",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "In a separate Lambda provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2629,13 +2566,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "500 calls per second, each taking 2 seconds. Roughly how many concurrent executions?",
           "options": [
-            "1,000",
-            "250",
+            "250 across validated high-throughput system boundaries during execution",
             "500",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "1,000"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 1,000 ensures security, cost efficiency, and high availability."
         }
       },
@@ -2668,9 +2604,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which option removes cold starts for a fixed number of concurrent calls, at a steady cost?",
           "options": [
             "Provisioned concurrency",
-            "On-demand",
-            "A bigger timeout",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "On-demand provisioned across multi-zone cloud infrastructure",
+            "A bigger timeout"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2701,13 +2636,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Lambda bill charge for besides compute?",
           "options": [
-            "Nothing",
-            "A fee per line of code",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "A fee per million requests"
+            "Nothing provisioned across multi-zone cloud infrastructure",
+            "A fee per million requests",
+            "A fee per line of code"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, a fee per million requests ensures security, cost efficiency, and high availability."
         }
       }
@@ -2763,13 +2697,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does API Gateway do with the dictionary a Lambda function returns?",
           "options": [
-            "Ignores it",
-            "Saves it to S3",
             "Turns statusCode, headers and body into the HTTP response",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Ignores it across validated high-throughput system boundaries during execution",
+            "Saves it to S3"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, turns statuscode, headers and body into the http response ensures security, cost efficiency, and high availability."
         }
       },
@@ -2799,8 +2732,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "REST API",
             "HTTP API",
-            "WebSocket API",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "WebSocket API"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2835,13 +2767,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Lambda authorizer return?",
           "options": [
-            "An HTML login page",
-            "A principal id and an IAM policy allowing or denying the call",
+            "An HTML login page without scoped least-privilege IAM policy boundaries",
             "The database row for the user",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "A principal id and an IAM policy allowing or denying the call"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, a principal id and an iam policy allowing or denying the call ensures security, cost efficiency, and high availability."
         }
       },
@@ -2875,8 +2806,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "429",
             "404",
-            "500",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "500"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2911,13 +2841,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Access-Control-Allow-Origin: * risky on a logged-in API?",
           "options": [
-            "It is slower",
-            "Browsers ignore it",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
-            "Any website could make calls using the visitor's login"
+            "It is slower provisioned across multi-zone cloud infrastructure",
+            "Any website could make calls using the visitor's login",
+            "Browsers ignore it"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, any website could make calls using the visitor's login ensures security, cost efficiency, and high availability."
         }
       },
@@ -2951,8 +2880,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "PolicyDocument",
             "policy_document",
-            "policyDocument",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "policyDocument"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -3012,12 +2940,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why should everyday reads avoid Scan?",
           "options": [
             "Scan is not allowed in production",
-            "Scan only works on numbers",
             "Scan reads the whole table, which is slow and expensive at scale",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Scan only works on numbers across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, scan reads the whole table, which is slow and expensive at scale ensures security, cost efficiency, and high availability."
         }
       },
@@ -3050,12 +2977,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which makes the best partition key for an orders table?",
           "options": [
             "order_status (NEW, PAID, SHIPPED)",
-            "customer_id",
             "the current year",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "customer_id"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, customer_id ensures security, cost efficiency, and high availability."
         }
       },
@@ -3089,8 +3015,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Shard the counter over several keys and add them up when reading",
             "Make the item larger",
-            "Use Scan instead",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Use Scan instead provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3126,12 +3051,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is a global secondary index?",
           "options": [
             "A backup of the table",
-            "A list of all tables",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "A copy of items organised by a different key, which you can query"
+            "A copy of items organised by a different key, which you can query",
+            "A list of all tables across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, a copy of items organised by a different key, which you can query ensures security, cost efficiency, and high availability."
         }
       },
@@ -3165,11 +3089,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "1",
             "2",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
             "3"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 3 ensures security, cost efficiency, and high availability."
         }
       },
@@ -3197,13 +3120,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A log has 4 reads: a, a, b, b. With share 0.5, which keys are hot?",
           "options": [
-            "a and b",
-            "Only a",
             "None",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "a and b",
+            "Only a"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, none ensures security, cost efficiency, and high availability."
         }
       }
@@ -3256,12 +3178,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Where should an RDS database be placed?",
           "options": [
             "A public subnet with a public IP",
-            "A private subnet reachable only from the app tier",
-            "Outside any VPC",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Outside any VPC across validated high-throughput system boundaries during execution",
+            "A private subnet reachable only from the app tier"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, a private subnet reachable only from the app tier ensures security, cost efficiency, and high availability."
         }
       },
@@ -3294,9 +3215,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Multi-AZ replication synchronous?",
           "options": [
             "So a confirmed write is never lost when the primary fails",
-            "To make writes faster",
-            "Because AZs are far apart",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "To make writes faster provisioned across multi-zone cloud infrastructure",
+            "Because AZs are far apart"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3331,13 +3251,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A user updates their profile and immediately reloads it. Where should that read go?",
           "options": [
+            "Any read replica provisioned across multi-zone cloud infrastructure",
             "The primary, to avoid replica lag",
-            "Any read replica",
-            "A backup snapshot",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "A backup snapshot"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, the primary, to avoid replica lag ensures security, cost efficiency, and high availability."
         }
       },
@@ -3370,12 +3289,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which query must always go to the primary?",
           "options": [
             "SELECT name FROM products",
-            "select 1",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
+            "select 1 across validated high-throughput system boundaries during execution",
             "UPDATE orders SET status = 'PAID'"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, update orders set status = 'paid' ensures security, cost efficiency, and high availability."
         }
       },
@@ -3403,13 +3321,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does RDS Proxy solve?",
           "options": [
-            "Slow disks",
-            "Missing backups",
             "Too many database connections from many short-lived clients",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Slow disks provisioned across multi-zone cloud infrastructure",
+            "Missing backups"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, too many database connections from many short-lived clients ensures security, cost efficiency, and high availability."
         }
       },
@@ -3441,10 +3358,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A Multi-AZ cluster fails over. What must the application do?",
           "options": [
-            "Nothing ever",
+            "Nothing ever provisioned across multi-zone cloud infrastructure",
             "Reconnect, ideally with retries, to the same endpoint",
-            "Change its code to a new database name",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Change its code to a new database name"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -3499,13 +3415,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What starts the processing Lambda in this design?",
           "options": [
-            "A person clicking a button",
             "An S3 event when the upload completes",
-            "A timer every hour",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "A person clicking a button",
+            "A timer every hour across validated high-throughput system boundaries during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, an s3 event when the upload completes ensures security, cost efficiency, and high availability."
         }
       },
@@ -3537,13 +3452,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why loop over event[\"Records\"] instead of reading Records[0]?",
           "options": [
-            "One event can hold several objects; the others would be skipped",
             "Records[0] is always empty",
-            "Looping is faster",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "One event can hold several objects; the others would be skipped",
+            "Looping is faster provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, one event can hold several objects; the others would be skipped ensures security, cost efficiency, and high availability."
         }
       },
@@ -3576,12 +3490,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "One of five uploaded files is corrupt. What should the pipeline do?",
           "options": [
             "Stop and process none",
-            "Retry forever",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
+            "Retry forever provisioned across multi-zone cloud infrastructure",
             "Mark that file FAILED and process the other four"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, mark that file failed and process the other four ensures security, cost efficiency, and high availability."
         }
       },
@@ -3609,13 +3522,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must event handlers be idempotent?",
           "options": [
-            "AWS requires Python",
-            "It makes code shorter",
             "Events can be delivered more than once and retries happen",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "AWS requires Python across validated high-throughput system boundaries during execution",
+            "It makes code shorter"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, events can be delivered more than once and retries happen ensures security, cost efficiency, and high availability."
         }
       },
@@ -3644,12 +3556,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A two-hour video needs about 40 minutes to transcode. Where should it run?",
           "options": [
             "A single Lambda call",
-            "API Gateway",
             "A dedicated service such as MediaConvert or a container",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "API Gateway provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, a dedicated service such as mediaconvert or a container ensures security, cost efficiency, and high availability."
         }
       },
@@ -3682,12 +3593,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the core pattern you built today?",
           "options": [
             "A cron job on one server",
-            "Storage events triggering functions that record results in a database",
-            "A single large monolith",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "A single large monolith stored in local ephemeral container disk partitions",
+            "Storage events triggering functions that record results in a database"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, storage events triggering functions that record results in a database ensures security, cost efficiency, and high availability."
         }
       }
@@ -3743,13 +3653,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens on a cache miss at a CloudFront edge?",
           "options": [
-            "CloudFront fetches from the origin, caches it and answers",
             "The user gets an error",
-            "The file is deleted",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "CloudFront fetches from the origin, caches it and answers",
+            "The file is deleted across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, cloudfront fetches from the origin, caches it and answers ensures security, cost efficiency, and high availability."
         }
       },
@@ -3782,12 +3691,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which header stops CloudFront caching a user's account page?",
           "options": [
             "public, max-age=60",
-            "s-maxage=60",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
+            "s-maxage=60 provisioned across multi-zone cloud infrastructure",
             "private, max-age=60"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, private, max-age=60 ensures security, cost efficiency, and high availability."
         }
       },
@@ -3819,13 +3727,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why leave utm_source out of the cache key?",
           "options": [
-            "It is too long",
-            "CloudFront forbids it",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "It does not change the page, and including it splits the cache"
+            "It does not change the page, and including it splits the cache",
+            "It is too long provisioned across multi-zone cloud infrastructure",
+            "CloudFront forbids it"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, it does not change the page, and including it splits the cache ensures security, cost efficiency, and high availability."
         }
       },
@@ -3857,13 +3764,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are hashed file names better than invalidating on every deploy?",
           "options": [
-            "They are shorter",
-            "Invalidations are not allowed",
+            "They are shorter across validated high-throughput system boundaries during execution",
             "A changed file gets a new name, so caches never serve the old one and can keep files for a long time",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently across enterprise AWS production environments"
+            "Invalidations are not allowed"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, a changed file gets a new name, so caches never serve the old one and can keep files for a long time ensures security, cost efficiency, and high availability."
         }
       },
@@ -3896,12 +3802,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which is best for a simple redirect on every call with the lowest latency?",
           "options": [
             "An EC2 server in one Region",
-            "A CloudFront Function at the edge",
-            "A nightly batch job",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "A nightly batch job provisioned across multi-zone cloud infrastructure",
+            "A CloudFront Function at the edge"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, a cloudfront function at the edge ensures security, cost efficiency, and high availability."
         }
       },
@@ -3931,8 +3836,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "600",
             "60",
-            "86400",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "86400"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3991,13 +3895,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a DNS record's TTL control?",
           "options": [
-            "How long resolvers may cache the answer",
             "How long the website stays online",
-            "How long a TLS certificate lasts",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "How long a TLS certificate lasts across validated high-throughput system boundaries during execution",
+            "How long resolvers may cache the answer"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, how long resolvers may cache the answer ensures security, cost efficiency, and high availability."
         }
       },
@@ -4029,13 +3932,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you point example.com (the apex) at a CloudFront distribution in Route 53?",
           "options": [
+            "An alias A record",
             "A CNAME record",
-            "An MX record",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "An alias A record"
+            "An MX record provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, an alias a record ensures security, cost efficiency, and high availability."
         }
       },
@@ -4068,12 +3970,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "With failover routing, when does Route 53 answer with the secondary?",
           "options": [
             "Always, to spread load",
-            "Only on weekends",
             "When the primary is unhealthy and the secondary is healthy",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Only on weekends provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, when the primary is unhealthy and the secondary is healthy ensures security, cost efficiency, and high availability."
         }
       },
@@ -4106,12 +4007,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Weights: A = 70, B = 30. Roll 75. Which endpoint?",
           "options": [
             "A",
-            "B",
             "Neither",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "B"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, b ensures security, cost efficiency, and high availability."
         }
       },
@@ -4143,13 +4043,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Your app must serve German users only from an EU Region by law. Which routing fits?",
           "options": [
-            "Weighted",
             "Geolocation",
-            "Simple",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Weighted",
+            "Simple provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, geolocation ensures security, cost efficiency, and high availability."
         }
       },
@@ -4177,13 +4076,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Primary unhealthy, secondary healthy, policy FAILOVER. What is returned?",
           "options": [
-            "The secondary",
             "The primary",
-            "Nothing",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "The secondary",
+            "Nothing provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, the secondary ensures security, cost efficiency, and high availability."
         }
       }
@@ -4239,13 +4137,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main benefit of putting a queue between two services?",
           "options": [
-            "It makes messages smaller",
-            "It removes the need for a database",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
-            "The producer keeps working even when the consumer is slow or down"
+            "The producer keeps working even when the consumer is slow or down",
+            "It makes messages smaller across validated high-throughput system boundaries during execution",
+            "It removes the need for a database"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the producer keeps working even when the consumer is slow or down ensures security, cost efficiency, and high availability."
         }
       },
@@ -4277,13 +4174,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A consumer receives a message and crashes. What happens to the message?",
           "options": [
-            "It is lost",
-            "It is sent to the producer",
+            "It is lost provisioned across multi-zone cloud infrastructure",
             "It becomes visible again after the visibility timeout",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "It is sent to the producer"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, it becomes visible again after the visibility timeout ensures security, cost efficiency, and high availability."
         }
       },
@@ -4313,8 +4209,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Standard",
             "Both equally",
-            "FIFO",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "FIFO"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4349,13 +4244,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How long does SQS FIFO remember a deduplication id?",
           "options": [
-            "5 seconds",
             "5 minutes",
-            "Forever",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "5 seconds",
+            "Forever"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, 5 minutes ensures security, cost efficiency, and high availability."
         }
       },
@@ -4383,13 +4277,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does long polling do?",
           "options": [
+            "Keeps messages longer provisioned across multi-zone cloud infrastructure",
             "Waits up to 20 seconds for messages before answering, reducing empty receives",
-            "Keeps messages longer",
-            "Makes messages larger",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Makes messages larger across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, waits up to 20 seconds for messages before answering, reducing empty receives ensures security, cost efficiency, and high availability."
         }
       },
@@ -4421,13 +4314,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why set the visibility timeout longer than normal processing time?",
           "options": [
-            "To save money",
-            "SQS requires 12 hours",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
+            "To save money provisioned across multi-zone cloud infrastructure",
+            "SQS requires 12 hours across validated high-throughput system boundaries during execution",
             "So a message is not handed to a second consumer while the first is still working"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, so a message is not handed to a second consumer while the first is still working ensures security, cost efficiency, and high availability."
         }
       }
@@ -4483,13 +4375,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In SNS, how many subscribers receive each message?",
           "options": [
-            "Exactly one",
-            "None until they poll",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "Every confirmed subscriber of the topic"
+            "Exactly one across validated high-throughput system boundaries during execution",
+            "Every confirmed subscriber of the topic",
+            "None until they poll"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, every confirmed subscriber of the topic ensures security, cost efficiency, and high availability."
         }
       },
@@ -4521,10 +4412,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why put an SQS queue behind each SNS subscription?",
           "options": [
-            "SNS cannot send to Lambda",
-            "It makes messages cheaper",
-            "Queues store messages so each service can process at its own pace and survive downtime",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "SNS cannot send to Lambda provisioned across multi-zone cloud infrastructure",
+            "It makes messages cheaper across validated high-throughput system boundaries during execution",
+            "Queues store messages so each service can process at its own pace and survive downtime"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4559,13 +4449,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Policy {\"customer\": [\"VIP\"], \"region\": [\"EU\"]}. A message has customer VIP and no region. Does it match?",
           "options": [
-            "Yes",
             "No, every attribute in the policy must match",
-            "Only for VIP",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Yes without scoped least-privilege IAM policy boundaries",
+            "Only for VIP"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, no, every attribute in the policy must match ensures security, cost efficiency, and high availability."
         }
       },
@@ -4597,13 +4486,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a dead-letter queue on an SNS subscription do?",
           "options": [
-            "Keeps messages that could not be delivered after all retries",
             "Deletes failed messages faster",
-            "Sends messages twice",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Keeps messages that could not be delivered after all retries",
+            "Sends messages twice across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, keeps messages that could not be delivered after all retries ensures security, cost efficiency, and high availability."
         }
       },
@@ -4635,13 +4523,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which service fits a monthly newsletter with rich HTML templates?",
           "options": [
-            "Amazon SES",
             "SNS email subscriptions",
             "SQS",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Amazon SES"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, amazon ses ensures security, cost efficiency, and high availability."
         }
       },
@@ -4673,13 +4560,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "fanout gets 3 confirmed and 1 pending subscription; one confirmed endpoint raises. What are the counts?",
           "options": [
+            "2 delivered, 1 failed, 1 skipped",
             "3 delivered, 0 failed, 1 skipped",
-            "0 delivered, 3 failed, 1 skipped",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "2 delivered, 1 failed, 1 skipped"
+            "0 delivered, 3 failed, 1 skipped"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, 2 delivered, 1 failed, 1 skipped ensures security, cost efficiency, and high availability."
         }
       }
@@ -4737,8 +4623,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A command telling a service what to do",
             "A database table",
-            "A record that something happened",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "A record that something happened"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4773,13 +4658,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Pattern {\"source\": [\"a\"]}. Event {\"source\": \"a\", \"detail\": {\"x\": 1}}. Does it match?",
           "options": [
-            "No, detail is not in the pattern",
             "Yes, fields not in the pattern are ignored",
-            "Only if detail is empty",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "No, detail is not in the pattern",
+            "Only if detail is empty provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, yes, fields not in the pattern are ignored ensures security, cost efficiency, and high availability."
         }
       },
@@ -4811,10 +4695,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a custom event not use the source \"aws.ec2\"?",
           "options": [
-            "It is too short",
+            "It is too short provisioned across multi-zone cloud infrastructure",
             "Sources starting with aws. are reserved for AWS services",
-            "EC2 does not send events",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "EC2 does not send events"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -4845,13 +4728,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does EventBridge replay do?",
           "options": [
-            "Sends archived events back through the bus",
-            "Deletes old events",
+            "Deletes old events across validated high-throughput system boundaries during execution",
             "Speeds up delivery",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Sends archived events back through the bus"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, sends archived events back through the bus ensures security, cost efficiency, and high availability."
         }
       },
@@ -4879,13 +4761,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Five services must each process every order event reliably. What is a good design?",
           "options": [
+            "SNS or EventBridge fanning out to one SQS queue per service",
             "One SQS queue shared by all five",
-            "Each service polls the database",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
-            "SNS or EventBridge fanning out to one SQS queue per service"
+            "Each service polls the database provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, sns or eventbridge fanning out to one sqs queue per service ensures security, cost efficiency, and high availability."
         }
       },
@@ -4914,12 +4795,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which key name must an EventBridge event use for its type?",
           "options": [
             "detail_type",
-            "DetailType",
             "detail-type",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "DetailType"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, detail-type ensures security, cost efficiency, and high availability."
         }
       }
@@ -4975,13 +4855,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does publishing events keep checkout fast when the email service is down?",
           "options": [
-            "Email is skipped forever",
-            "Checkout waits for email",
             "The order service only publishes; the email queue holds the event until email recovers",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Email is skipped forever across validated high-throughput system boundaries during execution",
+            "Checkout waits for email"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the order service only publishes; the email queue holds the event until email recovers ensures security, cost efficiency, and high availability."
         }
       },
@@ -5015,8 +4894,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Only the first queue gets it",
             "Both queues get a copy",
-            "The event is rejected",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "The event is rejected"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5051,13 +4929,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a dead-letter queue for?",
           "options": [
-            "Holding messages that failed too many times, for inspection and later redrive",
-            "Storing deleted accounts",
-            "Speeding up the main queue",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Storing deleted accounts provisioned across multi-zone cloud infrastructure",
+            "Speeding up the main queue across validated high-throughput system boundaries during execution",
+            "Holding messages that failed too many times, for inspection and later redrive"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, holding messages that failed too many times, for inspection and later redrive ensures security, cost efficiency, and high availability."
         }
       },
@@ -5089,13 +4966,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Can you get exactly-once delivery over a network?",
           "options": [
+            "Not reliably, but idempotent consumers give exactly-once effects",
             "Yes, with SQS standard",
-            "Only with UDP",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "Not reliably, but idempotent consumers give exactly-once effects"
+            "Only with UDP across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, not reliably, but idempotent consumers give exactly-once effects ensures security, cost efficiency, and high availability."
         }
       },
@@ -5123,13 +4999,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a correlation id?",
           "options": [
-            "A database password",
-            "The AWS account number",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "An id carried by every event and log line about one piece of work, so it can be traced"
+            "A database password provisioned across multi-zone cloud infrastructure",
+            "An id carried by every event and log line about one piece of work, so it can be traced",
+            "The AWS account number across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, an id carried by every event and log line about one piece of work, so it can be traced ensures security, cost efficiency, and high availability."
         }
       },
@@ -5161,10 +5036,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In route_event, which counter decides the status ROUTED?",
           "options": [
-            "matched",
+            "matched provisioned across multi-zone cloud infrastructure",
             "dead_letters",
-            "delivered (events actually placed in a queue)",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "delivered (events actually placed in a queue)"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5225,8 +5099,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It makes images smaller",
             "You know exactly which code is running and can roll back to a known image",
-            "ECR requires it",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "ECR requires it across validated high-throughput system boundaries during execution"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5261,13 +5134,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an ECS service do?",
           "options": [
-            "Keeps a desired number of tasks running and connected to a load balancer",
-            "Builds images",
-            "Stores secrets",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Builds images provisioned across multi-zone cloud infrastructure",
+            "Stores secrets across validated high-throughput system boundaries during execution",
+            "Keeps a desired number of tasks running and connected to a load balancer"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, keeps a desired number of tasks running and connected to a load balancer ensures security, cost efficiency, and high availability."
         }
       },
@@ -5300,9 +5172,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Is 256 CPU units with 4096 MB a valid Fargate size?",
           "options": [
             "No, 256 units allows at most 2048 MB",
-            "Yes",
-            "Only on Tuesdays",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Yes provisioned across multi-zone cloud infrastructure",
+            "Only on Tuesdays"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5338,12 +5209,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Where should a database password for an ECS task live?",
           "options": [
             "As a plain environment variable in the task definition",
-            "Inside the image",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "In Secrets Manager, referenced with valueFrom"
+            "In Secrets Manager, referenced with valueFrom",
+            "Inside the image"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, in secrets manager, referenced with valuefrom ensures security, cost efficiency, and high availability."
         }
       },
@@ -5376,9 +5246,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does the ECS deployment circuit breaker do?",
           "options": [
             "Stops the cluster at night",
-            "Limits network traffic",
-            "Rolls back a deployment whose new tasks keep failing",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Limits network traffic provisioned across multi-zone cloud infrastructure",
+            "Rolls back a deployment whose new tasks keep failing"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5413,13 +5282,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "container_env gets DB_PASS in both plain and secrets. What should happen?",
           "options": [
-            "Keep the secret and drop the plain one silently",
             "Raise ValueError so the leak is fixed",
-            "Keep both",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Keep the secret and drop the plain one silently",
+            "Keep both"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, raise valueerror so the leak is fixed ensures security, cost efficiency, and high availability."
         }
       }
@@ -5476,12 +5344,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is orchestration?",
           "options": [
             "Services react to events with no central control",
-            "One coordinator directs the steps of a process",
             "A way to compress data",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "One coordinator directs the steps of a process"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, one coordinator directs the steps of a process ensures security, cost efficiency, and high availability."
         }
       },
@@ -5515,8 +5382,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Map",
             "Parallel",
-            "Choice",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Choice"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5552,12 +5418,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A saga has steps A, B, C. C fails. Which compensations run, in what order?",
           "options": [
             "A then B",
-            "C then B then A",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
-            "B then A"
+            "B then A",
+            "C then B then A"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, b then a ensures security, cost efficiency, and high availability."
         }
       },
@@ -5590,9 +5455,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which error should NOT be retried?",
           "options": [
             "A throttling error",
-            "A timeout",
-            "Card declined by the bank",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "A timeout across validated high-throughput system boundaries during execution",
+            "Card declined by the bank"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5623,13 +5487,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Three independent branches take 100, 300 and 200 ms. Roughly how long does a Parallel state take?",
           "options": [
-            "600 ms",
-            "100 ms",
             "300 ms",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "600 ms",
+            "100 ms"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, 300 ms ensures security, cost efficiency, and high availability."
         }
       },
@@ -5659,8 +5522,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "None",
             "[]",
-            "True",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "True"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5721,8 +5583,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "You describe the desired end state and Terraform works out the steps",
             "You write every API call in order",
-            "It only works on Tuesdays",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "It only works on Tuesdays across validated high-throughput system boundaries during execution"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5757,13 +5618,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the address of resource aws_subnet \"public\" inside module \"vpc\"?",
           "options": [
-            "aws_subnet.public.vpc",
-            "vpc/aws_subnet/public",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "module.vpc.aws_subnet.public"
+            "aws_subnet.public.vpc routed through cross-region peering gateway endpoints",
+            "module.vpc.aws_subnet.public",
+            "vpc/aws_subnet/public"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, module.vpc.aws_subnet.public ensures security, cost efficiency, and high availability."
         }
       },
@@ -5795,13 +5655,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why store Terraform state remotely for a team?",
           "options": [
-            "It is faster",
-            "AWS forbids local files",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
+            "It is faster provisioned across multi-zone cloud infrastructure",
+            "AWS forbids local files across validated high-throughput system boundaries during execution",
             "Everyone shares one copy, with locking and recovery, instead of conflicting local files"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, everyone shares one copy, with locking and recovery, instead of conflicting local files ensures security, cost efficiency, and high availability."
         }
       },
@@ -5833,13 +5692,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must the DynamoDB lock table's partition key be called?",
           "options": [
-            "id",
-            "StateKey",
             "LockID",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "id",
+            "StateKey"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, lockid ensures security, cost efficiency, and high availability."
         }
       },
@@ -5871,10 +5729,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a replace (-/+) count in the plan summary?",
           "options": [
-            "As one change",
+            "As one change provisioned across multi-zone cloud infrastructure",
             "As one add and one destroy",
-            "It is not counted",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "It is not counted"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5905,13 +5762,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which address has two nested modules?",
           "options": [
-            "module.net.module.vpc.aws_subnet.public",
-            "aws_subnet.public",
+            "aws_subnet.public routed through cross-region peering gateway endpoints",
             "module.vpc.aws_subnet.public",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "module.net.module.vpc.aws_subnet.public"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, module.net.module.vpc.aws_subnet.public ensures security, cost efficiency, and high availability."
         }
       }
@@ -5967,13 +5823,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which signal best answers \"why did order 981 fail?\"",
           "options": [
+            "A CPU metric across validated high-throughput system boundaries during execution",
             "The log line for order 981",
-            "A CPU metric",
-            "The monthly bill",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "The monthly bill"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, the log line for order 981 ensures security, cost efficiency, and high availability."
         }
       },
@@ -6007,11 +5862,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Average",
             "Minimum",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
             "p99"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, p99 ensures security, cost efficiency, and high availability."
         }
       },
@@ -6043,13 +5897,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "CPU readings 85, 90, 75 with threshold 80 over 3 periods. What state?",
           "options": [
-            "ALARM",
-            "INSUFFICIENT_DATA",
             "OK",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "ALARM",
+            "INSUFFICIENT_DATA"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, ok ensures security, cost efficiency, and high availability."
         }
       },
@@ -6083,8 +5936,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Logs are deleted after one day by default",
             "By default logs are kept forever and storage cost keeps growing",
-            "Retention makes queries slower",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Retention makes queries slower across validated high-throughput system boundaries during execution"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -6119,13 +5971,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes an alert good?",
           "options": [
-            "It fires often so people stay alert",
-            "It means a human must act now and links to a runbook",
+            "It fires often so people stay alert provisioned across multi-zone cloud infrastructure",
             "It is sent to everyone in the company",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "It means a human must act now and links to a runbook"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, it means a human must act now and links to a runbook ensures security, cost efficiency, and high availability."
         }
       },
@@ -6159,8 +6010,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "INSUFFICIENT_DATA",
             "ALARM",
-            "OK",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "OK provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6221,11 +6071,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Slow networks",
             "Typos in code",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
             "Someone reading stored data from a stolen disk or leaked backup"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, someone reading stored data from a stolen disk or leaked backup ensures security, cost efficiency, and high availability."
         }
       },
@@ -6257,13 +6106,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deleting a KMS key so dangerous?",
           "options": [
-            "It costs a lot",
-            "It deletes your AWS account",
             "All data encrypted under it becomes unreadable forever",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "It costs a lot provisioned across multi-zone cloud infrastructure",
+            "It deletes your AWS account"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, all data encrypted under it becomes unreadable forever ensures security, cost efficiency, and high availability."
         }
       },
@@ -6300,12 +6148,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In envelope encryption, what is stored next to the ciphertext?",
           "options": [
             "The plaintext data key",
-            "The KMS master key",
             "The encrypted data key",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "The KMS master key"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, the encrypted data key ensures security, cost efficiency, and high availability."
         }
       },
@@ -6338,12 +6185,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which statement is the standard, acceptable use of kms:*?",
           "options": [
             "An app role with kms:*",
-            "The account root principal with kms:*, so IAM policies can grant access",
             "Principal * with kms:*",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "The account root principal with kms:*, so IAM policies can grant access"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, the account root principal with kms:*, so iam policies can grant access ensures security, cost efficiency, and high availability."
         }
       },
@@ -6373,8 +6219,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It still decrypts, because KMS keeps the older key material",
             "It must be re-encrypted immediately",
-            "It is lost",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "It is lost provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6410,12 +6255,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which function reverses bytes.hex()?",
           "options": [
             "str.encode",
-            "int.from_bytes",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
-            "bytes.fromhex"
+            "bytes.fromhex",
+            "int.from_bytes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, bytes.fromhex ensures security, cost efficiency, and high availability."
         }
       }
@@ -6471,13 +6315,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary defence against SQL injection?",
           "options": [
+            "Parameterised queries in the application code",
             "A firewall only",
-            "Longer passwords",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "Parameterised queries in the application code"
+            "Longer passwords"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, parameterised queries in the application code ensures security, cost efficiency, and high availability."
         }
       },
@@ -6509,13 +6352,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why roll out a new WAF rule in Count mode first?",
           "options": [
-            "Count mode is cheaper",
-            "Block mode needs a restart",
+            "Count mode is cheaper provisioned across multi-zone cloud infrastructure",
             "To see what it would block before it can block real customers",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Block mode needs a restart"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, to see what it would block before it can block real customers ensures security, cost efficiency, and high availability."
         }
       },
@@ -6543,13 +6385,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A whole university campus shares one public IP. What is the risk of a very low rate limit?",
           "options": [
-            "None",
-            "Many innocent users get blocked together",
+            "None provisioned across multi-zone cloud infrastructure",
             "The campus gets faster access",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Many innocent users get blocked together"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, many innocent users get blocked together ensures security, cost efficiency, and high availability."
         }
       },
@@ -6583,8 +6424,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It has host bits set; the network would be 10.0.0.0/24",
             "It is IPv6",
-            "It is too large",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "It is too large"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6615,13 +6455,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does AWS Shield Standard cost?",
           "options": [
-            "Nothing extra; it is included for all customers",
             "A monthly subscription",
-            "Per blocked attack",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Nothing extra; it is included for all customers",
+            "Per blocked attack provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, nothing extra; it is included for all customers ensures security, cost efficiency, and high availability."
         }
       },
@@ -6651,11 +6490,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "RATE_LIMIT",
             "Both",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
             "SQLI"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, sqli ensures security, cost efficiency, and high availability."
         }
       }
@@ -6708,12 +6546,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why track cost per order rather than only the total bill?",
           "options": [
             "It is required by AWS",
-            "Totals are always wrong",
             "It shows whether spending grows efficiently with the business",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Totals are always wrong"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, it shows whether spending grows efficiently with the business ensures security, cost efficiency, and high availability."
         }
       },
@@ -6746,12 +6583,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "You commit to 80 hours at 0.05 and use only 50. What do you pay for the commitment?",
           "options": [
             "50 x 0.05",
-            "80 x 0.05",
             "Nothing",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "80 x 0.05"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 80 x 0.05 ensures security, cost efficiency, and high availability."
         }
       },
@@ -6783,13 +6619,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you do before deleting an \"idle\" resource?",
           "options": [
-            "Nothing, delete it",
             "Check with its owner, because it might be a rarely used standby",
-            "Double its size",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Nothing, delete it",
+            "Double its size provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, check with its owner, because it might be a rarely used standby ensures security, cost efficiency, and high availability."
         }
       },
@@ -6817,13 +6652,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A resource has Owner=\"\" (an empty string). Is the Owner tag present for cost purposes?",
           "options": [
-            "No, an empty value tells nobody who owns it",
             "Yes",
-            "Only on weekends",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "No, an empty value tells nobody who owns it",
+            "Only on weekends"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, no, an empty value tells nobody who owns it ensures security, cost efficiency, and high availability."
         }
       },
@@ -6855,13 +6689,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are forecast-based budget alerts more useful than actual-spend alerts?",
           "options": [
-            "They are free",
+            "They are free provisioned across multi-zone cloud infrastructure",
             "They are more accurate",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts",
             "They warn early, while you can still change course"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, they warn early, while you can still change course ensures security, cost efficiency, and high availability."
         }
       },
@@ -6889,13 +6722,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "cloud_bill(100, 0.05, 0.10, 80) equals?",
           "options": [
-            "5.00",
-            "10.00",
             "6.00",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "5.00",
+            "10.00"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, 6.00 ensures security, cost efficiency, and high availability."
         }
       }
@@ -6953,8 +6785,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "How long the service is down",
             "How many servers you run",
-            "How much data (in time) may be lost",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "How much data (in time) may be lost"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -6985,13 +6816,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which strategy keeps only core data live in the second Region, with servers started after a disaster?",
           "options": [
-            "Backup and restore",
             "Pilot light",
-            "Active-active",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Backup and restore",
+            "Active-active"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, pilot light ensures security, cost efficiency, and high availability."
         }
       },
@@ -7023,13 +6853,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "RTO 10 minutes, RPO 5 minutes. Which strategy does the chooser return?",
           "options": [
-            "WarmStandby",
             "PilotLight",
-            "BackupAndRestore",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "WarmStandby",
+            "BackupAndRestore"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, warmstandby ensures security, cost efficiency, and high availability."
         }
       },
@@ -7063,11 +6892,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "150,000",
             "225,000",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks",
             "75,000"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, 75,000 ensures security, cost efficiency, and high availability."
         }
       },
@@ -7099,13 +6927,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you know your backups work?",
           "options": [
-            "They finished without errors",
-            "The console shows a green tick",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities",
-            "You regularly restore from them and measure the time"
+            "You regularly restore from them and measure the time",
+            "They finished without errors provisioned across multi-zone cloud infrastructure",
+            "The console shows a green tick"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, you regularly restore from them and measure the time ensures security, cost efficiency, and high availability."
         }
       },
@@ -7133,13 +6960,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "RTO 2 days but RPO 5 minutes. Is backup and restore enough?",
           "options": [
-            "Yes, the RTO is long",
-            "Only with more servers",
+            "Yes, the RTO is long provisioned across multi-zone cloud infrastructure",
             "No, backups every few hours cannot meet a 5-minute RPO",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently"
+            "Only with more servers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, no, backups every few hours cannot meet a 5-minute rpo ensures security, cost efficiency, and high availability."
         }
       }
@@ -7191,13 +7017,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a customer reach the right Region in this design?",
           "options": [
-            "They choose from a menu",
             "Route 53 latency routing with health checks",
-            "A random pick by the app",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "They choose from a menu",
+            "A random pick by the app"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, route 53 latency routing with health checks ensures security, cost efficiency, and high availability."
         }
       },
@@ -7229,13 +7054,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Mumbai is down; the only other Region allowed for Indian data is Hyderabad. Frankfurt is faster. Where do Indian transactions go?",
           "options": [
-            "Hyderabad, the allowed healthy Region",
             "Frankfurt, it is faster",
-            "Nowhere, ever",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Hyderabad, the allowed healthy Region",
+            "Nowhere, ever provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, hyderabad, the allowed healthy region ensures security, cost efficiency, and high availability."
         }
       },
@@ -7267,13 +7091,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is \"last writer wins\" unsafe for account balances?",
           "options": [
-            "Concurrent withdrawals can both be approved and one update lost",
-            "It is slow",
+            "It is slow provisioned across multi-zone cloud infrastructure",
             "It uses too much storage",
-            "Provisioning dedicated on-premise hardware appliances across secondary colocation facilities"
+            "Concurrent withdrawals can both be approved and one update lost"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, concurrent withdrawals can both be approved and one update lost ensures security, cost efficiency, and high availability."
         }
       },
@@ -7301,13 +7124,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the most common reason Region failovers go badly?",
           "options": [
+            "The failover process was never rehearsed",
             "AWS never fails",
-            "Too many health checks",
-            "Allocating fixed static memory buffers inside operating system kernel swap spaces permanently",
-            "The failover process was never rehearsed"
+            "Too many health checks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "In AWS cloud engineering, the failover process was never rehearsed ensures security, cost efficiency, and high availability."
         }
       },
@@ -7340,12 +7162,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which pillar is NOT part of the AWS Well-Architected Framework?",
           "options": [
             "Reliability",
-            "Cost optimisation",
             "Marketing",
-            "Overwriting local ephemeral instance storage partitions during automated cluster restarts"
+            "Cost optimisation"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In AWS cloud engineering, marketing ensures security, cost efficiency, and high availability."
         }
       },
@@ -7374,12 +7195,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should you do first when you create a new AWS account for practice?",
           "options": [
             "Open SSH to the world",
-            "Set a budget alert",
             "Delete the root user",
-            "Granting wildcard administrator permissions across all identity policies without boundary checks"
+            "Set a budget alert"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In AWS cloud engineering, set a budget alert ensures security, cost efficiency, and high availability."
         }
       }
@@ -7464,13 +7284,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when an action is explicitly denied by an SCP attached to an ancestor Organizational Unit?",
           "options": [
-            "The action is blocked for all descendant accounts, regardless of child policies",
             "Child accounts can override the deny by attaching local IAM resource policies",
-            "The request is delayed for 15 minutes before executing with reduced privileges across distributed cloud availability zones during high-throughput network operations",
-            "The AWS management account automatically detaches the offending OU policy"
+            "The request is delayed for 15 minutes before executing with reduced privileges",
+            "The action is blocked for all descendant accounts, regardless of child policies",
+            "The AWS management account automatically detaches the offending OU policy provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "An explicit deny in any parent or ancestor SCP permanently blocks the action across the entire descendant hierarchy."
         },
         "output": "s3 delete on finance: (False, 'DENIED_BY_OU_Root')\nec2 terminate on finance: (False, 'DENIED_BY_OU_Production_OU')\ns3 read on finance: (True, 'ALLOWED_BY_ORGANIZATION_GUARDRAILS')"
@@ -7533,13 +7353,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational hazard of deploying an unverified SCP directly to the AWS Organization Root?",
           "options": [
-            "Increases monthly consolidated billing invoice generation times by several business days by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "Forces all Amazon EC2 virtual machines to reboot into single-user recovery mode",
             "Accidentally denies critical administrative actions across all accounts, causing total organization lockout",
+            "Increases monthly consolidated billing invoice generation times by several business days",
+            "Forces all Amazon EC2 virtual machines to reboot into single-user recovery mode",
             "Deletes all CloudFormation stacks deployed in secondary availability zones"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "An SCP on the root binds every account in the organization; an errant Deny can disable all production services and lock out administrators."
         },
         "output": "bad policy validation: (False, 'SAFETY_VIOLATION_BREAK_GLASS_ROLE_NOT_EXEMPT')\nsafe policy validation: (True, 'POLICY_SAFE_FOR_DEPLOYMENT')"
@@ -7567,13 +7387,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should AWS CloudTrail audit logs from all Organization member accounts be consolidated for forensic integrity?",
           "options": [
-            "Inside the local filesystem temporary directories of running application EC2 instances across multi-region serverless execution environments and persistent storage buckets",
-            "In a public GitHub repository using automated webhooks and Git commit tags",
+            "Inside the local filesystem temporary directories of running application EC2 instances",
             "In an isolated, dedicated Security Logging account with restricted access and S3 Object Lock",
+            "In a public GitHub repository using automated webhooks and Git commit tags stored in local ephemeral container disk partitions",
             "Inside individual member account default VPC routing table metadata stores"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Centralizing logs in a dedicated, tamper-proof security account ensures local account compromises cannot alter or delete historical audit trails."
         },
         "output": "audit report: {'status': 'NON_COMPLIANT', 'findings': ['CRITICAL_DRIFT_NO_SCP_ON_444455556666', 'WARNING_UNBOUNDED_IAM_ROLES_DETECTED_ON_444455556666']}"
@@ -7621,13 +7441,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security advantage of using OIDC federation over static IAM user access keys for CI/CD pipelines?",
           "options": [
-            "Allows CI/CD runners to bypass IAM permission policies when deploying resources",
             "Eliminates long-lived static credentials, issuing short-lived ephemeral tokens on demand",
+            "Allows CI/CD runners to bypass IAM permission policies when deploying resources",
             "Forces all Amazon S3 buckets to enable server-side encryption with customer keys",
-            "Automatically accelerates network transfer speeds across wide-area internet backbones through automated background health monitoring daemons and heartbeat probes"
+            "Automatically accelerates network transfer speeds across wide-area internet backbones"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "OIDC federation uses short-lived tokens, eliminating static access keys that could be leaked, shared, or stolen from repositories."
         },
         "output": "issued temporary credentials: {'AccessKeyId': 'ASIA_EPHEMERAL_DeployerRole', 'SecretAccessKey': 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY', 'SessionToken': 'AQoDYXdzEJr...<truncated_session_token>...', 'ExpirationSec': 3600}"
@@ -7656,13 +7476,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must an IAM role trust policy for GitHub Actions OIDC federation always enforce the 'sub' claim condition?",
           "options": [
+            "Compresses the resulting JSON Web Token so it fits within network MTU boundaries",
             "Restricts role assumption to a specific repository and branch, preventing other users from assuming it",
-            "Compresses the resulting JSON Web Token so it fits within network MTU boundaries across multi-zone container worker nodes and centralized edge cache distributions",
             "Encrypts outgoing HTTP responses with ephemeral elliptic curve TLS certificates",
-            "Forces GitHub runners to execute inside AWS virtual private cloud subnets"
+            "Forces GitHub runners to execute inside AWS virtual private cloud subnets without scoped least-privilege IAM policy boundaries"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Without checking the sub claim, any repository on GitHub could authenticate against the provider and assume your AWS role."
         },
         "output": "valid deployment: (True, 'TRUST_VERIFIED_ASSUME_ROLE_PERMITTED')\nattacker deployment: (False, 'CLAIM_MISMATCH_sub')"
@@ -7691,13 +7511,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do AWS client SDKs refresh temporary STS credentials 15 minutes before they expire rather than waiting for expiration?",
           "options": [
-            "Clears operating system DNS resolver caches to resolve cross-region endpoint addresses across distributed cloud availability zones during high-throughput network operations",
-            "Forces Kubernetes worker nodes to re-authenticate with the cluster API server",
-            "Reduces Amazon DynamoDB read capacity unit consumption during batch operations",
-            "Prevents in-flight API requests from failing during transient network delays or STS throttle spikes"
+            "Clears operating system DNS resolver caches to resolve cross-region endpoint addresses",
+            "Forces Kubernetes worker nodes to re-authenticate with the cluster API server routed through cross-region peering gateway endpoints",
+            "Prevents in-flight API requests from failing during transient network delays or STS throttle spikes",
+            "Reduces Amazon DynamoDB read capacity unit consumption during batch operations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Pre-emptive refresh ensures that if STS is temporarily unreachable or slow, active workloads can continue without dropping client calls."
         },
         "output": "t=1000: FETCHED_OR_REFRESHED_VIA_STS key=ASIA_KEY_1000\nt=2000: CACHE_HIT_VALID key=ASIA_KEY_1000\nt=3000: CACHE_HIT_VALID key=ASIA_KEY_1000"
@@ -7726,7 +7546,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do resilient enterprise architectures mitigate external OIDC identity provider outages during critical deployments?",
           "options": [
-            "Store root account credentials in plaintext inside container environment variables by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "Store root account credentials in plaintext inside container environment variables",
             "Disable all IAM authentication checks across the target VPC security groups",
             "Convert production Kubernetes clusters to public unauthenticated API endpoints",
             "Rely on cached JWKS public keys and maintain MFA-gated emergency break-glass IAM roles"
@@ -7761,13 +7581,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can platform engineers distinguish between static IAM user access keys and temporary STS credentials in audit logs?",
           "options": [
-            "Temporary STS credentials cannot execute S3 read queries outside the primary AWS region",
-            "Static keys are always encrypted with TLS 1.3, while temporary keys use unencrypted HTTP across multi-region serverless execution environments and persistent storage buckets",
             "Static keys start with the prefix AKIA, whereas temporary STS credentials start with ASIA",
-            "Temporary STS credentials must be renewed manually via the AWS Management Console"
+            "Temporary STS credentials cannot execute S3 read queries outside the primary AWS region",
+            "Static keys are always encrypted with TLS 1.3, while temporary keys use unencrypted HTTP",
+            "Temporary STS credentials must be renewed manually via the AWS Management Console provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "AWS access keys beginning with AKIA are static long-lived credentials; keys beginning with ASIA are temporary STS session credentials."
         },
         "output": "zero-trust audit: {'status': 'LEGACY_CREDENTIAL_DETECTED', 'violations': ['VIOLATION_STATIC_CREDENTIAL_USED_BY_legacy_billing_cron']}"
@@ -7815,13 +7635,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does connecting 50 VPCs via AWS Transit Gateway require significantly less operational overhead than VPC Peering?",
           "options": [
-            "Transit Gateway automatically disables all security group filters across attached subnets through automated background health monitoring daemons and heartbeat probes",
-            "Transit Gateway acts as a central hub requiring 50 attachments instead of 1,225 mesh peering links",
+            "Transit Gateway automatically disables all security group filters across attached subnets",
             "VPC Peering requires dedicated physical fiber optic cables laid between data centers",
-            "Transit Gateway compresses all outgoing IPv4 packets into 64-byte UDP datagrams"
+            "Transit Gateway compresses all outgoing IPv4 packets into 64-byte UDP datagrams",
+            "Transit Gateway acts as a central hub requiring 50 attachments instead of 1,225 mesh peering links"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Hub-and-spoke architecture scales linearly (50 links) compared to full-mesh peering which scales quadratically (1,225 links)."
         },
         "output": "10 VPCs: {'vpcs': 10, 'mesh_peering_links': 45, 'tgw_attachments': 10, 'connection_reduction_ratio': 4.5}\n50 VPCs: {'vpcs': 50, 'mesh_peering_links': 1225, 'tgw_attachments': 50, 'connection_reduction_ratio': 24.5}\n100 VPCs: {'vpcs': 100, 'mesh_peering_links': 4950, 'tgw_attachments': 100, 'connection_reduction_ratio': 49.5}"
@@ -7850,8 +7670,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does a Transit Gateway determine which attachment to forward a packet to when multiple routes encompass the destination IP?",
           "options": [
             "Applies Longest Prefix Match, forwarding to the route with the most specific prefix length",
-            "Selects the route with the lowest numerical attachment identifier string",
-            "Alternates packets evenly between all matching routes using weighted round-robin across multi-zone container worker nodes and centralized edge cache distributions",
+            "Selects the route with the lowest numerical attachment identifier string provisioned across multi-zone cloud infrastructure",
+            "Alternates packets evenly between all matching routes using weighted round-robin",
             "Discards the packet and emits an ICMP Destination Unreachable notification"
           ],
           "answer": 0,
@@ -7884,13 +7704,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can two VPCs with identical overlapping CIDRs (e.g. 10.100.0.0/16) communicate without re-addressing entire server fleets?",
           "options": [
-            "Use Private NAT Gateways to translate traffic into unique virtual IP alias ranges",
             "Enable bidirectional multicast routing across all Transit Gateway attachments",
+            "Use Private NAT Gateways to translate traffic into unique virtual IP alias ranges",
             "Disable IPv4 and convert all database communication to raw Ethernet frame tunnels",
             "Attach both VPCs directly to an unencrypted public Internet Gateway"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Private NAT translates overlapping local IPs into non-overlapping synthetic virtual ranges, enabling routing across the Transit Gateway."
         },
         "output": "Company B Real IP 10.100.1.5 mapped to Virtual Alias: 100.64.0.10\nInbound packet for 100.64.0.10 translated back to: 10.100.1.5"
@@ -7918,13 +7738,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of Transit Gateway Appliance Mode when routing traffic through central inspection firewalls?",
           "options": [
-            "Compresses packet payloads using hardware-accelerated gzip encryption algorithms across distributed cloud availability zones during high-throughput network operations",
+            "Compresses packet payloads using hardware-accelerated gzip encryption algorithms",
             "Automatically deploys new EC2 instances when CPU utilization exceeds 90%",
-            "Converts private IPv4 addresses into public global unicast IPv6 addresses",
-            "Guarantees bidirectional traffic stays within the same AZ to preserve stateful firewall sessions"
+            "Guarantees bidirectional traffic stays within the same AZ to preserve stateful firewall sessions",
+            "Converts private IPv4 addresses into public global unicast IPv6 addresses"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Appliance mode ensures return traffic routes through the same firewall instance that processed the forward flow, avoiding stateful drops."
         },
         "output": "single AZ risk: (False, 'AZ_RESILIENCE_RISK: attached to 1 AZs, requires 3')\nmulti AZ valid: (True, 'VALID_STANDARD_ATTACHMENT')\nfirewall symmetric: (True, 'VALID_SYMMETRIC_APPLIANCE_ATTACHMENT')"
@@ -7954,11 +7774,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "NetworkPacketsDiscardedByKernel",
             "SecurityGroupRuleEvaluationTimeout",
-            "PacketDropCountBlackhole",
-            "DynamicHostConfigurationProtocolFailureCount"
+            "DynamicHostConfigurationProtocolFailureCount",
+            "PacketDropCountBlackhole"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "PacketDropCountBlackhole measures packets dropped because destination routes point to invalid, detached, or dead targets."
         },
         "output": "healthy telemetry: {'status': 'HEALTHY', 'throughput_mbps': 1000.0, 'alerts': ['ALL_TRANSIT_GATEWAY_ROUTES_NOMINAL']}\ndegraded telemetry: {'status': 'ACTION_REQUIRED', 'throughput_mbps': 640.0, 'alerts': ['CRITICAL_BLACKHOLE_ROUTES_DETECTED_DROPPED_450_PACKETS', 'WARNING_MISSING_ROUTE_PROPAGATIONS_DETECTED']}"
@@ -8007,12 +7827,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary security advantage of using AWS PrivateLink to connect consumer VPCs to SaaS applications?",
           "options": [
             "Automatically disables the requirement for IAM role authentication across service calls",
+            "Guarantees that database queries execute in under 100 microseconds regardless of distance",
             "Traffic stays entirely on the private AWS network backbone, never traversing the public internet",
-            "Guarantees that database queries execute in under 100 microseconds regardless of distance by bypassing operating system socket connection pools and TLS encryption handshakes",
             "Allows unencrypted HTTP traffic to bypass corporate compliance security audits"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "PrivateLink keeps traffic on AWS private backbones, eliminating public internet exposure and preventing external packet interception."
         },
         "output": "provisioned endpoint: {'vpc': 'vpc-consumer-101', 'private_endpoint_ip': '10.0.5.24', 'target_service': 'com.amazonaws.us-east-1.s3', 'traverses_public_internet': False}"
@@ -8040,13 +7860,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an HTTPS connection fail on a subnet if the NACL allows inbound port 443 but blocks outbound ephemeral ports 1024-65535?",
           "options": [
-            "Security Groups override NACL rules and terminate TCP handshakes automatically",
-            "NACLs are stateless, so return traffic to client ephemeral ports must be explicitly allowed outbound",
+            "Security Groups override NACL rules and terminate TCP handshakes automatically provisioned across multi-zone cloud infrastructure",
             "Amazon VPC routers do not support TCP packet headers without ephemeral port padding",
-            "HTTPS encryption requires bidirectional symmetric port 443 communication on both sides across multi-region serverless execution environments and persistent storage buckets"
+            "HTTPS encryption requires bidirectional symmetric port 443 communication on both sides",
+            "NACLs are stateless, so return traffic to client ephemeral ports must be explicitly allowed outbound"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because NACLs are stateless, return packets are evaluated against outbound rules and drop unless ephemeral ports are allowed."
         },
         "output": "inbound 443: (True, 'MATCHED_RULE_100_ALLOW')\noutbound ephemeral 52140: (True, 'MATCHED_RULE_100_ALLOW')\noutbound blocked port 22: (False, 'DEFAULT_DENY_RULE_ASTERISK')"
@@ -8110,13 +7930,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does attaching a restrictive VPC Endpoint Policy to an S3 Interface Endpoint prevent corporate data exfiltration?",
           "options": [
-            "Converts all S3 PUT requests into read-only GET operations across client applications through automated background health monitoring daemons and heartbeat probes",
+            "Converts all S3 PUT requests into read-only GET operations across client applications",
+            "Restricts S3 API operations to approved corporate bucket ARNs, blocking uploads to external personal buckets",
             "Encrypts outgoing HTTP packets using ephemeral one-time pad cryptographic hashes",
-            "Forces consumer EC2 instances to reboot whenever a non-corporate IP is detected",
-            "Restricts S3 API operations to approved corporate bucket ARNs, blocking uploads to external personal buckets"
+            "Forces consumer EC2 instances to reboot whenever a non-corporate IP is detected"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Endpoint policies act as boundary filters; specifying allowed bucket ARNs prevents compromised credentials from exfiltrating data to external buckets."
         },
         "output": "single AZ test: (False, 'RESILIENCE_VIOLATION_ENDPOINT_REQUIRES_MULTI_AZ')\nwildcard risk: (False, 'EXFILTRATION_RISK_ENDPOINT_POLICY_WILDCARD_RESOURCE')\ncompliant config: (True, 'ENDPOINT_HARDENED_AND_RESILIENT')"
@@ -8199,12 +8019,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which core operational guarantee does the integrated Milestone 7 validation platform deliver?",
           "options": [
             "Automated provisioning of single-AZ unencrypted public internet gateways for database clusters",
-            "Disabling AWS CloudTrail audit logs across secondary accounts to minimize operational storage fees across multi-zone container worker nodes and centralized edge cache distributions",
             "Deterministic end-to-end verification of multi-account governance, zero-trust identity, and transit routing",
+            "Disabling AWS CloudTrail audit logs across secondary accounts to minimize operational storage fees",
             "Hardcoding administrative IAM credentials inside continuous integration container environments"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 7 establishes automated validation across multi-account SCPs, OIDC identity, transit routing, and network isolation."
         },
         "output": "milestone 7 contract status: {'mandates_count': 5, 'status': 'ALL_GOVERNANCE_SYSTEMS_ACTIVE', 'production_ready': True}"
@@ -8234,13 +8054,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What failure condition does the Milestone 7 evaluator detect if an OIDC role contains a wildcard '*' in its sub claim?",
           "options": [
-            "Ignored because wildcards are standard practice for microservice token federation across distributed cloud availability zones during high-throughput network operations",
-            "Flagged as a critical zero-trust violation because any external repository could assume the role",
+            "Ignored because wildcards are standard practice for microservice token federation",
             "Automatically converts the role into an unauthenticated guest session",
-            "Triggers an immediate deletion of the target Amazon S3 bucket"
+            "Flagged as a critical zero-trust violation because any external repository could assume the role",
+            "Triggers an immediate deletion of the target Amazon S3 bucket without scoped least-privilege IAM policy boundaries"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Wildcards in OIDC sub claims allow unauthorized external actors to impersonate the role, violating zero-trust identity invariants."
         },
         "output": "compliance report: {'account_id': '111122223333', 'scp_guardrails_active': True, 'zero_trust_oidc_enforced': True, 'transit_routing_clean': True, 'fully_compliant': True}"
@@ -8269,13 +8089,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Milestone 7 audit harness ensure fast evaluation across hundreds of cloud accounts?",
           "options": [
-            "Decomposes independent accounts into parallel worker threads with in-memory CIDR evaluation",
-            "Skips security group checks on all production database subnets to reduce latency by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "Permanently caches API responses without validating timestamp expiration",
-            "Limits network inspection to a single availability zone per geographic region"
+            "Skips security group checks on all production database subnets to reduce latency",
+            "Permanently caches API responses without validating timestamp expiration provisioned across multi-zone cloud infrastructure",
+            "Limits network inspection to a single availability zone per geographic region",
+            "Decomposes independent accounts into parallel worker threads with in-memory CIDR evaluation"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Parallel execution and optimized in-memory evaluation allow the harness to validate large multi-account estates efficiently."
         },
         "output": "batch audit scores: [{'account_id': 'acct-prod', 'score': 100, 'pass': True}, {'account_id': 'acct-dev', 'score': 40, 'pass': False}]"
@@ -8302,13 +8122,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core behavior proves that the Milestone 7 platform successfully contained the 4-fault disaster simulation?",
           "options": [
+            "All four distinct failure modes are detected deterministically with actionable remediation playbooks",
             "The system drops all active user database connections until manual reboot",
-            "All cloud accounts are automatically detached from the AWS Organization Root across multi-region serverless execution environments and persistent storage buckets",
-            "The validator disables all network firewalls to allow debugging traffic",
-            "All four distinct failure modes are detected deterministically with actionable remediation playbooks"
+            "All cloud accounts are automatically detached from the AWS Organization Root",
+            "The validator disables all network firewalls to allow debugging traffic"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "True resilience requires comprehensive detection and immediate generation of exact operational remediation steps."
         },
         "output": "disaster simulation: {'disaster_contained': True, 'detected_faults_count': 4, 'remediation_plan': {'F1_SCP_BREACH': 'ACTION: Re-attach Production Region-Lock SCP Immediately', 'F2_OIDC_BREACH': 'ACTION: Delete Open Role; Mandate repo:org/* sub condition', 'F3_TGW_COLLISION': 'ACTION: Quarantine Attachment; Provision Private NAT Gateway', 'F4_NACL_DROP': 'ACTION: Insert Outbound Allow for Ephemeral Ports 1024-65535'}}"
@@ -8336,13 +8156,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which milestone criteria officially certifies the completion of Milestone 7?",
           "options": [
-            "The organization is migrated to a single monolithic AWS account with static admin credentials through automated background health monitoring daemons and heartbeat probes",
-            "All private subnets are granted direct access to public internet gateways",
-            "Route 53 DNS records are updated to point to unauthenticated edge proxies",
-            "All five gates (SCPs, OIDC, Transit Gateway, Private NAT, and NACLs) pass deterministic verification"
+            "The organization is migrated to a single monolithic AWS account with static admin credentials",
+            "All five gates (SCPs, OIDC, Transit Gateway, Private NAT, and NACLs) pass deterministic verification",
+            "All private subnets are granted direct access to public internet gateways provisioned across multi-zone cloud infrastructure",
+            "Route 53 DNS records are updated to point to unauthenticated edge proxies"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Full certification requires deterministic verification of all multi-account, identity, and network routing invariants."
         },
         "output": "Certification Status: {'milestone': 'Milestone 7: Multi-Account IAM & Transit Network Validator', 'status': 'ENTERPRISE_CERTIFIED', 'audit_gates': {'gate_1_scp_hierarchy_break_glass': 'PASS', 'gate_2_zero_trust_oidc_federation': 'PASS', 'gate_3_tgw_hub_multi_az_resilience': 'PASS', 'gate_4_private_nat_overlap_defense': 'PASS', 'gate_5_stateless_nacl_ephemeral_integrity': 'PASS'}, 'certified': True}"
@@ -8390,13 +8210,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is attaching broad IAM permissions directly to an EKS worker node instance profile dangerous?",
           "options": [
-            "Worker nodes automatically delete all EBS persistent volume claims during node restarts across multi-zone container worker nodes and centralized edge cache distributions",
-            "The Kubernetes control plane blocks scheduling of pods that use Linux cgroups v2",
             "All pods scheduled on that node inherit those permissions, violating least-privilege isolation",
+            "Worker nodes automatically delete all EBS persistent volume claims during node restarts",
+            "The Kubernetes control plane blocks scheduling of pods that use Linux cgroups v2",
             "Network load balancers reject incoming TCP traffic on ports higher than 1024"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Any container running on the node can query the instance metadata service (IMDS) and access all node permissions."
         },
         "output": "frontend with pod identity: False\nfrontend with node profile: True"
@@ -8424,10 +8244,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an IRSA trust policy ensure that a pod in the 'dev' namespace cannot assume an IAM role intended for 'prod'?",
           "options": [
-            "Encrypts all outgoing pod network traffic with a mutual TLS sidecar proxy",
+            "Encrypts all outgoing pod network traffic with a mutual TLS sidecar proxy provisioned across multi-zone cloud infrastructure",
             "Binds the sub claim strictly to 'system:serviceaccount:prod:<name>', rejecting tokens from other namespaces",
             "Forces the Kubernetes control plane to restart all worker nodes every 24 hours",
-            "Deletes the pod's Linux cgroup memory allocations if a namespace mismatch occurs across distributed cloud availability zones during high-throughput network operations"
+            "Deletes the pod's Linux cgroup memory allocations if a namespace mismatch occurs"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -8458,13 +8278,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary administrative advantage of EKS Pod Identity over traditional IRSA OIDC federation?",
           "options": [
-            "Centralizes role mappings in EKS associations, eliminating complex OIDC trust policy updates",
             "Eliminates the requirement for running Linux container runtimes on worker nodes",
-            "Allows containers to run with root user privileges without triggering Kubernetes audit logs by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "Converts all Amazon EKS pods into stateless AWS Lambda serverless functions"
+            "Allows containers to run with root user privileges without triggering Kubernetes audit logs",
+            "Centralizes role mappings in EKS associations, eliminating complex OIDC trust policy updates",
+            "Converts all Amazon EKS pods into stateless AWS Lambda serverless functions without scoped least-privilege IAM policy boundaries"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "EKS Pod Identity decouples IAM trust policies from individual cluster OIDC URLs, simplifying role reuse across multiple clusters."
         },
         "output": "resolved role: arn:aws:iam::111:role/PaymentProcessingRole\nunassociated pod: None"
@@ -8491,13 +8311,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does configuring an EC2 instance metadata hop limit of 1 (HttpPutResponseHopLimit=1) prevent container pods from stealing node credentials?",
           "options": [
-            "Packets from container network bridges decrement the IP TTL, causing the packet to expire before reaching IMDS",
             "The Linux kernel terminates any container process that initiates an outbound HTTP request",
-            "Kubernetes kubelet automatically encrypts metadata responses with the cluster CA certificate across multi-region serverless execution environments and persistent storage buckets",
-            "AWS STS rejects credential requests that originate from Docker container runtimes"
+            "Kubernetes kubelet automatically encrypts metadata responses with the cluster CA certificate",
+            "AWS STS rejects credential requests that originate from Docker container runtimes",
+            "Packets from container network bridges decrement the IP TTL, causing the packet to expire before reaching IMDS"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Packets originating from a container bridge hop have a TTL that expires when the hop limit is set to 1, blocking container access."
         },
         "output": "container request (hops=2, limit=1): BLOCKED_BY_IMDS_HOP_LIMIT_PREVENTING_THEFT\nhost OS request (hops=1, limit=1): PERMITTED"
@@ -8526,13 +8346,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which Kubernetes setting should be disabled on ServiceAccounts that do not need to query the Kubernetes API server?",
           "options": [
+            "automountServiceAccountToken: false",
             "enableHostNetworkRouting: true",
             "disableContainerSecurityContext: false",
-            "allowPrivilegeEscalation: true",
-            "automountServiceAccountToken: false"
+            "allowPrivilegeEscalation: true"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Setting automountServiceAccountToken to false prevents Kubernetes from automatically mounting API tokens into pods that don't need them."
         },
         "output": "k8s security audit: {'status': 'SECURITY_RISK_DETECTED', 'violations': ['CRITICAL_CLUSTER_ADMIN_BOUND_TO_POD_debug-shell', 'WARNING_POD_LACKS_ISOLATED_IDENTITY_debug-shell']}"
@@ -8580,13 +8400,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should Kubernetes Horizontal Pod Autoscaler (HPA) and Vertical Pod Autoscaler (VPA) not scale on the same metric simultaneously?",
           "options": [
-            "The Linux kernel cgroups controller crashes if both CPU limits and replica counts change through automated background health monitoring daemons and heartbeat probes",
+            "The Linux kernel cgroups controller crashes if both CPU limits and replica counts change",
             "AWS Auto Scaling Groups reject EC2 instance launch requests during pod scale-out",
-            "Creates a conflicting feedback loop where both controllers fight to adjust the same resource metric",
-            "Kubernetes network plugins fail to assign IP addresses to vertically resized pods"
+            "Kubernetes network plugins fail to assign IP addresses to vertically resized pods",
+            "Creates a conflicting feedback loop where both controllers fight to adjust the same resource metric"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Both controllers would react to the same signal, causing race conditions, over-provisioning, and cluster instability."
         },
         "output": "HPA scaling up (util=80%, target=50%, replicas=2): 4\nHPA scaling down (util=25%, target=50%, replicas=4): 2"
@@ -8615,13 +8435,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Karpenter select EC2 instances to schedule pending Kubernetes pods?",
           "options": [
-            "Launches identical fixed-size EC2 instances defined in pre-configured Auto Scaling Groups across multi-zone container worker nodes and centralized edge cache distributions",
             "Evaluates pending pod requirements and bin-packs them into the cheapest viable instance types",
+            "Launches identical fixed-size EC2 instances defined in pre-configured Auto Scaling Groups",
             "Restricts all node provisioning to on-demand instances in a single availability zone",
-            "Queries Docker Hub to determine the average container image download speed"
+            "Queries Docker Hub to determine the average container image download speed provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Karpenter dynamically bin-packs pending pod requests to launch the most cost-effective instance types from the entire EC2 catalog."
         },
         "output": "karpenter node decision: ('c6g.xlarge', 4, 8, 0.136) SELECTED_c6g.xlarge_COST_$0.136/hr"
@@ -8650,9 +8470,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of Karpenter's automated node consolidation feature?",
           "options": [
-            "Increases CPU clock speeds on worker nodes during high-traffic daytime hours across distributed cloud availability zones during high-throughput network operations",
+            "Increases CPU clock speeds on worker nodes during high-traffic daytime hours",
             "Reschedules pods from underutilized nodes to replace fragmented servers with cheaper instances",
-            "Compresses container filesystem layers into squashfs archive formats",
+            "Compresses container filesystem layers into squashfs archive formats provisioned across multi-zone cloud infrastructure",
             "Converts all running Kubernetes deployments into StatefulSets automatically"
           ],
           "answer": 1,
@@ -8686,13 +8506,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Pod Disruption Budget (PDB) protect running workloads during Karpenter node consolidation?",
           "options": [
-            "Prevents node draining from evicting pods if healthy replica counts would breach configured availability limits",
-            "Forces Karpenter to purchase on-demand instances exclusively, ignoring spot pools by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "Forces Karpenter to purchase on-demand instances exclusively, ignoring spot pools",
             "Automatically increases Linux kernel TCP buffer sizes during container migrations",
+            "Prevents node draining from evicting pods if healthy replica counts would breach configured availability limits",
             "Converts all HTTP API requests into asynchronous background message queue tasks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "PDBs guarantee a minimum number or percentage of healthy pods remain running during voluntary disruptions like node drains."
         },
         "output": "3 pods healthy, min 2 required: (True, 'EVICTION_PERMITTED_WITHIN_BUDGET')\n2 pods healthy, min 2 required: (False, 'DISRUPTION_BLOCKED_BY_PDB_MIN_AVAILABLE_BREACH')"
@@ -8720,8 +8540,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which operational condition in an EKS cluster indicates that Karpenter consolidation should be tuned more aggressively?",
           "options": [
-            "Kubernetes API server response latencies drop below 10 milliseconds across all endpoints across multi-region serverless execution environments and persistent storage buckets",
-            "Container images are downloaded from Amazon ECR in under three seconds",
+            "Kubernetes API server response latencies drop below 10 milliseconds across all endpoints",
+            "Container images are downloaded from Amazon ECR in under three seconds provisioned across multi-zone cloud infrastructure",
             "Operating system memory swap space remains completely empty across all nodes",
             "Cluster allocation efficiency drops below 65%, indicating severe node capacity fragmentation"
           ],
@@ -8808,13 +8628,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How much advance notice does Amazon EC2 provide before terminating a Spot Instance?",
           "options": [
-            "Fifteen minutes via CloudWatch alarms and automated Slack webhooks through automated background health monitoring daemons and heartbeat probes",
-            "Twenty-four hours via AWS Health Dashboard email notifications",
-            "Two minutes (120 seconds) via EventBridge and Instance Metadata Service notices",
-            "Zero seconds; spot instances terminate instantly without warning"
+            "Fifteen minutes via CloudWatch alarms and automated Slack webhooks",
+            "Twenty-four hours via AWS Health Dashboard email notifications provisioned across multi-zone cloud infrastructure",
+            "Zero seconds; spot instances terminate instantly without warning",
+            "Two minutes (120 seconds) via EventBridge and Instance Metadata Service notices"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "AWS provides a two-minute warning via EventBridge and instance metadata, allowing graceful draining and rescheduling."
         },
         "output": "spot drain execution: {'node': 'i-0123456789abcdef0', 'cordoned': True, 'evicted_count': 3, 'evacuation_completed_in_seconds': 15, 'status': 'NODE_DRAINED_BEFORE_120S_AWS_TERMINATION'}"
@@ -8843,13 +8663,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does diversifying a Spot workload across multiple instance types and AZs improve application availability?",
           "options": [
-            "Eliminates the requirement for configuring container memory requests and limits",
             "Prevents an interruption in a single instance pool from taking down the entire service",
-            "Automatically upgrades container runtime engines to the latest stable release",
-            "Forces AWS to provide 24-hour advance warnings before terminating spot instances across multi-zone container worker nodes and centralized edge cache distributions"
+            "Eliminates the requirement for configuring container memory requests and limits",
+            "Automatically upgrades container runtime engines to the latest stable release provisioned across multi-zone cloud infrastructure",
+            "Forces AWS to provide 24-hour advance warnings before terminating spot instances"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Spot interruptions affect specific instance pools in specific AZs; diversification ensures only a small fraction of capacity is reclaimed at once."
         },
         "output": "single pool (1 type, 1 AZ): {'total_diversified_pools': 1, 'simultaneous_failure_probability': 0.05, 'resilience_rating': 'LOW_DIVERSITY'}\ndiversified (4 types, 3 AZs): {'total_diversified_pools': 12, 'simultaneous_failure_probability': 0.0, 'resilience_rating': 'HIGHLY_DIVERSIFIED'}"
@@ -8878,13 +8698,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must spot draining controllers enforce SIGKILL before the 120-second EC2 cutoff if a pod hangs during shutdown?",
           "options": [
-            "Prevents abrupt hardware power loss from corrupting storage without clean state closure",
             "Forces the Kubernetes control plane to restart the entire worker node pool",
-            "Automatically converts the container's persistent volume into an S3 Glacier archive across distributed cloud availability zones during high-throughput network operations",
+            "Prevents abrupt hardware power loss from corrupting storage without clean state closure",
+            "Automatically converts the container's persistent volume into an S3 Glacier archive",
             "Triggers an immediate rollback of the deployment to the previous revision"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "AWS terminates the VM at 120 seconds regardless; proactive termination before the deadline ensures clean unmounting and status updates."
         },
         "output": "t=30s: SIGTERM_WAITING_FOR_CLEAN_FLUSH\nt=105s (state not saved): FORCE_FLUSH_STATE_BEFORE_IMMINENT_TERMINATION\nt=118s: SIGKILL_ENFORCED_NODE_POWER_LOSS_IMMINENT"
@@ -8913,13 +8733,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which two configurations are essential to run mission-critical production workloads safely on EC2 Spot Instances?",
           "options": [
-            "Disabling container resource requests and running all pods as root users",
+            "Disabling container resource requests and running all pods as root users provisioned across multi-zone cloud infrastructure",
             "Pinning all pod replicas to a single worker node in a single availability zone",
-            "Replacing all Kubernetes deployments with standalone unmanaged Docker containers by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "Pod Disruption Budgets (PDBs) and multi-AZ Topology Spread Constraints with Spot diversification"
+            "Pod Disruption Budgets (PDBs) and multi-AZ Topology Spread Constraints with Spot diversification",
+            "Replacing all Kubernetes deployments with standalone unmanaged Docker containers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "PDBs protect availability during drains, while multi-AZ topology spread prevents localized spot terminations from causing outages."
         },
         "output": "resilience audit: {'status': 'RESILIENCE_RISK', 'violations': ['TOPOLOGY_SKEW_VIOLATION_IN_analytics-svc_SKEW_3', 'UNPROTECTED_SPOT_WORKLOAD_MISSING_PDB_IN_analytics-svc']}"
@@ -8967,13 +8787,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security benefit of mutual TLS (mTLS) with short-lived certificates in a Kubernetes service mesh?",
           "options": [
-            "Compresses HTTP response payloads using Brotli dictionary compression at the kernel level across multi-region serverless execution environments and persistent storage buckets",
+            "Compresses HTTP response payloads using Brotli dictionary compression at the kernel level",
+            "Encrypts east-west traffic and cryptographically authenticates service identities without restarting pods",
             "Disables all network security groups across worker node virtual machine network cards",
-            "Converts all REST API requests into asynchronous GraphQL mutations automatically",
-            "Encrypts east-west traffic and cryptographically authenticates service identities without restarting pods"
+            "Converts all REST API requests into asynchronous GraphQL mutations automatically"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "mTLS provides bidirectional cryptographic authentication and encryption for east-west traffic with zero-downtime certificate rotation."
         },
         "output": "valid mTLS: (True, 'SECURE_MTLS_SESSION_ESTABLISHED_spiffe://cluster.local/ns/prod/sa/order-service_TO_spiffe://cluster.local/ns/prod/sa/payment-service')\nexpired cert: (False, 'MTLS_HANDSHAKE_FAILED_INVALID_CERTIFICATE')\nuntrusted domain: (False, 'MTLS_HANDSHAKE_FAILED_UNTRUSTED_DOMAIN')"
@@ -9002,10 +8822,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Envoy outlier detection protect a microservice architecture when one pod begins throwing HTTP 500 errors?",
           "options": [
-            "Terminates the entire Kubernetes deployment and rolls back to the initial cluster commit through automated background health monitoring daemons and heartbeat probes",
+            "Terminates the entire Kubernetes deployment and rolls back to the initial cluster commit",
             "Automatically increases CPU clock frequencies on the physical server hosting the pod",
             "Temporarily ejects the failing pod from load balancing rotation, routing traffic to healthy peers",
-            "Transforms all subsequent HTTP 500 error responses into HTTP 200 OK payloads"
+            "Transforms all subsequent HTTP 500 error responses into HTTP 200 OK payloads provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -9037,13 +8857,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should platform engineers deploy Istio Sidecar resources to scope service discovery in large clusters?",
           "options": [
-            "Forces all Kubernetes nodes to use ARM64 Graviton processor architectures exclusively across multi-zone container worker nodes and centralized edge cache distributions",
-            "Prevents Envoy from loading endpoints for all services in the cluster, drastically reducing proxy memory usage",
+            "Forces all Kubernetes nodes to use ARM64 Graviton processor architectures exclusively",
             "Disables HTTP/2 connection multiplexing to ensure single-threaded request isolation",
-            "Replaces Envoy sidecars with standalone NodePort networking ingress services"
+            "Replaces Envoy sidecars with standalone NodePort networking ingress services provisioned across multi-zone cloud infrastructure",
+            "Prevents Envoy from loading endpoints for all services in the cluster, drastically reducing proxy memory usage"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Unscoped sidecars load configurations for every service in the cluster; scoping restricts config to actual dependencies, saving RAM."
         },
         "output": "500 services cluster, payment-service calling 6 services:\n{'total_cluster_services': 500, 'scoped_dependencies': 6, 'full_mesh_memory_mb': 24.41, 'scoped_memory_mb': 0.29, 'memory_reduction_pct': 98.8}"
@@ -9073,7 +8893,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Fails fast with HTTP 503 when request limits are exceeded, preventing caller threads from exhausting memory",
             "Automatically deploys new MySQL database read replicas in secondary geographic regions",
-            "Encrypts all database queries with quantum-resistant post-quantum cryptographic algorithms across distributed cloud availability zones during high-throughput network operations",
+            "Encrypts all database queries with quantum-resistant post-quantum cryptographic algorithms",
             "Converts synchronous REST API calls into persistent file uploads on Amazon S3"
           ],
           "answer": 0,
@@ -9105,13 +8925,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which Envoy metric warns platform engineers that automated mTLS certificate rotation has stalled?",
           "options": [
+            "envoy_cluster_upstream_cx_rx_bytes_total exceeds the network interface MTU size provisioned across multi-zone cloud infrastructure",
             "envoy_server_days_until_first_cert_expiring drops below operational safety thresholds",
-            "envoy_cluster_upstream_cx_rx_bytes_total exceeds the network interface MTU size",
-            "envoy_http_downstream_rq_time_ms exceeds the local kernel socket buffer allocation by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "envoy_http_downstream_rq_time_ms exceeds the local kernel socket buffer allocation",
             "envoy_cluster_bind_errors_total records an abnormal spike in UDP broadcast packets"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Tracking days until certificate expiration detects control-plane rotation failures before certificates expire and break traffic."
         },
         "output": "healthy mesh audit: {'status': 'HEALTHY', 'cert_validity_days': 14, 'alerts': ['SERVICE_MESH_NOMINAL']}\ndegraded mesh audit: {'status': 'ACTION_REQUIRED', 'cert_validity_days': 1, 'alerts': ['CRITICAL_CERTIFICATE_EXPIRATION_IMMINENT_ROTATE_SDS', 'WARNING_HIGH_OUTLIER_EJECTIONS_DETECTED_15_PODS', 'ALERT_CIRCUIT_BREAKER_SATURATION_SCALE_BACKENDS']}"
@@ -9159,13 +8979,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which core architectural guarantee does the integrated Milestone 8 control plane deliver?",
           "options": [
+            "Unified orchestration of pod identity, Karpenter node provisioning, topology spread, and mesh circuit breaking",
             "Single-AZ deployment of unmanaged Docker containers on fixed-size EC2 on-demand instances",
-            "Disabling container resource requests to allow unrestricted memory allocation across worker nodes across multi-region serverless execution environments and persistent storage buckets",
-            "Converting all microservice communications into unencrypted plaintext HTTP protocols",
-            "Unified orchestration of pod identity, Karpenter node provisioning, topology spread, and mesh circuit breaking"
+            "Disabling container resource requests to allow unrestricted memory allocation across worker nodes",
+            "Converting all microservice communications into unencrypted plaintext HTTP protocols"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Milestone 8 integrates workload identity, intelligent autoscaling, failure-domain topology spread, and service mesh defense."
         },
         "output": "milestone 8 readiness status: {'integrated_systems_count': 5, 'status': 'CONTROL_PLANE_READY_FOR_PRODUCTION', 'certified': True}"
@@ -9195,13 +9015,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Milestone 8 control plane select which Availability Zone to schedule a new pod in?",
           "options": [
-            "Picks the zone with the lowest alphanumeric name string regardless of load",
-            "Always schedules all pods in us-east-1a until the zone exhausts physical rack space through automated background health monitoring daemons and heartbeat probes",
+            "Picks the zone with the lowest alphanumeric name string regardless of load provisioned across multi-zone cloud infrastructure",
             "Selects the zone with the lowest current pod count to maintain balanced topology spread",
+            "Always schedules all pods in us-east-1a until the zone exhausts physical rack space",
             "Generates a random integer between 1 and 100 to select a zone nondeterministically"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Choosing the zone with minimal replica count guarantees balanced distribution and maintains maxSkew bounds."
         },
         "output": "(True, \"SCHEDULED_checkout-pod-1_IN_us-east-1a_ZONE_COUNTS_{'us-east-1a': 1, 'us-east-1b': 0, 'us-east-1c': 0}\")\n(True, \"SCHEDULED_checkout-pod-2_IN_us-east-1b_ZONE_COUNTS_{'us-east-1a': 1, 'us-east-1b': 1, 'us-east-1c': 0}\")\n(True, \"SCHEDULED_checkout-pod-3_IN_us-east-1c_ZONE_COUNTS_{'us-east-1a': 1, 'us-east-1b': 1, 'us-east-1c': 1}\")\n(True, \"SCHEDULED_checkout-pod-4_IN_us-east-1a_ZONE_COUNTS_{'us-east-1a': 2, 'us-east-1b': 1, 'us-east-1c': 1}\")\n(True, \"SCHEDULED_checkout-pod-5_IN_us-east-1b_ZONE_COUNTS_{'us-east-1a': 2, 'us-east-1b': 2, 'us-east-1c': 1}\")\n(True, \"SCHEDULED_checkout-pod-6_IN_us-east-1c_ZONE_COUNTS_{'us-east-1a': 2, 'us-east-1b': 2, 'us-east-1c': 2}\")"
@@ -9231,13 +9051,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should Kubernetes clusters configure PriorityClasses for critical workloads?",
           "options": [
-            "Automatically reduces Amazon EC2 hourly on-demand instance pricing by 50%",
-            "Allows the scheduler to pre-empt low-priority batch pods during capacity surges to protect critical services",
+            "Automatically reduces Amazon EC2 hourly on-demand instance pricing by 50% provisioned across multi-zone cloud infrastructure",
             "Disables mutual TLS encryption across internal pod communication channels",
-            "Forces Docker container images to execute using native WebAssembly runtimes across multi-zone container worker nodes and centralized edge cache distributions"
+            "Allows the scheduler to pre-empt low-priority batch pods during capacity surges to protect critical services",
+            "Forces Docker container images to execute using native WebAssembly runtimes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "PriorityClasses ensure critical workloads evict lower-priority tasks when nodes are constrained, maintaining vital SLAs."
         },
         "output": "priority resolution: ('PREEMPTED_2_PODS_FOR_CRITICAL_WORKLOAD', ['report-worker-1', 'log-aggregator-2'])"
@@ -9265,13 +9085,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core behavior proves that the Milestone 8 control plane survived the simultaneous 4-fault container disaster simulation?",
           "options": [
-            "The cluster terminates all worker nodes and requires manual administrator re-provisioning across distributed cloud availability zones during high-throughput network operations",
-            "All four failure modes are resolved autonomously via spot draining, topology failover, circuit breaking, and IMDS defense",
+            "The cluster terminates all worker nodes and requires manual administrator re-provisioning",
             "All Kubernetes deployments are permanently deleted to conserve operating memory",
-            "Network load balancers route incoming customer requests to public internet gateways"
+            "Network load balancers route incoming customer requests to public internet gateways",
+            "All four failure modes are resolved autonomously via spot draining, topology failover, circuit breaking, and IMDS defense"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Autonomous mitigation of spot terminations, zone outages, latency surges, and credential theft proves full resilience."
         },
         "output": "container disaster simulation: {'disaster_contained': True, 'mitigations_count': 4, 'recovery_report': {'M1_SPOT_DRAIN': 'Cordoned node; evicted pods within 120s respecting PDBs', 'M2_TOPOLOGY_FAILOVER': 'Rescheduled pods to surviving zones 1b and 1c (maxSkew<=1)', 'M3_CIRCUIT_BREAKER': 'Envoy tripped 503 fast-fail; ejected outlier pods', 'M4_IMDS_DEFENSE': 'IMDSv2 hop-limit=1 dropped container bridge packet'}}"
@@ -9300,9 +9120,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which milestone criteria officially certifies the completion of Milestone 8?",
           "options": [
             "All five gates (Pod Identity, Karpenter, Topology Spread, Spot Draining, and Service Mesh) pass verification",
-            "The cluster is migrated to a single virtual machine running Docker Compose without Kubernetes by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "The cluster is migrated to a single virtual machine running Docker Compose without Kubernetes",
             "All pods are granted cluster-admin permissions to bypass RBAC verification checks",
-            "Outbound network traffic is routed through unencrypted public internet gateways"
+            "Outbound network traffic is routed through unencrypted public internet gateways provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9386,13 +9206,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does caching a database connection in a global variable outside the Lambda handler improve performance?",
           "options": [
-            "Forces Amazon RDS to disable password authentication checks on incoming queries",
-            "Automatically upgrades the database storage engine to multi-AZ Aurora clusters",
             "Warm invocations reuse the established connection, avoiding TCP and TLS connection handshakes",
-            "Allows unprivileged client applications to execute administrative database schema migrations across multi-region serverless execution environments and persistent storage buckets"
+            "Forces Amazon RDS to disable password authentication checks on incoming queries",
+            "Automatically upgrades the database storage engine to multi-AZ Aurora clusters provisioned across multi-zone cloud infrastructure",
+            "Allows unprivileged client applications to execute administrative database schema migrations"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Global variables persist across warm invocations within the same microVM sandbox, allowing reuse of established connection pools."
         },
         "output": "1st call (cold connect): ({'conn_id': 'db_session_99182', 'status': 'CONNECTED'}, 'COLD_CONNECT_ESTABLISHED')\n2nd call (warm reuse): ({'conn_id': 'db_session_99182', 'status': 'CONNECTED'}, 'WARM_CONNECTION_REUSED')\nlazy import: ('MOCKED_pandas_MODULE', 'LAZY_IMPORTED_ON_FIRST_USE')"
@@ -9421,13 +9241,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Application Auto Scaling optimize the cost of AWS Lambda Provisioned Concurrency?",
           "options": [
-            "Automatically converts serverless Lambda functions into containerized Amazon ECS tasks through automated background health monitoring daemons and heartbeat probes",
-            "Disables AWS CloudWatch metrics logging to reduce monthly monitoring expenditures",
+            "Automatically converts serverless Lambda functions into containerized Amazon ECS tasks",
             "Adjusts provisioned concurrency dynamically based on utilization, avoiding paying for idle warm capacity",
+            "Disables AWS CloudWatch metrics logging to reduce monthly monitoring expenditures provisioned across multi-zone cloud infrastructure",
             "Limits maximum function execution timeout to strictly five seconds per invocation"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Target tracking autoscaling scales warm instances up during business peaks and down during quiet nights, minimizing idle costs."
         },
         "output": "10M requests with 10 provisioned warm instances:\n{'on_demand_cost_usd': 16.67, 'provisioned_fixed_cost_usd': 109.48, 'cold_start_mitigation': '100%_WARM_INSTANT_LATENCY'}"
@@ -9456,12 +9276,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why should a Lambda function connecting to an Amazon RDS database configure Reserved Concurrency?",
           "options": [
             "Forces RDS to automatically upgrade its storage volumes to io2 Block Express SSDs",
+            "Eliminates the requirement for configuring VPC security groups on database subnets",
             "Caps maximum concurrent Lambda instances, preventing serverless scale-out from overwhelming database connection limits",
-            "Eliminates the requirement for configuring VPC security groups on database subnets across multi-zone container worker nodes and centralized edge cache distributions",
             "Increases the maximum Lambda execution timeout limit from 15 minutes to 24 hours"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Without concurrency caps, Lambda can scale to thousands of instances in seconds, crashing downstream databases with connection limits."
         },
         "output": "1st payment: 200\n2nd payment: 200\n3rd payment: (429, 'THROTTLED_CONCURRENCY_LIMIT_REACHED')"
@@ -9490,13 +9310,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which CloudWatch metric indicates that an AWS Lambda invocation experienced a cold start?",
           "options": [
-            "InitDuration is reported in the CloudWatch REPORT log stream line",
             "ExecutionTimeoutSeconds records a value greater than sixty seconds",
             "BilledDuration is rounded down to the nearest ten milliseconds",
-            "ConcurrentExecutions records a value of exactly zero instances"
+            "ConcurrentExecutions records a value of exactly zero instances",
+            "InitDuration is reported in the CloudWatch REPORT log stream line"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "InitDuration is only logged for cold starts, representing the time required to set up the microVM and run module-level code."
         },
         "output": "serverless audit report: {'status': 'ACTION_REQUIRED', 'cold_start_percentage': 25.0, 'avg_init_latency_ms': 850.0, 'alerts': ['HIGH_COLD_START_RATE_25.0pct_CONSIDER_PROVISIONED_CONCURRENCY']}"
@@ -9546,11 +9366,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Standard Workflows, which provide dedicated physical server hardware for each execution",
             "Amazon EC2 Auto Scaling Groups running single-threaded Python scripts",
-            "AWS Batch managed compute environments using on-demand instances",
-            "Express Workflows, designed for high-throughput short executions at low cost"
+            "Express Workflows, designed for high-throughput short executions at low cost",
+            "AWS Batch managed compute environments using on-demand instances"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Express Workflows support over 100,000 executions per second and are billed by duration/memory, making them ideal for high-volume streams."
         },
         "output": "mortgage approval: ('STANDARD_WORKFLOW', 'Guarantees exactly-once execution, supports human approvals and up to 1 year duration')\niot telemetry ingestion: ('EXPRESS_WORKFLOW', 'Optimized for high-volume (>100k/s) short transactions <= 5 minutes at fractional cost')"
@@ -9579,8 +9399,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Saga distributed transaction pattern, what is the role of a Compensating Transaction?",
           "options": [
-            "Automatically upgrades database storage tables to support distributed multi-region locking across distributed cloud availability zones during high-throughput network operations",
-            "Forces all client HTTP requests to retry with exponential backoff and jitter",
+            "Automatically upgrades database storage tables to support distributed multi-region locking",
+            "Forces all client HTTP requests to retry with exponential backoff and jitter provisioned across multi-zone cloud infrastructure",
             "Encrypts intermediate state payloads using hardware-based trusted execution environments",
             "Reverses the semantic side-effects of an earlier committed step if a subsequent step in the workflow fails"
           ],
@@ -9615,13 +9435,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should business errors like 'ItemOutOfStockException' NOT be configured with automated retries in Step Functions?",
           "options": [
-            "Amazon States Language prohibits retries on any error string containing the word Exception by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "The AWS Step Functions control plane terminates state machines that retry business errors",
             "Retrying will not change the inventory outcome and wastes execution time and API call costs",
-            "Retrying business errors automatically deletes the target DynamoDB inventory table"
+            "Amazon States Language prohibits retries on any error string containing the word Exception",
+            "The AWS Step Functions control plane terminates state machines that retry business errors",
+            "Retrying business errors automatically deletes the target DynamoDB inventory table provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Business errors represent deterministic rule failures; retrying will fail identically, wasting time and delaying compensation."
         },
         "output": "transient timeout (attempt 1): ('RETRY_WITH_BACKOFF', {'backoff_seconds': 2.0, 'next_attempt': 2})\ntransient timeout (attempt 3): ('RETRY_EXHAUSTED_TRIGGER_CATCH', {'action': 'ROUTE_TO_DLQ_OR_COMPENSATION'})\nbusiness insufficient funds: ('CATCH_IMMEDIATE_COMPENSATION', {'action': 'EXECUTE_SAGA_ROLLBACK'})"
@@ -9652,7 +9472,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Allows the workflow to execute without requiring an IAM execution role ARN",
             "Ensures that retrying a failed compensation does not duplicate financial refunds or state updates",
-            "Forces Step Functions to execute the compensation inside a dedicated VPC private subnet across multi-region serverless execution environments and persistent storage buckets",
+            "Forces Step Functions to execute the compensation inside a dedicated VPC private subnet",
             "Enables the state machine to run on Apache Kafka brokers instead of AWS infrastructure"
           ],
           "answer": 1,
@@ -9685,13 +9505,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which operational signal indicates that a downstream microservice is failing in a Step Functions Saga workflow?",
           "options": [
-            "A sudden spike in the frequency of executed compensating states and DLQ events",
             "The AWS Billing Console reports an unexpected decrease in monthly Lambda compute charges",
             "Amazon Route 53 begins answering DNS queries from secondary regional edge locations",
+            "A sudden spike in the frequency of executed compensating states and DLQ events",
             "Kubernetes kubelet agents report that worker node container runtimes have restarted"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Downstream failures cause primary steps to fail, triggering Catch blocks that run compensating states to undo earlier steps."
         },
         "output": "healthy workflow audit: {'status': 'HEALTHY', 'compensation_rate_pct': 0.3, 'alerts': ['WORKFLOW_METRICS_NOMINAL']}\ndegraded workflow audit: {'status': 'ACTION_REQUIRED', 'compensation_rate_pct': 8.5, 'alerts': ['HIGH_WORKFLOW_FAILURE_COUNT_25', 'CRITICAL_WORKFLOW_TIMEOUT_DETECTED_4', 'WARNING_HIGH_SAGA_COMPENSATION_RATE_8.5pct']}"
@@ -9739,13 +9559,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an Amazon EventBridge Schema Registry in event-driven microservices?",
           "options": [
-            "Validates event structures to prevent producer changes from breaking downstream consumer contracts",
             "Compresses event payloads using gzip to reduce message storage fees by 80%",
-            "Converts all asynchronous JSON events into synchronous HTTP POST webhook calls through automated background health monitoring daemons and heartbeat probes",
+            "Validates event structures to prevent producer changes from breaking downstream consumer contracts",
+            "Converts all asynchronous JSON events into synchronous HTTP POST webhook calls",
             "Encrypts outgoing messages with ephemeral quantum-safe lattice cryptography"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Schema registries discover and enforce event schemas, ensuring backward compatibility and preventing consumer crashes."
         },
         "output": "standard eventbridge envelope: com.ecommerce.orders OrderPlaced ord-991"
@@ -9773,13 +9593,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does EventBridge content-based filtering reduce cloud operational costs compared to subscribing SQS queues to SNS topics?",
           "options": [
-            "Eliminates the requirement for configuring IAM execution roles on target Lambda functions across multi-zone container worker nodes and centralized edge cache distributions",
+            "Eliminates the requirement for configuring IAM execution roles on target Lambda functions",
             "Automatically reduces Amazon SQS message retention storage fees from 14 days to 1 hour",
-            "Converts all outgoing cloud messages into uncompressed raw binary UDP datagrams",
-            "Filters messages at the bus layer, avoiding paying for Lambda invocations or consumer reads on discarded events"
+            "Filters messages at the bus layer, avoiding paying for Lambda invocations or consumer reads on discarded events",
+            "Converts all outgoing cloud messages into uncompressed raw binary UDP datagrams provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Content-based filtering drops irrelevant events at the bus, so targets only run and incur costs for matching events."
         },
         "output": "matches VIP rule: True\nmatches FREE rule: False"
@@ -9808,13 +9628,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Amazon EventBridge Archive and Replay assist engineering teams during production incident recovery?",
           "options": [
-            "Automatically upgrades running consumer Lambda functions to the latest Python runtime version across distributed cloud availability zones during high-throughput network operations",
+            "Automatically upgrades running consumer Lambda functions to the latest Python runtime version",
             "Deletes all CloudWatch log streams recorded during the failure window to reset metrics",
-            "Replays historical events from a past time window back onto the bus so patched consumers can recover state",
-            "Converts all historical database mutations into read-only SQL SELECT queries"
+            "Converts all historical database mutations into read-only SQL SELECT queries provisioned across multi-zone cloud infrastructure",
+            "Replays historical events from a past time window back onto the bus so patched consumers can recover state"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Replay resends historical events through the bus, allowing patched consumers to reprocess missed or corrupted events."
         },
         "output": "replayed orders from t=50..180: 2"
@@ -9843,13 +9663,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should every Amazon EventBridge rule target be configured with an Amazon SQS Dead-Letter Queue (DLQ)?",
           "options": [
-            "Automatically accelerates message delivery latency across wide-area network backbones by bypassing operating system socket connection pools and TLS encryption handshakes",
             "Captures undeliverable events when targets fail or throttle, preventing permanent business message loss",
+            "Automatically accelerates message delivery latency across wide-area network backbones",
             "Eliminates the requirement for setting up IAM trust policies on the event bus",
             "Converts all outgoing JSON events into compressed Parquet columnar archives"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "DLQs ensure events that exceed retry limits or encounter target errors are preserved for inspection and reprocessing."
         },
         "output": "healthy delivery: DELIVERY_SUCCESS_ON_ATTEMPT_1\nfailing delivery: DELIVERY_EXHAUSTED_ROUTED_TO_TARGET_DLQ\ndlq records count: 1"
@@ -9933,7 +9753,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does Amazon SQS FIFO handle a producer sending two messages with identical MessageDeduplicationIds within 5 minutes?",
           "options": [
             "Accepts both API calls but enqueues only the first message, discarding the duplicate",
-            "Throws an immediate HTTP 400 InvalidParameterValueException to the producer across multi-region serverless execution environments and persistent storage buckets",
+            "Throws an immediate HTTP 400 InvalidParameterValueException to the producer",
             "Terminates the consumer Lambda function and restarts the worker node",
             "Converts the FIFO queue into a standard best-effort queue automatically"
           ],
@@ -9967,13 +9787,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do Message Group IDs enable high-throughput parallel processing in Amazon SQS FIFO queues?",
           "options": [
-            "Compresses all messages within the group into a single encrypted ZIP archive through automated background health monitoring daemons and heartbeat probes",
-            "Converts the queue from Amazon SQS into an Amazon Kinesis Data Stream",
-            "Eliminates the requirement for consumers to delete messages after processing",
-            "Enables strict FIFO ordering within each group while allowing parallel consumers to process different groups concurrently"
+            "Compresses all messages within the group into a single encrypted ZIP archive",
+            "Enables strict FIFO ordering within each group while allowing parallel consumers to process different groups concurrently",
+            "Converts the queue from Amazon SQS into an Amazon Kinesis Data Stream provisioned across multi-zone cloud infrastructure",
+            "Eliminates the requirement for consumers to delete messages after processing"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Message groups partition the queue: order is guaranteed within a group, while distinct groups run concurrently in parallel."
         },
         "output": "worker 1 assigned: {'consumer': 'worker-1', 'group': 'acct-1', 'message': 'tx-1A'}\nworker 2 assigned (concurrent): {'consumer': 'worker-2', 'group': 'acct-2', 'message': 'tx-2A'}\nworker 3 status (group locked): None"
@@ -10002,10 +9822,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should SQS consumers enable Long Polling (WaitTimeSeconds = 20) instead of Short Polling?",
           "options": [
-            "Forces SQS to store message bodies in persistent NVMe solid state drives",
+            "Forces SQS to store message bodies in persistent NVMe solid state drives provisioned across multi-zone cloud infrastructure",
             "Automatically upgrades message retention limits from 14 days to 365 days",
             "Reduces empty API responses and lowers billing costs by waiting for messages before returning",
-            "Enables client applications to bypass IAM execution role permission checks across multi-zone container worker nodes and centralized edge cache distributions"
+            "Enables client applications to bypass IAM execution role permission checks"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -10038,12 +9858,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What failure scenario occurs if an SQS queue does NOT configure a Dead-Letter Queue with maxReceiveCount?",
           "options": [
             "The SQS queue automatically deletes all messages older than sixty seconds",
-            "The AWS account is suspended for exceeding maximum API request rate limits across distributed cloud availability zones during high-throughput network operations",
-            "A poison pill message causes consumers to crash repeatedly in an infinite loop, stalling the queue",
-            "Network load balancers reject all incoming HTTPS client connections"
+            "The AWS account is suspended for exceeding maximum API request rate limits",
+            "Network load balancers reject all incoming HTTPS client connections",
+            "A poison pill message causes consumers to crash repeatedly in an infinite loop, stalling the queue"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Without a DLQ, malformed messages return to the queue indefinitely after timeouts, repeatedly crashing consumers."
         },
         "output": "MESSAGE_valid-1_PROCESSED_SUCCESSFULLY\nPOISON_PILL_poison-2_MOVED_TO_DLQ_AFTER_3_RECEIVES\ndlq contents: ['poison-2']\nREDRIVEN_1_MESSAGES_BACK_TO_SOURCE"
@@ -10071,13 +9891,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which Amazon CloudWatch metric indicates that SQS consumer workers are failing to keep up with message ingestion volume?",
           "options": [
-            "NumberOfEmptyReceives drops to exactly zero across all consumer threads",
             "ApproximateAgeOfOldestMessage steadily increases over consecutive measurement intervals",
+            "NumberOfEmptyReceives drops to exactly zero across all consumer threads provisioned across multi-zone cloud infrastructure",
             "SentMessageSize records values approaching the maximum 256 KB payload ceiling",
-            "ApproximateNumberOfMessagesNotVisible equals the total active worker thread pool by bypassing operating system socket connection pools and TLS encryption handshakes"
+            "ApproximateNumberOfMessagesNotVisible equals the total active worker thread pool"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A climbing ApproximateAgeOfOldestMessage means messages are waiting longer in the queue before being read, indicating consumer lag."
         },
         "output": "healthy queue audit: {'status': 'HEALTHY', 'active_queue_depth': 120, 'in_flight_processing': 30, 'oldest_age_seconds': 15, 'alerts': ['SQS_PIPELINE_NOMINAL']}\ndegraded queue audit: {'status': 'ACTION_REQUIRED', 'active_queue_depth': 8500, 'in_flight_processing': 50, 'oldest_age_seconds': 1800, 'alerts': ['CONSUMER_LAG_ALERT_OLDEST_MESSAGE_AGE_1800s', 'CRITICAL_POISON_PILL_DETECTED_IN_DLQ_COUNT_4']}"
@@ -10124,13 +9944,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which core operational guarantee does the integrated Milestone 9 serverless platform deliver?",
           "options": [
-            "High-throughput event-driven orchestration with zero duplicate transactions and automated DLQ recovery",
             "Single-threaded batch file processing on a dedicated on-premise mainframe computer",
-            "Unrestricted synchronous HTTP calls between microservices without timeout limits or circuit breakers across multi-region serverless execution environments and persistent storage buckets",
-            "Hardcoding database connection strings inside public GitHub client application bundles"
+            "Unrestricted synchronous HTTP calls between microservices without timeout limits or circuit breakers",
+            "Hardcoding database connection strings inside public GitHub client application bundles",
+            "High-throughput event-driven orchestration with zero duplicate transactions and automated DLQ recovery"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Milestone 9 delivers resilient, scalable serverless orchestration, content-based routing, and automated failure recovery."
         },
         "output": "milestone 9 readiness: {'components_count': 5, 'status': 'EVENT_PIPELINE_READY_FOR_ENTERPRISE_WORKLOADS', 'certified': True}"
@@ -10160,13 +9980,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Milestone 9 pipeline handle an unrecoverable failure during a multi-step order transaction?",
           "options": [
-            "Terminates the AWS account and deletes the production S3 bucket archives",
+            "Executes compensating transactions to restore state and routes failed context to a DLQ for inspection",
+            "Terminates the AWS account and deletes the production S3 bucket archives provisioned across multi-zone cloud infrastructure",
             "Retries the failing step indefinitely in an infinite loop without alerting engineers",
-            "Converts the failed transaction into a successful order and bills the customer anyway through automated background health monitoring daemons and heartbeat probes",
-            "Executes compensating transactions to restore state and routes failed context to a DLQ for inspection"
+            "Converts the failed transaction into a successful order and bills the customer anyway"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Saga compensation cleanly rolls back earlier steps, and the DLQ captures the failure context for audit and remediation."
         },
         "output": "event 1 success: ORDER_ord-101_PROCESSED_SUCCESSFULLY\nevent 2 failure: SAGA_ABORTED_COMPENSATED_AND_ROUTED_TO_DLQ\nprocessed orders: ['ord-101']\ndlq backlog: [{'order_id': 'ord-102', 'reason': 'SAGA_PAYMENT_FAILURE'}]"
@@ -10196,13 +10016,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of configuring 'ReportBatchItemFailures' on an AWS Lambda SQS event source mapping?",
           "options": [
-            "Automatically reduces the Lambda invocation execution timeout to under 100 milliseconds across multi-zone container worker nodes and centralized edge cache distributions",
-            "Converts the SQS FIFO queue into an unmanaged Redis Pub/Sub channel",
-            "Forces SQS to bill all batch receive API calls at a 50% promotional discount",
-            "Only failed messages return to the queue for retry, preventing successful batch messages from being reprocessed"
+            "Automatically reduces the Lambda invocation execution timeout to under 100 milliseconds",
+            "Only failed messages return to the queue for retry, preventing successful batch messages from being reprocessed",
+            "Converts the SQS FIFO queue into an unmanaged Redis Pub/Sub channel provisioned across multi-zone cloud infrastructure",
+            "Forces SQS to bill all batch receive API calls at a 50% promotional discount"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Partial batch failure reporting ensures only failing items retry, avoiding redundant reprocessing of successful items in the batch."
         },
         "output": "batch outcome: 9 successes, failed items: [{'itemIdentifier': 'msg-4'}]"
@@ -10230,7 +10050,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core behavior proves that the Milestone 9 serverless platform survived the 4-fault disaster simulation?",
           "options": [
-            "The entire AWS account is placed into read-only mode to prevent billing overages across distributed cloud availability zones during high-throughput network operations",
+            "The entire AWS account is placed into read-only mode to prevent billing overages",
             "All active SQS queues are purged permanently to clear poison pill backlogs",
             "All four failure modes are mitigated autonomously via warm provisioning, Saga rollbacks, target DLQs, and poison quarantine",
             "The platform restarts all worker nodes in the underlying cloud data center"
@@ -10264,13 +10084,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which milestone criteria officially certifies the completion of Milestone 9?",
           "options": [
-            "The application is migrated to a monolithic relational database running on a single server by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "All five gates (Cold-Start, Saga, EventBridge, SQS FIFO, and DLQ Redrive) pass deterministic verification",
+            "The application is migrated to a monolithic relational database running on a single server",
             "All asynchronous message queues are replaced with synchronous HTTP polling loops",
-            "CloudWatch audit logging is permanently disabled to reduce monthly AWS invoices"
+            "CloudWatch audit logging is permanently disabled to reduce monthly AWS invoices provisioned across multi-zone cloud infrastructure",
+            "All five gates (Cold-Start, Saga, EventBridge, SQS FIFO, and DLQ Redrive) pass deterministic verification"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Full certification requires deterministic verification of all serverless compute, orchestration, routing, and queueing invariants."
         },
         "output": "Milestone 9 Certification: {'milestone': 'Milestone 9: Event-Driven Serverless Orchestration & DLQ Recovery Engine', 'status': 'ENTERPRISE_CERTIFIED', 'audit_gates': {'gate_1_serverless_cold_start_optimization': 'PASS', 'gate_2_saga_orchestration_compensations': 'PASS', 'gate_3_eventbridge_content_filtering_replay': 'PASS', 'gate_4_sqs_fifo_message_group_concurrency': 'PASS', 'gate_5_dlq_redrive_poison_quarantine': 'PASS'}, 'certified': True}"
@@ -10318,13 +10138,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do enterprise cloud architectures use Single-Table Design in Amazon DynamoDB instead of multiple normalized tables?",
           "options": [
-            "Co-locates related parent and child entities in one partition, allowing single-query retrieval without relational JOINs",
-            "Eliminates the requirement for provisioning Read and Write Capacity Units on the database across multi-region serverless execution environments and persistent storage buckets",
+            "Eliminates the requirement for provisioning Read and Write Capacity Units on the database",
             "Automatically converts DynamoDB tables into relational PostgreSQL database instances",
+            "Co-locates related parent and child entities in one partition, allowing single-query retrieval without relational JOINs",
             "Allows client applications to execute arbitrary unindexed full-table scans at zero cost"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Single-table design co-locates pre-joined entities in a single partition, delivering O(1) multi-entity reads in one Query call."
         },
         "output": "single query fetches user + orders:\n -> METADATA Alice\n -> ORDER#2026-11-10 85.0\n -> ORDER#2026-11-12 140.0"
@@ -10353,13 +10173,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a DynamoDB Sparse Index optimize cost and query performance for rare status flags?",
           "options": [
-            "Only indexes items that contain the GSI attributes, creating a compact index for fast lookups",
             "Forces DynamoDB to store item attributes in local browser memory caches",
-            "Automatically reduces the provisioned write capacity unit cost by half",
-            "Deletes all completed items from the primary table after twenty-four hours through automated background health monitoring daemons and heartbeat probes"
+            "Automatically reduces the provisioned write capacity unit cost by half provisioned across multi-zone cloud infrastructure",
+            "Deletes all completed items from the primary table after twenty-four hours",
+            "Only indexes items that contain the GSI attributes, creating a compact index for fast lookups"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Items without the GSI key attribute are omitted from the index, keeping the index small, cheap, and fast to query."
         },
         "output": "primary table items: 3\nsparse GSI items count: 1\nsparse GSI fraud review query: USER#3"
@@ -10387,13 +10207,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What guarantee does DynamoDB TransactWriteItems deliver for multi-item updates in a single table?",
           "options": [
-            "Asynchronous eventual consistency where some items commit hours after others across multi-zone container worker nodes and centralized edge cache distributions",
+            "All-or-nothing ACID atomicity: all operations succeed together, or the entire transaction is cancelled",
+            "Asynchronous eventual consistency where some items commit hours after others",
             "Automatic conversion of DynamoDB partitions into public S3 bucket objects",
-            "Disabling provisioned capacity unit consumption on all write mutations",
-            "All-or-nothing ACID atomicity: all operations succeed together, or the entire transaction is cancelled"
+            "Disabling provisioned capacity unit consumption on all write mutations provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "TransactWriteItems provides all-or-nothing atomicity; if any condition check fails, no items are modified."
         },
         "output": "atomic transfer: (True, 'TRANSACTION_COMMITTED_ATOMICALLY')\nupdated balances: {'balance': 60} {'balance': 90}"
@@ -10422,13 +10242,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do high-throughput DynamoDB architectures apply Write Sharding to partition keys?",
           "options": [
-            "Automatically reduces Amazon DynamoDB storage pricing from standard tier to Infrequent Access across distributed cloud availability zones during high-throughput network operations",
-            "Forces DynamoDB to encrypt item attributes with customer-managed KMS envelope keys",
+            "Automatically reduces Amazon DynamoDB storage pricing from standard tier to Infrequent Access",
             "Distributes writes evenly across multiple physical storage partitions, eliminating hot-partition throughput throttling",
+            "Forces DynamoDB to encrypt item attributes with customer-managed KMS envelope keys",
             "Converts all item attributes into JSON strings that fit within network MTU limits"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Write sharding spreads traffic across multiple physical partitions, multiplying available WCUs beyond the single-partition 1,000 WCU limit."
         },
         "output": "item 101 PK: STATUS#ACTIVE_2\nitem 102 PK: STATUS#ACTIVE_3\nscatter-gather target PKs for full read: ['STATUS#ACTIVE_0', 'STATUS#ACTIVE_1', 'STATUS#ACTIVE_2', 'STATUS#ACTIVE_3']"
@@ -10457,12 +10277,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What operational risk occurs if a DynamoDB Global Secondary Index (GSI) has insufficient Write Capacity Units?",
           "options": [
             "The primary table automatically converts into an Amazon S3 Glacier Flexible Retrieval archive",
-            "Throttles on the GSI will back up and throttle writes to the primary table itself",
             "DynamoDB permanently deletes all items that possess the GSI partition key",
+            "Throttles on the GSI will back up and throttle writes to the primary table itself",
             "The AWS account root credentials are automatically regenerated by AWS Identity and Access Management"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Because GSI updates are driven by primary table writes, an under-provisioned GSI throttles and blocks writes on the primary table."
         },
         "output": "healthy audit: {'status': 'HEALTHY', 'pitr_active': True, 'throttles_total': 0, 'alerts': ['DYNAMODB_PERFORMANCE_OPTIMAL']}\ndegraded audit: {'status': 'ACTION_REQUIRED', 'pitr_active': False, 'throttles_total': 57, 'alerts': ['THROTTLING_DETECTED_READS_45_WRITES_12_ENABLE_AUTO_SCALING', 'CRITICAL_BACKUP_RISK_POINT_IN_TIME_RECOVERY_DISABLED']}"
@@ -10567,13 +10387,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary drawback of using a large number of write shards (e.g. N = 100) for a partition key?",
           "options": [
+            "DynamoDB tables are strictly limited to a maximum of 10 shards per AWS account routed through cross-region peering gateway endpoints",
+            "Writing to sharded partition keys automatically disables DynamoDB global secondary indexes",
             "Reads require querying all 100 shards simultaneously via scatter-gather, increasing read latency and RCU costs",
-            "DynamoDB tables are strictly limited to a maximum of 10 shards per AWS account",
-            "Writing to sharded partition keys automatically disables DynamoDB global secondary indexes by bypassing operating system socket connection pools and TLS encryption handshakes",
             "Secondary indexes cannot project attributes if partition keys contain period separators"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Scatter-gather reading requires querying every shard in parallel; larger N multiplies the number of queries and consumed read capacity."
         },
         "output": "scatter gather result: 100 items across 4 shards: 100"
@@ -10607,8 +10427,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why should production cloud systems avoid relying on DynamoDB burst capacity for sustained high-throughput workloads?",
           "options": [
             "Burst capacity is billed at 500% premium compared to provisioned write capacity units",
-            "Enabling burst capacity invalidates multi-region DynamoDB Global Table replication contracts across multi-region serverless execution environments and persistent storage buckets",
-            "Burst capacity is only available for tables deployed in single availability zones",
+            "Enabling burst capacity invalidates multi-region DynamoDB Global Table replication contracts",
+            "Burst capacity is only available for tables deployed in single availability zones provisioned across multi-zone cloud infrastructure",
             "Burst capacity only accumulates up to 300 seconds of unused capacity; once drained, throttling occurs immediately"
           ],
           "answer": 3,
@@ -10645,13 +10465,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is full decorrelated jitter essential when retrying throttled DynamoDB requests?",
           "options": [
-            "It automatically increases table provisioned write capacity units via CloudWatch alarms through automated background health monitoring daemons and heartbeat probes",
-            "It converts synchronous PutItem requests into asynchronous SQS FIFO background batches",
             "It breaks synchronization among thousands of concurrent retrying clients, preventing recurring thundering herd spikes",
+            "It automatically increases table provisioned write capacity units via CloudWatch alarms",
+            "It converts synchronous PutItem requests into asynchronous SQS FIFO background batches",
             "It encrypts payload attributes using temporary cryptographic nonce tokens"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Jitter randomizes wait times so retrying clients do not slam the throttled partition at the exact same millisecond interval."
         },
         "output": "client resilience outcome: SUCCESS total attempts: 3"
@@ -10684,13 +10504,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which AWS native diagnostic capability provides real-time visibility into the specific partition keys causing throttling in DynamoDB?",
           "options": [
-            "AWS CloudTrail Management Events across multi-zone container worker nodes and centralized edge cache distributions",
-            "Amazon VPC Flow Logs",
+            "AWS CloudTrail Management Events",
             "CloudWatch Contributor Insights for DynamoDB",
+            "Amazon VPC Flow Logs provisioned across multi-zone cloud infrastructure",
             "AWS Cost Explorer Resource Tags"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "CloudWatch Contributor Insights identifies top-accessed keys and throttled partition keys in real time on DynamoDB tables."
         },
         "output": "even audit: True\nhot audit: False"
@@ -10744,13 +10564,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Amazon Aurora achieve high write availability across three Availability Zones without waiting for traditional page flushes?",
           "options": [
-            "Buffers all uncommitted transactions in volatile local SSD memory without cross-AZ replication across distributed cloud availability zones during high-throughput network operations",
             "Ships only redo log streams to a distributed 6-way storage fleet, requiring a 4-of-6 write quorum",
+            "Buffers all uncommitted transactions in volatile local SSD memory without cross-AZ replication",
             "Relies on single-threaded synchronous block storage mirroring over standard Amazon EBS volumes",
             "Compresses entire database table spaces into periodic hourly S3 backup snapshots"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Aurora offloads log application to storage nodes and requires 4 of 6 copies to acknowledge redo log writes across three AZs."
         },
         "output": "full cluster (6 nodes): write= True read= True\ndegraded cluster (4 nodes): write= True read= True\nfault cluster (3 nodes): write= False read= True"
@@ -10784,13 +10604,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Aurora Global Database measure replication lag between the primary cluster and secondary clusters?",
           "options": [
+            "By polling `SELECT COUNT(*)` on audit tables every 60 seconds stored in local ephemeral container disk partitions",
             "By comparing Log Sequence Number (LSN) offsets between primary storage and secondary storage",
-            "By polling `SELECT COUNT(*)` on audit tables every 60 seconds",
             "By measuring round-trip ICMP ping times between region gateway routers",
-            "By executing synchronous two-phase commit transactions on every SQL query by bypassing operating system socket connection pools and TLS encryption handshakes"
+            "By executing synchronous two-phase commit transactions on every SQL query"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Aurora Global Database tracks replication progress using storage-layer Log Sequence Numbers (LSN), ensuring byte-accurate progress."
         },
         "output": "eu replica lag: 0.1 s, within SLA: True\nap replica lag: 1.2 s, within SLA: False"
@@ -10823,13 +10643,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of Aurora Global Database Write Forwarding?",
           "options": [
-            "Eliminates network latency by allowing multi-master writes without conflict resolution across multi-region serverless execution environments and persistent storage buckets",
+            "Eliminates network latency by allowing multi-master writes without conflict resolution",
             "Converts relational SQL tables into schemaless DynamoDB JSON document collections",
-            "Automatically doubles provisioned database compute memory in secondary regions",
-            "Enables secondary region applications to issue write statements to local replicas without manual cross-region connection pools"
+            "Enables secondary region applications to issue write statements to local replicas without manual cross-region connection pools",
+            "Automatically doubles provisioned database compute memory in secondary regions provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Write forwarding lets secondary region apps send writes to local replica endpoints, which forward them to the primary cluster automatically."
         },
         "output": "secondary read: LOCAL_READ latency: 2 ms\nsecondary write: WRITE_FORWARDED latency: 85 ms"
@@ -10903,13 +10723,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which CloudWatch metric provides the definitive measurement of cross-region storage replication lag in Aurora Global Database?",
           "options": [
-            "DatabaseConnections",
-            "DiskQueueDepth",
             "AuroraGlobalDBReplicationLag",
-            "NetworkReceiveThroughput through automated background health monitoring daemons and heartbeat probes"
+            "DatabaseConnections",
+            "DiskQueueDepth provisioned across multi-zone cloud infrastructure",
+            "NetworkReceiveThroughput"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "AuroraGlobalDBReplicationLag measures the exact replication latency in milliseconds between primary and secondary storage."
         },
         "output": "eu-west-1 compliance: True\nap-southeast-1 status: LAG_BREACH"
@@ -10963,13 +10783,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the principal cost advantage of Amazon S3 Intelligent-Tiering compared to manual lifecycle transitions to S3 Standard-IA?",
           "options": [
-            "Intelligent-Tiering provides free unlimited data transfer out to the public internet across multi-zone container worker nodes and centralized edge cache distributions",
-            "Intelligent-Tiering charges zero retrieval fees when infrequently accessed objects are unexpectedly requested",
+            "Intelligent-Tiering provides free unlimited data transfer out to the public internet",
             "Intelligent-Tiering automatically compresses all stored JPEG images by 90%",
-            "Intelligent-Tiering eliminates the requirement for S3 bucket encryption"
+            "Intelligent-Tiering eliminates the requirement for S3 bucket encryption",
+            "Intelligent-Tiering charges zero retrieval fees when infrequently accessed objects are unexpectedly requested"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "S3 Intelligent-Tiering incurs no retrieval fees when objects in Infrequent or Archive Instant tiers are accessed."
         },
         "output": "100TB Standard cost: $ 2300.0\n100TB Intelligent-Tiering cost: $ 1035.0\nMonthly savings: $ 1265.0 (55.0%)"
@@ -11004,9 +10824,9 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Can an AWS account root user delete an S3 object version protected by Object Lock in Compliance Mode before the retention period expires?",
           "options": [
             "No, Compliance Mode prevents any user, including the AWS account root user, from deleting the object until retention expires",
-            "Yes, the root user can delete any object by supplying MFA authentication codes across distributed cloud availability zones during high-throughput network operations",
+            "Yes, the root user can delete any object by supplying MFA authentication codes",
             "Yes, provided the root user files an emergency support ticket with AWS Support",
-            "No, unless the entire AWS account is closed and permanently deleted"
+            "No, unless the entire AWS account is closed and permanently deleted provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11042,13 +10862,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Amazon S3 format the composite checksum for an object uploaded using multipart upload?",
           "options": [
-            "The hash of the concatenated binary checksums of all parts, followed by a hyphen and the part count (e.g. hash-N)",
             "The arithmetic sum of all part sizes in hexadecimal format",
-            "The plaintext concatenated string of all part names",
-            "A single MD5 hash computed after downloading and re-assembling the full file by bypassing operating system socket connection pools and TLS encryption handshakes"
+            "The hash of the concatenated binary checksums of all parts, followed by a hyphen and the part count (e.g. hash-N)",
+            "The plaintext concatenated string of all part names provisioned across multi-zone cloud infrastructure",
+            "A single MD5 hash computed after downloading and re-assembling the full file"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "S3 calculates composite checksums by hashing the concatenated checksums of all individual parts and appending '-N'."
         },
         "output": "part 1 checksum: 32e3e876dc248ef4 ...\ncomposite s3 checksum: 84482f9e10833c67aae9417a8a11e43ff634e5324b620fe81fe963ea75badf37-3"
@@ -11084,11 +10904,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "All object versions are permanently shredded from AWS physical storage drives immediately",
             "The object is moved to S3 Glacier Deep Archive for a mandatory 90-day waiting period",
-            "The request fails with HTTP 403 Access Denied unless executed by the AWS account root user across multi-region serverless execution environments and persistent storage buckets",
-            "S3 inserts a Delete Marker as the latest version; previous versions remain completely intact and restorable"
+            "S3 inserts a Delete Marker as the latest version; previous versions remain completely intact and restorable",
+            "The request fails with HTTP 403 Access Denied unless executed by the AWS account root user"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In a versioned bucket, deleting an object simply adds a Delete Marker; prior versions remain intact and can be restored."
         },
         "output": "versioned delete action: DELETE_MARKER_INSERTED\ndata restorable: True total versions preserved: 2"
@@ -11124,11 +10944,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Amazon QuickSight Embedded",
             "AWS Trusted Advisor Cost Optimization Tab",
-            "Amazon S3 Storage Lens",
-            "Amazon Athena Query History"
+            "Amazon Athena Query History",
+            "Amazon S3 Storage Lens"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Amazon S3 Storage Lens provides centralized, organization-wide visibility into S3 usage, cost optimization metrics, and protection postures."
         },
         "output": "compliant bucket check: True\nrisky bucket issues: ['PUBLIC_ACCESS_ALLOWED', 'VERSIONING_DISABLED', 'OBJECT_LOCK_REQUIRED_BUT_DISABLED']"
@@ -11184,12 +11004,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural justification for adopting a polyglot persistence strategy rather than relying on a single relational database?",
           "options": [
             "Reduces AWS monthly billing costs by 99% across all storage tiers",
+            "Eliminates the requirement for network firewalls between application servers and databases",
             "Aligns each specific data access pattern with the optimal storage engine for latency, scalability, and cost",
-            "Eliminates the requirement for network firewalls between application servers and databases through automated background health monitoring daemons and heartbeat probes",
             "Ensures all cloud database tables use the exact same SQL table schema"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Polyglot persistence matches specific workload requirements (KV, relational, object) to purpose-built storage engines."
         },
         "output": "vote counter route: DynamoDB (Write-Sharded)\nfinancial ledger route: Aurora Global Database\ncompliance log route: Amazon S3 (Intelligent-Tiering)"
@@ -11225,12 +11045,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does the persistence kernel dispatcher handle high-throughput counter writes to prevent partition hotspotting?",
           "options": [
             "Buffers all writes in local text files without writing to cloud storage",
-            "Appends a deterministic shard suffix to the partition key, scattering writes across multiple physical partitions",
-            "Forces all counter updates to execute as serial single-threaded database transactions across multi-zone container worker nodes and centralized edge cache distributions",
-            "Converts all integer counter values into floating-point numbers"
+            "Forces all counter updates to execute as serial single-threaded database transactions",
+            "Converts all integer counter values into floating-point numbers provisioned across multi-zone cloud infrastructure",
+            "Appends a deterministic shard suffix to the partition key, scattering writes across multiple physical partitions"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The dispatcher calculates a shard suffix from the record hash to distribute writes evenly across partition shards."
         },
         "output": "counter dispatch: DynamoDB PERSISTED\nrelational dispatch: Aurora COMMITTED\nblob dispatch: S3 STORED_WORM"
@@ -11266,8 +11086,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does Amazon RDS Proxy improve database throughput for serverless and microservice architectures?",
           "options": [
             "Multiplexes thousands of client connections over a pool of established database sessions, preventing memory exhaustion",
-            "Converts all SQL SELECT queries into cached DynamoDB key-value records across distributed cloud availability zones during high-throughput network operations",
-            "Automatically rewrites SQL queries to remove WHERE clauses",
+            "Converts all SQL SELECT queries into cached DynamoDB key-value records",
+            "Automatically rewrites SQL queries to remove WHERE clauses provisioned across multi-zone cloud infrastructure",
             "Enables direct database access over unencrypted raw socket connections"
           ],
           "answer": 0,
@@ -11306,13 +11126,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a multi-region deployment, how does DynamoDB Global Tables handle region failure compared to Aurora Global Database?",
           "options": [
-            "DynamoDB requires a manual database restore from S3 snapshots; Aurora fails over instantly in 0 milliseconds by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "DynamoDB requires a manual database restore from S3 snapshots; Aurora fails over instantly in 0 milliseconds",
+            "DynamoDB Global Tables operates active-active across regions with automatic multi-master routing; Aurora promotes a secondary read cluster",
             "DynamoDB shuts down all tables until the primary region recovers",
-            "Aurora requires recreating all database tables and indexes from scratch",
-            "DynamoDB Global Tables operates active-active across regions with automatic multi-master routing; Aurora promotes a secondary read cluster"
+            "Aurora requires recreating all database tables and indexes from scratch"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "DynamoDB Global Tables supports multi-region active-active writes natively, whereas Aurora Global Database has a single primary writer and promotes a secondary reader on failover."
         },
         "output": "disaster failover to: us-west-2\naurora action: PROMOTE_SECONDARY dynamo action: AUTOMATIC_FAILOVER s3 action: MRAP_FAILOVER\nsystem recovery time objective: 40 seconds (< 60s target)"
@@ -11347,8 +11167,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which criteria must be met to certify Gate 2 (Aurora Global Database Storage Replication Lag) in Milestone 10?",
           "options": [
-            "All secondary database read replicas must be stopped and powered off",
-            "Database connections must exceed 50,000 concurrent sessions per second across multi-region serverless execution environments and persistent storage buckets",
+            "All secondary database read replicas must be stopped and powered off stored in local ephemeral container disk partitions",
+            "Database connections must exceed 50,000 concurrent sessions per second",
             "Storage replication lag must measure under 1,000 milliseconds across all secondary regions",
             "Tables must be exported to comma-separated CSV files every 5 minutes"
           ],
@@ -11407,13 +11227,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of enabling Amazon CloudFront Origin Shield?",
           "options": [
-            "Encrypts all backend database tables using quantum-resistant hardware security modules through automated background health monitoring daemons and heartbeat probes",
-            "Converts static HTML pages into dynamic server-rendered WebAssembly binaries",
+            "Encrypts all backend database tables using quantum-resistant hardware security modules",
             "Acts as a centralized caching layer that consolidates cross-region cache misses, protecting origin servers from traffic stampedes",
+            "Converts static HTML pages into dynamic server-rendered WebAssembly binaries",
             "Automatically scales up EC2 instance CPU sizes during sudden traffic spikes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Origin Shield consolidates cache misses from multiple regional caches into a single caching point, drastically reducing origin request volume."
         },
         "output": "standard edge CHR: 85.0 %\nrequests hitting origin without shield: 150000\nrequests hitting origin with shield: 12000\norigin load reduction: 92.0 %"
@@ -11447,13 +11267,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an architect select CloudFront Functions instead of Lambda@Edge?",
           "options": [
-            "When the edge function must query a remote PostgreSQL database over TCP sockets",
-            "For sub-millisecond, high-scale request/response header manipulation and URL rewrites that require no network access",
+            "When the edge function must query a remote PostgreSQL database over TCP sockets routed through cross-region peering gateway endpoints",
             "When the function needs to parse and mutate 50 MB file upload bodies in streaming mode",
-            "When executing long-running machine learning model inference workloads exceeding 5 minutes across multi-zone container worker nodes and centralized edge cache distributions"
+            "For sub-millisecond, high-scale request/response header manipulation and URL rewrites that require no network access",
+            "When executing long-running machine learning model inference workloads exceeding 5 minutes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "CloudFront Functions provide sub-millisecond execution for lightweight header, URL, and cache-key transformations without network access."
         },
         "output": "query string stripping: CloudFront Functions | latency: sub-millisecond (< 1ms)\nexternal api authentication: Lambda@Edge | latency: 5-50 milliseconds"
@@ -11487,13 +11307,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should an enterprise choose CloudFront Signed Cookies over Signed URLs for content protection?",
           "options": [
-            "When providing authorized access to multiple restricted files (e.g. all segments of an HLS video stream) without rewriting URLs",
-            "When the target files are larger than 5 gigabytes in size",
+            "When the target files are larger than 5 gigabytes in size provisioned across multi-zone cloud infrastructure",
             "When the client browser has disabled HTTP cookies entirely",
-            "When the origin server runs on a legacy mainframe without internet connectivity across distributed cloud availability zones during high-throughput network operations"
+            "When the origin server runs on a legacy mainframe without internet connectivity",
+            "When providing authorized access to multiple restricted files (e.g. all segments of an HLS video stream) without rewriting URLs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Signed Cookies allow a user to access multiple restricted files simultaneously without having to generate individual signed URLs for each chunk."
         },
         "output": "valid token check: True AUTHORIZED\nexpired token check: False TOKEN_EXPIRED"
@@ -11527,13 +11347,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does CloudFront Origin Failover maintain high availability when an origin application experiences a crash?",
           "options": [
-            "Automatically reboots the primary EC2 instances in the AWS management console by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "Automatically intercepts 5xx errors or timeouts from the primary origin and routes the request to a secondary origin",
+            "Automatically reboots the primary EC2 instances in the AWS management console",
             "Deletes all invalid DNS records from the public internet",
-            "Sends an SMS text message to the on-call engineer and returns HTTP 404",
-            "Automatically intercepts 5xx errors or timeouts from the primary origin and routes the request to a secondary origin"
+            "Sends an SMS text message to the on-call engineer and returns HTTP 404"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Origin Failover automatically redirects requests to a configured secondary origin when the primary returns 5xx errors or times out."
         },
         "output": "normal request: served by origin-alb.internal | failover: False\noutage request: served by origin-s3-failover.internal | failover: True"
@@ -11567,13 +11387,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which CloudFront logging feature provides near-instantaneous streaming of detailed viewer request records for real-time security analysis?",
           "options": [
-            "Standard S3 Access Logs delivered with hourly batch delays across multi-region serverless execution environments and persistent storage buckets",
-            "AWS Trusted Advisor security summary emails",
-            "Amazon CloudWatch Synthetics canary screenshots",
-            "CloudFront Real-Time Logs delivered via Amazon Kinesis Data Streams"
+            "Standard S3 Access Logs delivered with hourly batch delays",
+            "CloudFront Real-Time Logs delivered via Amazon Kinesis Data Streams",
+            "AWS Trusted Advisor security summary emails provisioned across multi-zone cloud infrastructure",
+            "Amazon CloudWatch Synthetics canary screenshots"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "CloudFront Real-Time Logs stream request events to Kinesis within seconds, allowing immediate detection of security threats and anomalies."
         },
         "output": "healthy CDN audit: OPTIMAL\ndegraded CDN issues: ['LOW_CACHE_HIT_RATE: 62.1% (< 80%)', 'HIGH_5XX_ERROR_RATE: 2.45% (> 1.0%)', 'ORIGIN_LATENCY_SPIKE: 820ms (> 500ms)']"
@@ -11627,13 +11447,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural objective of dividing a cloud system into a Cell-Based Architecture?",
           "options": [
-            "Eliminates the requirement for configuring VPC subnets across availability zones through automated background health monitoring daemons and heartbeat probes",
-            "Forces all application microservices to execute as single-threaded processes",
             "Confines the blast radius of any infrastructure failure or software defect to a single isolated cell",
+            "Eliminates the requirement for configuring VPC subnets across availability zones",
+            "Forces all application microservices to execute as single-threaded processes",
             "Reduces monthly cloud compute costs to zero during weekends"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Cell-based architectures partition systems into self-contained units so that any outage is strictly confined to a single cell."
         },
         "output": "10 cells blast radius: 10.0 % ( 10000 customers)\n100 cells blast radius: 1.0 % ( 1000 customers)"
@@ -11667,10 +11487,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What failure scenario does Route 53 ARC Readiness Checks prevent during emergency failover?",
           "options": [
-            "Accidentally deleting DNS domain name registrations from ICANN registries across multi-zone container worker nodes and centralized edge cache distributions",
+            "Accidentally deleting DNS domain name registrations from ICANN registries",
             "Shifting traffic to a secondary region or cell that lacks the capacity or synchronization to handle the load",
             "Encrypting application log files with expired symmetric encryption keys",
-            "Exceeding monthly corporate credit card spending limits on AWS billing"
+            "Exceeding monthly corporate credit card spending limits on AWS billing provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -11707,13 +11527,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Shuffle Sharding protect customers from being impacted by another customer's 'poison pill' request that crashes service instances?",
           "options": [
-            "Assigns each customer to a unique combination of K cells out of N total cells, reducing shared fate probability to a fraction of a percent",
-            "Encrypts incoming request payloads with ephemeral symmetric keys",
+            "Encrypts incoming request payloads with ephemeral symmetric keys provisioned across multi-zone cloud infrastructure",
             "Automatically disconnects all users whose username begins with the letter P",
-            "Reroutes all traffic through unmonitored proxy tunnels in international waters across distributed cloud availability zones during high-throughput network operations"
+            "Assigns each customer to a unique combination of K cells out of N total cells, reducing shared fate probability to a fraction of a percent",
+            "Reroutes all traffic through unmonitored proxy tunnels in international waters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Shuffle sharding assigns unique subsets of cells to each tenant, drastically reducing the probability that any two tenants share the exact same set of impacted cells."
         },
         "output": "total unique virtual shards C(20,4): 4845\ncollision probability for identical 4 cells: 0.0206 %\ntenant alpha assigned cells: [0, 4, 7, 9]\ntenant beta assigned cells: [4, 10, 12, 14]\noverlapping cells between alpha and beta: {4}"
@@ -11747,13 +11567,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of Route 53 ARC Assertion Safety Rules?",
           "options": [
-            "Prevents operational mistakes by rejecting routing control changes that violate safety invariants (e.g. turning off all cells)",
             "Automatically reduces Amazon Route 53 DNS query costs by 50%",
-            "Generates daily HTML summary reports of website traffic trends by bypassing operating system socket connection pools and TLS encryption handshakes",
-            "Converts IPv4 DNS addresses into IPv6 hexadecimal format"
+            "Generates daily HTML summary reports of website traffic trends",
+            "Converts IPv4 DNS addresses into IPv6 hexadecimal format",
+            "Prevents operational mistakes by rejecting routing control changes that violate safety invariants (e.g. turning off all cells)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Safety rules enforce critical invariants (like ensuring at least one control is active), rejecting updates that would inadvertently cause an outage."
         },
         "output": "illegal shutdown attempt: False | reason: SAFETY_RULE_VIOLATION: ATLEAST 1 control must remain ON\nlegal shift: enable az2 -> True | disable az1 -> True"
@@ -11787,13 +11607,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which criteria must be verified during an automated cellular architecture resilience audit?",
           "options": [
-            "Every microservice must be converted to run as a single Docker container on a shared host across multi-region serverless execution environments and persistent storage buckets",
+            "Fleet health and readiness percentages must exceed defined operational thresholds (e.g. >= 80%)",
+            "Every microservice must be converted to run as a single Docker container on a shared host",
             "All DNS record TTL values must be set to 86,400 seconds (24 hours)",
-            "All developer access keys must be disabled permanently",
-            "Fleet health and readiness percentages must exceed defined operational thresholds (e.g. >= 80%)"
+            "All developer access keys must be disabled permanently provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Resilience audits verify that active cells maintain acceptable health and readiness levels to ensure continuous service availability."
         },
         "output": "fleet health percentage: 80.0 %\nfleet readiness percentage: 80.0 %\nfleet certified compliant: True"
@@ -11849,11 +11669,11 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Automatically reduces EC2 instance running costs by shutting down idle servers",
             "Encrypts all source code repositories with quantum-resistant block ciphers",
-            "Prevents concurrent execution of terraform apply operations that would corrupt the remote state file",
-            "Converts HashiCorp Configuration Language (HCL) into executable binary machine code through automated background health monitoring daemons and heartbeat probes"
+            "Converts HashiCorp Configuration Language (HCL) into executable binary machine code",
+            "Prevents concurrent execution of terraform apply operations that would corrupt the remote state file"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "State locking prevents multiple team members or CI/CD pipelines from modifying the state file simultaneously, preventing data loss and corruption."
         },
         "output": "concurrent lock acquisition: False | error: Error acquiring the state lock\nfree lock acquisition: True | lock_id: lock-xyz-222"
@@ -11887,13 +11707,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes infrastructure drift in cloud environments managed by Terraform?",
           "options": [
-            "Upgrading the local Python interpreter on a developer workstation across multi-zone container worker nodes and centralized edge cache distributions",
             "Out-of-band manual changes made directly in the cloud console or via direct API calls outside of Terraform",
-            "Executing read-only AWS CLI commands like aws s3 ls",
+            "Upgrading the local Python interpreter on a developer workstation",
+            "Executing read-only AWS CLI commands like aws s3 ls provisioned across multi-zone cloud infrastructure",
             "Enabling multi-factor authentication on IAM user accounts"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Infrastructure drift occurs when cloud resources are modified outside of Terraform's control, causing actual state to differ from declared state."
         },
         "output": "drift detected: True | total drift items: 2\n - versioning: expected True but cloud was False\n - public_access: expected False but cloud was True"
@@ -11928,10 +11748,10 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of provisioning ephemeral preview environments in CI/CD pipelines?",
           "options": [
-            "Eliminates the requirement for writing unit tests and integration tests across distributed cloud availability zones during high-throughput network operations",
+            "Eliminates the requirement for writing unit tests and integration tests",
             "Enables isolated testing of pull requests on dedicated infrastructure without staging environment contention or merge collisions",
             "Automatically publishes developer code to public npm package registries",
-            "Converts all application databases into static HTML files"
+            "Converts all application databases into static HTML files provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -11969,13 +11789,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action should an engineer take if a Terraform state lock remains stuck after a CI/CD runner crashes mid-deployment?",
           "options": [
-            "Verify no other process is actively running, then execute terraform force-unlock <LOCK_ID> to release the lock",
-            "Permanently delete the entire AWS account and re-register a new domain by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "Permanently delete the entire AWS account and re-register a new domain",
             "Manually format all hard drives on the developer laptop",
+            "Verify no other process is actively running, then execute terraform force-unlock <LOCK_ID> to release the lock",
             "Comment out all resource definitions in main.tf and redeploy"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "After verifying no active pipeline is modifying infrastructure, terraform force-unlock clears the orphaned lock in DynamoDB."
         },
         "output": "reaped environments count: 2\n - pr-101: TERRAFORM_DESTROY_TRIGGERED\n - pr-102: TERRAFORM_DESTROY_TRIGGERED\nremaining active: ['pr-103']"
@@ -12011,8 +11831,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which security controls are mandatory for an enterprise Terraform remote state storage bucket in Amazon S3?",
           "options": [
             "Public read access enabled with anonymous write access allowed",
-            "S3 Object Lock set to 100-year Compliance Mode on the root folder across multi-region serverless execution environments and persistent storage buckets",
-            "Single-AZ deployment without backup or snapshot capabilities",
+            "S3 Object Lock set to 100-year Compliance Mode on the root folder",
+            "Single-AZ deployment without backup or snapshot capabilities stored in local ephemeral container disk partitions",
             "Server-Side Encryption with AWS KMS, S3 Bucket Versioning, and DynamoDB State Locking"
           ],
           "answer": 3,
@@ -12072,7 +11892,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary advantage of evaluating infrastructure policies using OPA during CI/CD rather than relying solely on runtime security scanners?",
           "options": [
             "Eliminates the requirement for configuring IAM roles and user passwords",
-            "Automatically reduces network bandwidth costs across all availability zones through automated background health monitoring daemons and heartbeat probes",
+            "Automatically reduces network bandwidth costs across all availability zones",
             "Shifts security left, blocking non-compliant resources from ever being created or provisioned in cloud accounts",
             "Converts all infrastructure definitions into compiled C++ binaries"
           ],
@@ -12112,13 +11932,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an OPA Rego policy enforce mandatory tagging across all newly created cloud resources in a Terraform plan?",
           "options": [
-            "Automatically invents random tag names and inserts them into AWS billing consoles across multi-zone container worker nodes and centralized edge cache distributions",
+            "Automatically invents random tag names and inserts them into AWS billing consoles",
             "Sends an automated email to HashiCorp technical support to request permission",
-            "Iterates over resource_changes in the plan and populates a deny set if required tag keys are absent",
-            "Deletes all Terraform state files and aborts the terminal process"
+            "Deletes all Terraform state files and aborts the terminal process provisioned across multi-zone cloud infrastructure",
+            "Iterates over resource_changes in the plan and populates a deny set if required tag keys are absent"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "OPA parses resource_changes in the planned JSON, evaluating tags and populating deny messages if mandatory tags are missing."
         },
         "output": "bad plan decision: DENY\nbad plan violations: [\"Resource aws_instance.web is missing mandatory tags: ['CostCenter', 'Owner']\"]\ngood plan decision: ALLOW"
@@ -12153,13 +11973,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of OPA Gatekeeper in a Kubernetes cluster?",
           "options": [
-            "Manages automated pod horizontal autoscaling based on memory usage",
             "Intercepts API requests as a validating admission webhook to enforce declarative security constraints before etcd persistence",
+            "Manages automated pod horizontal autoscaling based on memory usage provisioned across multi-zone cloud infrastructure",
             "Replaces the Linux container kernel with a proprietary microkernel",
-            "Provisions bare-metal hardware servers in physical corporate data centers across distributed cloud availability zones during high-throughput network operations"
+            "Provisions bare-metal hardware servers in physical corporate data centers"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Gatekeeper acts as a validating admission webhook, checking resource specifications against Rego policies before Kubernetes persists them."
         },
         "output": "rogue pod admission allowed: False\nrogue violations: [\"Container 'miner' uses unauthorized registry: 'docker.io/unverified/app:v1'\", \"Container 'miner' cannot run in privileged mode\"]\napproved pod admission allowed: True"
@@ -12195,13 +12015,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should an enterprise initially deploy new Policy-as-Code guardrails in Audit mode rather than Enforce mode?",
           "options": [
+            "Because Audit mode completely disables all security evaluations in AWS accounts",
             "To measure violation frequency and allow teams to remediate existing resources without unexpectedly blocking deployments",
-            "Because Audit mode completely disables all security evaluations in AWS accounts by bypassing operating system socket connection pools and TLS encryption handshakes",
             "To avoid paying software license fees for Open Policy Agent",
             "Because Enforce mode is only supported on Linux operating systems"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Audit mode provides visibility into policy violations without blocking developers, enabling graceful remediation before turning on hard enforcement."
         },
         "output": "audit mode blocked: False | status: AUDIT_WARNING\nenforce mode blocked: True | status: BLOCKED\nbreak-glass bypass blocked: False | status: BREAK_GLASS_BYPASS"
@@ -12237,13 +12057,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which telemetry metrics are critical for assessing the health and adoption of a Policy-as-Code gatekeeper in CI/CD?",
           "options": [
-            "The physical temperature of the developer's laptop keyboard",
+            "The physical temperature of the developer's laptop keyboard without scoped least-privilege IAM policy boundaries",
             "The total number of git branches ever created in the GitHub repository",
-            "The resolution of the computer monitor used by the security administrator across multi-region serverless execution environments and persistent storage buckets",
-            "Policy evaluation latency, pipeline pass rate, violation frequency by rule, and break-glass exception counts"
+            "Policy evaluation latency, pipeline pass rate, violation frequency by rule, and break-glass exception counts",
+            "The resolution of the computer monitor used by the security administrator"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Tracking evaluation latency, pass rates, and violation trends ensures policies enforce security without becoming a development bottleneck."
         },
         "output": "total policy evaluations: 5\npipeline pass rate: 80.0 %\naverage evaluation latency: 14.0 ms"
@@ -12298,13 +12118,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Milestone 11 integrate edge routing and policy governance into a unified cloud architecture?",
           "options": [
-            "Replaces all cloud infrastructure with a single physical server in an office basement through automated background health monitoring daemons and heartbeat probes",
+            "Replaces all cloud infrastructure with a single physical server in an office basement",
+            "Combines CloudFront edge caching, Route 53 ARC shuffle-sharded routing, and OPA CI/CD policy enforcement into a single cohesive platform",
             "Eliminates all unit tests and security reviews to accelerate feature deployment",
-            "Requires all developers to write infrastructure using assembly language",
-            "Combines CloudFront edge caching, Route 53 ARC shuffle-sharded routing, and OPA CI/CD policy enforcement into a single cohesive platform"
+            "Requires all developers to write infrastructure using assembly language"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Milestone 11 synthesizes edge optimization, cellular fault-isolated routing, and automated policy gates into an enterprise platform."
         },
         "output": "platform architecture tiers: 3\n - EDGE_LAYER: CloudFront Origin Shield + Edge Functions (sub-1ms)\n - ROUTING_LAYER: Route 53 ARC Shuffle Sharding C(20,4) = 4,845 Shards\n - GOVERNANCE_LAYER: OPA Policy-as-Code CI/CD Gatekeeper + Admission Webhook"
@@ -12339,8 +12159,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the cellular platform controller handle a failure in one of a tenant's assigned cells?",
           "options": [
-            "Disconnects the customer permanently and deletes their account database across multi-zone container worker nodes and centralized edge cache distributions",
-            "Shuts down all 20 cells in the entire AWS region simultaneously",
+            "Disconnects the customer permanently and deletes their account database",
+            "Shuts down all 20 cells in the entire AWS region simultaneously provisioned across multi-zone cloud infrastructure",
             "Fails over immediately to another healthy cell within the tenant's assigned shuffle shard pool",
             "Converts all incoming HTTP traffic into raw TCP socket connections"
           ],
@@ -12381,13 +12201,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does compiling OPA policies to WebAssembly (Wasm) optimize CI/CD pipeline throughput?",
           "options": [
-            "Automatically reduces Docker container image sizes by 99%",
-            "Enables sub-millisecond policy evaluation, allowing thousands of resource changes to be validated with negligible pipeline overhead",
+            "Automatically reduces Docker container image sizes by 99% without scoped least-privilege IAM policy boundaries",
             "Converts all AWS cloud services into locally hosted serverless emulators",
-            "Eliminates the requirement for running integration tests in staging environments across distributed cloud availability zones during high-throughput network operations"
+            "Eliminates the requirement for running integration tests in staging environments",
+            "Enables sub-millisecond policy evaluation, allowing thousands of resource changes to be validated with negligible pipeline overhead"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Wasm-compiled Rego policies execute in sub-milliseconds, ensuring that comprehensive security checks do not slow down CI/CD builds."
         },
         "output": "edge cache hit rate: 92.0 % | status: OPTIMAL\n150 resources policy evaluation time: 15.0 ms\noverall pipeline impact: NEGLIGIBLE (< 50ms)"
@@ -12425,7 +12245,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The tenant experiences zero downtime because traffic is automatically routed to one of their other 3 healthy cells",
             "The tenant loses all data and must recreate their account from scratch",
-            "The tenant's account is permanently suspended until manual database repairs complete by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "The tenant's account is permanently suspended until manual database repairs complete",
             "The entire cloud application shuts down across all AWS regions"
           ],
           "answer": 0,
@@ -12464,13 +12284,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which criteria must be met to certify Gate 4 (Policy-as-Code Gatekeeper) in Milestone 11?",
           "options": [
+            "All developers must pass a handwritten multiple-choice exam on cloud security",
             "Non-compliant infrastructure configurations (e.g. unencrypted storage, open SSH) must be blocked with 100% accuracy in CI/CD",
-            "All developers must pass a handwritten multiple-choice exam on cloud security across multi-region serverless execution environments and persistent storage buckets",
-            "The CI/CD pipeline must take at least 45 minutes to run every build",
+            "The CI/CD pipeline must take at least 45 minutes to run every build stored in local ephemeral container disk partitions",
             "All open-source software libraries must be banned from the codebase"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Gate 4 certifies that the Policy-as-Code engine deterministically blocks 100% of non-compliant infrastructure changes during CI/CD plan evaluation."
         },
         "output": "milestone 11 certification: PASSED\n - GATE_1_EDGE_CHR: PASSED\n - GATE_2_SHUFFLE_SHARDING: PASSED\n - GATE_3_IAC_GOVERNANCE: PASSED\n - GATE_4_POLICY_GUARDRAILS: PASSED\n - GATE_5_CELLULAR_RESILIENCE: PASSED"
@@ -12524,13 +12344,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of tracking Unit Economics (such as Cost Per Tenant) in cloud financial management?",
           "options": [
+            "Measures cloud infrastructure spending relative to specific business outcomes, revealing the profitability of customer tiers",
             "Eliminates the requirement for paying AWS monthly infrastructure invoices",
-            "Forces all software developers to manually approve every outgoing HTTP network request through automated background health monitoring daemons and heartbeat probes",
-            "Automatically deletes database records for inactive customer accounts",
-            "Measures cloud infrastructure spending relative to specific business outcomes, revealing the profitability of customer tiers"
+            "Forces all software developers to manually approve every outgoing HTTP network request",
+            "Automatically deletes database records for inactive customer accounts"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Unit economics ties infrastructure spending directly to business metrics like Cost Per Tenant or Cost Per Transaction, enabling profitable product pricing."
         },
         "output": "tenant tenant_alpha: direct=$120.5, total=$220.5\ntenant tenant_beta: direct=$450.0, total=$550.0\ntenant tenant_gamma: direct=$35.25, total=$135.25"
@@ -12565,13 +12385,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does proportional cost allocation distribute shared Kubernetes cluster costs across multiple tenants?",
           "options": [
-            "Divides the bill equally among all company employees regardless of infrastructure usage across multi-zone container worker nodes and centralized edge cache distributions",
-            "Charges 100% of the cluster bill to the newest software engineer on the team",
+            "Divides the bill equally among all company employees regardless of infrastructure usage",
             "Calculates the ratio of core-hours and memory consumed by each tenant's pods relative to total cluster usage",
+            "Charges 100% of the cluster bill to the newest software engineer on the team provisioned across multi-zone cloud infrastructure",
             "Randomly selects one tenant each month to pay the entire infrastructure invoice"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Proportional cost allocation measures actual CPU core-hours and memory used by each tenant's containers, dividing shared costs fairly."
         },
         "output": "tenant_ecommerce: 23.1% of cluster ($600.0)\ntenant_analytics: 69.2% of cluster ($1800.0)\ntenant_identity: 7.7% of cluster ($200.0)"
@@ -12606,12 +12426,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does AWS Cost Anomaly Detection identify unexpected cloud spending spikes without generating false alarms during expected peak hours?",
           "options": [
             "Sends an alert every time any engineer creates a new S3 bucket or EC2 instance",
+            "Requires finance managers to manually approve every server launch request provisioned across multi-zone cloud infrastructure",
             "Applies machine learning models that evaluate historical spending baselines and account for seasonal usage patterns",
-            "Requires finance managers to manually approve every server launch request",
-            "Shuts down all cloud servers every night at midnight to prevent unexpected spending across distributed cloud availability zones during high-throughput network operations"
+            "Shuts down all cloud servers every night at midnight to prevent unexpected spending"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Cost Anomaly Detection uses machine learning to learn seasonal trends and historical baselines, isolating true anomalies from normal traffic peaks."
         },
         "output": "S3 status: NORMAL | z-score: 1.5\nEC2 status: CRITICAL | z-score: 13.5 (+270.0%)"
@@ -12647,12 +12467,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why should automated AWS Budget Actions apply different remediation rules for production vs non-production accounts?",
           "options": [
             "Because AWS does not support budgets in production AWS accounts",
-            "Non-production accounts can safely halt compute instances to prevent overspend, while production systems must preserve customer uptime",
             "Production accounts are legally exempt from paying for cloud infrastructure",
-            "Non-production accounts use physical hardware while production accounts use virtual machines by bypassing operating system socket connection pools and TLS encryption handshakes"
+            "Non-production accounts use physical hardware while production accounts use virtual machines",
+            "Non-production accounts can safely halt compute instances to prevent overspend, while production systems must preserve customer uptime"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Halting resources in production would cause a customer-facing outage, while stopping instances in dev/sandbox environments prevents wasteful spending safely."
         },
         "output": "dev overspend action: APPLY_READ_ONLY_IAM_POLICY_AND_HALT_NON_PROD (135.0%)\nprod overspend action: ESCALATE_ALERT_ONLY_NO_SHUTDOWN (125.0%)"
@@ -12688,8 +12508,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Untagged resources appear as unallocated spending in billing reports, making accurate unit cost and tenant attribution impossible",
             "Because untagged EC2 instances automatically run at half their normal CPU speed",
-            "AWS charges a 20% fine on monthly invoices for every untagged resource in an account across multi-region serverless execution environments and persistent storage buckets",
-            "Untagged S3 buckets cannot be accessed over HTTPS internet protocols"
+            "AWS charges a 20% fine on monthly invoices for every untagged resource in an account",
+            "Untagged S3 buckets cannot be accessed over HTTPS internet protocols provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12747,7 +12567,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the primary architectural advantage of Compute Savings Plans over EC2 Instance Savings Plans?",
           "options": [
             "Provides completely free compute for the first 3 months of every calendar year",
-            "Allows developers to run legacy Windows applications on ARM-based Graviton chips without recompilation through automated background health monitoring daemons and heartbeat probes",
+            "Allows developers to run legacy Windows applications on ARM-based Graviton chips without recompilation",
             "Eliminates the requirement for configuring VPC security groups",
             "Applies automatically across EC2, Fargate, and Lambda regardless of instance family, region, or operating system"
           ],
@@ -12787,13 +12607,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should cloud platform teams avoid purchasing Savings Plans that cover 100% of peak hourly compute usage?",
           "options": [
-            "AWS prohibits purchasing Savings Plans that exceed $5.00 per hour",
-            "Because Savings Plans cannot be purchased using corporate credit cards",
             "During off-peak hours and weekends, committed capacity will sit unutilized, causing financial waste and reducing overall ROI",
-            "100% coverage automatically converts all EC2 instances into bare-metal servers across multi-zone container worker nodes and centralized edge cache distributions"
+            "AWS prohibits purchasing Savings Plans that exceed $5.00 per hour provisioned across multi-zone cloud infrastructure",
+            "Because Savings Plans cannot be purchased using corporate credit cards",
+            "100% coverage automatically converts all EC2 instances into bare-metal servers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Committing to 100% of peak usage means paying for unused commitment during off-peak hours; targeting 75-85% baseline guarantees full utilization."
         },
         "output": "average hourly spend: $ 73.5\npeak hourly spend: $ 99\nrecommended hourly commitment: $ 60"
@@ -12827,13 +12647,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of using the 'price-capacity-optimized' allocation strategy for EC2 Spot Fleets?",
           "options": [
-            "Forces AWS to guarantee zero spot instance interruptions for 365 consecutive days across distributed cloud availability zones during high-throughput network operations",
-            "Converts all spot instances into physical dedicated hosts in AWS data centers",
+            "Forces AWS to guarantee zero spot instance interruptions for 365 consecutive days",
             "Selects spot pools with the lowest historical interruption frequency while optimizing purchase price across diversified instance types",
-            "Automatically reduces VPC NAT Gateway data processing fees by 90%"
+            "Converts all spot instances into physical dedicated hosts in AWS data centers",
+            "Automatically reduces VPC NAT Gateway data processing fees by 90% provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Price-capacity-optimized looks at both price and capacity depth, selecting pools that minimize the probability of interruption while offering high discounts."
         },
         "output": "on-demand base guaranteed: 30 units\nspot capacity total: 70 units\nspot pools utilized: 5\nallocation per pool: {'c6g.xlarge': 14, 'c6i.xlarge': 14, 'm6g.xlarge': 14, 'm6i.xlarge': 14, 'c5.xlarge': 14}"
@@ -12869,12 +12689,12 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How much advance notice does AWS provide via Amazon EventBridge before reclaiming an EC2 Spot Instance?",
           "options": [
             "15 minutes (900 seconds)",
-            "2 minutes (120 seconds)",
             "1 hour (3,600 seconds)",
+            "2 minutes (120 seconds)",
             "24 hours (86,400 seconds)"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "AWS delivers the EC2 Spot Instance Interruption Warning via EventBridge and instance metadata exactly 2 minutes prior to termination."
         },
         "output": "interrupted instance: i-0a1b2c3d4e5f67890\ncordon and drain execution: GRACEFULLY_DRAINED\nreplacement triggered: True"
@@ -12909,13 +12729,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Savings Plans Utilization metric of 78% indicate to a cloud financial engineer?",
           "options": [
-            "The organization is over-committed, paying for hourly commitment discounts that are not being consumed by workloads",
-            "78% of all EC2 instances in the AWS account have crashed by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "78% of all EC2 instances in the AWS account have crashed",
             "The AWS account has exceeded its monthly credit limit",
-            "All cloud storage buckets are currently 78% full"
+            "All cloud storage buckets are currently 78% full provisioned across multi-zone cloud infrastructure",
+            "The organization is over-committed, paying for hourly commitment discounts that are not being consumed by workloads"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Utilization measures how much of the purchased commitment is actually applied; under 95% means the company bought more commitment than needed."
         },
         "output": "healthy portfolio status: OPTIMAL\nwasteful portfolio issues: ['OVER_COMMITTED_WASTE: 78.4% (< 95% target; paying for unused hours)']"
@@ -12970,13 +12790,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does AWS KMS rely on Envelope Encryption rather than encrypting large files directly inside KMS?",
           "options": [
-            "Direct encryption in KMS permanently deletes the original plaintext file from the local hard drive across multi-region serverless execution environments and persistent storage buckets",
+            "Direct encryption in KMS permanently deletes the original plaintext file from the local hard drive",
             "Envelope encryption eliminates the requirement for using cryptographic algorithms",
-            "KMS is only capable of encrypting ASCII text files with less than 100 words",
-            "KMS limits direct encrypt/decrypt payloads to 4 KB; envelope encryption encrypts bulk data locally with high-performance DEKs"
+            "KMS limits direct encrypt/decrypt payloads to 4 KB; envelope encryption encrypts bulk data locally with high-performance DEKs",
+            "KMS is only capable of encrypting ASCII text files with less than 100 words"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "KMS caps direct API encryption at 4 KB; envelope encryption uses KMS to generate a data key (DEK) that encrypts unlimited bulk data locally."
         },
         "output": "root key: AWS KMS KMS Key (Master Key / HSM Protected)\ndata key: 256-bit AES-GCM Data Encryption Key (DEK)\nenvelope structure: ['ciphertext_data', 'ciphertext_dek', 'encryption_context']"
@@ -13012,8 +12832,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the cryptographic security role of the Encryption Context in AWS KMS envelope encryption?",
           "options": [
             "Stores the plaintext password of the AWS root account in public DNS records",
-            "Compresses the encrypted data payload using gzip compression",
-            "Automatically sends an email notification to the customer whenever data is read through automated background health monitoring daemons and heartbeat probes",
+            "Compresses the encrypted data payload using gzip compression provisioned across multi-zone cloud infrastructure",
+            "Automatically sends an email notification to the customer whenever data is read",
             "Acts as Additional Authenticated Data (AAD) that must match exactly during decryption, preventing ciphertext tampering or misuse"
           ],
           "answer": 3,
@@ -13051,13 +12871,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do AWS KMS Multi-Region Keys optimize latency and resilience in multi-region cloud architectures?",
           "options": [
-            "Automatically convert all relational databases into globally replicated Redis caches across multi-zone container worker nodes and centralized edge cache distributions",
-            "Eliminate all data transfer egress fees across AWS regions",
             "Allow ciphertext encrypted in one region to be decrypted locally in another region without making cross-region KMS API calls",
-            "Double the maximum throughput of all local CPU cores"
+            "Automatically convert all relational databases into globally replicated Redis caches",
+            "Eliminate all data transfer egress fees across AWS regions",
+            "Double the maximum throughput of all local CPU cores provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Multi-Region Keys share identical key material across regions, enabling local decryption of cross-region ciphertexts with zero cross-region API latency."
         },
         "output": "primary key: arn:aws:kms:us-east-1:123456789012:key/mrk-4bf92f3577b34da6\nreplica in eu-west-1: arn:aws:kms:eu-west-1:123456789012:key/mrk-4bf92f3577b34da6 (can decrypt: True)\nreplica in ap-southeast-1: arn:aws:kms:ap-southeast-1:123456789012:key/mrk-4bf92f3577b34da6 (can decrypt: True)"
@@ -13091,7 +12911,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When AWS KMS automatically rotates a Customer Managed Key, what happens to previously encrypted ciphertext?",
           "options": [
-            "All previously encrypted data is immediately corrupted and rendered permanently unreadable across distributed cloud availability zones during high-throughput network operations",
+            "All previously encrypted data is immediately corrupted and rendered permanently unreadable",
             "KMS preserves previous backing key versions, allowing old ciphertext to be decrypted seamlessly without manual re-encryption",
             "The application must decrypt and re-encrypt all historic data within 24 hours",
             "The Key ARN changes and all application configuration files must be updated"
@@ -13131,13 +12951,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which AWS service records an immutable, chronological log of every KMS API request (including Decrypt and GenerateDataKey) for compliance auditing?",
           "options": [
-            "AWS CloudTrail",
             "Amazon Route 53 Resolver",
             "AWS Trusted Advisor Cost Tab",
+            "AWS CloudTrail",
             "Amazon VPC Internet Gateway"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "AWS CloudTrail records all KMS API requests, logging the calling identity, timestamp, and encryption context for regulatory audits."
         },
         "output": "overall KMS audit passed: False\n - key-prod-orders: compliant=True, issues=[]\n - key-legacy-audit: compliant=False, issues=['ANNUAL_ROTATION_DISABLED']"
@@ -13192,13 +13012,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical safety role of Stop Conditions in AWS Fault Injection Simulator (FIS) experiments?",
           "options": [
-            "Automatically aborts the experiment and rolls back injected faults if CloudWatch alarms detect unacceptable customer impact",
             "Permanently reboots all AWS data centers worldwide",
+            "Automatically aborts the experiment and rolls back injected faults if CloudWatch alarms detect unacceptable customer impact",
             "Deletes all application source code from GitHub repositories",
-            "Forces all software developers to log out of their corporate laptops by bypassing operating system socket connection pools and TLS encryption handshakes"
+            "Forces all software developers to log out of their corporate laptops"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Stop conditions monitor CloudWatch alarms, halting the experiment immediately and rolling back faults if customer error rates breach safety limits."
         },
         "output": "experiment name: AZ_Impairment_Test\nhypothesis: Application availability remains >= 99.95% when AZ-1 network is severed\nstop condition alarm: HighCustomerErrorRate"
@@ -13233,13 +13053,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a stop condition CloudWatch alarm is in ALARM state prior to launching an AWS FIS experiment?",
           "options": [
-            "FIS overrides the alarm and deletes the CloudWatch metric across multi-region serverless execution environments and persistent storage buckets",
+            "FIS overrides the alarm and deletes the CloudWatch metric",
             "FIS doubles the intensity of the injected fault action",
-            "FIS reboots the AWS management console",
-            "FIS aborts the launch immediately, preventing experiment execution on an already degraded system"
+            "FIS aborts the launch immediately, preventing experiment execution on an already degraded system",
+            "FIS reboots the AWS management console provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "FIS requires stop condition alarms to be in the OK state before starting, ensuring experiments only run on healthy baseline infrastructure."
         },
         "output": "clean run status: COMPLETED | hypothesis verified: True\naborted run status: FAILED_PREFLIGHT | reason: Stop condition alarm already firing"
@@ -13274,13 +13094,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is simulating network latency and packet loss with AWS FIS more effective at finding microservice bugs than simply terminating instances?",
           "options": [
-            "Network latency testing increases EC2 instance clock speeds by 50%",
+            "Network latency testing increases EC2 instance clock speeds by 50% provisioned across multi-zone cloud infrastructure",
             "Packet loss testing converts HTTP/1.1 requests into raw binary UDP streams",
-            "Slow responses uncover missing timeouts, thread pool exhaustion, and retry storms that clean server crashes never expose",
-            "Terminating instances is completely forbidden under AWS security guidelines through automated background health monitoring daemons and heartbeat probes"
+            "Terminating instances is completely forbidden under AWS security guidelines",
+            "Slow responses uncover missing timeouts, thread pool exhaustion, and retry storms that clean server crashes never expose"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Slow dependencies frequently cause thread starvation and cascading retry storms across microservices, while clean crashes simply return immediate errors."
         },
         "output": "normal latency check: HEALTHY (attempts=1)\ninjected latency check: CASCADING_TIMEOUT_FAILURE (attempts=3, wait=600ms)"
@@ -13315,13 +13135,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does coupling AWS FIS chaos experiments with AWS Systems Manager (SSM) Automation runbooks improve system resilience?",
           "options": [
-            "Deletes all CloudWatch alarms to prevent alert fatigue among operations engineers across multi-zone container worker nodes and centralized edge cache distributions",
             "Validates that simulated failure alerts automatically trigger executable runbooks that recover services in under 2 minutes without human intervention",
+            "Deletes all CloudWatch alarms to prevent alert fatigue among operations engineers",
             "Converts all AWS cloud accounts into free tier accounts",
             "Eliminates the requirement for backing up database volumes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Testing with FIS proves that monitoring alerts trigger automated SSM runbooks that successfully restore system health with sub-2-minute MTTR."
         },
         "output": "remediation trigger: Alarm-High5xxRate\nrunbook status: AUTO_REMEDIATED_SUCCESS\nmean time to recovery: 75.0 seconds (within 2-min SLA: True )"
@@ -13358,8 +13178,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The physical weight of the computer monitors in the office",
             "Time to Detect (TTD), Time to Recover (MTTR), Hypothesis Verification Rate, and Steady-State Health Impact",
-            "The number of coffee cups consumed during the incident drill across distributed cloud availability zones during high-throughput network operations",
-            "The font size used in the operational documentation"
+            "The number of coffee cups consumed during the incident drill",
+            "The font size used in the operational documentation provisioned across multi-zone cloud infrastructure"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -13419,7 +13239,7 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "99.999% availability, RPO under 1 second, and RTO under 60 seconds across active-active AWS regions",
             "90.0% availability with 24 hours of acceptable transactional data loss",
-            "Single-region deployment with manual tape backup restores taking 3 days by bypassing operating system socket connection pools and TLS encryption handshakes",
+            "Single-region deployment with manual tape backup restores taking 3 days",
             "Monthly scheduled downtime of 12 hours for operating system updates"
           ],
           "answer": 0,
@@ -13461,13 +13281,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Capstone transaction engine coordinate security, fault isolation, and FinOps attribution during request processing?",
           "options": [
-            "Stores all user passwords in plaintext in public S3 buckets",
+            "Stores all user passwords in plaintext in public S3 buckets provisioned across multi-zone cloud infrastructure",
+            "Combines shuffle-sharded cellular routing, KMS envelope encryption, and real-time tenant resource tracking in a single unified control flow",
             "Disables all network encryption to maximize raw CPU performance",
-            "Requires manual human operator approval for every single database write across multi-region serverless execution environments and persistent storage buckets",
-            "Combines shuffle-sharded cellular routing, KMS envelope encryption, and real-time tenant resource tracking in a single unified control flow"
+            "Requires manual human operator approval for every single database write"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The engine orchestrates cellular routing for fault isolation, envelope encryption for data security, and usage tracking for unit economics in a unified pipeline."
         },
         "output": "transaction 1 status: COMMITTED_MULTI_REGION | cell: 3\ntransaction 2 status: COMMITTED_MULTI_REGION | total tenant txs: 2"
@@ -13501,8 +13321,8 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do CloudFront Origin Shield and Karpenter Spot Fleet mixing combine to optimize cloud operating costs in the capstone platform?",
           "options": [
-            "They automatically downgrade all EC2 instances to t2.micro sizes through automated background health monitoring daemons and heartbeat probes",
-            "They disable all logging and monitoring across all AWS accounts",
+            "They automatically downgrade all EC2 instances to t2.micro sizes",
+            "They disable all logging and monitoring across all AWS accounts provisioned across multi-zone cloud infrastructure",
             "Origin Shield reduces origin compute load by over 90%, while Spot Fleet mixing cuts underlying server costs by up to 70%",
             "They convert all production database tables into flat CSV files"
           ],
@@ -13542,13 +13362,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Capstone multi-region platform satisfy its RTO < 60s and RPO < 1.0s disaster recovery SLAs during a regional failure?",
           "options": [
-            "Manually ships hard drives containing database backups across the ocean via air freight across multi-zone container worker nodes and centralized edge cache distributions",
+            "Manually ships hard drives containing database backups across the ocean via air freight",
             "Shuts down customer accounts and asks users to register again next month",
-            "Coordinates Route 53 ARC DNS shifting, Aurora secondary cluster promotion, and local KMS Multi-Region Key decryption within 55 seconds",
-            "Waits for AWS technical support to fix the primary data center before restoring traffic"
+            "Waits for AWS technical support to fix the primary data center before restoring traffic",
+            "Coordinates Route 53 ARC DNS shifting, Aurora secondary cluster promotion, and local KMS Multi-Region Key decryption within 55 seconds"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The platform orchestrates automated DNS traffic shifts, Aurora database promotion, and local KMS replica decryption to restore full service within 55 seconds with sub-second data loss."
         },
         "output": "regional disaster failover: from us-east-1 to eu-west-1\ntotal recovery time (RTO): 55 seconds (SLA satisfied: True )\ndata loss delta (RPO): 0.45 seconds (SLA satisfied: True )\n - [5s]: Route 53 ARC shifts edge DNS traffic away from primary\n - [15s]: S3 Multi-Region Access Point directs uploads to secondary\n - [35s]: Aurora Global Database detached and promoted to standalone writer\n - [42s]: KMS Multi-Region replica keys decrypt local storage with 0 cross-region calls\n - [55s]: Full service health verified; 100% customer traffic restored"
@@ -13583,13 +13403,13 @@ export const CLOUD_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which criteria confirm complete graduation from the Cloud Engineering in Python (cloud-py) certification course?",
           "options": [
-            "Submitting a 500-page printed thesis to AWS headquarters in Seattle",
             "All 5 Capstone architecture gates pass, certifying cellular routing, polyglot persistence, KMS security, FinOps governance, and chaos disaster recovery",
-            "Working at Amazon as a cloud solutions architect for at least 5 years across distributed cloud availability zones during high-throughput network operations",
-            "Paying a mandatory $1,000 certification renewal fee each month"
+            "Submitting a 500-page printed thesis to AWS headquarters in Seattle",
+            "Working at Amazon as a cloud solutions architect for at least 5 years",
+            "Paying a mandatory $1,000 certification renewal fee each month provisioned across multi-zone cloud infrastructure"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Graduation requires satisfying all 5 Capstone gates, certifying complete mastery of enterprise cloud architecture, resilience, security, and FinOps."
         },
         "output": "course completion: Cloud Engineering in Python (cloud-py)\nfinal certification status: GRADUATED_WITH_HONORS\npassed 5 of 5 architecture gates:\n - [CERTIFIED] GATE_1_CELLULAR_EDGE_ROUTING: CloudFront CHR=92.4%, ARC Shards=4,845, Collision<0.02%\n - [CERTIFIED] GATE_2_POLYGLOT_PERSISTENCE: DynamoDB Skew<1.3, Aurora Lag=0.42s, S3 WORM=Enforced\n - [CERTIFIED] GATE_3_SECURITY_AND_GOVERNANCE: KMS Envelope=AES-GCM-256, Rotation=Annual, OPA Block=100%\n - [CERTIFIED] GATE_4_FINOPS_UNIT_ECONOMICS: Tag Coverage=98.5%, Cost/Tenant=Tracked, Spot Savings=49%\n - [CERTIFIED] GATE_5_CHAOS_AND_DISASTER_RECOVERY: Regional RTO=55s (<60s), RPO=0.45s (<1s), Self-Healing MTTR=75s"

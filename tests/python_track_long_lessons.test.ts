@@ -102,6 +102,7 @@ for (const course of COURSES) {
   // [FIX-STAGE: wave0-python-anti-clone-gate] Block synthetic Month-2 toy clones, meta-commentary padding, duplicated prose, and un-balanced MCQ length giveaways
   test(`${course.name}: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway`, () => {
     const seenLongParagraphs = new Map<string, number>();
+    const ansCounts = [0, 0, 0, 0];
     let totalChecks = 0;
     let longestWins = 0;
 
@@ -130,13 +131,25 @@ for (const course of COURSES) {
         if (lens[part.check.answer] === maxLen && lens.filter((l) => l === maxLen).length === 1) {
           longestWins++;
         }
+        ansCounts[part.check.answer] = (ansCounts[part.check.answer] || 0) + 1;
         totalChecks++;
+
+        const why = ((part.check as any).why || (part.check as any).explanation || '').trim();
+        assert.ok(why.length >= 15, `${where} "${part.title}": check explanation too short (${why.length} chars)`);
+        assert.doesNotMatch(why, /^Verified against .* standards\.$/i, `${where} "${part.title}": contains generic rubber-stamp why`);
       }
     }
 
     const dupCount = [...seenLongParagraphs.values()].filter((c) => c > 2).length;
     assert.equal(dupCount, 0, `${course.prefix}: found ${dupCount} repeated >90-char boilerplate paragraphs`);
     const longestRate = totalChecks > 0 ? longestWins / totalChecks : 0;
-    assert.ok(longestRate <= 0.35, `${course.prefix}: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be <= 35%`);
+    assert.ok(
+      longestRate >= 0.18 && longestRate <= 0.35,
+      `${course.prefix}: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be between 18% and 35%`
+    );
+    for (let a = 0; a < 4; a++) {
+      const rate = (ansCounts[a] || 0) / totalChecks;
+      assert.ok(rate <= 0.45, `${course.prefix}: option index ${a} bias (${(rate * 100).toFixed(1)}%) must be <= 45%`);
+    }
   });
 }

@@ -73,11 +73,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does print(\"5 + 5\") show?",
           "options": [
-            "5 + 5",
             "10",
+            "5 + 5",
             "An error"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because 5 + 5 is inside quotes, it is text, so Python shows it exactly as written. Without quotes, print(5 + 5) would show 10."
         }
       },
@@ -106,11 +106,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Line 3 of a 5-line program says prnt(\"Hi\"), a misspelled print. What happens?",
           "options": [
-            "Lines 1 and 2 run, then Python stops with an error on line 3",
             "Python refuses to start the file and clears all lines before execution begins",
-            "Python skips line 3 with a quiet warning and still executes lines 4 and 5"
+            "Python skips line 3 with a quiet warning and still executes lines 4 and 5",
+            "Lines 1 and 2 run, then Python stops with an error on line 3"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Python runs line by line. The lines before the mistake run, then it stops at the mistake and shows an error. It does not skip ahead. A missing quote would be different: that is a SyntaxError, and nothing would run."
         }
       },
@@ -172,11 +172,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Python do with a line that starts with #?",
           "options": [
-            "It skips the line",
             "It prints the line",
+            "It skips the line",
             "It shows an error"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A line starting with # is a comment. Comments are notes for people, so Python ignores them."
         }
       },
@@ -201,11 +201,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In print(\"Total:\", 20 + 45), what is shown?",
           "options": [
-            "Total: 65",
             "Total: 20 + 45",
-            "Total:65+"
+            "Total:65+",
+            "Total: 65"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "\"Total:\" is text, so it is shown as written. 20 + 45 has no quotes, so Python adds it and shows 65, with a space in between."
         }
       }
@@ -260,11 +260,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does price = 50 do in Python?",
           "options": [
-            "Stores 50 in a variable named price",
             "Compares whether price currently equals 50 and prints True or False",
+            "Stores 50 in a variable named price",
             "Sends 50 straight to the terminal output without saving anything in memory"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In Python, = stores the value on the right in the name on the left. It does not compare and does not print."
         }
       },
@@ -293,11 +293,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "score = 10, then score += 5. What is score now?",
           "options": [
-            "15",
             "5",
-            "10"
+            "10",
+            "15"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "score += 5 means score = score + 5. The old value 10 plus 5 gives 15."
         }
       },
@@ -359,11 +359,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between = and == in Python?",
           "options": [
-            "= stores a value; == asks if two values are equal",
             "Both symbols perform the exact same check and can be swapped freely",
+            "= stores a value; == asks if two values are equal",
             "= compares two values for equality, while == saves a number into a variable"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "One equals sign stores a value in a variable. Two equals signs compare two values and give True or False."
         }
       },
@@ -392,11 +392,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"Total: \" + str(65) give?",
           "options": [
-            "\"Total: 65\"",
             "An error",
-            "\"Total: \" 65"
+            "\"Total: \" 65",
+            "\"Total: 65\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "str(65) turns the number into the text \"65\", and + joins two pieces of text into one."
         }
       },
@@ -483,11 +483,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"Hi\" + \"there\" give?",
           "options": [
-            "\"Hithere\"",
             "\"Hi there\"",
-            "An error"
+            "An error",
+            "\"Hithere\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "+ joins strings exactly as they are. There is no space in either string, so the result has no space."
         }
       },
@@ -557,11 +557,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"Expense\"[0:3] give?",
           "options": [
-            "\"Exp\"",
             "\"Expe\"",
+            "\"Exp\"",
             "\"xpe\""
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A slice goes from the start position up to, but not including, the stop position. Positions 0, 1 and 2 give \"Exp\"."
         }
       },
@@ -594,11 +594,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"  Hi  \".strip() give?",
           "options": [
-            "\"Hi\"",
             "\"  Hi\"",
-            "\"HI\""
+            "\"HI\"",
+            "\"Hi\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "strip() removes spaces from both the start and the end, but not from the middle, and it does not change capital letters."
         }
       },
@@ -660,11 +660,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do apps call strip() on text people type?",
           "options": [
-            "To remove accidental spaces at the start and end",
             "To convert every letter inside the typed text into uppercase block capitals",
+            "To remove accidental spaces at the start and end",
             "To split a long sentence into separate words and count the total letters"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "People often add extra spaces by mistake. strip() removes them so \"Tea \" and \"Tea\" are treated the same."
         }
       }
@@ -751,11 +751,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is 20 % 6?",
           "options": [
-            "2",
             "3",
+            "2",
             "3.33"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "6 goes into 20 three times (18), and 20 - 18 leaves 2. % gives that remainder."
         }
       },
@@ -784,11 +784,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you work out a price after a 25% discount?",
           "options": [
-            "price * 0.75",
             "price * 0.25",
-            "price - 25"
+            "price - 25",
+            "price * 0.75"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "25% off means you pay the other 75%, so multiply by 0.75. price * 0.25 is the discount amount, not the new price."
         }
       },
@@ -850,11 +850,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does max(3, 9, 4) give?",
           "options": [
-            "9",
             "3",
+            "9",
             "16"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "max() gives the largest value. 16 would be the sum, which is what sum() gives."
         }
       },
@@ -883,11 +883,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why store each step (food, gst, grand_total) in its own variable?",
           "options": [
-            "It makes the calculation easy to read and check",
             "Python needs a variable for every number",
-            "It makes the program run faster"
+            "It makes the program run faster",
+            "It makes the calculation easy to read and check"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Named steps show exactly how the answer was reached, so you and others can check each part. Python does not require it."
         }
       }
@@ -945,11 +945,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Python know which lines belong to an if?",
           "options": [
-            "They are indented (pushed in with spaces) under the if",
             "They are wrapped in curly braces or written in all-uppercase letters",
+            "They are indented (pushed in with spaces) under the if",
             "They are placed directly on the very same line immediately after the colon"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Python uses indentation. Lines pushed in under the if, usually by 4 spaces, belong to it and run only when the condition is True."
         }
       },
@@ -978,11 +978,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With an if and an else, how many of the two blocks run?",
           "options": [
-            "Exactly one",
             "Both",
-            "Sometimes none"
+            "Sometimes none",
+            "Exactly one"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If the condition is True, the if block runs. Otherwise the else block runs. It is always exactly one of them."
         }
       },
@@ -1048,11 +1048,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is A or B True?",
           "options": [
-            "When at least one of A and B is True",
             "Only when both condition A and condition B evaluate to True together",
+            "When at least one of A and B is True",
             "Only when condition A is True and condition B evaluates cleanly to False"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "or needs just one True side. and is the one that needs both sides to be True."
         }
       },
@@ -1077,11 +1077,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is label after label = \"big\" if 50 > 100 else \"small\"?",
           "options": [
-            "\"small\"",
             "\"big\"",
-            "An error"
+            "An error",
+            "\"small\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "50 > 100 is False, so the value after else is used: \"small\"."
         }
       },
@@ -1172,11 +1172,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many times does the indented line run in: for x in [5, 6, 7, 8]:",
           "options": [
-            "4 times",
             "1 time",
-            "8 times"
+            "8 times",
+            "4 times"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A for loop runs its indented lines once for every value in the list. The list has four values, so four times."
         }
       },
@@ -1246,11 +1246,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should total = 0 go when adding up a list with a loop?",
           "options": [
-            "Before the loop",
             "Inside the loop",
+            "Before the loop",
             "After the loop"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "It must be set once, before the loop starts. Inside the loop it would reset to 0 every time round."
         }
       },
@@ -1279,11 +1279,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes a while loop stop?",
           "options": [
-            "Its condition becomes False",
             "It has run 10 times",
-            "It reaches the end of a list"
+            "It reaches the end of a list",
+            "Its condition becomes False"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A while loop keeps going as long as its condition is True, and stops as soon as the condition is False."
         }
       },
@@ -1345,11 +1345,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the loop find the largest expense?",
           "options": [
-            "It keeps the biggest value so far and replaces it when it sees a bigger one",
             "It sorts the entire list from smallest to largest before reading the first entry",
+            "It keeps the biggest value so far and replaces it when it sees a bigger one",
             "It overwrites the total on every iteration and returns whichever value comes last"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "largest starts at 0 and is replaced whenever a bigger amount appears. At the end, it holds the biggest one."
         }
       }
@@ -1444,11 +1444,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In def greet(name, city), what is name when you call greet(\"Ravi\", \"Pune\")?",
           "options": [
-            "\"Ravi\"",
             "\"Pune\"",
+            "\"Ravi\"",
             "Nothing until you set it"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Arguments are matched to parameters in order. The first argument, \"Ravi\", goes into the first parameter, name."
         }
       },
@@ -1481,11 +1481,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a function give back if it has no return?",
           "options": [
-            "None",
             "0",
-            "The last value it printed"
+            "The last value it printed",
+            "None"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Without a return, a function gives back None, Python's way of saying \"nothing\"."
         }
       },
@@ -1551,11 +1551,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For def greet(name, greeting=\"Hello\"), what does greet(\"Asha\") use as greeting?",
           "options": [
-            "\"Hello\"",
             "Nothing, it is an error",
+            "\"Hello\"",
             "\"Asha\""
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The caller did not give a greeting, so Python uses the default value \"Hello\"."
         }
       },
@@ -1588,11 +1588,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does average() check for an empty list first?",
           "options": [
-            "To avoid dividing by zero, which would crash",
             "Because Python needs it for every function",
-            "To make it run faster"
+            "To make it run faster",
+            "To avoid dividing by zero, which would crash"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "An empty list has length 0, and dividing by 0 is an error. Returning 0 early handles that case safely."
         }
       }
@@ -1646,11 +1646,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For a list with 5 items, what is the index of the last item?",
           "options": [
-            "4",
             "5",
+            "4",
             "6"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Counting starts at 0, so 5 items have the indexes 0 to 4. The last one is 4, which is also -1."
         }
       },
@@ -1683,11 +1683,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does items.append(\"Juice\") do?",
           "options": [
-            "Adds \"Juice\" to the end of the list",
             "Adds \"Juice\" to the start",
-            "Replaces the last item with \"Juice\""
+            "Replaces the last item with \"Juice\"",
+            "Adds \"Juice\" to the end of the list"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "append always adds a new item at the end, and the list gets one item longer."
         }
       },
@@ -1873,11 +1873,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does enumerate give you in each round of a loop?",
           "options": [
-            "The position and the item",
             "Only the item",
-            "Only the length of the list"
+            "Only the length of the list",
+            "The position and the item"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "enumerate gives pairs of (position, item), which you can unpack into two names like i and item."
         }
       },
@@ -2046,11 +2046,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In [n for n, a in zip(names, amounts) if a > 100], what ends up in the new list?",
           "options": [
-            "The names whose amount is over 100",
             "The amounts over 100",
+            "The names whose amount is over 100",
             "Pairs of names and amounts"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The part before for is n, the name. The if keeps only pairs where the amount a is over 100."
         }
       }
@@ -2145,11 +2145,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "d = {\"a\": 1}. What is d after d[\"a\"] = 5?",
           "options": [
-            "{\"a\": 5}",
             "{\"a\": 1, \"a\": 5}",
+            "{\"a\": 5}",
             "An error"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Keys are unique. Assigning to an existing key replaces its value."
         }
       },
@@ -2182,11 +2182,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does {\"a\": 1}.get(\"b\", 99) give?",
           "options": [
-            "99",
             "None",
-            "A KeyError"
+            "A KeyError",
+            "99"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The key \"b\" is missing, so get() returns the default value you gave, 99."
         }
       },
@@ -2252,11 +2252,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use totals.get(category, 0) instead of totals[category]?",
           "options": [
-            "The first time a category appears it is not in the dictionary yet, and get gives 0 instead of an error",
             "Calling .get() skips hash table lookups completely so loops finish faster than indexing",
+            "The first time a category appears it is not in the dictionary yet, and get gives 0 instead of an error",
             "Square bracket indexing only accepts integer positions and fails on dictionary string keys"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "For a new category the key does not exist yet. totals[category] would raise a KeyError; get(category, 0) starts it at 0."
         }
       },
@@ -2289,11 +2289,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a dictionary better than two separate lists for one expense's details?",
           "options": [
-            "All details of one expense stay together under clear names",
             "Dictionaries compress text keys automatically to use less system memory than lists",
-            "Standard lists only store floating-point numbers unless converted into text files"
+            "Standard lists only store floating-point numbers unless converted into text files",
+            "All details of one expense stay together under clear names"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A dictionary keeps item, amount and category together, read by name, so they can never get out of step."
         }
       }
@@ -2351,11 +2351,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the expense list above (where index 0 is Tea/food and index 1 is Bus/travel), what is expenses[1][\"category\"]?",
           "options": [
-            "\"travel\"",
             "\"food\"",
+            "\"travel\"",
             "\"Bus\""
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "expenses[1] is the second dictionary (the bus), and its \"category\" key holds \"travel\"."
         }
       },
@@ -2384,11 +2384,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In for expense in expenses:, what does expense hold each round?",
           "options": [
-            "One whole dictionary (one record)",
             "Only the first dictionary key string from that row of the collection",
-            "Only the zero-based integer index number for the current loop pass"
+            "Only the zero-based integer index number for the current loop pass",
+            "One whole dictionary (one record)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The list holds dictionaries, so each round the loop variable is the next dictionary in the list."
         }
       },
@@ -2458,11 +2458,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does find_by_id have return None after the loop?",
           "options": [
-            "So the caller gets a clear \"not found\" answer when nothing matches",
             "Because Python raises a SyntaxError unless functions end with explicit return None",
+            "So the caller gets a clear \"not found\" answer when nothing matches",
             "To reset the loop counter cleanly back to zero for the next search request"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If no record matches, the loop ends without returning. return None makes the \"not found\" result clear."
         }
       },
@@ -2495,11 +2495,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do dates like \"2026-09-10\" sort correctly as text?",
           "options": [
-            "Year, then month, then day, each with a fixed number of digits, so alphabetical order is date order",
             "Python parses any four-digit string automatically as a built-in calendar date",
-            "Text sorting ignores leading years, so strings must first become date objects"
+            "Text sorting ignores leading years, so strings must first become date objects",
+            "Year, then month, then day, each with a fixed number of digits, so alphabetical order is date order"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "In year-month-day format with leading zeros, comparing the text character by character gives the same order as the dates."
         }
       },
@@ -2587,8 +2587,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the main difference between a tuple and a list?",
           "options": [
             "A tuple cannot be changed after it is created",
-            "A tuple can only store plain numeric values and cannot hold text strings",
-            "A tuple drops index positions completely so elements cannot be accessed by [0]"
+            "A tuple can only store plain numeric values and cannot hold text strings"
           ],
           "answer": 0,
           "why": "Tuples are fixed. Lists can have items added, removed and replaced."
@@ -2660,11 +2659,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is len(set([1, 2, 2, 3, 3, 3]))?",
           "options": [
-            "3",
             "6",
+            "3",
             "1"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A set keeps each value once, so it holds 1, 2 and 3: three values."
         }
       },
@@ -2697,11 +2696,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use a set instead of a list to check if a username is taken?",
           "options": [
-            "Checking membership in a set is very fast, even with millions of names",
             "Sets automatically preserve insertion order while rejecting invalid punctuation characters",
-            "Python lists cannot perform equality comparisons reliably across stored text strings"
+            "Python lists cannot perform equality comparisons reliably across stored text strings",
+            "Checking membership in a set is very fast, even with millions of names"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A list may need to check every item; a set answers almost instantly. Sets have no order at all."
         }
       },
@@ -2771,11 +2770,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the code use sorted() on the set of categories?",
           "options": [
-            "Sets have no order, so sorting gives a stable A to Z list",
             "Sets are unreadable by print() until converted into lists via sorted() calls",
+            "Sets have no order, so sorting gives a stable A to Z list",
             "Calling sorted() is what removes duplicate category entries from the input data"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The set already removed duplicates. sorted turns it into a list in a predictable order for display and for checks."
         }
       }
@@ -2899,11 +2898,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does f\"{7:.2f}\" show?",
           "options": [
-            "7.00",
             "7",
-            "7.2"
+            "7.2",
+            "7.00"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": ".2f means show the number with exactly 2 decimal places, so 7 becomes 7.00."
         }
       },
@@ -2969,11 +2968,10 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"-\".join([\"a\", \"b\", \"c\"]) give?",
           "options": [
-            "\"a-b-c\"",
             "\"-a-b-c-\"",
-            "[\"a-\", \"b-\", \"c\"]"
+            "\"a-b-c\""
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "join puts the separator between the items, not at the ends."
         }
       },
@@ -3006,11 +3004,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does receipt() return the text instead of printing it?",
           "options": [
-            "So the text can be tested, saved or sent, not only shown on screen",
             "Because multi-line f-strings lose variable values if sent directly to print()",
-            "Returning a string skips screen rendering entirely so loops execute twice as fast"
+            "Returning a string skips screen rendering entirely so loops execute twice as fast",
+            "So the text can be tested, saved or sent, not only shown on screen"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A returned string can be checked by tests, written to a file or emailed. Printing only shows it on the screen."
         }
       }
@@ -3064,11 +3062,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where do you look first in a Python traceback?",
           "options": [
-            "The last line: the error type and message",
             "The very top header line showing Python version and initial call",
+            "The last line: the error type and message",
             "The middle frames showing internal helper paths inside standard library code"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The last line names the error and explains it. The lines above show where it happened."
         }
       },
@@ -3101,11 +3099,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should you write except ValueError: instead of a bare except:?",
           "options": [
-            "A bare except also hides real bugs you did not expect",
             "A bare except clause adds heavy runtime overhead on every iteration of a loop",
-            "Modern Python versions treat bare except clauses as invalid syntax during compilation"
+            "Modern Python versions treat bare except clauses as invalid syntax during compilation",
+            "A bare except also hides real bugs you did not expect"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Naming the error catches only the problem you planned for. Other errors still show up so you can fix them."
         }
       },
@@ -3167,11 +3165,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does the finally block run?",
           "options": [
-            "Always, whether or not there was an error",
             "Only when the try block fails with an error matching the except clause",
+            "Always, whether or not there was an error",
             "Only when the try block finishes completely from top to bottom with zero errors"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "finally is for clean-up that must always happen, so it runs in both cases."
         }
       },
@@ -3204,11 +3202,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does raise ValueError(\"...\") do in a function?",
           "options": [
-            "Stops the function and signals an error that the caller can catch",
             "Logs an amber warning line to the console and silently resumes the next statement",
-            "Constructs a ValueError instance and passes it back via normal return assignment"
+            "Constructs a ValueError instance and passes it back via normal return assignment",
+            "Stops the function and signals an error that the caller can catch"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "raise ends the function with an error. The caller can catch it with try/except, or the program stops."
         }
       },
@@ -3303,11 +3301,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After import math, how do you call its sqrt function?",
           "options": [
-            "math.sqrt(9)",
             "sqrt(9)",
-            "import.sqrt(9)"
+            "import.sqrt(9)",
+            "math.sqrt(9)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "With import math, you reach its tools through the module name and a dot. from math import sqrt would let you write sqrt(9)."
         }
       },
@@ -3373,11 +3371,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use datetime instead of doing date maths yourself?",
           "options": [
-            "It handles month lengths and leap years correctly",
             "Because print() requires objects from datetime before displaying any date text",
+            "It handles month lengths and leap years correctly",
             "Adding days via datetime randomizes timestamps cleanly across multiple time zones"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Date maths has many special cases. datetime already handles all of them correctly."
         }
       },
@@ -3410,11 +3408,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Counter([\"a\", \"b\", \"a\"])[\"a\"] give?",
           "options": [
-            "2",
             "1",
-            "3"
+            "3",
+            "2"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Counter counts how many times each value appears. \"a\" appears twice."
         }
       },
@@ -3484,11 +3482,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the example use a fixed date instead of date.today()?",
           "options": [
-            "So the output is the same every run, which makes it easy to check and test",
             "Calling date.today() raises a runtime error unless connected to an internet clock",
+            "So the output is the same every run, which makes it easy to check and test",
             "Hardcoding literal date strings runs significantly faster inside tight arithmetic loops"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "date.today() changes every day, so the output would change. A fixed date keeps results predictable for learning and testing."
         }
       }
@@ -3579,11 +3577,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does with open(...) as f: do for you?",
           "options": [
-            "Closes the file automatically when the block ends",
             "Locks the file in read-only mode so accidental writes are blocked safely",
+            "Closes the file automatically when the block ends",
             "Deletes the temporary file cleanly from disk right after reading it once"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The with block guarantees the file is closed at the end, even if an error happens inside."
         }
       },
@@ -3620,11 +3618,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which mode adds new lines to the end of an existing file?",
           "options": [
-            "\"a\"",
             "\"w\"",
-            "\"r\""
+            "\"r\"",
+            "\"a\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "\"a\" means append: keep what is there and add at the end. \"w\" would empty the file first."
         }
       },
@@ -3698,11 +3696,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does load_expenses return [] when the file is missing?",
           "options": [
-            "On the first run there is no file yet, and an empty list is the right starting data",
             "Because plain JSON text files cannot be opened safely until created externally",
+            "On the first run there is no file yet, and an empty list is the right starting data",
             "To suppress any permission or syntax errors quietly instead of fixing corrupted files"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A missing file is expected before anything has been saved. Starting with no expenses is the sensible behaviour."
         }
       },
@@ -3739,11 +3737,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the basic cycle of an app that remembers data?",
           "options": [
-            "Load, change, save",
             "Save, delete, print",
-            "Print, load, exit"
+            "Print, load, exit",
+            "Load, change, save"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The app loads what was saved, changes it as the user works, and saves it again for next time."
         }
       }
@@ -3801,11 +3799,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does JSON write Python's None?",
           "options": [
-            "null",
             "None",
+            "null",
             "nil"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "JSON uses null for \"no value\". json.dumps converts None to null, and json.loads converts it back."
         }
       },
@@ -3838,11 +3836,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What type does json.loads('{\"a\": 1}') return?",
           "options": [
-            "dict",
             "str",
-            "list"
+            "list",
+            "dict"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A JSON object becomes a Python dictionary."
         }
       },
@@ -3912,11 +3910,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check isinstance(data, list) after json.loads?",
           "options": [
-            "Valid JSON can still have the wrong shape for your program",
             "Because json.loads always returns a raw unparsed string until checked with isinstance",
+            "Valid JSON can still have the wrong shape for your program",
             "Checking isinstance pre-indexes dictionary keys so later loops load records faster"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "json.loads succeeds for any valid JSON, like a dictionary or a number. Your code expects a list, so it checks before using it."
         }
       },
@@ -3949,11 +3947,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should you store a date in JSON?",
           "options": [
-            "As text like \"2026-09-28\", using isoformat()",
             "Store the Python datetime.date instance directly inside the serialized dictionary",
-            "Store the timestamp only in separate text files because JSON drops all dates"
+            "Store the timestamp only in separate text files because JSON drops all dates",
+            "As text like \"2026-09-28\", using isoformat()"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "JSON has no date type, so store the date as text and convert it back with date.fromisoformat() when loading."
         }
       },
@@ -4044,11 +4042,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the relationship between a class and an object?",
           "options": [
-            "A class is a blueprint; an object is one thing made from it",
             "They are interchangeable terms in Python for any standalone data container",
-            "An object serves as a factory template used later to construct brand-new classes"
+            "An object serves as a factory template used later to construct brand-new classes",
+            "A class is a blueprint; an object is one thing made from it"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The class describes what things of that kind have and can do. Each object is one real instance built from it."
         }
       },
@@ -4118,11 +4116,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the first parameter of every normal method?",
           "options": [
-            "self",
             "this",
+            "self",
             "the class name"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Python passes the object as the first argument, and by convention it is always named self."
         }
       },
@@ -4155,11 +4153,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why put the \"not enough money\" check inside spend()?",
           "options": [
-            "So every spend in the program follows the rule automatically",
             "Because Python forbids writing standalone if checks anywhere outside class methods",
-            "Moving conditionals inside methods reduces function overhead so loops execute faster"
+            "Moving conditionals inside methods reduces function overhead so loops execute faster",
+            "So every spend in the program follows the rule automatically"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "All spending goes through that one method, so the rule can never be skipped by accident."
         }
       },
@@ -4225,11 +4223,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does ExpenseBook.add raise a ValueError for negative amounts?",
           "options": [
-            "So the book can never contain bad data, whoever calls add",
             "Because Python does not allow negative numbers",
+            "So the book can never contain bad data, whoever calls add",
             "To stop the program every time"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Checking inside add means every expense passes the same rule. The caller can catch the error and show a message."
         }
       }
@@ -4324,11 +4322,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In class Subscription(Expense):, what does Subscription get from Expense?",
           "options": [
-            "All of Expense's attributes and methods",
             "Nothing unless it copies the code",
+            "All of Expense's attributes and methods",
             "Only the __init__ method"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A child class inherits everything from its parent. It only needs to add or change what is different."
         }
       },
@@ -4361,11 +4359,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If both Expense and Subscription define __str__, which one does a Subscription object use?",
           "options": [
-            "Subscription's own version",
             "Expense's version",
-            "Both, one after the other"
+            "Both, one after the other",
+            "Subscription's own version"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Python looks in the object's own class first. The child's version overrides the parent's."
         }
       },
@@ -4435,11 +4433,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which sentence suggests inheritance is a good fit?",
           "options": [
-            "\"A Subscription is a kind of Expense\"",
             "\"A Wallet has a list of expenses\"",
+            "\"A Subscription is a kind of Expense\"",
             "\"An Expense has an amount\""
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "\"Is a kind of\" fits inheritance. \"Has a\" means one object holds another as an attribute instead."
         }
       },
@@ -4472,11 +4470,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can the report loop call t.yearly_cost() without checking the type of t?",
           "options": [
-            "Each class has its own yearly_cost, and Python calls the right one",
             "Python coerces every object inside a list automatically into the base Expense class",
-            "Each yearly_cost() call looks up a module constant and ignores self fields"
+            "Each yearly_cost() call looks up a module constant and ignores self fields",
+            "Each class has its own yearly_cost, and Python calls the right one"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Both classes define yearly_cost. Python uses the version from each object's own class, so each answer is correct."
         }
       }
@@ -4534,11 +4532,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "On Windows, which installer option is important so the terminal can find Python?",
           "options": [
-            "\"Add python.exe to PATH\"",
             "\"Install for all users\"",
+            "\"Add python.exe to PATH\"",
             "\"Disable path length limit\""
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Adding Python to PATH lets the terminal find the python command from any folder."
         }
       },
@@ -4571,11 +4569,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you run a file called main.py from the terminal?",
           "options": [
-            "python main.py (python3 on a Mac)",
             "Type run main from the working directory prompt",
-            "Type open main.py inside the shell terminal"
+            "Type open main.py inside the shell terminal",
+            "python main.py (python3 on a Mac)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The python command followed by the file name runs the file. The terminal must be in the folder where the file is."
         }
       },
@@ -4653,11 +4651,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a while True: menu loop end?",
           "options": [
-            "With break when the user chooses Quit",
             "It exits automatically after repeating the menu prompt ten consecutive times",
+            "With break when the user chooses Quit",
             "It stops itself as soon as the tracked expenses list becomes empty"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "while True never becomes False by itself. A break inside the Quit option ends the loop."
         }
       },
@@ -4690,11 +4688,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is requirements.txt for?",
           "options": [
-            "Listing the exact packages a project needs, so they can be installed elsewhere",
             "Storing your compiled Python functions in plain readable ASCII text format",
-            "Listing Python's preinstalled standard library modules bundled with the interpreter"
+            "Listing Python's preinstalled standard library modules bundled with the interpreter",
+            "Listing the exact packages a project needs, so they can be installed elsewhere"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "pip install -r requirements.txt installs the same packages and versions on another computer or server."
         }
       },
@@ -4781,11 +4779,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main benefit of automatic tests?",
           "options": [
-            "You can change code and quickly confirm nothing broke",
             "They make the program run faster",
-            "They replace the need to write functions"
+            "They replace the need to write functions",
+            "You can change code and quickly confirm nothing broke"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Tests re-check your code in seconds after every change, so mistakes are caught before users see them."
         }
       },
@@ -4855,11 +4853,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does pytest know which functions are tests?",
           "options": [
-            "Their names start with test_",
             "They contain the word assert",
+            "Their names start with test_",
             "They are at the bottom of the file"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "pytest collects files and functions whose names start with test_ and runs them automatically."
         }
       },
@@ -4888,11 +4886,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Free delivery starts at 499. Which bills are most important to test?",
           "options": [
-            "498, 499 and 500",
             "Only 100",
-            "10000 and 20000"
+            "10000 and 20000",
+            "498, 499 and 500"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Testing just below, at, and just above the boundary catches off-by-one mistakes like > instead of >=."
         }
       },
@@ -4962,11 +4960,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why write a test for category_totals([])?",
           "options": [
-            "An empty list is an edge case where bugs often hide",
             "Empty lists are the most common input",
+            "An empty list is an edge case where bugs often hide",
             "pytest needs at least one empty test"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Edge cases like empty input are where functions often crash or give wrong answers, so they deserve their own tests."
         }
       }
@@ -5061,11 +5059,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which command chooses the changes that go into the next commit?",
           "options": [
-            "git add",
             "git status",
+            "git add",
             "git log"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "git add stages changes for the next commit. git status only shows what changed, and git log shows past commits."
         }
       },
@@ -5098,11 +5096,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must .env files with API keys go in .gitignore?",
           "options": [
-            "Secrets pushed to GitHub can be seen by others and stay in the history",
             "Because Git refuses to parse hidden files whose names begin with a dot",
-            "Because .env environment files consume gigabytes of disk space on every commit"
+            "Because .env environment files consume gigabytes of disk space on every commit",
+            "Secrets pushed to GitHub can be seen by others and stay in the history"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Anything committed can be seen by people with access to the repository, and it stays in the history even if deleted later."
         }
       },
@@ -5168,11 +5166,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does git push do?",
           "options": [
-            "Uploads your local commits to the online repository",
             "Fetches the latest commits down from GitHub and merges them into your local tree",
+            "Uploads your local commits to the online repository",
             "Records a brand-new local commit snapshot directly onto your currently active branch"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "push sends your commits to the remote (GitHub). pull and clone bring commits down from it."
         }
       },
@@ -5205,11 +5203,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Before your first commit, what should you check with git status?",
           "options": [
-            "That .venv, data files and secrets are not in the list",
             "That the active Python interpreter matches the latest version installed on your laptop",
-            "That your local machine currently has an active wireless connection to the internet"
+            "That your local machine currently has an active wireless connection to the internet",
+            "That .venv, data files and secrets are not in the list"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "git status shows what will be committed. Make sure .gitignore is keeping out large folders, personal data and secrets."
         }
       }
@@ -5263,11 +5261,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why write a short plan before coding a project?",
           "options": [
-            "To avoid building the wrong thing and rewriting code",
             "Because Python's interpreter refuses to run scripts without a PLAN.md specification",
+            "To avoid building the wrong thing and rewriting code",
             "To pre-allocate memory early so the final application finishes every task faster"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A plan makes you think about what is needed first. Changing a plan is much cheaper than changing finished code."
         }
       },
@@ -5296,11 +5294,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is a well-sized user story?",
           "options": [
-            "As a user, I want to add an expense with a category, so that I can track spending",
             "As a user, I want a complete personal finance platform shipped with full cloud sync",
-            "Implement add_expense(expenses, title, category, amount) returning a copied list"
+            "Implement add_expense(expenses, title, category, amount) returning a copied list",
+            "As a user, I want to add an expense with a category, so that I can track spending"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "It is written from the user's view, small enough to build quickly, and says why it matters. \"Write the add_expense function\" is a developer task, not a user story."
         }
       },
@@ -5366,11 +5364,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the plan, which function should use input() and print()?",
           "options": [
-            "Only the menu",
             "Every function",
+            "Only the menu",
             "category_totals"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Keeping input and printing in one place leaves the other functions pure and easy to test."
         }
       },
@@ -5399,11 +5397,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does building in \"thin slices\" mean?",
           "options": [
-            "After each small step, the program runs and does something useful",
             "Writing all the code first and testing at the end",
-            "Making every function one line long"
+            "Making every function one line long",
+            "After each small step, the program runs and does something useful"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Each slice adds a small working feature, so problems are found early and are easy to trace."
         }
       },
@@ -5490,11 +5488,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep the logic in tracker.py, separate from the menu in main.py?",
           "options": [
-            "The logic can be tested and reused, for example by a web API later",
             "Because Python requires at least two separate source files for modular scripts",
-            "Splitting code into smaller modules directly speeds up input() menu prompts"
+            "Splitting code into smaller modules directly speeds up input() menu prompts",
+            "The logic can be tested and reused, for example by a web API later"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Pure logic functions can be tested easily and reused with a different \"edge\", like a web API instead of a terminal menu."
         }
       },
@@ -5564,11 +5562,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does list_lines return lines instead of printing them?",
           "options": [
-            "So it can be tested and reused; the menu decides when to print",
             "Because calling print() inside helper functions garbles nested lists of text lines",
+            "So it can be tested and reused; the menu decides when to print",
             "Returning joined lines trims whitespace characters to keep the displayed list shorter"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Returning text keeps the function pure. Tests can check the lines, and the menu or an API can use them."
         }
       },
@@ -5605,11 +5603,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the menu do when add_expense raises a ValueError?",
           "options": [
-            "Shows the error message and returns to the menu",
             "Aborts execution immediately with an unhandled traceback across the terminal screen",
-            "Silently ignores the invalid amount check and appends the bad record anyway"
+            "Silently ignores the invalid amount check and appends the bad record anyway",
+            "Shows the error message and returns to the menu"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The menu catches the ValueError, shows why the expense was refused, and carries on so the user can try again."
         }
       },
@@ -5671,11 +5669,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After today, what can the Expense Tracker do?",
           "options": [
-            "Add validated expenses and list them from a menu, with tests",
             "Display only a static application banner title cleanly inside the terminal window",
+            "Add validated expenses and list them from a menu, with tests",
             "Transmit JSON files directly over HTTPS to a remote production database server"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Today built adding with validation, neat listing, the menu and tests. Summaries and saving come tomorrow, and the web API on Day 27."
         }
       }
@@ -5770,11 +5768,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When calculating each category's percentage of the grand total in category_lines(), why check if grand == 0 first?",
           "options": [
-            "To avoid dividing by zero when nothing has been spent",
             "Because sorted() raises an internal exception whenever sorting zero-valued dictionary items",
+            "To avoid dividing by zero when nothing has been spent",
             "To automatically hide smaller spending categories whenever no expenses have been entered"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The percentage divides by the grand total. With no spending, that would be a division by zero."
         }
       },
@@ -5807,11 +5805,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For an expense dated \"2026-09-15\", what is e[\"date\"][:7]?",
           "options": [
-            "\"2026-09\"",
             "\"2026-09-1\"",
-            "\"15\""
+            "\"15\"",
+            "\"2026-09\""
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The slice takes characters 0 to 6: the year, the dash and the month."
         }
       },
@@ -5881,11 +5879,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does the menu call save()?",
           "options": [
-            "Straight after every successful change",
             "Only when the user quits",
+            "Straight after every successful change",
             "Never; the data stays in memory"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Saving after each change means a crash or power cut loses at most one change."
         }
       },
@@ -5914,11 +5912,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can summary() and category_totals() work on one month without any changes?",
           "options": [
-            "They take any list of expenses, so a filtered list works the same way",
             "They inspect each system clock internally to auto-select records for the active month",
-            "Python filter comprehensions strip out earlier months automatically before passing arguments"
+            "Python filter comprehensions strip out earlier months automatically before passing arguments",
+            "They take any list of expenses, so a filtered list works the same way"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Small functions that take a list and return a result combine easily: filter first, then summarise the smaller list."
         }
       }
@@ -5976,11 +5974,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a web API usually send back?",
           "options": [
-            "Data, often as JSON",
             "A finished web page for people",
+            "Data, often as JSON",
             "A Python file"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "An API answers programs, not people, so it sends data, most often as JSON text."
         }
       },
@@ -6009,11 +6007,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does status code 404 mean?",
           "options": [
-            "Not found",
             "Success",
-            "The server crashed"
+            "The server crashed",
+            "Not found"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "404 means the thing you asked for does not exist at that URL. Server crashes are 500-level codes."
         }
       },
@@ -6087,11 +6085,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why convert an API answer into your own simple shape?",
           "options": [
-            "The rest of your program works with clean data and does not depend on the API's format",
             "Public REST endpoints mandate local key renaming before storing responses to disk",
+            "The rest of your program works with clean data and does not depend on the API's format",
             "Python cannot read raw JSON strings directly without transforming them into classes"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Keeping only the fields you need, in a shape you choose, makes the rest of your code simpler and protects it from API changes."
         }
       },
@@ -6128,11 +6126,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should an API key be stored?",
           "options": [
-            "In an environment variable, not in the code",
             "In the code, so it is easy to find",
-            "In the README"
+            "In the README",
+            "In an environment variable, not in the code"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Keys in code end up on GitHub, where others can find and misuse them. Environment variables keep them out of your code."
         }
       },
@@ -6223,11 +6221,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which route should add a new expense?",
           "options": [
-            "POST /expenses",
             "GET /expenses",
-            "GET /summary"
+            "GET /summary",
+            "POST /expenses"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "POST sends new data to be saved. GET only reads data."
         }
       },
@@ -6305,11 +6303,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should an API return when asked for an expense id that does not exist?",
           "options": [
-            "A 404 status with a clear message",
             "A 200 status with an empty dictionary",
+            "A 404 status with a clear message",
             "Nothing; the server should crash"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "404 tells the caller exactly what happened, and the message explains it. A crash would give a confusing 500 error."
         }
       },
@@ -6346,11 +6344,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What status does FastAPI return when the request body fails the model's rules?",
           "options": [
-            "422, with details of each problem",
             "200, with the data unchanged",
-            "500, because the server crashed"
+            "500, because the server crashed",
+            "422, with details of each problem"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "FastAPI checks the body against the model before your function runs and answers 422 with an explanation."
         }
       },
@@ -6420,11 +6418,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Expense Tracker API reuse from earlier days?",
           "options": [
-            "The logic in tracker.py: add, summary, totals, save and load",
             "The interactive terminal prompt loop relying on input() inside CLI sessions",
+            "The logic in tracker.py: add, summary, totals, save and load",
             "Nothing at all; HTTP web frameworks require rewriting every calculation from scratch"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Only the edge changes. The API calls the same tested functions that the terminal menu used."
         }
       }
@@ -6511,11 +6509,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which line of a traceback do you read first?",
           "options": [
-            "The last line: error type and message",
             "The first line: \"Traceback (most recent call last)\"",
+            "The last line: error type and message",
             "The middle line"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The last line tells you what went wrong. The lines above show where, and how the program got there."
         }
       },
@@ -6552,11 +6550,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "You see AttributeError: 'NoneType' object has no attribute 'strip'. What is the most likely cause?",
           "options": [
-            "A value you expected to be text is None, often a function that forgot to return",
             "The method name strip was misspelt slightly inside the caller module expression",
-            "The local JSON file is missing from disk when open() attempts to read"
+            "The local JSON file is missing from disk when open() attempts to read",
+            "A value you expected to be text is None, often a function that forgot to return"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "NoneType means the value is None. Often a function had no return, or get() found no value."
         }
       },
@@ -6618,11 +6616,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a breakpoint do?",
           "options": [
-            "Pauses the program at that line so you can look at the values",
             "Removes the failing line temporarily when re-running the test suite in debug mode",
+            "Pauses the program at that line so you can look at the values",
             "Causes the debugger to jump straight over that line without evaluating its code"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The program stops at the breakpoint, and the debugger shows every variable's current value."
         }
       },
@@ -6655,11 +6653,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where is the best place to fix the \"Food\" vs \"food\" bug?",
           "options": [
-            "Where the data comes in, by cleaning the category in add_expense",
             "In the report, by printing capitals differently",
-            "By telling users to always type small letters"
+            "By telling users to always type small letters",
+            "Where the data comes in, by cleaning the category in add_expense"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Fixing the cause at the entry point means every feature gets clean data, and the bug cannot reappear elsewhere."
         }
       }
@@ -6713,11 +6711,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can nobody else open http://127.0.0.1:8000 on your laptop?",
           "options": [
-            "127.0.0.1 means \"this computer\", so for anyone else it points to their own computer",
             "Port 8000 is reserved strictly for local databases and blocked across every network",
+            "127.0.0.1 means \"this computer\", so for anyone else it points to their own computer",
             "FastAPI dev servers refuse all remote sockets and permit only one local tab"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "127.0.0.1 is always the computer you are using. A public address is needed for others to reach your API."
         }
       },
@@ -6750,11 +6748,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the most common reason a Python deployment fails?",
           "options": [
-            "A package used in the code is missing from requirements.txt",
             "Source files contain too many inline comments, exceeding default cloud build size limits",
-            "The project README markdown file is missing detailed installation instructions at top"
+            "The project README markdown file is missing detailed installation instructions at top",
+            "A package used in the code is missing from requirements.txt"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The server only installs what requirements.txt lists. A missing package causes an import error when the app starts."
         }
       },
@@ -6824,11 +6822,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a /health route for?",
           "options": [
-            "A quick way for you and the host to check the app is running",
             "Reporting private user medical or diagnostic profile fields back as JSON responses",
+            "A quick way for you and the host to check the app is running",
             "Pre-warming the web framework caches so normal endpoints respond much faster later"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A tiny route that always returns {\"status\": \"ok\"} shows at a glance that the app is alive."
         }
       },
@@ -6857,11 +6855,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should be near the top of a portfolio project README?",
           "options": [
-            "What the project does and the live link",
             "Your full personal biography, education background, and hobbies before the project scope",
-            "The entire multi-file source code copied verbatim inside triple backtick blocks"
+            "The entire multi-file source code copied verbatim inside triple backtick blocks",
+            "What the project does and the live link"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A recruiter decides in seconds. A one-line description and a working link show the value immediately."
         }
       },
@@ -6944,11 +6942,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the best answer when you do not know something in an interview?",
           "options": [
-            "Say honestly you have not used it, and explain how you would find out",
             "Make up a confident sounding explanation quickly so nobody realizes any gap",
-            "Pivot away immediately toward an unrelated project you built many months ago"
+            "Pivot away immediately toward an unrelated project you built many months ago",
+            "Say honestly you have not used it, and explain how you would find out"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Honesty and a clear way of finding answers are what interviewers look for in juniors. Confident wrong answers are a red flag."
         }
       },
@@ -7014,11 +7012,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why mention what you would improve next?",
           "options": [
-            "It shows you understand the project's limits and think ahead",
             "To extend your response length gracefully when an interview feels unusually short",
+            "It shows you understand the project's limits and think ahead",
             "Because interviewers expect every unfinished codebase to explain why tests fail"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Knowing your project's limits, and how you would improve it, shows maturity and real understanding."
         }
       },
@@ -7047,11 +7045,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you do first when given a coding task in an interview?",
           "options": [
-            "Repeat the problem in your own words and ask about unclear cases",
             "Begin writing production code immediately without pausing to confirm input constraints",
-            "Jump straight to the cleverest one-liner trick you remember before testing inputs"
+            "Jump straight to the cleverest one-liner trick you remember before testing inputs",
+            "Repeat the problem in your own words and ask about unclear cases"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Making sure you understand the problem, including edge cases, avoids solving the wrong problem."
         }
       },
@@ -7113,11 +7111,11 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the most valuable next skill for a junior Python backend developer after this course?",
           "options": [
-            "Databases and SQL",
             "Memorising every Python module",
+            "Databases and SQL",
             "Waiting until you know everything before applying"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Almost every backend job stores data in a database. SQL and a real database are the natural next step for your project."
         }
       }
@@ -7176,12 +7174,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural innovation behind Pydantic V2's 5x to 50x performance gain over V1?",
           "options": [
-            "Compiled Rust (pydantic-core) exposed to Python via PyO3 bindings.",
             "Rewriting standard dict lookups using Cython C-level extension modules.",
             "Skipping field type coercion checks during JSON object instantiation.",
-            "Compiling model definitions into LLVM bytecode at import initialization."
+            "Compiling model definitions into LLVM bytecode at import initialization.",
+            "Compiled Rust (pydantic-core) exposed to Python via PyO3 bindings."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "pydantic-core moves parsing, schema traversal, and type validation into compiled Rust binaries, bypassing Python interpreter overhead."
         }
       },
@@ -7254,12 +7252,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does pre-compiling a schema validation tree improve API request handling performance?",
           "options": [
-            "Type reflection runs once at startup instead of on every incoming request.",
             "It caches serialized HTTP response payloads by primary field hash.",
+            "Type reflection runs once at startup instead of on every incoming request.",
             "It bypasses UTF-8 validation checks for validated ASCII string fields.",
             "It pins validation buffers inside thread-local C memory arenas."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Compiling schemas at startup avoids costly Python introspection and AST inspection during high-frequency request execution."
         }
       },
@@ -7293,12 +7291,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the E-Commerce Gateway Lab, what was the primary cause of the 480ms latency spike before the upgrade?",
           "options": [
-            "Per-request runtime regex compiling and dynamic schema introspection.",
             "Unbounded asyncio event-loop task spawning during JWT verification.",
             "Synchronous DNS resolution blocking Uvicorn HTTP/1.1 worker threads.",
+            "Per-request runtime regex compiling and dynamic schema introspection.",
             "Oversized connection keep-alive timeouts stalling worker sockets."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Performing schema reflection and regex compilation dynamically per request creates severe CPU bottlenecks under high traffic."
         }
       },
@@ -7332,12 +7330,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key functional difference between mode='before' and mode='after' in Pydantic V2 validators?",
           "options": [
-            "mode='before' sees raw input; mode='after' runs on validated fields.",
             "mode='before' mutates class defaults; mode='after' freezes attributes.",
             "mode='before' handles async coroutines; mode='after' runs sync hooks.",
-            "mode='before' validates query strings; mode='after' validates headers."
+            "mode='before' validates query strings; mode='after' validates headers.",
+            "mode='before' sees raw input; mode='after' runs on validated fields."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "mode='before' allows preprocessing raw input dictionaries, while mode='after' allows business logic validation on typed model fields."
         }
       }
@@ -7399,12 +7397,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the ASGI 'scope' dictionary in FastAPI's request lifecycle?",
           "options": [
-            "It supplies HTTP method, path, headers, and client address metadata.",
             "It manages ASGI server worker threads and asyncio event loop limits.",
             "It buffers incoming chunked HTTP request streams into memory.",
+            "It supplies HTTP method, path, headers, and client address metadata.",
             "It generates OpenAPI JSON schemas at runtime for each handler call."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The ASGI scope contains the foundational request metadata provided by Uvicorn before framework routing and validation occur."
         }
       },
@@ -7438,12 +7436,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a FastAPI dependency tree with a shared database session, what does use_cache=True accomplish?",
           "options": [
-            "It caches one dependency return value across a single HTTP request.",
             "It stores the dependency output inside Redis across multiple clients.",
             "It persists SQLAlchemy connection pools after worker restarts.",
-            "It bypasses async context teardown hooks on repeated endpoints."
+            "It bypasses async context teardown hooks on repeated endpoints.",
+            "It caches one dependency return value across a single HTTP request."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "use_cache=True memoizes the dependency result within the scope of a single HTTP request, preventing duplicate execution."
         }
       },
@@ -7516,12 +7514,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Banking Gateway Lab, what caused the 320ms latency penalty under high load?",
           "options": [
-            "Five dependencies with use_cache=False opened duplicate DB sessions.",
             "Synchronous bcrypt password hashing blocked the main event loop.",
+            "Five dependencies with use_cache=False opened duplicate DB sessions.",
             "Missing gzip middleware inflated outbound JSON response sizes.",
             "Unindexed foreign keys triggered sequential table scans in Postgres."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Disabling dependency caching forced 5 redundant database connection handshakes per request, causing massive connection pool queueing."
         }
       },
@@ -7555,12 +7553,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a FastAPI 'yield' dependency guarantee that external resources (like database transactions) are cleaned up?",
           "options": [
-            "Post-yield code runs in an internal try-finally after the response.",
             "CPython reference counting closes handles when response bytes flush.",
             "Uvicorn emits an ASGI shutdown event following every status code.",
+            "Post-yield code runs in an internal try-finally after the response.",
             "A background cleanup coroutine sweeps open sessions every 5 seconds."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Yield dependencies leverage Python generator semantics wrapped in framework try-finally blocks to guarantee post-request cleanup."
         }
       }
@@ -7622,12 +7620,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What header must be omitted when using HTTP/1.1 chunked transfer encoding in a FastAPI StreamingResponse?",
           "options": [
-            "Content-Length, since total streamed byte count is unknown upfront.",
             "Transfer-Encoding, because Starlette injects chunk headers itself.",
+            "Content-Length, since total streamed byte count is unknown upfront.",
             "Content-Type, since streaming boundaries vary per media payload.",
             "Cache-Control, because proxies cannot buffer chunked frames anyway."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Chunked transfer encoding strictly requires omitting the Content-Length header because the overall payload size is dynamically generated and streamed over time."
         }
       },
@@ -7661,12 +7659,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do un-bounded asyncio broadcast queues pose a critical hazard during high-frequency WebSocket streaming?",
           "options": [
-            "Slow readers buffer unconsumed frames in RAM until OOM kills occur.",
             "TCP window scaling stalls waiting for missing queue capacity acks.",
             "Uvicorn drops all WebSocket loops once queue depth passes 64 items.",
+            "Slow readers buffer unconsumed frames in RAM until OOM kills occur.",
             "Empty queue polls spin the GIL at 100% CPU across worker processes."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "When clients consume data slower than the server produces it, unbounded queues store infinite unconsumed messages in memory, leading to memory exhaustion and OOM crashes."
         }
       },
@@ -7700,12 +7698,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of using per-connection bounded queues over direct sequential 'await ws.send_text()' loops in a broadcast manager?",
           "options": [
-            "Slow client sockets cannot stall delivery to healthy subscribers.",
             "Queues compress RFC 6455 opcodes before serializing TCP segments.",
             "Bounded queues preserve global FIFO ordering across TCP reconnects.",
-            "Send loops bypass TLS encryption overhead when reading from queues."
+            "Send loops bypass TLS encryption overhead when reading from queues.",
+            "Slow client sockets cannot stall delivery to healthy subscribers."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Decoupling clients via bounded queues ensures that a slow client socket does not stall the broadcast loop or introduce latency to healthy subscribers."
         }
       },
@@ -7778,12 +7776,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical resource management rule when implementing async generators for StreamingResponse?",
           "options": [
-            "Wrap generator setup in try-finally so client drops trigger cleanup.",
             "Accumulate yielded tokens inside a list before flushing frames.",
+            "Wrap generator setup in try-finally so client drops trigger cleanup.",
             "Catch asyncio.CancelledError silently without re-raising it outward.",
             "Pin each generator coroutine inside a global dictionary for reuse."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Using try...finally ensures that database connections, file handles, and network sockets are reliably released even when clients cancel or abort connections midway through a stream."
         }
       }
@@ -7882,12 +7880,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an attacker successfully execute an Algorithm Confusion attack (CVE-2015-9235) against a vulnerable JWT verification function?",
           "options": [
-            "Signing an HS256 token using the server's exposed RSA public key.",
             "Removing the payload base64 padding while leaving signatures intact.",
+            "Signing an HS256 token using the server's exposed RSA public key.",
             "Replaying an expired RS256 refresh claim after clock skew drifts.",
             "Modifying exp integers in the header without updating kid metadata."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In Algorithm Confusion, the attacker changes the algorithm to symmetric HS256, tricking the server into verifying the token with its own public key used as an HMAC secret."
         }
       },
@@ -7921,12 +7919,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security purpose of Token Family Replay Detection in Refresh Token Rotation?",
           "options": [
-            "Detecting reuse of a rotated token and revoking the session family.",
             "Generating fresh RSA keypairs whenever clients exchange short TTLs.",
             "Binding refresh signatures permanently to a client's IPv4 subnet.",
+            "Detecting reuse of a rotated token and revoking the session family.",
             "Preventing concurrent browser tabs from calling GET /me together."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Replay detection identifies if a stolen refresh token is used after a legitimate client already rotated it, allowing the server to immediately invalidate the entire session family."
         }
       },
@@ -7960,12 +7958,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should entries in a Redis JWT revocation blocklist have a Time-To-Live (TTL) set to the token's remaining expiration time?",
           "options": [
-            "Stateless validation already rejects expired tokens, freeing RAM.",
             "Redis evicts persistent string keys after 24 hours automatically.",
             "JWT verifiers read blocklist TTL offsets instead of payload exp.",
-            "Longer Redis expirations block concurrent cluster replication."
+            "Longer Redis expirations block concurrent cluster replication.",
+            "Stateless validation already rejects expired tokens, freeing RAM."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Once a token's exp timestamp has passed, standard validation rejects the token automatically, so retaining its jti in the blocklist is unnecessary and wastes memory."
         }
       },
@@ -8064,12 +8062,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of defining explicit component contracts and dataclass configurations at gateway startup?",
           "options": [
-            "Misconfigured keys or limits fail fast at boot before serving traffic.",
             "Dataclass models generate compiled Pydantic Rust schemas dynamically.",
             "Boot contracts disable runtime Python type annotations for speed.",
-            "Startup configs share global mutable objects safely across processes."
+            "Startup configs share global mutable objects safely across processes.",
+            "Misconfigured keys or limits fail fast at boot before serving traffic."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Validating configuration at startup ensures that misconfigured keys, algorithms, or buffer limits fail fast before the service begins serving live traffic."
         }
       },
@@ -8142,12 +8140,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of request-scoped dependency caching (use_cache=True) in FastAPI?",
           "options": [
-            "Shared dependencies like DB sessions execute once per request DAG.",
             "It caches identical HTTP 200 JSON responses in ASGI worker RAM.",
+            "Shared dependencies like DB sessions execute once per request DAG.",
             "It skips Pydantic response serialization for repeated path routes.",
             "It reuses active asyncio locks across sequential client requests."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Request-scoped dependency caching ensures that dependencies needed by multiple branches of the DAG are executed exactly once per request, saving significant CPU and I/O."
         }
       },
@@ -8181,12 +8179,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does per-client bounded queue eviction protect the overall FastAPI server from Linux OOM crashes during high-frequency broadcasting?",
           "options": [
-            "It drops stalled slow subscribers before buffers consume all RAM.",
             "It compresses WebSocket text frames via zlib whenever queues grow.",
             "It spills overflow messages from memory into Redis stream shards.",
+            "It drops stalled slow subscribers before buffers consume all RAM.",
             "It throttles Uvicorn accept() sockets down to 1 connection per second."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Evicting slow consumers whose queues fill up prevents unconsumed messages from accumulating in RAM, capping memory consumption and preventing OOM crashes."
         }
       },
@@ -8220,12 +8218,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the defining requirement for certifying Milestone 6 as production-ready?",
           "options": [
-            "Zero auth bypasses, sub-ms route dispatch, and zero stream leaks.",
             "Migrating every FastAPI route to synchronous Flask WSGI workers.",
             "Replacing OpenAPI validation schemas with unchecked raw dicts.",
-            "Caching unsigned JWT payloads inside client-side localStorage."
+            "Caching unsigned JWT payloads inside client-side localStorage.",
+            "Zero auth bypasses, sub-ms route dispatch, and zero stream leaks."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A production-grade microservice must prove zero security vulnerabilities, sub-millisecond route dispatch latency, and leak-free resource lifecycle management under load."
         }
       }
@@ -8285,12 +8283,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of using an async database driver like asyncpg over legacy synchronous drivers like psycopg2?",
           "options": [
-            "Non-blocking socket I/O scales thousands of queries on one loop.",
             "asyncpg embeds SQLite locally inside each FastAPI worker thread.",
             "asyncpg compiles SQL queries directly into native C extensions.",
+            "Non-blocking socket I/O scales thousands of queries on one loop.",
             "asyncpg bypasses PostgreSQL wire protocol serialization framing."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Async drivers multiplex queries over non-blocking sockets, allowing single Python processes to handle thousands of concurrent queries without OS thread blocking or stack memory overhead."
         }
       },
@@ -8324,12 +8322,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the root cause of connection starvation in web applications using connection pooling?",
           "options": [
-            "Holders keep DB connections checked out during slow HTTP or CPU work.",
             "PostgreSQL terminates idle pooled connections after 50 milliseconds.",
             "Async QueuePool objects permit only one reader per SQLAlchemy table.",
-            "TCP connection pools leak file descriptors whenever SELECT returns zero rows."
+            "TCP connection pools leak file descriptors whenever SELECT returns zero rows.",
+            "Holders keep DB connections checked out during slow HTTP or CPU work."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Holding connections open during external HTTP calls or slow CPU processing prevents them from being checked back into the pool, draining available connections for other concurrent requests."
         }
       },
@@ -8402,12 +8400,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did decoupling database queries from the external payment API call eliminate connection pool exhaustion in the checkout service?",
           "options": [
-            "Holding connections only for SQL dropped hold time from 804ms to 4ms.",
             "Moving HTTP calls earlier let Postgres share dirty reads openly.",
+            "Holding connections only for SQL dropped hold time from 804ms to 4ms.",
             "Removing commits inside async handlers eliminated connection locks.",
             "Async HTTP calls shared the same TCP socket as PostgreSQL queries."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Reducing the connection hold time from 804ms to 4ms freed connections back to the pool almost immediately, multiplying the pool's throughput capacity by over 200 times."
         }
       },
@@ -8441,12 +8439,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must connection checkin logic always be placed inside a 'finally' block or async context manager '__aexit__'?",
           "options": [
-            "It guarantees pooled connections return even if handlers throw.",
             "PostgreSQL aborts active transactions unless FIN runs immediately.",
             "CPython GC ignores open socket descriptors inside async coroutines.",
+            "It guarantees pooled connections return even if handlers throw.",
             "SQLAlchemy commits dirty session writes inside pool checkin hooks."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The finally block ensures that regardless of whether a transaction commits or raises an unexpected exception, the checked-out connection is reliably returned to the pool, preventing leaks."
         }
       }
@@ -8506,12 +8504,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural guarantee provided by SQLAlchemy's Identity Map pattern?",
           "options": [
-            "One primary key maps to a single object instance per session.",
             "Identical SELECT strings cache query rows across all worker processes.",
+            "One primary key maps to a single object instance per session.",
             "Entity primary keys update atomically without issuing SQL locks.",
             "Foreign key joins load lazily across unrelated database sessions."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The Identity Map guarantees that exactly one object instance exists in Python memory per database primary key within a session, ensuring state consistency."
         }
       },
@@ -8545,12 +8543,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is sharing a single global AsyncSession across multiple concurrent HTTP requests considered a critical anti-pattern?",
           "options": [
-            "It causes Identity Map memory leaks and cross-request dirty state.",
             "AsyncSession limits active PostgreSQL rows to 100 entries globally.",
             "SQLAlchemy disables SELECT statements on module-level variables.",
+            "It causes Identity Map memory leaks and cross-request dirty state.",
             "HTTP/2 multiplexers block when multiple routes read one session object."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Sharing a session across requests causes the Identity Map to grow indefinitely and allows uncommitted dirty state from one request to be inadvertently committed by another."
         }
       },
@@ -8584,12 +8582,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When does SQLAlchemy's Unit of Work actually emit SQL statements to the database server?",
           "options": [
-            "During session.flush() or commit() using tracked dirty registries.",
             "Immediately on every Python attribute assignment like user.name = 'A'.",
             "Asynchronously on a 100ms background asyncio timer flush loop.",
-            "Only when Garbage Collection destroys out-of-scope model instances."
+            "Only when Garbage Collection destroys out-of-scope model instances.",
+            "During session.flush() or commit() using tracked dirty registries."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "SQLAlchemy buffers changes in memory and emits SQL statements only during flush or commit, allowing it to batch statements and enforce topological ordering."
         }
       },
@@ -8662,12 +8660,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended pattern for injecting SQLAlchemy AsyncSessions into FastAPI route handlers?",
           "options": [
-            "Per-request async generator yielding a session with try-finally close.",
             "Opening one module-global session shared safely via asyncio.Lock.",
+            "Per-request async generator yielding a session with try-finally close.",
             "Constructing a fresh create_async_engine inside every endpoint call.",
             "Persisting active ORM sessions directly inside HTTP cookie claims."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "An async generator dependency cleanly binds the session lifecycle to the HTTP request, guaranteeing automated commit on success, rollback on error, and session closure in finally."
         }
       }
@@ -8766,12 +8764,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How can engineering teams automatically detect and prevent N+1 query regressions in CI/CD pipelines?",
           "options": [
-            "Engine query listeners assert endpoints stay under max query budgets.",
             "Running EXPLAIN ANALYZE manually once before each quarterly release.",
+            "Engine query listeners assert endpoints stay under max query budgets.",
             "Disabling relationship lazy attributes only in local dev settings.",
             "Swapping PostgreSQL for in-memory SQLite during integration runs."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Attaching engine event listeners allows automated integration tests to count executed SQL queries and fail builds if an endpoint exceeds its strict query budget."
         }
       },
@@ -8805,12 +8803,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 'selectinload' preferred over 'joinedload' when eagerly loading one-to-many child collections in SQLAlchemy?",
           "options": [
-            "selectinload avoids Cartesian product row bloat across collections.",
             "joinedload fails to populate foreign key columns in asyncpg.",
             "selectinload caches parent collections natively across sessions.",
+            "selectinload avoids Cartesian product row bloat across collections.",
             "PostgreSQL prohibits multiple LEFT OUTER JOINs in one query."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "selectinload loads child records via an efficient SELECT ... WHERE id IN (...) query, completely avoiding the Cartesian product duplication caused by joining multiple one-to-many collections."
         }
       },
@@ -8844,12 +8842,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the consequence of configuring 'lazy=\"raise\"' on SQLAlchemy relationship attributes in production models?",
           "options": [
-            "Any un-loaded relationship access raises InvalidRequestError fast.",
             "Missing child rows automatically raise SQL IntegrityError commits.",
             "Unindexed relationships are eagerly preloaded on engine startup.",
-            "Lazy child fetches execute on a background ThreadPoolExecutor."
+            "Lazy child fetches execute on a background ThreadPoolExecutor.",
+            "Any un-loaded relationship access raises InvalidRequestError fast."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "lazy='raise' acts as a strict compile-time guard: if code accidentally attempts to lazy load an un-fetched relationship outside eager loading, SQLAlchemy raises an error immediately."
         }
       },
@@ -8943,12 +8941,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of running an un-guarded ALTER TABLE migration requiring an ACCESS EXCLUSIVE lock on an active production table?",
           "options": [
-            "It queues behind readers and blocks all subsequent reads and writes.",
             "PostgreSQL automatically drops nullable indexes before locking.",
             "Alembic aborts foreign key validation when locks exceed 50ms.",
-            "Queued ALTER statements duplicate write-ahead logs across replicas."
+            "Queued ALTER statements duplicate write-ahead logs across replicas.",
+            "It queues behind readers and blocks all subsequent reads and writes."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "An ACCESS EXCLUSIVE lock conflicts with all other lock modes. While waiting to acquire the lock, it blocks all subsequent reads and writes behind it in the lock queue, rapidly starving the application connection pool."
         }
       },
@@ -9013,12 +9011,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must historical data backfilling in Phase 3 be performed in small, bounded chunks rather than a single monolithic UPDATE?",
           "options": [
-            "Huge UPDATEs hold long row locks, bloat WAL, and spike DB latency.",
             "SQLAlchemy forbids single UPDATE statements touching over 10k rows.",
+            "Huge UPDATEs hold long row locks, bloat WAL, and spike DB latency.",
             "Chunked updates automatically re-enable dropped unique constraints.",
             "PostgreSQL only checkpoints WAL buffers when transactions commit 5x."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Updating millions of rows in a single query acquires heavy row locks, bloats transaction memory, overburdens the write-ahead log (WAL), and degrades real-time application throughput."
         }
       },
@@ -9048,12 +9046,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can CREATE INDEX CONCURRENTLY not be executed inside a standard Alembic transaction block?",
           "options": [
-            "PostgreSQL manages multiple internal snapshots outside user txns.",
             "CONCURRENTLY skips WAL generation which requires autocommit off.",
             "psycopg and asyncpg reject SQL keywords exceeding 12 characters.",
+            "PostgreSQL manages multiple internal snapshots outside user txns.",
             "PostgreSQL locks system catalogs inside Alembic version tables."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "CREATE INDEX CONCURRENTLY coordinates multiple internal transactions and snapshots across multiple passes, so PostgreSQL strictly forbids executing it inside an open user transaction block."
         }
       },
@@ -9083,12 +9081,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural benefit of synthesizing the Expand and Contract pattern into an automated migration coordinator?",
           "options": [
-            "It ships schema changes with zero downtime across rolling deploys.",
             "It converts blocking ALTER DDL statements into JSON migrations.",
             "It drops legacy tables immediately once v2 pods pass readiness.",
-            "It bypasses PostgreSQL MVCC tuple versioning during backfills."
+            "It bypasses PostgreSQL MVCC tuple versioning during backfills.",
+            "It ships schema changes with zero downtime across rolling deploys."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The Expand and Contract coordinator decouples schema additions from legacy deprecations, preventing locking starvation and preserving backward compatibility throughout rolling deployments."
         }
       }
@@ -9144,12 +9142,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of enforcing bounded connection pools in high-scale database engines?",
           "options": [
-            "Capping concurrent DB sockets shields memory and process tables.",
             "Pool limits force PostgreSQL to execute complex joins in parallel.",
             "Bounded pools automatically evict unused ORM models from session RAM.",
+            "Capping concurrent DB sockets shields memory and process tables.",
             "Pool limits reduce WAL disk replication bandwidth across replicas."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Bounded connection pools cap concurrent connections to the database, shielding the database cluster from memory thrashing and process exhaustion during high-concurrency traffic spikes."
         }
       },
@@ -9179,12 +9177,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must database connections be checked back into the pool inside a guaranteed __exit__ or finally block?",
           "options": [
-            "Exceptions or aborts still release checked-out connections safely.",
             "__exit__ flushes uncommitted dirty ORM changes straight to disk.",
             "Finally hooks rebuild broken PostgreSQL prepared plans automatically.",
-            "Without __exit__, Python leaks open sockets across container hosts."
+            "Without __exit__, Python leaks open sockets across container hosts.",
+            "Exceptions or aborts still release checked-out connections safely."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Context managers with __exit__ hooks guarantee that checked-out connections are safely returned to the pool regardless of whether the transaction commits or aborts due to an unhandled exception."
         }
       },
@@ -9249,12 +9247,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the selectinload strategy avoid the Cartesian product memory overhead of joinedload?",
           "options": [
-            "It runs two slim queries (parents then child IN) without row bloat.",
             "It streams child foreign keys asynchronously using server cursors.",
+            "It runs two slim queries (parents then child IN) without row bloat.",
             "It deduplicates joined child rows inside PostgreSQL memory before send.",
             "It replaces child ORM models with raw read-only tuple projections."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "selectinload separates parent and child fetching into two distinct queries, preventing the exponential Cartesian row duplication that occurs when joining multiple one-to-many collections."
         }
       },
@@ -9284,12 +9282,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural takeaway of Milestone Project 7?",
           "options": [
-            "Data tiers combine bounded pools, Unit of Work, eager loads, safe DDL.",
             "Raw cursor strings remove all need for connection pool bounds.",
             "Adding database RAM resolves N+1 query cascades without refactoring.",
+            "Data tiers combine bounded pools, Unit of Work, eager loads, safe DDL.",
             "Single global sessions improve throughput over per-request scoping."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "High-throughput enterprise data tiers require a holistic synthesis of bounded connection pooling, transactional atomicity, eager query planning, and backward-compatible schema migrations."
         }
       }
@@ -9345,12 +9343,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of offloading long-running tasks to background message brokers?",
           "options": [
-            "Web workers return fast HTTP responses while heavy work runs async.",
             "Brokers rewrite blocking Python sockets into non-blocking coroutines.",
+            "Web workers return fast HTTP responses while heavy work runs async.",
             "Queueing tasks bypasses database ACID isolation checks cleanly.",
             "Message brokers persist relational schema migrations off-process."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Offloading slow or resource-heavy workloads to asynchronous brokers frees web worker threads to handle incoming HTTP requests immediately, preserving low API latency and high throughput."
         }
       },
@@ -9380,12 +9378,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does setting task_acks_late=False (early ACK) risk silent data loss during worker crashes?",
           "options": [
-            "Brokers drop tasks on dispatch, losing work if a worker crashes.",
             "Early ACK commits half-finished transactions straight to PostgreSQL.",
             "Workers drop Redis result keys whenever prefetch queues fill up.",
+            "Brokers drop tasks on dispatch, losing work if a worker crashes.",
             "Early ACK prevents Celery exponential retry jitter from firing."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "With early ACK, the broker removes the message from its queue as soon as it is dispatched to a worker. If the worker terminates before completing the work, the task is permanently lost."
         }
       },
@@ -9415,12 +9413,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is worker_prefetch_multiplier=1 recommended for heterogeneous or long-running task queues?",
           "options": [
-            "Idle workers pull one task at a time instead of hoarding backlogs.",
             "Prefetch 1 spawns one extra OS worker process per Celery message.",
             "It compresses AMQP headers down to single-byte message tags.",
-            "It enables out-of-order speculative task execution inside greens."
+            "It enables out-of-order speculative task execution inside greens.",
+            "Idle workers pull one task at a time instead of hoarding backlogs."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Prefetch=1 ensures workers only pull a new task when they are ready to execute it, keeping unassigned tasks in the central broker where any idle worker can immediately process them."
         }
       },
@@ -9485,12 +9483,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core invariant does the synthesized DistributedTaskSupervisor enforce during worker crashes?",
           "options": [
-            "Late ACK lets standby workers redeliver unfinished crashed tasks.",
             "Supervisor processes checkpoint worker heap RAM every millisecond.",
+            "Late ACK lets standby workers redeliver unfinished crashed tasks.",
             "It forces synchronous caller retries whenever AMQP sockets drop.",
             "It drops unacked jobs cleanly so duplicate billing never triggers."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "By combining late acknowledgment with unacknowledged message tracking, the supervisor guarantees that worker crashes trigger automatic task redelivery, achieving zero task loss."
         }
       }
@@ -9581,12 +9579,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is total wall-clock execution time for a Celery Group bounded by the slowest task rather than the sum?",
           "options": [
-            "Group subtasks execute concurrently across parallel worker slots.",
             "Celery drops straggler tasks once median group latency completes.",
+            "Group subtasks execute concurrently across parallel worker slots.",
             "Group brokers pipeline subtask outputs before dependencies return.",
             "CPython releases the GIL across all threads inside group headers."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Group tasks execute in parallel across available worker slots, so total elapsed time equals the duration of the longest-running task plus scheduling overhead."
         }
       },
@@ -9616,12 +9614,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a Celery Chord coordinate barrier synchronization across distributed worker nodes?",
           "options": [
-            "An atomic result-backend counter triggers the callback at zero.",
             "The final worker broadcasts an AMQP fanout wake-up packet directly.",
             "Each worker acquires a shared PostgreSQL advisory row mutex lock.",
+            "An atomic result-backend counter triggers the callback at zero.",
             "RabbitMQ tracks header subtask counts natively inside exchanges."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Chords use the shared result backend (Redis) to maintain an atomic counter of pending header tasks. When the counter reaches zero, the final worker triggers the callback task."
         }
       },
@@ -9651,12 +9649,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary cause of the 'Thundering Herd' problem in naive Celery Chord configurations?",
           "options": [
-            "Hundreds of chord_unlock polling tasks flood Redis result checks.",
             "Workers reopen fresh AMQP TLS channels after each subtask return.",
             "Group fan-outs exceed Linux TCP ephemeral socket limits rapidly.",
-            "Uncompressed JSON task arguments exhaust Celery broker disk quotas."
+            "Uncompressed JSON task arguments exhaust Celery broker disk quotas.",
+            "Hundreds of chord_unlock polling tasks flood Redis result checks."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "When hundreds of concurrent chords poll Redis at sub-100ms intervals, the aggregate query rate saturates Redis CPU and connection pools, crashing dependent services."
         }
       },
@@ -9747,12 +9745,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is exactly-once message delivery physically impossible across distributed computer networks?",
           "options": [
-            "Dropped ACKs make a crash indistinguishable from a slow network hop.",
             "AMQP 0-9-1 lacks 64-bit UUID headers for cross-broker deduplication.",
             "Linux TCP stacks duplicate packets automatically during window shrinks.",
-            "Python async consumers drop socket frames whenever GC pauses run."
+            "Python async consumers drop socket frames whenever GC pauses run.",
+            "Dropped ACKs make a crash indistinguishable from a slow network hop."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The Two Generals' Problem proves that across unreliable networks, nodes cannot distinguish between a crashed consumer and a dropped acknowledgment packet, forcing brokers to redeliver."
         }
       },
@@ -9817,12 +9815,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an idempotency key in distributed background processing?",
           "options": [
-            "Unique keys identify retries to skip duplicate side effects.",
             "Keys sign Celery messages with HMAC to verify broker authenticity.",
+            "Unique keys identify retries to skip duplicate side effects.",
             "Keys shard AMQP queues cleanly across consistent-hash broker nodes.",
             "Keys compress repeated task JSON arguments inside Redis strings."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "An idempotency key allows the worker to verify whether an operation has already executed, returning cached results on duplicate arrivals and preventing redundant side effects."
         }
       },
@@ -9852,12 +9850,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must distributed locks always be provisioned with an automated Time-To-Live (TTL) expiration?",
           "options": [
-            "If a lock holder crashes mid-work, TTL frees the key from deadlock.",
             "Redis evicts long-lived SETNX keys unless refreshed every 60s.",
             "Deadlock detectors abort active transactions without TTL bounds.",
+            "If a lock holder crashes mid-work, TTL frees the key from deadlock.",
             "Distributed clocks drift faster when mutex keys lack expire flags."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If a worker holding a lock crashes before explicitly calling release, the TTL ensures that Redis automatically expires the key, allowing subsequent workers to acquire the lock."
         }
       },
@@ -9887,12 +9885,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core design principle is enforced by the ResilientBillingOrchestrator?",
           "options": [
-            "Handlers are idempotent so redeliveries never trigger double charges.",
             "Billing workers extend visibility timeouts automatically mid-charge.",
             "Gateways execute synchronous two-phase commits across Stripe & DB.",
-            "Late ACK alone stops redelivery when network ACK responses drop."
+            "Late ACK alone stops redelivery when network ACK responses drop.",
+            "Handlers are idempotent so redeliveries never trigger double charges."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "By combining idempotency keys, distributed mutex locks, and cached transaction registries, the orchestrator guarantees that duplicate deliveries never trigger duplicate financial charges."
         }
       }
@@ -9948,12 +9946,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of an AMQP Dead-Letter Exchange (DLX) in distributed task queues?",
           "options": [
-            "Quarantining rejected messages without halting active queues.",
             "Auto-scaling extra Celery pods whenever broker latency climbs.",
             "Archiving successfully ACKed task payloads for 30-day compliance.",
+            "Quarantining rejected messages without halting active queues.",
             "De-duplicating repeated task signatures before worker routing."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A dead-letter exchange captures messages rejected with requeue=False, moving them to a dedicated queue for forensic triage while preserving primary queue throughput."
         }
       },
@@ -9983,12 +9981,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes a catastrophic 'poison pill' backlog cascade in a background worker cluster?",
           "options": [
-            "Permanent errors retrying endlessly starve valid jobs from workers.",
             "Large binary payloads corrupting shared Redis connection buffers.",
             "Synchronized worker clocks causing visibility leases to skip frames.",
-            "Database connection timeouts pausing AMQP heartbeats globally."
+            "Database connection timeouts pausing AMQP heartbeats globally.",
+            "Permanent errors retrying endlessly starve valid jobs from workers."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "When tasks fail permanently but are retried indefinitely, they circulate perpetually through the worker pool, starving legitimate tasks and locking up the queue."
         }
       },
@@ -10053,12 +10051,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should CPU-intensive tasks such as video transcoding be executed in prefork pools rather than greenlet pools?",
           "options": [
-            "CPU compute blocks the single greenlet thread while holding the GIL.",
             "Greenlets lack ctypes bindings needed by C-compiled codecs.",
+            "CPU compute blocks the single greenlet thread while holding the GIL.",
             "Prefork worker pools run zero-copy memory across Linux containers.",
             "Greenlet schedulers limit task runtimes strictly to 5 seconds."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Greenlets rely on cooperative multitasking within a single OS thread; CPU-heavy operations do not yield control, causing the GIL to block all concurrent tasks in the process."
         }
       },
@@ -10088,12 +10086,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational value of integrating Flower and Prometheus metrics in Celery clusters?",
           "options": [
-            "Live visibility into queue lag, worker load, latency, and failures.",
             "Automated poison-pill deletion from RabbitMQ broker exchanges.",
             "Zero-downtime rolling upgrades across Python minor versions.",
+            "Live visibility into queue lag, worker load, latency, and failures.",
             "Dynamic rewriting of broker prefetch weights based on CPU temp."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Real-time telemetry and dashboards allow SRE teams to monitor queue lag, inspect worker pool saturation, and detect emerging poison pill cascades before SLAs are breached."
         }
       }
@@ -10149,12 +10147,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of formalizing the MilestoneMessageEnvelope contract?",
           "options": [
-            "A typed envelope decouples message brokers from task worker logic.",
             "Envelopes run automatic JSON compression over RabbitMQ frames.",
+            "A typed envelope decouples message brokers from task worker logic.",
             "Typed envelopes allow synchronous RPC calls without broker ACKs.",
             "Envelopes bind specific task payloads strictly to one worker PID."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A formalized message envelope ensures that brokers, workers, and result backends communicate using a consistent, strongly-typed contract across distributed nodes."
         }
       },
@@ -10184,12 +10182,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a distributed worker release its in-flight lock when a task fails before retrying?",
           "options": [
-            "Otherwise the retry gets blocked as if a duplicate run is active.",
             "Redis rejects SETNX renewal calls after any worker exception.",
             "Holding locks blocks AMQP broker requeue routing inside exchanges.",
+            "Otherwise the retry gets blocked as if a duplicate run is active.",
             "Unleased locks prevent PostgreSQL deadlocks from timing out."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If a failed task retains its lock, the standby worker processing the redelivered message will be blocked, falsely rejecting the retry as a duplicate concurrent execution."
         }
       },
@@ -10219,12 +10217,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural benefit does the Canvas Chord provide in the Milestone 8 order workflow?",
           "options": [
-            "The invoice callback only fires once all parallel subtasks finish.",
             "All invoice subtasks execute strictly sequentially on one worker.",
             "Failed subtasks roll back previously committed neighbor tasks.",
-            "Chords cache group intermediate states directly inside Postgres."
+            "Chords cache group intermediate states directly inside Postgres.",
+            "The invoice callback only fires once all parallel subtasks finish."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A chord enforces distributed barrier synchronization, awaiting the completion of every subtask in the parallel group before triggering the final invoice callback."
         }
       },
@@ -10289,12 +10287,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What four distributed systems contracts are formally certified by the Milestone 8 Verification Gate?",
           "options": [
-            "Zero task loss, idempotency, DLQ isolation, and Chord barriers.",
             "Auto-commit offsets, early ACK, unbounded chords, greenlet pools.",
+            "Zero task loss, idempotency, DLQ isolation, and Chord barriers.",
             "Synchronous billing, global sessions, offset pagination, lazy load.",
             "Strict schemas, JWT rotation, keyset cursors, online DDL indexes."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The capstone gate verifies the four architectural pillars of Block 9: message durability, idempotency guarantees, fault isolation, and workflow DAG synchronization."
         }
       }
@@ -10385,12 +10383,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does migrating high-throughput microservices from HTTP/1.1 to gRPC over HTTP/2 resolve EADDRNOTAVAIL socket errors?",
           "options": [
-            "HTTP/2 multiplexes RPCs on one connection, ending TIME_WAIT churn.",
             "Protobuf packets reduce MTU fragmentation across Linux NIC rings.",
+            "HTTP/2 multiplexes RPCs on one connection, ending TIME_WAIT churn.",
             "gRPC channels bind ephemeral client sockets with SO_REUSEPORT.",
             "HTTP/2 disables TCP delayed-ACK timers on loopback interfaces."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "HTTP/1.1 creates and tears down thousands of short-lived connections, exhausting ephemeral ports in TIME_WAIT state; HTTP/2 multiplexes streams over one persistent connection, eliminating churn."
         }
       },
@@ -10420,12 +10418,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must asynchronous gRPC handlers in Python (grpc.aio) be implemented using async def coroutines?",
           "options": [
-            "Non-blocking awaits yield the event loop across concurrent RPCs.",
             "Protobuf C-extensions require asyncio Future wrappers to serialize.",
             "grpc.aio automatically pins sync handlers onto 1-thread locks.",
+            "Non-blocking awaits yield the event loop across concurrent RPCs.",
             "HTTP/2 flow-control windows close when sync def stubs return."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Using async def coroutines allows grpc.aio to handle thousands of concurrent RPC connections on a single OS thread without blocking during network or database I/O."
         }
       },
@@ -10455,12 +10453,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which gRPC communication pattern is optimal for transmitting real-time financial market price tickers from a server to clients?",
           "options": [
-            "Server Streaming RPC: one subscription call yields continuous ticks.",
             "Unary RPC: clients poll fresh TCP streams per millisecond update.",
             "Client Streaming RPC: server pushes acknowledgments over trailers.",
-            "Bidirectional Unary REST polling using long-lived keepalive tags."
+            "Bidirectional Unary REST polling using long-lived keepalive tags.",
+            "Server Streaming RPC: one subscription call yields continuous ticks."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Server Streaming allows the client to initiate an open stream with a single subscription request, over which the server streams real-time updates as they occur with zero request overhead."
         }
       },
@@ -10551,12 +10549,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural difference between an Apache Kafka topic and a RabbitMQ message queue?",
           "options": [
-            "Kafka keeps immutable disk logs read independently per consumer group.",
             "Kafka routes messages with pattern exchanges instead of partitions.",
             "RabbitMQ preserves acknowledged events permanently on broker disks.",
-            "Kafka auto-deletes partition segments after one reader fetches them."
+            "Kafka auto-deletes partition segments after one reader fetches them.",
+            "Kafka keeps immutable disk logs read independently per consumer group."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Unlike traditional queues that delete messages upon acknowledgment, Kafka retains immutable log streams on disk, allowing multiple independent consumer groups to read at their own pace."
         }
       },
@@ -10621,12 +10619,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core delivery guarantee is enforced when a Kafka consumer manually commits offsets only after successful database writes?",
           "options": [
-            "At-least-once: crashed batches replay from the last committed offset.",
             "Exactly-once: broker storage prevents any record from replaying twice.",
+            "At-least-once: crashed batches replay from the last committed offset.",
             "At-most-once: unacked failures skip ahead on consumer poll rejoin.",
             "FIFO global ordering across every topic partition inside the cluster."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Committing offsets only after successful side-effects guarantees that failed or uncompleted events remain uncommitted, allowing surviving workers to re-poll and process them."
         }
       },
@@ -10656,12 +10654,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does setting max_poll_records protect an asynchronous Kafka consumer from crashing during traffic spikes?",
           "options": [
-            "Bounded poll batches avoid OOM and finish before rebalance timeouts.",
             "Brokers throttle upstream producer ACKs above the poll record cap.",
             "It moves unconsumed partition tail offsets cleanly into dead-letter.",
+            "Bounded poll batches avoid OOM and finish before rebalance timeouts.",
             "It caps consumer group heartbeat intervals regardless of event lag."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Bounding poll batch sizes prevents sudden memory bloat and ensures that consumers finish processing batches within max_poll_interval_ms, avoiding group rebalance storms."
         }
       },
@@ -10691,12 +10689,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What metric provides the primary indicator of whether Kafka consumers are keeping up with incoming event velocity?",
           "options": [
-            "Consumer lag: distance between log end offset and committed offset.",
             "Broker disk throughput relative to partition replication factors.",
             "Median producer batch compression ratio across active partitions.",
-            "Total TCP keepalive sockets opened across Zookeeper controllers."
+            "Total TCP keepalive sockets opened across Zookeeper controllers.",
+            "Consumer lag: distance between log end offset and committed offset."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Consumer lag measures the number of unread events remaining in the partition; a growing lag indicates that consumers are falling behind producer velocity."
         }
       }
@@ -10752,12 +10750,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational trade-off of the Write-Through caching pattern compared to Cache-Aside?",
           "options": [
-            "Stronger cache freshness on reads at the cost of higher write latency.",
             "Lower write latency overall while tolerating bounded stale read windows.",
             "Zero cache eviction storms because TTL keys extend on write misses.",
+            "Stronger cache freshness on reads at the cost of higher write latency.",
             "Guaranteed persistence across Redis restarts without database backing."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Write-Through writes to both cache and database synchronously, ensuring fresh data on every read at the expense of higher write latency."
         }
       },
@@ -10787,12 +10785,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a Cache Stampede (or Thundering Herd) in a high-traffic web application?",
           "options": [
-            "A hot key expires and thousands of misses hit the database at once.",
             "Redis LRU eviction thrashes RAM when memory fragmentation grows.",
             "Concurrent cluster shard failovers replay stale SETEX writes twice.",
-            "Large serialized pickled cache blobs saturate worker network ports."
+            "Large serialized pickled cache blobs saturate worker network ports.",
+            "A hot key expires and thousands of misses hit the database at once."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "When heavily queried keys expire, concurrent requests miss the cache together, hitting the primary database simultaneously with identical expensive queries."
         }
       },
@@ -10857,12 +10855,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is executing multi-step cache operations via Redis Lua scripts superior to multiple sequential network commands?",
           "options": [
-            "Lua runs atomically on Redis's single thread with one round-trip.",
             "Lua scripts offload complex joins onto background fork threads.",
+            "Lua runs atomically on Redis's single thread with one round-trip.",
             "Redis pipelines compile Lua bytecode down to shared C++ modules.",
             "Lua scripts preserve ACID rollback across multi-shard Redis keys."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Lua scripts run atomically within Redis's single-threaded core, preventing other clients from modifying data between operations and eliminating network latency round-trips."
         }
       },
@@ -10892,12 +10890,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the verified database load reduction achieved by the ResilientPortalCacheEngine under 1,000 requests?",
           "options": [
-            "99.9% load reduction: 1 DB query refreshes 999 memory cache reads.",
             "50.0% load reduction: half of concurrent readers bypass the mutex.",
             "75.0% load reduction: probabilistic leases block every 4th reader.",
+            "99.9% load reduction: 1 DB query refreshes 999 memory cache reads.",
             "90.0% load reduction: sliding TTL windows evict 100 tail entries."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "By refreshing the key asynchronously before expiration, 999 requests are served from memory while exactly 1 background database query warms the cache."
         }
       }
@@ -10956,12 +10954,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational purpose of the OPEN state in a microservice circuit breaker?",
           "options": [
-            "Fast-failing calls locally so degraded upstreams have time to heal.",
             "Dropping TCP connections mid-handshake after raising timeout limits.",
+            "Fast-failing calls locally so degraded upstreams have time to heal.",
             "Retrying failing downstream calls exponentially inside the caller.",
             "Queuing incoming traffic indefinitely until downstream health heals."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "In the OPEN state, the circuit breaker fast-fails requests immediately in microsecond time, preventing thread pool exhaustion and shielding the downstream service."
         }
       },
@@ -10994,12 +10992,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Bulkhead isolation pattern prevent cascading outages in microservice architectures?",
           "options": [
-            "Separate thread or connection pools keep one failure contained.",
             "Adaptive load shedding halts all endpoints whenever CPU crosses 80%.",
             "Shared unbounded queues buffer slow requests to absorb retry bursts.",
+            "Separate thread or connection pools keep one failure contained.",
             "Circuit breakers share a global atomic failure counter across pods."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Bulkheads divide resources into independent pools, ensuring that latency spikes or thread saturation in one dependency cannot deplete threads needed by other services."
         }
       },
@@ -11032,12 +11030,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What key advantage does the Token Bucket algorithm offer compared to a simple fixed-window rate limiter?",
           "options": [
-            "Allows brief bursts up to bucket capacity while bounding steady rate.",
             "Prevents double-burst boundary spikes without tracking token timestamps.",
             "Eliminates per-key Redis memory by hashing client IPs in bloom filters.",
-            "Guarantees strict FIFO ordering for delayed client request retries."
+            "Guarantees strict FIFO ordering for delayed client request retries.",
+            "Allows brief bursts up to bucket capacity while bounding steady rate."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Token Bucket permits brief bursts of traffic up to its burst capacity while capping sustained traffic to the token refill rate, avoiding window boundary spikes."
         }
       },
@@ -11108,12 +11106,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary indicator of a successful microservice fault isolation implementation during a downstream partner outage?",
           "options": [
-            "Core checkouts continue via fallbacks without thread starvation.",
             "All non-critical endpoints return HTTP 500 to fail callers early.",
+            "Core checkouts continue via fallbacks without thread starvation.",
             "Retrying partner RPCs 10 times preserves partial delivery parity.",
             "Auto-scalers double pod counts quickly to absorb blocked sockets."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Effective fault isolation allows primary transactions to proceed unharmed while failing dependencies are gracefully degraded using fallbacks without cascading."
         }
       }
@@ -11210,12 +11208,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of manual log offset commits in an asynchronous Kafka event processing pipeline?",
           "options": [
-            "Offsets advance only after DB writes finish so crashes replay lost work.",
             "Brokers avoid retaining committed consumer offsets in cluster logs.",
+            "Offsets advance only after DB writes finish so crashes replay lost work.",
             "Manual commits enable zero-copy network reads without consumer ACKs.",
             "Workers advance partition watermarks faster under rebalancing load."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Manual offset commits ensure that if a worker crashes before persisting data, another consumer will replay the batch, guaranteeing at-least-once durability."
         }
       },
@@ -11248,12 +11246,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the XFetch algorithm prevent primary database collapse during heavy traffic to expiring keys?",
           "options": [
-            "Probabilistic pre-expiry recomputes warm cache before misses spike.",
             "Distributed Redis advisory locks queue concurrent reader coroutines.",
             "Short 1-second stale-while-revalidate headers shield primary shards.",
+            "Probabilistic pre-expiry recomputes warm cache before misses spike.",
             "Fixed-interval cron workers prefill every cold key twice per hour."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "XFetch probabilistically triggers a single asynchronous background refresh before the key expires, keeping the cache perpetually warm without stampedes."
         }
       },
@@ -11286,12 +11284,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when an upstream caller attempts an RPC to a downstream service whose circuit breaker is OPEN?",
           "options": [
-            "It fast-fails immediately without I/O and runs fallback logic.",
             "It blocks cleanly until the half-open reset timer clears its state.",
             "It opens a low-priority bulkhead queue until target pods recover.",
-            "It replays cached HTTP 504 errors straight through gRPC trailers."
+            "It replays cached HTTP 504 errors straight through gRPC trailers.",
+            "It fast-fails immediately without I/O and runs fallback logic."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "In the OPEN state, circuit breakers immediately fast-fail requests without network I/O, preserving thread resources and triggering fallback mechanisms."
         }
       },
@@ -11389,12 +11387,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the four components of a standard W3C traceparent HTTP header?",
           "options": [
-            "Version (2 hex), trace-id (32), parent-id (16), and trace-flags (2).",
             "Span name (UTF-8), timestamp epoch, service tag, and sampling rate.",
             "User UUID, HMAC digest, request correlation timestamp, and route path.",
-            "Source node ID, cluster shard, retry counter, and HTTP status code."
+            "Source node ID, cluster shard, retry counter, and HTTP status code.",
+            "Version (2 hex), trace-id (32), parent-id (16), and trace-flags (2)."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The W3C TraceContext standard defines traceparent as four hyphen-separated hex fields: version (00), 16-byte trace-id, 8-byte parent-id, and 1-byte trace-flags."
         }
       },
@@ -11465,12 +11463,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of adhering to OpenTelemetry Semantic Conventions when naming span attributes?",
           "options": [
-            "Uniform attribute names let tracing tools query polyglot services.",
             "Canonical key hashes shrink serialized OTLP Protobuf span buffers.",
+            "Uniform attribute names let tracing tools query polyglot services.",
             "Collectors enforce strict type validation before ingesting spans.",
             "Standard names enable automatic PII scrubbing inside Jaeger stores."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Semantic conventions define standard attribute keys (like http.status_code and db.system) so monitoring tools can parse and visualize telemetry uniformly across services."
         }
       },
@@ -11503,12 +11501,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key trade-off between Head-Based Sampling and Tail-Based Sampling in distributed tracing?",
           "options": [
-            "Head sampling is cheap but misses errors; tail buffers errors at cost.",
             "Head sampling needs stateful collectors; tail sampling runs stateless.",
             "Tail sampling cuts collector RAM by dropping span trees at ingress.",
+            "Head sampling is cheap but misses errors; tail buffers errors at cost.",
             "Head sampling catches 100% of 5xx errors without waiting for exit."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Head-based decides immediately at ingress without buffering, risking missing rare errors; tail-based buffers until completion to capture errors, incurring memory costs."
         }
       },
@@ -11541,12 +11539,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a multi-service trace graph, how do engineers identify the primary latency bottleneck of a slow transaction?",
           "options": [
-            "Compare span durations to spot which child hop consumed wall time.",
             "Count total emitted debug log lines across downstream service nodes.",
             "Sum incoming TCP payload header lengths across the request waterfall.",
-            "Inspect garbage collection pause counts averaged over idle workers."
+            "Inspect garbage collection pause counts averaged over idle workers.",
+            "Compare span durations to spot which child hop consumed wall time."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Distributed trace spans break down total latency by component, allowing engineers to pinpoint exactly which service or database query consumed the majority of time."
         }
       }
@@ -11605,12 +11603,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What three core operational signals constitute Tom Wilkie's RED Method for microservice monitoring?",
           "options": [
-            "Rate (requests/sec), Errors (failures/sec), and Duration (latency).",
             "CPU Utilization, Queue Saturation, and Disk IOPS (USE resource metrics).",
             "Heap Footprint, Thread Count, and GC Pause Duration (Runtime metrics).",
+            "Rate (requests/sec), Errors (failures/sec), and Duration (latency).",
             "Read Latency, Eviction Count, and Dirty Page Flush Rate (Cache KPIs)."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The RED Method focuses on Rate (throughput), Errors (failure frequency), and Duration (latency distribution) as the universal signals for request-driven services."
         }
       },
@@ -11643,12 +11641,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary difference in mathematical behavior between a Prometheus Counter and a Gauge?",
           "options": [
-            "Counters monotonically rise (or reset); Gauges move up and down.",
             "Counters sample quantile buckets; Gauges count HTTP 5xx spikes.",
             "Counters compute moving rates in Python; Gauges run PromQL averages.",
-            "Gauges persist across process restarts; Counters reset at scrape."
+            "Gauges persist across process restarts; Counters reset at scrape.",
+            "Counters monotonically rise (or reset); Gauges move up and down."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Counters monotonically track cumulative counts (requests, errors), while Gauges capture fluctuating instantaneous values (connections, memory)."
         }
       },
@@ -11719,12 +11717,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What catastrophic operational failure occurs when developers attach unbounded identifiers (e.g. user IDs) to Prometheus metric labels?",
           "options": [
-            "High cardinality explodes unique time series until TSDB hits OOM.",
             "High label strings truncate OTLP scrape payloads cleanly at 4KB.",
+            "High cardinality explodes unique time series until TSDB hits OOM.",
             "Duplicate user labels silently overwrite prior counter increments.",
             "Prometheus switches histograms into slow synchronous disk locks."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Every unique label combination creates an independent time series; unbounded IDs generate millions of series, exhausting Prometheus memory."
         }
       },
@@ -11757,12 +11755,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do quantitative RED metrics dashboards help site reliability engineers maintain high-availability service level agreements?",
           "options": [
-            "Tracking rate, errors, and p99 latencies alerts before SLO breach.",
             "Auto-dropping high-latency tail samples restores dashboard p99 KPIs.",
             "Averaging 24-hour counter totals conceals transient 1-minute spikes.",
+            "Tracking rate, errors, and p99 latencies alerts before SLO breach.",
             "Polling health endpoints every 60 seconds removes histogram scraping."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "RED dashboards track live throughput, error rates, and percentile latencies against target SLOs, enabling early detection and resolution of emerging performance regressions."
         }
       }
@@ -11821,12 +11819,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is structured JSON logging preferred over unformatted plaintext print statements in containerized microservices?",
           "options": [
-            "Log shippers index JSON fields cleanly without brittle regex.",
             "stdout buffering flushes JSON dictionaries atomically under Docker.",
+            "Log shippers index JSON fields cleanly without brittle regex.",
             "Multiline stack traces compress smaller when written unescaped.",
             "Python logging skips stdout file locks only for JSON formatters."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Centralized log engines (Elasticsearch, Loki) parse structured JSON keys automatically, enabling instant filtering without writing brittle regex scrapers."
         }
       },
@@ -11859,12 +11857,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of a Correlation ID in distributed microservice architectures?",
           "options": [
-            "Tagging every service log belonging to one end-to-end request.",
             "Authenticating internal service-to-service mTLS proxy handshakes.",
             "Hashing database transaction IDs for idempotency table uniqueness.",
+            "Tagging every service log belonging to one end-to-end request.",
             "Ordering partition offsets chronologically inside Apache Kafka logs."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A Correlation ID is stamped onto all logs across every service participating in a request, allowing engineers to reconstruct the complete transaction timeline."
         }
       },
@@ -11897,12 +11895,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does combining contextvars with custom logging filters eliminate developer error in distributed logging?",
           "options": [
-            "Filters attach trace and correlation IDs automatically to every log.",
             "Context filters strip slow debug stack traces during high RPS.",
             "contextvars passes mutable logger references across process forks.",
-            "Logging filters validate PII fields lazily after shipping to Loki."
+            "Logging filters validate PII fields lazily after shipping to Loki.",
+            "Filters attach trace and correlation IDs automatically to every log."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Logging filters read active contextvars and enrich log records automatically, guaranteeing 100% context coverage without boilerplate."
         }
       },
@@ -11973,12 +11971,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does correlation-based log querying accelerate incident response during a complex microservice outage?",
           "options": [
-            "Filtering one ID isolates the request's exact cross-service trace.",
             "Grouping logs by host IP aggregates unrelated background workers.",
+            "Filtering one ID isolates the request's exact cross-service trace.",
             "Sampling 1% of INFO logs keeps database error stacks untouched.",
             "Scanning raw timestamps across clusters resolves unsynced clock skew."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Filtering by correlation ID isolates the exact sequence of events for a specific transaction across noisy multi-service logs, enabling rapid root-cause diagnosis."
         }
       }
@@ -12075,12 +12073,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is using deep health checks (querying databases) for Kubernetes Readiness Probes considered an operational antipattern?",
           "options": [
-            "One DB blip makes all pods unready and pulls the whole app offline.",
             "Deep SQL probes exhaust read replica WAL slots faster than traffic.",
+            "One DB blip makes all pods unready and pulls the whole app offline.",
             "Kubernetes kubelet restricts readiness probe payloads to HTTP HEAD.",
             "Database checks prevent Kubernetes from sending SIGKILL on deadlock."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A database slowdown causes all deep readiness probes to fail together, leading Kubernetes to drop all pods from load balancing and taking down the entire website."
         }
       },
@@ -12113,12 +12111,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What sequence of actions should a Python microservice perform upon receiving a POSIX SIGTERM signal?",
           "options": [
-            "Fail readiness, stop new requests, drain active work, close pools.",
             "Call sys.exit(0) immediately so Kubernetes routes traffic elsewhere.",
             "Hold HTTP keepalives open until SIGKILL fires after grace expires.",
+            "Fail readiness, stop new requests, drain active work, close pools.",
             "Reject in-flight queries with HTTP 500 before flipping readiness."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Graceful shutdown flips readiness to stop new traffic, drains existing requests, closes resources cleanly, and exits without dropped connections."
         }
       },
@@ -12151,12 +12149,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is sending the 'Connection: close' header critical during microservice graceful shutdown?",
           "options": [
-            "It breaks persistent keepalives so clients reconnect to healthy pods.",
             "It triggers immediate FIN-RST drops across active database pools.",
             "Proxies cache HTTP 503 responses unless Connection: close is present.",
-            "It flushes buffered kernel TCP send queues synchronously in Python."
+            "It flushes buffered kernel TCP send queues synchronously in Python.",
+            "It breaks persistent keepalives so clients reconnect to healthy pods."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Persistent keep-alive connections would otherwise continue sending requests to terminating pods; 'Connection: close' forces clients to reconnect to healthy pods."
         }
       },
@@ -12253,12 +12251,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of a unified telemetry contract in microservice systems?",
           "options": [
-            "Aligning trace, span, and correlation IDs across every signal tier.",
             "Routing Prometheus metrics and raw stdout logs over one gRPC port.",
             "Eliminating structured JSON schema fields in error payloads.",
-            "Sharing fixed histogram buckets across unrelated batch workloads."
+            "Sharing fixed histogram buckets across unrelated batch workloads.",
+            "Aligning trace, span, and correlation IDs across every signal tier."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A unified contract ensures that traces, logs, and metrics share common identifiers (trace ID, correlation ID), enabling seamless cross-system correlation."
         }
       },
@@ -12329,12 +12327,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are p99 latency percentiles more informative than average latency for evaluating microservice SLAs?",
           "options": [
-            "Averages mask extreme outliers that still degrade slowest 1% tail.",
             "Mean values drift upward whenever request throughput surges fast.",
+            "Averages mask extreme outliers that still degrade slowest 1% tail.",
             "p99 excludes outliers completely while tracking steady-state speed.",
             "Prometheus Counters cannot sum raw latency durations accurately."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Averages hide severe outliers behind large volumes of fast requests; p99 reveals the latency experienced by the slowest 1% of users."
         }
       },
@@ -12367,12 +12365,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of flipping the Readiness Probe to False when a SIGTERM signal arrives?",
           "options": [
-            "Removing the pod from load-balancer endpoints while active work drains.",
             "Forcing kubelet to issue SIGKILL before grace period timer elapses.",
             "Draining active database connection pools prior to closing HTTP.",
+            "Removing the pod from load-balancer endpoints while active work drains.",
             "Flushing buffered stdout logs before shutting down the event loop."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Flipping readiness to False instructs Kubernetes to remove the terminating pod from service routing tables so new traffic is diverted to healthy pods."
         }
       },
@@ -12405,12 +12403,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core operational capabilities certify the Milestone 10 platform for high-scale enterprise production?",
           "options": [
-            "W3C traces, safe-label RED metrics, PII-clean logs, graceful drain.",
             "Deep DB readiness checks, user-ID labels, raw print logs, sys.exit.",
             "Head sampling at 100%, unredacted JWT logs, implicit auto-commits.",
-            "Early Celery ACK, naive OFFSET cursors, shared global async sessions."
+            "Early Celery ACK, naive OFFSET cursors, shared global async sessions.",
+            "W3C traces, safe-label RED metrics, PII-clean logs, graceful drain."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Synthesizing distributed tracing, RED metrics, correlated structured logging, and graceful draining creates a resilient, transparent, enterprise-ready platform."
         }
       }
@@ -12466,12 +12464,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is IEEE 754 floating point strictly forbidden for financial balances in fintech ledgers?",
           "options": [
-            "Binary floats approximate decimal fractions, creating rounding drift.",
             "Floating point arithmetic releases the GIL intermittently under load.",
             "Python float objects overflow 64 bits once balances exceed $100k.",
+            "Binary floats approximate decimal fractions, creating rounding drift.",
             "PostgreSQL refuses transactional isolation on IEEE float columns."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "IEEE 754 represents fractions as sums of negative powers of two; 0.1 and 0.2 cannot be represented precisely in binary, introducing rounding errors."
         }
       },
@@ -12501,12 +12499,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimistic concurrency control prevent double-spending in a financial ledger?",
           "options": [
-            "Updates require matching the read version, rejecting stale writes.",
             "Table-level ACCESS EXCLUSIVE locks serialize every withdrawal call.",
             "Balances compute from Redis caches before persisting to journals.",
-            "Double-entry triggers overwrite negative balances inside Postgres."
+            "Double-entry triggers overwrite negative balances inside Postgres.",
+            "Updates require matching the read version, rejecting stale writes."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Optimistic locking checks that the record version hasn't been modified by another concurrent transaction since it was read, preventing lost updates."
         }
       },
@@ -12571,12 +12569,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an idempotency key in financial APIs?",
           "options": [
-            "Preventing duplicate transfers when flaky clients retry safely.",
             "Encrypting transfer payloads using ephemeral client session keys.",
+            "Preventing duplicate transfers when flaky clients retry safely.",
             "Routing high-priority wires straight onto dedicated Postgres shards.",
             "Ordering concurrent withdrawals chronologically before commit checks."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Idempotency ensures that if a network drop causes a client to retry a payment request, the server executes it exactly once and returns the cached result."
         }
       },
@@ -12606,12 +12604,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a cryptographic hash chain provide tamper evidence for financial ledgers?",
           "options": [
-            "Altering an old record breaks the chained hashes of every later row.",
             "Hashing balances prevents SQL READ queries without audit private keys.",
             "Checksums compress append-only journal tables by 80% on Postgres.",
+            "Altering an old record breaks the chained hashes of every later row.",
             "Chained hashes let workers roll back committed transactions safely."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Because every block includes the hash of the previous block, modifying any past transaction changes its hash and invalidates all subsequent hashes."
         }
       }
@@ -12667,12 +12665,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a distributed Pub/Sub message bus required when horizontally scaling WebSocket servers?",
           "options": [
-            "Sockets terminate per pod, so Pub/Sub fans messages across instances.",
             "RFC 6455 forbids two browsers from terminating on the same host.",
+            "Sockets terminate per pod, so Pub/Sub fans messages across instances.",
             "Uvicorn serializes outbound WebSocket text frames via Redis Streams.",
             "Kubernetes ingress kills connections unless heartbeats publish to bus."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Since client sockets are statefully bound to specific pod instances, Redis Pub/Sub acts as the inter-pod message bus to fan out messages to all connected participants."
         }
       },
@@ -12702,12 +12700,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of naive message broadcasting in a collaborative room with N participants?",
           "options": [
-            "O(N^2) work as every active participant fans frames to N - 1 peers.",
             "O(N log N) work using binary fan-out trees per gateway host pod.",
             "O(N) linear cost because Redis replicates packets across sockets.",
+            "O(N^2) work as every active participant fans frames to N - 1 peers.",
             "O(1) constant cost once HTTP/2 multiplexes shared room channels."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "With N users each emitting updates to N-1 peers, the total message throughput scales quadratically as N * (N - 1), creating extreme load."
         }
       },
@@ -12737,12 +12735,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should the originating client be excluded when broadcasting updates to a room?",
           "options": [
-            "The client rendered the edit optimistically, so echoing wastes work.",
             "Redis Pub/Sub enters an infinite loop if publishers are subscribed.",
             "Receiving own WebSocket text frames resets client sequence counters.",
-            "WebSocket frames do not permit read/write overlap on a single socket."
+            "WebSocket frames do not permit read/write overlap on a single socket.",
+            "The client rendered the edit optimistically, so echoing wastes work."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Modern collaborative apps apply edits optimistically locally; receiving an immediate echo wastes bandwidth and can trigger stuttering UI glitches."
         }
       },
@@ -12807,12 +12805,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of sequence-numbered delta replay over full state resynchronization?",
           "options": [
-            "Replaying missed ops restores state fast without huge snapshots.",
             "Sequence IDs remove the need for ordered WebSocket TCP streams.",
+            "Replaying missed ops restores state fast without huge snapshots.",
             "Delta replay eliminates Redis Pub/Sub cross-pod fanout traffic.",
             "Clients reconstruct history directly from browser localStorage only."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Delta replay sends only operations that occurred while the client was disconnected, drastically minimizing bandwidth and latency."
         }
       }
@@ -12903,12 +12901,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes a TOCTOU overselling race condition in e-commerce checkout systems?",
           "options": [
-            "Two callers read positive stock before either decrements inventory.",
             "Clock skew between checkout nodes reverses transaction commit order.",
+            "Two callers read positive stock before either decrements inventory.",
             "Unindexed SKU queries return stale secondary replica balances once.",
             "Decimal rounding leaks fractional stock units during concurrent buys."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Separating the read check from the decrement write allows parallel threads to read pre-decrement stock simultaneously, causing overselling."
         }
       },
@@ -12938,12 +12936,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are Redis Lua scripts ideal for flash sale inventory reservations?",
           "options": [
-            "Scripts execute check-and-decrement atomically on Redis's thread.",
             "Lua shards inventory counters across cluster replicas automatically.",
             "Lua scripts persist order confirmations directly into PostgreSQL.",
+            "Scripts execute check-and-decrement atomically on Redis's thread.",
             "Compiled Lua bytecode executes GPU-accelerated integer vector checks."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Redis guarantees atomic execution for Lua scripts; no other client can modify or read inventory between the stock check and the decrement."
         }
       },
@@ -12973,12 +12971,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of an edge rate limiter during a flash sale?",
           "options": [
-            "Smoothing burst spikes and dropping bot floods before inventory.",
             "Validating user balances before issuing atomic Redis reservation keys.",
             "Compressing incoming HTTP POST checkout bodies before gateway auth.",
-            "Partitioning accepted reservation queues across payment gateways."
+            "Partitioning accepted reservation queues across payment gateways.",
+            "Smoothing burst spikes and dropping bot floods before inventory."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Edge rate limiters enforce traffic smoothing and shed malicious or abusive bursts, protecting core reservation engines from saturation."
         }
       },
@@ -13069,12 +13067,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is mathematical capacity modeling required in a Principal Architect's RFC?",
           "options": [
-            "Sizing CPU, RAM, and bandwidth from RPS math prevents outages.",
             "AWS clusters throttle auto-scaling groups lacking RFC YAML blocks.",
             "CPython allocator tunes arena sizes from declared architecture docs.",
-            "SLA error budgets only compute once annual hardware spend is locked."
+            "SLA error budgets only compute once annual hardware spend is locked.",
+            "Sizing CPU, RAM, and bandwidth from RPS math prevents outages."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Capacity planning models ground infrastructure sizing in concrete arithmetic, ensuring cost efficiency and preventing under-provisioning outages."
         }
       },
@@ -13139,12 +13137,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Principal Architects establish granular component latency budgets?",
           "options": [
-            "Summed hop budgets ensure end-to-end latency stays under p99 SLA.",
             "Per-hop budgets keep Kubernetes pod CPU limits equal across tiers.",
+            "Summed hop budgets ensure end-to-end latency stays under p99 SLA.",
             "Strict budgets disable network TLS negotiation on internal hops.",
             "Latency caps force synchronous REST services to upgrade to HTTP/3."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Latency budgets divide the total allowed time across each hop, ensuring that every engineering squad builds within their allocated latency budget."
         }
       },
@@ -13174,12 +13172,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an N+1 redundancy factor in cluster sizing?",
           "options": [
-            "Keeping one spare node's capacity so single-node loss stays healthy.",
             "Provisioning one hot standby master schema per read-only shard.",
             "Adding one extra database hop per service mesh retry policy loop.",
+            "Keeping one spare node's capacity so single-node loss stays healthy.",
             "Reserving one extra core exclusively for Python garbage collection."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "N+1 provisioning guarantees that surviving nodes have enough spare capacity to absorb traffic without degradation if one node fails."
         }
       },
@@ -13210,12 +13208,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when a service completely exhausts its monthly error budget?",
           "options": [
-            "Feature launches freeze so teams pivot to reliability hardening.",
             "Load balancers immediately shed 50% of traffic with HTTP 503.",
             "Kubernetes restarts every pod in the namespace until SLO recovers.",
-            "Prometheus halts SLA alerting until the next calendar billing cycle."
+            "Prometheus halts SLA alerting until the next calendar billing cycle.",
+            "Feature launches freeze so teams pivot to reliability hardening."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Exhausting the error budget signals that system stability is at risk, pausing new features until reliability is restored."
         }
       }
@@ -13272,12 +13270,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of the ApexPython Master Capstone Platform?",
           "options": [
-            "Combining async APIs, data, caching, streams, ledgers, and SRE.",
             "Replacing Python runtimes with bare-metal Rust across microservices.",
             "Consolidating all microservices back into a threaded monolith.",
+            "Combining async APIs, data, caching, streams, ledgers, and SRE.",
             "Benchmarking CPython bytecode loops without external networking."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The Master Capstone brings together async I/O, schemas, caching, streaming, ledgers, and telemetry into a complete production system."
         }
       },
@@ -13308,12 +13306,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ApexPython platform ensure zero data loss during a primary database failover?",
           "options": [
-            "Queue buffers hold pending writes cleanly until primary recovers.",
             "Clients retry HTTP 500 responses manually inside localStorage.",
             "Strict Pydantic mode caches failed requests on pod root disks.",
-            "Optimistic locking promotes secondary read replicas in 1 microsecond."
+            "Optimistic locking promotes secondary read replicas in 1 microsecond.",
+            "Queue buffers hold pending writes cleanly until primary recovers."
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Queue buffering decouples write ingress from temporary database unavailability, holding transactions safely until persistence recovers."
         }
       },
@@ -13379,12 +13377,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary purpose of the Master Capstone Viva Gate?",
           "options": [
-            "Testing architecture trade-offs and resilience under adversarial Q&A.",
             "Verifying syntax memorization across standard Python collection APIs.",
+            "Testing architecture trade-offs and resilience under adversarial Q&A.",
             "Auditing CSS responsive grids across static documentation sites.",
             "Compiling live Rust C-extensions from handwritten Cython templates."
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "The viva gate tests the engineer's ability to explain, defend, and justify architectural decisions before a panel of senior systems leaders."
         }
       },
@@ -13414,12 +13412,12 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core competencies are certified by the 60-Day Python Backend Engineering Master Certification?",
           "options": [
-            "Async I/O, ORMs, Kafka, Redis cache, ledgers, flash sales, SRE.",
             "Static frontend styling, SQL table imports, cron scripts, basics.",
             "Spreadsheet macro automation, WordPress hosting, basic DNS setup.",
+            "Async I/O, ORMs, Kafka, Redis cache, ledgers, flash sales, SRE.",
             "Manual bash server provisioning without container probes or logs."
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The certification validates comprehensive architectural mastery across all 60 days of advanced backend engineering."
         }
       }

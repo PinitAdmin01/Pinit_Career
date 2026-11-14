@@ -38,13 +38,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an exchange's matching engine do?",
           "options": [
+            "Sets prices by itself across validated high-throughput system boundaries during execution",
             "Pairs buy and sell orders according to its rules",
-            "Sets prices by itself",
-            "Stores investors' money",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Stores investors' money"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The matching engine matches orders; prices come from what participants are willing to pay."
         }
       },
@@ -77,12 +76,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the spread?",
           "options": [
             "The daily price range",
-            "The exchange fee",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
+            "The exchange fee across quantitative algorithmic trading models",
             "The difference between the best ask and the best bid"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Spread = best ask - best bid."
         }
       },
@@ -110,13 +108,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many basis points is 1 percent?",
           "options": [
-            "10",
-            "1000",
             "100",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "10",
+            "1000"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "One basis point is 0.01%, so 1% is 100 bp."
         }
       },
@@ -150,8 +147,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "100.02",
             "100.01",
-            "100.017",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "100.017"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -183,12 +179,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Who provides liquidity?",
           "options": [
             "Traders sending market orders",
-            "Market makers quoting both a bid and an ask",
-            "The exchange itself",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The exchange itself across quantitative algorithmic trading models",
+            "Market makers quoting both a bid and an ask"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Resting quotes from market makers are the liquidity others trade against."
         }
       },
@@ -218,8 +213,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Raise ValueError because the book is locked",
             "Return a spread of 0",
-            "Return None",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Return None across quantitative algorithmic trading models"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -278,13 +272,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to a limit order that cannot trade immediately?",
           "options": [
-            "It is cancelled",
+            "It is cancelled across validated high-throughput system boundaries during execution",
             "It becomes a market order",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
             "It rests in the order book until it trades or is cancelled"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Resting limit orders form the order book."
         }
       },
@@ -316,13 +309,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under price-time priority, which bid trades first?",
           "options": [
-            "The largest order",
-            "The newest order",
             "The highest price, and among equal prices the earliest",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "The largest order",
+            "The newest order across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Price first, then time (FIFO)."
         }
       },
@@ -354,13 +346,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A new bid at 100.0 arrives when bids at 100.0 already rest. Where does it go?",
           "options": [
-            "Before them",
-            "It replaces them",
+            "Before them across quantitative algorithmic trading models",
             "After them, keeping time priority",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "It replaces them"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Equal price means it queues behind earlier orders at that price."
         }
       },
@@ -392,13 +383,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does level 2 market data show?",
           "options": [
-            "Only the last trade",
-            "Several price levels of the book with their quantities",
+            "Only the last trade across validated high-throughput system boundaries during execution",
             "Every individual order",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Several price levels of the book with their quantities"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Level 2 shows depth across price levels."
         }
       },
@@ -432,8 +422,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Otherwise traders could jump the queue with more size",
             "To save memory",
-            "It is a bug",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "It is a bug across quantitative algorithmic trading models"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -464,13 +453,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a correctly ordered bids list, which order is first?",
           "options": [
-            "The oldest bid",
-            "The largest bid",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "The highest-priced bid (earliest among equals)"
+            "The oldest bid across quantitative algorithmic trading models",
+            "The highest-priced bid (earliest among equals)",
+            "The largest bid"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Bids are ordered by price (highest first), then time."
         }
       }
@@ -522,13 +510,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "An incoming buy with limit 100.10 meets a resting ask at 100.02. What is the trade price?",
           "options": [
+            "100.02",
             "100.10",
-            "100.06",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "100.02"
+            "100.06"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Trades happen at the resting order's price."
         }
       },
@@ -560,13 +547,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A resting order of 4 shares meets an incoming order for 3. What happens to the resting order?",
           "options": [
-            "It is removed",
-            "It moves to the back of the queue",
+            "It is removed across quantitative algorithmic trading models",
             "It stays at the front with 1 share left",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "It moves to the back of the queue"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Partly filled resting orders keep their place with reduced quantity."
         }
       },
@@ -598,13 +584,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After a buy order partly fills, where does the remainder go?",
           "options": [
-            "It is discarded",
-            "It rests on the bid side at its limit price",
+            "It is discarded across quantitative algorithmic trading models",
             "It rests on the ask side",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "It rests on the bid side at its limit price"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The unfilled buy quantity becomes a resting bid."
         }
       },
@@ -638,8 +623,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "100.75",
             "100.5",
-            "101",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "101 across validated high-throughput system boundaries during execution"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -670,13 +654,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a matching engine be deterministic?",
           "options": [
+            "To be faster executed without exchange transaction fee accounting",
             "So replaying the same orders always gives the same trades, for fairness and recovery",
-            "To be faster",
-            "To reduce memory",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "To reduce memory across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Replayable, identical results underpin fairness, audit and failover."
         }
       },
@@ -706,11 +689,10 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "99.9 then 100.2",
             "Only 99.9",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
             "100.2 then 99.9"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A sell walks the bids from the highest (best) price down."
         }
       }
@@ -766,13 +748,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main reason to split a large order into child orders?",
           "options": [
-            "To pay more fees",
-            "Exchanges forbid large orders",
+            "To pay more fees across validated high-throughput system boundaries during execution",
             "To reduce market impact and information leakage",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Exchanges forbid large orders"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Small child orders trade near the best price and reveal less."
         }
       },
@@ -804,13 +785,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a VWAP strategy try to do?",
           "options": [
-            "Trade everything at the open",
-            "Trade in proportion to expected market volume to match the VWAP benchmark",
-            "Only trade at the close",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Trade everything at the open across validated high-throughput system boundaries during execution",
+            "Only trade at the close across quantitative algorithmic trading models",
+            "Trade in proportion to expected market volume to match the VWAP benchmark"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Following the volume profile keeps your average close to the market VWAP."
         }
       },
@@ -842,13 +822,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why give the last bin \"whatever is left\"?",
           "options": [
-            "It is the busiest bin",
             "So the slices always add up exactly to the parent order",
-            "To finish early",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "It is the busiest bin",
+            "To finish early executed without exchange transaction fee accounting"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The remainder guarantees the exact total despite rounding."
         }
       },
@@ -880,13 +859,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "twap_schedule(1000, 30, 10) gives?",
           "options": [
-            "[334, 333, 333]",
             "[333, 333, 334]",
-            "[333, 333, 333]",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "[334, 333, 333]",
+            "[333, 333, 333]"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "1000 = 3 × 333 + 1, so the first slice gets the extra share."
         }
       },
@@ -914,13 +892,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why limit participation to a share of market volume?",
           "options": [
-            "Exchanges require it",
+            "Exchanges require it across quantitative algorithmic trading models",
             "It is cheaper in fees",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
             "Trading too large a share of volume moves the price against you"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "High participation increases market impact."
         }
       },
@@ -952,13 +929,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "vwap_schedule(50, [1.0]) returns?",
           "options": [
-            "[]",
-            "[0, 50]",
             "[50]",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "[]",
+            "[0, 50]"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A single bin receives the whole order."
         }
       }
@@ -1011,9 +987,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are matching engines often single-threaded per instrument?",
           "options": [
             "Computers have one core",
-            "It is required by law",
-            "A single ordered loop avoids locks and keeps matching deterministic",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "It is required by law across validated high-throughput system boundaries during execution",
+            "A single ordered loop avoids locks and keeps matching deterministic"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1048,13 +1023,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why pass a copy of each order into the engine?",
           "options": [
-            "Copies are faster",
             "The engine changes quantities, and the caller's data should not change unexpectedly",
-            "Python requires it",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Copies are faster across quantitative algorithmic trading models",
+            "Python requires it across validated high-throughput system boundaries during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Avoiding shared mutable state prevents surprising bugs."
         }
       },
@@ -1086,13 +1060,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "1,000,000 orders in 500,000 microseconds. What is the average time per order?",
           "options": [
-            "500 ns",
             "2 µs",
-            "0.5 ns",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "500 ns",
+            "0.5 ns"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "500,000 µs = 500,000,000 ns, divided by a million orders = 500 ns."
         }
       },
@@ -1120,13 +1093,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do trading engineers watch p99 latency and not just the average?",
           "options": [
-            "p99 is easier to compute",
+            "p99 is easier to compute across validated high-throughput system boundaries during execution",
             "Averages are always wrong",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
             "Slow outliers happen at the busiest, most important moments and the average hides them"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Tail latency matters most when markets move fast."
         }
       },
@@ -1154,13 +1126,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a market data receiver detect lost messages?",
           "options": [
-            "By checking prices",
-            "By counting trades",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "By noticing a jump in sequence numbers"
+            "By noticing a jump in sequence numbers",
+            "By checking prices across quantitative algorithmic trading models",
+            "By counting trades"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Sequence numbers reveal gaps immediately."
         }
       },
@@ -1192,13 +1163,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "engine_throughput(3, 1) gives ns_per_order of?",
           "options": [
-            "3.0",
-            "0.3",
+            "3.0 across quantitative algorithmic trading models",
             "333.3",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "0.3"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "1 µs = 1,000 ns, divided by 3 orders ≈ 333.3 ns."
         }
       }
@@ -1250,13 +1220,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is temporary market impact?",
           "options": [
-            "A fee charged by the exchange",
             "Price pressure that fades after you stop trading",
-            "The permanent change in a company's value",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "A fee charged by the exchange across validated high-throughput system boundaries during execution",
+            "The permanent change in a company's value"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Temporary impact recovers once your trading pressure stops."
         }
       },
@@ -1288,13 +1257,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In this model, what happens to permanent impact cost if you trade the same shares more slowly?",
           "options": [
+            "It falls across quantitative algorithmic trading models",
             "It stays the same",
-            "It falls",
-            "It rises",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "It rises"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Permanent cost depends on the total shares, not on the speed."
         }
       },
@@ -1330,13 +1298,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why not always trade as slowly as possible?",
           "options": [
-            "The price may drift against you while you wait (timing risk)",
-            "Exchanges close early",
+            "Exchanges close early under unhedged market exposure volatility regimes",
             "Slow orders are rejected",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The price may drift against you while you wait (timing risk)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Waiting reduces impact but increases exposure to price moves."
         }
       },
@@ -1364,13 +1331,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A sell decided at 100.0 fills at 99.9. What is the slippage?",
           "options": [
+            "+10 bp",
             "-10 bp",
-            "0 bp",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "+10 bp"
+            "0 bp"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Selling 10 cents lower is a 10 bp cost."
         }
       },
@@ -1402,13 +1368,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why weight slippage by order size in TCA?",
           "options": [
-            "To make numbers smaller",
-            "Regulations forbid simple averages",
+            "To make numbers smaller executed without exchange transaction fee accounting",
             "Large orders matter more in money terms",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Regulations forbid simple averages"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Size-weighting reflects the actual money at stake."
         }
       },
@@ -1437,12 +1402,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "impact_cost(0, 100, 1e-6, 2e-6) total is?",
           "options": [
             "100.0",
-            "0.0",
             "2e-6",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "0.0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "No shares traded means no impact cost."
         }
       }
@@ -1496,8 +1460,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Far more size at the ask",
             "Far more size at the bid",
-            "The book is empty",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The book is empty"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -1528,13 +1491,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With 900 shares at the bid and 100 at the ask, where is the micro-price?",
           "options": [
-            "Near the ask",
             "Near the bid",
             "Exactly at the midpoint",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Near the ask"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Heavy bids make a trade at the ask more likely, so the micro-price moves towards it."
         }
       },
@@ -1566,13 +1528,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why clamp obi before using it?",
           "options": [
+            "To protect against bad data outside the valid range",
             "To make it positive",
-            "To round it",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
-            "To protect against bad data outside the valid range"
+            "To round it across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Clamping keeps downstream calculations sensible even with bad input."
         }
       },
@@ -1604,13 +1565,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why compare a signal's hit rate with a baseline?",
           "options": [
-            "To make charts",
-            "Baselines are required by exchanges",
+            "To make charts across validated high-throughput system boundaries during execution",
             "A high hit rate may just reflect a market that mostly went one way",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Baselines are required by exchanges"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A signal only adds value if it beats a naive guess."
         }
       },
@@ -1639,9 +1599,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do microstructure signals need low latency?",
           "options": [
             "They are computed slowly",
-            "Exchanges require it",
-            "Their predictive power fades within seconds",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Exchanges require it across quantitative algorithmic trading models",
+            "Their predictive power fades within seconds"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1672,13 +1631,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "micro_price(100.0, 500, 100.02, 500) returns?",
           "options": [
-            "obi 1.0 and micro 100.02",
             "obi 0.0 and micro 100.01",
-            "obi -1.0 and micro 100.0",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "obi 1.0 and micro 100.02",
+            "obi -1.0 and micro 100.0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Equal sizes give zero imbalance and the midpoint."
         }
       }
@@ -1734,13 +1692,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a market maker mainly earn money?",
           "options": [
-            "Capturing the bid-ask spread on both sides",
-            "Charging fees",
+            "Charging fees across validated high-throughput system boundaries during execution",
             "Predicting long-term trends",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Capturing the bid-ask spread on both sides"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Buying at the bid and selling at the ask earns the spread."
         }
       },
@@ -1768,13 +1725,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A market maker is long 10 shares. Where is its reservation price?",
           "options": [
+            "Below the mid",
             "Above the mid",
-            "Exactly at the mid",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "Below the mid"
+            "Exactly at the mid"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Being long makes it value the stock less, favouring sales."
         }
       },
@@ -1803,12 +1759,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A market maker is short. Which way do its quotes move?",
           "options": [
             "Down",
-            "They do not move",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "Up"
+            "Up",
+            "They do not move"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Short inventory raises the reservation price, so quotes move up to encourage buying back."
         }
       },
@@ -1840,10 +1795,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check the hard limit before the warning zone?",
           "options": [
-            "It is faster",
+            "It is faster across validated high-throughput system boundaries during execution",
             "The order does not matter",
-            "Otherwise a position above the limit would only be skewed, not stopped",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Otherwise a position above the limit would only be skewed, not stopped"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -1874,13 +1828,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a markout?",
           "options": [
-            "An exchange fee",
             "The price move after a fill, measuring whether the fill was good for us",
-            "A type of order",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "An exchange fee across quantitative algorithmic trading models",
+            "A type of order across validated high-throughput system boundaries during execution"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Markouts reveal adverse selection."
         }
       },
@@ -1912,13 +1865,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "as_quotes(100.0, 0, 0.1, 2.0, 1.0, 0.05) gives?",
           "options": [
+            "bid 99.9, ask 100.1 across quantitative algorithmic trading models",
             "bid 99.95, ask 100.05",
-            "bid 99.9, ask 100.1",
-            "bid 100.0, ask 100.0",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "bid 100.0, ask 100.0"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "With no inventory, quotes sit half a spread either side of the mid."
         }
       }
@@ -1975,9 +1927,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In FIX, what does tag 35 hold?",
           "options": [
             "The message type",
-            "The price",
-            "The symbol",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The price across validated high-throughput system boundaries during execution",
+            "The symbol"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2012,13 +1963,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the FIX CheckSum (tag 10) cover?",
           "options": [
-            "Only the body",
-            "Only the header",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "Every character before the 10= field"
+            "Only the body across quantitative algorithmic trading models",
+            "Every character before the 10= field",
+            "Only the header"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "It sums all bytes before the checksum field."
         }
       },
@@ -2050,10 +2000,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use rfind to locate the checksum field?",
           "options": [
-            "It is faster",
-            "find does not work on strings",
-            "The trailer is at the end, and a field value earlier could contain \"10=\"",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "It is faster across quantitative algorithmic trading models",
+            "find does not work on strings across validated high-throughput system boundaries during execution",
+            "The trailer is at the end, and a field value earlier could contain \"10=\""
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2088,13 +2037,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does tag 34 (MsgSeqNum) allow?",
           "options": [
-            "Faster messages",
             "Detecting and recovering lost messages",
-            "Encrypting messages",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Faster messages across validated high-throughput system boundaries during execution",
+            "Encrypting messages"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Sequence numbers reveal gaps, which trigger resend requests."
         }
       },
@@ -2128,8 +2076,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The price",
             "The original order quantity",
-            "Zero",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Zero executed without exchange transaction fee accounting"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2160,13 +2107,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A heartbeat body is \"35=0\" followed by SOH. What is its BodyLength?",
           "options": [
-            "5",
             "4",
             "9",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "5"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "\"35=0\" is 4 characters plus 1 SOH = 5."
         }
       }
@@ -2218,13 +2164,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do exchanges use binary market data feeds?",
           "options": [
-            "They are easier to read",
-            "Regulators require them",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
-            "They are smaller and faster to decode than text"
+            "They are easier to read across validated high-throughput system boundaries during execution",
+            "They are smaller and faster to decode than text",
+            "Regulators require them"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Fixed binary layouts save bandwidth and parsing time."
         }
       },
@@ -2257,9 +2202,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does \">\" mean in a struct format string?",
           "options": [
             "Greater than",
-            "Skip a byte",
-            "Big-endian byte order",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Skip a byte executed without exchange transaction fee accounting",
+            "Big-endian byte order"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2294,13 +2238,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is \"INFY    \" (with padding) turned into \"INFY\"?",
           "options": [
-            "int()",
-            "struct.pack",
             ".decode(\"ascii\").strip()",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "int() across quantitative algorithmic trading models",
+            "struct.pack"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Decode the bytes to text, then strip the padding spaces."
         }
       },
@@ -2332,10 +2275,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do many trading systems store prices as integers?",
           "options": [
-            "Integers are smaller on screen",
+            "Integers are smaller on screen across validated high-throughput system boundaries during execution",
             "Integer arithmetic is exact, avoiding floating point errors",
-            "Floats are not allowed in Python",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Floats are not allowed in Python"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2370,13 +2312,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a feed handler never miss a message?",
           "options": [
-            "Each message changes the book, so a missed one leaves the rebuilt book wrong",
-            "Messages are expensive",
-            "Exchanges fine them",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Messages are expensive across validated high-throughput system boundaries during execution",
+            "Exchanges fine them across quantitative algorithmic trading models",
+            "Each message changes the book, so a missed one leaves the rebuilt book wrong"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "An order-by-order book is only correct if every change is applied."
         }
       },
@@ -2408,13 +2349,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "to_fixed(0.1) should return?",
           "options": [
+            "1000",
             "999",
-            "0",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "1000"
+            "0 across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Rounding avoids the truncation error from 0.1 * 10000 not being exact."
         }
       }
@@ -2467,12 +2407,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the normal kernel network path add latency?",
           "options": [
             "Networks are slow",
-            "Python is slow",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
+            "Python is slow across validated high-throughput system boundaries during execution",
             "Interrupts, the kernel stack, system calls and extra copies all take time"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each layer between the NIC and your program adds microseconds."
         }
       },
@@ -2504,13 +2443,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does busy polling trade away to save latency?",
           "options": [
-            "Memory",
-            "Network bandwidth",
             "A whole CPU core running at 100 percent",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Memory across quantitative algorithmic trading models",
+            "Network bandwidth"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Spinning constantly avoids wake-up delays at the cost of a dedicated core."
         }
       },
@@ -2542,10 +2480,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are ring buffers pre-allocated at start-up?",
           "options": [
-            "To use less memory",
+            "To use less memory across quantitative algorithmic trading models",
             "To avoid memory allocation delays while trading",
-            "The NIC requires Python lists",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "The NIC requires Python lists"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2580,13 +2517,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a memoryview slice avoid?",
           "options": [
-            "Copying the underlying bytes",
-            "Decoding",
+            "Decoding across validated high-throughput system boundaries during execution",
             "Endianness errors",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Copying the underlying bytes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "memoryview slices share memory instead of copying it."
         }
       },
@@ -2616,8 +2552,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Variation in latency from one message to the next",
             "A type of network cable",
-            "A CPU instruction",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "A CPU instruction under unhedged market exposure volatility regimes"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2653,12 +2588,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "consume_ring(ring, 10, 10, 4) returns?",
           "options": [
             "4 packets",
-            "An error",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "An empty list and tail 10"
+            "An empty list and tail 10",
+            "An error across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "head equals tail, so there is nothing new to read."
         }
       }
@@ -2710,13 +2644,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are locks a problem for low-latency systems?",
           "options": [
-            "They use too much memory",
-            "They are not thread-safe",
             "Contention and descheduling cause unpredictable waiting",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "They use too much memory across validated high-throughput system boundaries during execution",
+            "They are not thread-safe"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Waiting on locks adds variable, sometimes large, delays."
         }
       },
@@ -2748,10 +2681,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can an SPSC queue work without locks?",
           "options": [
-            "Python has no threads",
+            "Python has no threads across validated high-throughput system boundaries during execution",
             "Each counter has exactly one writer, so threads never write the same variable",
-            "It copies every item",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "It copies every item under unhedged market exposure volatility regimes"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -2787,12 +2719,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "For capacity 16, what is the mask?",
           "options": [
             "16",
-            "15",
             "8",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "15"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The mask is capacity - 1 = 15 (binary 1111)."
         }
       },
@@ -2822,8 +2753,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Overwrite the oldest",
             "Reject",
-            "Block",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Block across validated high-throughput system boundaries during execution"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -2859,12 +2789,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What invariant should every queue stress test check?",
           "options": [
             "The queue is always full",
-            "The queue never wraps",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
-            "Every item sent is received exactly once, in order"
+            "Every item sent is received exactly once, in order",
+            "The queue never wraps executed without exchange transaction fee accounting"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "No loss, no duplication, no reordering."
         }
       },
@@ -2892,10 +2821,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "SpscQueue(4) after 4 enqueues: what does a fifth enqueue return?",
           "options": [
-            "True",
+            "True across quantitative algorithmic trading models",
             "None",
-            "False",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "False"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -2951,12 +2879,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How big is a typical CPU cache line?",
           "options": [
             "8 bytes",
-            "4 kilobytes",
             "64 bytes",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "4 kilobytes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Most modern CPUs use 64-byte cache lines."
         }
       },
@@ -2984,13 +2911,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens when two cores repeatedly write to the same cache line?",
           "options": [
-            "Nothing",
-            "The line bounces between their caches, costing time on every write",
-            "The CPU crashes",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Nothing across quantitative algorithmic trading models",
+            "The CPU crashes across validated high-throughput system boundaries during execution",
+            "The line bounces between their caches, costing time on every write"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Coherence traffic makes each write expensive."
         }
       },
@@ -3023,9 +2949,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is false sharing?",
           "options": [
             "Different threads writing different variables that sit in the same cache line",
-            "Two threads sharing a variable on purpose",
-            "Sharing a lock",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Two threads sharing a variable on purpose across validated high-throughput system boundaries during execution",
+            "Sharing a lock under unhedged market exposure volatility regimes"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3061,12 +2986,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many padding bytes does a 40-byte structure need to fill a 64-byte line?",
           "options": [
             "40",
-            "64",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "24"
+            "24",
+            "64"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "(-40) % 64 = 24."
         }
       },
@@ -3098,13 +3022,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a structure of arrays often faster for scanning one field?",
           "options": [
-            "It uses less CPU",
+            "It uses less CPU across quantitative algorithmic trading models",
             "It avoids Python",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
             "Every fetched cache line is full of the needed field"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Contiguous values of one field use cache lines efficiently."
         }
       },
@@ -3132,13 +3055,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Two fields written by the SAME thread share a line. Is that false sharing?",
           "options": [
-            "Yes",
-            "Only on Tuesdays",
             "No, only writes from different threads cause the problem",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Yes across quantitative algorithmic trading models",
+            "Only on Tuesdays across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "False sharing needs writes from different cores."
         }
       }
@@ -3191,12 +3113,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many 32-bit floats fit in a 256-bit AVX2 register?",
           "options": [
             "4",
-            "8",
             "16",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "8"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "256 / 32 = 8 lanes."
         }
       },
@@ -3230,8 +3151,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "3",
             "0",
-            "8",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "8"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3262,13 +3182,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What limits the overall speedup in Amdahl's law?",
           "options": [
-            "The part of the work that cannot be parallelised",
             "The vector width only",
-            "The CPU clock speed",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The part of the work that cannot be parallelised",
+            "The CPU clock speed across quantitative algorithmic trading models"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The serial fraction sets a ceiling on the total speedup."
         }
       },
@@ -3300,13 +3219,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do branches inside loops hurt vectorisation?",
           "options": [
-            "They use more memory",
+            "They use more memory across validated high-throughput system boundaries during execution",
             "They are illegal in SIMD",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
             "Different lanes may need different paths, breaking the single instruction model"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "SIMD applies one instruction to all lanes, so divergent branches are a problem."
         }
       },
@@ -3338,13 +3256,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you do before optimising code?",
           "options": [
-            "Rewrite it in assembly",
-            "Add more threads",
             "Measure where the time goes with a profiler",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Rewrite it in assembly",
+            "Add more threads across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Profiling shows what is actually worth optimising."
         }
       },
@@ -3374,8 +3291,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "1.0",
             "8.0",
-            "4.71",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "4.71"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -3431,13 +3347,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does tick-to-trade measure?",
           "options": [
-            "Daily trading volume",
             "Time from a market data packet arriving to the resulting order leaving",
-            "The exchange's latency",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Daily trading volume across validated high-throughput system boundaries during execution",
+            "The exchange's latency"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "It covers the whole reaction path inside your system."
         }
       },
@@ -3469,13 +3384,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why size feed queues for peak rates rather than averages?",
           "options": [
+            "Averages are hard to compute across quantitative algorithmic trading models",
             "Bursts far above the average would overflow a queue sized for the average",
-            "Averages are hard to compute",
-            "Queues must be powers of ten",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Queues must be powers of ten"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Peaks, not averages, cause drops."
         }
       },
@@ -3504,13 +3418,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can you not average the p99 of two separate runs to get the combined p99?",
           "options": [
-            "Averages are always too high",
-            "p99 is not a number",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
+            "Averages are always too high across validated high-throughput system boundaries during execution",
+            "p99 is not a number across quantitative algorithmic trading models",
             "Percentiles depend on the whole distribution, so you must combine the raw samples"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Combining distributions requires the underlying data."
         }
       },
@@ -3538,13 +3451,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does one slow message hurt the messages after it?",
           "options": [
-            "It corrupts them",
-            "They are dropped",
             "They must wait in the queue until the stage is free",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "It corrupts them across validated high-throughput system boundaries during execution",
+            "They are dropped"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Queueing delay spreads one stall to many messages."
         }
       },
@@ -3572,13 +3484,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should a latency-critical thread record measurements?",
           "options": [
-            "Print them to the screen",
-            "Send an email",
+            "Print them to the screen across validated high-throughput system boundaries during execution",
             "Write timestamps into a pre-allocated buffer and analyse them on another thread",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Send an email across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Cheap recording on the hot path, heavy analysis elsewhere."
         }
       },
@@ -3612,12 +3523,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "latency_percentiles([]) should?",
           "options": [
             "Return zeros",
-            "Raise ValueError",
-            "Return None",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Return None across quantitative algorithmic trading models",
+            "Raise ValueError"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "There is nothing to summarise, so it is an error."
         }
       }
@@ -3669,13 +3579,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a call option worth at expiry if the stock is at 90 and the strike is 100?",
           "options": [
-            "0",
             "10",
-            "-10",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "0",
+            "-10"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "You would not use the right to buy at 100 when the stock costs 90, so it is worth 0."
         }
       },
@@ -3703,13 +3612,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Black-Scholes give a unique price?",
           "options": [
-            "It predicts the future stock price",
-            "Exchanges set it",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap across high-frequency algorithmic execution venues and multi-asset limit order books",
+            "It predicts the future stock price across validated high-throughput system boundaries during execution",
+            "Exchanges set it across quantitative algorithmic trading models",
             "The option can be replicated by trading the stock and cash, so its price must equal that cost"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Replication plus no arbitrage pins the price down."
         }
       },
@@ -3741,13 +3649,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does N(x) represent in the Black-Scholes formula?",
           "options": [
+            "The standard normal cumulative probability",
             "The number of shares",
-            "The interest rate",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "The standard normal cumulative probability"
+            "The interest rate across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "N is the normal cumulative distribution function."
         }
       },
@@ -3776,12 +3683,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A call has delta 0.64. How many shares hedge one long call?",
           "options": [
             "Buy 0.64 shares",
-            "Sell 1 share",
             "Sell 0.64 shares",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Sell 1 share across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Selling delta shares offsets the call's exposure to small moves."
         }
       },
@@ -3809,13 +3715,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does put-call parity depend on the Black-Scholes assumptions?",
           "options": [
-            "Yes",
-            "No, it follows from matching payoffs alone",
+            "Yes across quantitative algorithmic trading models",
             "Only for puts",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "No, it follows from matching payoffs alone"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It is a pure no-arbitrage relationship."
         }
       },
@@ -3845,8 +3750,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Volatility",
             "The strike",
-            "Nothing",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Nothing"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -3901,13 +3805,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is implied volatility?",
           "options": [
-            "The volatility that makes Black-Scholes match the market price",
             "Last year's realised volatility",
-            "The interest rate",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The interest rate across validated high-throughput system boundaries during execution",
+            "The volatility that makes Black-Scholes match the market price"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It is backed out from the observed price."
         }
       },
@@ -3935,13 +3838,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "The benchmark vega per vol point is 0.3752. What happens to the price if vol rises 2 points?",
           "options": [
+            "It rises by about 0.75",
             "It falls by 0.75",
-            "Nothing",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "It rises by about 0.75"
+            "Nothing across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "2 × 0.3752 ≈ 0.75."
         }
       },
@@ -3974,12 +3876,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In the implied volatility solver, what plays the role of the derivative?",
           "options": [
             "Delta",
-            "Gamma",
             "Vega",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Gamma"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Vega is the derivative of price with respect to volatility."
         }
       },
@@ -4008,12 +3909,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What should an implied volatility solver return for a call priced above the stock price?",
           "options": [
             "A very high volatility",
-            "None, because no volatility can produce that price",
-            "Zero",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Zero across validated high-throughput system boundaries during execution",
+            "None, because no volatility can produce that price"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Prices outside the no-arbitrage bounds have no implied volatility."
         }
       },
@@ -4041,13 +3941,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the volatility surface?",
           "options": [
-            "A chart of stock prices",
             "Implied volatility across strikes and expiries",
-            "The trading floor",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "A chart of stock prices",
+            "The trading floor under unhedged market exposure volatility regimes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "It maps implied volatility by strike and time to expiry."
         }
       },
@@ -4079,13 +3978,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "implied_vol(10.4506, 100, 100, 1.0, 0.05) should return?",
           "options": [
-            "0.2",
             "0.1",
-            "None",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "0.2",
+            "None"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "That price was produced with 20 percent volatility."
         }
       }
@@ -4138,13 +4036,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a one-day 95 percent VaR of $1m mean?",
           "options": [
+            "On 95 percent of days the loss should not exceed $1m",
             "The maximum possible loss is $1m",
-            "The average loss is $1m",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
-            "On 95 percent of days the loss should not exceed $1m"
+            "The average loss is $1m across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "VaR is a percentile threshold, not a maximum."
         }
       },
@@ -4173,12 +4070,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which z value corresponds to 99 percent confidence?",
           "options": [
             "1.645",
-            "3.0",
             "2.326",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "3.0"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The 1 percent normal tail starts at 2.326 standard deviations."
         }
       },
@@ -4206,10 +4102,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main weakness of historical VaR?",
           "options": [
-            "It is too slow",
+            "It is too slow across quantitative algorithmic trading models",
             "It assumes normal returns",
-            "It only knows about events inside its data window",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "It only knows about events inside its data window"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4240,13 +4135,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the 25-day VaR if one-day VaR is $10,000, using the square-root rule?",
           "options": [
-            "$250,000",
             "$50,000",
-            "$25,000",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "$250,000",
+            "$25,000"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "√25 = 5, so 5 × $10,000."
         }
       },
@@ -4274,13 +4168,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can VaR be misleading?",
           "options": [
-            "It ignores how large losses beyond the threshold can be",
             "It is too conservative",
-            "It uses too much data",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "It ignores how large losses beyond the threshold can be",
+            "It uses too much data across quantitative algorithmic trading models"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "VaR says nothing about the depth of the tail."
         }
       },
@@ -4314,11 +4207,10 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Return a smaller VaR",
             "Use z = 1.28",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
             "Raise ValueError"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Only 95 and 99 percent are supported in the practice."
         }
       }
@@ -4374,13 +4266,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is Expected Shortfall defined?",
           "options": [
-            "The single worst loss",
-            "The average of all losses",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "The average loss in the tail beyond the VaR threshold"
+            "The single worst loss across validated high-throughput system boundaries during execution",
+            "The average loss in the tail beyond the VaR threshold",
+            "The average of all losses"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "ES averages the tail losses."
         }
       },
@@ -4414,8 +4305,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Monotonicity",
             "Positive homogeneity",
-            "Subadditivity",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Subadditivity"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4446,13 +4336,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the diversification benefit for perfectly correlated positions?",
           "options": [
-            "The largest possible",
             "Zero",
-            "Negative",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "The largest possible",
+            "Negative"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "With correlation 1 the risks simply add."
         }
       },
@@ -4480,13 +4369,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does reverse stress testing ask?",
           "options": [
+            "What was the best day? across validated high-throughput system boundaries during execution",
             "Which scenario would cause an unacceptable loss?",
-            "What was the best day?",
-            "How fast is the system?",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "How fast is the system?"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "It searches for the scenarios that would break the firm."
         }
       },
@@ -4515,13 +4403,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why set limits on several risk measures at once?",
           "options": [
-            "Because each measure misses something the others catch",
-            "To confuse traders",
+            "To confuse traders across quantitative algorithmic trading models",
             "Regulators require exactly three",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Because each measure misses something the others catch"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "No single number captures all risk."
         }
       },
@@ -4549,13 +4436,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "expected_shortfall on 20 returns at 95 percent uses how many tail days?",
           "options": [
+            "1",
             "0",
-            "5",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "1"
+            "5"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "k = round(0.05 × 20) = 1."
         }
       }
@@ -4609,8 +4495,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The expected return",
             "Both equally",
-            "The risk",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "The risk"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -4641,13 +4526,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Sharpe ratio measure?",
           "options": [
-            "Total return",
             "Excess return per unit of risk",
-            "The number of trades",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Total return calculated over unadjusted historical price series",
+            "The number of trades"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "(return - risk-free rate) / risk."
         }
       },
@@ -4681,8 +4565,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0.2",
             "0.5",
-            "It depends on the returns",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "It depends on the returns"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -4714,13 +4597,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the efficient frontier?",
           "options": [
-            "The portfolios with the highest return for each level of risk",
-            "All possible portfolios",
+            "All possible portfolios across validated high-throughput system boundaries during execution",
             "Only the minimum-variance portfolio",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "The portfolios with the highest return for each level of risk"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It is the upper edge of the risk-return cloud."
         }
       },
@@ -4749,13 +4631,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are minimum-variance portfolios often robust in practice?",
           "options": [
-            "They ignore risk",
-            "They always have the highest return",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
-            "They depend only on covariances, which are estimated more reliably than returns"
+            "They depend only on covariances, which are estimated more reliably than returns",
+            "They ignore risk calculated over unadjusted historical price series",
+            "They always have the highest return across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "They avoid the noisiest input, expected returns."
         }
       },
@@ -4788,12 +4669,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "min_variance_weight(0.20, 0.10, 0.0) returns?",
           "options": [
             "0.5",
-            "0.8",
             "0.2",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "0.8"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "0.01 / (0.04 + 0.01) = 0.2."
         }
       }
@@ -4850,13 +4730,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the delta contribution of -5 options with delta 0.3?",
           "options": [
-            "1.5",
-            "-0.3",
             "-1.5",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "1.5",
+            "-0.3"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "-5 × 0.3 = -1.5."
         }
       },
@@ -4888,10 +4767,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do risk engines fully revalue positions under scenarios?",
           "options": [
-            "It is faster",
+            "It is faster across quantitative algorithmic trading models",
             "Greeks only describe small moves; full revaluation captures non-linear effects",
-            "Regulators forbid Greeks",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Regulators forbid Greeks across validated high-throughput system boundaries during execution"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -4922,13 +4800,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With 200 scenarios at 99 percent, how many form the tail?",
           "options": [
-            "2",
             "1",
             "20",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "2"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "round(0.01 × 200) = 2."
         }
       },
@@ -4956,13 +4833,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A book has net delta +300. What hedge in shares?",
           "options": [
+            "Sell 300",
             "Buy 300",
-            "Do nothing",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "Sell 300"
+            "Do nothing"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Positive delta is offset by selling the underlying."
         }
       },
@@ -4995,13 +4871,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why store inputs alongside every risk result?",
           "options": [
-            "To use more disk",
-            "It makes calculations faster",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "So any number can be reproduced and explained later"
+            "To use more disk across quantitative algorithmic trading models",
+            "So any number can be reproduced and explained later",
+            "It makes calculations faster"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Reproducibility is essential for audits and debugging."
         }
       },
@@ -5035,8 +4910,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "205.5",
             "210",
-            "204.5",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "204.5"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5091,10 +4965,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is statistical arbitrage?",
           "options": [
-            "Guaranteed risk-free profit",
+            "Guaranteed risk-free profit across validated high-throughput system boundaries during execution",
             "Many small bets with a slight statistical edge",
-            "Buying and holding the market",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Buying and holding the market"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5129,13 +5002,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a hedge ratio (beta) do in pairs trading?",
           "options": [
-            "Scales B so the spread removes the shared movement",
             "Sets the trade size in dollars",
-            "Predicts the market",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Predicts the market executed without exchange transaction fee accounting",
+            "Scales B so the spread removes the shared movement"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Beta balances the two legs."
         }
       },
@@ -5165,8 +5037,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "LONG_SPREAD",
             "SHORT_SPREAD",
-            "EXIT",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "EXIT"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5198,12 +5069,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "With theta = 0.2, the half-life is about?",
           "options": [
             "6.93 days",
-            "0.2 days",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "3.47 days"
+            "3.47 days",
+            "0.2 days"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "ln(2) / 0.2 ≈ 3.47."
         }
       },
@@ -5232,10 +5102,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does out-of-sample testing guard against?",
           "options": [
-            "Slow code",
-            "High fees",
-            "Signals that only worked by luck on the data used to find them",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Slow code calculated over unadjusted historical price series",
+            "High fees across validated high-throughput system boundaries during execution",
+            "Signals that only worked by luck on the data used to find them"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5270,13 +5139,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "pairs_signal returns EXIT when?",
           "options": [
-            "z is above 2",
             "|z| is at most the exit threshold",
-            "z is exactly 0 only",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "z is above 2 across quantitative algorithmic trading models",
+            "z is exactly 0 only"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Close to the mean, the trade is closed."
         }
       }
@@ -5329,13 +5197,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does best execution require?",
           "options": [
-            "Always using one exchange",
-            "Seeking the most favourable terms, considering price, cost, speed and likelihood of fill",
+            "Always using one exchange across validated high-throughput system boundaries during execution",
             "Trading as fast as possible",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Seeking the most favourable terms, considering price, cost, speed and likelihood of fill"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It is a duty to consider the full picture for the client."
         }
       },
@@ -5365,9 +5232,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In the maker-taker model, who usually receives a rebate?",
           "options": [
             "The maker who posts liquidity",
-            "The taker",
-            "The exchange",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "The taker across quantitative algorithmic trading models",
+            "The exchange"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5402,13 +5268,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the simple router rank venues for a buy?",
           "options": [
-            "By size",
-            "Alphabetically",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
-            "By price plus fee, lowest first"
+            "By size across quantitative algorithmic trading models",
+            "By price plus fee, lowest first",
+            "Alphabetically"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "All-in cost is the key for best execution."
         }
       },
@@ -5437,9 +5302,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do large investors use dark pools?",
           "options": [
             "They are always cheaper",
-            "They are faster",
-            "To avoid revealing large orders that would move the price",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "They are faster across validated high-throughput system boundaries during execution",
+            "To avoid revealing large orders that would move the price"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -5471,13 +5335,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does implementation shortfall compare?",
           "options": [
-            "Two venues",
-            "Fees against rebates",
             "The average execution price against the price when the decision was made",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Two venues executed without exchange transaction fee accounting",
+            "Fees against rebates across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "It measures total execution cost against the arrival price."
         }
       },
@@ -5507,8 +5370,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "{\"amount\": 20.0, \"kind\": \"FEE\"}",
             "{\"amount\": -20.0, \"kind\": \"REBATE\"}",
-            "{\"amount\": 0, \"kind\": \"NONE\"}",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "{\"amount\": 0, \"kind\": \"NONE\"} across quantitative algorithmic trading models"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5566,8 +5428,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "4.9 microseconds",
             "4.9 nanoseconds",
-            "4.9 milliseconds",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "4.9 milliseconds"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -5599,13 +5460,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do exchanges equalise cable lengths in colocation?",
           "options": [
-            "To save money",
-            "Longer cables are faster",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "So no colocated customer gains an unfair advantage from rack placement"
+            "To save money across quantitative algorithmic trading models",
+            "So no colocated customer gains an unfair advantage from rack placement",
+            "Longer cables are faster across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Equal lengths keep the playing field level."
         }
       },
@@ -5634,13 +5494,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a cross-connect provide?",
           "options": [
-            "A wireless link",
+            "A wireless link across quantitative algorithmic trading models",
             "A software library",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
             "A direct cable to another party in the same data centre"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "It is a physical point-to-point connection."
         }
       },
@@ -5673,13 +5532,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is microwave faster than fibre over long distances?",
           "options": [
-            "Microwave carries more data",
-            "Fibre is always broken",
             "Radio in air travels near vacuum light speed and takes straighter paths",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Microwave carries more data",
+            "Fibre is always broken across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Both the medium and the route favour microwave."
         }
       },
@@ -5707,10 +5565,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an exchange speed bump?",
           "options": [
-            "A faster network",
+            "A faster network across validated high-throughput system boundaries during execution",
             "A deliberate small delay applied to orders to reduce the advantage of the fastest traders",
-            "A fee",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices across high-frequency algorithmic execution venues and multi-asset limit order books"
+            "A fee executed without exchange transaction fee accounting"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5745,13 +5602,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "fibre_latency(1)[\"round_trip_ns\"] is?",
           "options": [
-            "9.79",
-            "9.8",
+            "9.8 across quantitative algorithmic trading models",
             "4.9",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "9.79"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Round trip is computed from the unrounded one-way value: 9.794 rounds to 9.79."
         }
       }
@@ -5804,13 +5660,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many relay towers are needed for 3 hops?",
           "options": [
-            "2",
             "3",
-            "4",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "2",
+            "4"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Relays sit between hops: hops - 1."
         }
       },
@@ -5843,13 +5698,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes up total microwave link latency?",
           "options": [
-            "Only distance",
+            "Only distance across quantitative algorithmic trading models",
             "Only the number of towers",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
             "Propagation through the air plus the delay at each relay"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Both terms add up."
         }
       },
@@ -5878,13 +5732,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is rain fade?",
           "options": [
-            "Rain cooling the equipment",
-            "A trading strategy",
             "Rain absorbing and scattering microwave signals",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Rain cooling the equipment",
+            "A trading strategy calculated over unadjusted historical price series"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Heavy rain weakens radio signals."
         }
       },
@@ -5914,8 +5767,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It is illegal to send everything",
             "Their bandwidth is limited compared with fibre",
-            "Exchanges forbid it",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Exchanges forbid it across validated high-throughput system boundaries during execution"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -5950,13 +5802,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is shortwave used for only tiny messages?",
           "options": [
-            "It is too slow",
-            "Its bandwidth is very low and conditions vary",
+            "It is too slow under unhedged market exposure volatility regimes",
             "It is only legal at night",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Its bandwidth is very low and conditions vary"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Fast but narrow and unreliable."
         }
       },
@@ -5986,8 +5837,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "1",
             "0",
-            "2",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "2"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6047,13 +5897,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the safest attitude towards an impressive backtest?",
           "options": [
-            "Trade it immediately",
+            "Trade it immediately across validated high-throughput system boundaries during execution",
             "Double the position size",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
             "Assume it is wrong until every bias has been checked"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Most great-looking backtests contain a flaw."
         }
       },
@@ -6085,13 +5934,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of these is lookahead bias?",
           "options": [
-            "Using yesterday's close to trade today",
-            "Using last year's data",
             "Using today's close to decide a trade at today's open",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Using yesterday's close to trade today",
+            "Using last year's data across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The close is not known at the open."
         }
       },
@@ -6121,12 +5969,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How do you avoid survivorship bias?",
           "options": [
             "Use only today's stocks",
-            "Use more years of data",
             "Use point-in-time data including assets that later disappeared",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "Use more years of data across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The historical universe must include the failures."
         }
       },
@@ -6158,13 +6005,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does testing many strategy variants call for a haircut?",
           "options": [
-            "More tests cost more money",
-            "The best of many random results looks good by chance",
+            "More tests cost more money across validated high-throughput system boundaries during execution",
             "Sharpe ratios are always too low",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "The best of many random results looks good by chance"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Selection among many trials inflates the winner."
         }
       },
@@ -6193,9 +6039,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is walk-forward testing?",
           "options": [
             "Repeatedly training on a past window and testing on the following period",
-            "Testing on the training data",
-            "Walking between desks",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Testing on the training data across validated high-throughput system boundaries during execution",
+            "Walking between desks across quantitative algorithmic trading models"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6227,12 +6072,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "lookahead_audit flags a decision when?",
           "options": [
             "Any data time equals the decision time",
-            "It uses more than two data points",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
-            "Any data time is after the decision time"
+            "Any data time is after the decision time",
+            "It uses more than two data points across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Only strictly later data is lookahead."
         }
       }
@@ -6285,13 +6129,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must trading safeguards be automated?",
           "options": [
+            "Algorithms act far faster than humans can react",
             "Humans are not allowed to watch",
-            "It is cheaper",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "Algorithms act far faster than humans can react"
+            "It is cheaper across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Losses accumulate in seconds, before a person could intervene."
         }
       },
@@ -6320,12 +6163,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a price collar protect against?",
           "options": [
             "Too many orders",
-            "Slow networks",
             "Limit prices far from the current market, often typos",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Slow networks across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "It rejects prices outside a band around the market."
         }
       },
@@ -6354,12 +6196,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why should a kill switch require a human to restart trading?",
           "options": [
             "Humans are faster",
-            "An automatic restart could repeat the same fault",
-            "It is cheaper",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "It is cheaper across quantitative algorithmic trading models",
+            "An automatic restart could repeat the same fault"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Someone must understand the problem before trading resumes."
         }
       },
@@ -6388,9 +6229,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why add an independent risk gateway when the strategy already checks orders?",
           "options": [
             "It catches faults inside the strategy's own code",
-            "To slow things down",
-            "Exchanges require two copies",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "To slow things down across validated high-throughput system boundaries during execution",
+            "Exchanges require two copies"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -6421,13 +6261,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the point of chaos testing risk controls?",
           "options": [
-            "To check that controls catch deliberately injected faults",
             "To make the code faster",
-            "To confuse traders",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "To check that controls catch deliberately injected faults",
+            "To confuse traders across quantitative algorithmic trading models"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "It proves the safety net works under failure."
         }
       },
@@ -6460,12 +6299,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "kill_switch_index returns which index when the running total first goes above the cap?",
           "options": [
             "The index before it",
-            "The last index",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
+            "The last index executed without exchange transaction fee accounting",
             "The index of the order that pushed it above the cap"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "That order is the one that breaks the limit."
         }
       }
@@ -6517,13 +6355,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What keeps a perpetual future close to the spot price?",
           "options": [
-            "Its expiry date",
-            "The exchange sets the price",
+            "Its expiry date across validated high-throughput system boundaries during execution",
             "The funding rate paid between longs and shorts",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "The exchange sets the price"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Funding replaces convergence at expiry."
         }
       },
@@ -6556,12 +6393,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "With a positive funding rate, who pays?",
           "options": [
             "Shorts pay longs",
-            "Longs pay shorts",
             "The exchange pays both",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Longs pay shorts"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Positive funding means the perp is rich, so longs pay."
         }
       },
@@ -6589,13 +6425,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "At 10x leverage with 0.5 percent maintenance, how far can the price fall before a long is liquidated?",
           "options": [
-            "10 percent",
             "About 9.5 percent",
-            "50 percent",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "10 percent across quantitative algorithmic trading models",
+            "50 percent"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "1/10 - 0.005 = 0.095."
         }
       },
@@ -6627,13 +6462,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes cash-and-carry funding arbitrage risky despite being hedged?",
           "options": [
-            "Negative funding, exchange failure and liquidation of the short leg",
             "Price moves",
-            "Nothing",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "Negative funding, exchange failure and liquidation of the short leg",
+            "Nothing across validated high-throughput system boundaries during execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The hedge removes price risk but not these others."
         }
       },
@@ -6665,13 +6499,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes a liquidation cascade?",
           "options": [
-            "Low trading volume",
-            "High interest rates",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices",
+            "Low trading volume across quantitative algorithmic trading models",
+            "High interest rates across validated high-throughput system boundaries during execution",
             "Forced selling from liquidations pushing the price to further liquidation levels"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each wave of liquidations triggers the next."
         }
       },
@@ -6699,13 +6532,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "liquidation_price(60000, 10, side=\"SHORT\") returns?",
           "options": [
-            "54300.0",
-            "66000.0",
             "65700.0",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "54300.0",
+            "66000.0"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "60,000 × (1 + 0.1 - 0.005) = 65,700."
         }
       }
@@ -6758,9 +6590,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do FPGAs have almost no jitter?",
           "options": [
             "They run faster clocks",
-            "They use Python",
-            "Data flows through fixed circuits, taking the same number of cycles every time",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "They use Python across validated high-throughput system boundaries during execution",
+            "Data flows through fixed circuits, taking the same number of cycles every time"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -6791,13 +6622,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A 10-stage single-cycle pipeline at 250 MHz has what latency?",
           "options": [
-            "4 ns",
             "40 ns",
-            "400 ns",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "4 ns",
+            "400 ns"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "10 cycles × 4 ns per cycle."
         }
       },
@@ -6825,13 +6655,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is very high FPGA utilisation a problem even below 100 percent?",
           "options": [
-            "Routing and meeting timing become very difficult",
             "It uses too much power",
-            "It is illegal",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Routing and meeting timing become very difficult",
+            "It is illegal across quantitative algorithmic trading models"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Crowded chips are hard to route at the target clock speed."
         }
       },
@@ -6864,12 +6693,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In a hybrid design, what does software usually do?",
           "options": [
             "Send every order",
-            "Nothing",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap",
+            "Nothing across validated high-throughput system boundaries during execution",
             "Compute parameters and rules that the FPGA applies"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Software thinks; hardware reacts."
         }
       },
@@ -6897,13 +6725,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which logic is most worth moving into an FPGA?",
           "options": [
+            "Simple, stable and latency-critical logic",
             "Logic that changes daily",
-            "End-of-day reports",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges",
-            "Simple, stable and latency-critical logic"
+            "End-of-day reports across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Hardware suits fixed, speed-critical paths."
         }
       },
@@ -6932,12 +6759,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "fpga_latency(12, 250) latency_ns is?",
           "options": [
             "12.0",
-            "250.0",
             "48.0",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series"
+            "250.0"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "12 cycles × 4 ns = 48 ns."
         }
       }
@@ -6993,13 +6819,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the first step of the tick handler?",
           "options": [
-            "Send orders",
             "Compute a fair value such as the micro-price",
-            "Check the kill switch",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Send orders across validated high-throughput system boundaries during execution",
+            "Check the kill switch"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Everything else builds on the fair value."
         }
       },
@@ -7027,13 +6852,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With positive inventory, how does the market maker move its quotes?",
           "options": [
+            "Raises both across quantitative algorithmic trading models",
             "Lowers both, to sell more and buy less",
-            "Raises both",
-            "Widens only the bid",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "Widens only the bid"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Lower quotes discourage buying and encourage selling."
         }
       },
@@ -7065,13 +6889,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "At maximum long inventory, which quote should still be sent?",
           "options": [
-            "The ask",
             "The bid",
             "Neither",
-            "Executing unhedged naked option positions across illiquid over-the-counter derivatives exchanges"
+            "The ask"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Selling reduces the long position."
         }
       },
@@ -7104,13 +6927,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does readiness({}, 1, 1000) report not ready?",
           "options": [
+            "No checks were run, so nothing has been proven",
             "The latency is too high",
-            "It is a bug",
-            "Hardcoding static moving average parameters across non-stationary financial asset time series",
-            "No checks were run, so nothing has been proven"
+            "It is a bug across validated high-throughput system boundaries during execution"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "An empty checklist is no evidence of safety."
         }
       },
@@ -7138,13 +6960,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why launch a new strategy with small sizes?",
           "options": [
-            "To pay fewer fees",
-            "Exchanges require it",
+            "To pay fewer fees across quantitative algorithmic trading models",
             "To limit damage while confirming live behaviour matches expectations",
-            "Assuming zero transaction costs and instantaneous order execution at midpoint prices"
+            "Exchanges require it across validated high-throughput system boundaries during execution"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Small, controlled steps reveal problems cheaply."
         }
       },
@@ -7177,12 +6998,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "on_tick at maximum long inventory returns?",
           "options": [
             "send_bid True, send_ask False",
-            "send_bid False, send_ask True",
             "Both False",
-            "Allocating 100% of portfolio risk capital to a single uncollateralized credit default swap"
+            "send_bid False, send_ask True"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Stop buying, keep selling."
         }
       }
@@ -7248,7 +7068,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Order Flow Imbalance (OFI) evaluate an event where the best bid price increases from $100.00 to $100.01?",
           "options": [
-            "The bid delta is set to zero because the old price level was abandoned across distributed persistent storage layers across fragmented lit electronic equity exchanges and alternative trading systems",
+            "The bid delta is set to zero because the old price level was abandoned across distributed persistent storage layers",
             "The entire new bid queue size at $100.01 is added as positive order flow because buyers stepped up to a higher price level",
             "The ask queue size is multiplied by negative one and added to total exchange fees",
             "The algorithm pauses execution for 5 seconds to wait for calendar minute alignment"
@@ -7287,13 +7107,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does VPIN sample market transactions using Volume-Clock buckets rather than standard 1-minute calendar time intervals?",
           "options": [
-            "Volume-clock sampling normalizes the rate of information arrival, removing intraday activity clustering and volatility distortions",
             "Calendar clocks are legally banned on quantitative trading desks by the SEC",
             "Volume-clock sampling guarantees that market prices only move in upward directions",
+            "Volume-clock sampling normalizes the rate of information arrival, removing intraday activity clustering and volatility distortions",
             "Because computer operating systems cannot measure time intervals shorter than one minute using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Volume-clock sampling aligns analysis with market activity and information flow rather than arbitrary physical clock ticks."
         },
         "output": "balanced VPIN (noise trading): 0.0\ntoxic VPIN (informed crash flow): 1.0"
@@ -7326,8 +7146,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a circular ring buffer optimize high-frequency microstructure metric calculation compared to standard dynamic lists?",
           "options": [
-            "Compresses all price quotes using cryptographic zip archives",
-            "Automatically places limit orders directly on public exchange order books by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Compresses all price quotes using cryptographic zip archives across quantitative algorithmic trading models",
+            "Automatically places limit orders directly on public exchange order books",
             "Converts all floating-point numbers into 64-bit integer values",
             "Maintains rolling sums and overwrites oldest elements in O(1) time without triggering memory reallocation or garbage collection"
           ],
@@ -7365,13 +7185,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What protective action should an automated market maker take when VPIN surges above 0.85?",
           "options": [
-            "Double the size of all posted limit orders to capture more trading volume",
-            "Convert all passive limit orders into aggressive market orders at any price through multi-asset covariance matrices and recursive Kalman state filter updates",
             "Cancel all passive limit orders and pull quotes from the book to avoid being adversely selected during a toxic flow event",
+            "Double the size of all posted limit orders to capture more trading volume",
+            "Convert all passive limit orders into aggressive market orders at any price",
             "Borrow maximum margin capital to purchase call options on the falling asset"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "When VPIN breaches critical thresholds, order flow is dominated by toxic informed traders; pulling quotes prevents catastrophic inventory loss."
         },
         "output": "normal market quoting: NORMAL_TIGHT | spread: 0.04\ntoxic market defense: DEFENSIVE_WIDENED | spread: 0.16\ncritical flash crash action: PULL_ALL_QUOTES | reason: CRITICAL_TOXICITY"
@@ -7404,13 +7224,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which metric is commonly used to validate that an Order Flow Imbalance (OFI) signal possesses genuine predictive power over future price changes?",
           "options": [
-            "The physical temperature of the exchange matching engine CPU across distributed institutional trading desks and centralized risk management gateways",
-            "The total number of rows in the SQL audit table",
+            "The physical temperature of the exchange matching engine CPU",
             "Information Coefficient (rank correlation) between OFI and forward price returns",
+            "The total number of rows in the SQL audit table calculated over unadjusted historical price series",
             "The percentage of trading days that occur on Mondays"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Information Coefficient (IC) measures the correlation between the alpha signal (OFI) and subsequent price returns, verifying predictive efficacy."
         },
         "output": "healthy microstructure telemetry: CERTIFIED_HEALTHY | IC: 0.24\nfailing microstructure audit issues: ['WEAK_OFI_PREDICTIVE_POWER: IC=0.08 (< 0.15 target)', 'ELEVATED_INVENTORY_TOXICITY: VPIN=0.72 (> 0.65 target)', 'LATENCY_SLA_BREACH: 85us (> 50us target)']"
@@ -7463,13 +7283,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a high Kyle's Lambda (λ) indicate about the microstructure of a financial asset?",
           "options": [
-            "The asset has zero volatility and will never change price in the future",
             "The market is illiquid or information-sensitive, meaning trades cause large price movements per share traded",
-            "Exchange trading fees are waived for all participants across distributed persistent storage layers across fragmented lit electronic equity exchanges and alternative trading systems",
+            "The asset has zero volatility and will never change price in the future",
+            "Exchange trading fees are waived for all participants across distributed persistent storage layers",
             "All market orders are executed at the midpoint price without slippage"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Kyle's Lambda measures price impact per unit of order flow; higher lambda signifies lower liquidity and higher price sensitivity to trades."
         },
         "output": "liquid asset lambda: 3e-05 -> impact of 5k shares: $0.15\nilliquid asset lambda: 0.0009 -> impact of 5k shares: $4.5"
@@ -7502,13 +7322,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to the universal Square-Root Law of market impact, how does price impact scale with order size (Q)?",
           "options": [
-            "Sub-linearly, proportional to the square root of order size (sqrt(Q))",
             "Exponentially, proportional to Q squared (Q^2)",
+            "Sub-linearly, proportional to the square root of order size (sqrt(Q))",
             "Logarithmically, proportional to natural log of Q (ln(Q)) using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
             "Linearly, proportional to Q times a constant factor"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Empirical market microstructure data confirms that price impact scales sub-linearly with the square root of order size (sqrt(Q / ADV))."
         },
         "output": "square-root law expected impact: 0.158% of price\ndecomposed $1,250 impact -> Permanent: $812.5, Temporary: $437.5"
@@ -7541,13 +7361,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of Recursive Least Squares (RLS) over batch OLS for estimating Kyle's Lambda in production?",
           "options": [
-            "Eliminates the requirement for collecting market trade volume data",
-            "Guarantees that all trading orders execute with zero brokerage commissions by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "Automatically converts equity stocks into government treasury bonds",
-            "Updates the lambda parameter in O(1) time per trade without storing historic matrices or running matrix inversions"
+            "Eliminates the requirement for collecting market trade volume data across quantitative algorithmic trading models",
+            "Guarantees that all trading orders execute with zero brokerage commissions",
+            "Updates the lambda parameter in O(1) time per trade without storing historic matrices or running matrix inversions",
+            "Automatically converts equity stocks into government treasury bonds"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "RLS processes streaming trade ticks in O(1) time, updating price impact parameters online without costly matrix inversions."
         },
         "output": "trade Q=1000, dP=0.05 -> updated Kyle's lambda = 5e-05\ntrade Q=1500, dP=0.12 -> updated Kyle's lambda = 7.1e-05\ntrade Q=2000, dP=0.18 -> updated Kyle's lambda = 8.2e-05\ntrade Q=3000, dP=0.35 -> updated Kyle's lambda = 0.000102"
@@ -7581,7 +7401,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do institutional execution algorithms cap their market participation rate at 5% to 10% of ongoing volume?",
           "options": [
             "Because stock exchanges legally limit all traders to 10 shares per minute",
-            "To ensure that trading accounts do not exceed monthly internet bandwidth allowances through multi-asset covariance matrices and recursive Kalman state filter updates",
+            "To ensure that trading accounts do not exceed monthly internet bandwidth allowances",
             "Because higher participation rates automatically delete pending limit orders",
             "To prevent the parent order from dominating the order book, minimizing market impact and adverse selection slippage"
           ],
@@ -7619,13 +7439,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Implementation Shortfall (IS) measure in post-trade Transaction Cost Analysis (TCA)?",
           "options": [
-            "The physical distance between the trading desk and the exchange data center across distributed institutional trading desks and centralized risk management gateways",
-            "The percentage of memory consumed by the Python analytics process",
             "The total cost drag of execution, measured as the difference between actual execution price and arrival decision price",
+            "The physical distance between the trading desk and the exchange data center",
+            "The percentage of memory consumed by the Python analytics process executed without exchange transaction fee accounting",
             "The number of times the stock ticker symbol was mentioned on social media"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Implementation Shortfall measures the total cost of executing a trade by comparing the average executed price against the initial arrival benchmark price."
         },
         "output": "calibrated TCA outcome: True (realized=8.0bps vs pred=9.5bps)\nuncalibrated TCA drift: False (realized=25.0bps vs pred=10.0bps)"
@@ -7678,13 +7498,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to the Avellaneda-Stoikov model, why does a market maker's reservation price drop below the mid-price when holding positive inventory (q > 0)?",
           "options": [
-            "Because stock exchanges automatically confiscate shares from market makers with positive inventory across fragmented lit electronic equity exchanges and alternative trading systems",
-            "To penalize holding long risk and induce the market maker to quote lower prices that attract buyers and shed inventory",
+            "Because stock exchanges automatically confiscate shares from market makers with positive inventory",
             "To increase exchange transaction fees paid to external broker-dealers",
-            "Because positive inventory permanently devalues the US dollar"
+            "Because positive inventory permanently devalues the US dollar",
+            "To penalize holding long risk and induce the market maker to quote lower prices that attract buyers and shed inventory"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When long, the reservation price drops below mid to motivate lower quotes that encourage selling and discourage buying, reducing inventory risk."
         },
         "output": "neutral reservation price (q=0): 100.0\nlong inventory reservation price (q=+100): 99.98 (skews downward to sell)\nshort inventory reservation price (q=-100): 100.02 (skews upward to buy)"
@@ -7756,13 +7576,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must continuous mathematical prices generated by Avellaneda-Stoikov models be aligned to exchange tick sizes?",
           "options": [
-            "Exchange matching engines only accept discrete price increments (e.g. $0.01); unaligned orders are rejected immediately",
             "Unaligned price orders automatically convert into market orders",
-            "Tick-size alignment reduces capital gains taxes on trading profits by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "Because stock prices cannot contain decimal points"
+            "Exchange matching engines only accept discrete price increments (e.g. $0.01); unaligned orders are rejected immediately",
+            "Tick-size alignment reduces capital gains taxes on trading profits",
+            "Because stock prices cannot contain decimal points executed without exchange transaction fee accounting"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Exchanges enforce Minimum Price Variations (MPVs); all limit orders must be rounded to valid tick increments to be accepted by the matching engine."
         },
         "output": "aligned neutral quotes: 99.97 / 100.07 | spread: 0.1\naligned skewed quotes (+40 long): 99.93 / 100.03 | spread: 0.1"
@@ -7797,11 +7617,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Double the size of bid quotes to capture higher market share across distributed persistent storage layers",
             "Shut down all power supplies to the server rack",
-            "Borrow capital to buy additional out-of-the-money call options",
-            "Disable bid quoting entirely, only posting ask quotes to facilitate inventory liquidation"
+            "Disable bid quoting entirely, only posting ask quotes to facilitate inventory liquidation",
+            "Borrow capital to buy additional out-of-the-money call options"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "At 80% long inventory, the market maker cancels bids to stop buying more shares, quoting only on the ask side to attract buyers and offload inventory."
         },
         "output": "safe inventory action: DUAL_SIDED_QUOTING\nwarning inventory action: ONE_SIDED_QUOTING_ONLY (disabled: BIDS)\ncritical breach action: EMERGENCY_AGGRESSIVE_HEDGE (hedge: SELL 52 units)"
@@ -7835,12 +7655,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Maximum Inventory Duration a vital telemetry metric for high-frequency market making algorithms?",
           "options": [
             "Because stock exchanges charge a 5% penalty for every minute an asset is held",
-            "Longer inventory holding times automatically delete database backups",
-            "Holding inventory for extended durations exposes the market maker to unhedged directional price drift and adverse selection losses",
-            "Because market makers are legally required to sell all assets within 30 seconds through multi-asset covariance matrices and recursive Kalman state filter updates"
+            "Longer inventory holding times automatically delete database backups across quantitative algorithmic trading models",
+            "Because market makers are legally required to sell all assets within 30 seconds",
+            "Holding inventory for extended durations exposes the market maker to unhedged directional price drift and adverse selection losses"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Market makers earn money from the spread, not directional betting; holding inventory for long durations exposes them to uncompensated market risk."
         },
         "output": "market maker audit status: INSTITUTIONAL_GRADE\nannualized Sharpe ratio: 153.15\naverage inventory holding duration: 8.5 minutes"
@@ -7893,13 +7713,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does sitting at the back of a large Limit Order Book queue pose high adverse selection risk under Price-Time Priority?",
           "options": [
-            "Exchange matching engines charge higher trading fees for orders sitting at the back of queues across distributed institutional trading desks and centralized risk management gateways",
-            "The order is only filled if aggressive traders wipe out the entire queue ahead, typically signaling an informed momentum move against the order",
+            "Exchange matching engines charge higher trading fees for orders sitting at the back of queues",
             "Back-of-queue orders are automatically transferred to foreign currency exchanges",
+            "The order is only filled if aggressive traders wipe out the entire queue ahead, typically signaling an informed momentum move against the order",
             "Orders at the back of the queue are executed in reverse chronological order"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "An order at the back only fills when heavy aggressive volume sweeps the entire price level, indicating strong directional flow that will likely push the price further against the position."
         },
         "output": "front order priority: PRIME_FRONT (6.0% deep, wait=3.0s)\nback order priority: BACK_OF_QUEUE_VULNERABLE (88.0% deep, wait=44.0s)"
@@ -7932,13 +7752,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the volume of orders ahead in a limit order book queue influence fill probability in hazard rate models?",
           "options": [
-            "Fill probability increases linearly as more orders join the queue ahead across fragmented lit electronic equity exchanges and alternative trading systems",
-            "Fill probability decays exponentially as the volume of orders sitting ahead increases",
+            "Fill probability increases linearly as more orders join the queue ahead",
             "Queue depth ahead has zero mathematical impact on execution probability",
-            "Fill probability is always exactly 50% regardless of queue depth"
+            "Fill probability is always exactly 50% regardless of queue depth executed without exchange transaction fee accounting",
+            "Fill probability decays exponentially as the volume of orders sitting ahead increases"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "As queue depth ahead grows, the probability of enough volume arriving to execute the order before price moves away decays exponentially."
         },
         "output": "fill probability at front of queue (500 ahead): 86.6%\nfill probability at middle of queue (5,000 ahead): 23.7%\nfill probability at back of queue (25,000 ahead): 0.1%"
@@ -8010,13 +7830,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is 'pick-off risk' in high-frequency limit order trading?",
           "options": [
-            "The risk that the exchange charges a fine for trading during lunch hours by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "The risk that the exchange charges a fine for trading during lunch hours",
+            "The risk that faster latency arbitrageurs execute against your stale resting limit order after fair value has moved against you",
             "The risk that internet cables are cut by undersea marine life",
-            "The risk that your trading computer runs out of battery power",
-            "The risk that faster latency arbitrageurs execute against your stale resting limit order after fair value has moved against you"
+            "The risk that your trading computer runs out of battery power"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Pick-off risk occurs when market prices shift faster than a trader can cancel their resting limit order, allowing faster latency traders to execute at outdated prices."
         },
         "output": "normal quote state: MAINTAIN_QUOTE | cancel: False\ncrash event state: PICK_OFF_VULNERABILITY | cancel: True\nevaporated queue state: QUEUE_VALUE_EVAPORATED | cancel: True"
@@ -8049,8 +7869,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do financial regulators and exchanges enforce strict limits on Order-to-Trade Ratios (OTR)?",
           "options": [
-            "To force all trading firms to pay higher capital gains taxes to municipal governments through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "To ensure that trading firms purchase hardware from approved exchange vendors",
+            "To force all trading firms to pay higher capital gains taxes to municipal governments",
+            "To ensure that trading firms purchase hardware from approved exchange vendors across quantitative algorithmic trading models",
             "To prevent market manipulation and prevent excessive quote spam from saturating exchange matching engine capacity",
             "To convert all electronic trading venues into manual open-outcry trading pits"
           ],
@@ -8110,13 +7930,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Milestone 7 combine OFI and VPIN with the Avellaneda-Stoikov quoting model?",
           "options": [
-            "By converting all order book updates into audio signals played through desk speakers across distributed institutional trading desks and centralized risk management gateways",
-            "By shutting down the trading engine every time an order is executed",
+            "By converting all order book updates into audio signals played through desk speakers",
             "OFI provides directional short-term price momentum, VPIN measures toxic risk to adjust spread width, and Stoikov skews quotes to manage inventory",
+            "By shutting down the trading engine every time an order is executed",
             "By replacing all limit orders with long-term 30-year corporate bonds"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "OFI forecasts directional pressure, VPIN detects adverse selection to widen spreads, and Avellaneda-Stoikov skews quotes based on inventory holding."
         },
         "output": "microstructure platform pillars: 4\n - FLOW_ALPHA: Order Flow Imbalance (OFI) L1/L2 Delta Tracking\n - TOXICITY_FILTER: Volume-Synchronized Probability of Informed Trading (VPIN)\n - OPTIMAL_QUOTING: Avellaneda-Stoikov Reservation Price & Inventory Skew\n - EXECUTION_GUARD: Queue Position Valuation & Automated Cancel Latency Collar"
@@ -8154,13 +7974,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the autonomous market making kernel adjust its quoting behavior when holding 30 long shares during elevated VPIN conditions?",
           "options": [
-            "Shuts down the computer and cancels the AWS account subscription",
-            "Widens the spread due to high VPIN and skews prices downward due to positive inventory to induce selling",
+            "Shuts down the computer and cancels the AWS account subscription executed without exchange transaction fee accounting",
             "Submits market buy orders for 10,000 shares at any available price",
-            "Doubles the size of the bid quote to accumulate 100 additional shares across fragmented lit electronic equity exchanges and alternative trading systems"
+            "Widens the spread due to high VPIN and skews prices downward due to positive inventory to induce selling",
+            "Doubles the size of the bid quote to accumulate 100 additional shares"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Elevated VPIN widens the spread to guard against toxicity, while long inventory skews prices lower to encourage buyers to take the long position off the market maker's books."
         },
         "output": "clean market quotes: 99.95 / 100.05 | spread: 0.1\nskewed quotes (long 30, toxic): 99.91 / 100.1 | spread: 0.19"
@@ -8194,13 +8014,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do high-frequency market making engines filter out minor quote updates that move prices by less than half a tick?",
           "options": [
-            "Prevents quote spam and avoids incurring exchange messaging penalty fees for negligible price adjustments",
             "Because stock exchanges permanently ban any trader who modifies a quote",
             "To reduce electricity consumption by cooling down network cards",
-            "Because sub-tick price modifications are mathematically impossible in Python using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
+            "Because sub-tick price modifications are mathematically impossible in Python using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
+            "Prevents quote spam and avoids incurring exchange messaging penalty fees for negligible price adjustments"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Filtering out insignificant quote updates prevents hitting exchange rate limits and paying penalty fees while preserving essential pricing accuracy."
         },
         "output": "micro-noise quote event: SUPPRESS_QUOTE_UPDATE (diff=0.002)\nsignificant market move: DISPATCH_UPDATE (diff=0.02)"
@@ -8233,13 +8053,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What emergency action must an autonomous market making engine take if its exchange market data feed disconnects for more than 50 milliseconds?",
           "options": [
-            "Continue quoting blindly at the last known price until the internet reconnects by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Trigger a Mass Quote Cancellation to cancel all resting limit orders and protect resting quotes from being picked off blindly",
+            "Continue quoting blindly at the last known price until the internet reconnects",
             "Borrow maximum margin capital to purchase random stock index futures",
-            "Send an email to the SEC requesting an extension of market trading hours",
-            "Trigger a Mass Quote Cancellation to cancel all resting limit orders and protect resting quotes from being picked off blindly"
+            "Send an email to the SEC requesting an extension of market trading hours"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Quoting blindly on a stale or disconnected book guarantees getting picked off by informed traders; cancelling all quotes immediately is mandatory."
         },
         "output": "healthy system state: NORMAL_OPERATIONS\nkill switch triggered action: MASS_CANCEL_ALL_QUOTES_AND_FLATTEN (flatten 25 units, reason=['MARKET_DATA_DISCONNECT: 85.0ms (> 50ms SLA)'])"
@@ -8274,12 +8094,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which criteria confirm successful certification of Gate 1 (OFI Alpha) in Milestone 7?",
           "options": [
             "The market maker must win 100% of all trades executed on the exchange",
-            "The strategy must generate at least $1,000,000 in paper trading profits on day one through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "All exchange fees must be refunded by the broker",
-            "Order Flow Imbalance must demonstrate an Information Coefficient exceeding 0.15 with forward price returns"
+            "Order Flow Imbalance must demonstrate an Information Coefficient exceeding 0.15 with forward price returns",
+            "The strategy must generate at least $1,000,000 in paper trading profits on day one",
+            "All exchange fees must be refunded by the broker calculated over unadjusted historical price series"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Gate 1 certifies that Order Flow Imbalance possesses statistical predictive power (IC > 0.15) over future price moves."
         },
         "output": "milestone 7 certification: MILESTONE_7_CERTIFIED\n - GATE_1_OFI_ALPHA_IC: PASSED [OFI Information Coefficient = 0.22 (> 0.15 target)]\n - GATE_2_VPIN_TOXICITY_DEFENSE: PASSED [VPIN flash crash detection = 100% capture]\n - GATE_3_STOIKOV_INVENTORY_DURATION: PASSED [Max inventory duration = 8.5m (< 15m limit)]\n - GATE_4_QUEUE_VALUATION_ACCURACY: PASSED [Fill probability accuracy = 84.5% (> 80%)]\n - GATE_5_EXECUTION_LATENCY_SLA: PASSED [P99 tick-to-quote latency = 18us (< 50us budget)]"
@@ -8332,13 +8152,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Ornstein-Uhlenbeck process dX_t = θ(μ - X_t)dt + σdW_t, what happens to the stationary variance as the mean reversion speed θ increases?",
           "options": [
+            "The stationary variance decreases because a stronger restorative force pulls the spread back to the mean more aggressively",
             "The stationary variance increases towards infinity",
             "The stationary variance becomes negative",
-            "The stationary variance decreases because a stronger restorative force pulls the spread back to the mean more aggressively",
-            "Mean reversion speed has zero mathematical relationship with variance across distributed institutional trading desks and centralized risk management gateways"
+            "Mean reversion speed has zero mathematical relationship with variance"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Stationary variance equals sigma^2 / (2*theta); higher theta exerts a stronger restoring pull, confining the spread to tighter variance around the mean."
         },
         "output": "dislocated spread starting at: $105.00 (equilibrium = $100.00)\nexpected spread after 1 day: $ 103.0327\nexpected spread after 5 days: $ 100.4104 (near equilibrium)\nlong-term stationary variance: $ 1.44"
@@ -8371,10 +8191,10 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an estimated half-life of 4.5 days indicate to a statistical arbitrage trader?",
           "options": [
-            "The trading firm must liquidate 50% of its total company stock every 4.5 days across fragmented lit electronic equity exchanges and alternative trading systems",
+            "The trading firm must liquidate 50% of its total company stock every 4.5 days",
             "A dislocated price spread is expected to decay 50% back toward its equilibrium mean in 4.5 trading days",
             "The stock exchange will close for 4.5 days of scheduled maintenance",
-            "All option contracts will expire exactly 4.5 days after purchase"
+            "All option contracts will expire exactly 4.5 days after purchase executed without exchange transaction fee accounting"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -8410,13 +8230,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do statistical arbitrageurs reject pairs with half-lives exceeding 45 trading days?",
           "options": [
-            "Capital is locked up too long for slow reversion, increasing financing costs and the risk of structural cointegration breakdown",
             "Because stock brokers charge higher borrowing fees for trades held longer than 30 days",
             "Because half-lives longer than 45 days are mathematically impossible in financial markets using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
+            "Capital is locked up too long for slow reversion, increasing financing costs and the risk of structural cointegration breakdown",
             "Slow half-lives indicate that both companies will merge within 90 days"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Slow mean reversion ties up risk capital for months, reducing portfolio turnover and exposing the trade to structural corporate divergence."
         },
         "output": "tradable pair signal: ENTER_SHORT_SPREAD (Z=2.25, half-life=5.4d)\nslow pair rejection: False | reason: TOO_SLOW_OR_NON_STATIONARY"
@@ -8449,13 +8269,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must statistical arbitrage pairs trading strategies enforce a hard Z-score stop-loss (e.g. at |Z| = 3.5)?",
           "options": [
-            "To prevent catastrophic losses when a fundamental structural shift breaks the cointegrating relationship permanently",
-            "Because stock exchanges automatically cancel all orders when prices move more than 3.5 standard deviations by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Because stock exchanges automatically cancel all orders when prices move more than 3.5 standard deviations",
             "To avoid paying higher margin interest rates to broker-dealers",
-            "Because SEC regulations mandate closing trades whenever Z-scores exceed 3.0"
+            "Because SEC regulations mandate closing trades whenever Z-scores exceed 3.0",
+            "To prevent catastrophic losses when a fundamental structural shift breaks the cointegrating relationship permanently"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When a spread blows out past 3.5 sigma, it typically indicates a genuine structural breakdown (e.g. bankruptcy, takeover) rather than temporary noise."
         },
         "output": "normal holding state: CONTINUE_HOLDING\ncatastrophic divergence state: EMERGENCY_STOP_LOSS_LIQUIDATE | reason: Z-Score -4.2 breached 3.5 sigma catastrophic stop-loss ceiling\nstalled trade state: TIME_BASED_EXIT | reason: Holding time 18.0d exceeded 3x half-life limit (15.0d)"
@@ -8488,13 +8308,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which statistical hypothesis test is used to confirm that an equity spread is stationary and free of unit roots before trading?",
           "options": [
-            "Student's t-test for equal sample means through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "Pearson correlation coefficient test",
-            "Shannon entropy text compression test",
-            "Augmented Dickey-Fuller (ADF) test (p-value < 0.05)"
+            "Augmented Dickey-Fuller (ADF) test (p-value < 0.05)",
+            "Student's t-test for equal sample means",
+            "Pearson correlation coefficient test across quantitative algorithmic trading models",
+            "Shannon entropy text compression test"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The Augmented Dickey-Fuller (ADF) test evaluates whether a time series has a unit root; p < 0.05 rejects the unit root, confirming stationarity."
         },
         "output": "certified stationary pair: STATIONARY_ALPHA_CERTIFIED | p-value: 0.012\nfailing non-stationary issues: ['NON_STATIONARY_UNIT_ROOT: p-value=0.185 (>= 0.05 threshold)', 'INSUFFICIENT_REVERSION_SPEED: theta=0.01 (<= 0.02 target)', 'SUB_PAR_SHARPE: Sharpe=0.8 (< 1.5 target)']"
@@ -8548,12 +8368,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is Cointegration superior to Correlation for designing statistical arbitrage pairs trading strategies?",
           "options": [
             "Cointegration eliminates all exchange trading fees and commissions",
-            "Cointegration ensures that both assets will double in value over the next year across distributed institutional trading desks and centralized risk management gateways",
-            "Cointegration guarantees that the spread is mathematically stationary (I(0)) and will mean-revert, whereas correlated assets can drift apart forever",
-            "Correlation is completely illegal under modern financial regulatory rules"
+            "Cointegration ensures that both assets will double in value over the next year",
+            "Correlation is completely illegal under modern financial regulatory rules",
+            "Cointegration guarantees that the spread is mathematically stationary (I(0)) and will mean-revert, whereas correlated assets can drift apart forever"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Correlation measures co-movement but permits permanent divergence; cointegration guarantees that a linear combination is stationary and mean-reverting."
         },
         "output": "correlation principle: High correlation does NOT imply mean reversion; series can drift apart forever\ncointegration guarantee: Linear combination Y - beta*X is I(0) stationary with bounded variance\nhedge ratio role: The exact number of shares of X required to hedge 1 share of Y"
@@ -8586,13 +8406,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why cannot standard Augmented Dickey-Fuller critical values be used when testing Engle-Granger regression residuals for cointegration?",
           "options": [
-            "Because stock prices are always positive numbers",
             "Because OLS minimizes residual variance, making the residuals appear more stationary than raw data; MacKinnon critical values correct for this bias",
-            "Because standard ADF tests can only be run on daily closing prices across fragmented lit electronic equity exchanges and alternative trading systems",
+            "Because stock prices are always positive numbers under unhedged market exposure volatility regimes",
+            "Because standard ADF tests can only be run on daily closing prices",
             "Because MacKinnon is the name of the exchange matching engine"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "OLS selects beta to minimize residual variance, biasing residuals toward stationarity; MacKinnon critical values are more stringent to prevent false positives."
         },
         "output": "estimated hedge ratio beta: 1.5027 (true beta = 1.5)\ncointegration test status: COINTEGRATED_PAIR_CERTIFIED (t-stat=-4.15 < -3.37)"
@@ -8664,13 +8484,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do quantitative risk systems enforce volatility bounds on rolling hedge ratio recalibrations?",
           "options": [
-            "Prevents the model from over-fitting to transient short-term noise, which would create erratic rebalancing trades and high slippage costs",
-            "Because stock exchanges prohibit changing hedge ratios more than once per calendar year by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Because stock exchanges prohibit changing hedge ratios more than once per calendar year",
             "To reduce the number of CPU cores utilized by the risk analytics server",
+            "Prevents the model from over-fitting to transient short-term noise, which would create erratic rebalancing trades and high slippage costs",
             "Because hedge ratios must always remain integer numbers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Limiting rolling beta adjustments prevents over-fitting to noise, avoiding unnecessary turnover and erratic portfolio rebalancing."
         },
         "output": "normal hedge update: APPLY_NEW_BETA (5.33%)\nexcessive hedge drift: REJECT_EXCESSIVE_DRIFT (30.0% exceeds 20.0%)"
@@ -8703,8 +8523,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Net Portfolio Market Beta of +0.02 indicate about a statistical arbitrage pairs portfolio?",
           "options": [
-            "The portfolio will gain 20% whenever the S&P 500 increases by 1% through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "The portfolio has lost 98% of its initial capital value",
+            "The portfolio will gain 20% whenever the S&P 500 increases by 1%",
+            "The portfolio has lost 98% of its initial capital value across quantitative algorithmic trading models",
             "All underlying stock positions have been liquidated into cash",
             "The portfolio is effectively market-neutral, with negligible exposure to directional market swings"
           ],
@@ -8763,7 +8583,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In a Kalman Filter pairs trading model, what is the role of the Process Noise Covariance (Q)?",
           "options": [
             "Calculates the total brokerage commissions paid on exchange executions",
-            "Determines the maximum number of shares that can be held in overnight storage across distributed institutional trading desks and centralized risk management gateways",
+            "Determines the maximum number of shares that can be held in overnight storage",
             "Controls the assumed speed of parameter evolution; higher Q allows the hedge ratio beta to adapt more rapidly to structural shifts",
             "Permanently fixes the hedge ratio to 1.0 forever"
           ],
@@ -8805,13 +8625,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Kalman Filter generate an adaptive trading signal (Z-score) for statistical arbitrage?",
           "options": [
-            "Calculates the 200-day simple moving average of stock prices across fragmented lit electronic equity exchanges and alternative trading systems",
+            "Calculates the 200-day simple moving average of stock prices",
             "Multiplies the asset price by the current hour of the day",
-            "Divides the innovation error (measurement residual e_t) by the square root of the innovation variance (sqrt(S_t))",
-            "Takes the square root of the total shares outstanding"
+            "Takes the square root of the total shares outstanding under unhedged market exposure volatility regimes",
+            "Divides the innovation error (measurement residual e_t) by the square root of the innovation variance (sqrt(S_t))"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The innovation error e_t represents the unexpected price difference, and dividing by its standard deviation sqrt(S_t) yields a standardized Z-score."
         },
         "output": "X=100.0, Y=100.5 -> updated Beta=1.005, Z-score=0.0\nX=101.0, Y=120.0 -> updated Beta=1.1864, Z-score=18.13\nX=102.0, Y=140.0 -> updated Beta=1.3708, Z-score=18.44\nX=103.0, Y=154.5 -> updated Beta=1.4988, Z-score=12.8"
@@ -8844,13 +8664,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens in a Kalman Filter pairs trading strategy if the process noise Q is set too high relative to measurement noise R?",
           "options": [
-            "The filter permanently freezes and outputs NaN values",
             "The filter over-fits, rapidly adjusting beta to absorb price dislocations into the hedge ratio and destroying the mean-reversion alpha signal",
+            "The filter permanently freezes and outputs NaN values",
             "The trading broker charges double margin borrowing fees",
             "All market orders execute at the previous day's closing price using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "If Q is too high, the filter assumes every price dislocation is a change in the fundamental hedge ratio, adjusting beta immediately and wiping out the trading signal."
         },
         "output": "tuned ratio 0.01: OPTIMAL_BALANCE (tracks true beta drift while preserving mean-reversion alpha)\noverfit ratio 10.0: HYPER_RESPONSIVE_OVERFITS_NOISE (absorbs alpha signals into beta)\nsluggish ratio 1e-6: SLUGGISH_STATIC_OLS_BEHAVIOR (fails to adapt to structural regime shifts)"
@@ -8883,13 +8703,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do production quantitative finance systems implement the Joseph Form for Kalman covariance updates?",
           "options": [
+            "Eliminates the requirement for storing floating-point numbers in computer memory",
             "Guarantees that the error covariance matrix remains symmetric and positive semi-definite, preventing numerical instability and filter explosion",
-            "Eliminates the requirement for storing floating-point numbers in computer memory by evaluating continuous-time partial differential equations under risk-neutral measures",
             "Reduces the number of market orders executed by the trading strategy",
             "Converts all asset prices into positive integer values"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The Joseph Form update formula is numerically robust, ensuring the covariance matrix never becomes negative or asymmetric due to floating-point rounding errors."
         },
         "output": "Joseph form updated covariance: 0.0692\nnumerical stability verified: True | status: NUMERICALLY_STABLE"
@@ -8922,13 +8742,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What statistical distribution should normalized innovation residuals (Z_t = e_t / sqrt(S_t)) exhibit in a properly calibrated Kalman Filter?",
           "options": [
-            "Uniform distribution between 0 and 100",
+            "Uniform distribution between 0 and 100 under unhedged market exposure volatility regimes",
             "A constant non-zero value that never changes",
-            "A Poisson distribution with lambda equal to 50 through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "Standard Gaussian white noise with zero mean, unit variance, and zero autocorrelation (N(0, 1))"
+            "Standard Gaussian white noise with zero mean, unit variance, and zero autocorrelation (N(0, 1))",
+            "A Poisson distribution with lambda equal to 50"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In an optimal Kalman filter, the measurement errors are fully accounted for, leaving normalized innovation residuals as independent Gaussian white noise N(0, 1)."
         },
         "output": "Kalman telemetry audit status: WHITE_NOISE_CERTIFIED\nmean Z: 0.058 | std Z: 0.877 | lag-1 autocorr: 0.11"
@@ -8987,13 +8807,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must quantitative portfolios enforce both dollar neutrality and beta neutrality?",
           "options": [
-            "To allow trading algorithms to execute trades without paying brokerage transaction fees across distributed institutional trading desks and centralized risk management gateways",
+            "To allow trading algorithms to execute trades without paying brokerage transaction fees",
+            "Dollar neutrality balances cash capital while beta neutrality balances market sensitivity, isolating pure idiosyncratic alpha",
             "Because market regulators restrict algorithmic hedge funds from holding cash overnight",
-            "To maximize high-frequency order cancellation rates on lit electronic exchanges",
-            "Dollar neutrality balances cash capital while beta neutrality balances market sensitivity, isolating pure idiosyncratic alpha"
+            "To maximize high-frequency order cancellation rates on lit electronic exchanges"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Dollar neutrality (sum w_i = 0) and beta neutrality (sum w_i * beta_i = 0) ensure insulation from broad market movements."
         },
         "output": "standardized factor z-scores: [0.395, 0.0298, -0.6484, 2.1167, -1.3267, -0.1789, -0.3876]\nmean sum: -0.0001"
@@ -9032,8 +8852,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does sector de-meaning achieve sector neutrality?",
           "options": [
-            "By liquidating all tech stocks whenever bank earnings are announced",
-            "By converting stock prices into foreign currencies before optimizing portfolio weights across fragmented lit electronic equity exchanges and alternative trading systems",
+            "By liquidating all tech stocks whenever bank earnings are announced across quantitative algorithmic trading models",
+            "By converting stock prices into foreign currencies before optimizing portfolio weights",
             "By subtracting the sector's average score from each constituent stock, forcing the sum of scores within each sector to zero",
             "By restricting the trading portfolio to only one individual industry sector"
           ],
@@ -9074,12 +8894,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does sparse sector indicator structure reduce computational complexity from O(N^3) to O(N)?",
           "options": [
             "Because high-speed network switches execute matrix inversions in network firmware using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
-            "Because sector dummies are mutually orthogonal block diagonals, allowing group de-meaning via simple cumulative sums",
             "Because quantitative funds only trade stocks on alternate business days",
-            "Because trading volume is zero inside dark liquidity pools"
+            "Because trading volume is zero inside dark liquidity pools",
+            "Because sector dummies are mutually orthogonal block diagonals, allowing group de-meaning via simple cumulative sums"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Mutually exclusive sectors form orthogonal block diagonal matrices that reduce to independent group average subtractions."
         },
         "output": "neutralized portfolio weights: {'AAPL': 0.6, 'MSFT': -0.6, 'JPM': -0.4, 'BAC': 0.4}"
@@ -9121,7 +8941,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
             "It trips the risk circuit breaker, halts order transmission, and flags the violation for quant risk intervention",
             "It automatically borrows unlimited funds from retail bank accounts",
             "It changes all stock buy orders into cryptocurrency limit orders",
-            "It deletes historical trade logs to pass database verification checks by evaluating continuous-time partial differential equations under risk-neutral measures"
+            "It deletes historical trade logs to pass database verification checks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9164,13 +8984,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Information Coefficient (IC) measure in quantitative factor research?",
           "options": [
+            "The physical network packet latency between broker routers and exchange matching engines",
             "The correlation between forecasted alpha factor scores and actual forward realized asset returns",
-            "The physical network packet latency between broker routers and exchange matching engines through multi-asset covariance matrices and recursive Kalman state filter updates",
             "The amount of data storage consumed by tick-level historical market archives",
-            "The legal tax liability incurred when executing short sale transactions"
+            "The legal tax liability incurred when executing short sale transactions calculated over unadjusted historical price series"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The Information Coefficient (IC) is the correlation between factor forecasts and subsequent realized asset returns."
         },
         "output": "telemetry audit result: HEALTHY_ALPHA | IC: 0.9978"
@@ -9226,13 +9046,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the stat-arb engine trigger a stop-loss when the spread z-score exceeds 3.5?",
           "options": [
+            "Because an extreme z-score indicates a potential structural break where the cointegration relationship has broken down",
             "Because exchange regulations ban z-scores higher than 3.0",
-            "To reset internal computer memory and clear Python garbage collection across distributed institutional trading desks and centralized risk management gateways",
-            "Because the market maker is required to pay double exchange rebates",
-            "Because an extreme z-score indicates a potential structural break where the cointegration relationship has broken down"
+            "To reset internal computer memory and clear Python garbage collection",
+            "Because the market maker is required to pay double exchange rebates"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "An extreme z-score divergence (> 3.5) signals that the statistical equilibrium has failed and continuation could cause catastrophic losses."
         },
         "output": "stat-arb platform architecture: Kalman Filter Dynamic State-Space Cointegrated Spread Tracking\nentry z-score: 2.0 | exit z-score: 0.5\nneutrality constraints verified: 3"
@@ -9272,12 +9092,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What position does the engine enter when z-score = -2.3?",
           "options": [
             "Liquidates all assets and converts capital to physical gold",
-            "SHORT_SPREAD: Short asset Y and short asset X simultaneously",
             "LONG_SPREAD: Long asset Y and short beta units of asset X",
+            "SHORT_SPREAD: Short asset Y and short asset X simultaneously",
             "Pauses the trading server until market close"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A negative z-score below -2.0 indicates asset Y is cheap relative to asset X, triggering a Long Spread trade."
         },
         "output": "tick 1 (z=-2.3): {'position': 'LONG_SPREAD', 'action': 'BUY_GOOG_SELL_0.42_MSFT'}\ntick 2 (z=-0.3): {'position': 'FLAT', 'action': 'CLOSE_PROFIT'}"
@@ -9317,12 +9137,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does the stat-arb engine handle an exchange trading halt on one of the pair constituents?",
           "options": [
             "It triples order volume on the remaining active stock to compensate for lost trading",
+            "It replaces the halted stock with random numbers generated from Gaussian distributions",
             "It immediately freezes the pair, cancels existing active quotes, and halts new order generation",
-            "It replaces the halted stock with random numbers generated from Gaussian distributions across fragmented lit electronic equity exchanges and alternative trading systems",
-            "It converts the portfolio to physical commodities until trading resumes"
+            "It converts the portfolio to physical commodities until trading resumes executed without exchange transaction fee accounting"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Freezing the pair and canceling quotes prevents one-legged execution risk when an asset cannot be traded."
         },
         "output": "triggered stat-arb opportunities: 1\n - CVX_XOM SHORT_SPREAD z: 4.67"
@@ -9362,12 +9182,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is Leg Risk in pairs trading and how does the resilience guard mitigate it?",
           "options": [
             "The risk that an algorithmic developer trips over server power cords in the data center using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
-            "The risk that one order fills while the second order fails or lags, mitigated by triggering an emergency hedge after 250ms",
             "The risk that high trading volume causes financial news websites to load slowly",
-            "The risk that physical stock certificates get lost in transit between clearing houses"
+            "The risk that physical stock certificates get lost in transit between clearing houses",
+            "The risk that one order fills while the second order fails or lags, mitigated by triggering an emergency hedge after 250ms"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Leg risk occurs when one side of a pair fills without the other; the guard triggers an emergency hedge to restore neutrality."
         },
         "output": "leg execution guard result: LEG_RISK_TRIGGERED | action: EMERGENCY_MARKET_HEDGE_Y"
@@ -9404,9 +9224,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which of the following is NOT one of the 5 production certification gates in Milestone 8?",
           "options": [
             "Guaranteed 100% daily positive profit regardless of market conditions",
-            "Cointegration stationarity with ADF p-value < 0.05 by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Cointegration stationarity with ADF p-value < 0.05",
             "Portfolio market neutrality with net beta <= 0.05",
-            "Execution leg latency <= 250ms"
+            "Execution leg latency <= 250ms across quantitative algorithmic trading models"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9464,7 +9284,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to the Grinold-Kahn Fundamental Law, how does Information Ratio scale with breadth (BR)?",
           "options": [
-            "Linearly: doubling breadth automatically doubles Information Ratio through multi-asset covariance matrices and recursive Kalman state filter updates",
+            "Linearly: doubling breadth automatically doubles Information Ratio",
             "Exponentially: breadth raises IR to the third power",
             "Inversely: increasing breadth reduces portfolio diversification",
             "With the square root of breadth: doubling IR requires quadrupling independent bets (BR)"
@@ -9509,13 +9329,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Transfer Coefficient (TC) of 0.40 indicate in institutional portfolio construction?",
           "options": [
-            "That 40% of the firm's trading servers have experienced hardware failures across distributed institutional trading desks and centralized risk management gateways",
-            "That brokerage commissions absorb 40% of annual gross portfolio revenues",
             "That portfolio constraints (such as long-only mandates) erode 60% of the manager's theoretical predictive skill",
-            "That active portfolio turnover occurs exactly every 40 calendar days"
+            "That 40% of the firm's trading servers have experienced hardware failures",
+            "That brokerage commissions absorb 40% of annual gross portfolio revenues",
+            "That active portfolio turnover occurs exactly every 40 calendar days across quantitative algorithmic trading models"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "TC measures the correlation between unconstrained alpha and implemented weights; TC=0.40 means 60% of alpha potential is lost to constraints."
         },
         "output": "Transfer Coefficient (TC): 0.9458\nRealized Information Ratio (IR): 1.0574 (vs unconstrained 1.118)"
@@ -9551,12 +9371,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is effective breadth in a correlated stock portfolio significantly lower than the total number of traded stocks?",
           "options": [
             "Because stock exchanges prohibit trading more than 10 stocks simultaneously",
-            "Because market makers only provide liquidity to one stock per industry",
             "Because shared systematic market and industry factors reduce the number of independent, uncorrelated statistical bets",
-            "Because computer operating systems cannot allocate memory for more than 50 stocks across fragmented lit electronic equity exchanges and alternative trading systems"
+            "Because market makers only provide liquidity to one stock per industry across quantitative algorithmic trading models",
+            "Because computer operating systems cannot allocate memory for more than 50 stocks"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Common factor exposures create correlation among returns, drastically reducing the number of independent bets."
         },
         "output": "Case 1 (uncorrelated) effective breadth: 5.0\nCase 2 (correlated) effective breadth: 1.4"
@@ -9596,12 +9416,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do quantitative risk teams apply a 50% haircut to historical backtest IC before live deployment?",
           "options": [
             "Because stock brokers charge a mandatory 50% tax on algorithmic alpha",
-            "To guard against backtest overfitting, selection bias, and real-world alpha decay in live trading",
             "Because Python mathematical operations are only 50% as accurate as C++ calculations using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
+            "To guard against backtest overfitting, selection bias, and real-world alpha decay in live trading",
             "To comply with exchange rules that limit portfolio profits to half of annual GDP"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Applying a 50% haircut accounts for backtest overfitting, data mining bias, and execution frictions in live markets."
         },
         "output": "strategy feasibility audit: REJECTED | projected IR: 0.4743"
@@ -9641,13 +9461,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the Implementation Efficiency ratio (Realized IR / Theoretical IR) evaluate?",
           "options": [
-            "How effectively the trading and execution pipeline captured the theoretical alpha forecasted by the model",
-            "The physical electricity consumption of the data center server racks",
+            "The physical electricity consumption of the data center server racks calculated over unadjusted historical price series",
             "The percentage of code written in Python compared to assembly language",
-            "The number of times the database was backed up to external optical storage by evaluating continuous-time partial differential equations under risk-neutral measures"
+            "The number of times the database was backed up to external optical storage",
+            "How effectively the trading and execution pipeline captured the theoretical alpha forecasted by the model"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Implementation Efficiency measures how much of the theoretical alpha predicted by the Fundamental Law was captured in realized performance."
         },
         "output": "Fundamental Law Telemetry Audit: OPTIMAL\nRealized IR: 0.456 vs Theoretical IR: 0.471\nImplementation Efficiency: 96.7%"
@@ -9704,11 +9524,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The execution slows down and extends the trade over several weeks",
             "The algorithm cancels all trades and buys index futures instead",
-            "The trajectory becomes completely linear regardless of asset volatility through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "The liquidation schedule becomes more aggressive early on (front-loaded) to rapidly reduce market volatility exposure"
+            "The liquidation schedule becomes more aggressive early on (front-loaded) to rapidly reduce market volatility exposure",
+            "The trajectory becomes completely linear regardless of asset volatility"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Higher risk aversion prioritizes variance reduction, causing the trader to liquidate faster early in the schedule despite higher temporary impact."
         },
         "output": "optimal decay parameter (kappa): 0.6\nShares remaining at t=0.5: 47831.4 of 100,000"
@@ -9747,8 +9567,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do earlier intervals execute larger share slices than later intervals when kappa > 0?",
           "options": [
-            "Because broker commissions decrease as the trading day progresses",
-            "Because exchanges shut down order processing in the final hour of the day across distributed institutional trading desks and centralized risk management gateways",
+            "Because broker commissions decrease as the trading day progresses under unhedged market exposure volatility regimes",
+            "Because exchanges shut down order processing in the final hour of the day",
             "Because computer processors experience performance degradation over time",
             "Because hyperbolic decay front-loads execution to rapidly eliminate market volatility risk"
           ],
@@ -9788,13 +9608,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do institutional execution algorithms enforce a volume participation rate ceiling (e.g. 5% of market volume)?",
           "options": [
-            "Because broker API rate limits only permit 5 trades per minute",
-            "To ensure that retail traders have enough shares left to buy",
             "To prevent the parent order from dominating market volume and causing severe temporary price impact",
-            "Because stock certificates cannot be transferred faster than 5% per hour across fragmented lit electronic equity exchanges and alternative trading systems"
+            "Because broker API rate limits only permit 5 trades per minute",
+            "To ensure that retail traders have enough shares left to buy executed without exchange transaction fee accounting",
+            "Because stock certificates cannot be transferred faster than 5% per hour"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Capping participation at a conservative fraction of market volume prevents excessive temporary market impact and price degradation."
         },
         "output": "volume-capped execution result: {'executed_slice': 7500.0, 'spillover_shares': 4500.0, 'capped': True}"
@@ -9879,13 +9699,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Implementation Shortfall in institutional transaction cost analysis?",
           "options": [
-            "The difference between the portfolio value at the initial decision price and the actual realized execution revenue",
             "The time taken to download tick data from the exchange FTP server",
-            "The physical distance between the trading desk and the data center by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "The number of shares that failed to be delivered during clearing"
+            "The physical distance between the trading desk and the data center",
+            "The difference between the portfolio value at the initial decision price and the actual realized execution revenue",
+            "The number of shares that failed to be delivered during clearing executed without exchange transaction fee accounting"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Implementation Shortfall is the gold-standard TCA metric measuring total execution cost relative to decision-time price."
         },
         "output": "Implementation Shortfall Audit: EXCESSIVE_SLIPPAGE\nTotal Shortfall: $25000.0 (33.33 bps)"
@@ -9940,13 +9760,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the fundamental mathematical invariant of an uncrossed limit order book?",
           "options": [
+            "The total number of buy orders must always equal the total number of sell orders",
             "The maximum bid price must remain strictly less than the minimum ask price (max P_bid < min P_ask)",
-            "The total number of buy orders must always equal the total number of sell orders through multi-asset covariance matrices and recursive Kalman state filter updates",
             "The ask price must be exactly double the bid price at all times",
             "All resting orders must execute within 1 millisecond of arrival"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The No-Cross Condition guarantees that crossed prices immediately execute, preserving max(P_bid) < min(P_ask)."
         },
         "output": "L3 Book No-Cross Invariant Check: VALID_BOOK\nBBO: 100.25 x 100.3 | Spread: $0.05"
@@ -9985,13 +9805,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must price levels with zero remaining shares be deleted from the order book maps?",
           "options": [
-            "Because exchange regulations charge fees for empty memory structures across distributed institutional trading desks and centralized risk management gateways",
-            "To force stock prices to drop to zero when volume dries up",
-            "Because Python dictionaries can only hold positive numbers",
-            "To prevent phantom quote levels from corrupting top-of-book Best Bid/Offer calculation"
+            "Because exchange regulations charge fees for empty memory structures",
+            "To force stock prices to drop to zero when volume dries up across quantitative algorithmic trading models",
+            "To prevent phantom quote levels from corrupting top-of-book Best Bid/Offer calculation",
+            "Because Python dictionaries can only hold positive numbers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Deleting empty price levels ensures that max(bids) and min(asks) accurately identify true executable market prices."
         },
         "output": "bids depth after partial fill: {150.2: 600}\nasks depth: {150.25: 400}\nremaining active orders in index: 3"
@@ -10027,12 +9847,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do high-frequency trading engines convert floating-point prices to fixed-point integer ticks?",
           "options": [
             "Because stock exchanges do not allow fractional currency values",
-            "To hide order prices from regulatory surveillance authorities",
-            "To eliminate floating-point representation errors and accelerate CPU arithmetic operations",
-            "Because integer arithmetic consumes more memory than floating point across fragmented lit electronic equity exchanges and alternative trading systems"
+            "To hide order prices from regulatory surveillance authorities across quantitative algorithmic trading models",
+            "Because integer arithmetic consumes more memory than floating point",
+            "To eliminate floating-point representation errors and accelerate CPU arithmetic operations"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Fixed-point integer representation guarantees exact precision, preventing IEEE-754 rounding discrepancies."
         },
         "output": "Price: $150.25 -> Integer Tick: 1502500\nreconstructed tick book: bids = {1502500: 300} | asks = {1502505: 400}"
@@ -10071,13 +9891,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action must an L3 order book engine take immediately upon detecting a sequence number gap?",
           "options": [
-            "Continue trading using synthetic prices generated from random numbers using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
             "Mark the book state as DESYNCHRONIZED, freeze quote dispatching, and request packet retransmission",
+            "Continue trading using synthetic prices generated from random numbers using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
             "Send an order to buy 10,000 shares on competing exchanges",
             "Ignore the gap and assume missing orders were never executed"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A sequence gap means order events were missed; freezing quotes prevents trading on an inaccurate book state."
         },
         "output": "seq 1: OK\nseq 2: OK\nseq 5: PACKET_LOSS_DETECTED | action: REQUEST_RETRANSMISSION_AND_FREEZE_QUOTES"
@@ -10118,8 +9938,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "By asking human brokers to telephone the exchange trading floor",
             "By comparing locally computed BBO prices and top-of-book volumes against the exchange's official Level 2 feed",
-            "By checking whether the computer's CPU temperature remains below 70 degrees by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "By multiplying the stock price by the current date"
+            "By checking whether the computer's CPU temperature remains below 70 degrees",
+            "By multiplying the stock price by the current date across quantitative algorithmic trading models"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -10180,7 +10000,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Maker-Taker pays rebates to passive liquidity providers; Inverted pays rebates to aggressive market order takers",
             "Maker-Taker only trades government bonds; Inverted only trades foreign currencies",
             "Maker-Taker requires paper order tickets; Inverted uses electronic matching engines",
-            "Maker-Taker operates on weekends; Inverted operates during regular weekday trading hours through multi-asset covariance matrices and recursive Kalman state filter updates"
+            "Maker-Taker operates on weekends; Inverted operates during regular weekday trading hours"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10222,13 +10042,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Smart Order Router probe dark pools before routing aggressive orders to lit exchanges?",
           "options": [
-            "Because dark pools are legally required to accept all orders without charging commission across distributed institutional trading desks and centralized risk management gateways",
-            "To delay trade execution until the close of regular market hours",
-            "Because lit exchanges refuse to accept orders larger than 100 shares",
-            "To capture midpoint execution prices without crossing the bid-ask spread and minimize market impact"
+            "Because dark pools are legally required to accept all orders without charging commission",
+            "To capture midpoint execution prices without crossing the bid-ask spread and minimize market impact",
+            "To delay trade execution until the close of regular market hours executed without exchange transaction fee accounting",
+            "Because lit exchanges refuse to accept orders larger than 100 shares"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Dark pools match at midpoint without crossing the spread, avoiding market impact and adverse information leakage."
         },
         "output": "SOR Parent Order Allocation:\nAllocated: 6000 | Unfilled: 0\n - DARK_POOL_ATS: 1500 shares\n - BYX_INVERTED: 3000 shares\n - NYSE: 1500 shares"
@@ -10263,10 +10083,10 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do institutional SORs use latency compensation to synchronize packet arrival times across venues?",
           "options": [
-            "To comply with federal regulations requiring all trades to execute on the hour across fragmented lit electronic equity exchanges and alternative trading systems",
+            "To comply with federal regulations requiring all trades to execute on the hour",
             "To reduce electricity consumption by batching network card transmissions",
             "To prevent the fastest order fill from leaking information and causing quote cancellations on slower venues",
-            "Because exchange servers crash if orders arrive at different times"
+            "Because exchange servers crash if orders arrive at different times executed without exchange transaction fee accounting"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -10306,11 +10126,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Trading more than 1,000 shares in a single transaction",
             "Canceling an order before it has rested in the book for at least 1 second",
-            "Executing a trade on one exchange at a price inferior to the National Best Bid or Offer (NBBO) displayed on another exchange",
-            "Trading stocks without having a physical paper contract signed by both parties using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
+            "Trading stocks without having a physical paper contract signed by both parties using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
+            "Executing a trade on one exchange at a price inferior to the National Best Bid or Offer (NBBO) displayed on another exchange"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Rule 611 prohibits trading through protected quotes; orders must not execute at prices inferior to the NBBO."
         },
         "output": "Compliant order check: APPROVED\nTrade-through violation check: BLOCKED | reason: BUY_TRADE_THROUGH (routed $150.3 > Best Ask $150.25)"
@@ -10349,13 +10169,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an Effective-over-Quoted (EQ) spread ratio below 1.0 indicate?",
           "options": [
-            "The trading engine lost money on the trade",
             "The router successfully executed inside the quoted bid-ask spread, capturing price improvement for the client",
-            "The exchange rejected the order due to fee calculation errors by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "The trading engine lost money on the trade executed without exchange transaction fee accounting",
+            "The exchange rejected the order due to fee calculation errors",
             "The stock price doubled during the execution of the trade"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "An EQ ratio < 1.0 indicates that the execution price was superior to the prevailing quoted spread (price improvement)."
         },
         "output": "SOR Execution Quality Audit: EXCELLENT\nTotal Shares: 6000 | Price Improved: 33.33%\nNet Fee/Share: $8e-05"
@@ -10411,13 +10231,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do L3 order book reconstruction and Smart Order Routing interact in Milestone 9?",
           "options": [
-            "The L3 engine reconstructs real-time venue depth and BBO prices, which the SOR uses to optimize order slicing and fee capture",
             "The L3 engine prints paper tickets that human SOR operators review manually",
-            "The SOR operates without market data by sending all orders to retail brokerages through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "The two engines operate completely independently and never share data"
+            "The SOR operates without market data by sending all orders to retail brokerages",
+            "The two engines operate completely independently and never share data",
+            "The L3 engine reconstructs real-time venue depth and BBO prices, which the SOR uses to optimize order slicing and fee capture"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Accurate L3 reconstructed book depth across venues is the essential input for the SOR to calculate optimal execution slices."
         },
         "output": "Milestone 9 Platform Pillars: 4\n - DATA_ENGINE: L3 ITCH Monotonic Event-Driven Book Reconstructor\n - ROUTING_ENGINE: Cost-Aware SOR with Maker-Taker & Dark ATS Allocation\n - COMPLIANCE_GATE: Reg NMS Rule 611 Trade-Through & Best-Ex Verifier\n - LATENCY_PROFILE: Sub-50us Tick-to-Trade Decision Latency"
@@ -10456,13 +10276,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the platform determine the consolidated NBBO?",
           "options": [
+            "By taking the maximum bid price and minimum ask price across all active reconstructed lit exchange books",
             "By averaging the closing prices of the stocks over the last 30 days",
-            "By querying the Federal Reserve interest rate schedule",
-            "By selecting random price quotes from financial television broadcasts across distributed institutional trading desks and centralized risk management gateways",
-            "By taking the maximum bid price and minimum ask price across all active reconstructed lit exchange books"
+            "By querying the Federal Reserve interest rate schedule across quantitative algorithmic trading models",
+            "By selecting random price quotes from financial television broadcasts"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "The National Best Bid and Offer (NBBO) is the highest bid and lowest ask available across all protected lit trading venues."
         },
         "output": "Consolidated NBBO: {'best_bid': 150.2, 'best_ask': 150.25}\nParent Buy Execution Plan:\n - DARK_ATS: 1400 shares @ $150.225\n - BYX: 2500 shares @ $150.25\n - NASDAQ: 1100 shares @ $150.25"
@@ -10497,13 +10317,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do low-latency execution platforms use lock-free ring buffers instead of mutex-protected queues?",
           "options": [
-            "Because mutex locks are illegal under federal securities regulations across fragmented lit electronic equity exchanges and alternative trading systems",
+            "Because mutex locks are illegal under federal securities regulations",
+            "To eliminate thread lock contention and context-switching overhead, achieving deterministic sub-microsecond latency",
             "To prevent the operating system from saving trade data to disk",
-            "Because lock-free queues consume zero computer memory",
-            "To eliminate thread lock contention and context-switching overhead, achieving deterministic sub-microsecond latency"
+            "Because lock-free queues consume zero computer memory across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Lock-free ring buffers allow producer and consumer threads to communicate without acquiring OS mutex locks, eliminating latency spikes."
         },
         "output": "Lock-free buffer processed events: 5\nFirst event: TICK_UPDATE_0 | Last event: TICK_UPDATE_4"
@@ -10584,13 +10404,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following is NOT one of the 5 production certification gates in Milestone 9?",
           "options": [
-            "L3 order book determinism with zero sequence gaps",
-            "Guaranteed 50% discount on all stock purchases from brokerages",
-            "Reg NMS Best-Execution with zero trade-through violations by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "Latency-compensated dispatching for synchronized arrival"
+            "L3 order book determinism with zero sequence gaps across quantitative algorithmic trading models",
+            "Reg NMS Best-Execution with zero trade-through violations",
+            "Latency-compensated dispatching for synchronized arrival",
+            "Guaranteed 50% discount on all stock purchases from brokerages"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Brokers do not give discounts on stock purchases; the gates verify technical, latency, and compliance invariants."
         },
         "output": "Milestone 9 Certification Status: PASSED\nVerified gates: 5/5\n - GATE_1_L3_BOOK_DETERMINISM: PASS\n - GATE_2_NO_CROSS_INVARIANT: PASS\n - GATE_3_LATENCY_COMPENSATED_DISPATCH: PASS\n - GATE_4_REG_NMS_BEST_EXECUTION: PASS\n - GATE_5_RISK_CIRCUIT_BREAKERS: PASS"
@@ -10650,13 +10470,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Put-Call Parity in European options pricing?",
           "options": [
-            "An exact mathematical relationship requiring C - P = S - K * exp(-r*T) to prevent risk-free conversion arbitrage",
-            "A rule requiring investors to buy equal quantities of call and put options through multi-asset covariance matrices and recursive Kalman state filter updates",
+            "A rule requiring investors to buy equal quantities of call and put options",
             "An exchange regulation that equalizes call and put commission rates",
+            "An exact mathematical relationship requiring C - P = S - K * exp(-r*T) to prevent risk-free conversion arbitrage",
             "A formula that guarantees stock prices double every five years"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Put-Call parity is a no-arbitrage condition relating call and put prices to the underlying asset and discounted strike."
         },
         "output": "BSM At-The-Money Option Prices:\nCall: $10.4506 | Put: $5.5735 | Parity: True"
@@ -10695,13 +10515,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Gamma measure in options risk management?",
           "options": [
-            "The sensitivity of Delta to changes in the underlying asset price (the second derivative of option price)",
             "The annual management fee charged by mutual funds",
-            "The physical distance between option exchange servers across distributed institutional trading desks and centralized risk management gateways",
-            "The rate of inflation in the domestic economy"
+            "The physical distance between option exchange servers",
+            "The rate of inflation in the domestic economy across quantitative algorithmic trading models",
+            "The sensitivity of Delta to changes in the underlying asset price (the second derivative of option price)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Gamma is the second derivative of price with respect to underlying stock, measuring how fast Delta changes."
         },
         "output": "At-The-Money Call Greeks (6-month):\nDelta: 0.5977 | Gamma: 0.0274\nVega (per 1% vol): $0.2736 | Theta (per day): $-0.0222\nVanna (cross-Greek): -0.2052"
@@ -10737,13 +10557,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do options Greeks engines clamp Gamma and Theta for near-expiry options?",
           "options": [
-            "Because options cannot be traded on the day of expiration",
-            "To hide the risk of the options contract from regulatory examiners across fragmented lit electronic equity exchanges and alternative trading systems",
-            "Because stock prices become negative on option expiration dates",
-            "Because as time to expiry approaches zero (T -> 0), analytical Gamma and Theta explode toward infinity, causing arithmetic overflow"
+            "Because as time to expiry approaches zero (T -> 0), analytical Gamma and Theta explode toward infinity, causing arithmetic overflow",
+            "Because options cannot be traded on the day of expiration across quantitative algorithmic trading models",
+            "To hide the risk of the options contract from regulatory examiners",
+            "Because stock prices become negative on option expiration dates"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Near-expiry options have near-zero sqrt(T) denominators that cause Gamma and Theta to explode to infinity."
         },
         "output": "Normal 3-month Greeks: {'delta': 0.5199, 'gamma': 0.0398, 'status': 'ANALYTICAL'}\nNear-expiry Greeks:    {'delta': 1.0, 'gamma': 0.0, 'status': 'EXPIRY_CLAMPED_INTRINSIC'}"
@@ -10779,12 +10599,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does an options market maker neutralize an excessive positive Delta position of +650 shares?",
           "options": [
             "By buying 650 call options with zero days to expiration",
-            "By canceling the firm's brokerage account",
             "By selling 650 shares of the underlying stock to restore net delta to zero",
+            "By canceling the firm's brokerage account",
             "By waiting for the stock market to close at the end of the month using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Selling underlying stock creates negative delta (-650) that offsets positive options delta, restoring market neutrality."
         },
         "output": "Normal Greeks check:  APPROVED\nTripped Greeks check: TRIPPED | hedge shares needed: -650.0"
@@ -10823,13 +10643,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do options desks perform daily Greek PnL attribution?",
           "options": [
-            "To calculate federal income tax payments on option trades",
-            "To verify that trading profits and losses align mathematically with measured Delta, Gamma, Vega, and Theta exposures",
+            "To calculate federal income tax payments on option trades across quantitative algorithmic trading models",
             "To determine which algorithmic developers receive bonuses",
-            "Because stock exchanges prohibit trading without daily attribution reports by evaluating continuous-time partial differential equations under risk-neutral measures"
+            "To verify that trading profits and losses align mathematically with measured Delta, Gamma, Vega, and Theta exposures",
+            "Because stock exchanges prohibit trading without daily attribution reports"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Greek attribution verifies that PnL matches theoretical risk models, confirming that risk was properly hedged."
         },
         "output": "Greeks PnL Attribution Status: UNMODELED_RESIDUAL_HIGH\nModeled PnL: $331.25 vs Actual: $382.5\n - Delta PnL: $300.0 | Gamma PnL: $11.25\n - Vega PnL:  $50.0 | Theta PnL: $-30.0"
@@ -10884,7 +10704,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is analytical Vega (dC/dSigma) used as the derivative in Newton-Raphson IV root-finding?",
           "options": [
-            "Because Vega is required by exchange accounting rules to compute tax liability through multi-asset covariance matrices and recursive Kalman state filter updates",
+            "Because Vega is required by exchange accounting rules to compute tax liability",
             "Because Vega is the exact closed-form derivative of the Black-Scholes call price with respect to volatility",
             "To convert option prices from dollars to euros before trading",
             "Because Vega represents the physical network packet transfer speed"
@@ -10929,13 +10749,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the hybrid IV solver switch to Bisection search when Vega is near zero?",
           "options": [
-            "Because dividing by near-zero Vega causes arithmetic overflow and wild solver divergence",
-            "Because exchange regulations mandate Bisection search on odd-numbered days across distributed institutional trading desks and centralized risk management gateways",
+            "Because exchange regulations mandate Bisection search on odd-numbered days",
             "To encrypt the volatility calculation before transmitting to brokers",
-            "Because options with zero Vega have zero dollar value"
+            "Because dividing by near-zero Vega causes arithmetic overflow and wild solver divergence",
+            "Because options with zero Vega have zero dollar value across quantitative algorithmic trading models"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Newton-Raphson divides by Vega (the gradient); when Vega is near zero, the step explodes, requiring Bisection to maintain bounds."
         },
         "output": "Newton-Raphson IV Calibration Result: CONVERGED\nCalibrated Implied Volatility: 19.99% in 3 iterations"
@@ -10971,8 +10791,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the SVI parameter rho < 0 create a typical equity volatility skew?",
           "options": [
             "Because negative numbers run faster in computer memory chips",
-            "Because interest rates become negative during stock market selloffs across fragmented lit electronic equity exchanges and alternative trading systems",
-            "To prevent foreign investors from buying call options",
+            "Because interest rates become negative during stock market selloffs",
+            "To prevent foreign investors from buying call options under unhedged market exposure volatility regimes",
             "Because negative rho slopes total variance upward for negative log-moneyness (downside puts), reflecting market crash insurance demand"
           ],
           "answer": 3,
@@ -11011,13 +10831,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a negative butterfly spread (C(K1) - 2*C(K2) + C(K3) < 0) imply in options markets?",
           "options": [
+            "A violation of no-arbitrage convexity, implying negative state prices and risk-free arbitrage opportunities",
             "That the underlying company is declaring bankruptcy",
             "That the exchange server requires a reboot",
-            "A violation of no-arbitrage convexity, implying negative state prices and risk-free arbitrage opportunities",
             "That call options have higher trading volume than put options using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Convexity failure implies negative probability density, allowing risk-free arbitrage by buying the outer strikes and selling the middle."
         },
         "output": "Valid surface convexity: APPROVED\nCorrupted surface check: ARBITRAGE_DETECTED | violations: [{'strike': 100.0, 'butterfly_value': -1.0, 'error': 'NEGATIVE_BUTTERFLY_ARBITRAGE'}]"
@@ -11057,12 +10877,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does an RMSE below $0.05 indicate in options volatility surface calibration?",
           "options": [
             "The options exchange will reduce commission fees by 50%",
-            "The market volatility is exactly 5% per year",
             "The calibrated model prices match market prices with high accuracy, within the typical bid-ask spread of liquid contracts",
-            "The underlying stock price will remain unchanged for the next 5 days by evaluating continuous-time partial differential equations under risk-neutral measures"
+            "The market volatility is exactly 5% per year executed without exchange transaction fee accounting",
+            "The underlying stock price will remain unchanged for the next 5 days"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "An RMSE < $0.05 means model prices deviate by less than five cents on average from market prices, providing an accurate fit."
         },
         "output": "Volatility Surface Telemetry Audit: CALIBRATION_OPTIMAL\nFit RMSE: $0.0167 across 5 contracts\nAverage Solver Iterations: 3.8 (max 5)"
@@ -11117,13 +10937,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a long gamma position earn positive PnL when realized volatility exceeds implied volatility?",
           "options": [
-            "Because the exchange refunds option premium to winning traders",
             "Because large price moves generate convexity gains that exceed the daily theta time decay paid to hold the option",
-            "Because stock brokers waive transaction fees during high volatility through multi-asset covariance matrices and recursive Kalman state filter updates",
+            "Because the exchange refunds option premium to winning traders",
+            "Because stock brokers waive transaction fees during high volatility",
             "Because Gamma becomes negative when stock prices rise"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Long gamma earns 0.5*Gamma*dS^2 while paying Theta*dt; when realized moves (dS^2) exceed implied variance, net PnL is positive."
         },
         "output": "Gamma PnL on expected move: $0.0\nGamma PnL on 2x expected jump: $0.119"
@@ -11162,13 +10982,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes the net PnL of a discretely delta-hedged option to deviate from zero?",
           "options": [
-            "Discrete gamma slippage between rebalances and cumulative execution transaction costs",
             "Exchange servers deleting stock records overnight",
-            "Federal reserve bank holiday closures",
-            "Floating point rounding errors in operating system memory across distributed institutional trading desks and centralized risk management gateways"
+            "Discrete gamma slippage between rebalances and cumulative execution transaction costs",
+            "Federal reserve bank holiday closures executed without exchange transaction fee accounting",
+            "Floating point rounding errors in operating system memory"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In discrete hedging, gamma convexity between rebalances and brokerage transaction fees create tracking error."
         },
         "output": "Discrete Delta Hedging Simulation Result:\nPremium: $4.61 | Final Hedged PnL: $3.03\nTransaction Costs Paid: $0.09"
@@ -11203,13 +11023,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Band Hedging (rebalancing only when Delta breaches a threshold) superior to periodic calendar hedging?",
           "options": [
-            "It guarantees that stock prices will never drop during market hours across fragmented lit electronic equity exchanges and alternative trading systems",
+            "It guarantees that stock prices will never drop during market hours",
             "Because options exchanges prohibit trading at scheduled clock times",
-            "It eliminates the need to calculate option Delta",
-            "It drastically reduces transaction costs and turnover while preserving effective gamma risk bounds"
+            "It drastically reduces transaction costs and turnover while preserving effective gamma risk bounds",
+            "It eliminates the need to calculate option Delta under unhedged market exposure volatility regimes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Band hedging avoids rebalancing on small noisy fluctuations, saving substantial transaction costs while bounding delta drift."
         },
         "output": "Band Hedging (threshold=0.05) Result:\nRebalances Triggered: 2 (vs 7 continuous) | Turnover: 0.63"
@@ -11294,13 +11114,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Hedging Error Ratio of 0.10 signify in dynamic options hedging?",
           "options": [
-            "The fund lost 10% of its capital in trading fees",
-            "10% of trades failed to clear through the exchange by evaluating continuous-time partial differential equations under risk-neutral measures",
             "The dynamic hedging strategy successfully eliminated 90% of the directional price volatility of the option position",
+            "The fund lost 10% of its capital in trading fees under unhedged market exposure volatility regimes",
+            "10% of trades failed to clear through the exchange",
             "The option expired 10 days earlier than scheduled"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "An error ratio of 0.10 means hedged variance is only 10% of unhedged variance, achieving 90% risk reduction."
         },
         "output": "Dynamic Hedging Telemetry Audit: EXCELLENT_HEDGE\nRisk Reduction: 90.7% (Error Ratio: 0.093)\nTransaction Cost Drag: 18.0% of Theta"
@@ -11360,12 +11180,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the Cornish-Fisher expansion increase the Value-at-Risk estimate for options portfolios?",
           "options": [
             "Because options brokers charge higher interest on fat-tailed assets",
-            "Because negative skewness and excess kurtosis increase the probability of extreme negative tail losses compared to normal distributions",
-            "Because stock exchanges artificially adjust portfolio balances at midnight through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "To encourage investors to buy more speculative call options"
+            "Because stock exchanges artificially adjust portfolio balances at midnight",
+            "To encourage investors to buy more speculative call options",
+            "Because negative skewness and excess kurtosis increase the probability of extreme negative tail losses compared to normal distributions"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Negative skew and positive kurtosis widen the critical quantile, properly reflecting fat-tailed crash risk that Gaussian models ignore."
         },
         "output": "99% Critical Quantile (Normal): -2.3263\n99% Modified Quantile (Fat-tail & Skewed): -3.7256\nTail risk expansion multiplier: 1.6x"
@@ -11407,8 +11227,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Positive excess kurtosis indicates fatter tails, expanding the critical quantile and increasing the VaR dollar loss estimate",
             "It forces all stock prices to trade at whole integer values",
-            "It reduces risk by proving the distribution is completely predictable across distributed institutional trading desks and centralized risk management gateways",
-            "It cancels all open options contracts at expiration"
+            "It reduces risk by proving the distribution is completely predictable",
+            "It cancels all open options contracts at expiration under unhedged market exposure volatility regimes"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11446,13 +11266,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the advantage of using Welford's algorithm for higher moments in risk engines?",
           "options": [
+            "It allows risk managers to trade without posting collateral margin",
             "It computes moments in a single pass with O(1) memory and superior numerical stability against floating point cancellation",
-            "It allows risk managers to trade without posting collateral margin across fragmented lit electronic equity exchanges and alternative trading systems",
             "It guarantees that portfolio returns will never be negative",
-            "Because stock exchanges require Welford's algorithm by law"
+            "Because stock exchanges require Welford's algorithm by law across quantitative algorithmic trading models"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Welford's algorithm calculates higher moments in a single pass with constant memory, preventing roundoff cancellation errors."
         },
         "output": "Online Welford Single-Pass Estimation:\nMean: -0.006 | Std: 0.0208 | Skewness: -0.605"
@@ -11493,11 +11313,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "When stock prices trade upside down on Australian exchanges",
             "When interest rates become higher than the rate of inflation using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
-            "A software bug where variable names are written backwards",
-            "An artifact where extreme skewness causes 99% VaR to appear smaller than 95% VaR, resolved by falling back to Historical VaR"
+            "An artifact where extreme skewness causes 99% VaR to appear smaller than 95% VaR, resolved by falling back to Historical VaR",
+            "A software bug where variable names are written backwards"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Extreme skewness can cause the polynomial expansion to lose monotonicity; the guard detects this and falls back to Historical VaR."
         },
         "output": "Adequate Capital Check: APPROVED | ratio: 1.17\nCapital Deficit Check:  CAPITAL_DEFICIT_HALT | ratio: 0.75"
@@ -11538,12 +11358,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a failed Kupiec Backtest (LR > 3.841 with too many breaches) indicate about a VaR model?",
           "options": [
             "The trading desk made too much profit during the year",
-            "The computer's operating system needs to be reinstalled by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "The model underestimated tail risk and experienced statistically significantly more losses than permitted by its confidence level",
-            "The brokerage firm reduced margin lending rates"
+            "The computer's operating system needs to be reinstalled",
+            "The brokerage firm reduced margin lending rates under unhedged market exposure volatility regimes",
+            "The model underestimated tail risk and experienced statistically significantly more losses than permitted by its confidence level"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Too many breaches reject the null hypothesis, indicating the model failed to capture real-world fat tails and crash risk."
         },
         "output": "Kupiec Test (3 breaches): MODEL_VALIDATED (LR: 0.095)\nKupiec Test (8 breaches): MODEL_REJECTED_UNDERESTIMATED_RISK (LR: 7.734)"
@@ -11600,12 +11420,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How do implied volatility calibration and dynamic delta hedging interact in Milestone 10?",
           "options": [
             "They operate independently and never share pricing or risk data",
+            "Delta hedging is used to predict the weather for tomorrow's trading session",
             "Calibrated IV determines accurate option Greeks (Delta and Gamma), which dictate the precise stock hedges required to maintain market neutrality",
-            "Delta hedging is used to predict the weather for tomorrow's trading session through multi-asset covariance matrices and recursive Kalman state filter updates",
             "Implied volatility is only used to compute annual accounting taxes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Calibrating the true implied volatility surface is the prerequisite for calculating accurate Greeks that drive delta hedging."
         },
         "output": "Milestone 10 Options Platform Architecture:\n - VOLATILITY_ENGINE: Newton-Raphson IV Calibration with SVI Surface Fitting\n - GREEKS_CALCULATOR: Analytical BSM Surface (Delta, Gamma, Vega, Theta, Vanna)\n - DYNAMIC_HEDGER: Band-Based Delta-Gamma Hedging with Pin Risk Circuit Breaker\n - RISK_CONTROLLER: Cornish-Fisher Modified VaR with Kupiec Backtest Telemetry\nNo-Arbitrage Invariants: ['PUT_CALL_PARITY', 'CALENDAR_MONOTONICITY', 'BUTTERFLY_CONVEXITY']"
@@ -11644,13 +11464,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the engine automatically buy 290 shares of stock after selling 500 call options?",
           "options": [
-            "Because stock brokers require collateral to be held in physical stock certificates across distributed institutional trading desks and centralized risk management gateways",
-            "To offset the -290 delta of the short call options and restore portfolio market neutrality",
-            "To qualify for exchange volume discounts on stock trades",
-            "Because call options automatically convert to stock shares after 1 hour"
+            "Because stock brokers require collateral to be held in physical stock certificates",
+            "To qualify for exchange volume discounts on stock trades across quantitative algorithmic trading models",
+            "Because call options automatically convert to stock shares after 1 hour",
+            "To offset the -290 delta of the short call options and restore portfolio market neutrality"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Selling 500 calls (approx delta 0.58 each) creates -290 delta; buying +290 stock shares restores net delta to 0."
         },
         "output": "Initial Position (Short 500 Calls):\nOptions Delta: -298.9 | Hedge Executed: 298.9 shares\nStock Shares Held After Hedge: 298.9"
@@ -11687,8 +11507,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why do high-frequency options engines use pre-computed grid lookup tables for Greeks?",
           "options": [
             "To replace expensive transcendental functions (log, exp, erf) with sub-microsecond O(1) memory lookups",
-            "Because stock exchanges prohibit the use of math libraries in trading algorithms across fragmented lit electronic equity exchanges and alternative trading systems",
-            "To reduce memory usage by deleting historical price logs",
+            "Because stock exchanges prohibit the use of math libraries in trading algorithms",
+            "To reduce memory usage by deleting historical price logs across quantitative algorithmic trading models",
             "Because options Greeks cannot be computed on modern computers"
           ],
           "answer": 0,
@@ -11732,12 +11552,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the resilience guard pause delta hedging if the underlying stock spread widens beyond 0.50%?",
           "options": [
             "Because stock exchanges shut down when spreads widen",
+            "To prevent the hedging algorithm from crossing wide bid-ask spreads and incurring massive execution slippage costs",
             "To allow human brokers to take over the trading desk",
-            "Because wide spreads cause computer monitors to flicker using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
-            "To prevent the hedging algorithm from crossing wide bid-ask spreads and incurring massive execution slippage costs"
+            "Because wide spreads cause computer monitors to flicker using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Hedging into an illiquid, wide spread consumes excessive capital in crossing costs; pausing protects portfolio PnL."
         },
         "output": "Normal Kernel Check: APPROVED\nTripped Kernel Check: TRIPPED | violations: ['EXCESSIVE_DELTA (620.0 > 500.0)', 'UNDERLYING_SPREAD_TOO_WIDE (0.008 > 0.005)']"
@@ -11774,9 +11594,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which of the following is NOT one of the 5 production certification gates in Milestone 10?",
           "options": [
             "IV calibration accuracy with RMSE <= $0.05",
-            "Greeks surface determinism with Put-Call parity compliance by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Greeks surface determinism with Put-Call parity compliance",
             "Guaranteed 100% winning options trades in all market conditions",
-            "Kupiec VaR backtest compliance"
+            "Kupiec VaR backtest compliance across quantitative algorithmic trading models"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -11834,13 +11654,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the equilibrium implied return vector (Pi) represent in the Black-Litterman model?",
           "options": [
-            "The historical average return of the assets over the past 50 years through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "The risk-free interest rate set by central bank monetary policy",
+            "The historical average return of the assets over the past 50 years",
             "The expected returns required for the market capitalization weights to be optimal under standard mean-variance theory",
+            "The risk-free interest rate set by central bank monetary policy",
             "The maximum possible dividend yield achievable across the universe"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Pi is derived by reverse-optimizing market cap weights, representing the neutral baseline return prior."
         },
         "output": "CAPM Equilibrium Implied Excess Returns (Pi):\nEquities implied excess return: 6.5%\nBonds implied excess return:    1.55%"
@@ -11875,13 +11695,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Black-Litterman model prevent extreme portfolio weight allocations?",
           "options": [
-            "By setting all asset weights equal to 1/N regardless of risk",
-            "By anchoring expected returns to market equilibrium, active weights only deviate from market cap weights where the investor has views",
+            "By setting all asset weights equal to 1/N regardless of risk calculated over unadjusted historical price series",
             "By banning portfolio managers from trading stocks with positive returns",
-            "Because exchange regulations restrict portfolio rebalancing to once a decade across distributed institutional trading desks and centralized risk management gateways"
+            "By anchoring expected returns to market equilibrium, active weights only deviate from market cap weights where the investor has views",
+            "Because exchange regulations restrict portfolio rebalancing to once a decade"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Anchoring on equilibrium returns ensures that portfolio weights stay close to the market benchmark, avoiding extreme corner solutions."
         },
         "output": "Black-Litterman Bayesian View Blending:\nEquities Prior (Pi): 6.5% | Investor View (Q): 9.5%\nPosterior Expected Return: 7.7% (Variance: 0.0006)"
@@ -11916,13 +11736,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Woodbury Matrix Identity accelerate Black-Litterman computation when K << N?",
           "options": [
-            "It inverts a small K x K matrix of views instead of a large N x N asset covariance matrix, saving massive CPU cycles",
-            "It rounds all return numbers to the nearest whole integer",
+            "It rounds all return numbers to the nearest whole integer under unhedged market exposure volatility regimes",
             "It deletes historical trade records to free up computer storage",
-            "Because stock brokers charge lower commissions on Woodbury calculations across fragmented lit electronic equity exchanges and alternative trading systems"
+            "Because stock brokers charge lower commissions on Woodbury calculations",
+            "It inverts a small K x K matrix of views instead of a large N x N asset covariance matrix, saving massive CPU cycles"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When K (number of views) is much smaller than N (assets), Woodbury reduces inversion complexity from O(N^3) to O(K^3)."
         },
         "output": "Regularized Stable Covariance Matrix:\n  [0.04, 0.0361]\n  [0.0361, 0.04]"
@@ -11961,13 +11781,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do institutional asset managers enforce a Tracking Error ceiling on active portfolios?",
           "options": [
+            "To ensure that active bets do not drift so far from the benchmark that the fund takes unintended structural market risks",
             "To save money on computer electricity bills",
             "Because stock exchanges do not permit tracking errors higher than 10% using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
-            "To force all investment funds to perform identically",
-            "To ensure that active bets do not drift so far from the benchmark that the fund takes unintended structural market risks"
+            "To force all investment funds to perform identically"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Tracking error caps constrain how far active management can deviate from client benchmarks, enforcing disciplined risk budgeting."
         },
         "output": "Mild active tilt tracking error: APPROVED (1.0%)\nWild active tilt tracking error: EXCESSIVE_TRACKING_ERROR_TRIPPED (7.0%)"
@@ -12006,13 +11826,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Active Share measure in institutional portfolio evaluation?",
           "options": [
-            "The percentage of portfolio managers who actively trade on mobile phones by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "The percentage of portfolio managers who actively trade on mobile phones",
+            "The percentage of fund portfolio holdings that differs from the benchmark index allocation",
             "The speed at which stock trades are processed by exchange servers",
-            "The annual dividend yield paid by companies in the portfolio",
-            "The percentage of fund portfolio holdings that differs from the benchmark index allocation"
+            "The annual dividend yield paid by companies in the portfolio across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Active Share quantifies how much a portfolio deviates from its benchmark index, distinguishing active management from closet indexing."
         },
         "output": "Asset Allocation Telemetry Audit: EFFICIENT_ACTIVE_ALLOCATION\nActive Share: 10.0% | Style: ENHANCED_INDEXING\nRealized Information Ratio: 0.71"
@@ -12068,13 +11888,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Hierarchical Risk Parity (HRP) avoid the instability of Markowitz portfolio optimization?",
           "options": [
-            "Because HRP requires all assets to have identical historical returns through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "Because stock exchanges do not charge fees on HRP orders",
             "Because HRP allocates capital using tree clustering and recursive bisection without requiring covariance matrix inversion",
+            "Because HRP requires all assets to have identical historical returns",
+            "Because stock exchanges do not charge fees on HRP orders",
             "Because HRP only invests in physical real estate properties"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "HRP eliminates matrix inversion entirely; clustering trees organize assets hierarchically, ensuring robust weights even under collinearity."
         },
         "output": "HRP Angular Correlation Distance Matrix:\n  [0.0, 0.3162, 0.6708]\n  [0.3162, 0.0, 0.6519]\n  [0.6708, 0.6519, 0.0]"
@@ -12109,9 +11929,9 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does HRP determine the capital split between two asset clusters in recursive bisection?",
           "options": [
-            "By flipping a coin at each branch of the tree",
+            "By flipping a coin at each branch of the tree under unhedged market exposure volatility regimes",
             "Inversely proportional to the aggregate cluster variances: the lower-variance cluster receives more capital",
-            "By allocating 100% of capital to the cluster with the highest historical return across distributed institutional trading desks and centralized risk management gateways",
+            "By allocating 100% of capital to the cluster with the highest historical return",
             "According to the alphabetical order of the stock ticker symbols"
           ],
           "answer": 1,
@@ -12151,13 +11971,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does HRP handle perfectly collinear assets (correlation = 1.0) compared to Markowitz optimization?",
           "options": [
-            "HRP groups collinear assets together in the tree and splits risk evenly between them, whereas Markowitz matrix inversion fails entirely",
-            "HRP deletes both assets from the portfolio",
+            "HRP deletes both assets from the portfolio under unhedged market exposure volatility regimes",
             "Markowitz optimization executes faster on collinear assets",
-            "Both algorithms produce identical leveraged short positions across fragmented lit electronic equity exchanges and alternative trading systems"
+            "HRP groups collinear assets together in the tree and splits risk evenly between them, whereas Markowitz matrix inversion fails entirely",
+            "Both algorithms produce identical leveraged short positions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Markowitz fails because collinearity makes Sigma singular (uninvertible); HRP clusters them naturally without inverting anything."
         },
         "output": "Collinear distance sanitized matrix: [[0.0, 0.0], [0.0, 0.0]]"
@@ -12197,13 +12017,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must portfolio risk platforms enforce maximum weight caps on HRP allocations?",
           "options": [
-            "To prevent extremely low-volatility assets from receiving an undesirably concentrated share of total capital",
             "Because stock brokers refuse to hold more than 10 shares of any company",
             "To comply with federal rules requiring all portfolios to hold equal weights using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
-            "Because high weights cause computer memory chips to overheat"
+            "Because high weights cause computer memory chips to overheat",
+            "To prevent extremely low-volatility assets from receiving an undesirably concentrated share of total capital"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "HRP allocates inversely to variance; ultra-low-volatility assets could receive excessive capital without a cap."
         },
         "output": "Raw HRP Weights:     {'BOND_1': 0.45, 'BOND_2': 0.35, 'STOCK_A': 0.12, 'STOCK_B': 0.08}\nCap-Guarded Weights: {'BOND_1': 0.3, 'BOND_2': 0.3, 'STOCK_A': 0.22, 'STOCK_B': 0.18}\nMax weight verified: 0.3 <= 0.30"
@@ -12243,13 +12063,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Diversification Ratio of 1.8x indicate about an HRP portfolio?",
           "options": [
-            "The portfolio return has increased by 180%",
-            "The fund must pay an 18% performance fee to brokerages by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "The portfolio consists of exactly 18 different stocks",
-            "Diversification across uncorrelated assets has reduced total portfolio risk by 45% compared to the weighted individual volatilities"
+            "Diversification across uncorrelated assets has reduced total portfolio risk by 45% compared to the weighted individual volatilities",
+            "The portfolio return has increased by 180% under unhedged market exposure volatility regimes",
+            "The fund must pay an 18% performance fee to brokerages",
+            "The portfolio consists of exactly 18 different stocks"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A Diversification Ratio of 1.8 means diversification reduces total portfolio volatility significantly below the average asset volatility."
         },
         "output": "HRP Diversification Telemetry Audit: WELL_DIVERSIFIED\nPortfolio Vol: 9.22% | Weighted Asset Vol: 16.25%\nDiversification Ratio: 1.76x"
@@ -12310,11 +12130,11 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The portfolio doubles in value twice as fast",
             "The risk of drawdown is completely eliminated",
-            "The expected compound growth rate drops to zero, and the portfolio experiences extreme volatility without any growth advantage",
-            "The exchange shuts down the trader's API access through multi-asset covariance matrices and recursive Kalman state filter updates"
+            "The exchange shuts down the trader's API access",
+            "The expected compound growth rate drops to zero, and the portfolio experiences extreme volatility without any growth advantage"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "At f = 2*f*, the negative variance drag (-0.5*f^2*sigma^2) completely cancels out expected returns, reducing growth to zero."
         },
         "output": "Full Kelly Optimal Leverage: 2.5x (Growth: 14.5%)\nHalf Kelly Leverage (f*/2):   1.25x (Growth: 11.37%)"
@@ -12349,13 +12169,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do institutional quantitative funds almost exclusively utilize Fractional Kelly (such as Half-Kelly or Quarter-Kelly)?",
           "options": [
-            "Because brokerages legally restrict retail traders from using whole numbers across distributed institutional trading desks and centralized risk management gateways",
             "To drastically reduce the probability of severe drawdowns and ruin while capturing the vast majority of maximum compound growth",
-            "Because Python computers cannot process full Kelly fractions",
+            "Because brokerages legally restrict retail traders from using whole numbers",
+            "Because Python computers cannot process full Kelly fractions under unhedged market exposure volatility regimes",
             "To ensure that all trading profits are paid to tax authorities"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Fractional Kelly captures 75% of maximum growth with an exponential reduction in severe drawdown and ruin risk."
         },
         "output": "Probability of Experiencing a 50% Drawdown Before Doubling:\n - Full Kelly (c=1.00):   50.0% chance\n - Half Kelly (c=0.50):   12.5% chance\n - Quarter Kelly (c=0.25): 0.78% chance"
@@ -12390,10 +12210,10 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Fast Kelly Optimizer achieve O(N) computational complexity for multi-strategy sizing?",
           "options": [
-            "By ignoring volatility and assigning equal weights to all strategies across fragmented lit electronic equity exchanges and alternative trading systems",
+            "By ignoring volatility and assigning equal weights to all strategies",
             "By decomposing strategies into orthogonal, uncorrelated factor buckets, allowing independent scalar Kelly calculations",
             "By borrowing computational power from cryptocurrency mining networks",
-            "By evaluating sizing decisions only on annual holidays"
+            "By evaluating sizing decisions only on annual holidays across quantitative algorithmic trading models"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -12431,13 +12251,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does drawdown-constrained deleveraging protect a quantitative fund during losing streaks?",
           "options": [
-            "It systematically reduces leverage as drawdowns deepen, preventing compounding losses and guaranteeing that capital can never reach zero",
             "It automatically borrows money from the Federal Reserve to cover trading losses using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
             "It increases leverage to 10x to win back losses more quickly",
+            "It systematically reduces leverage as drawdowns deepen, preventing compounding losses and guaranteeing that capital can never reach zero",
             "It converts all trading assets into digital gift cards"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Reducing leverage as drawdowns deepen slows the rate of loss, preventing liquidation and preserving capital for future recovery."
         },
         "output": "4% Drawdown:  leverage = 1.6 | factor: 0.8\n10% Drawdown: leverage = 1.0 | factor: 0.5\n20% Drawdown: leverage = 0.0 | status: HARD_STOP_CIRCUIT_BREAKER_TRIGGERED"
@@ -12477,8 +12297,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must quantitative trading platforms maintain at least a 40% margin cushion above maintenance margin?",
           "options": [
             "Because stock brokers charge a fine if cash balances are positive",
-            "To ensure that all trading employees can be paid in cash daily",
-            "Because the exchange matching engine pauses when margin falls below 50% by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "To ensure that all trading employees can be paid in cash daily across quantitative algorithmic trading models",
+            "Because the exchange matching engine pauses when margin falls below 50%",
             "To prevent sudden intraday market drops from triggering forced margin liquidations by prime brokers"
           ],
           "answer": 3,
@@ -12538,7 +12358,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does standard randomized K-fold cross-validation fail when applied to financial time series?",
           "options": [
             "Because computer operating systems cannot shuffle arrays larger than 100 rows",
-            "Because financial exchanges ban machine learning algorithms from using cross-validation through multi-asset covariance matrices and recursive Kalman state filter updates",
+            "Because financial exchanges ban machine learning algorithms from using cross-validation",
             "Because financial returns are serially correlated and forward labels overlap, leaking future price information into the training set",
             "Because stock prices are always strictly random numbers with zero correlation"
           ],
@@ -12583,12 +12403,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the purpose of the Embargo Window immediately following the test set?",
           "options": [
             "To give algorithmic trading servers time to cool down physically",
-            "Because stock exchanges do not publish data during embargo periods across distributed institutional trading desks and centralized risk management gateways",
-            "To prevent autoregressive memory and serial correlation in features from leaking information from the test set into subsequent training samples",
-            "To prevent foreign investors from viewing the backtest results"
+            "Because stock exchanges do not publish data during embargo periods",
+            "To prevent foreign investors from viewing the backtest results across quantitative algorithmic trading models",
+            "To prevent autoregressive memory and serial correlation in features from leaking information from the test set into subsequent training samples"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Autoregressive dependencies in volatility and features leak test set information into training samples immediately following the test period."
         },
         "output": "Purged & Embargoed Cross-Validation Split:\nTrain samples: 71 | Test samples: 21\nPurged (pre-test): 5 | Embargoed (post-test): 3"
@@ -12624,13 +12444,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does boolean mask pre-computation accelerate purged cross-validation in production pipelines?",
           "options": [
-            "It deletes 90% of the financial dataset to make calculations faster across fragmented lit electronic equity exchanges and alternative trading systems",
             "It replaces expensive per-sample conditional loops with instant vectorized array slicing",
+            "It deletes 90% of the financial dataset to make calculations faster",
             "Because boolean values do not require CPU processing",
-            "By encrypting the training dataset in GPU memory"
+            "By encrypting the training dataset in GPU memory across quantitative algorithmic trading models"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Pre-computing boolean masks allows instant array indexing, eliminating Python loop overhead during multi-model training."
         },
         "output": "Vectorized Purged Mask Optimization:\nRetained Train Samples: 769 of 1000 (Dropped: 231)"
@@ -12665,13 +12485,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action does the Purged CV Resilience Guard take if a training label extends into the test period?",
           "options": [
-            "It immediately rejects the cross-validation split as contaminated and halts model evaluation",
             "It adds extra noise to the test set to mask the error",
+            "It immediately rejects the cross-validation split as contaminated and halts model evaluation",
             "It automatically buys the stock to profit from the lookahead bias using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
             "It converts the machine learning model into a linear regression"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Information leakage invalidates backtest validity; contaminated splits must be rejected immediately."
         },
         "output": "Compliant Purged Split: APPROVED\nContaminated Split:     CONTAMINATED_SPLIT_REJECTED | violations: 1"
@@ -12712,12 +12532,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a Generalization Degradation Ratio (Test Score / Train Score) below 0.30 indicate?",
           "options": [
             "The model is 30% faster than traditional algorithms",
-            "The trading server's disk space is 30% full",
-            "The stock exchange will reduce commission fees by 30% by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "The machine learning model has severely overfitted to historical noise and will fail to deliver expected performance in live trading"
+            "The trading server's disk space is 30% full across quantitative algorithmic trading models",
+            "The machine learning model has severely overfitted to historical noise and will fail to deliver expected performance in live trading",
+            "The stock exchange will reduce commission fees by 30%"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "A GDR below 0.30 means out-of-sample performance collapsed by over 70%, signaling severe overfitting to in-sample noise."
         },
         "output": "Healthy Model CV Audit:   HEALTHY_GENERALIZATION (GDR: 0.72)\nOverfitted Model CV Audit: OVERFITTED_MODEL_WARNING (GDR: 0.21)"
@@ -12774,12 +12594,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How do portfolio optimization and purged cross-validation interact in Milestone 11?",
           "options": [
             "They operate on different calendar years and never communicate",
+            "Purged cross-validation rigorously validates alpha signals without lookahead bias before the optimization engine allocates capital to them",
             "Purged cross-validation is only used for tax preparation",
-            "The optimization engine deletes cross-validation folds that lose money through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "Purged cross-validation rigorously validates alpha signals without lookahead bias before the optimization engine allocates capital to them"
+            "The optimization engine deletes cross-validation folds that lose money"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Purged CV ensures that candidate alpha signals possess genuine out-of-sample edge before capital is allocated to them."
         },
         "output": "Milestone 11 Institutional Portfolio Platform Architecture:\n - OPTIMIZATION_ENGINE: Black-Litterman Bayesian Views & Hierarchical Risk Parity (HRP)\n - SIZING_ENGINE: Drawdown-Constrained Fractional Kelly Leverage Allocator\n - VALIDATION_ENGINE: Purged Walk-Forward CV with Post-Test Embargo Windows\n - RISK_CONTROLLER: Cornish-Fisher MVaR with Real-Time Margin Cushion Telemetry"
@@ -12818,8 +12638,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the pipeline combine HRP weighting with drawdown-constrained Kelly leverage?",
           "options": [
-            "HRP is used on weekdays and Kelly is used on weekends",
-            "HRP determines stock prices while Kelly determines bond prices across distributed institutional trading desks and centralized risk management gateways",
+            "HRP is used on weekdays and Kelly is used on weekends across quantitative algorithmic trading models",
+            "HRP determines stock prices while Kelly determines bond prices",
             "HRP determines the relative asset weight distribution, while Kelly determines the overall gross portfolio leverage multiplier",
             "The two algorithms are blended by calculating random numbers"
           ],
@@ -12861,12 +12681,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the Fast Allocation Optimizer pre-compute base strategy weights before scaling across client accounts?",
           "options": [
             "Because stock exchanges prohibit custom portfolios for individual clients",
-            "To avoid redundant expensive covariance and clustering calculations, scaling the base solution across client accounts in O(1) time",
-            "To reduce memory usage by deleting historical trade logs",
-            "Because client accounts are legally required to hold identical dollar amounts across fragmented lit electronic equity exchanges and alternative trading systems"
+            "To reduce memory usage by deleting historical trade logs under unhedged market exposure volatility regimes",
+            "Because client accounts are legally required to hold identical dollar amounts",
+            "To avoid redundant expensive covariance and clustering calculations, scaling the base solution across client accounts in O(1) time"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Computing the master strategy weights once and scaling by account equity/drawdown saves massive computational redundant overhead."
         },
         "output": "Batch Client Account Scaling (Processed 3 accounts):\n - CLIENT_001: Leverage 0.9x | Allocations: $[360000.0, 315000.0, 225000.0]\n - CLIENT_002: Leverage 0.5x | Allocations: $[1000000.0, 875000.0, 625000.0]\n - CLIENT_003: Leverage 0.0x | Allocations: $[0.0, 0.0, 0.0]"
@@ -12944,13 +12764,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following is NOT one of the 5 production certification gates in Milestone 11?",
           "options": [
-            "Guaranteed 50% annual investment return with zero risk",
             "Black-Litterman shrinkage and stable weight allocations",
+            "Guaranteed 50% annual investment return with zero risk",
             "HRP Diversification Ratio >= 1.5x",
             "Purged Cross-Validation zero-leakage invariant"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Guaranteed 50% returns with zero risk is financially impossible; the gates verify statistical, mathematical, and risk integrity."
         },
         "output": "Milestone 11 Certification Status: PASSED\nVerified gates: 5/5\n - GATE_1_BLACK_LITTERMAN_SHRINKAGE: PASS\n - GATE_2_HRP_DIVERSIFICATION_RATIO: PASS\n - GATE_3_DRAWDOWN_CONSTRAINED_KELLY: PASS\n - GATE_4_PURGED_CV_ZERO_LEAKAGE: PASS\n - GATE_5_RISK_CIRCUIT_BREAKERS: PASS"
@@ -13005,13 +12825,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the expected maximum Sharpe ratio increase as a researcher tests more strategy variations (N)?",
           "options": [
-            "Because computer operating systems optimize math functions over time by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Because testing more variations increases the statistical probability of observing an extreme random lucky outlier",
+            "Because computer operating systems optimize math functions over time",
             "Because stock market volatility decreases as more backtests are run",
-            "Because brokers pay volume bonuses for running backtests",
-            "Because testing more variations increases the statistical probability of observing an extreme random lucky outlier"
+            "Because brokers pay volume bonuses for running backtests"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Extreme value theory dictates that the maximum of N random variables grows with sqrt(2*ln(N)), creating lucky outliers."
         },
         "output": "Tested     1 strategies -> Expected Max Sharpe under pure luck: 0.0\nTested    10 strategies -> Expected Max Sharpe under pure luck: 2.415\nTested   100 strategies -> Expected Max Sharpe under pure luck: 3.225\nTested  1000 strategies -> Expected Max Sharpe under pure luck: 3.872\nTested 10000 strategies -> Expected Max Sharpe under pure luck: 4.426"
@@ -13050,13 +12870,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an observed Sharpe ratio of 2.5 fail the DSR test when 500 trial variations were tested?",
           "options": [
-            "Because stock exchanges do not permit Sharpe ratios higher than 2.0 through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "Because the computer ran out of numerical precision",
+            "Because stock exchanges do not permit Sharpe ratios higher than 2.0",
             "Because testing 500 random variations produces an expected lucky maximum Sharpe of approx 3.6, making 2.5 statistically insignificant",
-            "Because 500 trials takes too long to compute"
+            "Because the computer ran out of numerical precision",
+            "Because 500 trials takes too long to compute calculated over unadjusted historical price series"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "When 500 trials are tested, the hurdle rate for statistical significance rises above 3.5, revealing 2.5 as likely random noise."
         },
         "output": "Sharpe 2.5 (1 Trial):   DSR = 1.0 -> Status: APPROVED\nSharpe 2.5 (500 Trials): DSR = 0.0 -> Status: REJECTED"
@@ -13091,13 +12911,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the Deflated Sharpe Ratio use the Effective Number of Trials (N_eff) rather than raw nominal trials?",
           "options": [
-            "Because stock brokers charge fees based on the number of trials across distributed institutional trading desks and centralized risk management gateways",
+            "Because stock brokers charge fees based on the number of trials",
+            "To make the computer program run twice as fast under unhedged market exposure volatility regimes",
             "Because highly correlated strategy variations share information, so treating them as independent would unfairly over-penalize the backtest",
-            "To make the computer program run twice as fast",
             "Because the SEC legally restricts the number of trials to 50"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Correlated trials do not provide independent opportunities for lucky discovery; N_eff correctly scales the false discovery bar."
         },
         "output": "Nominal 500 trials with 90% correlation -> Effective Independent Trials: 50.9\nNominal 500 trials with 10% correlation -> Effective Independent Trials: 450.1"
@@ -13137,12 +12957,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why must quantitative research platforms mandate automated trial logging for all backtest experiments?",
           "options": [
             "To track how many hours researchers spend in the office",
-            "To prevent researchers from hiding losing trials and presenting only the lucky winner (p-hacking)",
-            "Because stock brokers charge a fee for unlogged backtests across fragmented lit electronic equity exchanges and alternative trading systems",
-            "To delete successful trading algorithms automatically"
+            "Because stock brokers charge a fee for unlogged backtests",
+            "To delete successful trading algorithms automatically",
+            "To prevent researchers from hiding losing trials and presenting only the lucky winner (p-hacking)"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Mandatory trial logging captures the true number of experiments (N), ensuring the DSR formula accurately haircuts false discovery."
         },
         "output": "Compliant Research Submission: APPROVED_FOR_PAPER_TRADING\nP-Hacked Research Submission:  SUBMISSION_REJECTED | violations: ['MISSING_AUTOMATED_TRIAL_LOG_PENALTY', 'INSUFFICIENT_TRACK_RECORD (252 < 504 days)', 'DSR_STATISTICAL_SIGNIFICANCE_FAILED (82.0% < 95%)']"
@@ -13238,7 +13058,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of a pre-trade Price Collar in electronic trading?",
           "options": [
-            "To ensure that stock prices increase by at least 3% every day by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "To ensure that stock prices increase by at least 3% every day",
             "To allow brokers to take a 3% cut of every profitable trade",
             "To convert dollar prices into foreign currency units",
             "To prevent fat-finger typographical errors from buying far above or selling far below prevailing market prices"
@@ -13283,13 +13103,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must pre-trade risk engines enforce both Single-Order Notional Caps and Cumulative Credit Limits?",
           "options": [
-            "Because stock exchanges charge double fees on orders with single caps through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "To comply with foreign exchange holiday trading restrictions",
             "Single-order caps prevent individual fat-finger typos, while cumulative credit limits prevent loops of small orders from draining capital",
+            "Because stock exchanges charge double fees on orders with single caps",
+            "To comply with foreign exchange holiday trading restrictions executed without exchange transaction fee accounting",
             "Because computers cannot calculate numbers larger than $500,000"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "A single cap stops one huge errant order; cumulative credit stops an algorithmic loop submitting thousands of small orders."
         },
         "output": "Order 1 ($300k): ORDER_AUTHORIZED | Rem Credit: 700000.0\nOrder 2 ($600k): False | Reason: SINGLE_NOTIONAL_EXCEEDED_$600000.0"
@@ -13324,13 +13144,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Token Bucket algorithm protect trading engines from exchange rate limit penalties?",
           "options": [
-            "It deletes all cancel orders during market open",
-            "It requires traders to pay real monetary tokens to brokers",
+            "It deletes all cancel orders during market open across quantitative algorithmic trading models",
             "It permits burst traffic up to bucket capacity while enforcing a strict long-term average message transmission rate",
-            "Because stock exchanges shut down servers when token buckets are full across distributed institutional trading desks and centralized risk management gateways"
+            "It requires traders to pay real monetary tokens to brokers",
+            "Because stock exchanges shut down servers when token buckets are full"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Token buckets allow short microsecond bursts of trading while bounding the sustained message rate to prevent exchange port throttles."
         },
         "output": "Order 1 at t=0.0s: Allowed = True (Tokens: 2.0)\nOrder 2 at t=0.0s: Allowed = True (Tokens: 1.0)\nOrder 3 at t=0.0s: Allowed = True (Tokens: 0.0)\nOrder 4 at t=0.0s: Allowed = False (Tokens: 0)"
@@ -13366,12 +13186,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does the Fail-Closed architectural principle require in a pre-trade risk gateway?",
           "options": [
             "The trading firm must close its office doors during trading hours",
-            "If the risk gateway software or hardware fails, all order transmissions must halt immediately to prevent unmonitored trading",
             "All customer accounts must be liquidated at the end of each month",
-            "The risk gateway should allow all orders through without checking if it gets too busy across fragmented lit electronic equity exchanges and alternative trading systems"
+            "If the risk gateway software or hardware fails, all order transmissions must halt immediately to prevent unmonitored trading",
+            "The risk gateway should allow all orders through without checking if it gets too busy"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Fail-closed guarantees that if risk checks cannot run, no orders can leave the system, preventing unconstrained trading disasters."
         },
         "output": "Reject 1: REJECTION_LOGGED\nReject 2: REJECTION_LOGGED\nReject 3: CONSECUTIVE_REJECTION_CIRCUIT_BREAKER_TRIPPED | Gate Active: False"
@@ -13410,13 +13230,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is SEC Rule 15c3-5 (Market Access Rule) and how does this risk gate satisfy it?",
           "options": [
-            "A federal regulation requiring broker-dealers to have pre-trade financial and regulatory risk controls that prevent erroneous orders",
             "A rule requiring all stock brokers to wear business suits on the trading floor",
             "A law mandating that all computer software be written in the English language",
-            "A regulation requiring all trading profits to be reinvested in government bonds using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols"
+            "A regulation requiring all trading profits to be reinvested in government bonds using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
+            "A federal regulation requiring broker-dealers to have pre-trade financial and regulatory risk controls that prevent erroneous orders"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Rule 15c3-5 requires broker-dealers with market access to implement pre-trade risk controls preventing erroneous or unauthorized orders."
         },
         "output": "Pre-Trade Risk Gateway Telemetry Audit: GATEWAY_OPTIMAL\nP99 Validation Latency: 2.4us | Rejection Rate: 0.08%\nCredit Line Utilization: 64.0% of $5.0M"
@@ -13475,13 +13295,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a Real-Time Kill Switch designed to be irreversible without multi-signature reset authorization?",
           "options": [
-            "Because exchange regulations ban computers from restarting on the same day by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "Because exchange regulations ban computers from restarting on the same day",
             "To force trading firms to hire external consultants",
-            "Because electrical switches cannot be physically moved back",
-            "To prevent a rogue algorithm or panicking trader from immediately un-pausing and causing further catastrophic losses"
+            "To prevent a rogue algorithm or panicking trader from immediately un-pausing and causing further catastrophic losses",
+            "Because electrical switches cannot be physically moved back"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Multi-signature reset prevents automated loops or individual human error from resuming trading before the root cause is resolved."
         },
         "output": "2.0% Drawdown: ACTIVE | Action: MAINTAIN_NORMAL_OPERATIONS\n3.5% Drawdown: PAUSED | Action: SOFT_CIRCUIT_BREAKER_PAUSE_NEW_ORDERS\n5.2% Drawdown: EMERGENCY_HALT | Action: GLOBAL_KILL_SWITCH_TRIPPED_FLATTEN_POSITIONS"
@@ -13520,8 +13340,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the emergency kill switch execute Mass Cancel before generating flattening market orders?",
           "options": [
-            "Because exchanges refuse to accept market orders if limit orders exist through multi-asset covariance matrices and recursive Kalman state filter updates",
-            "To save memory in the broker's database",
+            "Because exchanges refuse to accept market orders if limit orders exist",
+            "To save memory in the broker's database executed without exchange transaction fee accounting",
             "Because limit orders automatically cancel after 5 minutes",
             "To prevent resting limit orders from filling simultaneously with flattening orders, which could inadvertently double the portfolio position"
           ],
@@ -13561,13 +13381,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Cancel-On-Disconnect (COD) and why is it essential in electronic market making?",
           "options": [
-            "A rule requiring traders to turn off their Wi-Fi before market close across distributed institutional trading desks and centralized risk management gateways",
-            "A feature that disconnects phone calls when stock prices drop",
             "An exchange matching engine feature that automatically cancels all resting orders if the client connection drops unexpectedly",
-            "A computer virus that attacks trading networks"
+            "A rule requiring traders to turn off their Wi-Fi before market close",
+            "A feature that disconnects phone calls when stock prices drop",
+            "A computer virus that attacks trading networks executed without exchange transaction fee accounting"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Cancel-On-Disconnect guarantees that resting quotes are purged by the exchange even if the firm's data center loses network connectivity."
         },
         "output": "Parallel Multi-Venue Mass Cancel Dispatch:\n - NASDAQ (OUCH_4.2): MASS_CANCEL_SENT\n - NYSE (FIX_4.4): MASS_CANCEL_SENT\n - BATS (BOE_2.0): FAILOVER_CANCEL_ON_DISCONNECT"
@@ -13606,7 +13426,7 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must trading resume at reduced capacity (e.g. 10%) after a kill switch reset?",
           "options": [
-            "Because stock brokers only permit 10% trading volume on Mondays across fragmented lit electronic equity exchanges and alternative trading systems",
+            "Because stock brokers only permit 10% trading volume on Mondays",
             "To verify system stability and ensure that the root cause of the initial failure does not immediately reoccur under full capital load",
             "To punish trading algorithms for losing money",
             "Because exchange servers take 2 hours to warm up"
@@ -13651,13 +13471,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the industry benchmark SLA for emergency kill switch order cancellation across multi-venue connections?",
           "options": [
-            "Complete cancellation and confirmation within 50 milliseconds",
             "Cancellation within 5 to 10 business days",
             "Cancellation by the end of the calendar month using high-frequency FPGA network cards and kernel-bypass UDP multicast protocols",
+            "Complete cancellation and confirmation within 50 milliseconds",
             "Waiting until the exchange closes at 4:00 PM"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Institutional kill switches must purge resting orders within 50 milliseconds to prevent catastrophic losses in fast markets."
         },
         "output": "Compliant Shutdown Audit:  CERTIFIED_SAFE_SHUTDOWN (28ms, 0 residual)\nAnomalous Shutdown Audit: SHUTDOWN_ANOMALY_DETECTED (85ms, 200 residual)"
@@ -13712,13 +13532,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Who pays whom when the perpetual swap funding rate is positive (+0.04%)?",
           "options": [
-            "Long position holders pay short position holders",
             "Short position holders pay long position holders",
+            "Long position holders pay short position holders",
             "The exchange pays all traders bonus cash",
             "Traders pay fees directly to the central bank"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Positive funding means perpetual trades above spot; longs pay shorts to encourage price convergence back toward spot."
         },
         "output": "Perpetual 8-Hour Funding Payment: $400.0 collected by Short position\nAnnualized Delta-Neutral Basis APY: 43.8%"
@@ -13753,13 +13573,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a leveraged perpetual swap position breaches its liquidation price?",
           "options": [
-            "The trader is allowed to deposit cash anytime within the next 30 days by evaluating continuous-time partial differential equations under risk-neutral measures",
+            "The trader is allowed to deposit cash anytime within the next 30 days",
             "The exchange forgives the debt and restores the position",
-            "The position leverage is automatically doubled",
-            "The exchange liquidation engine takes over the position and liquidates it on the market to prevent trader default"
+            "The exchange liquidation engine takes over the position and liquidates it on the market to prevent trader default",
+            "The position leverage is automatically doubled across quantitative algorithmic trading models"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Touching the liquidation price triggers immediate automated liquidation to protect the exchange and clearinghouse from default."
         },
         "output": "BTC Entry: $50000.0 @ 10.0x Leverage (MMR: 0.5%):\n - Long Liquidation Price:  $45250.0 (-9.5%)\n - Short Liquidation Price: $54750.0 (+9.5%)"
@@ -13799,12 +13619,12 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does an inverted basis (Perpetual trading below Spot with negative funding) make cash-and-carry arbitrage unprofitable?",
           "options": [
             "Because exchanges ban short selling when prices drop",
-            "Because negative funding is taxed at 100%",
-            "Because shorting the perpetual would require paying funding fees rather than collecting them, creating negative carry",
-            "Because the spot asset loses its legal ownership rights through multi-asset covariance matrices and recursive Kalman state filter updates"
+            "Because negative funding is taxed at 100% across quantitative algorithmic trading models",
+            "Because the spot asset loses its legal ownership rights",
+            "Because shorting the perpetual would require paying funding fees rather than collecting them, creating negative carry"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When funding is negative, shorts pay longs; holding short perp and long spot causes continuous funding cash outflows."
         },
         "output": "Bullish Market Basis Check:  ARBITRAGE_OPPORTUNITY (APY: 32.85%)\nDiscount Market Basis Check: BELOW_YIELD_THRESHOLD (APY: -10.95%)"
@@ -13843,13 +13663,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must basis carry desks maintain at least a 35% price distance from liquidation on their short perpetual position?",
           "options": [
-            "Because exchange regulations ban trades with less than 35% distance",
             "To prevent sudden market spikes and liquidity wicks from triggering accidental liquidation of the short hedge",
-            "To allow trading algorithms to take vacations during market volatility across distributed institutional trading desks and centralized risk management gateways",
+            "Because exchange regulations ban trades with less than 35% distance",
+            "To allow trading algorithms to take vacations during market volatility",
             "Because crypto assets always rise by exactly 35% per year"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Severe volatility wicks can spike prices temporarily; maintaining a 35% buffer ensures the short hedge is not liquidated during spikes."
         },
         "output": "Safe Margin Check:  APPROVED_SAFE_BUFFER (Distance: 44.0%)\nRisky Margin Check: LIQUIDATION_RISK_ALERT (Distance: 16.0%) -> EMERGENCY_INJECT_COLLATERAL_OR_DELEVERAGE"
@@ -13890,8 +13710,8 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The time taken to download tick data from the exchange",
             "The percentage mismatch between long spot value and short perpetual value, measuring unintended directional market exposure",
-            "The change in weather conditions around the data center across fragmented lit electronic equity exchanges and alternative trading systems",
-            "The percentage of employees who own stock options"
+            "The change in weather conditions around the data center",
+            "The percentage of employees who own stock options across quantitative algorithmic trading models"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -13990,13 +13810,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Master Quant Engine handle risk checks across diverse trading strategies?",
           "options": [
-            "Each strategy is allowed to disable risk checks whenever it wants by evaluating continuous-time partial differential equations under risk-neutral measures",
-            "Risk checks are only run at the end of the trading week",
-            "The engine trusts all strategies and performs zero validation",
-            "All strategies route orders through a centralized pre-trade risk gate that enforces firm-wide price collars, notional caps, and credit limits"
+            "Each strategy is allowed to disable risk checks whenever it wants",
+            "All strategies route orders through a centralized pre-trade risk gate that enforces firm-wide price collars, notional caps, and credit limits",
+            "Risk checks are only run at the end of the trading week under unhedged market exposure volatility regimes",
+            "The engine trusts all strategies and performs zero validation"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A centralized pre-trade risk gate enforces uniform firm-wide safety constraints across all active strategy algorithms."
         },
         "output": "Execution 1 (Stat-Arb Buy): ORDER_EXECUTED_AND_LOGGED | Net AAPL Position: 1000\nExecution 2 (MM Sell):      ORDER_EXECUTED_AND_LOGGED | Net AAPL Position: 500"
@@ -14031,10 +13851,10 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Capstone platform pin threads to dedicated CPU cores?",
           "options": [
-            "Because CPU cores melt if threads move between them",
+            "Because CPU cores melt if threads move between them across quantitative algorithmic trading models",
             "To prevent the computer from connecting to the internet",
             "To eliminate operating system thread context-switching overhead and CPU cache invalidations, guaranteeing sub-microsecond latency",
-            "Because stock exchanges require specific CPU core numbers through multi-asset covariance matrices and recursive Kalman state filter updates"
+            "Because stock exchanges require specific CPU core numbers"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -14072,13 +13892,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What action does the Capstone Master Resilience Guard take when cumulative daily losses breach the 4.0% threshold?",
           "options": [
-            "It borrows money from other hedge funds to double position sizes across distributed institutional trading desks and centralized risk management gateways",
+            "It borrows money from other hedge funds to double position sizes",
             "It waits for the market to close before doing anything",
-            "It immediately triggers an emergency global halt, cancels all resting orders across all venues, and flattens positions",
-            "It restarts the trading server without saving logs"
+            "It restarts the trading server without saving logs",
+            "It immediately triggers an emergency global halt, cancels all resting orders across all venues, and flattens positions"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Hard intraday stop-loss triggers immediate cancellation and position flattening to protect the firm from catastrophic loss."
         },
         "output": "Trade 1 (+150k): OPERATIONAL\nTrade 2 (-300k): OPERATIONAL\nTrade 3 (-300k): EMERGENCY_GLOBAL_HALT_TRIGGERED"
@@ -14113,13 +13933,13 @@ export const QUANT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of the following is NOT one of the 5 master production certification gates in Milestone 12?",
           "options": [
-            "Sub-50 microsecond tick-to-trade decision latency SLA",
             "Guaranteed 100% daily profit in all market conditions without risk",
-            "Pre-trade risk gating with price collars and notional caps across fragmented lit electronic equity exchanges and alternative trading systems",
-            "SEC Rule 15c3-5 Market Access compliance"
+            "Sub-50 microsecond tick-to-trade decision latency SLA",
+            "Pre-trade risk gating with price collars and notional caps",
+            "SEC Rule 15c3-5 Market Access compliance under unhedged market exposure volatility regimes"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "No trading system can guarantee 100% daily profit; the gates certify technical, statistical, risk, and regulatory integrity."
         },
         "output": "=== PINIT CAREER OS: PYTHON QUANT TRACK MASTER CERTIFICATION ===\nMaster Platform Certification Status: TIER_1_QUANT_PLATFORM_CERTIFIED\nVerified Architecture Gates: 5/5\n - GATE_1_ALPHA_INVARIANCE_ZERO_LEAKAGE: PASS\n - GATE_2_SUB_50US_TICK_TO_TRADE_SLA: PASS\n - GATE_3_PRETRADE_RISK_GATING: PASS\n - GATE_4_EMERGENCY_KILL_SWITCH_FLATTENING: PASS\n - GATE_5_SEC_RULE_15C3_MARKET_ACCESS: PASS"

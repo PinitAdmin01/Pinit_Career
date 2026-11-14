@@ -41,14 +41,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is \"defence in depth\"?",
           "options": [
-            "Stacking several controls so each catches what others miss",
             "Using one very strong filter",
-            "Training a bigger model",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Stacking several controls so each catches what others miss",
+            "Training a bigger model"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Stacking several controls so each catches what others miss' is correct: in safety is an engineering job, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -84,12 +83,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Fairness",
             "Operational",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
             "Privacy"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       },
       {
@@ -123,14 +121,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the risk score for likelihood 4 and impact 5?",
           "options": [
-            "9",
-            "45",
             "20",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "9",
+            "45"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'20' is correct: in likelihood times impact, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -162,12 +159,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Because 6 is too risky",
             "Because the scale only runs from 1 to 5, so 6 is a data error",
-            "Because Python cannot multiply 6",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Because Python cannot multiply 6"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Because the scale only runs from 1 to 5, so 6 is a data error' is correct: in the risk register, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -198,13 +194,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Two controls each remove 50% of a risk scored 16. What is left?",
           "options": [
             "0",
-            "4",
             "8",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "4"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'4' is correct: in controls and residual risk, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -236,12 +231,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The risk that remains after controls",
             "The risk before any controls",
-            "A risk that has been removed completely",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "A risk that has been removed completely"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'The risk that remains after controls' is correct: in where this course goes, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -297,12 +291,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "In the model weights",
             "In the logging system",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
             "Where untrusted data enters"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Where untrusted data enters' is correct: in what threat modelling is, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -332,14 +325,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which OWASP LLM code is Prompt Injection?",
           "options": [
-            "LLM05",
-            "LLM10",
             "LLM01",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "LLM05",
+            "LLM10"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'LLM01' is correct: in the owasp top 10 for llm applications, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -373,14 +365,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use the stem \"hallucinat\" instead of \"hallucination\"?",
           "options": [
-            "It is shorter to type",
-            "It avoids matching anything",
+            "It is shorter to type evaluated across model inference safety endpoints",
             "It matches several forms of the word",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "It avoids matching anything"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Grounding validators cross-reference model outputs against retrieved context documents to detect unsupported factual hallucinations."
         }
       },
       {
@@ -411,13 +402,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How is improper output handling (LLM05) usually fixed?",
           "options": [
             "By training a bigger model",
-            "By treating model output as untrusted and escaping it",
             "By adding more tools",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "By treating model output as untrusted and escaping it"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'By treating model output as untrusted and escaping it' is correct: in controls for each category, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -448,13 +438,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A threat code maps to an empty list of controls. Is it a gap?",
           "options": [
             "Yes, it has no actual control",
-            "No, it is listed",
-            "Only if it appears twice",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "No, it is listed evaluated across model inference safety endpoints",
+            "Only if it appears twice"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Yes, it has no actual control' is correct: in finding gaps, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -488,14 +477,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must threat models be updated when an agent gets a new tool?",
           "options": [
-            "Tools slow the model down",
-            "OWASP requires it every week",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "Each new tool is a new way for the model's output to cause real actions"
+            "Tools slow the model down evaluated across model inference safety endpoints",
+            "Each new tool is a new way for the model's output to cause real actions",
+            "OWASP requires it every week"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Each new tool is a new way for the model's output to cause real actions' is correct: in threat modelling in practice, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -553,14 +541,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is validation a good first layer?",
           "options": [
+            "It is fast, cheap and predictable",
             "It understands every attack",
-            "It replaces the model",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "It is fast, cheap and predictable"
+            "It replaces the model"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It is fast, cheap and predictable' is correct: in why validate input, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -591,13 +578,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many lines does \"a\\nb\\nc\" have?",
           "options": [
             "2",
-            "5",
             "3",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "5"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'3' is correct: in checking rules in order, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -628,13 +614,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which of these is allowed in the practice validator?",
           "options": [
             "A null character (code 0)",
-            "A tab (code 9)",
             "An escape character (code 27)",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "A tab (code 9)"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A tab (code 9)' is correct: in control characters, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -666,12 +651,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Treats them as one separator",
             "Makes empty tokens",
-            "Raises an error",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Raises an error"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Treats them as one separator' is correct: in tokens and budgets, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -701,14 +685,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should truncate_tokens do for max_tokens = 0?",
           "options": [
-            "Raise ValueError",
             "Return an empty string",
-            "Return the whole text",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Raise ValueError",
+            "Return the whole text"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Raise ValueError' is correct: in truncating to a budget, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -738,14 +721,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where else should validation run besides user messages?",
           "options": [
-            "Nowhere else",
+            "Nowhere else evaluated across model inference safety endpoints",
             "Only on the model's output",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
             "On files, tool results and retrieved documents"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'On files, tool results and retrieved documents' is correct: in validation in a pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -800,13 +782,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What makes prompt injection possible?",
           "options": [
             "Slow servers",
-            "Short passwords",
             "The model cannot reliably tell instructions from data",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Short passwords"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Prompt injection attempts to override system instruction hierarchies, requiring input delimiters and sanitization layers."
         }
       },
       {
@@ -841,13 +822,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a question mark after a group mean in a regex?",
           "options": [
             "The group must appear twice",
-            "The group is optional",
             "The group is a question",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "The group is optional"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The group is optional' is correct: in regular expressions for attack phrases, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -877,14 +857,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why return the matched names as well as the count?",
           "options": [
-            "To make the output longer",
             "So reviewers can see why a message was flagged",
-            "Because Python requires it",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "To make the output longer evaluated across model inference safety endpoints",
+            "Because Python requires it"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So reviewers can see why a message was flagged' is correct: in scoring a message, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -918,14 +897,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to a message with score 1 and block_at=2?",
           "options": [
-            "REVIEW",
             "ALLOW",
-            "BLOCK",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "REVIEW",
+            "BLOCK"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'REVIEW' is correct: in allow, review or block, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -956,13 +934,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why should the model hold no secrets even with an injection detector?",
           "options": [
             "Secrets make the model slower",
-            "Detectors delete secrets",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
+            "Detectors delete secrets across multi-layered AI safety defense perimeters",
             "Some injections will get past any detector"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Some injections will get past any detector' is correct: in limits of pattern matching, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -992,14 +969,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a block message not name the pattern that fired?",
           "options": [
-            "It would be too long",
-            "Patterns have no names",
             "It would teach attackers what to change",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "It would be too long evaluated across model inference safety endpoints",
+            "Patterns have no names"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It would teach attackers what to change' is correct: in putting the detector in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -1055,12 +1031,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The user",
             "The developer",
-            "A third party whose content the system reads",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "A third party whose content the system reads"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "Prompt injection attempts to override system instruction hierarchies, requiring input delimiters and sanitization layers."
         }
       },
       {
@@ -1090,14 +1065,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why number the documents?",
           "options": [
-            "To sort them alphabetically",
             "So the model can refer to and cite them",
-            "To make them shorter",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "To sort them alphabetically",
+            "To make them shorter evaluated across model inference safety endpoints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So the model can refer to and cite them' is correct: in marking content as data, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1127,14 +1101,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must & be replaced before < and >?",
           "options": [
+            "Because & is more common evaluated across model inference safety endpoints",
             "Otherwise the & in &lt; would be escaped again",
-            "Because & is more common",
-            "Python requires alphabetical order",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Python requires alphabetical order"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Otherwise the & in &lt; would be escaped again' is correct: in escaping so tags cannot be closed, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1166,12 +1139,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To make text load faster",
             "To add colour",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
             "To hide text or break words so filters miss them"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To hide text or break words so filters miss them' is correct: in invisible characters, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1205,14 +1177,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why return the count of removed characters?",
           "options": [
+            "It is evidence that someone may be hiding text",
             "To slow attackers down",
-            "Python needs it",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "It is evidence that someone may be hiding text"
+            "Python needs it evaluated across model inference safety endpoints"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It is evidence that someone may be hiding text' is correct: in stripping hidden characters, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1251,13 +1222,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which is a defence against indirect injection?",
           "options": [
             "Letting the model send emails freely",
-            "Removing the system prompt",
             "Wrapping documents as data and limiting actions",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Removing the system prompt evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Wrapping documents as data and limiting actions' is correct: in defending against indirect injection, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -1311,14 +1281,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which OWASP LLM category covers failing to check model output?",
           "options": [
-            "LLM01 Prompt Injection",
             "LLM05 Improper Output Handling",
-            "LLM09 Misinformation",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "LLM01 Prompt Injection",
+            "LLM09 Misinformation"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'LLM05 Improper Output Handling' is correct: in model output is untrusted, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1352,14 +1321,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does json.loads(\"[1, 2]\") return?",
           "options": [
-            "A list",
             "A dictionary",
-            "An error",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "A list",
+            "An error"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A list' is correct: in parsing json safely, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1393,14 +1361,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why limit how many times you ask the model to fix its JSON?",
           "options": [
-            "A stubborn model could loop and cost a lot",
-            "JSON has a size limit",
+            "JSON has a size limit evaluated across model inference safety endpoints",
             "Models forget after two tries",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "A stubborn model could loop and cost a lot"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A stubborn model could loop and cost a lot' is correct: in extracting json from chatter, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1434,14 +1401,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why report extra fields as errors?",
           "options": [
+            "An unexpected field like \"admin\" could change behaviour",
             "They make the JSON longer",
-            "JSON forbids extra fields",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "An unexpected field like \"admin\" could change behaviour"
+            "JSON forbids extra fields"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'An unexpected field like \"admin\" could change behaviour' is correct: in checking a schema, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1472,13 +1438,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does isinstance(True, int) return in Python?",
           "options": [
             "False",
-            "An error",
             "True",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "An error"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'True' is correct: in the boolean trap, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1509,13 +1474,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a schema check NOT tell you?",
           "options": [
             "Whether fields are missing",
-            "Whether the values are true or sensible",
-            "Whether types are wrong",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Whether types are wrong evaluated across model inference safety endpoints",
+            "Whether the values are true or sensible"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Whether the values are true or sensible' is correct: in output validation in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -1571,12 +1535,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "OWASP LLM",
             "PCI DSS",
-            "JSON Schema",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "JSON Schema"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'PCI DSS' is correct: in why card numbers are special, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1610,14 +1573,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After doubling a 7 you get 14. What value is added?",
           "options": [
-            "5",
             "14",
             "7",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "5"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'5' is correct: in the luhn check, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1647,14 +1609,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Luhn check alone not enough to find card numbers?",
           "options": [
-            "It is too slow",
-            "It only works on Visa cards",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
-            "About one in ten random numbers pass it"
+            "About one in ten random numbers pass it",
+            "It is too slow evaluated across model inference safety endpoints",
+            "It only works on Visa cards"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'About one in ten random numbers pass it' is correct: in cleaning and length rules, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1689,13 +1650,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does \\b mean in a regex?",
           "options": [
             "A backspace",
-            "Any digit",
             "A word boundary",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Any digit"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'A word boundary' is correct: in finding card numbers in text, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1729,14 +1689,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why mask before writing logs?",
           "options": [
-            "Logs are slow",
+            "Logs are slow verified through tamper-evident enterprise audit trails",
             "Logs cannot store digits",
-            "Otherwise the logs themselves leak the card numbers",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Otherwise the logs themselves leak the card numbers"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Otherwise the logs themselves leak the card numbers' is correct: in masking in place, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1770,14 +1729,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the strongest control against card numbers leaking from a model?",
           "options": [
-            "Masking output only",
             "Never sending them to the model in the first place",
-            "Using a larger model",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Masking output only evaluated across model inference safety endpoints",
+            "Using a larger model"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Never sending them to the model in the first place' is correct: in personal data on both sides, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -1831,14 +1789,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a moderation score of 0.9 for \"violence\" mean?",
           "options": [
-            "The classifier is fairly confident the text is violent",
             "The text is certainly violent",
             "90% of words are violent",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "The classifier is fairly confident the text is violent"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The classifier is fairly confident the text is violent' is correct: in moderation classifiers, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1868,14 +1825,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A category has no threshold in the policy. What happens?",
           "options": [
+            "It is ignored",
             "It is always flagged",
-            "It uses 0.5",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "It is ignored"
+            "It uses 0.5"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It is ignored' is correct: in per-category thresholds, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -1905,14 +1861,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A harmless message is blocked. Which outcome is this?",
           "options": [
-            "Missed",
-            "Caught",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "False alarm"
+            "Missed evaluated across model inference safety endpoints",
+            "False alarm",
+            "Caught"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       },
       {
@@ -1948,12 +1903,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It goes up",
             "It is unaffected",
-            "It goes down or stays the same",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "It goes down or stays the same"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       },
       {
@@ -1983,14 +1937,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why log moderation scores and not just decisions?",
           "options": [
-            "Scores use less space",
             "So thresholds can be re-tuned later from real data",
-            "Decisions cannot be logged",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Scores use less space evaluated across model inference safety endpoints",
+            "Decisions cannot be logged"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So thresholds can be re-tuned later from real data' is correct: in moderation in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2020,14 +1973,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check moderation results separately for different groups?",
           "options": [
+            "To make reports longer evaluated across model inference safety endpoints",
             "Overall numbers can hide much worse results for one group",
-            "To make reports longer",
-            "Classifiers require it",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Classifiers require it"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Overall numbers can hide much worse results for one group' is correct: in where moderation goes wrong, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -2083,12 +2035,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "False negative",
             "False positive",
-            "True negative",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "True negative"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       },
       {
@@ -2119,13 +2070,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is precision when TP = 3 and FP = 1?",
           "options": [
             "0.25",
-            "3.0",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "0.75"
+            "0.75",
+            "3.0"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'0.75' is correct: in precision, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2157,12 +2107,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0.25",
             "0.6",
-            "0.75",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "0.75"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'0.75' is correct: in recall, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2192,14 +2141,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is F1 when precision and recall are both 0.5?",
           "options": [
-            "0.25",
             "0.5",
-            "1.0",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "0.25",
+            "1.0"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'0.5' is correct: in f1: balancing both, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2229,14 +2177,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is accuracy misleading when harmful content is rare?",
           "options": [
-            "It is hard to calculate",
+            "It is hard to calculate evaluated across model inference safety endpoints",
             "Flagging nothing still scores very high",
-            "It ignores true positives",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "It ignores true positives"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       },
       {
@@ -2266,14 +2213,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep the test set fixed between versions?",
           "options": [
-            "So results from different versions can be compared fairly",
-            "It saves storage",
+            "It saves storage evaluated across model inference safety endpoints",
             "Test sets cannot be edited",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "So results from different versions can be compared fairly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'So results from different versions can be compared fairly' is correct: in evaluating a safety check, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -2328,13 +2274,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does \"grounded\" mean for an answer?",
           "options": [
             "It is short",
-            "It was written quickly",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
-            "Its claims are supported by the sources"
+            "Its claims are supported by the sources",
+            "It was written quickly"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Its claims are supported by the sources' is correct: in what hallucination is, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2369,13 +2314,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which of these is kept as a content word by the rule?",
           "options": [
             "\"the\"",
-            "\"30\"",
-            "\"days\"",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "\"30\" evaluated across model inference safety endpoints",
+            "\"days\""
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'\"days\"' is correct: in content words, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2409,14 +2353,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the support come from a single source?",
           "options": [
-            "It is faster",
-            "Sources cannot be compared",
             "Words from different sources can combine into a claim none of them makes",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "It is faster evaluated across model inference safety endpoints",
+            "Sources cannot be compared"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Words from different sources can combine into a claim none of them makes' is correct: in scoring support, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2452,12 +2395,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "2 and 5 separately",
             "2.5",
-            "mg",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "mg"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'2.5' is correct: in numbers are where it hurts, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2487,14 +2429,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a natural language inference model judge?",
           "options": [
-            "Whether a source entails, contradicts or is neutral about a claim",
-            "Spelling",
+            "Spelling evaluated across model inference safety endpoints",
             "Word count",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Whether a source entails, contradicts or is neutral about a claim"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Whether a source entails, contradicts or is neutral about a claim' is correct: in stronger groundedness checks, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2528,14 +2469,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If retrieval returns the wrong documents, what can groundedness checks miss?",
           "options": [
-            "Nothing",
-            "Every sentence",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "A grounded answer that is still wrong"
+            "A grounded answer that is still wrong",
+            "Nothing evaluated across model inference safety endpoints",
+            "Every sentence"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A grounded answer that is still wrong' is correct: in groundedness in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -2591,12 +2531,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A missing citation",
             "A citation in bold",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
             "A real source that does not support the claim"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A real source that does not support the claim' is correct: in why citations can mislead, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2626,14 +2565,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A sentence cites sources 1 and 3; only source 3 supports it. Is it supported?",
           "options": [
-            "No",
-            "Only if source 1 is deleted",
             "Yes, one supporting cited source is enough",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "No evaluated across model inference safety endpoints",
+            "Only if source 1 is deleted"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Yes, one supporting cited source is enough' is correct: in does the cited source support the sentence?, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2669,12 +2607,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Marks it bad",
             "Skips it",
-            "Raises an error",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Raises an error"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Skips it' is correct: in finding bad citations, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2704,14 +2641,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many words does \"Refunds take 30 days.\" have by text.split()?",
           "options": [
-            "4",
             "3",
             "5",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "4"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'4' is correct: in which sentences need a citation?, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2747,12 +2683,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "1.0",
             "0.0",
-            "Undefined",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Undefined"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'1.0' is correct: in measuring citation coverage, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2791,13 +2726,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why test the citation parser on formats like [1][2]?",
           "options": [
             "They are rare and can be ignored",
-            "Regex cannot read brackets",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "Parsing bugs silently break the checks that follow"
+            "Parsing bugs silently break the checks that follow",
+            "Regex cannot read brackets evaluated across model inference safety endpoints"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Parsing bugs silently break the checks that follow' is correct: in citations in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -2851,14 +2785,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is over-refusal?",
           "options": [
-            "Answering a harmful request",
-            "Refusing twice",
             "Refusing a harmless request",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Answering a harmful request",
+            "Refusing twice"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Refusing a harmless request' is correct: in two ways to get refusal wrong, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2889,14 +2822,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why replace ’ with ' before matching?",
           "options": [
-            "To shorten the text",
+            "To shorten the text evaluated across model inference safety endpoints",
             "Models often use curly apostrophes, which would not match",
-            "Python cannot print ’",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Python cannot print ’"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Models often use curly apostrophes, which would not match' is correct: in detecting refusals, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2930,14 +2862,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which prompts are the denominator for the under-refusal rate?",
           "options": [
-            "All prompts",
-            "Harmful prompts only",
+            "All prompts within defensive input tokenization pipelines",
             "Benign prompts only",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Harmful prompts only"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Harmful prompts only' is correct: in over- and under-refusal rates, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -2969,12 +2900,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Improving one rate often worsens the other",
             "To make reports symmetric",
-            "Regulators require exactly two numbers",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Regulators require exactly two numbers"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Improving one rate often worsens the other' is correct: in balancing the two, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3004,14 +2934,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a safe completion?",
           "options": [
-            "Refusing everything",
-            "Completing any request quickly",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
-            "Answering the safe part and declining only the harmful part"
+            "Refusing everything evaluated across model inference safety endpoints",
+            "Answering the safe part and declining only the harmful part",
+            "Completing any request quickly"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Answering the safe part and declining only the harmful part' is correct: in refusing well, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3045,14 +2974,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why fill the harmless test set with scary-sounding words?",
           "options": [
-            "To confuse the testers",
+            "To confuse the testers evaluated across model inference safety endpoints",
             "Harmless prompts must be long",
-            "That is where over-refusal hides",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "That is where over-refusal hides"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       }
     ],
@@ -3107,13 +3035,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which OWASP LLM category covers agents doing more than they should?",
           "options": [
             "LLM02",
-            "LLM09",
             "LLM06",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "LLM09"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'LLM06' is correct: in from text to actions, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3143,14 +3070,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an allowlist safer than a blocklist?",
           "options": [
-            "It is shorter",
-            "Anything not listed is blocked by default",
+            "It is shorter evaluated across model inference safety endpoints",
             "It runs faster",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Anything not listed is blocked by default"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Anything not listed is blocked by default' is correct: in a tool registry, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3182,12 +3108,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Only unknown_tool",
             "Every possible error",
-            "An empty list",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "An empty list"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Only unknown_tool' is correct: in validating a tool call, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3222,13 +3147,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does \"..\" mean in a path?",
           "options": [
             "The current folder",
-            "A hidden file",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "The parent folder"
+            "The parent folder",
+            "A hidden file"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The parent folder' is correct: in path traversal, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3258,14 +3182,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must you normalise the path before checking it?",
           "options": [
-            "To make it shorter",
+            "To make it shorter evaluated across model inference safety endpoints",
             "normpath is required by Python",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
             "Because .. can hide in the middle and change where the path ends up"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Because .. can hide in the middle and change where the path ends up' is correct: in a safe join, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3299,14 +3222,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does least privilege mean for an agent?",
           "options": [
-            "Giving it every tool just in case",
-            "Running it slowly",
             "Giving it only the tools and permissions its task needs",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Giving it every tool just in case",
+            "Running it slowly evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Giving it only the tools and permissions its task needs' is correct: in tool safety in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -3361,13 +3283,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is approval fatigue?",
           "options": [
             "Servers slowing down",
-            "People approving without reading because they are asked too often",
             "The model getting tired",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "People approving without reading because they are asked too often"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'People approving without reading because they are asked too often' is correct: in human in the loop, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3403,12 +3324,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "(True, \"ALWAYS\")",
             "(False, \"AUTO\")",
-            "(True, \"AMOUNT\")",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "(True, \"AMOUNT\")"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'(True, \"ALWAYS\")' is correct: in approval rules as data, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3438,14 +3358,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when a plan step is not allowed?",
           "options": [
-            "Stop the whole plan",
             "Skip it and continue",
-            "Run it anyway",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Stop the whole plan",
+            "Run it anyway"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Stop the whole plan' is correct: in agent plans, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3481,12 +3400,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Ids are shorter",
             "Tools cannot be approved",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
             "So approving one action does not approve every similar action"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'So approving one action does not approve every similar action' is correct: in running a plan safely, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3520,14 +3438,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a sign that approvals are not meaningful?",
           "options": [
-            "Some requests are rejected",
-            "Approvers ask questions",
             "Almost everything is approved within seconds",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Some requests are rejected",
+            "Approvers ask questions evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Almost everything is approved within seconds' is correct: in making approval meaningful, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3557,14 +3474,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should unapproved actions expire?",
           "options": [
-            "To save disk space",
+            "To save disk space evaluated across model inference safety endpoints",
             "So they do not run later when the situation has changed",
-            "Approvers prefer short queues",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Approvers prefer short queues"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'So they do not run later when the situation has changed' is correct: in approval in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -3618,14 +3534,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which OWASP LLM category covers runaway usage?",
           "options": [
-            "LLM01",
             "LLM10",
-            "LLM06",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "LLM01",
+            "LLM06"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'LLM10' is correct: in why limit usage, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3655,14 +3570,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the flaw of fixed windows?",
           "options": [
+            "They never reset evaluated across model inference safety endpoints",
             "Bursts at window edges can reach twice the limit",
-            "They never reset",
-            "They use too much memory",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "They use too much memory"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Bursts at window edges can reach twice the limit' is correct: in fixed windows and their flaw, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3696,14 +3610,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a refused call not recorded?",
           "options": [
-            "To save memory",
+            "To save memory evaluated across model inference safety endpoints",
             "Python cannot record it",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
             "So refused attempts do not extend the user's wait"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'So refused attempts do not extend the user's wait' is correct: in a sliding-window limiter, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3733,14 +3646,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep a separate history per user?",
           "options": [
-            "It is faster",
-            "Users request it",
             "So one heavy user does not block everyone else",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "It is faster",
+            "Users request it"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So one heavy user does not block everyone else' is correct: in per-user limits, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3774,14 +3686,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A user has exactly 3 blocked events and max_blocked=3. Are they flagged?",
           "options": [
-            "Yes",
-            "Only if they also flood",
+            "Yes evaluated across model inference safety endpoints",
             "No, the rule is more than 3",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Only if they also flood"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'No, the rule is more than 3' is correct: in detecting abuse, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3815,14 +3726,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the difference between a token budget and a rate limit?",
           "options": [
-            "None",
-            "A token budget limits the size of each call; a rate limit limits the number of calls",
+            "None within defensive input tokenization pipelines",
             "A rate limit is only for free users",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "A token budget limits the size of each call; a rate limit limits the number of calls"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A token budget limits the size of each call; a rate limit limits the number of calls' is correct: in limits and abuse in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -3876,14 +3786,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen to every successful red-team attack?",
           "options": [
-            "It should become a permanent test case",
             "It should be deleted",
-            "It should be kept secret from engineers",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "It should become a permanent test case",
+            "It should be kept secret from engineers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It should become a permanent test case' is correct: in what red-teaming is, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3914,14 +3823,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are multi-turn attacks important to include?",
           "options": [
-            "They are shorter",
+            "They are shorter evaluated across model inference safety endpoints",
             "Models only fail on the first turn",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
             "Harmful requests can be built up slowly across messages"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Harmful requests can be built up slowly across messages' is correct: in attack categories, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3955,14 +3863,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an ASR of 0.25 mean?",
           "options": [
+            "A quarter of attacks succeeded",
             "A quarter of attacks were blocked",
-            "25 attacks were run",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "A quarter of attacks succeeded"
+            "25 attacks were run"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A quarter of attacks succeeded' is correct: in attack success rate, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -3997,13 +3904,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why ignore categories with few attempts when ranking?",
           "options": [
             "They are unimportant",
-            "They always have zero success",
             "Their rates are unreliable and can be extreme by chance",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "They always have zero success"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Their rates are unreliable and can be extreme by chance' is correct: in small samples are unreliable, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4034,13 +3940,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What must be checked before trusting an automated judge?",
           "options": [
             "Its speed",
-            "Its agreement with human labels",
-            "Its name",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Its name evaluated across model inference safety endpoints",
+            "Its agreement with human labels"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Its agreement with human labels' is correct: in automated red-teaming, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4072,12 +3977,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "On every change to the model, prompt or filters",
             "Once, before the first launch",
-            "Only after an incident",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Only after an incident within defensive input tokenization pipelines"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'On every change to the model, prompt or filters' is correct: in red-teaming in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -4132,14 +4036,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do obfuscation tricks work against filters but not models?",
           "options": [
-            "Models understand the meaning, while filters match exact characters",
             "Models cannot read",
             "Filters are slower",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Models understand the meaning, while filters match exact characters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Models understand the meaning, while filters match exact characters' is correct: in how attackers disguise text, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4169,14 +4072,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does NFKC do to a full-width \"ａ\"?",
           "options": [
-            "Removes it",
-            "Leaves it unchanged",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "Turns it into a normal \"a\""
+            "Turns it into a normal \"a\"",
+            "Removes it evaluated across model inference safety endpoints",
+            "Leaves it unchanged"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Turns it into a normal \"a\"' is correct: in unicode normalisation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4210,14 +4112,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why apply NFKC before the leetspeak map?",
           "options": [
-            "NFKC is faster",
-            "The order does not matter",
+            "NFKC is faster evaluated across model inference safety endpoints",
             "So full-width digits become normal digits the map can handle",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "The order does not matter"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So full-width digits become normal digits the map can handle' is correct: in undoing leetspeak, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4248,13 +4149,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does re.sub(r\"[^a-z]\", \"\", t) remove?",
           "options": [
             "Only spaces",
-            "Every character that is not a lower-case letter",
             "Only digits",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Every character that is not a lower-case letter"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Every character that is not a lower-case letter' is correct: in removing spacing tricks, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4288,14 +4188,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the Scunthorpe problem?",
           "options": [
-            "A slow filter",
             "Innocent words that contain a banned string being flagged",
-            "A kind of prompt injection",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "A slow filter evaluated across model inference safety endpoints",
+            "A kind of prompt injection"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Innocent words that contain a banned string being flagged' is correct: in finding banned words, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4325,14 +4224,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Should the model receive the normalised text?",
           "options": [
+            "Yes, always evaluated across model inference safety endpoints",
             "No, normalised text is only for running checks",
-            "Yes, always",
-            "Only for short messages",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Only for short messages"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'No, normalised text is only for running checks' is correct: in normalisation in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -4386,14 +4284,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does unfairness in AI most often come from?",
           "options": [
+            "Biased data and proxy features",
             "Random chance",
-            "Slow computers",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
-            "Biased data and proxy features"
+            "Slow computers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Biased data and proxy features' is correct: in why fairness is a safety issue, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4428,13 +4325,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a demographic parity gap of 0 mean?",
           "options": [
             "Every decision was correct",
-            "No one was shortlisted",
             "Every group gets the positive outcome at the same rate",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "No one was shortlisted evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Every group gets the positive outcome at the same rate' is correct: in demographic parity, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4465,13 +4361,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does equal opportunity compare between groups?",
           "options": [
             "Overall positive rates",
-            "Group sizes",
-            "True positive rates among truly qualified people",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Group sizes evaluated across model inference safety endpoints",
+            "True positive rates among truly qualified people"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'True positive rates among truly qualified people' is correct: in equal opportunity, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4505,14 +4400,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is choosing a fairness measure a values decision?",
           "options": [
-            "Because computers cannot compute them",
             "Because common measures can conflict, so someone must decide what matters",
-            "Because the law picks one",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Because computers cannot compute them",
+            "Because the law picks one"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Because common measures can conflict, so someone must decide what matters' is correct: in fairness measures can conflict, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4542,14 +4436,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a counterfactual fairness test?",
           "options": [
-            "Changing only a group-related detail and comparing results",
             "Testing with random prompts",
-            "Testing on fake data",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Changing only a group-related detail and comparing results",
+            "Testing on fake data evaluated across model inference safety endpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Changing only a group-related detail and comparing results' is correct: in fairness for language models, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4579,14 +4472,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why monitor fairness in production, not just before release?",
           "options": [
-            "It is required daily by law",
+            "It is required daily by law evaluated across model inference safety endpoints",
             "Evaluation sets are always wrong",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
             "Users and data change over time, so gaps can appear later"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Users and data change over time, so gaps can appear later' is correct: in fairness checks in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -4641,13 +4533,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does it mean for a system to be over-confident?",
           "options": [
             "It is right more often than it claims",
-            "It always answers",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "It is right less often than it claims"
+            "It is right less often than it claims",
+            "It always answers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It is right less often than it claims' is correct: in what calibration means, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4678,13 +4569,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why use min(..., bins − 1)?",
           "options": [
             "To make bins smaller",
-            "To skip empty bins",
-            "So a confidence of exactly 1.0 goes in the last bin",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "To skip empty bins evaluated across model inference safety endpoints",
+            "So a confidence of exactly 1.0 goes in the last bin"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'So a confidence of exactly 1.0 goes in the last bin' is correct: in confidence bins, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4718,14 +4608,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an ECE of 0 mean?",
           "options": [
-            "The model is always right",
             "Confidence matches accuracy in every bin",
-            "There were no predictions",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "The model is always right evaluated across model inference safety endpoints",
+            "There were no predictions"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Confidence matches accuracy in every bin' is correct: in expected calibration error, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4759,14 +4648,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "On a reliability diagram, where does a perfectly calibrated system lie?",
           "options": [
-            "On the diagonal line",
             "On the horizontal axis",
-            "At the top right corner only",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "On the diagonal line",
+            "At the top right corner only"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'On the diagonal line' is correct: in reliability tables, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4796,14 +4684,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a temperature above 1 do?",
           "options": [
-            "Makes the model less confident",
             "Makes the model more confident",
             "Changes which answer ranks first",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Makes the model less confident"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Makes the model less confident' is correct: in fixing calibration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4833,14 +4720,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which bins deserve the most attention?",
           "options": [
+            "Those near decision thresholds",
             "The emptiest ones",
-            "The lowest ones",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "Those near decision thresholds"
+            "The lowest ones evaluated across model inference safety endpoints"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Those near decision thresholds' is correct: in calibration in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -4896,12 +4782,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Speed for cost",
             "Safety for fairness",
-            "Coverage for accuracy",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Coverage for accuracy"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Coverage for accuracy' is correct: in knowing when not to answer, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4935,14 +4820,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is coverage?",
           "options": [
-            "The share of answered questions that are right",
             "The share of all questions the system answers",
-            "The number of bins",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "The share of answered questions that are right",
+            "The number of bins"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The share of all questions the system answers' is correct: in coverage and selective accuracy, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -4976,14 +4860,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a flat risk-coverage curve tell you?",
           "options": [
-            "The score is perfect",
+            "The score is perfect evaluated across model inference safety endpoints",
             "The confidence score does not separate right from wrong answers",
-            "Coverage is too high",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Coverage is too high"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'The confidence score does not separate right from wrong answers' is correct: in the risk-coverage curve, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5017,14 +4900,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why pick the lowest threshold that meets the target?",
           "options": [
-            "It answers the most questions while meeting the target",
             "It is easiest to compute",
             "It always has perfect accuracy",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "It answers the most questions while meeting the target"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It answers the most questions while meeting the target' is correct: in choosing a threshold for a target, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5058,14 +4940,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must be planned before sending low-confidence cases to humans?",
           "options": [
-            "A new model",
-            "A higher temperature",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
-            "Enough human capacity for the expected volume"
+            "Enough human capacity for the expected volume",
+            "A new model evaluated across model inference safety endpoints",
+            "A higher temperature"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Enough human capacity for the expected volume' is correct: in what to do instead of answering, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5095,14 +4976,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What might a sudden drop in coverage mean?",
           "options": [
-            "Everything is fine",
-            "The threshold was deleted",
+            "Everything is fine evaluated across model inference safety endpoints",
             "The model or the traffic has changed",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "The threshold was deleted"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The model or the traffic has changed' is correct: in abstention in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -5156,14 +5036,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why automate safety evaluations?",
           "options": [
-            "Computers are more creative",
-            "Automation removes the need for tests",
             "So the same tests run every time and are never skipped",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Computers are more creative",
+            "Automation removes the need for tests"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So the same tests run every time and are never skipped' is correct: in why an evaluation harness, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5194,14 +5073,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why include normal messages that must be allowed?",
           "options": [
-            "To make the suite longer",
+            "To make the suite longer evaluated across model inference safety endpoints",
             "A guard that blocks everything would otherwise pass",
-            "Normal messages are attacks",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Normal messages are attacks"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'A guard that blocks everything would otherwise pass' is correct: in test cases with expected decisions, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5231,14 +5109,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why pass the guard in as a function?",
           "options": [
-            "So the same runner can test any guard",
             "Functions are faster",
-            "Python requires it",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Python requires it evaluated across model inference safety endpoints",
+            "So the same runner can test any guard"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'So the same runner can test any guard' is correct: in running the suite, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5268,14 +5145,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why treat a missing metric as a regression?",
           "options": [
+            "So a broken test cannot quietly pass the gate",
             "It saves time",
-            "Missing metrics are always zero",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "So a broken test cannot quietly pass the gate"
+            "Missing metrics are always zero"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So a broken test cannot quietly pass the gate' is correct: in regression gates, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5309,14 +5185,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the risk of a gate with too many tight metrics?",
           "options": [
-            "It is too safe",
-            "It runs too fast",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "Constant false alarms make people ignore it"
+            "It is too safe evaluated across model inference safety endpoints",
+            "Constant false alarms make people ignore it",
+            "It runs too fast"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Constant false alarms make people ignore it' is correct: in what to measure in the gate, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5350,14 +5225,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the baseline after a release passes the gate?",
           "options": [
-            "It is deleted",
+            "It is deleted evaluated across model inference safety endpoints",
             "It stays fixed forever",
-            "The new metrics become the next baseline",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "The new metrics become the next baseline"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'The new metrics become the next baseline' is correct: in the harness in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -5413,12 +5287,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Compressing log files",
             "Recording only the data you really need",
-            "Deleting all logs",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Deleting all logs"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Recording only the data you really need' is correct: in why audit logs, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5452,14 +5325,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is plain hashing weak for phone numbers?",
           "options": [
-            "Attackers can hash every possible number and match them",
-            "Phone numbers are too long",
+            "Phone numbers are too long evaluated across model inference safety endpoints",
             "SHA-256 cannot hash digits",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Attackers can hash every possible number and match them"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Attackers can hash every possible number and match them' is correct: in hashing identifiers, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5495,12 +5367,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "It helps spot abuse without storing the text",
             "To rebuild the prompt",
-            "Hashes need it",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Hashes need it evaluated across model inference safety endpoints"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'It helps spot abuse without storing the text' is correct: in a privacy-safe audit entry, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5531,13 +5402,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why make audit logs append-only?",
           "options": [
             "To save space",
-            "To make them faster to read",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "So entries cannot be quietly edited or removed"
+            "So entries cannot be quietly edited or removed",
+            "To make them faster to read"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So entries cannot be quietly edited or removed' is correct: in what else to log, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5573,12 +5443,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "An empty string",
             "0",
-            "None",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "None"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'None' is correct: in summarising the log, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5612,14 +5481,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should card masking run relative to logging?",
           "options": [
-            "After writing the log",
             "Before anything is written",
-            "Only on weekends",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "After writing the log",
+            "Only on weekends evaluated across model inference safety endpoints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Before anything is written' is correct: in audit logs in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -5675,13 +5543,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the usual order of incident response?",
           "options": [
             "Communicate, fix, detect",
-            "Detect, triage, contain, fix, communicate, learn",
             "Fix, then detect",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Detect, triage, contain, fix, communicate, learn"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Detect, triage, contain, fix, communicate, learn' is correct: in what an ai incident looks like, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5716,13 +5583,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does SEV1 usually mean?",
           "options": [
             "The most serious level of incident",
-            "A minor issue",
-            "A scheduled test",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "A minor issue evaluated across model inference safety endpoints",
+            "A scheduled test"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'The most serious level of incident' is correct: in severity levels, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5753,13 +5619,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why build kill switches before incidents happen?",
           "options": [
             "They look good in reports",
-            "They replace testing",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
-            "So harm can be stopped in seconds when needed"
+            "So harm can be stopped in seconds when needed",
+            "They replace testing evaluated across model inference safety endpoints"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So harm can be stopped in seconds when needed' is correct: in containment first, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5795,12 +5660,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Too many containment switches",
             "A fast model",
-            "Missing monitoring",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Missing monitoring"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Missing monitoring' is correct: in measuring response times, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5830,14 +5694,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under GDPR, how quickly must a personal data breach usually be reported to the regulator?",
           "options": [
-            "Within a year",
-            "Never",
             "Within 72 hours",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Within a year",
+            "Never evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Within 72 hours' is correct: in communicating during an incident, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5867,14 +5730,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should post-mortems be blameless?",
           "options": [
-            "Blame is too slow",
+            "Blame is too slow evaluated across model inference safety endpoints",
             "Blame makes people hide mistakes, so they cannot be fixed",
-            "Nobody is ever responsible",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Nobody is ever responsible"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Blame makes people hide mistakes, so they cannot be fixed' is correct: in blameless post-mortems, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -5931,12 +5793,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Documentation for a whole AI product, including guardrails and tools",
             "A card for the server room",
-            "A list of users",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "A list of users"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Documentation for a whole AI product, including guardrails and tools' is correct: in why document ai systems, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -5967,13 +5828,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why list limitations honestly?",
           "options": [
             "It is legally forbidden not to",
-            "It makes the card longer",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "It helps users avoid misuse and builds trust"
+            "It helps users avoid misuse and builds trust",
+            "It makes the card longer evaluated across model inference safety endpoints"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It helps users avoid misuse and builds trust' is correct: in what goes in each section, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6003,14 +5863,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does a complete card guarantee a good card?",
           "options": [
-            "Yes",
+            "Yes evaluated across model inference safety endpoints",
             "Only if it is long",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
             "No, sections can be present but vague"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'No, sections can be present but vague' is correct: in checking completeness, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6044,14 +5903,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"## \" mean in Markdown?",
           "options": [
-            "Bold text",
-            "A comment",
             "A second-level heading",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Bold text",
+            "A comment"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A second-level heading' is correct: in rendering markdown, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6085,14 +5943,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why generate evaluation numbers from the harness?",
           "options": [
-            "It is faster to type",
+            "It is faster to type evaluated across model inference safety endpoints",
             "So the card always matches the tested system",
-            "Harness numbers are always higher",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Harness numbers are always higher"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'So the card always matches the tested system' is correct: in keeping cards up to date, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6126,14 +5983,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when a required card section is missing?",
           "options": [
-            "Block the release",
-            "Publish anyway",
+            "Publish anyway evaluated across model inference safety endpoints",
             "Delete the card",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Block the release"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Block the release' is correct: in cards in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -6187,14 +6043,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must engineers understand AI regulations?",
           "options": [
-            "Because they build the controls the rules require",
             "To replace lawyers",
-            "They must sign every contract",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Because they build the controls the rules require",
+            "They must sign every contract"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because they build the controls the rules require' is correct: in why governance matters, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6224,14 +6079,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What decides a system's tier under the EU AI Act?",
           "options": [
-            "The size of the model",
+            "The size of the model evaluated across model inference safety endpoints",
             "The programming language",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
             "What the system is used for"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'What the system is used for' is correct: in the eu ai act risk tiers, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6265,14 +6119,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check prohibited and high-risk keywords before limited ones?",
           "options": [
-            "They are shorter",
-            "Alphabetical order",
             "So the most serious tier wins when several match",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "They are shorter evaluated across model inference safety endpoints",
+            "Alphabetical order"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'So the most serious tier wins when several match' is correct: in triage by keywords, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6303,13 +6156,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which NIST AI RMF function covers tests and metrics?",
           "options": [
             "GOVERN across enterprise production AI safety architectures utilizing defense-in-depth guardrail verification pipelines",
-            "MEASURE",
             "MAP",
+            "MEASURE",
             "MANAGE"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'MEASURE' is correct: in the nist ai risk management framework, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6343,14 +6196,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why raise ValueError for an unknown function?",
           "options": [
-            "To slow down users",
-            "A typo would otherwise hide an activity silently",
+            "To slow down users evaluated across model inference safety endpoints",
             "NIST requires errors",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "A typo would otherwise hide an activity silently"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'A typo would otherwise hide an activity silently' is correct: in checking framework coverage, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6382,12 +6234,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Riskier systems get stricter controls",
             "Every system gets identical checks",
-            "Only large companies are checked",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Only large companies are checked evaluated across model inference safety endpoints"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Riskier systems get stricter controls' is correct: in governance in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -6443,12 +6294,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "LLM01",
             "LLM09",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
             "LLM04"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'LLM04' is correct: in data is where behaviour comes from, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6478,14 +6328,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is contamination?",
           "options": [
-            "Toxic training data",
-            "A virus in the dataset",
             "Test data appearing in training data, inflating scores",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Toxic training data evaluated across model inference safety endpoints",
+            "A virus in the dataset"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Test data appearing in training data, inflating scores' is correct: in why duplicates matter, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6519,14 +6368,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \" \".join(text.split()) do?",
           "options": [
-            "Removes all spaces",
-            "Splits the text into letters",
+            "Removes all spaces evaluated across model inference safety endpoints",
             "Collapses runs of whitespace to single spaces and strips the ends",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Splits the text into letters"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Collapses runs of whitespace to single spaces and strips the ends' is correct: in normalised deduplication, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6557,13 +6405,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are documents with unknown licences risky?",
           "options": [
             "They are always copyrighted",
-            "Nobody knows what use is allowed",
             "They are too long",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Nobody knows what use is allowed"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Nobody knows what use is allowed' is correct: in licences and data rights, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6598,13 +6445,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How does licence_filter treat \"CC-BY\" when \"cc-by\" is allowed?",
           "options": [
             "Kept, because comparison ignores case",
-            "Excluded",
-            "Counted as unknown",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Excluded evaluated across model inference safety endpoints",
+            "Counted as unknown"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Kept, because comparison ignores case' is correct: in filtering by licence, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6638,14 +6484,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep a record of which documents went into each model version?",
           "options": [
-            "To make the model faster",
-            "It is required for Python",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
-            "So data can be traced and removed later if needed"
+            "To make the model faster evaluated across model inference safety endpoints",
+            "So data can be traced and removed later if needed",
+            "It is required for Python"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So data can be traced and removed later if needed' is correct: in data hygiene in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -6699,14 +6544,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which approach is lost when text is copied into another document?",
           "options": [
+            "Metadata label",
             "Watermark",
-            "Neither",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "Metadata label"
+            "Neither"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Metadata label' is correct: in why mark ai-generated text, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6737,13 +6581,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are about half of a human's tokens green?",
           "options": [
             "Humans prefer green words",
-            "Humans know the key",
             "The lists are random with respect to human choices",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Humans know the key evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The lists are random with respect to human choices' is correct: in the green-list idea, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6778,13 +6621,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is the first token not judged?",
           "options": [
             "It is always green",
-            "It has no previous token to hash with",
-            "It is too short",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "It is too short within defensive input tokenization pipelines",
+            "It has no previous token to hash with"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It has no previous token to hash with' is correct: in deciding green with a keyed hash, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6816,12 +6658,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The same green share gives a larger z-score",
             "They have more words to hash",
-            "Short texts are never watermarked",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Short texts are never watermarked"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'The same green share gives a larger z-score' is correct: in detecting with a z-score, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6851,14 +6692,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What weakens a text watermark most?",
           "options": [
+            "Copying the text evaluated across model inference safety endpoints",
             "Paraphrasing or heavy rewriting",
-            "Copying the text",
-            "Changing the font",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Changing the font"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Paraphrasing or heavy rewriting' is correct: in limits of watermarking, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6892,14 +6732,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should a detector refuse very short texts?",
           "options": [
-            "They are always human",
+            "They are always human evaluated across model inference safety endpoints",
             "Hashing needs long input",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
             "The result would be unreliable"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The result would be unreliable' is correct: in watermarking in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -6954,13 +6793,12 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a reward model do?",
           "options": [
             "Pays human raters",
-            "Writes answers",
             "Scores answers with a number learned from preferences",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Writes answers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Scores answers with a number learned from preferences' is correct: in learning from preferences, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -6990,14 +6828,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the preference probability when both rewards are equal?",
           "options": [
-            "0",
-            "0.5",
+            "0 evaluated across model inference safety endpoints",
             "1",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "0.5"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'0.5' is correct: in the bradley-terry model, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7027,14 +6864,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the loss when both rewards are 0?",
           "options": [
-            "0",
             "ln 2, about 0.6931",
-            "1",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "0 evaluated across model inference safety endpoints",
+            "1"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'ln 2, about 0.6931' is correct: in the pairwise loss, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7068,14 +6904,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the update when p is close to 1?",
           "options": [
-            "It becomes very small",
             "It becomes very large",
-            "It stays the same",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "It becomes very small",
+            "It stays the same"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It becomes very small' is correct: in fitting ratings from comparisons, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7105,14 +6940,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is sycophancy?",
           "options": [
-            "Refusing too often",
+            "Refusing too often evaluated across model inference safety endpoints",
             "Writing short answers",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models",
             "Agreeing with the user regardless of truth"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Agreeing with the user regardless of truth' is correct: in reward hacking, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7146,14 +6980,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What kind of data are thumbs-up and thumbs-down buttons?",
           "options": [
-            "Training data for pre-training",
-            "Audit logs only",
             "Preference data",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Training data for pre-training",
+            "Audit logs only"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Preference data' is correct: in preferences in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -7209,12 +7042,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Tests are always wrong",
             "Monitoring replaces tests",
-            "Real users, attackers and data change after launch",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "Real users, attackers and data change after launch"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "why": "'Real users, attackers and data change after launch' is correct: in why monitor in production, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7244,14 +7076,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why show rates rather than only counts?",
           "options": [
-            "Rates are always smaller",
             "Traffic changes, and rates stay comparable",
-            "Counts are secret",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Rates are always smaller",
+            "Counts are secret evaluated across model inference safety endpoints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Traffic changes, and rates stay comparable' is correct: in a decision dashboard, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7281,14 +7112,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why exclude today from its own baseline?",
           "options": [
+            "It saves time evaluated across model inference safety endpoints",
             "So a spike does not raise its own baseline and hide itself",
-            "It saves time",
-            "Today has no data",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Today has no data"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'So a spike does not raise its own baseline and hide itself' is correct: in baselines, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7320,12 +7150,11 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Low numbers are always wrong",
             "Baselines cannot be low",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking",
             "Small absolute changes become large ratios"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Small absolute changes become large ratios' is correct: in spike alerts, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7359,14 +7188,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is alert fatigue?",
           "options": [
-            "Servers overheating",
-            "Alerts firing too slowly",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering",
-            "People ignoring alerts after too many false alarms"
+            "People ignoring alerts after too many false alarms",
+            "Servers overheating evaluated across model inference safety endpoints",
+            "Alerts firing too slowly"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'People ignoring alerts after too many false alarms' is correct: in alerts people trust, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7400,14 +7228,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What completes the safety loop after a post-mortem?",
           "options": [
-            "Deleting the logs",
-            "Turning off monitoring",
+            "Deleting the logs evaluated across model inference safety endpoints",
             "New tests in the harness and rows in the risk register",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting"
+            "Turning off monitoring"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'New tests in the harness and rows in the risk register' is correct: in monitoring in the pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -7461,14 +7288,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main idea behind combining many simple checks?",
           "options": [
-            "Each check is perfect",
             "Defence in depth: layers catch what others miss",
-            "It makes the code longer",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "Each check is perfect",
+            "It makes the code longer"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Defence in depth: layers catch what others miss' is correct: in looking back, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7502,14 +7328,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why collect all reasons rather than stopping at the first?",
           "options": [
+            "It is faster verified through tamper-evident enterprise audit trails",
             "Richer logs help investigation and monitoring",
-            "It is faster",
-            "Python requires it",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "Python requires it"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Richer logs help investigation and monitoring' is correct: in collecting reasons, not stopping early, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7543,14 +7368,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What decision does a message with only a card number get?",
           "options": [
-            "REDACT",
-            "BLOCK",
+            "BLOCK evaluated across model inference safety endpoints",
             "ALLOW",
-            "Disabling all input validation and permitting unbounded token lengths without firewall filtering"
+            "REDACT"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'REDACT' is correct: in from reasons to a decision, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7588,14 +7412,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the card check use the original text rather than the normalised copy?",
           "options": [
+            "The leetspeak map would turn digits into letters",
             "It is faster",
-            "Cards are never normalised anywhere",
-            "Allowing prompt injection attacks to alter system instruction hierarchies without delimiter spotlighting",
-            "The leetspeak map would turn digits into letters"
+            "Cards are never normalised anywhere"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The leetspeak map would turn digits into letters' is correct: in the full guardrail, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7633,14 +7456,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does MISSING count as not passed?",
           "options": [
-            "To punish engineers",
-            "MISSING means the metric is zero",
+            "To punish engineers evaluated across model inference safety endpoints",
             "An unmeasured target cannot be shown to be met",
-            "Relying solely on heuristic keyword matching without semantic embedding or calibrated classification models"
+            "MISSING means the metric is zero"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'An unmeasured target cannot be shown to be met' is correct: in the safety scorecard, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7670,14 +7492,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is safety work never finished?",
           "options": [
-            "Code always has bugs",
-            "New attacks, models and uses keep arriving",
+            "Code always has bugs evaluated across model inference safety endpoints",
             "Regulations change daily",
-            "Operating without tamper-evident cryptographic audit logs or verifiable SHA-256 state tracking"
+            "New attacks, models and uses keep arriving"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": "Verified against enterprise AI safety engineering and defense-in-depth principles."
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'New attacks, models and uses keep arriving' is correct: in your safety pipeline, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -7750,14 +7571,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is prompt injection inherently difficult to neutralize in language model architectures?",
           "options": [
-            "Because modern GPUs do not support encrypted integer arithmetic operations in high-throughput clusters.",
-            "Because language models process instructions and untrusted data within the identical token stream without hardware memory separation.",
-            "Because Python dictionaries cannot store more than ten vulnerability definitions simultaneously.",
-            "Because transformer attention weights cannot be updated without retraining the entire foundation model from scratch across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Because modern GPUs do not support encrypted integer arithmetic operations in high-throughput clusters",
+            "Because language models process instructions and untrusted data within the identical token stream without hardware memory separation",
+            "Because Python dictionaries cannot store more than ten vulnerability definitions simultaneously",
+            "Because transformer attention weights cannot be updated without retraining the entire foundation model from scratch"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Prompt injection attempts to override system instruction hierarchies, requiring input delimiters and sanitization layers."
         }
       },
       {
@@ -7795,14 +7616,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What effect does high detectability have on the quantitative risk score?",
           "options": [
-            "It reduces the calculated risk score because monitoring systems intercept the attack before it causes damage.",
-            "It increases the likelihood of catastrophic model divergence during distributed inference loops by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "It forces the model to switch from 16-bit floating point precision to integer arithmetic.",
-            "It invalidates the SHA-256 cryptographic signature of the underlying model weights."
+            "It increases the likelihood of catastrophic model divergence during distributed inference loops",
+            "It forces the model to switch from 16-bit floating point precision to integer arithmetic",
+            "It reduces the calculated risk score because monitoring systems intercept the attack before it causes damage",
+            "It invalidates the SHA-256 cryptographic signature of the underlying model weights evaluated across model inference safety endpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It reduces the calculated risk score because monitoring systems intercept the attack before it causes damage' is correct: in owasp llm top 10 threat matrix — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7840,14 +7661,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the operational consequence of a Tier 1 risk score in a deployment pipeline?",
           "options": [
-            "It automatically deletes all user chat histories across distributed database replicas across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "It downgrades the model context window to 512 tokens to conserve memory.",
-            "It executes an automated dual-write database rollback without logging the incident.",
-            "It acts as an immediate deployment blocker that prevents the release from merging to production."
+            "It automatically deletes all user chat histories across distributed database replicas across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "It downgrades the model context window to 512 tokens to conserve memory",
+            "It executes an automated dual-write database rollback without logging the incident",
+            "It acts as an immediate deployment blocker that prevents the release from merging to production"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'It acts as an immediate deployment blocker that prevents the release from merging to production' is correct: in owasp llm top 10 threat matrix — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7885,14 +7706,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must AI risk registers account for external tool integrations rather than evaluating models in isolation?",
           "options": [
-            "Because external tools consume GPU VRAM that would otherwise be allocated to model weights.",
-            "Because tool APIs cannot communicate over secure TLS encrypted network sockets.",
-            "Because connected tools expand the operational blast radius, allowing prompt injection to trigger unauthorized physical or financial actions.",
-            "Because Python garbage collection pauses increase linearly with the number of external REST endpoints through automated model parameter checkpoint verification and canary rollback triggers."
+            "Because connected tools expand the operational blast radius, allowing prompt injection to trigger unauthorized physical or financial actions",
+            "Because external tools consume GPU VRAM that would otherwise be allocated to model weights",
+            "Because tool APIs cannot communicate over secure TLS encrypted network sockets",
+            "Because Python garbage collection pauses increase linearly with the number of external REST endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Because connected tools expand the operational blast radius, allowing prompt injection to trigger unauthorized physical or financial actions' is correct: in owasp llm top 10 threat matrix — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -7930,14 +7751,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What condition must be met for audit_risk_register() to return ready_for_prod=True?",
           "options": [
-            "The average risk score must equal exactly zero across all recorded entries.",
-            "The model must be retrained on an FP32 unquantized cluster.",
-            "Zero high or critical severity vulnerabilities remain active in the evaluated register.",
-            "All user input tokens must be encrypted with RSA public keys before inference across cryptographic hash chains and tamper-evident compliance audit ledgers."
+            "The average risk score must equal exactly zero across all recorded entries",
+            "Zero high or critical severity vulnerabilities remain active in the evaluated register",
+            "The model must be retrained on an FP32 unquantized cluster",
+            "All user input tokens must be encrypted with RSA public keys before inference across cryptographic hash chains and tamper-evident compliance audit ledgers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Zero high or critical severity vulnerabilities remain active in the evaluated register' is correct: in owasp llm top 10 threat matrix — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -7996,14 +7817,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security vulnerability does Unicode NFKC normalization eliminate?",
           "options": [
-            "Attackers exploiting GPU floating point overflow in transformer matrix multiplications under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "Adversaries using visually identical homoglyph characters from foreign scripts to bypass lexical safety filters.",
-            "Unauthorized users extracting model weights through timing attacks on REST endpoints.",
-            "Network routers fragmenting TCP packets during high-concurrency streaming responses."
+            "Adversaries using visually identical homoglyph characters from foreign scripts to bypass lexical safety filters",
+            "Attackers exploiting GPU floating point overflow in transformer matrix multiplications under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "Unauthorized users extracting model weights through timing attacks on REST endpoints",
+            "Network routers fragmenting TCP packets during high-concurrency streaming responses"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Adversaries using visually identical homoglyph characters from foreign scripts to bypass lexical safety filters' is correct: in input guardrails — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8041,14 +7862,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must input sanitizers preserve newline and tab characters while stripping control codes?",
           "options": [
-            "Because language models depend on indentation and line breaks to parse structured code and tabular reasoning prompts.",
-            "Because stripping newlines causes CUDA kernels to crash during backpropagation.",
-            "Because HTTP/2 headers cannot be serialized without trailing carriage return characters.",
-            "Because tokenizers require exactly four tabs per sentence to compute positional encodings across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Because stripping newlines causes CUDA kernels to crash during backpropagation within defensive input tokenization pipelines",
+            "Because language models depend on indentation and line breaks to parse structured code and tabular reasoning prompts",
+            "Because HTTP/2 headers cannot be serialized without trailing carriage return characters",
+            "Because tokenizers require exactly four tabs per sentence to compute positional encodings"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because language models depend on indentation and line breaks to parse structured code and tabular reasoning prompts' is correct: in input guardrails — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8086,14 +7907,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do unconstrained input lengths represent a critical security and stability vulnerability?",
           "options": [
-            "Because long strings corrupt the underlying operating system kernel routing tables.",
-            "Because Python strings longer than 1,000 words trigger automatic garbage collection locks by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Because foundation models cannot generate valid JSON if the prompt exceeds 50 tokens.",
-            "Because quadratic attention scaling allows massive inputs to exhaust GPU memory and cause denial-of-service failures."
+            "Because long strings corrupt the underlying operating system kernel routing tables evaluated across model inference safety endpoints",
+            "Because Python strings longer than 1,000 words trigger automatic garbage collection locks",
+            "Because quadratic attention scaling allows massive inputs to exhaust GPU memory and cause denial-of-service failures",
+            "Because foundation models cannot generate valid JSON if the prompt exceeds 50 tokens"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Because quadratic attention scaling allows massive inputs to exhaust GPU memory and cause denial-of-service failures' is correct: in input guardrails — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8131,14 +7952,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended execution order for input sanitization operations?",
           "options": [
-            "Enforce token bounds first, execute model inference second, and strip control characters last.",
-            "Normalize Unicode first, translate text to base64 second, and strip whitespace third.",
-            "Tokenize with BPE first, strip null bytes second, and decode to UTF-16 third.",
-            "Strip control characters first, normalize Unicode NFKC second, and enforce token bounds third."
+            "Enforce token bounds first, execute model inference second, and strip control characters last",
+            "Normalize Unicode first, translate text to base64 second, and strip whitespace third",
+            "Tokenize with BPE first, strip null bytes second, and decode to UTF-16 third",
+            "Strip control characters first, normalize Unicode NFKC second, and enforce token bounds third"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'Strip control characters first, normalize Unicode NFKC second, and enforce token bounds third' is correct: in input guardrails — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8176,14 +7997,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should audit logs store cryptographic hashes of rejected payloads rather than plaintext?",
           "options": [
-            "To reduce database storage costs by converting all strings into fixed 32-bit floats across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Because language models can only read SHA-256 hashes during inference loops.",
-            "To enable forensic tracking of attack campaigns without persisting toxic or sensitive content in plaintext logs.",
-            "Because modern cloud providers prohibit the storage of alphanumeric ASCII strings."
+            "To enable forensic tracking of attack campaigns without persisting toxic or sensitive content in plaintext logs",
+            "To reduce database storage costs by converting all strings into fixed 32-bit floats across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Because language models can only read SHA-256 hashes during inference loops",
+            "Because modern cloud providers prohibit the storage of alphanumeric ASCII strings"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To enable forensic tracking of attack campaigns without persisting toxic or sensitive content in plaintext logs' is correct: in input guardrails — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -8242,14 +8063,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational distinction between direct and indirect prompt injection?",
           "options": [
-            "Direct injection attacks the GPU firmware, while indirect injection targets CPU RAM.",
-            "Direct injection comes from the user prompt, while indirect injection is embedded in third-party data retrieved by the model at runtime.",
-            "Direct injection requires Python 3.12, while indirect injection runs on older versions.",
-            "Direct injection only affects open-source models, while indirect injection targets proprietary APIs through automated model parameter checkpoint verification and canary rollback triggers."
+            "Direct injection attacks the GPU firmware, while indirect injection targets CPU RAM",
+            "Direct injection requires Python 3.12, while indirect injection runs on older versions",
+            "Direct injection only affects open-source models, while indirect injection targets proprietary APIs",
+            "Direct injection comes from the user prompt, while indirect injection is embedded in third-party data retrieved by the model at runtime"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "Prompt injection attempts to override system instruction hierarchies, requiring input delimiters and sanitization layers."
         }
       },
       {
@@ -8287,14 +8108,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does structural spotlighting mitigate indirect prompt injection in RAG applications?",
           "options": [
-            "By enclosing untrusted retrieved data in explicit delimiters and instructing the model to treat enclosed tokens solely as passive data.",
-            "By encrypting the user prompt using AES-256 before transmitting across the network across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "By discarding all web search results that contain more than 100 characters.",
-            "By fine-tuning the model to only output single-digit numerical classifications."
+            "By enclosing untrusted retrieved data in explicit delimiters and instructing the model to treat enclosed tokens solely as passive data",
+            "By encrypting the user prompt using AES-256 before transmitting across the network across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "By discarding all web search results that contain more than 100 characters",
+            "By fine-tuning the model to only output single-digit numerical classifications"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "Prompt injection attempts to override system instruction hierarchies, requiring input delimiters and sanitization layers."
         }
       },
       {
@@ -8332,14 +8153,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Shannon character entropy an effective metric for detecting obfuscated jailbreak payloads?",
           "options": [
-            "Because Base64-encoded strings and random adversarial gibberish exhibit significantly higher character randomness than natural human text.",
-            "Because entropy directly measures the floating-point precision of GPU memory allocations.",
-            "Because low-entropy prompts cause transformer self-attention weights to drop to zero.",
-            "Because character entropy determines the maximum allowable temperature in autoregressive generation under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "Because entropy directly measures the floating-point precision of GPU memory allocations",
+            "Because Base64-encoded strings and random adversarial gibberish exhibit significantly higher character randomness than natural human text",
+            "Because low-entropy prompts cause transformer self-attention weights to drop to zero",
+            "Because character entropy determines the maximum allowable temperature in autoregressive generation under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "Jailbreak prompts use adversarial roleplay or hypothetical framing to bypass alignment constraints, requiring semantic classification."
         }
       },
       {
@@ -8377,14 +8198,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of a weighted multi-factor heuristic classifier over single-keyword blacklists?",
           "options": [
-            "It eliminates the need for unit testing across application releases.",
-            "It allows language models to run without CUDA drivers on CPU hardware across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "It automatically fixes grammar and spelling errors in user input text.",
-            "It reduces false positive refusals by requiring multiple correlated risk signals before taking blocking action."
+            "It eliminates the need for unit testing across application releases",
+            "It allows language models to run without CUDA drivers on CPU hardware",
+            "It reduces false positive refusals by requiring multiple correlated risk signals before taking blocking action",
+            "It automatically fixes grammar and spelling errors in user input text"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It reduces false positive refusals by requiring multiple correlated risk signals before taking blocking action' is correct: in prompt injection detection — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8422,14 +8243,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should security rejection responses avoid detailing specific internal heuristic rules that triggered the block?",
           "options": [
-            "Because HTTP 400 responses cannot contain JSON message bodies under standard RFC protocols by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Because detailing the rules would cause GPU memory fragmentation on the inference server.",
-            "To prevent adversaries from iteratively probing the defense system to discover and exploit blind spots.",
-            "Because foundation models cannot generate error messages longer than ten words."
+            "Because HTTP 400 responses cannot contain JSON message bodies under standard RFC protocols",
+            "Because detailing the rules would cause GPU memory fragmentation on the inference server",
+            "Because foundation models cannot generate error messages longer than ten words evaluated across model inference safety endpoints",
+            "To prevent adversaries from iteratively probing the defense system to discover and exploit blind spots"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To prevent adversaries from iteratively probing the defense system to discover and exploit blind spots' is correct: in prompt injection detection — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -8488,14 +8309,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary security objective of implementing an instruction hierarchy in language models?",
           "options": [
-            "To increase the generation speed of autoregressive token sampling.",
-            "To prevent lower-privilege user prompts and untrusted external data from overriding higher-privilege system safety rules.",
-            "To reduce the size of the vocabulary matrix in the tokenizer model.",
-            "To enable multi-node distributed training across heterogeneous cloud hardware across multi-tenant vector similarity stores and asynchronous security audit queues."
+            "To increase the generation speed of autoregressive token sampling",
+            "To reduce the size of the vocabulary matrix in the tokenizer model",
+            "To prevent lower-privilege user prompts and untrusted external data from overriding higher-privilege system safety rules",
+            "To enable multi-node distributed training across heterogeneous cloud hardware across multi-tenant vector similarity stores and asynchronous security audit queues"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To prevent lower-privilege user prompts and untrusted external data from overriding higher-privilege system safety rules' is correct: in instruction hierarchy — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8533,14 +8354,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should immutable system directives be placed during hierarchical context compilation?",
           "options": [
-            "Interleaved randomly between user input tokens to distribute attention weights through automated model parameter checkpoint verification and canary rollback triggers.",
-            "At the beginning of the context window, followed by user requests, with untrusted external data placed in isolated enclosures at the end.",
-            "At the very end of the prompt after all third-party data has been generated.",
-            "In a separate JSON file that is never passed to the foundation model."
+            "Interleaved randomly between user input tokens to distribute attention weights",
+            "At the very end of the prompt after all third-party data has been generated",
+            "In a separate JSON file that is never passed to the foundation model evaluated across model inference safety endpoints",
+            "At the beginning of the context window, followed by user requests, with untrusted external data placed in isolated enclosures at the end"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'At the beginning of the context window, followed by user requests, with untrusted external data placed in isolated enclosures at the end' is correct: in instruction hierarchy — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8578,14 +8399,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What vulnerability does delimiter tag sanitization prevent?",
           "options": [
-            "Adversaries embedding premature closing tags and fake system headers within untrusted data to break out of safe enclosures.",
-            "Network packet sniffing on unencrypted database connections.",
-            "Compiler segmentation faults when allocating string memory buffers across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "Model hallucination during floating-point matrix multiplication."
+            "Adversaries embedding premature closing tags and fake system headers within untrusted data to break out of safe enclosures",
+            "Network packet sniffing on unencrypted database connections",
+            "Compiler segmentation faults when allocating string memory buffers across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "Model hallucination during floating-point matrix multiplication"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Adversaries embedding premature closing tags and fake system headers within untrusted data to break out of safe enclosures' is correct: in instruction hierarchy — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8623,14 +8444,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is pre-flight context framing validation important in addition to input sanitization?",
           "options": [
-            "It recompiles the Python bytecode to run faster on CUDA accelerators under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "It automatically translates non-English prompts into Latin.",
-            "It stores the user password in an encrypted database table.",
-            "It acts as a defense-in-depth safety check, guaranteeing that prompts violating privilege boundaries never reach the model."
+            "It recompiles the Python bytecode to run faster on CUDA accelerators under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "It acts as a defense-in-depth safety check, guaranteeing that prompts violating privilege boundaries never reach the model",
+            "It automatically translates non-English prompts into Latin",
+            "It stores the user password in an encrypted database table"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It acts as a defense-in-depth safety check, guaranteeing that prompts violating privilege boundaries never reach the model' is correct: in instruction hierarchy — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8675,7 +8496,7 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'REJECTED_HIERARCHY_VIOLATION' is correct: in instruction hierarchy — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -8734,14 +8555,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a cascading multi-stage input firewall achieve exponentially higher security than a single filter?",
           "options": [
-            "Because running multiple filters increases CPU clock speed automatically.",
-            "Because cascading filters eliminates the need for database backups.",
-            "Because independent sequential security filters multiply their failure probabilities, dramatically reducing the overall bypass rate.",
-            "Because modern GPUs only support firewall filtering when executed in pipeline stages across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Because running multiple filters increases CPU clock speed automatically",
+            "Because independent sequential security filters multiply their failure probabilities, dramatically reducing the overall bypass rate",
+            "Because cascading filters eliminates the need for database backups",
+            "Because modern GPUs only support firewall filtering when executed in pipeline stages"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because independent sequential security filters multiply their failure probabilities, dramatically reducing the overall bypass rate' is correct: in input firewall architecture — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8779,14 +8600,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What three phases are executed in the core input firewall sanitization routine?",
           "options": [
-            "Base64 encoding, AES encryption, and RSA key exchange.",
-            "Unicode NFKC normalization, non-printable control character stripping, and structural delimiter neutralization.",
-            "BPE tokenization, transformer self-attention, and softmax sampling by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "TCP packet reassembly, DNS resolution, and TLS handshake."
+            "Base64 encoding, AES encryption, and RSA key exchange within defensive input tokenization pipelines",
+            "BPE tokenization, transformer self-attention, and softmax sampling",
+            "Unicode NFKC normalization, non-printable control character stripping, and structural delimiter neutralization",
+            "TCP packet reassembly, DNS resolution, and TLS handshake"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Unicode NFKC normalization, non-printable control character stripping, and structural delimiter neutralization' is correct: in input firewall architecture — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8824,14 +8645,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational action is taken when an incoming request receives a threat score at or above 0.70?",
           "options": [
-            "The request is dropped immediately at the firewall boundary to protect downstream model clusters.",
-            "The request is automatically routed to an unconstrained root admin shell across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "The model switches to INT4 quantization to accelerate inference speed.",
-            "The user is awarded promotional platform credits."
+            "The request is automatically routed to an unconstrained root admin shell across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "The model switches to INT4 quantization to accelerate inference speed",
+            "The user is awarded promotional platform credits",
+            "The request is dropped immediately at the firewall boundary to protect downstream model clusters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'The request is dropped immediately at the firewall boundary to protect downstream model clusters' is correct: in input firewall architecture — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8869,14 +8690,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does DefenseEngineM7 inspect both user messages and external data payloads?",
           "options": [
-            "Because language models require duplicate inputs to perform consistency checks.",
-            "Because the Python runtime requires equal numbers of user and system tokens.",
-            "Because external data payloads cannot be stored in database tables without encryption through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Because prompt injection attacks can originate directly from users or indirectly via third-party retrieved data."
+            "Because prompt injection attacks can originate directly from users or indirectly via third-party retrieved data",
+            "Because language models require duplicate inputs to perform consistency checks",
+            "Because the Python runtime requires equal numbers of user and system tokens",
+            "Because external data payloads cannot be stored in database tables without encryption"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Because prompt injection attacks can originate directly from users or indirectly via third-party retrieved data' is correct: in input firewall architecture — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -8914,14 +8735,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a sudden surge in firewall drop rate above 25% typically indicate to SRE teams?",
           "options": [
-            "A hardware failure in the GPU liquid cooling system.",
-            "A successful completion of the quarterly database backup cycle.",
-            "That all platform users have transitioned to multi-factor authentication across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "An ongoing large-scale adversarial attack or an errant deployment of an overly aggressive filter rule."
+            "A hardware failure in the GPU liquid cooling system",
+            "An ongoing large-scale adversarial attack or an errant deployment of an overly aggressive filter rule",
+            "A successful completion of the quarterly database backup cycle",
+            "That all platform users have transitioned to multi-factor authentication across cryptographic hash chains and tamper-evident compliance audit ledgers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'An ongoing large-scale adversarial attack or an errant deployment of an overly aggressive filter rule' is correct: in input firewall architecture — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -8980,14 +8801,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deterministic regex scanning used as the first layer in PII detection pipelines?",
           "options": [
-            "Because regular expressions automatically encrypt database tables on disk.",
-            "Because language models cannot parse text that has not been scanned by regex under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "Because it achieves microsecond execution speed and 100% recall on rigidly structured formats like emails and SSNs.",
-            "Because regex scanning reduces the model training time by half."
+            "Because it achieves microsecond execution speed and 100% recall on rigidly structured formats like emails and SSNs",
+            "Because regular expressions automatically encrypt database tables on disk",
+            "Because language models cannot parse text that has not been scanned by regex under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "Because regex scanning reduces the model training time by half"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "PII sanitization detects and redacts sensitive identifying tokens before storing prompts or forwarding requests to external providers."
         }
       },
       {
@@ -9029,14 +8850,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of format-preserving pseudonymization over permanent irreversible redaction?",
           "options": [
-            "It eliminates the need for GPU accelerators during inference.",
-            "It allows the model to maintain conversational reasoning over entity references while enabling post-generation restoration of original PII.",
-            "It reduces the size of the neural network weights on disk.",
-            "It automatically registers the application with GDPR regulatory authorities across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "It eliminates the need for GPU accelerators during inference",
+            "It allows the model to maintain conversational reasoning over entity references while enabling post-generation restoration of original PII",
+            "It reduces the size of the neural network weights on disk evaluated across model inference safety endpoints",
+            "It automatically registers the application with GDPR regulatory authorities"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "PII sanitization detects and redacts sensitive identifying tokens before storing prompts or forwarding requests to external providers."
         }
       },
       {
@@ -9074,14 +8895,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is permanent irreversible redaction preferred over reversible vault pseudonymization?",
           "options": [
-            "When preparing offline training datasets or analytical data lake ingestion where restoring original PII is unnecessary.",
-            "When the model must send personalized SMS notifications to customers.",
-            "When the application requires real-time credit card authorization.",
-            "When the user explicitly requests their account password to be displayed by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "When the model must send personalized SMS notifications to customers",
+            "When the application requires real-time credit card authorization evaluated across model inference safety endpoints",
+            "When preparing offline training datasets or analytical data lake ingestion where restoring original PII is unnecessary",
+            "When the user explicitly requests their account password to be displayed"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "PII sanitization detects and redacts sensitive identifying tokens before storing prompts or forwarding requests to external providers."
         }
       },
       {
@@ -9119,14 +8940,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What hazard can arise if regular expressions used for PII scanning exhibit catastrophic backtracking?",
           "options": [
-            "Adversaries can submit crafted inputs that cause exponential CPU utilization, freezing the application thread in a denial-of-service condition.",
-            "The model weights can become corrupted and lose instruction tuning.",
-            "The operating system can accidentally delete the Python virtual environment across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Network firewalls will permanently ban the server IP address."
+            "The model weights can become corrupted and lose instruction tuning",
+            "The operating system can accidentally delete the Python virtual environment across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Network firewalls will permanently ban the server IP address",
+            "Adversaries can submit crafted inputs that cause exponential CPU utilization, freezing the application thread in a denial-of-service condition"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "PII sanitization detects and redacts sensitive identifying tokens before storing prompts or forwarding requests to external providers."
         }
       },
       {
@@ -9164,14 +8985,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the post-sanitization PII audit report in enterprise deployments?",
           "options": [
-            "To compress JSON data packets using gzip algorithm.",
-            "To calculate the total monetary cost of the API call in dollars.",
-            "To fine-tune the model parameters on redacted user conversations through automated model parameter checkpoint verification and canary rollback triggers.",
-            "To act as a final verification gate confirming zero residual PII leaks before payloads cross network boundaries."
+            "To act as a final verification gate confirming zero residual PII leaks before payloads cross network boundaries",
+            "To compress JSON data packets using gzip algorithm evaluated across model inference safety endpoints",
+            "To calculate the total monetary cost of the API call in dollars",
+            "To fine-tune the model parameters on redacted user conversations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "PII sanitization detects and redacts sensitive identifying tokens before storing prompts or forwarding requests to external providers."
         }
       }
     ],
@@ -9230,14 +9051,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must output validation gates verify JSON schema compliance before downstream application processing?",
           "options": [
-            "Because GPUs cannot serialize responses without JSON schema validation.",
-            "Because valid JSON reduces the floating-point temperature of autoregressive generation across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "To prevent malformed JSON syntax and missing fields from crashing downstream databases and microservices.",
-            "Because modern web browsers reject HTML pages containing more than three JSON objects."
+            "Because GPUs cannot serialize responses without JSON schema validation",
+            "Because valid JSON reduces the floating-point temperature of autoregressive generation across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "Because modern web browsers reject HTML pages containing more than three JSON objects",
+            "To prevent malformed JSON syntax and missing fields from crashing downstream databases and microservices"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To prevent malformed JSON syntax and missing fields from crashing downstream databases and microservices' is correct: in output schema validation — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9275,14 +9096,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What hazard does domain allowlist filtering prevent in model-generated responses?",
           "options": [
-            "Operating system kernels running out of socket descriptors.",
-            "Models hallucinating fabricated URLs that link to dead ends, squatted domains, or malicious phishing sites.",
-            "Tokenizers producing invalid UTF-8 byte encodings.",
-            "Database storage volumes exceeding provisioned IOPS capacity under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "Models hallucinating fabricated URLs that link to dead ends, squatted domains, or malicious phishing sites",
+            "Operating system kernels running out of socket descriptors",
+            "Tokenizers producing invalid UTF-8 byte encodings",
+            "Database storage volumes exceeding provisioned IOPS capacity under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Models hallucinating fabricated URLs that link to dead ends, squatted domains, or malicious phishing sites' is correct: in output schema validation — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9320,14 +9141,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is deterministic syntax repair preferred over re-prompting the model for minor JSON syntax errors?",
           "options": [
-            "Because re-prompting a model always causes temperature collapse in attention layers.",
-            "Because deterministic repair executes in under a millisecond on CPU, saving hundreds of milliseconds of latency and API costs.",
-            "Because foundation models cannot be prompted more than once per user session.",
-            "Because JSON parsing is an NP-complete problem that requires heuristic approximation across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Because re-prompting a model always causes temperature collapse in attention layers",
+            "Because deterministic repair executes in under a millisecond on CPU, saving hundreds of milliseconds of latency and API costs",
+            "Because foundation models cannot be prompted more than once per user session evaluated across model inference safety endpoints",
+            "Because JSON parsing is an NP-complete problem that requires heuristic approximation"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Because deterministic repair executes in under a millisecond on CPU, saving hundreds of milliseconds of latency and API costs' is correct: in output schema validation — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9365,14 +9186,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security risk does OutputEnforcementGate key allowlisting mitigate?",
           "options": [
-            "Preventing models from leaking internal system prompts, scratchpad variables, or secret keys in output JSON fields.",
-            "Preventing CPU overclocking during high-throughput inference batches by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Stopping network packet loss on gigabit Ethernet switches.",
-            "Preventing SQL injection on client-side React frontend components."
+            "Preventing CPU overclocking during high-throughput inference batches",
+            "Stopping network packet loss on gigabit Ethernet switches",
+            "Preventing models from leaking internal system prompts, scratchpad variables, or secret keys in output JSON fields",
+            "Preventing SQL injection on client-side React frontend components"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Preventing models from leaking internal system prompts, scratchpad variables, or secret keys in output JSON fields' is correct: in output schema validation — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9410,14 +9231,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does verify_citation_integrity() identify hallucinated citations in RAG generated responses?",
           "options": [
-            "By re-running the embedding search over the entire internet in real time across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "By asking the user to manually verify each citation before proceeding.",
-            "By checking whether the document title contains more than five words.",
-            "By extracting citation markers using regex and validating that every cited ID matches a document present in the retrieved context."
+            "By re-running the embedding search over the entire internet in real time across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "By asking the user to manually verify each citation before proceeding",
+            "By checking whether the document title contains more than five words",
+            "By extracting citation markers using regex and validating that every cited ID matches a document present in the retrieved context"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'By extracting citation markers using regex and validating that every cited ID matches a document present in the retrieved context' is correct: in output schema validation — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -9476,14 +9297,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational definition of faithfulness in Retrieval-Augmented Generation (RAG)?",
           "options": [
-            "The model response matches the style and tone of a Shakespearean sonnet.",
-            "The response contains exactly the same number of tokens as the user query.",
-            "Every factual claim asserted in the response is directly supported and entailed by the retrieved source context.",
-            "The generated text is cryptographically signed with an RSA-4096 private key through automated model parameter checkpoint verification and canary rollback triggers."
+            "The model response matches the style and tone of a Shakespearean sonnet",
+            "The response contains exactly the same number of tokens as the user query",
+            "Every factual claim asserted in the response is directly supported and entailed by the retrieved source context",
+            "The generated text is cryptographically signed with an RSA-4096 private key"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'Every factual claim asserted in the response is directly supported and entailed by the retrieved source context' is correct: in faithfulness & groundedness — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9521,14 +9342,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does production faithfulness verification decompose generated responses into atomic claims?",
           "options": [
-            "To convert English text into binary executable machine code.",
-            "To bypass GPU memory limits during token generation.",
-            "To enable granular verification of individual propositions, pinpointing exact hallucinations for surgical remediation.",
-            "Because language models cannot generate more than one sentence at a time across cryptographic hash chains and tamper-evident compliance audit ledgers."
+            "To convert English text into binary executable machine code",
+            "To bypass GPU memory limits during token generation",
+            "Because language models cannot generate more than one sentence at a time across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "To enable granular verification of individual propositions, pinpointing exact hallucinations for surgical remediation"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To enable granular verification of individual propositions, pinpointing exact hallucinations for surgical remediation' is correct: in faithfulness & groundedness — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9566,14 +9387,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What threshold setting would an enterprise safety architect choose for high-risk medical or legal RAG applications?",
           "options": [
-            "A zero threshold to disable all verification checks.",
-            "A high threshold (0.80 or greater) demanding strict lexical support to prevent dangerous factual hallucinations.",
-            "A negative threshold to encourage creative model speculation.",
-            "A floating-point NaN threshold to trigger hardware interrupts under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "A high threshold (0.80 or greater) demanding strict lexical support to prevent dangerous factual hallucinations",
+            "A zero threshold to disable all verification checks",
+            "A negative threshold to encourage creative model speculation",
+            "A floating-point NaN threshold to trigger hardware interrupts under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'A high threshold (0.80 or greater) demanding strict lexical support to prevent dangerous factual hallucinations' is correct: in faithfulness & groundedness — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9611,14 +9432,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Natural Language Inference (NLI) superior to simple keyword overlap for factual verification?",
           "options": [
-            "Because NLI understands semantic logic and negation, identifying when sentences with identical words directly contradict each other.",
-            "Because NLI models run ten times faster than simple string comparisons.",
-            "Because NLI requires zero memory to execute on CPU hardware.",
-            "Because NLI automatically translates model output into five European languages across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Because NLI models run ten times faster than simple string comparisons",
+            "Because NLI understands semantic logic and negation, identifying when sentences with identical words directly contradict each other",
+            "Because NLI requires zero memory to execute on CPU hardware",
+            "Because NLI automatically translates model output into five European languages"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because NLI understands semantic logic and negation, identifying when sentences with identical words directly contradict each other' is correct: in faithfulness & groundedness — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9656,14 +9477,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What automated fallback action should a RAG system take when document faithfulness falls below acceptable thresholds?",
           "options": [
-            "Immediately format the hard drive of the inference server.",
-            "Increase the model generation temperature to 2.0 to generate new facts.",
-            "Forward the unverified response directly to executive leadership without warning by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Retry the retrieval step with query expansion or present a calibrated refusal to the user rather than delivering hallucinations."
+            "Immediately format the hard drive of the inference server evaluated across model inference safety endpoints",
+            "Increase the model generation temperature to 2.0 to generate new facts",
+            "Retry the retrieval step with query expansion or present a calibrated refusal to the user rather than delivering hallucinations",
+            "Forward the unverified response directly to executive leadership without warning"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Retry the retrieval step with query expansion or present a calibrated refusal to the user rather than delivering hallucinations' is correct: in faithfulness & groundedness — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -9722,14 +9543,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary cause of over-refusal in foundation language models?",
           "options": [
-            "GPU memory fragmentation during the forward attention pass.",
-            "Tokenizer models omitting punctuation marks from English prompts across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Database network timeouts during user authentication.",
-            "Naive keyword filters triggering blanket refusals on benign educational queries that happen to contain sensitive terms."
+            "GPU memory fragmentation during the forward attention pass",
+            "Naive keyword filters triggering blanket refusals on benign educational queries that happen to contain sensitive terms",
+            "Tokenizer models omitting punctuation marks from English prompts across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Database network timeouts during user authentication"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Naive keyword filters triggering blanket refusals on benign educational queries that happen to contain sensitive terms' is correct: in calibrated refusal — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9767,14 +9588,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the over-refusal rate calculated in model alignment auditing?",
           "options": [
-            "By dividing total generated tokens by the prompt token length.",
-            "By measuring the CPU thermal throttling frequency during inference.",
-            "By calculating the percentage of benign sensitive benchmark queries that are erroneously rejected by the refusal classifier.",
-            "By counting the number of open socket connections on the gateway proxy through automated model parameter checkpoint verification and canary rollback triggers."
+            "By dividing total generated tokens by the prompt token length evaluated across model inference safety endpoints",
+            "By measuring the CPU thermal throttling frequency during inference",
+            "By calculating the percentage of benign sensitive benchmark queries that are erroneously rejected by the refusal classifier",
+            "By counting the number of open socket connections on the gateway proxy"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'By calculating the percentage of benign sensitive benchmark queries that are erroneously rejected by the refusal classifier' is correct: in calibrated refusal — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9812,14 +9633,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does ContextualRefusalClassifier prevent false refusals on historical or scientific research queries?",
           "options": [
-            "By disabling all safety rules for users with valid email addresses.",
-            "By subtracting risk credits when educational keywords are present, ensuring legitimate inquiries are fulfilled.",
-            "By routing all queries to an unrestricted third-party search engine across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "By converting all text queries into numerical embedding vectors."
+            "By disabling all safety rules for users with valid email addresses",
+            "By routing all queries to an unrestricted third-party search engine across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "By converting all text queries into numerical embedding vectors",
+            "By subtracting risk credits when educational keywords are present, ensuring legitimate inquiries are fulfilled"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By subtracting risk credits when educational keywords are present, ensuring legitimate inquiries are fulfilled' is correct: in calibrated refusal — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9857,14 +9678,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the recommended tone and structure for model refusal responses?",
           "options": [
-            "Objective, transparent, and non-judgmental, stating the restriction clearly while offering safe constructive alternatives.",
-            "Aggressive and accusatory, threatening to report the user to law enforcement under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "Vague and evasive, pretending the model encountered a technical server error.",
-            "Completely silent, dropping the connection without returning any response."
+            "Objective, transparent, and non-judgmental, stating the restriction clearly while offering safe constructive alternatives",
+            "Aggressive and accusatory, threatening to report the user to law enforcement under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "Vague and evasive, pretending the model encountered a technical server error",
+            "Completely silent, dropping the connection without returning any response"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Objective, transparent, and non-judgmental, stating the restriction clearly while offering safe constructive alternatives' is correct: in calibrated refusal — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -9902,14 +9723,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a user appeal rate above 5% on model refusals typically signal to AI platform teams?",
           "options": [
-            "That safety filters are excessively aggressive and frequently rejecting benign user requests erroneously.",
-            "That the database cluster has run out of disk space.",
-            "That users are attempting to execute SQL injection on frontend servers across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "That the model has exceeded its maximum allowable temperature setting."
+            "That the database cluster has run out of disk space across multi-layered AI safety defense perimeters",
+            "That safety filters are excessively aggressive and frequently rejecting benign user requests erroneously",
+            "That users are attempting to execute SQL injection on frontend servers",
+            "That the model has exceeded its maximum allowable temperature setting"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'That safety filters are excessively aggressive and frequently rejecting benign user requests erroneously' is correct: in calibrated refusal — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -9968,14 +9789,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of an egress safety orchestrator in enterprise AI architectures?",
           "options": [
-            "Accelerating model training loss convergence during backpropagation by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Converting Python source code into compiled C++ shared libraries.",
-            "Encrypting hard disk drives on developer laptops.",
-            "Protecting end-users and downstream services from model hallucinations, unmasked PII leaks, and fictitious hyperlinks."
+            "Protecting end-users and downstream services from model hallucinations, unmasked PII leaks, and fictitious hyperlinks",
+            "Accelerating model training loss convergence during backpropagation",
+            "Converting Python source code into compiled C++ shared libraries",
+            "Encrypting hard disk drives on developer laptops"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Protecting end-users and downstream services from model hallucinations, unmasked PII leaks, and fictitious hyperlinks' is correct: in output safety pipeline — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10013,14 +9834,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational advantage does returning the list of unsupported claims provide to upstream orchestrators?",
           "options": [
-            "It automatically clears the GPU memory cache.",
-            "It increases network bandwidth between microservice pods across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "It enables surgical re-generation or removal of only the hallucinated sentences, preserving verified content.",
-            "It registers the model output with the copyright office."
+            "It automatically clears the GPU memory cache",
+            "It enables surgical re-generation or removal of only the hallucinated sentences, preserving verified content",
+            "It increases network bandwidth between microservice pods across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "It registers the model output with the copyright office"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It enables surgical re-generation or removal of only the hallucinated sentences, preserving verified content' is correct: in output safety pipeline — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10058,14 +9879,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is strict data type validation necessary in addition to checking JSON key presence?",
           "options": [
-            "Because language models cannot generate numbers without type validation.",
-            "To prevent type mismatch exceptions (such as string vs integer) from crashing downstream microservices.",
-            "Because Python dictionaries cannot store strings longer than eight characters through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Because network routers drop packets that contain unvalidated data types."
+            "Because language models cannot generate numbers without type validation evaluated across model inference safety endpoints",
+            "Because Python dictionaries cannot store strings longer than eight characters",
+            "To prevent type mismatch exceptions (such as string vs integer) from crashing downstream microservices",
+            "Because network routers drop packets that contain unvalidated data types"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To prevent type mismatch exceptions (such as string vs integer) from crashing downstream microservices' is correct: in output safety pipeline — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10103,14 +9924,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational failure does a minimum length boundary check prevent in model outputs?",
           "options": [
-            "GPU memory leakage during backpropagation across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "Models returning empty, truncated, or degenerate responses that fail to answer the user query.",
-            "Operating system page table corruption.",
-            "Hard drive mechanical head crashes."
+            "GPU memory leakage during backpropagation across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "Operating system page table corruption",
+            "Hard drive mechanical head crashes",
+            "Models returning empty, truncated, or degenerate responses that fail to answer the user query"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Models returning empty, truncated, or degenerate responses that fail to answer the user query' is correct: in output safety pipeline — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10148,14 +9969,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What criteria are required for an AI response to receive a CERTIFIED_SAFE audit badge in Milestone 8?",
           "options": [
-            "At least 90% groundedness, zero PII leaks, and strict JSON schema validity.",
-            "Zero total tokens generated and negative latency.",
-            "The model must be running on an unquantized FP64 cluster.",
-            "The response must be approved by three human managers in real time under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "At least 90% groundedness, zero PII leaks, and strict JSON schema validity",
+            "Zero total tokens generated and negative latency",
+            "The model must be running on an unquantized FP64 cluster",
+            "The response must be approved by three human managers in real time under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'At least 90% groundedness, zero PII leaks, and strict JSON schema validity' is correct: in output safety pipeline — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -10214,14 +10035,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the context of AI safety firewalls, what does a False Negative represent?",
           "options": [
-            "A benign user query that was erroneously blocked by the firewall across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "A successful database backup operation.",
-            "A network packet that was delayed due to internet traffic.",
-            "An adversarial attack that slipped past the safety classifier undetected."
+            "A benign user query that was erroneously blocked by the firewall",
+            "A successful database backup operation",
+            "A network packet that was delayed due to internet traffic",
+            "An adversarial attack that slipped past the safety classifier undetected"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'An adversarial attack that slipped past the safety classifier undetected' is correct: in classifier calibration — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10259,14 +10080,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical relationship characterizes the tension between precision and recall?",
           "options": [
-            "Precision and recall are always mathematically equal in binary classifiers.",
-            "Increasing precision automatically increases recall by the square root of the dataset size by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Lowering the classification threshold increases recall (catching more attacks) but decreases precision (increasing false alarms).",
-            "Precision measures CPU usage while recall measures GPU memory consumption."
+            "Lowering the classification threshold increases recall (catching more attacks) but decreases precision (increasing false alarms)",
+            "Precision and recall are always mathematically equal in binary classifiers",
+            "Increasing precision automatically increases recall by the square root of the dataset size",
+            "Precision measures CPU usage while recall measures GPU memory consumption evaluated across model inference safety endpoints"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Lowering the classification threshold increases recall (catching more attacks) but decreases precision (increasing false alarms)' is correct: in classifier calibration — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10304,14 +10125,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do security architects use F2 (beta=2.0) rather than standard F1 in high-risk safety classifiers?",
           "options": [
-            "Because F2 calculates faster on multi-core CPU processors.",
-            "Because F2 eliminates the need for training labels.",
-            "Because F2 places higher weight on recall, prioritizing intercepting dangerous attacks over avoiding false alarms.",
-            "Because F2 converts floating point probabilities into integer percentages across multi-tenant vector similarity stores and asynchronous security audit queues."
+            "Because F2 calculates faster on multi-core CPU processors",
+            "Because F2 places higher weight on recall, prioritizing intercepting dangerous attacks over avoiding false alarms",
+            "Because F2 eliminates the need for training labels",
+            "Because F2 converts floating point probabilities into integer percentages across multi-tenant vector similarity stores and asynchronous security audit queues"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because F2 places higher weight on recall, prioritizing intercepting dangerous attacks over avoiding false alarms' is correct: in classifier calibration — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10349,14 +10170,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the cost of a False Negative typically set 10x to 100x higher than a False Positive in AI safety?",
           "options": [
-            "Because False Negatives consume more RAM than False Positives.",
-            "Because leaking an adversarial exploit causes severe regulatory, financial, and security harm compared to a minor false alarm.",
-            "Because False Positives automatically fix themselves over time.",
-            "Because cloud providers charge 100x more for HTTP 200 responses than HTTP 400 responses through automated model parameter checkpoint verification and canary rollback triggers."
+            "Because False Negatives consume more RAM than False Positives",
+            "Because False Positives automatically fix themselves over time",
+            "Because leaking an adversarial exploit causes severe regulatory, financial, and security harm compared to a minor false alarm",
+            "Because cloud providers charge 100x more for HTTP 200 responses than HTTP 400 responses"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Because leaking an adversarial exploit causes severe regulatory, financial, and security harm compared to a minor false alarm' is correct: in classifier calibration — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10394,14 +10215,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does optimal_threshold_picker() select the production operating threshold?",
           "options": [
-            "By selecting the threshold that minimizes the total cost-weighted financial and operational error loss.",
-            "By choosing the threshold closest to 0.50 regardless of error distribution.",
-            "By picking a random number between 0.1 and 0.9 each hour.",
-            "By selecting whichever threshold requires the least amount of CPU time to compute across cryptographic hash chains and tamper-evident compliance audit ledgers."
+            "By choosing the threshold closest to 0.50 regardless of error distribution",
+            "By picking a random number between 0.1 and 0.9 each hour",
+            "By selecting whichever threshold requires the least amount of CPU time to compute across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "By selecting the threshold that minimizes the total cost-weighted financial and operational error loss"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By selecting the threshold that minimizes the total cost-weighted financial and operational error loss' is correct: in classifier calibration — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -10460,14 +10281,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a high predictive entropy value indicate about a model's output probability distribution?",
           "options": [
-            "The model is 100% confident in the first predicted class under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "The GPU has run out of memory during token generation.",
-            "The model weights have been encrypted with a private key.",
-            "The model is uncertain, with probability mass spread diffusely across multiple candidate classes."
+            "The model is 100% confident in the first predicted class under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "The GPU has run out of memory during token generation",
+            "The model is uncertain, with probability mass spread diffusely across multiple candidate classes",
+            "The model weights have been encrypted with a private key"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The model is uncertain, with probability mass spread diffusely across multiple candidate classes' is correct: in selective prediction — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10505,14 +10326,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a margin confidence value near zero indicate?",
           "options": [
-            "Absolute model certainty in the correct answer.",
-            "That the model generated exactly zero tokens.",
-            "That the underlying dataset contains zero training examples across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "A near-tie between the top two candidate classes, indicating high model indecision."
+            "Absolute model certainty in the correct answer",
+            "That the model generated exactly zero tokens evaluated across model inference safety endpoints",
+            "That the underlying dataset contains zero training examples",
+            "A near-tie between the top two candidate classes, indicating high model indecision"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'A near-tie between the top two candidate classes, indicating high model indecision' is correct: in selective prediction — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10550,14 +10371,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition does SelectivePredictionGate output an ABSTAIN verdict?",
           "options": [
-            "If the user submits a prompt containing more than ten words.",
-            "If the model inference takes longer than five seconds to complete.",
-            "If predictive entropy exceeds the configured maximum ceiling or margin confidence falls below the minimum floor.",
-            "If the network router drops more than two packets during transmission by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "If predictive entropy exceeds the configured maximum ceiling or margin confidence falls below the minimum floor",
+            "If the user submits a prompt containing more than ten words evaluated across model inference safety endpoints",
+            "If the model inference takes longer than five seconds to complete",
+            "If the network router drops more than two packets during transmission"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'If predictive entropy exceeds the configured maximum ceiling or margin confidence falls below the minimum floor' is correct: in selective prediction — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10595,14 +10416,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of substituting a transparent escalation notice when a model is uncertain?",
           "options": [
-            "It reduces internet service provider bandwidth fees.",
-            "It prevents users from acting on dangerous hallucinations while maintaining trust and enabling human expert review.",
-            "It increases the model's vocabulary size.",
-            "It automatically clears browser cookies on client devices across multi-tenant vector similarity stores and asynchronous security audit queues."
+            "It reduces internet service provider bandwidth fees",
+            "It prevents users from acting on dangerous hallucinations while maintaining trust and enabling human expert review",
+            "It increases the model's vocabulary size",
+            "It automatically clears browser cookies on client devices across multi-tenant vector similarity stores and asynchronous security audit queues"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'It prevents users from acting on dangerous hallucinations while maintaining trust and enabling human expert review' is correct: in selective prediction — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10641,14 +10462,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What trade-off occurs when an AI system increases its selective prediction confidence threshold?",
           "options": [
-            "Coverage decreases (answering fewer total queries), but selective accuracy increases on the answered subset.",
-            "Coverage increases to 100% while accuracy drops to zero.",
-            "Model training cost increases exponentially with every query.",
-            "The neural network automatically switches from GPU to TPU acceleration through automated model parameter checkpoint verification and canary rollback triggers."
+            "Coverage increases to 100% while accuracy drops to zero evaluated across model inference safety endpoints",
+            "Model training cost increases exponentially with every query",
+            "Coverage decreases (answering fewer total queries), but selective accuracy increases on the answered subset",
+            "The neural network automatically switches from GPU to TPU acceleration"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Coverage decreases (answering fewer total queries), but selective accuracy increases on the answered subset' is correct: in selective prediction — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -10707,14 +10528,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What effect does setting temperature T > 1.0 have on model softmax output probabilities?",
           "options": [
-            "It softens the probability distribution, pulling overconfident peak probabilities back toward a smoother distribution.",
-            "It alters the predicted class ranking and reverses model predictions across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "It converts all output probabilities into negative integers.",
-            "It disables the GPU tensor cores during inference."
+            "It alters the predicted class ranking and reverses model predictions across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "It softens the probability distribution, pulling overconfident peak probabilities back toward a smoother distribution",
+            "It converts all output probabilities into negative integers",
+            "It disables the GPU tensor cores during inference"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It softens the probability distribution, pulling overconfident peak probabilities back toward a smoother distribution' is correct: in ece & temperature scaling — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10752,14 +10573,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the calibration gap of a specific confidence bin defined?",
           "options": [
-            "The total number of samples divided by the CPU clock frequency.",
-            "The difference between the largest and smallest floating point numbers in Python under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "The ratio of GPU memory allocated to model weights versus activations.",
-            "The absolute difference between the average predicted confidence of the bin and the observed empirical accuracy of its samples."
+            "The total number of samples divided by the CPU clock frequency",
+            "The difference between the largest and smallest floating point numbers in Python under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "The absolute difference between the average predicted confidence of the bin and the observed empirical accuracy of its samples",
+            "The ratio of GPU memory allocated to model weights versus activations"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'The absolute difference between the average predicted confidence of the bin and the observed empirical accuracy of its samples' is correct: in ece & temperature scaling — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10797,14 +10618,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an Expected Calibration Error (ECE) of 0.04 indicate about a machine learning model?",
           "options": [
-            "The model makes errors on 96% of incoming requests.",
-            "The model inference latency is 40 milliseconds.",
-            "The model is well-calibrated, with predicted confidence deviating from empirical accuracy by an average of only 4%.",
-            "The model has experienced catastrophic forgetting during fine-tuning across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "The model makes errors on 96% of incoming requests",
+            "The model inference latency is 40 milliseconds evaluated across model inference safety endpoints",
+            "The model has experienced catastrophic forgetting during fine-tuning",
+            "The model is well-calibrated, with predicted confidence deviating from empirical accuracy by an average of only 4%"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'The model is well-calibrated, with predicted confidence deviating from empirical accuracy by an average of only 4%' is correct: in ece & temperature scaling — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10842,14 +10663,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is temperature scaling guaranteed to preserve the model's original classification accuracy?",
           "options": [
-            "Because temperature scaling is implemented in assembly language.",
-            "Because dividing all logits by a single positive constant preserves their monotonic order, leaving the argmax class unchanged.",
-            "Because it freezes all neural network weights in read-only memory.",
-            "Because it only runs on validation datasets that have 100% accuracy by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "Because dividing all logits by a single positive constant preserves their monotonic order, leaving the argmax class unchanged",
+            "Because temperature scaling is implemented in assembly language",
+            "Because it freezes all neural network weights in read-only memory",
+            "Because it only runs on validation datasets that have 100% accuracy"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Because dividing all logits by a single positive constant preserves their monotonic order, leaving the argmax class unchanged' is correct: in ece & temperature scaling — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10887,14 +10708,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational action should be taken if a production model's ECE exceeds 0.10?",
           "options": [
-            "Immediately delete all model checkpoints from cloud storage across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Flag probabilities as unreliable and disable automated confidence-based gates until temperature re-calibration is executed.",
-            "Increase server RAM allocation by 500 gigabytes.",
-            "Convert all application database tables to CSV format."
+            "Immediately delete all model checkpoints from cloud storage across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Flag probabilities as unreliable and disable automated confidence-based gates until temperature re-calibration is executed",
+            "Increase server RAM allocation by 500 gigabytes",
+            "Convert all application database tables to CSV format"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Flag probabilities as unreliable and disable automated confidence-based gates until temperature re-calibration is executed' is correct: in ece & temperature scaling — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -10953,14 +10774,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is tool name allowlisting a mandatory prerequisite for autonomous AI agents?",
           "options": [
-            "To prevent prompt injection from tricking the agent into executing arbitrary system commands or unauthorized tools.",
-            "Because Python cannot import more than three modules simultaneously through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Because modern GPUs do not support tool calling in 16-bit precision.",
-            "To reduce internet bandwidth consumption on local Wi-Fi networks."
+            "To prevent prompt injection from tricking the agent into executing arbitrary system commands or unauthorized tools",
+            "Because Python cannot import more than three modules simultaneously",
+            "Because modern GPUs do not support tool calling in 16-bit precision",
+            "To reduce internet bandwidth consumption on local Wi-Fi networks"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'To prevent prompt injection from tricking the agent into executing arbitrary system commands or unauthorized tools' is correct: in safe tool sandboxes — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -10998,14 +10819,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security vulnerability does detect_path_traversal() eliminate in file-handling tools?",
           "options": [
-            "Network packet sniffing on local loopback adapters.",
-            "Compiler buffer overflow in Python integer arithmetic.",
-            "Accidental deletion of CSS stylesheets in web applications across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "Adversaries supplying parent directory traversal sequences ('..') to escape sandboxes and read sensitive host files."
+            "Network packet sniffing on local loopback adapters",
+            "Adversaries supplying parent directory traversal sequences ('..') to escape sandboxes and read sensitive host files",
+            "Compiler buffer overflow in Python integer arithmetic",
+            "Accidental deletion of CSS stylesheets in web applications across cryptographic hash chains and tamper-evident compliance audit ledgers"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Adversaries supplying parent directory traversal sequences ('..') to escape sandboxes and read sensitive host files' is correct: in safe tool sandboxes — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11043,14 +10864,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does strict argument type validation protect underlying tool functions from exploitation?",
           "options": [
-            "By converting all numerical values into hexadecimal strings under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "By encrypting tool inputs with public key cryptography.",
-            "By verifying that all arguments match expected types before invocation, preventing injection attacks and runtime crashes.",
-            "By running tool functions on remote quantum computers."
+            "By converting all numerical values into hexadecimal strings under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "By encrypting tool inputs with public key cryptography",
+            "By verifying that all arguments match expected types before invocation, preventing injection attacks and runtime crashes",
+            "By running tool functions on remote quantum computers"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'By verifying that all arguments match expected types before invocation, preventing injection attacks and runtime crashes' is correct: in safe tool sandboxes — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11088,14 +10909,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of dry-run execution modes for autonomous agents?",
           "options": [
-            "They reduce the electricity consumption of the GPU inference cluster across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "They allow models to execute tools without an internet connection.",
-            "They allow the agent and user to preview the simulated side-effects of actions without committing irreversible changes.",
-            "They automatically increase the model context window by 50%."
+            "They reduce the electricity consumption of the GPU inference cluster",
+            "They allow models to execute tools without an internet connection",
+            "They automatically increase the model context window by 50%",
+            "They allow the agent and user to preview the simulated side-effects of actions without committing irreversible changes"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'They allow the agent and user to preview the simulated side-effects of actions without committing irreversible changes' is correct: in safe tool sandboxes — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11133,14 +10954,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What information does ZeroTrustToolSandbox record in its internal audit log?",
           "options": [
-            "The personal browsing history of the system administrator.",
-            "The tool name, arguments, timestamp, and authorization outcome for every invocation attempt.",
-            "The binary compiled machine code of the Python interpreter by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "The temperature and humidity of the server room."
+            "The tool name, arguments, timestamp, and authorization outcome for every invocation attempt",
+            "The personal browsing history of the system administrator",
+            "The binary compiled machine code of the Python interpreter",
+            "The temperature and humidity of the server room evaluated across model inference safety endpoints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'The tool name, arguments, timestamp, and authorization outcome for every invocation attempt' is correct: in safe tool sandboxes — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -11199,14 +11020,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does CalibratedUncertaintyGate check system ECE in addition to instantaneous prediction confidence?",
           "options": [
-            "Because if the model is miscalibrated, its high confidence score is unreliable and cannot be trusted to authorize tool execution.",
-            "Because ECE measures the internet connection speed between microservices.",
-            "Because checking ECE reduces the GPU temperature during heavy compute loads.",
-            "Because modern databases reject queries when ECE is not included in the payload across multi-tenant vector similarity stores and asynchronous security audit queues."
+            "Because ECE measures the internet connection speed between microservices",
+            "Because checking ECE reduces the GPU temperature during heavy compute loads",
+            "Because modern databases reject queries when ECE is not included in the payload across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Because if the model is miscalibrated, its high confidence score is unreliable and cannot be trusted to authorize tool execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Because if the model is miscalibrated, its high confidence score is unreliable and cannot be trusted to authorize tool execution' is correct: in uncertainty-gated execution — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11244,14 +11065,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What attack vector does sanitize_tool_arguments() eliminate by stripping semicolons and pipe characters?",
           "options": [
-            "Cross-site scripting attacks in client-side mobile webviews through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Memory bus bandwidth saturation on the motherboard.",
-            "Hard drive fragmentation on remote network storage volumes.",
-            "Command injection attacks attempting to execute arbitrary secondary commands in underlying shell environments."
+            "Command injection attacks attempting to execute arbitrary secondary commands in underlying shell environments",
+            "Cross-site scripting attacks in client-side mobile webviews",
+            "Memory bus bandwidth saturation on the motherboard across multi-layered AI safety defense perimeters",
+            "Hard drive fragmentation on remote network storage volumes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Command injection attacks attempting to execute arbitrary secondary commands in underlying shell environments' is correct: in uncertainty-gated execution — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11289,14 +11110,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What condition must be met for ZeroTrustExecutionEnclave to grant execution authorization?",
           "options": [
-            "The user must provide an administrator root password for every tool call across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "The tool must be written in assembly language.",
-            "The server must be rebooted prior to each invocation.",
-            "The action must be mathematically certified by the uncertainty gate and free of directory traversal sequences."
+            "The user must provide an administrator root password for every tool call across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "The action must be mathematically certified by the uncertainty gate and free of directory traversal sequences",
+            "The tool must be written in assembly language",
+            "The server must be rebooted prior to each invocation"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The action must be mathematically certified by the uncertainty gate and free of directory traversal sequences' is correct: in uncertainty-gated execution — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11334,14 +11155,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a drop in the sandbox containment rate indicate to SRE security teams?",
           "options": [
-            "That the server power supply has failed.",
-            "That the database backup completed successfully under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "That an agent is attempting to invoke unapproved system-level tools, signaling a potential prompt injection compromise.",
-            "That users have logged out of their accounts."
+            "That the server power supply has failed",
+            "That the database backup completed successfully under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "That an agent is attempting to invoke unapproved system-level tools, signaling a potential prompt injection compromise",
+            "That users have logged out of their accounts"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'That an agent is attempting to invoke unapproved system-level tools, signaling a potential prompt injection compromise' is correct: in uncertainty-gated execution — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11380,14 +11201,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary compliance role of the cryptographic receipt generated in Milestone 9?",
           "options": [
-            "Compressing the tool output to save bandwidth.",
-            "Providing non-repudiable mathematical proof that tool execution was authorized under valid calibration conditions.",
-            "Allowing the user to reverse the database transaction at any time across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "Encrypting the user's credit card number on client devices."
+            "Compressing the tool output to save bandwidth evaluated across model inference safety endpoints",
+            "Allowing the user to reverse the database transaction at any time",
+            "Encrypting the user's credit card number on client devices",
+            "Providing non-repudiable mathematical proof that tool execution was authorized under valid calibration conditions"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Providing non-repudiable mathematical proof that tool execution was authorized under valid calibration conditions' is correct: in uncertainty-gated execution — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -11446,14 +11267,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What factors are evaluated in quantitative blast-radius scoring for AI agent actions?",
           "options": [
-            "Target resource criticality, volume of affected data records, and whether the action involves financial transactions.",
-            "The physical weight of the server chassis in kilograms.",
-            "The number of characters in the user's first name.",
-            "The monitor resolution of the operator's display screen by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "The physical weight of the server chassis in kilograms",
+            "The number of characters in the user's first name",
+            "Target resource criticality, volume of affected data records, and whether the action involves financial transactions",
+            "The monitor resolution of the operator's display screen"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Target resource criticality, volume of affected data records, and whether the action involves financial transactions' is correct: in hitl escalation workflows — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11491,14 +11312,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are approval tokens minted using cryptographic random generators (secrets module) rather than sequential IDs?",
           "options": [
-            "To prevent adversaries from guessing or forging approval tokens to authorize unauthorized high-consequence actions.",
-            "Because sequential IDs consume more CPU cache memory.",
-            "Because Python integers cannot be stored in JSON files.",
-            "Because cryptographic tokens automatically encrypt database backups across multi-tenant vector similarity stores and asynchronous security audit queues."
+            "Because sequential IDs consume more CPU cache memory",
+            "Because Python integers cannot be stored in JSON files",
+            "Because cryptographic tokens automatically encrypt database backups across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "To prevent adversaries from guessing or forging approval tokens to authorize unauthorized high-consequence actions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'To prevent adversaries from guessing or forging approval tokens to authorize unauthorized high-consequence actions' is correct: in hitl escalation workflows — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11536,14 +11357,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What level of authorization is required for an action receiving a Tier 1 escalation (blast radius >= 7.5)?",
           "options": [
-            "Automatic approval without any human notification through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Immediate termination of all server processes.",
-            "A single click from any anonymous website visitor.",
-            "Dual-Key Executive Authorization from two designated senior security leads before execution can proceed."
+            "Dual-Key Executive Authorization from two designated senior security leads before execution can proceed",
+            "Automatic approval without any human notification",
+            "Immediate termination of all server processes evaluated across model inference safety endpoints",
+            "A single click from any anonymous website visitor"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Dual-Key Executive Authorization from two designated senior security leads before execution can proceed' is correct: in hitl escalation workflows — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11581,14 +11402,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational problem arises if the auto-approval ceiling is set too conservatively (too low)?",
           "options": [
-            "The neural network weights become uncalibrated.",
-            "The server cooling fans consume excess electrical power across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "Operator queue congestion, where human reviewers are overwhelmed with benign tasks, causing severe workflow delays.",
-            "The database permanently locks all user accounts."
+            "The neural network weights become uncalibrated",
+            "Operator queue congestion, where human reviewers are overwhelmed with benign tasks, causing severe workflow delays",
+            "The server cooling fans consume excess electrical power across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "The database permanently locks all user accounts"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Operator queue congestion, where human reviewers are overwhelmed with benign tasks, causing severe workflow delays' is correct: in hitl escalation workflows — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11627,14 +11448,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary compliance purpose of tracking Human-in-the-Loop SLA metrics in enterprise AI deployments?",
           "options": [
-            "To determine the price of GPU cloud instances on public spot markets.",
-            "To ensure human operators resolve escalated actions within mandated timeframes while verifying oversight of autonomous operations.",
-            "To automatically generate marketing press releases about AI safety.",
-            "To calculate the total number of lines of Python code written each week under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "To determine the price of GPU cloud instances on public spot markets",
+            "To automatically generate marketing press releases about AI safety",
+            "To ensure human operators resolve escalated actions within mandated timeframes while verifying oversight of autonomous operations",
+            "To calculate the total number of lines of Python code written each week under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To ensure human operators resolve escalated actions within mandated timeframes while verifying oversight of autonomous operations' is correct: in hitl escalation workflows — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -11693,14 +11514,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do adversaries use Base64 encoding mutations in prompt injection attacks?",
           "options": [
-            "To increase the speed of internet transmission over copper cables.",
-            "To disguise forbidden keyword signatures from naive string filters while allowing the model to decode and execute the payload.",
-            "Because Base64 reduces the memory footprint of transformer attention weights across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "Because language models cannot generate text without Base64 encoding."
+            "To increase the speed of internet transmission over copper cables",
+            "To disguise forbidden keyword signatures from naive string filters while allowing the model to decode and execute the payload",
+            "Because Base64 reduces the memory footprint of transformer attention weights",
+            "Because language models cannot generate text without Base64 encoding"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Prompt injection attempts to override system instruction hierarchies, requiring input delimiters and sanitization layers."
         }
       },
       {
@@ -11738,14 +11559,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What property of the ROT13 cipher makes it popular in adversarial jailbreak research?",
           "options": [
-            "It is symmetric and easily decoded by instruction-tuned models while completely evading simple keyword string matches.",
-            "It is an unbreakable military-grade cryptographic algorithm.",
-            "It automatically runs on GPU tensor cores without CPU intervention by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "It prevents the model from generating whitespace tokens."
+            "It is an unbreakable military-grade cryptographic algorithm",
+            "It automatically runs on GPU tensor cores without CPU intervention",
+            "It is symmetric and easily decoded by instruction-tuned models while completely evading simple keyword string matches",
+            "It prevents the model from generating whitespace tokens evaluated across model inference safety endpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "Jailbreak prompts use adversarial roleplay or hypothetical framing to bypass alignment constraints, requiring semantic classification."
         }
       },
       {
@@ -11783,14 +11604,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the typical enterprise target for Attack Success Rate (ASR) on production safety benchmarks?",
           "options": [
-            "Exactly 50% to ensure equal representation.",
-            "100% to maximize model creative freedom.",
-            "Negative 10% to account for quantum uncertainty across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "At or below 1.0% across all standardized adversarial attack suites."
+            "Exactly 50% to ensure equal representation",
+            "100% to maximize model creative freedom",
+            "Negative 10% to account for quantum uncertainty across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "At or below 1.0% across all standardized adversarial attack suites"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'At or below 1.0% across all standardized adversarial attack suites' is correct: in adversarial red-teaming — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11828,14 +11649,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do automated red-team harnesses generate multiple mutation variants from a single seed exploit?",
           "options": [
-            "To fill up unused hard drive space on test servers.",
-            "Because language models require at least three prompts to initialize their attention cache through automated model parameter checkpoint verification and canary rollback triggers.",
-            "To simulate diverse adversarial techniques (framing, roleplay, encoding) and expose latent guardrail blind spots.",
-            "To stress-test the physical keyboard hardware."
+            "To simulate diverse adversarial techniques (framing, roleplay, encoding) and expose latent guardrail blind spots",
+            "To fill up unused hard drive space on test servers",
+            "Because language models require at least three prompts to initialize their attention cache",
+            "To stress-test the physical keyboard hardware"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To simulate diverse adversarial techniques (framing, roleplay, encoding) and expose latent guardrail blind spots' is correct: in adversarial red-teaming — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11873,14 +11694,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational consequence occurs if a candidate model release exhibits an ASR exceeding 1.0%?",
           "options": [
-            "The model is awarded an enterprise security excellence award across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "The server CPU clock speed is doubled to compensate.",
-            "The CI/CD deployment pipeline halts immediately, blocking the candidate release from production rollout.",
-            "All user database tables are converted to read-only mode."
+            "The model is awarded an enterprise security excellence award across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "The CI/CD deployment pipeline halts immediately, blocking the candidate release from production rollout",
+            "The server CPU clock speed is doubled to compensate",
+            "All user database tables are converted to read-only mode"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The CI/CD deployment pipeline halts immediately, blocking the candidate release from production rollout' is correct: in adversarial red-teaming — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -11939,14 +11760,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is safety regression testing particularly critical after model fine-tuning or system prompt updates?",
           "options": [
-            "Because fine-tuning changes the network IP address of the server.",
-            "Because fine-tuning can cause catastrophic forgetting of safety alignment, inadvertently reopening previously fixed vulnerabilities.",
-            "Because regression tests speed up the training process by 10x.",
-            "Because modern compilers require regression suites to generate Python bytecode under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "Because fine-tuning can cause catastrophic forgetting of safety alignment, inadvertently reopening previously fixed vulnerabilities",
+            "Because fine-tuning changes the network IP address of the server",
+            "Because regression tests speed up the training process by 10x",
+            "Because modern compilers require regression suites to generate Python bytecode under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Because fine-tuning can cause catastrophic forgetting of safety alignment, inadvertently reopening previously fixed vulnerabilities' is correct: in safety regression gates — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -11984,14 +11805,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does enterprise AI safety mandate a 100% pass rate on golden regression suites rather than accepting 99%?",
           "options": [
-            "Because even a single regression on a known exploit reopens a verified security vulnerability in production.",
-            "Because Python lists cannot represent fractions less than 1.0.",
-            "Because 99% pass rates cause GPU memory fragmentation.",
-            "Because cloud providers charge double for builds that achieve less than 100% pass rates across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Because Python lists cannot represent fractions less than 1.0",
+            "Because even a single regression on a known exploit reopens a verified security vulnerability in production",
+            "Because 99% pass rates cause GPU memory fragmentation evaluated across model inference safety endpoints",
+            "Because cloud providers charge double for builds that achieve less than 100% pass rates"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Because even a single regression on a known exploit reopens a verified security vulnerability in production' is correct: in safety regression gates — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12029,14 +11850,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational status does CIRegressionGate assign to a pull request that fails any golden test case?",
           "options": [
-            "BUILD_APPROVED_WITH_WARNINGS, deploying immediately to production.",
-            "CONVERT_TO_JAVASCRIPT, rewriting the application in another language by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "GRANT_ROOT_ACCESS, elevating the user's administrative privileges.",
-            "BUILD_BLOCKED, preventing the code branch from merging to the main production repository."
+            "BUILD_APPROVED_WITH_WARNINGS, deploying immediately to production evaluated across model inference safety endpoints",
+            "CONVERT_TO_JAVASCRIPT, rewriting the application in another language",
+            "BUILD_BLOCKED, preventing the code branch from merging to the main production repository",
+            "GRANT_ROOT_ACCESS, elevating the user's administrative privileges"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'BUILD_BLOCKED, preventing the code branch from merging to the main production repository' is correct: in safety regression gates — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12074,14 +11895,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does format_ci_safety_report() assist software engineering teams during build failures?",
           "options": [
-            "By automatically writing unit tests without developer intervention across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "By rebooting the developer's laptop to clear memory caches.",
-            "By translating error messages into binary machine code.",
-            "By presenting clear diagnostic summaries detailing status and regression counts directly in CI/CD pipeline checks."
+            "By automatically writing unit tests without developer intervention across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "By rebooting the developer's laptop to clear memory caches",
+            "By translating error messages into binary machine code",
+            "By presenting clear diagnostic summaries detailing status and regression counts directly in CI/CD pipeline checks"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'By presenting clear diagnostic summaries detailing status and regression counts directly in CI/CD pipeline checks' is correct: in safety regression gates — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12119,14 +11940,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the git commit safety enforcer in enterprise CI/CD pipelines?",
           "options": [
-            "Compressing git repositories using ZIP archives.",
-            "Deleting old branches that have not been modified in seven days through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Enforcing branch protection rules to guarantee that no unverified or regressed code can be merged into production.",
-            "Converting git commit messages into uppercase characters."
+            "Enforcing branch protection rules to guarantee that no unverified or regressed code can be merged into production",
+            "Compressing git repositories using ZIP archives evaluated across model inference safety endpoints",
+            "Deleting old branches that have not been modified in seven days",
+            "Converting git commit messages into uppercase characters"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Enforcing branch protection rules to guarantee that no unverified or regressed code can be merged into production' is correct: in safety regression gates — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -12185,14 +12006,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the demographic selection rate defined in algorithmic fairness evaluations?",
           "options": [
-            "The average age of applicants in years.",
-            "The number of positive outcomes granted to a demographic cohort divided by the total number of applicants in that cohort.",
-            "The time in milliseconds required to score an applicant's resume.",
-            "The total number of demographic categories stored in the database across cryptographic hash chains and tamper-evident compliance audit ledgers."
+            "The average age of applicants in years",
+            "The time in milliseconds required to score an applicant's resume",
+            "The total number of demographic categories stored in the database across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "The number of positive outcomes granted to a demographic cohort divided by the total number of applicants in that cohort"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'The number of positive outcomes granted to a demographic cohort divided by the total number of applicants in that cohort' is correct: in algorithmic fairness — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12230,14 +12051,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under the EEOC Four-Fifths Rule, what threshold must the disparate impact ratio meet to avoid a presumption of adverse impact?",
           "options": [
-            "At least 0.80 (80%), meaning the protected group's selection rate must be at least four-fifths of the baseline group's rate.",
-            "Exactly 1.00 (100%) with zero variance.",
-            "At least 0.50 (50%) in all circumstances.",
-            "A negative ratio indicating demographic inversion under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "At least 0.80 (80%), meaning the protected group's selection rate must be at least four-fifths of the baseline group's rate",
+            "Exactly 1.00 (100%) with zero variance",
+            "At least 0.50 (50%) in all circumstances",
+            "A negative ratio indicating demographic inversion under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'At least 0.80 (80%), meaning the protected group's selection rate must be at least four-fifths of the baseline group's rate' is correct: in algorithmic fairness — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12275,14 +12096,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Demographic Parity Difference of zero indicate?",
           "options": [
-            "Both demographic groups receive positive outcomes at the exact same percentage rate, achieving perfect demographic parity.",
-            "Neither group received any positive outcomes.",
-            "The dataset contains zero applicants.",
-            "The neural network was trained for zero epochs across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "Neither group received any positive outcomes",
+            "Both demographic groups receive positive outcomes at the exact same percentage rate, achieving perfect demographic parity",
+            "The dataset contains zero applicants evaluated across model inference safety endpoints",
+            "The neural network was trained for zero epochs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Both demographic groups receive positive outcomes at the exact same percentage rate, achieving perfect demographic parity' is correct: in algorithmic fairness — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12320,14 +12141,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does FairnessAuditor evaluate both Disparate Impact ratio and Demographic Parity difference?",
           "options": [
-            "Because Python requires two metrics to execute conditional branches by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "To accelerate the execution speed of SQL database queries.",
-            "Because ratio metrics cannot be calculated on GPU hardware.",
-            "To provide dual-criteria coverage, ensuring compliance under both relative ratio and absolute percentage legal standards."
+            "Because Python requires two metrics to execute conditional branches",
+            "To accelerate the execution speed of SQL database queries",
+            "To provide dual-criteria coverage, ensuring compliance under both relative ratio and absolute percentage legal standards",
+            "Because ratio metrics cannot be calculated on GPU hardware"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To provide dual-criteria coverage, ensuring compliance under both relative ratio and absolute percentage legal standards' is correct: in algorithmic fairness — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12365,14 +12186,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary compliance function of generate_eeoc_compliance_report() in enterprise governance?",
           "options": [
-            "Calculating corporate income tax deductions across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Compressing audit logs into tar.gz archives.",
-            "Aggregating cohort audits to certify that zero disparate impact violations exist across all protected demographic groups.",
-            "Encrypting employee salary databases."
+            "Calculating corporate income tax deductions across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Compressing audit logs into tar.gz archives",
+            "Encrypting employee salary databases",
+            "Aggregating cohort audits to certify that zero disparate impact violations exist across all protected demographic groups"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Aggregating cohort audits to certify that zero disparate impact violations exist across all protected demographic groups' is correct: in algorithmic fairness — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -12431,14 +12252,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two core governance dimensions are jointly evaluated in Milestone 10?",
           "options": [
-            "CPU clock speed and GPU temperature.",
-            "Adversarial security robustness (Attack Success Rate) and algorithmic fairness (Disparate Impact ratio).",
-            "Network download speed and monitor refresh rate through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Keyboard typing speed and mouse click latency."
+            "CPU clock speed and GPU temperature",
+            "Network download speed and monitor refresh rate",
+            "Adversarial security robustness (Attack Success Rate) and algorithmic fairness (Disparate Impact ratio)",
+            "Keyboard typing speed and mouse click latency"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Adversarial security robustness (Attack Success Rate) and algorithmic fairness (Disparate Impact ratio)' is correct: in governance control plane — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12476,14 +12297,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition does evaluate_dual_fairness_and_safety() grant Milestone 10 certification?",
           "options": [
-            "When the model finishes training in less than one hour.",
-            "When Attack Success Rate is at or below 2.0% AND the Disparate Impact ratio is at or above 0.80.",
-            "When all software unit tests are written in C++.",
-            "When the server is connected to a backup diesel generator across cryptographic hash chains and tamper-evident compliance audit ledgers."
+            "When the model finishes training in less than one hour",
+            "When all software unit tests are written in C++",
+            "When the server is connected to a backup diesel generator across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "When Attack Success Rate is at or below 2.0% AND the Disparate Impact ratio is at or above 0.80"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'When Attack Success Rate is at or below 2.0% AND the Disparate Impact ratio is at or above 0.80' is correct: in governance control plane — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12521,14 +12342,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What condition must be satisfied for a decision model to achieve Equalized Odds fairness?",
           "options": [
-            "Both the True Positive Rate and False Positive Rate must be approximately equal across demographic cohorts.",
-            "All applicants must receive positive outcomes regardless of qualifications.",
-            "The model must be trained on synthetic data only.",
-            "The neural network must contain an equal number of positive and negative weights under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "Both the True Positive Rate and False Positive Rate must be approximately equal across demographic cohorts",
+            "All applicants must receive positive outcomes regardless of qualifications",
+            "The model must be trained on synthetic data only",
+            "The neural network must contain an equal number of positive and negative weights under strict zero-trust sandbox execution boundaries and automated blast-radius constraints"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Both the True Positive Rate and False Positive Rate must be approximately equal across demographic cohorts' is correct: in governance control plane — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12566,14 +12387,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security guarantee does the SHA-256 governance hash provide in export_m10_governance_snapshot()?",
           "options": [
-            "It encrypts the entire model weights file using AES-256.",
-            "It speeds up network data transfer to client web browsers.",
-            "It automatically registers the company trademark with the government across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "Tamper-evidence, ensuring that any subsequent modification to safety or fairness scores invalidates the signature."
+            "It encrypts the entire model weights file using AES-256",
+            "Tamper-evidence, ensuring that any subsequent modification to safety or fairness scores invalidates the signature",
+            "It speeds up network data transfer to client web browsers",
+            "It automatically registers the company trademark with the government"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Tamper-evidence, ensuring that any subsequent modification to safety or fairness scores invalidates the signature' is correct: in governance control plane — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12612,14 +12433,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational action is taken by generate_m10_executive_signoff() when all safety and fairness tests pass?",
           "options": [
-            "It formats the database storage volumes.",
-            "It deletes all model training logs from disk.",
-            "It grants an official APPROVED release authorization referencing the unique cryptographic governance hash.",
-            "It sends an emergency alert to local emergency services by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "It formats the database storage volumes evaluated across model inference safety endpoints",
+            "It deletes all model training logs from disk",
+            "It grants an official APPROVED release authorization referencing the unique cryptographic governance hash",
+            "It sends an emergency alert to local emergency services"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'It grants an official APPROVED release authorization referencing the unique cryptographic governance hash' is correct: in governance control plane — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -12678,14 +12499,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical property ensures that SHA-256 hash chains are tamper-evident?",
           "options": [
-            "SHA-256 hashes automatically restore deleted files from the cloud.",
-            "Hash chains prevent the computer from being turned off during logging across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Modifying any historical entry alters its hash digest, which breaks the cryptographic link with all subsequent blocks.",
-            "Cryptographic hashing compresses text into floating-point numbers."
+            "SHA-256 hashes automatically restore deleted files from the cloud",
+            "Modifying any historical entry alters its hash digest, which breaks the cryptographic link with all subsequent blocks",
+            "Hash chains prevent the computer from being turned off during logging across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Cryptographic hashing compresses text into floating-point numbers"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'Modifying any historical entry alters its hash digest, which breaks the cryptographic link with all subsequent blocks' is correct: in immutable audit logs — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12723,14 +12544,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does AuditLogChain advance its state when appending a new compliance event?",
           "options": [
-            "It deletes all previous entries to conserve disk space.",
-            "It computes the new block hash by incorporating the previous head hash, appends the block, and updates the head pointer.",
-            "It sends an email notification to the entire engineering department through automated model parameter checkpoint verification and canary rollback triggers.",
-            "It restarts the Python interpreter process."
+            "It deletes all previous entries to conserve disk space",
+            "It sends an email notification to the entire engineering department",
+            "It computes the new block hash by incorporating the previous head hash, appends the block, and updates the head pointer",
+            "It restarts the Python interpreter process evaluated across model inference safety endpoints"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'It computes the new block hash by incorporating the previous head hash, appends the block, and updates the head pointer' is correct: in immutable audit logs — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12768,14 +12589,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two checks are performed for each block in verify_chain_integrity()?",
           "options": [
-            "Verifying that prev matches the prior block's hash and recomputing the payload hash to verify payload authenticity.",
-            "Checking the file creation date in Windows Explorer and measuring file size.",
-            "Verifying that the text contains no spelling errors and has more than ten words across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "Pinging the remote server IP address and checking network latency."
+            "Checking the file creation date in Windows Explorer and measuring file size",
+            "Verifying that the text contains no spelling errors and has more than ten words across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "Pinging the remote server IP address and checking network latency",
+            "Verifying that prev matches the prior block's hash and recomputing the payload hash to verify payload authenticity"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'Verifying that prev matches the prior block's hash and recomputing the payload hash to verify payload authenticity' is correct: in immutable audit logs — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12813,14 +12634,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational response is triggered when detect_tampered_entry() discovers a broken link in the audit chain?",
           "options": [
-            "It ignores the error and deletes the corrupted block automatically under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "It grants administrative access to all active web sessions.",
-            "It powers down the entire datacenter facility.",
-            "It raises an immediate Sev-1 security alert and halts writes to facilitate forensic investigation and recovery."
+            "It raises an immediate Sev-1 security alert and halts writes to facilitate forensic investigation and recovery",
+            "It ignores the error and deletes the corrupted block automatically under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "It grants administrative access to all active web sessions",
+            "It powers down the entire datacenter facility"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'It raises an immediate Sev-1 security alert and halts writes to facilitate forensic investigation and recovery' is correct: in immutable audit logs — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12858,14 +12679,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do enterprise SRE teams publish audit ledger head hashes to external transparency logs?",
           "options": [
-            "To allow competitors to read internal user conversation transcripts across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "To increase the speed of internet search engine indexing.",
-            "To reduce electricity consumption on storage server nodes.",
-            "To prevent an attacker with root database access from rewriting the entire historical chain undetected."
+            "To allow competitors to read internal user conversation transcripts",
+            "To prevent an attacker with root database access from rewriting the entire historical chain undetected",
+            "To increase the speed of internet search engine indexing evaluated across model inference safety endpoints",
+            "To reduce electricity consumption on storage server nodes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'To prevent an attacker with root database access from rewriting the entire historical chain undetected' is correct: in immutable audit logs — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -12924,14 +12745,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of an automated AI incident kill-switch circuit breaker?",
           "options": [
-            "Overclocking GPU processors to generate responses faster.",
-            "Deleting all source code repositories from version control by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Instantly halting model or tool execution to prevent widespread damage when severe safety anomalies occur.",
-            "Resetting user passwords without notice."
+            "Instantly halting model or tool execution to prevent widespread damage when severe safety anomalies occur",
+            "Overclocking GPU processors to generate responses faster",
+            "Deleting all source code repositories from version control",
+            "Resetting user passwords without notice"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'Instantly halting model or tool execution to prevent widespread damage when severe safety anomalies occur' is correct: in ai incident response — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -12969,14 +12790,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition does canary_rollback_evaluator() trigger an automatic rollback?",
           "options": [
-            "When the canary deployment completes 24 hours of operation.",
-            "When the canary cohort error rate exceeds twice the baseline error rate.",
-            "When the server CPU temperature drops below 20 degrees Celsius across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "When all engineers sign off on the release."
+            "When the canary deployment completes 24 hours of operation",
+            "When the canary cohort error rate exceeds twice the baseline error rate",
+            "When the server CPU temperature drops below 20 degrees Celsius across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "When all engineers sign off on the release"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "Canary token monitoring places secret markers in prompts to detect unauthorized exfiltration or context leakage in model responses."
         }
       },
       {
@@ -13014,14 +12835,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do incident response runbooks classify incidents by severity and attack vector?",
           "options": [
-            "To prioritize immediate critical threats and direct engineering teams to appropriate, specialized remediation playbooks.",
-            "To determine how much to fine the employee who wrote the buggy code through automated model parameter checkpoint verification and canary rollback triggers.",
-            "Because cloud providers require severity tags to issue refunds.",
-            "To generate weekly marketing press releases."
+            "To determine how much to fine the employee who wrote the buggy code",
+            "Because cloud providers require severity tags to issue refunds",
+            "To prioritize immediate critical threats and direct engineering teams to appropriate, specialized remediation playbooks",
+            "To generate weekly marketing press releases evaluated across model inference safety endpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'To prioritize immediate critical threats and direct engineering teams to appropriate, specialized remediation playbooks' is correct: in ai incident response — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13059,14 +12880,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does automated root-cause classification reduce Mean Time to Resolution (MTTR)?",
           "options": [
-            "By immediately identifying the responsible subsystem from log patterns, directing responders to the correct remediation steps.",
-            "By automatically closing incident tickets without resolving them across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "By restarting the entire database cluster every five minutes.",
-            "By converting all log files into audio recordings."
+            "By automatically closing incident tickets without resolving them across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "By restarting the entire database cluster every five minutes",
+            "By converting all log files into audio recordings",
+            "By immediately identifying the responsible subsystem from log patterns, directing responders to the correct remediation steps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'By immediately identifying the responsible subsystem from log patterns, directing responders to the correct remediation steps' is correct: in ai incident response — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13104,14 +12925,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary objective of a blameless post-mortem review in AI safety engineering?",
           "options": [
-            "To assign personal blame and terminate the responsible software engineer under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "To delete historical incident records to protect corporate reputation.",
-            "To rewrite the entire application in a different programming language.",
-            "To identify systemic root causes and implement permanent architectural mitigations that prevent recurrence."
+            "To identify systemic root causes and implement permanent architectural mitigations that prevent recurrence",
+            "To assign personal blame and terminate the responsible software engineer under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "To delete historical incident records to protect corporate reputation",
+            "To rewrite the entire application in a different programming language"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'To identify systemic root causes and implement permanent architectural mitigations that prevent recurrence' is correct: in ai incident response — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -13170,14 +12991,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under the EU AI Act, what legal consequence applies to applications classified as Unacceptable Risk (e.g., social scoring)?",
           "options": [
-            "They must pay a 5% value-added tax on all user subscriptions.",
-            "They are required to use open-source neural network architectures only.",
-            "They are strictly prohibited from development, deployment, or commercial use within the European Union.",
-            "They can be used freely as long as users sign a terms-of-service agreement across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "They must pay a 5% value-added tax on all user subscriptions",
+            "They are required to use open-source neural network architectures only",
+            "They can be used freely as long as users sign a terms-of-service agreement",
+            "They are strictly prohibited from development, deployment, or commercial use within the European Union"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'They are strictly prohibited from development, deployment, or commercial use within the European Union' is correct: in regulatory frameworks — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13215,14 +13036,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the four core functions of the NIST AI Risk Management Framework (AI RMF)?",
           "options": [
-            "CREATE, READ, UPDATE, and DELETE.",
-            "GOVERN, MAP, MEASURE, and MANAGE.",
-            "COMPILE, LINK, ASSEMBLE, and EXECUTE.",
-            "PLAN, CODE, TEST, and DEPLOY."
+            "GOVERN, MAP, MEASURE, and MANAGE",
+            "CREATE, READ, UPDATE, and DELETE",
+            "COMPILE, LINK, ASSEMBLE, and EXECUTE",
+            "PLAN, CODE, TEST, and DEPLOY"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "'GOVERN, MAP, MEASURE, and MANAGE' is correct: in regulatory frameworks — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13260,14 +13081,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What legal consequence can an enterprise face for deploying an uncertified High Risk AI system under the EU AI Act?",
           "options": [
-            "A mandatory requirement to switch all office computers to Linux.",
-            "Regulatory fines of up to 35 million Euros or 7% of total worldwide annual turnover, whichever is higher.",
-            "A temporary reduction in corporate internet download speeds.",
-            "An automatic conversion of all corporate debt into preferred shares by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "A mandatory requirement to switch all office computers to Linux",
+            "Regulatory fines of up to 35 million Euros or 7% of total worldwide annual turnover, whichever is higher",
+            "A temporary reduction in corporate internet download speeds evaluated across model inference safety endpoints",
+            "An automatic conversion of all corporate debt into preferred shares"
           ],
           "answer": 1,
           "answerIndex": 1,
-          "why": ""
+          "why": "'Regulatory fines of up to 35 million Euros or 7% of total worldwide annual turnover, whichever is higher' is correct: in regulatory frameworks — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13305,14 +13126,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What transparency obligation does Article 50 of the EU AI Act impose on conversational AI chatbots?",
           "options": [
-            "Users must be explicitly informed that they are interacting with an artificial intelligence system, unless obvious from context.",
-            "Chatbots must disclose the full source code and model weights to all users across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "Chatbots must limit all conversations to exactly five minutes.",
-            "Chatbots must charge users a fixed fee per generated token."
+            "Chatbots must disclose the full source code and model weights to all users across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "Chatbots must limit all conversations to exactly five minutes",
+            "Users must be explicitly informed that they are interacting with an artificial intelligence system, unless obvious from context",
+            "Chatbots must charge users a fixed fee per generated token"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Users must be explicitly informed that they are interacting with an artificial intelligence system, unless obvious from context' is correct: in regulatory frameworks — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13350,14 +13171,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the legal significance of CE marking eligibility under the EU AI Act?",
           "options": [
-            "It allows the software to bypass all internet firewalls in Europe.",
-            "It exempts the company from paying corporate taxes in the European Union through automated model parameter checkpoint verification and canary rollback triggers.",
-            "It grants the AI system legal citizenship in European member states.",
-            "It certifies that the AI system meets all mandatory European safety and fundamental rights requirements for commercial market deployment."
+            "It allows the software to bypass all internet firewalls in Europe across multi-layered AI safety defense perimeters",
+            "It exempts the company from paying corporate taxes in the European Union",
+            "It grants the AI system legal citizenship in European member states",
+            "It certifies that the AI system meets all mandatory European safety and fundamental rights requirements for commercial market deployment"
           ],
           "answer": 3,
           "answerIndex": 3,
-          "why": ""
+          "why": "'It certifies that the AI system meets all mandatory European safety and fundamental rights requirements for commercial market deployment' is correct: in regulatory frameworks — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -13416,14 +13237,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do commercial AI laboratories filter out copyleft-licensed code (like GPL-3.0) from pre-training datasets?",
           "options": [
-            "Because copyleft code runs slower on GPU clusters.",
-            "Because GPL-3.0 code contains syntax errors that break tokenizers across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "To prevent viral copyright claims from contaminating proprietary enterprise codebases generated by the model.",
-            "Because modern compilers cannot parse copyleft licenses."
+            "Because copyleft code runs slower on GPU clusters",
+            "Because GPL-3.0 code contains syntax errors that break tokenizers across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "To prevent viral copyright claims from contaminating proprietary enterprise codebases generated by the model",
+            "Because modern compilers cannot parse copyleft licenses"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'To prevent viral copyright claims from contaminating proprietary enterprise codebases generated by the model' is correct: in data hygiene — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13461,14 +13282,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of scrubbing toxic language from pre-training datasets rather than relying solely on post-hoc safety filters?",
           "options": [
-            "It reduces the size of the vocabulary matrix by 50%.",
-            "It eliminates the need for GPU cooling systems in datacenters under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "It prevents the model from internalizing toxic representations and bias associations during foundational pre-training.",
-            "It allows models to run on older operating systems."
+            "It reduces the size of the vocabulary matrix by 50%",
+            "It eliminates the need for GPU cooling systems in datacenters under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "It allows models to run on older operating systems",
+            "It prevents the model from internalizing toxic representations and bias associations during foundational pre-training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "Toxicity filters evaluate confidence thresholds across safety taxonomies to block abusive or harmful text generations."
         }
       },
       {
@@ -13506,14 +13327,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of injecting synthetic canary secrets into training data?",
           "options": [
-            "To make the dataset file size larger.",
-            "To empirically test and prove whether the model memorizes and regurgitates verbatim training data during inference.",
-            "To teach the model how to sing like a bird across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "To encrypt the training data on disk."
+            "To empirically test and prove whether the model memorizes and regurgitates verbatim training data during inference",
+            "To make the dataset file size larger evaluated across model inference safety endpoints",
+            "To teach the model how to sing like a bird",
+            "To encrypt the training data on disk"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Canary token monitoring places secret markers in prompts to detect unauthorized exfiltration or context leakage in model responses."
         }
       },
       {
@@ -13551,14 +13372,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is training data deduplication essential in foundation model development?",
           "options": [
-            "It reduces verbatim memorization risks, eliminates redundant compute costs, and improves downstream generalization.",
-            "It converts text documents into MP3 audio files.",
-            "It allows models to train without internet access.",
-            "It eliminates the need for neural network loss functions by bypassing input tokenization sanitizers and automated guardrail inspection layers."
+            "It converts text documents into MP3 audio files",
+            "It reduces verbatim memorization risks, eliminates redundant compute costs, and improves downstream generalization",
+            "It allows models to train without internet access",
+            "It eliminates the need for neural network loss functions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'It reduces verbatim memorization risks, eliminates redundant compute costs, and improves downstream generalization' is correct: in data hygiene — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13596,14 +13417,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What conditions must a dataset satisfy to achieve certified_for_pretraining approval?",
           "options": [
-            "The dataset must contain exactly one billion tokens across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "All documents must be written in English only.",
-            "The dataset must be stored on magnetic tape drives.",
-            "Zero canary extraction leaks and zero copyleft licensing violations across the entire corpus."
+            "The dataset must contain exactly one billion tokens across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "All documents must be written in English only",
+            "Zero canary extraction leaks and zero copyleft licensing violations across the entire corpus",
+            "The dataset must be stored on magnetic tape drives"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 2,
+          "answerIndex": 2,
+          "why": "'Zero canary extraction leaks and zero copyleft licensing violations across the entire corpus' is correct: in data hygiene — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -13662,14 +13483,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What types of compliance events are recorded in CryptographicGovernanceLedger in Milestone 11?",
           "options": [
-            "User password changes and credit card CVV numbers.",
-            "Hardware CPU fan speed fluctuations.",
-            "Marketing social media clicks and website analytics through automated model parameter checkpoint verification and canary rollback triggers.",
-            "EU AI Act conformity assessments, dataset hygiene sign-offs, and incident response post-mortems."
+            "User password changes and credit card CVV numbers",
+            "EU AI Act conformity assessments, dataset hygiene sign-offs, and incident response post-mortems",
+            "Hardware CPU fan speed fluctuations",
+            "Marketing social media clicks and website analytics"
           ],
-          "answer": 3,
-          "answerIndex": 3,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'EU AI Act conformity assessments, dataset hygiene sign-offs, and incident response post-mortems' is correct: in regulatory ledger — foundations & mathematical invariants, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13707,14 +13528,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does verify_governance_ledger_immutability() detect retroactive tampering in compliance records?",
           "options": [
-            "By querying the local DNS server.",
-            "By checking the file size of the Python script across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "By verifying that each block's prev pointer matches the prior block's hash and recomputing cryptographic digests.",
-            "By restarting the server in safe mode."
+            "By querying the local DNS server",
+            "By checking the file size of the Python script across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "By verifying that each block's prev pointer matches the prior block's hash and recomputing cryptographic digests",
+            "By restarting the server in safe mode"
           ],
           "answer": 2,
           "answerIndex": 2,
-          "why": ""
+          "why": "'By verifying that each block's prev pointer matches the prior block's hash and recomputing cryptographic digests' is correct: in regulatory ledger — core algorithm & state representation, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13752,14 +13573,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What three regulatory pillars must be valid to achieve Milestone 11 compliance certification?",
           "options": [
-            "Python version, RAM size, and hard drive speed.",
-            "EU AI Act tier conformity, NIST AI RMF readiness, and immutable audit chain integrity.",
-            "Twitter followers, YouTube subscribers, and LinkedIn connections under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "User count, revenue, and profit margin."
+            "Python version, RAM size, and hard drive speed",
+            "Twitter followers, YouTube subscribers, and LinkedIn connections under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "User count, revenue, and profit margin",
+            "EU AI Act tier conformity, NIST AI RMF readiness, and immutable audit chain integrity"
           ],
-          "answer": 1,
-          "answerIndex": 1,
-          "why": ""
+          "answer": 3,
+          "answerIndex": 3,
+          "why": "'EU AI Act tier conformity, NIST AI RMF readiness, and immutable audit chain integrity' is correct: in regulatory ledger — production implementation & boundary mechanics, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13797,14 +13618,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of automated regulatory binder generation in enterprise AI governance?",
           "options": [
-            "Compiling all technical documentation and immutable audit hashes into an official regulatory filing package in seconds.",
-            "Printing physical paper copies of model weights.",
-            "Deleting all historical error logs to pass audits across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "Translating all Python functions into German."
+            "Compiling all technical documentation and immutable audit hashes into an official regulatory filing package in seconds",
+            "Printing physical paper copies of model weights",
+            "Deleting all historical error logs to pass audits",
+            "Translating all Python functions into German"
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": ""
+          "why": "'Compiling all technical documentation and immutable audit hashes into an official regulatory filing package in seconds' is correct: in regulatory ledger — failure modes, hardware bottlenecks & debugging, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       },
       {
@@ -13843,14 +13664,14 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What information is bound into the official compliance seal issued in Milestone 11?",
           "options": [
-            "The authoritative immutable ledger head hash proving tamper-evident compliance certification.",
-            "The personal credit card number of the lead developer by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "The local weather forecast at the server location.",
-            "The serial number of the computer monitor."
+            "The personal credit card number of the lead developer",
+            "The authoritative immutable ledger head hash proving tamper-evident compliance certification",
+            "The local weather forecast at the server location",
+            "The serial number of the computer monitor verified through tamper-evident enterprise audit trails"
           ],
-          "answer": 0,
-          "answerIndex": 0,
-          "why": ""
+          "answer": 1,
+          "answerIndex": 1,
+          "why": "'The authoritative immutable ledger head hash proving tamper-evident compliance certification' is correct: in regulatory ledger — production capstone & enterprise sre integration, this enforces defense-in-depth safety controls and prevents adversarial bypasses."
         }
       }
     ],
@@ -13909,13 +13730,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does statistical LLM watermarking embed provenance without breaking text fluency?",
           "options": [
-            "By appending hidden binary barcodes at the end of every paragraph across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "By encrypting the entire text with AES-256 cipher blocks.",
-            "By deleting punctuation marks across all alternating sentences.",
-            "By adding a subtle logit bias to pseudo-random green-list tokens seeded by preceding tokens."
+            "By adding a subtle logit bias to pseudo-random green-list tokens seeded by preceding tokens",
+            "By appending hidden binary barcodes at the end of every paragraph across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "By encrypting the entire text with AES-256 cipher blocks",
+            "By deleting punctuation marks across all alternating sentences"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Statistical watermarking partitions the vocabulary into pseudo-random green and red lists and adds logit bias delta to green tokens, enabling statistical detection via z-scores."
         }
       },
@@ -13954,13 +13775,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does watermarking depend on the hash of the preceding token rather than a static global green list?",
           "options": [
-            "Because static lists crash the PyTorch GPU memory controller.",
-            "Because dynamic hashes increase token generation speed by 50% through automated model parameter checkpoint verification and canary rollback triggers.",
-            "It creates a dynamic pseudo-random chain that prevents adversaries from learning a static list of favored tokens.",
-            "To allow the CPU cache to compress the vocabulary into 8 bits."
+            "Because static lists crash the PyTorch GPU memory controller within defensive input tokenization pipelines",
+            "It creates a dynamic pseudo-random chain that prevents adversaries from learning a static list of favored tokens",
+            "Because dynamic hashes increase token generation speed by 50%",
+            "To allow the CPU cache to compress the vocabulary into 8 bits"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Conditioning green-list selection on preceding tokens prevents adversaries from identifying and substituting a fixed set of biased words."
         }
       },
@@ -13999,13 +13820,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What statistical test is used to detect green-list watermarking in LLM outputs?",
           "options": [
-            "A chi-square test on total consonant-to-vowel ratios.",
-            "A standard normal z-score comparing observed green tokens against the null binomial expectation.",
-            "A Pearson correlation between character count and word count across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "An ANOVA F-test across sentence length variances."
+            "A chi-square test on total consonant-to-vowel ratios",
+            "A Pearson correlation between character count and word count across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "A standard normal z-score comparing observed green tokens against the null binomial expectation",
+            "An ANOVA F-test across sentence length variances"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The detector uses a z-score measuring how many standard deviations the observed green count deviates above the expected null mean."
         }
       },
@@ -14044,13 +13865,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to the watermark signal when an attacker paraphrases a portion of the text?",
           "options": [
-            "The watermark instantly turns into an unreadable corruption error.",
-            "The z-score decreases proportionally to tampered tokens but remains detectable if sufficient transitions survive.",
-            "The detector crashes because SHA-256 hashes become negative numbers under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "The text automatically reverts itself back to the original version."
+            "The watermark instantly turns into an unreadable corruption error",
+            "The detector crashes because SHA-256 hashes become negative numbers under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "The text automatically reverts itself back to the original version",
+            "The z-score decreases proportionally to tampered tokens but remains detectable if sufficient transitions survive"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Tampering breaks hash continuity at modified token boundaries, lowering z-score, but surviving unedited chains preserve statistical detectability."
         }
       },
@@ -14089,10 +13910,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is audit logging of watermark z-scores critical in enterprise safety control planes?",
           "options": [
-            "It provides verifiable evidence of model provenance and satisfies synthetic media compliance mandates.",
-            "It speeds up GPU floating-point matrix operations.",
-            "It eliminates the need for database backups.",
-            "It allows clients to bypass network firewall inspection across distributed enterprise model inference endpoints and edge gateway firewalls."
+            "It provides verifiable evidence of model provenance and satisfies synthetic media compliance mandates",
+            "It speeds up GPU floating-point matrix operations",
+            "It eliminates the need for database backups verified through tamper-evident enterprise audit trails",
+            "It allows clients to bypass network firewall inspection"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -14155,10 +13976,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is Goodhart's Law in the context of reinforcement learning from human feedback (RLHF)?",
           "options": [
-            "GPUs consume twice as much electricity when training transformer attention layers by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Model vocabulary size must always double every 18 months.",
-            "Every neural network loss function eventually reaches exactly zero.",
-            "When a proxy reward model becomes the optimization target, the policy exploits flaws rather than improving true intent."
+            "GPUs consume twice as much electricity when training transformer attention layers",
+            "Model vocabulary size must always double every 18 months",
+            "Every neural network loss function eventually reaches exactly zero",
+            "When a proxy reward model becomes the optimization target, the policy exploits flaws rather than improving true intent"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -14200,13 +14021,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does KL divergence play in PPO alignment training?",
           "options": [
-            "It calculates the floating-point arithmetic precision of gradient backpropagation across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "It automatically optimizes SQL queries for vector database retrieval.",
-            "It penalizes the policy when its token distribution drifts too far from the frozen reference model.",
-            "It replaces the cross-entropy loss function during supervised pre-training."
+            "It penalizes the policy when its token distribution drifts too far from the frozen reference model",
+            "It calculates the floating-point arithmetic precision of gradient backpropagation across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "It automatically optimizes SQL queries for vector database retrieval",
+            "It replaces the cross-entropy loss function during supervised pre-training"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "KL divergence bounds policy updates relative to a reference model, preventing the policy from drifting into gibberish or adversarial exploits."
         }
       },
@@ -14245,13 +14066,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an adaptive KL penalty preferred over a fixed static beta coefficient?",
           "options": [
-            "It avoids using CPU floating point registers.",
-            "Because static coefficients are illegal under GDPR regulations through automated model parameter checkpoint verification and canary rollback triggers.",
-            "It dynamically tightens constraints when policy drift accelerates and relaxes them during stable exploration.",
-            "It eliminates the need for reward models entirely."
+            "It avoids using CPU floating point registers verified through tamper-evident enterprise audit trails",
+            "It dynamically tightens constraints when policy drift accelerates and relaxes them during stable exploration",
+            "Because static coefficients are illegal under GDPR regulations",
+            "It eliminates the need for reward models entirely"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Adaptive controllers automatically tune the penalty strength to keep KL drift near a target value, preventing both under-optimization and policy collapse."
         }
       },
@@ -14290,13 +14111,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do reward model ensembles defend against out-of-distribution reward hacking?",
           "options": [
-            "By multiplying all model logits together until they overflow.",
-            "By penalizing candidate responses that cause high variance or disagreement among ensemble members.",
-            "By discarding all training batches containing punctuation marks across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "By averaging only the lowest two percent of gradient updates."
+            "By multiplying all model logits together until they overflow",
+            "By discarding all training batches containing punctuation marks across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "By penalizing candidate responses that cause high variance or disagreement among ensemble members",
+            "By averaging only the lowest two percent of gradient updates"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Disagreement among ensemble members indicates epistemic uncertainty or out-of-distribution inputs, which is penalized to prevent exploitation."
         }
       },
@@ -14335,13 +14156,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary action triggered when a production policy health monitor detects a KL divergence breach?",
           "options": [
-            "It raises an alert and halts deployment or triggers policy rollback to prevent serving unaligned weights.",
-            "It reboots the physical data center power supply.",
-            "It automatically increases user subscription prices.",
-            "It converts all model parameters from 16-bit to 8-bit integers under strict zero-trust sandbox execution boundaries and automated blast-radius constraints."
+            "It reboots the physical data center power supply",
+            "It automatically increases user subscription prices",
+            "It converts all model parameters from 16-bit to 8-bit integers under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "It raises an alert and halts deployment or triggers policy rollback to prevent serving unaligned weights"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "KL breach alerts indicate policy collapse or severe drift, requiring immediate halting or fallback to verified safe checkpoints."
         }
       }
@@ -14401,13 +14222,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Constitutional AI over pure RLHF?",
           "options": [
-            "It eliminates the need for transformer self-attention mechanisms across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "It allows models to run on mobile phones without batteries.",
-            "It reduces training data storage requirements to zero bytes.",
-            "It uses transparent, human-readable principles that can be inspected, audited, and updated declaratively."
+            "It eliminates the need for transformer self-attention mechanisms",
+            "It allows models to run on mobile phones without batteries",
+            "It uses transparent, human-readable principles that can be inspected, audited, and updated declaratively",
+            "It reduces training data storage requirements to zero bytes"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Constitutional AI replaces opaque reward models with explicit natural language rules, making alignment principles auditable and modular."
         }
       },
@@ -14446,10 +14267,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the purpose of the self-critique step in Constitutional AI?",
           "options": [
-            "To compress the prompt into 64-bit integer hashes.",
-            "To calculate cosine similarity between prompt and system embeddings by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "To shut down idle worker threads in the background.",
-            "To explicitly identify and articulate specific rule violations in draft outputs before revision."
+            "To compress the prompt into 64-bit integer hashes evaluated across model inference safety endpoints",
+            "To calculate cosine similarity between prompt and system embeddings",
+            "To shut down idle worker threads in the background",
+            "To explicitly identify and articulate specific rule violations in draft outputs before revision"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -14491,13 +14312,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is constructive revision preferred over flat refusal in Constitutional AI?",
           "options": [
-            "Because flat refusals consume twice as much GPU memory.",
-            "Because language models cannot output negative words like 'no' across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "It satisfies user informational needs within safe boundaries rather than degrading user experience with blank refusals.",
-            "To avoid triggering operating system kernel faults."
+            "It satisfies user informational needs within safe boundaries rather than degrading user experience with blank refusals",
+            "Because flat refusals consume twice as much GPU memory",
+            "Because language models cannot output negative words like 'no' across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "To avoid triggering operating system kernel faults"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Constitutional revision reframes prompts into safe, educational explanations rather than unhelpful outright refusals, preserving system utility."
         }
       },
@@ -14536,10 +14357,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a maximum recursion limit enforced in multi-round CAI loops?",
           "options": [
-            "Because Python dictionaries cannot hold more than two keys.",
-            "To prevent infinite loops and bound compute latency on pathological or adversarial inputs.",
-            "To comply with hardware bus bandwidth limits.",
-            "Because additional rounds always reduce output accuracy to zero through automated model parameter checkpoint verification and canary rollback triggers."
+            "Because Python dictionaries cannot hold more than two keys",
+            "To prevent infinite loops and bound compute latency on pathological or adversarial inputs",
+            "To comply with hardware bus bandwidth limits",
+            "Because additional rounds always reduce output accuracy to zero"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -14581,13 +14402,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a positive alignment delta signify in a CAI benchmark evaluation?",
           "options": [
-            "The proportion of unsafe responses successfully remediated into safe outputs by the constitutional loop.",
-            "An increase in model inference latency measured in milliseconds.",
-            "A reduction in GPU core temperature during training.",
-            "The number of new parameters added to the neural network weights across cryptographic hash chains and tamper-evident compliance audit ledgers."
+            "An increase in model inference latency measured in milliseconds",
+            "A reduction in GPU core temperature during training",
+            "The proportion of unsafe responses successfully remediated into safe outputs by the constitutional loop",
+            "The number of new parameters added to the neural network weights across cryptographic hash chains and tamper-evident compliance audit ledgers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Alignment delta measures the net gain in safe responses achieved by applying the constitutional critique-and-revision loop."
         }
       }
@@ -14647,13 +14468,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a Population Stability Index (PSI) exceeding 0.25 indicate in production safety monitoring?",
           "options": [
-            "A severe distribution shift in safety scores requiring immediate investigation or circuit-breaking.",
-            "That the database connection pool is 25% full under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "That inference speed has improved by 25%.",
-            "That user traffic has dropped below zero."
+            "That the database connection pool is 25% full under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "A severe distribution shift in safety scores requiring immediate investigation or circuit-breaking",
+            "That inference speed has improved by 25%",
+            "That user traffic has dropped below zero"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In standard credit and safety monitoring, PSI > 0.25 represents significant population drift, signaling potential guardrail failure or data shift."
         }
       },
@@ -14692,13 +14513,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is sudden guardrail over-refusal considered a critical safety defect?",
           "options": [
-            "Because refusals consume more bandwidth than normal responses.",
-            "Because rejected requests cause database deadlocks.",
-            "Over-refusal is actually desirable and should never be avoided across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "It breaks application functionality and degrades user trust by blocking legitimate, benign interactions."
+            "Because refusals consume more bandwidth than normal responses",
+            "Because rejected requests cause database deadlocks evaluated across model inference safety endpoints",
+            "It breaks application functionality and degrades user trust by blocking legitimate, benign interactions",
+            "Over-refusal is actually desirable and should never be avoided"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Over-refusal (false positives) renders AI systems unusable for benign tasks, creating friction and driving users to seek unaligned alternatives."
         }
       },
@@ -14737,13 +14558,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are percentile metrics (P50, P95) preferred over average latency for guardrail telemetry?",
           "options": [
-            "Because percentiles are easier to calculate than arithmetic sums.",
-            "Because average latency is mathematically undefined for milliseconds by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "They reveal long-tail latency spikes caused by edge-case regex backtracking that averages hide.",
-            "Percentiles are required by IEEE networking specifications."
+            "Because percentiles are easier to calculate than arithmetic sums",
+            "Because average latency is mathematically undefined for milliseconds",
+            "Percentiles are required by IEEE networking specifications evaluated across model inference safety endpoints",
+            "They reveal long-tail latency spikes caused by edge-case regex backtracking that averages hide"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Averages obscure severe outlier delays; P95 and P99 percentiles directly measure the worst-case latency experienced by real users."
         }
       },
@@ -14782,13 +14603,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the function of a safety circuit breaker in production AI systems?",
           "options": [
-            "To reboot the web server operating system whenever a query fails across multi-tenant vector similarity stores and asynchronous security audit queues.",
-            "To immediately decouple unaligned models and route user traffic to verified safe fallback responses.",
-            "To permanently delete customer database records during attacks.",
-            "To throttle network speed to 56 kilobits per second."
+            "To immediately decouple unaligned models and route user traffic to verified safe fallback responses",
+            "To reboot the web server operating system whenever a query fails across multi-tenant vector similarity stores and asynchronous security audit queues",
+            "To permanently delete customer database records during attacks",
+            "To throttle network speed to 56 kilobits per second"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Circuit breakers halt traffic to compromised or drifting models, serving safe cached or deterministic fallbacks to protect users."
         }
       },
@@ -14827,10 +14648,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of standardized JSON telemetry snapshots in safety governance?",
           "options": [
-            "They compress model weights into lightweight binary files.",
-            "They provide continuous, machine-readable health metrics for real-time alerting and audit compliance.",
-            "They encrypt outbound network traffic across SSL connections through automated model parameter checkpoint verification and canary rollback triggers.",
-            "They prevent developers from editing Python code files."
+            "They compress model weights into lightweight binary files",
+            "They provide continuous, machine-readable health metrics for real-time alerting and audit compliance",
+            "They encrypt outbound network traffic across SSL connections",
+            "They prevent developers from editing Python code files verified through tamper-evident enterprise audit trails"
           ],
           "answer": 1,
           "answerIndex": 1,
@@ -14893,10 +14714,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is multi-tenant configuration decoupling critical in enterprise AI safety architectures?",
           "options": [
-            "It allows independent organizations or regions to enforce customized safety policies without redeploying code.",
-            "It reduces electrical power consumption on server motherboard buses across cryptographic hash chains and tamper-evident compliance audit ledgers.",
-            "Because Python classes cannot be shared across multiple files.",
-            "It prevents users from sending HTTP requests to the server."
+            "It allows independent organizations or regions to enforce customized safety policies without redeploying code",
+            "It reduces electrical power consumption on server motherboard buses across cryptographic hash chains and tamper-evident compliance audit ledgers",
+            "Because Python classes cannot be shared across multiple files",
+            "It prevents users from sending HTTP requests to the server"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -14938,13 +14759,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of performing PII redaction at the inbound gateway level?",
           "options": [
-            "It increases transformer attention memory capacity by 10x.",
-            "It allows the model to guess the missing information accurately under strict zero-trust sandbox execution boundaries and automated blast-radius constraints.",
-            "It bypasses the need for internet SSL encryption.",
-            "It prevents sensitive personal data from entering model context windows or being stored in inference logs."
+            "It increases transformer attention memory capacity by 10x",
+            "It prevents sensitive personal data from entering model context windows or being stored in inference logs",
+            "It allows the model to guess the missing information accurately under strict zero-trust sandbox execution boundaries and automated blast-radius constraints",
+            "It bypasses the need for internet SSL encryption"
           ],
-          "answer": 3,
-          "answerIndex": 3,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Inbound PII redaction protects user privacy by ensuring sensitive tokens never enter model context memory or training log stores."
         }
       },
@@ -14983,10 +14804,10 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is streaming in-flight governance superior to waiting for generation to finish before checking safety?",
           "options": [
-            "Because completed responses cannot be parsed by Python strings.",
-            "It prevents the user's browser from downloading CSS stylesheets across distributed enterprise model inference endpoints and edge gateway firewalls.",
-            "It halts generation immediately when violations occur, conserving GPU compute and reducing latency.",
-            "Streaming guardrails require zero CPU or memory resources."
+            "Because completed responses cannot be parsed by Python strings",
+            "It prevents the user's browser from downloading CSS stylesheets",
+            "It halts generation immediately when violations occur, conserving GPU compute and reducing latency",
+            "Streaming guardrails require zero CPU or memory resources evaluated across model inference safety endpoints"
           ],
           "answer": 2,
           "answerIndex": 2,
@@ -15028,13 +14849,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security vulnerability does outbound credential sanitization prevent?",
           "options": [
-            "SQL injection attacks against client web browsers.",
-            "Unauthorized physical access to enterprise server hardware by bypassing input tokenization sanitizers and automated guardrail inspection layers.",
-            "Accidental leakage of cloud API keys and secrets memorized during model pre-training or fine-tuning.",
-            "DDoS attacks targeting internet DNS root servers."
+            "SQL injection attacks against client web browsers",
+            "Unauthorized physical access to enterprise server hardware",
+            "DDoS attacks targeting internet DNS root servers",
+            "Accidental leakage of cloud API keys and secrets memorized during model pre-training or fine-tuning"
           ],
-          "answer": 2,
-          "answerIndex": 2,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Outbound scanners prevent models from outputting memorized API keys, credentials, or proprietary intellectual property."
         }
       },
@@ -15073,13 +14894,13 @@ export const SAFETY_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does cryptographic audit logging in the control plane support regulatory compliance?",
           "options": [
-            "It increases transformer decoding speed by 40%.",
-            "It creates an immutable, verifiable record of all inputs, outputs, and safety decisions for forensic auditing.",
-            "It allows unauthenticated users to modify model weights.",
-            "It eliminates all latency across international network connections across multi-tenant vector similarity stores and asynchronous security audit queues."
+            "It creates an immutable, verifiable record of all inputs, outputs, and safety decisions for forensic auditing",
+            "It increases transformer decoding speed by 40%",
+            "It allows unauthenticated users to modify model weights",
+            "It eliminates all latency across international network connections across multi-tenant vector similarity stores and asynchronous security audit queues"
           ],
-          "answer": 1,
-          "answerIndex": 1,
+          "answer": 0,
+          "answerIndex": 0,
           "why": "Cryptographic audit trails provide verifiable, tamper-evident proof that safety policies were enforced for every request, fulfilling compliance standards."
         }
       }

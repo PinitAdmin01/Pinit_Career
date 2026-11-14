@@ -51,6 +51,34 @@ test('SQL long lessons are complete 20-30 minute classes with at least 14 minute
       assert.ok(part.say.length >= 3, `${where} "${part.title}": teacher explanation too short`);
       const { options, answer } = part.check;
       assert.ok(options.length >= 2 && answer >= 0 && answer < options.length, `${where} "${part.title}": bad check question`);
+      const why = ((part.check as any).why || (part.check as any).explanation || '').trim();
+      assert.ok(why.length >= 15, `${where} "${part.title}": check explanation too short (${why.length} chars)`);
+      assert.doesNotMatch(why, /^Verified against .* standards\.$/i, `${where} "${part.title}": contains generic rubber-stamp why`);
     }
+  }
+
+  // Verify MCQ length balance and option distribution across all 60 days
+  let totalChecks = 0;
+  let longestWins = 0;
+  const ansCounts = [0, 0, 0, 0];
+  for (const lesson of SQL_LONG_LESSONS) {
+    for (const part of lesson.parts) {
+      const lens = part.check.options.map((o) => o.trim().length);
+      const maxLen = Math.max(...lens);
+      if (lens[part.check.answer] === maxLen && lens.filter((l) => l === maxLen).length === 1) {
+        longestWins++;
+      }
+      ansCounts[part.check.answer] = (ansCounts[part.check.answer] || 0) + 1;
+      totalChecks++;
+    }
+  }
+  const longestRate = totalChecks > 0 ? longestWins / totalChecks : 0;
+  assert.ok(
+    longestRate >= 0.18 && longestRate <= 0.35,
+    `SQL Mastery: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be 18%-35%`
+  );
+  for (let a = 0; a < 4; a++) {
+    const rate = (ansCounts[a] || 0) / totalChecks;
+    assert.ok(rate <= 0.45, `SQL Mastery: option index ${a} bias (${(rate * 100).toFixed(1)}%) must be <= 45%`);
   }
 });

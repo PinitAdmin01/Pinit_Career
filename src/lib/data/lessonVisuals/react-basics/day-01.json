@@ -7,10 +7,10 @@
   "entries": [
     {
       "partTitle": "The Network Request Lifecycle: DNS Recursive Resolution, Anycast Routing & Latency Budgets",
-      "codeHash": "d5a18d04b55874bf522b099981f4235ca21297c7b9f702f47b638926b828b04d",
+      "codeHash": "c2de618b2c9951730c7b2fc7ed84362b826ec0043379800c73948fe989741bd7",
       "spec": {
         "template": "flow",
-        "title": "Client Network Layer to DNS Resolver and Edge Gateway",
+        "title": "DNS Resolution, Anycast, and Zone-Apex Records",
         "nodes": [
           {
             "id": "n1",
@@ -29,115 +29,56 @@
           },
           {
             "id": "n4",
-            "label": "Edge Gateway",
+            "label": "DNS Hierarchy",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Client checks local operating system cache for domain address.",
+            "caption": "The browser checks its local DNS cache first.",
             "values": {
               "n1": {
-                "text": "\"Browser Client\""
+                "text": "browser"
               },
               "n2": {
-                "text": "\"OS DNS Cache\""
+                "text": "local DNS cache"
               },
               "n3": {
-                "text": "\"Recursive Resolver\""
+                "text": "recursive resolver"
               },
               "n4": {
-                "text": "\"Edge Gateway\""
+                "text": "root server"
               }
             },
             "tones": {
               "n1": "data",
-              "n2": "idle",
+              "n2": "data",
               "n3": "idle",
               "n4": "idle"
             },
-            "arrows": []
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Recursive resolver queries root name servers across the network.",
+            "caption": "On a miss, the resolver follows referrals through the DNS hierarchy.",
             "values": {
               "n1": {
-                "text": "\"Browser Client\""
+                "text": "browser"
               },
               "n2": {
-                "text": "\"OS DNS Cache\""
+                "text": "local DNS cache"
               },
               "n3": {
-                "text": "\"Recursive Resolver\""
+                "text": "recursive resolver"
               },
               "n4": {
-                "text": "\"Edge Gateway\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Authoritative name server returns canonical internet protocol address.",
-            "values": {
-              "n1": {
-                "text": "\"Browser Client\""
-              },
-              "n2": {
-                "text": "\"OS DNS Cache\""
-              },
-              "n3": {
-                "text": "\"Recursive Resolver\""
-              },
-              "n4": {
-                "text": "\"Edge Gateway\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Client establishes transmission control protocol socket connection.",
-            "values": {
-              "n1": {
-                "text": "\"Browser Client\""
-              },
-              "n2": {
-                "text": "\"OS DNS Cache\""
-              },
-              "n3": {
-                "text": "\"Recursive Resolver\""
-              },
-              "n4": {
-                "text": "\"Edge Gateway\""
+                "text": "top-level-domain (TLD) servers"
               }
             },
             "tones": {
@@ -160,12 +101,71 @@
                 "n4"
               ]
             ]
+          },
+          {
+            "at": "say3",
+            "caption": "Anycast routing does not guarantee the physically nearest site.",
+            "values": {
+              "n1": {
+                "text": "browser"
+              },
+              "n2": {
+                "text": "local DNS cache"
+              },
+              "n3": {
+                "text": "recursive resolver"
+              },
+              "n4": {
+                "text": "Anycast"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "A zone apex needs SOA and NS; a standard CNAME cannot coexist.",
+            "values": {
+              "n1": {
+                "text": "standard CNAME"
+              },
+              "n2": {
+                "text": "zone apex"
+              },
+              "n3": {
+                "text": "ALIAS- or ANAME-style flattening"
+              },
+              "n4": {
+                "text": "Start of Authority (SOA)"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Client Network Layer to DNS Resolver and Edge Gateway",
+        "title": "DNS Resolution, Anycast, and Zone-Apex Records",
         "nodes": [
           {
             "id": "n1",
@@ -184,115 +184,56 @@
           },
           {
             "id": "n4",
-            "label": "Edge Gateway",
+            "label": "DNS Hierarchy",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Client checks local operating system cache for domain address.",
+            "caption": "The browser checks its local DNS cache first.",
             "values": {
               "n1": {
-                "text": "\"Browser Client\""
+                "text": "browser"
               },
               "n2": {
-                "text": "\"OS DNS Cache\""
+                "text": "local DNS cache"
               },
               "n3": {
-                "text": "\"Recursive Resolver\""
+                "text": "recursive resolver"
               },
               "n4": {
-                "text": "\"Edge Gateway\""
+                "text": "root server"
               }
             },
             "tones": {
               "n1": "data",
-              "n2": "idle",
+              "n2": "data",
               "n3": "idle",
               "n4": "idle"
             },
-            "arrows": []
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Recursive resolver queries root name servers across the network.",
+            "caption": "On a miss, the resolver follows referrals through the DNS hierarchy.",
             "values": {
               "n1": {
-                "text": "\"Browser Client\""
+                "text": "browser"
               },
               "n2": {
-                "text": "\"OS DNS Cache\""
+                "text": "local DNS cache"
               },
               "n3": {
-                "text": "\"Recursive Resolver\""
+                "text": "recursive resolver"
               },
               "n4": {
-                "text": "\"Edge Gateway\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Authoritative name server returns canonical internet protocol address.",
-            "values": {
-              "n1": {
-                "text": "\"Browser Client\""
-              },
-              "n2": {
-                "text": "\"OS DNS Cache\""
-              },
-              "n3": {
-                "text": "\"Recursive Resolver\""
-              },
-              "n4": {
-                "text": "\"Edge Gateway\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Client establishes transmission control protocol socket connection.",
-            "values": {
-              "n1": {
-                "text": "\"Browser Client\""
-              },
-              "n2": {
-                "text": "\"OS DNS Cache\""
-              },
-              "n3": {
-                "text": "\"Recursive Resolver\""
-              },
-              "n4": {
-                "text": "\"Edge Gateway\""
+                "text": "top-level-domain (TLD) servers"
               }
             },
             "tones": {
@@ -315,86 +256,120 @@
                 "n4"
               ]
             ]
+          },
+          {
+            "at": "say3",
+            "caption": "Anycast routing does not guarantee the physically nearest site.",
+            "values": {
+              "n1": {
+                "text": "browser"
+              },
+              "n2": {
+                "text": "local DNS cache"
+              },
+              "n3": {
+                "text": "recursive resolver"
+              },
+              "n4": {
+                "text": "Anycast"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "A zone apex needs SOA and NS; a standard CNAME cannot coexist.",
+            "values": {
+              "n1": {
+                "text": "standard CNAME"
+              },
+              "n2": {
+                "text": "zone apex"
+              },
+              "n3": {
+                "text": "ALIAS- or ANAME-style flattening"
+              },
+              "n4": {
+                "text": "Start of Authority (SOA)"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
         ]
       }
     },
     {
-      "partTitle": "Transport Layer Security & Multiplexing: TCP Handshakes, TLS 1.3 Resumption & HTTP/2 Binary Frames",
+      "partTitle": "From TCP and TLS Setup to HTTP/1.1, HTTP/2, and HTTP/3",
       "codeHash": "484612927eedb88b40b4e1233ebef01aa31d13c509b56484bc0b3f68a542cf42",
       "spec": {
         "template": "flow",
-        "title": "Transmission Control Protocol and Security Handshake",
+        "title": "From TCP and TLS Setup to HTTP/1.1, HTTP/2, and HTTP/3",
         "nodes": [
           {
             "id": "n1",
-            "label": "Client Socket",
+            "label": "Client",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "SYN Packet",
+            "label": "TCP Connection",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "SYN-ACK Packet",
+            "label": "TLS Session",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Session Cipher",
+            "label": "HTTP Streams",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Client initiates transmission control protocol syn packet to edge server.",
+            "caption": "SYN, SYN-ACK, and ACK complete the TCP handshake.",
             "values": {
               "n1": {
-                "text": "\"Client Socket\""
+                "text": "client"
               },
               "n2": {
-                "text": "\"SYN Packet\""
+                "text": "SYN"
               },
               "n3": {
-                "text": "\"SYN-ACK Packet\""
+                "text": "SYN-ACK"
               },
               "n4": {
-                "text": "\"Session Cipher\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Edge server responds with syn ack packet confirming port allocation.",
-            "values": {
-              "n1": {
-                "text": "\"Client Socket\""
-              },
-              "n2": {
-                "text": "\"SYN Packet\""
-              },
-              "n3": {
-                "text": "\"SYN-ACK Packet\""
-              },
-              "n4": {
-                "text": "\"Session Cipher\""
+                "text": "ACK"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
-              "n3": "idle",
-              "n4": "idle"
+              "n3": "data",
+              "n4": "ok"
             },
             "arrows": [
               [
@@ -404,20 +379,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Client transmits ack packet completing initial three-way handshake.",
+            "at": "say2",
+            "caption": "A full TLS handshake usually takes one round trip.",
             "values": {
               "n1": {
-                "text": "\"Client Socket\""
+                "text": "client"
               },
               "n2": {
-                "text": "\"SYN Packet\""
+                "text": "TCP"
               },
               "n3": {
-                "text": "\"SYN-ACK Packet\""
+                "text": "TLS 1.3"
               },
               "n4": {
-                "text": "\"Session Cipher\""
+                "text": "0-RTT early data"
               }
             },
             "tones": {
@@ -438,27 +413,65 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Client and server negotiate cipher suites and derive session keys.",
+            "at": "say3",
+            "caption": "HTTP/2 multiplexes streams over TCP, so transport loss can delay them all.",
             "values": {
               "n1": {
-                "text": "\"Client Socket\""
+                "text": "client"
               },
               "n2": {
-                "text": "\"SYN Packet\""
+                "text": "TCP"
               },
               "n3": {
-                "text": "\"SYN-ACK Packet\""
+                "text": "HTTP/2"
               },
               "n4": {
-                "text": "\"Session Cipher\""
+                "text": "ordered delivery"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
               "n3": "data",
-              "n4": "data"
+              "n4": "error"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "QUIC orders data within streams, but a lost packet can affect several.",
+            "values": {
+              "n1": {
+                "text": "client"
+              },
+              "n2": {
+                "text": "UDP"
+              },
+              "n3": {
+                "text": "QUIC streams"
+              },
+              "n4": {
+                "text": "congestion control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
@@ -479,77 +492,52 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Transmission Control Protocol and Security Handshake",
+        "title": "From TCP and TLS Setup to HTTP/1.1, HTTP/2, and HTTP/3",
         "nodes": [
           {
             "id": "n1",
-            "label": "Client Socket",
+            "label": "Client",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "SYN Packet",
+            "label": "TCP Connection",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "SYN-ACK Packet",
+            "label": "TLS Session",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Session Cipher",
+            "label": "HTTP Streams",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Client initiates transmission control protocol syn packet to edge server.",
+            "caption": "SYN, SYN-ACK, and ACK complete the TCP handshake.",
             "values": {
               "n1": {
-                "text": "\"Client Socket\""
+                "text": "client"
               },
               "n2": {
-                "text": "\"SYN Packet\""
+                "text": "SYN"
               },
               "n3": {
-                "text": "\"SYN-ACK Packet\""
+                "text": "SYN-ACK"
               },
               "n4": {
-                "text": "\"Session Cipher\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Edge server responds with syn ack packet confirming port allocation.",
-            "values": {
-              "n1": {
-                "text": "\"Client Socket\""
-              },
-              "n2": {
-                "text": "\"SYN Packet\""
-              },
-              "n3": {
-                "text": "\"SYN-ACK Packet\""
-              },
-              "n4": {
-                "text": "\"Session Cipher\""
+                "text": "ACK"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
-              "n3": "idle",
-              "n4": "idle"
+              "n3": "data",
+              "n4": "ok"
             },
             "arrows": [
               [
@@ -559,20 +547,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Client transmits ack packet completing initial three-way handshake.",
+            "at": "say2",
+            "caption": "A full TLS handshake usually takes one round trip.",
             "values": {
               "n1": {
-                "text": "\"Client Socket\""
+                "text": "client"
               },
               "n2": {
-                "text": "\"SYN Packet\""
+                "text": "TCP"
               },
               "n3": {
-                "text": "\"SYN-ACK Packet\""
+                "text": "TLS 1.3"
               },
               "n4": {
-                "text": "\"Session Cipher\""
+                "text": "0-RTT early data"
               }
             },
             "tones": {
@@ -593,27 +581,65 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Client and server negotiate cipher suites and derive session keys.",
+            "at": "say3",
+            "caption": "HTTP/2 multiplexes streams over TCP, so transport loss can delay them all.",
             "values": {
               "n1": {
-                "text": "\"Client Socket\""
+                "text": "client"
               },
               "n2": {
-                "text": "\"SYN Packet\""
+                "text": "TCP"
               },
               "n3": {
-                "text": "\"SYN-ACK Packet\""
+                "text": "HTTP/2"
               },
               "n4": {
-                "text": "\"Session Cipher\""
+                "text": "ordered delivery"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
               "n3": "data",
-              "n4": "data"
+              "n4": "error"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "QUIC orders data within streams, but a lost packet can affect several.",
+            "values": {
+              "n1": {
+                "text": "client"
+              },
+              "n2": {
+                "text": "UDP"
+              },
+              "n3": {
+                "text": "QUIC streams"
+              },
+              "n4": {
+                "text": "congestion control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
@@ -635,126 +661,126 @@
     },
     {
       "partTitle": "The Browser Rendering Engine: HTML Tokenization, DOM Tree Construction & The CSSOM Tree",
-      "codeHash": "2d2e583d50c20cc152c200051d4e44e0210e91afb2ec0e7ef188884fabb35138",
+      "codeHash": "6abd53e1f2fd8f13cf2a8bc98e6fdefe060b82903af31e66bc094f7bda254bbb",
       "spec": {
         "template": "boxes",
-        "title": "HTTP Protocol Framing Architecture",
+        "title": "From HTML Bytes to the Render Tree",
         "boxes": [
           {
             "id": "b1",
-            "label": "Socket Layer",
+            "label": "HTML Response Bytes",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Stream Multiplex",
+            "label": "Tokenizer Tokens",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Binary Frames",
+            "label": "DOM Tree",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Application Payload",
+            "label": "CSSOM and Render Tree",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Legacy HTTP opens multiple parallel transmission control sockets.",
+            "caption": "The tokenizer emits tags, attributes, and text as tokens.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "HTML response bytes"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "tokenizer"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "Document Object Model (DOM) tree"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "CSS Object Model (CSSOM)"
               }
             },
             "tones": {
               "b1": "data",
-              "b2": "idle",
+              "b2": "data",
               "b3": "idle",
               "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Head-of-line blocking stalls subsequent requests behind slow assets.",
+            "caption": "Synchronous scripts can pause HTML parsing.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "HTML response bytes"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "synchronous script tag"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "DOM construction"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "speculative pre-parser"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
+              "b3": "error",
+              "b4": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "Modern HTTP introduces binary framing layer over single socket stream.",
+            "caption": "Applicable stylesheets can delay the first paint.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "stylesheet bytes"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "CSS Object Model (CSSOM)"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "initial view"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "first paint"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
               "b3": "data",
-              "b4": "idle"
+              "b4": "ok"
             }
           },
           {
             "at": "say4",
-            "caption": "Independent bidirectional streams interleave packets without head blocking.",
+            "caption": "The render tree omits display:none and nonvisual tags.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "DOM"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "CSSOM"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "Render Tree"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "pseudo-elements"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "data",
+              "b3": "ok",
               "b4": "data"
             }
           }
@@ -762,123 +788,123 @@
       },
       "filled": {
         "template": "boxes",
-        "title": "HTTP Protocol Framing Architecture",
+        "title": "From HTML Bytes to the Render Tree",
         "boxes": [
           {
             "id": "b1",
-            "label": "Socket Layer",
+            "label": "HTML Response Bytes",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Stream Multiplex",
+            "label": "Tokenizer Tokens",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Binary Frames",
+            "label": "DOM Tree",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Application Payload",
+            "label": "CSSOM and Render Tree",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Legacy HTTP opens multiple parallel transmission control sockets.",
+            "caption": "The tokenizer emits tags, attributes, and text as tokens.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "HTML response bytes"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "tokenizer"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "Document Object Model (DOM) tree"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "CSS Object Model (CSSOM)"
               }
             },
             "tones": {
               "b1": "data",
-              "b2": "idle",
+              "b2": "data",
               "b3": "idle",
               "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Head-of-line blocking stalls subsequent requests behind slow assets.",
+            "caption": "Synchronous scripts can pause HTML parsing.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "HTML response bytes"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "synchronous script tag"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "DOM construction"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "speculative pre-parser"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
+              "b3": "error",
+              "b4": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "Modern HTTP introduces binary framing layer over single socket stream.",
+            "caption": "Applicable stylesheets can delay the first paint.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "stylesheet bytes"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "CSS Object Model (CSSOM)"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "initial view"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "first paint"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
               "b3": "data",
-              "b4": "idle"
+              "b4": "ok"
             }
           },
           {
             "at": "say4",
-            "caption": "Independent bidirectional streams interleave packets without head blocking.",
+            "caption": "The render tree omits display:none and nonvisual tags.",
             "values": {
               "b1": {
-                "text": "\"Socket Layer\""
+                "text": "DOM"
               },
               "b2": {
-                "text": "\"Stream Multiplex\""
+                "text": "CSSOM"
               },
               "b3": {
-                "text": "\"Binary Frames\""
+                "text": "Render Tree"
               },
               "b4": {
-                "text": "\"Application Payload\""
+                "text": "pseudo-elements"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "data",
+              "b3": "ok",
               "b4": "data"
             }
           }
@@ -886,74 +912,49 @@
       }
     },
     {
-      "partTitle": "The Critical Rendering Path: Layout Trees, Paint Geometry & GPU Compositor Threading",
-      "codeHash": "8efa02758b11186a1388c567d71856600c0f23dbeac79de19a9e7f34c872607c",
+      "partTitle": "Browser Rendering: Layout, Paint, Compositing, and Forced Layout",
+      "codeHash": "7e292912cfc85bb6f945daa735d1071ac098798cb597038c4fe6cdd9432bee21",
       "spec": {
         "template": "flow",
-        "title": "Critical Rendering Path and Graphics Compositing",
+        "title": "Layout, Paint, Compositing, and Forced Layout",
         "nodes": [
           {
             "id": "n1",
-            "label": "Byte Stream",
+            "label": "Layout Work",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "DOM Construction",
+            "label": "Painted Layers",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Layout Geometry",
+            "label": "Compositor",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "GPU Compositor",
+            "label": "JavaScript Geometry Read",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Network stream yields raw bytes converted to tokens and nodes.",
+            "caption": "Layout calculates positions and dimensions for rendered elements.",
             "values": {
               "n1": {
-                "text": "\"Byte Stream\""
+                "text": "render tree"
               },
               "n2": {
-                "text": "\"DOM Construction\""
+                "text": "Layout"
               },
               "n3": {
-                "text": "\"Layout Geometry\""
+                "text": "Paint"
               },
               "n4": {
-                "text": "\"GPU Compositor\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Style rules resolve against elements to construct the render tree.",
-            "values": {
-              "n1": {
-                "text": "\"Byte Stream\""
-              },
-              "n2": {
-                "text": "\"DOM Construction\""
-              },
-              "n3": {
-                "text": "\"Layout Geometry\""
-              },
-              "n4": {
-                "text": "\"GPU Compositor\""
+                "text": "compositing"
               }
             },
             "tones": {
@@ -970,20 +971,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Layout engine computes exact geometric coordinates for visible boxes.",
+            "at": "say2",
+            "caption": "Paint records drawing work for text, images, backgrounds, and borders.",
             "values": {
               "n1": {
-                "text": "\"Byte Stream\""
+                "text": "Layout"
               },
               "n2": {
-                "text": "\"DOM Construction\""
+                "text": "Paint"
               },
               "n3": {
-                "text": "\"Layout Geometry\""
+                "text": "Stacking contexts"
               },
               "n4": {
-                "text": "\"GPU Compositor\""
+                "text": "layers"
               }
             },
             "tones": {
@@ -991,6 +992,36 @@
               "n2": "data",
               "n3": "data",
               "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Transform and opacity may be eligible for compositing.",
+            "values": {
+              "n1": {
+                "text": "layout geometry"
+              },
+              "n2": {
+                "text": "Paint"
+              },
+              "n3": {
+                "text": "transform"
+              },
+              "n4": {
+                "text": "compositing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
             },
             "arrows": [
               [
@@ -1005,39 +1036,31 @@
           },
           {
             "at": "say4",
-            "caption": "Compositor thread groups display layers onto hardware texture buffers.",
+            "caption": "A geometry read after a write may force synchronous layout.",
             "values": {
               "n1": {
-                "text": "\"Byte Stream\""
+                "text": "layout-affecting style"
               },
               "n2": {
-                "text": "\"DOM Construction\""
+                "text": "pending style"
               },
               "n3": {
-                "text": "\"Layout Geometry\""
+                "text": "geometry"
               },
               "n4": {
-                "text": "\"GPU Compositor\""
+                "text": "element.getBoundingClientRect()"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
               "n3": "data",
-              "n4": "data"
+              "n4": "error"
             },
             "arrows": [
               [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ],
-              [
-                "n3",
-                "n4"
+                "n4",
+                "n1"
               ]
             ]
           }
@@ -1045,70 +1068,45 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Critical Rendering Path and Graphics Compositing",
+        "title": "Layout, Paint, Compositing, and Forced Layout",
         "nodes": [
           {
             "id": "n1",
-            "label": "Byte Stream",
+            "label": "Layout Work",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "DOM Construction",
+            "label": "Painted Layers",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Layout Geometry",
+            "label": "Compositor",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "GPU Compositor",
+            "label": "JavaScript Geometry Read",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Network stream yields raw bytes converted to tokens and nodes.",
+            "caption": "Layout calculates positions and dimensions for rendered elements.",
             "values": {
               "n1": {
-                "text": "\"Byte Stream\""
+                "text": "render tree"
               },
               "n2": {
-                "text": "\"DOM Construction\""
+                "text": "Layout"
               },
               "n3": {
-                "text": "\"Layout Geometry\""
+                "text": "Paint"
               },
               "n4": {
-                "text": "\"GPU Compositor\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Style rules resolve against elements to construct the render tree.",
-            "values": {
-              "n1": {
-                "text": "\"Byte Stream\""
-              },
-              "n2": {
-                "text": "\"DOM Construction\""
-              },
-              "n3": {
-                "text": "\"Layout Geometry\""
-              },
-              "n4": {
-                "text": "\"GPU Compositor\""
+                "text": "compositing"
               }
             },
             "tones": {
@@ -1125,20 +1123,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Layout engine computes exact geometric coordinates for visible boxes.",
+            "at": "say2",
+            "caption": "Paint records drawing work for text, images, backgrounds, and borders.",
             "values": {
               "n1": {
-                "text": "\"Byte Stream\""
+                "text": "Layout"
               },
               "n2": {
-                "text": "\"DOM Construction\""
+                "text": "Paint"
               },
               "n3": {
-                "text": "\"Layout Geometry\""
+                "text": "Stacking contexts"
               },
               "n4": {
-                "text": "\"GPU Compositor\""
+                "text": "layers"
               }
             },
             "tones": {
@@ -1146,6 +1144,36 @@
               "n2": "data",
               "n3": "data",
               "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Transform and opacity may be eligible for compositing.",
+            "values": {
+              "n1": {
+                "text": "layout geometry"
+              },
+              "n2": {
+                "text": "Paint"
+              },
+              "n3": {
+                "text": "transform"
+              },
+              "n4": {
+                "text": "compositing"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
             },
             "arrows": [
               [
@@ -1160,39 +1188,31 @@
           },
           {
             "at": "say4",
-            "caption": "Compositor thread groups display layers onto hardware texture buffers.",
+            "caption": "A geometry read after a write may force synchronous layout.",
             "values": {
               "n1": {
-                "text": "\"Byte Stream\""
+                "text": "layout-affecting style"
               },
               "n2": {
-                "text": "\"DOM Construction\""
+                "text": "pending style"
               },
               "n3": {
-                "text": "\"Layout Geometry\""
+                "text": "geometry"
               },
               "n4": {
-                "text": "\"GPU Compositor\""
+                "text": "element.getBoundingClientRect()"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
               "n3": "data",
-              "n4": "data"
+              "n4": "error"
             },
             "arrows": [
               [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ],
-              [
-                "n3",
-                "n4"
+                "n4",
+                "n1"
               ]
             ]
           }
@@ -1201,163 +1221,163 @@
     },
     {
       "partTitle": "From Imperative DOM Mutation to Declarative Component Architecture: The Architectural Rationale for React",
-      "codeHash": "774d8431325064a08fb8a7867ea6f2f48f915f7f4b5264fbb8ae17bde819c9ef",
+      "codeHash": "cb91c1cee9487b86d578b98cc3efddb21be3d774348891f8eaaa347524dcffad",
       "spec": {
         "template": "compare",
-        "title": "Core Web Vitals Thresholds and Performance Telemetry",
-        "leftLabel": "Standard Execution",
-        "rightLabel": "Optimized Pipeline",
+        "title": "Imperative DOM Updates and Declarative React UI",
+        "leftLabel": "Imperative DOM",
+        "rightLabel": "Declarative React",
         "steps": [
           {
             "at": "say1",
-            "caption": "Largest Contentful Paint measures render speed of primary viewports.",
+            "caption": "Imperative cart updates require several manual DOM mutations.",
             "left": {
-              "code": "// Left pipeline phase 1",
+              "code": "Find badge; update text; add item; attach handler.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "idle"
+                "text": "Manual DOM changes",
+                "tone": "data"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 1",
+              "code": "Describe the cart UI from current state.",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Component description",
+                "tone": "ok"
+              }
             }
           },
           {
             "at": "say2",
-            "caption": "Interaction to Next Paint monitors event dispatch and frame delays.",
+            "caption": "Missed manual updates can leave data and interface inconsistent.",
             "left": {
-              "code": "// Left pipeline phase 2",
+              "code": "Update state and DOM separately.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
+                "text": "Possible UI drift",
+                "tone": "error"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 2",
+              "code": "Keep UI as a projection of props and state.",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Explicit state projection",
+                "tone": "ok"
+              }
             }
           },
           {
             "at": "say3",
-            "caption": "Cumulative Layout Shift tracks unexpected layout movement during load.",
+            "caption": "Declarative components describe UI from current state.",
             "left": {
-              "code": "// Left pipeline phase 3",
+              "code": "Specify each DOM mutation.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
+                "text": "Mutation sequence",
+                "tone": "data"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 3",
+              "code": "UI = f(State)",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Desired UI description",
+                "tone": "ok"
+              }
             }
           },
           {
             "at": "say4",
-            "caption": "Target thresholds ensure fluid interactive performance across clients.",
+            "caption": "The renderer determines whether components target web or native views.",
             "left": {
-              "code": "// Left pipeline phase 4",
+              "code": "Use browser DOM host elements.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
+                "text": "Web renderer",
+                "tone": "data"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 4",
+              "code": "Use the host components of the chosen renderer.",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Renderer-specific views",
+                "tone": "ok"
+              }
             }
           }
         ]
       },
       "filled": {
         "template": "compare",
-        "title": "Core Web Vitals Thresholds and Performance Telemetry",
-        "leftLabel": "Standard Execution",
-        "rightLabel": "Optimized Pipeline",
+        "title": "Imperative DOM Updates and Declarative React UI",
+        "leftLabel": "Imperative DOM",
+        "rightLabel": "Declarative React",
         "steps": [
           {
             "at": "say1",
-            "caption": "Largest Contentful Paint measures render speed of primary viewports.",
+            "caption": "Imperative cart updates require several manual DOM mutations.",
             "left": {
-              "code": "// Left pipeline phase 1",
+              "code": "Find badge; update text; add item; attach handler.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "idle"
+                "text": "Manual DOM changes",
+                "tone": "data"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 1",
+              "code": "Describe the cart UI from current state.",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Component description",
+                "tone": "ok"
+              }
             }
           },
           {
             "at": "say2",
-            "caption": "Interaction to Next Paint monitors event dispatch and frame delays.",
+            "caption": "Missed manual updates can leave data and interface inconsistent.",
             "left": {
-              "code": "// Left pipeline phase 2",
+              "code": "Update state and DOM separately.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
+                "text": "Possible UI drift",
+                "tone": "error"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 2",
+              "code": "Keep UI as a projection of props and state.",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Explicit state projection",
+                "tone": "ok"
+              }
             }
           },
           {
             "at": "say3",
-            "caption": "Cumulative Layout Shift tracks unexpected layout movement during load.",
+            "caption": "Declarative components describe UI from current state.",
             "left": {
-              "code": "// Left pipeline phase 3",
+              "code": "Specify each DOM mutation.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
+                "text": "Mutation sequence",
+                "tone": "data"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 3",
+              "code": "UI = f(State)",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Desired UI description",
+                "tone": "ok"
+              }
             }
           },
           {
             "at": "say4",
-            "caption": "Target thresholds ensure fluid interactive performance across clients.",
+            "caption": "The renderer determines whether components target web or native views.",
             "left": {
-              "code": "// Left pipeline phase 4",
+              "code": "Use browser DOM host elements.",
               "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
+                "text": "Web renderer",
+                "tone": "data"
+              }
             },
             "right": {
-              "code": "// Optimized pipeline phase 4",
+              "code": "Use the host components of the chosen renderer.",
               "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+                "text": "Renderer-specific views",
+                "tone": "ok"
+              }
             }
           }
         ]

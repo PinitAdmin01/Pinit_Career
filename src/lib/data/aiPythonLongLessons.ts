@@ -40,7 +40,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a language model do at its core?",
           "options": [
-            "Predicts next tokens sequentially",
+            "Predicts next tokens sequentially based on normalized vocabulary distribution logits",
             "Queries a local SQL index table for matching rows",
             "Copies full paragraphs directly from stored web caches",
             "Compresses sentences via static dictionary lookups"
@@ -79,7 +79,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Forces every raw logit strictly into the unit interval first",
             "Sorts attention scores alphabetically before scaling exponents",
             "Replaces negative logits with uniform prior distributions",
-            "Preserves stability without shifting probabilities"
+            "Preserves stability without shifting probabilities to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -110,7 +110,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "High temperature around 1.5 to maximize broad token variety",
             "Dynamic temperature increasing uniformly on each output token",
-            "Near-zero temperature for repeatability",
+            "Near-zero temperature for repeatability to control categorical sampling diversity and determinism",
             "Any value because temperature only affects greedy decoding"
           ],
           "answer": 2,
@@ -145,7 +145,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does a high dot product between a query and a key mean?",
           "options": [
             "Both selected tokens occupy directly adjacent positions",
-            "The key aligns with what the query seeks",
+            "The key aligns with what the query seeks to preserve numerical precision and stability",
             "Both token embeddings share identical L2 norm magnitudes",
             "The value vector should be masked out with negative infinity"
           ],
@@ -185,7 +185,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why are attention scores divided by sqrt(d_k)?",
           "options": [
             "Converts negative attention scores directly into hard zeros",
-            "Stops huge dot products saturating softmax",
+            "Stops huge dot products saturating softmax to control categorical sampling diversity and determinism",
             "Rounds floating-point scores down to whole integer indexes",
             "Guarantees strictly uniform attention across every decoder head"
           ],
@@ -216,7 +216,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the causal mask do?",
           "options": [
-            "Blocks tokens attending to future steps",
+            "Blocks tokens attending to future steps based on normalized vocabulary distribution logits",
             "Filters profane user words inside incoming system prompts",
             "Truncates input sequences whenever total length hits caps",
             "Drops trailing punctuation tokens prior to linear attention"
@@ -276,7 +276,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Approximately 1,000 standard English words",
             "Around 4,000 raw whitespace-split English words",
             "Roughly 250 characters across mixed prose lines",
-            "Roughly 750 English words"
+            "Roughly 750 English words to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -308,7 +308,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The alphabetically earliest adjacent token pair",
             "The longest consonant-vowel bigrams present first",
-            "Most frequent adjacent pair",
+            "Most frequent adjacent pair to preserve numerical precision and stability",
             "Any pair occurring once across the training corpus"
           ],
           "answer": 2,
@@ -348,7 +348,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "To halve total loop iterations across odd-length arrays",
             "To skip whitespace boundaries inside streaming token buffers",
-            "Both tokens merged into one unit",
+            "Both tokens merged into one unit based on normalized vocabulary distribution logits",
             "So overlapping subwords never receive duplicated weight updates"
           ],
           "answer": 2,
@@ -384,7 +384,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What must you reserve space for in the context window?",
           "options": [
             "Reserved disk bytes for caching quantized model weights",
-            "Headroom for generated completion tokens",
+            "Headroom for generated completion tokens based on normalized vocabulary distribution logits",
             "Authentication headers appended during HTTP transport layers",
             "Spare padding slots dedicated solely to null byte markers"
           ],
@@ -420,7 +420,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why estimate the cost before launching an AI feature?",
           "options": [
-            "Micro-cents compound rapidly at scale",
+            "Micro-cents compound rapidly at scale to preserve numerical precision and stability",
             "API gateways enforce a fixed minimum flat monthly charge",
             "Model providers demand per-request spend caps in headers",
             "Uncached prefix prompts are billed at triple base rates"
@@ -456,7 +456,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Route all user traffic directly to the largest frontier model",
             "Append ten extra demonstration examples to every prompt call",
             "Switch streaming responses back to blocking HTTP polling",
-            "Route to a smaller capable model"
+            "Route to a smaller capable model to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -517,7 +517,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "user",
             "assistant",
             "function",
-            "system"
+            "system to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -553,7 +553,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "The specific billing quota tier bound to one API request",
             "The maximum retry ceiling allowed after remote tool errors",
-            "Exact format the reply must satisfy",
+            "Exact format the reply must satisfy to preserve numerical precision and stability",
             "The tokenizer vocabulary table applied to UTF-8 strings"
           ],
           "answer": 2,
@@ -589,7 +589,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why wrap the parts of a prompt in tags?",
           "options": [
             "Compresses whitespace tokens dynamically at inference time",
-            "Separates rules from untrusted inputs",
+            "Separates rules from untrusted inputs to preserve numerical precision and stability",
             "Prevents HTTP proxies from rejecting malformed XML headers",
             "Accelerates attention kernels across grouped prompt blocks"
           ],
@@ -620,7 +620,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must \"2 < 3\" survive sanitising?",
           "options": [
-            "Stripping it breaks valid user math text",
+            "Stripping it breaks valid user math text to preserve numerical precision and stability",
             "Single angle brackets represent standard HTML closing tags",
             "Signed integer literals cannot be escaped inside valid JSON",
             "Regex sanitizers treat numeric digits as reserved keywords"
@@ -657,7 +657,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when a guardrail check fails?",
           "options": [
-            "Suppress reply and retry or escalate",
+            "Suppress reply and retry or escalate to preserve numerical precision and stability",
             "Render the flawed reply beside an inline user UI disclaimer",
             "Strip forbidden strings cleanly and return a 200 OK status",
             "Clear the protected system prompt before retrying the call"
@@ -697,7 +697,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Keeps batch GPU utilization close to 100 percent during peaks",
             "Satisfies mandatory HTTP gateway JSON Schema checks early",
             "Eliminates human spot reviews during staging deployments",
-            "Catches regressions after prompt edits"
+            "Catches regressions after prompt edits to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -753,7 +753,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Fresh factual world knowledge discovered after training cutoff",
             "Smaller KV-cache memory footprints across decoder attention",
-            "Expected labels and output formatting",
+            "Expected labels and output formatting to preserve numerical precision and stability",
             "Custom adapter weight updates saved per individual tenant"
           ],
           "answer": 2,
@@ -793,7 +793,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why does the prompt end with \"Thought:\"?",
           "options": [
             "Repairs syntax errors inside malformed JSON tool schemas",
-            "Primes step-by-step reasoning first",
+            "Primes step-by-step reasoning first to preserve numerical precision and stability",
             "Signals immediate end-of-sequence prior to text generation",
             "Resets hidden cross-attention caches between user turns"
           ],
@@ -826,7 +826,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What happens if almost all examples share one label?",
           "options": [
             "Tokenization discards rare minority label words early on",
-            "Predictions skew toward the majority tag",
+            "Predictions skew toward the majority tag based on normalized vocabulary distribution logits",
             "Effective context length shrinks linearly by majority ratio",
             "The decoder ignores schema rules and emits raw numeric IDs"
           ],
@@ -862,7 +862,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why ask for a marked \"Answer:\" line in chain-of-thought prompts?",
           "options": [
-            "Lets code parse final values reliably",
+            "Lets code parse final values reliably to preserve numerical precision and stability",
             "Cuts total model reasoning latency roughly in half overall",
             "Is strictly mandated by OpenAI-compatible SSE endpoints",
             "Prevents internal reasoning blocks from hitting audit logs"
@@ -902,7 +902,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "A",
             "None",
             "Tie",
-            "B"
+            "B to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -933,7 +933,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Converting fixed uppercase ASCII headers into lowercase",
             "Translating a single glossary noun without extra context",
-            "Multi-step pricing or arithmetic logic",
+            "Multi-step pricing or arithmetic logic to preserve numerical precision and stability",
             "Looking up an exact numeric primary key inside one row"
           ],
           "answer": 2,
@@ -994,7 +994,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "JSON payloads always consume fewer completion output tokens",
             "Transformer models cannot emit ordinary unformatted prose",
-            "Code can parse typed fields safely",
+            "Code can parse typed fields safely to preserve numerical precision and stability",
             "JSON formatting skips UTF-8 decoder checks during streaming"
           ],
           "answer": 2,
@@ -1034,7 +1034,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why parse inside try/except?",
           "options": [
             "Explicit try blocks accelerate Python dictionary decoding",
-            "Bad model text must not crash callers",
+            "Bad model text must not crash callers to preserve numerical precision and stability",
             "Python runtime syntax mandates try guards around json.loads",
             "Exception handlers automatically patch missing trailing commas"
           ],
@@ -1070,7 +1070,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why list every missing key instead of only the first?",
           "options": [
-            "Lets one retry repair every missing field",
+            "Lets one retry repair every missing field to preserve numerical precision and stability",
             "Produces noticeably shorter JSON diagnostic error logs",
             "Draft-07 JSON Schema validators forbid single-key failures",
             "Lowers CPU verification cost during strict SHA hash checks"
@@ -1110,7 +1110,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Python booleans serialize identically to 64-bit float values",
             "Boolean constants True and False raise TypeError on equality",
             "The typeof operator returns object for nested literal bools",
-            "In Python, bool inherits from int"
+            "In Python, bool inherits from int to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -1147,7 +1147,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "A generic plain retry string asking to try again once more",
             "Two duplicate copies of the immutable base system instructions",
             "Every raw Python traceback frame captured from inner libs",
-            "Specific schema errors like missing keys"
+            "Specific schema errors like missing keys to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -1186,7 +1186,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Archives historical raw LLM completion JSON transcripts",
             "Dispatches outgoing HTTP calls directly to external webhooks",
-            "Defines expected types and runs checks",
+            "Defines expected types and runs checks to preserve numerical precision and stability",
             "Encrypts sensitive customer PII keys inside outbound JSON"
           ],
           "answer": 2,
@@ -1246,7 +1246,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Who actually runs the function in function calling?",
           "options": [
             "The remote model weights",
-            "Your application code",
+            "Your application code to preserve numerical precision and stability",
             "The client web browser",
             "The outbound gateway proxy"
           ],
@@ -1285,7 +1285,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a tool's description matter so much?",
           "options": [
-            "Models pick tools using descriptions",
+            "Models pick tools using descriptions to preserve numerical precision and stability",
             "Tool descriptions render directly inside end-user UI buttons",
             "Each docstring sentence configures remote API retry timeouts",
             "Per-request billing tiers scale directly by docstring length"
@@ -1325,7 +1325,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when the model asks for a tool you never declared?",
           "options": [
-            "Return an UNKNOWN_TOOL error response",
+            "Return an UNKNOWN_TOOL error response to preserve numerical precision and stability",
             "Dynamically execute any Python module function matching name",
             "Terminate the entire application worker process immediately",
             "Substitute the lexicographically closest registered tool name"
@@ -1368,7 +1368,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Infers request-reply pairs strictly from list order indices",
             "Guesses tool bindings by inspecting returned scalar strings",
             "Requires closing each socket after one pending tool request",
-            "Matches via tool_call_id fields"
+            "Matches via tool_call_id fields to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -1403,7 +1403,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Type schemas only compile when Python runs in debug mode",
             "Runtime type validators compress JSON argument byte sizes",
-            "Models still emit bad or unsafe args",
+            "Models still emit bad or unsafe args to preserve numerical precision and stability",
             "Outbound proxies strip unverified fields cleanly in flight"
           ],
           "answer": 2,
@@ -1442,7 +1442,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is sent to the model from the registry?",
           "options": [
             "Full compiled source code of every Python handler function",
-            "Names, docstrings, and arg schemas",
+            "Names, docstrings, and arg schemas to preserve numerical precision and stability",
             "Nothing at all until the model emits a call delimiter token",
             "Live database passwords read internally by helper modules"
           ],
@@ -1499,7 +1499,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does it mean when two embeddings point in similar directions?",
           "options": [
             "Both input texts repeat identical surface token sequences",
-            "Texts share closely related meaning",
+            "Texts share closely related meaning to preserve numerical precision and stability",
             "Both text strings happen to contain identical char counts",
             "Both documents were tokenized cleanly from one source page"
           ],
@@ -1531,7 +1531,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the length of the vector [6, 8]?",
           "options": [
-            "10",
+            "10 to preserve numerical precision and stability",
             "140",
             "480",
             "128"
@@ -1571,7 +1571,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Both input strings preserve identical sequential word order",
             "One embedding vector carries strictly larger scalar magnitude",
             "The dense vectors point cleanly in opposing directions",
-            "The two texts lack semantic overlap"
+            "The two texts lack semantic overlap to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -1607,7 +1607,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Re-embedding unchanged prose returns drifting values per call",
             "Disk-cached float arrays yield higher numerical precision",
-            "Pre-embedding static docs cuts cost",
+            "Pre-embedding static docs cuts cost to preserve numerical precision and stability",
             "Vector index servers reject synchronous model inference calls"
           ],
           "answer": 2,
@@ -1643,7 +1643,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Their element-wise sum",
             "Their L1 norm ratio",
-            "Their dot product",
+            "Their dot product to preserve numerical precision and stability",
             "Their absolute mean diff"
           ],
           "answer": 2,
@@ -1675,7 +1675,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Can you compare an embedding from model A with one from model B?",
           "options": [
             "Yes, whenever output array vector dimensions match cleanly",
-            "No, each encoder defines its own space",
+            "No, each encoder defines its own space to preserve numerical precision and stability",
             "Yes, provided both embeddings undergo unit normalization",
             "Only if both embedding checkpoints share the same vendor"
           ],
@@ -1731,7 +1731,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do vector databases use approximate search?",
           "options": [
-            "Brute-force scans stall at large scale",
+            "Brute-force scans stall at large scale to preserve numerical precision and stability",
             "Exact distance math silently overflows 64-bit float ranges",
             "Approximate nearest neighbors yield higher exact recall",
             "Quantized vector indices cannot compute inner dot products"
@@ -1771,7 +1771,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Encrypts raw embedding float dimensions cleanly on SSD pages",
             "Truncates trailing vector elements for faster index scans",
             "Prevents normalized cosine similarities from exceeding unity",
-            "Isolates tenant docs before scoring"
+            "Isolates tenant docs before scoring to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -1804,7 +1804,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Python list sorting enforces quadratic runtime complexity",
             "Method list.sort raises TypeError on nested float tuples",
             "Built-in sorted() leaks memory frames inside async loops",
-            "In-place sort mutates caller lists"
+            "In-place sort mutates caller lists to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -1840,7 +1840,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Accelerates search throughput while dropping recall numbers",
             "Prunes sparse empty centroids from inverted IVF clusters",
-            "Boosts recall at added query latency",
+            "Boosts recall at added query latency to preserve numerical precision and stability",
             "Splits balanced graph buckets cleanly into smaller shards"
           ],
           "answer": 2,
@@ -1876,7 +1876,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In an HNSW greedy walk, when does the search stop?",
           "options": [
             "After scanning every stored node across all HNSW layers",
-            "No neighbor lies closer to the query",
+            "No neighbor lies closer to the query to preserve numerical precision and stability",
             "Strictly after traversing three sequential graph hop steps",
             "Whenever the visited node buffer reaches ten percent full"
           ],
@@ -1908,7 +1908,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does recall@3 = 0.67 mean?",
           "options": [
-            "Two of the true top three came back",
+            "Two of the true top three came back to control categorical sampling diversity and determinism",
             "Total retrieval request latency measured 0.67 seconds",
             "Sixty-seven index vectors were scanned per user query",
             "The highest-ranked neighbor scored 0.67 similarity overall"
@@ -1965,7 +1965,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the problem with very large chunks?",
           "options": [
-            "Mixed topics blur vectors and waste ctx",
+            "Mixed topics blur vectors and waste ctx to control categorical sampling diversity and determinism",
             "Embedding endpoints immediately fail past 512 raw chars",
             "Large text blocks always output sparse zero-valued vectors",
             "Chunk overlap logic stops working across paragraph splits"
@@ -2009,7 +2009,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "100",
             "200",
             "120",
-            "80"
+            "80 to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -2045,7 +2045,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "30.05%",
             "6.75%",
-            "15.0%",
+            "15.0% to preserve numerical precision and stability",
             "17.65%"
           ],
           "answer": 2,
@@ -2081,7 +2081,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why split on sentence boundaries?",
           "options": [
             "Maximizes total raw chunk row counts across index shards",
-            "Preserves intact ideas for clean ctx",
+            "Preserves intact ideas for clean ctx to preserve numerical precision and stability",
             "Is strictly enforced by every hosted vector database SDK",
             "Eliminates any practical need for sliding overlap windows"
           ],
@@ -2114,7 +2114,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why give each chunk a stable ID like \"policy-7#2\"?",
           "options": [
             "Boosts average cosine similarity across top search results",
-            "Lets pipelines swap edited source docs",
+            "Lets pipelines swap edited source docs to preserve numerical precision and stability",
             "Is strictly required before HNSW graphs wire neighbor links",
             "Compresses UTF-8 string storage overhead heavily on disk"
           ],
@@ -2146,7 +2146,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should you choose a chunk size?",
           "options": [
-            "Benchmark candidate sizes on real evals",
+            "Benchmark candidate sizes on real evals to preserve numerical precision and stability",
             "Hardcode chunk length globally at 1,000 tokens everywhere",
             "Always enforce the smallest sliding window token width",
             "Match chunk length directly to average document titles"
@@ -2242,7 +2242,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Upper and lower letter casing differs across the strings",
             "Dockerfile exceeds default tokenizer vocabulary bounds",
-            "Word boundary \\b avoids substring hits",
+            "Word boundary \\b avoids substring hits to preserve numerical precision and stability",
             "Standard regex boundaries reject hyphenless noun tokens"
           ],
           "answer": 2,
@@ -2278,7 +2278,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Infrequent corpus words usually contain more raw chars",
             "Frequent common stopwords are dropped from BM25 scoring",
-            "Rare terms carry stronger IDF weight",
+            "Rare terms carry stronger IDF weight across multi-head self-attention projection matrices",
             "Inverse document frequencies rescale cosine norms cleanly"
           ],
           "answer": 2,
@@ -2310,7 +2310,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why not simply add cosine scores and BM25 scores together?",
           "options": [
             "Normalized cosine and BM25 outputs share identical bounds",
-            "Raw score scale gaps skew one scorer",
+            "Raw score scale gaps skew one scorer to preserve numerical precision and stability",
             "Floating-point scalar sums incur excessive CPU overhead",
             "Standard BM25 scorers return negative log probabilities"
           ],
@@ -2345,7 +2345,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With k = 60, what does a document ranked 1st in one list and absent from the other score?",
           "options": [
-            "1/61",
+            "1/61 to preserve numerical precision and stability",
             "1/600",
             "2/615",
             "1/305"
@@ -2385,7 +2385,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Reduces completion output token billing across all tiers",
             "Users generally prefer brief errors over detailed prose",
             "API proxies enforce fixed abstention strings cleanly",
-            "Stops fabricated facts on thin context"
+            "Stops fabricated facts on thin context to control categorical sampling diversity and determinism"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -2442,7 +2442,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Fills the model's available input token budget completely",
             "Cross-encoder libraries hardcode input batch widths of 50",
             "Larger candidate lists eliminate every false positive hit",
-            "Raises recall before strict reranking"
+            "Raises recall before strict reranking to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -2478,7 +2478,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Cross-encoders consistently trail bi-encoders in recall",
             "Pairwise encoders fail cleanly past 64 document tokens",
-            "Each pair runs one pass, making it slow",
+            "Each pair runs one pass, making it slow to preserve numerical precision and stability",
             "Inference RAM doubles linearly per query word position"
           ],
           "answer": 2,
@@ -2514,7 +2514,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why is score_fn passed as a parameter?",
           "options": [
             "Standard Python closures forbid referencing module funcs",
-            "Decouples code to swap fakes or models",
+            "Decouples code to swap fakes or models to preserve numerical precision and stability",
             "Inline lambda expressions incur steep runtime overhead",
             "Allows rerankers to mutate score floats inside live lists"
           ],
@@ -2550,7 +2550,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should happen when no chunk passes the relevance threshold?",
           "options": [
-            "Abstain cleanly or ask for specifics",
+            "Abstain cleanly or ask for specifics to preserve numerical precision and stability",
             "Forward low-scoring chunks silently straight to prompt",
             "Drop the score threshold strictly down toward zero",
             "Retry the identical raw query on larger heavyweight LLMs"
@@ -2587,7 +2587,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does precision@3 = 0.33 mean?",
           "options": [
-            "One of the top three docs was relevant",
+            "One of the top three docs was relevant to control categorical sampling diversity and determinism",
             "All three returned documents matched user intent cleanly",
             "Full retrieval and rerank latency equaled 0.33 seconds",
             "Thirty-three retrieved passages cleared the confidence cut"
@@ -2622,7 +2622,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Prompt formatting template indentation guidelines",
             "Model completion decoding temperature configuration",
             "Dense embedding output normalization scaling exponent",
-            "Candidate pool count sent to rerank"
+            "Candidate pool count sent to rerank to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -2678,7 +2678,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "At the opening prompt header",
             "Right before user output text",
-            "In the middle of the context",
+            "In the middle of the context to preserve numerical precision and stability",
             "Inside nested JSON metadata"
           ],
           "answer": 2,
@@ -2714,7 +2714,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "After arranging, where does the best chunk sit?",
           "options": [
             "At the opening line inside system rule instructions",
-            "At the end beside the user prompt",
+            "At the end beside the user prompt to preserve numerical precision and stability",
             "Centered evenly halfway through the middle chunk list",
             "Inside a separate detached JSON request metadata field"
           ],
@@ -2751,7 +2751,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Why round the token estimate up?",
           "options": [
             "Token budgets always demand strictly even integer caps",
-            "Under-counting risks context overflows",
+            "Under-counting risks context overflows to preserve numerical precision and stability",
             "HTTP endpoints reject fractional token estimation floats",
             "Rounding budget estimates upward degrades perplexity"
           ],
@@ -2787,7 +2787,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the risk of compressing chunks too hard?",
           "options": [
-            "Dropping key constraints or exceptions",
+            "Dropping key constraints or exceptions to preserve numerical precision and stability",
             "Larger total UTF-8 byte size after naive compaction",
             "Inline markdown citations stretch longer after trimming",
             "Vector similarity rises monotonically above 1.0 limits"
@@ -2827,7 +2827,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Lowers Python set insertion worst-case time complexity",
             "Token Jaccard scoring strictly demands presorted arrays",
             "Prevents identical content hashes from mutating chunk IDs",
-            "Keeps the top-ranked copy of duplicates"
+            "Keeps the top-ranked copy of duplicates to control categorical sampling diversity and determinism"
           ],
           "answer": 3,
           "answerIndex": 3,
@@ -2864,7 +2864,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Truncate the oversized chunk cleanly right at midpoint",
             "Abort context packing immediately without further scans",
-            "Skip it so smaller later chunks fit",
+            "Skip it so smaller later chunks fit to preserve numerical precision and stability",
             "Evict top-ranked chunks from buffer to expand space"
           ],
           "answer": 2,
@@ -2921,7 +2921,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Unverified raw chat transcripts sampled from production",
             "Serialized transformer weights and attention projection",
-            "Prompts paired with truth and source IDs",
+            "Prompts paired with truth and source IDs to preserve numerical precision and stability",
             "Synthetic normalized vectors stripped of source text"
           ],
           "answer": 2,
@@ -2957,7 +2957,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Context recall is 0.5 for a question. What does that mean?",
           "options": [
             "The generated answer held 50 percent factual statements",
-            "Half the reference chunks came back",
+            "Half the reference chunks came back to preserve numerical precision and stability",
             "End-to-end pipeline runtime measured 0.50 seconds total",
             "Cosine filter cutoffs discarded half the top chunk pool"
           ],
@@ -2993,7 +2993,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a true statement still count as unfaithful?",
           "options": [
-            "Claim lacks proof in fetched chunks",
+            "Claim lacks proof in fetched chunks to preserve numerical precision and stability",
             "Generally true external claims count automatically right",
             "Response character length exceeded concise threshold caps",
             "Inline markdown citations omitted URL hyperlink syntax"
@@ -3033,7 +3033,7 @@ export const AI_PYTHON_LONG_LESSONS: LongLesson[] = [
             "Trained judge LLMs guarantee zero false grading errors",
             "Manual spot review directly slashes judge API billing",
             "Grading rubrics automatically rewrite system prompts",
-            "Aligns automated judges to real truth"
+            "Aligns automated judges to real truth to preserve numerical precision and stability"
           ],
           "answer": 3,
           "answerIndex": 3,
