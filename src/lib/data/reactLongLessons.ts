@@ -2171,17 +2171,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a new module ./auth and verify dynamicImport resolves its exported credentials securely.",
         check: {
-          question: "What is the primary technical distinction between ECMAScript Modules (ESM) and CommonJS (CJS)?",
+          question: "What is the primary architectural difference between ECMAScript Modules (ESM) and CommonJS (CJS) resolution?",
           options: [
-            "ESM separates parsing, memory instantiation, and evaluation into distinct static phases before execution, whereas CommonJS executes synchronously at runtime",
-            "CommonJS was invented exclusively for client-side web browsers, while ESM was designed for mainframe operating systems",
-            "ESM only allows variables named with uppercase letters",
-            "CommonJS automatically translates all JavaScript code into WebAssembly binary files",
+            "CommonJS compiles asynchronously at build time, while ESM executes top-level module statements synchronously.",
+            "ESM separates parsing, instantiation, and evaluation into static phases, whereas CommonJS executes synchronously at runtime.",
+            "CommonJS evaluates exports inside background Web Workers, while ESM runs strictly within main thread execution.",
+            "ESM requires dynamic runtime function wrappers around all files, while CommonJS enforces static file headers.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "ESM performs static analysis and links live bindings during instantiation prior to evaluation, whereas CommonJS executes synchronously via runtime require() calls.",
-          explanation: "ESM performs static analysis and links live bindings during instantiation prior to evaluation, whereas CommonJS executes synchronously via runtime require() calls."
+          answer: 1,
+          answerIndex: 1,
+          why: "ESM separates module processing into distinct static parsing, live binding instantiation, and evaluation phases before execution. In contrast, CommonJS executes synchronously at runtime whenever require() is called, evaluating code on demand.",
+          explanation: "ESM separates module processing into distinct static parsing, live binding instantiation, and evaluation phases before execution. In contrast, CommonJS executes synchronously at runtime whenever require() is called, evaluating code on demand."
         }
       },
       {
@@ -2239,17 +2239,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Call esm.increment() once more and verify namespace.counter reflects 3 with zero stale caching.",
         check: {
-          question: "What is the primary mechanical difference between exported values in ESM versus CommonJS?",
+          question: "What is the primary mechanical difference between exported values in ECMAScript Modules versus CommonJS?",
           options: [
-            "ESM imports are live bindings that point directly to the exporter's memory address, whereas CommonJS exports are copied value snapshots",
-            "ESM exports are converted into compressed zip archives on disk",
-            "CommonJS exports are permanently encrypted with operating system public keys",
-            "ESM forbids exporting numbers greater than one thousand",
+            "CommonJS exports dynamically update consumer variables, whereas ESM creates immutable value snapshots on disk.",
+            "ESM imports are live bindings referencing the exporter's memory slot, while CommonJS exports are copied value snapshots.",
+            "CommonJS exports are restricted to primitive numbers and strings, while ESM permits exporting object references.",
+            "ESM caches exported functions in local browser storage, whereas CommonJS re-executes functions upon each require.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "ESM creates live bindings where consumers reference the exporter's internal memory slot, dynamically reflecting updates, unlike CJS which copies snapshots.",
-          explanation: "ESM creates live bindings where consumers reference the exporter's internal memory slot, dynamically reflecting updates, unlike CJS which copies snapshots."
+          answer: 1,
+          answerIndex: 1,
+          why: "ESM creates live bindings: imported identifiers point directly to the memory address of the exported variable inside the exporter module, automatically reflecting changes. In CommonJS, module.exports copies property values onto the exported object snapshot at the moment of evaluation.",
+          explanation: "ESM creates live bindings: imported identifiers point directly to the memory address of the exported variable inside the exporter module, automatically reflecting changes. In CommonJS, module.exports copies property values onto the exported object snapshot at the moment of evaluation."
         }
       },
       {
@@ -2323,17 +2323,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add analytics.js depending on logger.js and verify where it slots into the execution order.",
         check: {
-          question: "Why do modern JavaScript bundlers perform topological sorting on module dependency graphs?",
+          question: "Why do modern JavaScript bundlers perform topological sorting on the module dependency graph during bundle synthesis?",
           options: [
-            "To establish the exact deterministic initialization order ensuring all imported dependencies evaluate before the modules that consume them",
-            "To sort module file names alphabetically for display in the terminal",
-            "To delete all functions with more than three parameters",
-            "To compress image assets into CSS background gradients",
+            "To order files so all dependencies evaluate before the modules that consume them, ensuring correct initialization.",
+            "To group identical string literals together in memory so the browser gzip decompressor achieves maximum compression.",
+            "To parallelize module execution across multiple CPU cores by identifying completely independent function calls.",
+            "To verify that all external npm packages conform to semantic versioning contracts before generating output bundles.",
           ],
           answer: 0,
           answerIndex: 0,
-          why: "Topological sorting guarantees that every dependency is evaluated and initialized in memory before any consumer module attempts to read its exports.",
-          explanation: "Topological sorting guarantees that every dependency is evaluated and initialized in memory before any consumer module attempts to read its exports."
+          why: "Topological sorting traverses the Directed Acyclic Graph (DAG) of module dependencies and outputs a linear initialization order. This guarantees that every imported dependency is fully evaluated and instantiated in memory before any consumer module code attempts to execute.",
+          explanation: "Topological sorting traverses the Directed Acyclic Graph (DAG) of module dependencies and outputs a linear initialization order. This guarantees that every imported dependency is fully evaluated and instantiated in memory before any consumer module code attempts to execute."
         }
       },
       {
@@ -2398,17 +2398,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Mark deadAnalyticsLogger as referenced: true and verify it is retained in the production bundle.",
         check: {
-          question: "Why does top-level code with unverified side effects prevent bundlers from tree-shaking unused exports?",
+          question: "Why does unannotated top-level code with potential side effects prevent bundlers from tree-shaking unused exports?",
           options: [
-            "The bundler cannot prove whether the top-level execution modifies global state or triggers observable side effects, and conservatively retains the code to preserve runtime correctness",
-            "Bundlers are strictly prohibited by federal internet law from deleting any code that contains the word function",
-            "Side effects cause JavaScript files to be converted into read-only PDF documents",
-            "Tree-shaking only works when source code is written in pure machine assembly",
+            "JavaScript bundlers are technically incapable of analyzing function declarations that accept more than two arguments.",
+            "Top-level side effects force the browser engine to disable dead-code elimination flags during JIT compilation.",
+            "The bundler cannot prove that top-level execution will not alter global state, so it must retain the code for safety.",
+            "Unused exports containing side effects automatically corrupt the TypeScript type definition emit files during build.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Bundlers must guarantee application correctness; if a top-level statement might alter global state, the bundler cannot safely prune it without explicit pure annotations.",
-          explanation: "Bundlers must guarantee application correctness; if a top-level statement might alter global state, the bundler cannot safely prune it without explicit pure annotations."
+          answer: 2,
+          answerIndex: 2,
+          why: "Tree-shaking algorithms must strictly preserve runtime program semantics. If a module contains top-level statements that could mutate global variables, invoke external functions, or trigger prototype changes, bundlers cannot safely omit the module without risking broken behavior, unless marked with /*#__PURE__*/ or sideEffects: false.",
+          explanation: "Tree-shaking algorithms must strictly preserve runtime program semantics. If a module contains top-level statements that could mutate global variables, invoke external functions, or trigger prototype changes, bundlers cannot safely omit the module without risking broken behavior, unless marked with /*#__PURE__*/ or sideEffects: false."
         }
       },
       {
@@ -2491,17 +2491,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a './math' subpath to exports with custom ESM/CJS mappings and verify it resolves cleanly.",
         check: {
-          question: "What is the primary architectural purpose of the 'exports' field in modern package.json manifests?",
+          question: "What is the primary architectural purpose of configuring the 'exports' field in a package.json manifest?",
           options: [
-            "It establishes an explicit encapsulated public API boundary and enables conditional routing (import vs require) for different execution runtimes",
-            "It automatically backs up all package code to decentralized blockchain ledgers",
-            "It compiles TypeScript files directly into native iOS mobile applications",
-            "It renames all functions inside the package to prevent copyright infringement",
+            "It restricts npm installation permissions to verified corporate enterprise registries and private access tokens.",
+            "It forces the package to publish dual-compiled WebAssembly binaries for both browser and server runtime targets.",
+            "It instructs the package manager to bypass downloading node_modules by resolving imports directly over HTTP CDNs.",
+            "It encapsulates internal files against unauthorized subpath imports and routes environments to the correct module build.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "The exports map encapsulates internal files against private deep imports and provides conditional keys (import, require, types) for different consuming environments.",
-          explanation: "The exports map encapsulates internal files against private deep imports and provides conditional keys (import, require, types) for different consuming environments."
+          answer: 3,
+          answerIndex: 3,
+          why: "The package.json 'exports' field provides package encapsulation: any internal file or directory not explicitly mapped is completely inaccessible to external consumers. Furthermore, it supports conditional exports (e.g. 'import', 'require', 'node', 'browser'), directing consumers to the appropriate ESM or CJS build.",
+          explanation: "The package.json 'exports' field provides package encapsulation: any internal file or directory not explicitly mapped is completely inaccessible to external consumers. Furthermore, it supports conditional exports (e.g. 'import', 'require', 'node', 'browser'), directing consumers to the appropriate ESM or CJS build."
         }
       },
     ],

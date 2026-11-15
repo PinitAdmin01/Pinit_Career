@@ -1,710 +1,1331 @@
-[
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 7,
-    "part": 1,
-    "codeHash": "55dc76eec4fbd9e3f40f4b989f9e5cedb4d679e40e9d43cd4c54a3a38156d174",
-    "spec": {
-      "template": "compare",
-      "title": "CommonJS Dynamic Runtime vs ES Module Static Analysis",
-      "left": {
-        "label": "Standard Implementation"
+{
+  "schemaVersion": 1,
+  "prefix": "react-basics",
+  "day": 7,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
+  "entries": [
+    {
+      "partTitle": "Module Resolution Paradigms: ECMAScript Modules (ESM) Static Analysis vs CommonJS (CJS) Runtime Execution",
+      "codeHash": "55dc76eec4fbd9e3f40f4b989f9e5cedb4d679e40e9d43cd4c54a3a38156d174",
+      "spec": {
+        "template": "compare",
+        "title": "CommonJS Runtime Execution vs ES Module Static Analysis",
+        "rows": [
+          {
+            "id": "r1",
+            "label": "CommonJS",
+            "tappable": false
+          },
+          {
+            "id": "r2",
+            "label": "ECMAScript Modules",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Top-Level Await",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Resolution",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "CommonJS executes synchronously at runtime using dynamic require calls.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "ECMAScript modules parse and instantiate exports before code evaluates.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Static export declarations must reside strictly at top level scopes.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Modern modules support top level await without immediate async wrappers.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "ok"
+            }
+          }
+        ]
       },
-      "right": {
-        "label": "Architectural Pattern"
+      "filled": {
+        "template": "compare",
+        "title": "CommonJS Runtime Execution vs ES Module Static Analysis",
+        "rows": [
+          {
+            "id": "r1",
+            "label": "CommonJS",
+            "tappable": false
+          },
+          {
+            "id": "r2",
+            "label": "ECMAScript Modules",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Top-Level Await",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Resolution",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "CommonJS executes synchronously at runtime using dynamic require calls.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "ECMAScript modules parse and instantiate exports before code evaluates.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Static export declarations must reside strictly at top level scopes.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Modern modules support top level await without immediate async wrappers.",
+            "values": {
+              "r1": {
+                "text": "CommonJS"
+              },
+              "r2": {
+                "text": "ECMAScript Modules"
+              },
+              "r3": {
+                "text": "Top-Level Await"
+              },
+              "r4": {
+                "text": "Resolution"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Live Bindings vs Value Caching: Evaluating Circular Dependencies & Module Linking Topologies",
+      "codeHash": "3b5dcc18264dfd618533f98ded215eaae1e62f8e6cd0fbcd869a066eb9fa910a",
+      "spec": {
+        "template": "flow",
+        "title": "Live Bindings Linking and Circular Dependency Resolution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Instantiation",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Live bindings",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "ModuleNamespace",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Circular Dependencies",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Exported variables link consumers to module memory in distinct ways.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Live bindings dynamically reflect updates across importing modules.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The engine represents bindings in a dedicated module namespace object.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Live bindings enable modules to resolve circular dependencies safely.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
       },
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "CommonJS loads modules synchronously via dynamic require calls.",
-          "left": {
-            "code": "// Left pipeline phase 1",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "idle"
+      "filled": {
+        "template": "flow",
+        "title": "Live Bindings Linking and Circular Dependency Resolution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Instantiation",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 1",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Exported values copy by value freezing runtime state snapshots.",
-          "left": {
-            "code": "// Left pipeline phase 2",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "n2",
+            "label": "Live bindings",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 2",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "ES modules parse import declarations statically before execution.",
-          "left": {
-            "code": "// Left pipeline phase 3",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "n3",
+            "label": "ModuleNamespace",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 3",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
+          {
+            "id": "n4",
+            "label": "Circular Dependencies",
+            "tappable": false
           }
-        },
-        {
-          "at": "say4",
-          "caption": "Live bindings reflect downstream state updates across module boundaries.",
-          "left": {
-            "code": "// Left pipeline phase 4",
-            "result": {
-              "text": "\"Standard\""
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Exported variables link consumers to module memory in distinct ways.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
             },
-            "tone": "data"
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
           },
-          "right": {
-            "code": "// Optimized pipeline phase 4",
-            "result": {
-              "text": "\"Optimized\""
+          {
+            "at": "say3",
+            "caption": "Live bindings dynamically reflect updates across importing modules.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
             },
-            "tone": "ok"
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The engine represents bindings in a dedicated module namespace object.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Live bindings enable modules to resolve circular dependencies safely.",
+            "values": {
+              "n1": {
+                "text": "Instantiation"
+              },
+              "n2": {
+                "text": "Live bindings"
+              },
+              "n3": {
+                "text": "ModuleNamespace"
+              },
+              "n4": {
+                "text": "Circular Dependencies"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           }
-        }
-      ]
+        ]
+      }
+    },
+    {
+      "partTitle": "Bundler Pipelines & Abstract Syntax Trees: Graph Traversal, Topological Sorting & Chunk Splitting",
+      "codeHash": "c9913afcd59f9e4fe9aad05dd524a03659d2dc3ded211f2707e867987dd70d12",
+      "spec": {
+        "template": "boxes",
+        "title": "Bundler Dependency Graph and Topological Sorting Pipeline",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Directed Acyclic Graph",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Topological Sorting",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Scope Hoisting",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Chunk Splitting",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Bundlers execute resolution and parsing to extract imported specifiers.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Graph construction organizes modules in a directed acyclic graph.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Scope hoisting merges independent modules into unified function scopes.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Chunk splitting isolates shared code into optimized cache partitions.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Bundler Dependency Graph and Topological Sorting Pipeline",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Directed Acyclic Graph",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Topological Sorting",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Scope Hoisting",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Chunk Splitting",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Bundlers execute resolution and parsing to extract imported specifiers.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Graph construction organizes modules in a directed acyclic graph.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Scope hoisting merges independent modules into unified function scopes.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Chunk splitting isolates shared code into optimized cache partitions.",
+            "values": {
+              "b1": {
+                "text": "Directed Acyclic Graph"
+              },
+              "b2": {
+                "text": "Topological Sorting"
+              },
+              "b3": {
+                "text": "Scope Hoisting"
+              },
+              "b4": {
+                "text": "Chunk Splitting"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Tree-Shaking Mechanics: Dead-Code Elimination, Pure Annotation Comments & Side-Effect Boundaries",
+      "codeHash": "eb3d1f063c9987570ebdf760be00a1d169fe695593d7a5299ce94482f5d5f2aa",
+      "spec": {
+        "template": "boxes",
+        "title": "Tree-Shaking and Dead-Code Elimination Analysis",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "tree-shaking",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Dead-Code Elimination",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Side Effects",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "package.json",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Tree shaking analyzes abstract syntax trees to detect referenced exports.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "CommonJS dynamic exports prevent dead code elimination at compile time.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Top level side effects force bundlers to retain unreferenced exports.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "error",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Declaring side effect free modules in package manifests unlocks pruning.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Tree-Shaking and Dead-Code Elimination Analysis",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "tree-shaking",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Dead-Code Elimination",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Side Effects",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "package.json",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Tree shaking analyzes abstract syntax trees to detect referenced exports.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "CommonJS dynamic exports prevent dead code elimination at compile time.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Top level side effects force bundlers to retain unreferenced exports.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "error",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Declaring side effect free modules in package manifests unlocks pruning.",
+            "values": {
+              "b1": {
+                "text": "tree-shaking"
+              },
+              "b2": {
+                "text": "Dead-Code Elimination"
+              },
+              "b3": {
+                "text": "Side Effects"
+              },
+              "b4": {
+                "text": "package.json"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Modern Package Manifest Architecture: The Exports Map, Conditional Exports & The Dual-Package Hazard",
+      "codeHash": "34d1bed23958b24facdeb680cfef7bcc098d0968327d135a7b5586b1b5032996",
+      "spec": {
+        "template": "states",
+        "title": "Package Manifest Exports Map and Module Routing",
+        "states": [
+          {
+            "id": "s1",
+            "label": "exports",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Conditional Exports",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Dual-Package Hazard",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "Wrapper Pattern",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The exports map encapsulates internal files against unauthorized access.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Conditional exports route consumers to the appropriate module build.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "The dual package hazard causes duplicate runtime instance singletons.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "s3": "error",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "The wrapper pattern resolves dual package conflicts through commonjs.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Package Manifest Exports Map and Module Routing",
+        "states": [
+          {
+            "id": "s1",
+            "label": "exports",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Conditional Exports",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Dual-Package Hazard",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "Wrapper Pattern",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The exports map encapsulates internal files against unauthorized access.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Conditional exports route consumers to the appropriate module build.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "The dual package hazard causes duplicate runtime instance singletons.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "s3": "error",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "The wrapper pattern resolves dual package conflicts through commonjs.",
+            "values": {
+              "s1": {
+                "text": "exports"
+              },
+              "s2": {
+                "text": "Conditional Exports"
+              },
+              "s3": {
+                "text": "Dual-Package Hazard"
+              },
+              "s4": {
+                "text": "Wrapper Pattern"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
+          }
+        ]
+      }
     }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 7,
-    "part": 2,
-    "codeHash": "3b5dcc18264dfd618533f98ded215eaae1e62f8e6cd0fbcd869a066eb9fa910a",
-    "spec": {
-      "template": "flow",
-      "title": "Module Graph Construction and Cyclic Resolution Pipeline",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Entry File",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Static Parser",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Module Graph Node",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Execution Order",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Bundler parses entry file into abstract syntax tree representation.",
-          "values": {
-            "n1": {
-              "text": "\"Entry File\""
-            },
-            "n2": {
-              "text": "\"Static Parser\""
-            },
-            "n3": {
-              "text": "\"Module Graph Node\""
-            },
-            "n4": {
-              "text": "\"Execution Order\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "Static import declarations register outgoing dependency graph edges.",
-          "values": {
-            "n1": {
-              "text": "\"Entry File\""
-            },
-            "n2": {
-              "text": "\"Static Parser\""
-            },
-            "n3": {
-              "text": "\"Module Graph Node\""
-            },
-            "n4": {
-              "text": "\"Execution Order\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Topological sorting establishes deterministic module execution order.",
-          "values": {
-            "n1": {
-              "text": "\"Entry File\""
-            },
-            "n2": {
-              "text": "\"Static Parser\""
-            },
-            "n3": {
-              "text": "\"Module Graph Node\""
-            },
-            "n4": {
-              "text": "\"Execution Order\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Cyclic dependency references resolve through hoisted live bindings.",
-          "values": {
-            "n1": {
-              "text": "\"Entry File\""
-            },
-            "n2": {
-              "text": "\"Static Parser\""
-            },
-            "n3": {
-              "text": "\"Module Graph Node\""
-            },
-            "n4": {
-              "text": "\"Execution Order\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
-            ]
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 7,
-    "part": 3,
-    "codeHash": "c9913afcd59f9e4fe9aad05dd524a03659d2dc3ded211f2707e867987dd70d12",
-    "spec": {
-      "template": "boxes",
-      "title": "Bundler Tree Shaking and Dead Code Elimination Engine",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "Export Scanner",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Usage Graph",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "Pure Annotation",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "Minified Output",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Bundler tracks all named exports and downstream reference paths.",
-          "values": {
-            "b1": {
-              "text": "\"Export Scanner\""
-            },
-            "b2": {
-              "text": "\"Usage Graph\""
-            },
-            "b3": {
-              "text": "\"Pure Annotation\""
-            },
-            "b4": {
-              "text": "\"Minified Output\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Unreferenced exports mark as dead code candidates for elimination.",
-          "values": {
-            "b1": {
-              "text": "\"Export Scanner\""
-            },
-            "b2": {
-              "text": "\"Usage Graph\""
-            },
-            "b3": {
-              "text": "\"Pure Annotation\""
-            },
-            "b4": {
-              "text": "\"Minified Output\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Pure annotations inform bundler that statement evaluation is safe.",
-          "values": {
-            "b1": {
-              "text": "\"Export Scanner\""
-            },
-            "b2": {
-              "text": "\"Usage Graph\""
-            },
-            "b3": {
-              "text": "\"Pure Annotation\""
-            },
-            "b4": {
-              "text": "\"Minified Output\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "Final minification step drops unused functions from production bundle.",
-          "values": {
-            "b1": {
-              "text": "\"Export Scanner\""
-            },
-            "b2": {
-              "text": "\"Usage Graph\""
-            },
-            "b3": {
-              "text": "\"Pure Annotation\""
-            },
-            "b4": {
-              "text": "\"Minified Output\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 7,
-    "part": 4,
-    "codeHash": "eb3d1f063c9987570ebdf760be00a1d169fe695593d7a5299ce94482f5d5f2aa",
-    "spec": {
-      "template": "flow",
-      "title": "Vite On Demand Native ESM Transpilation Pipeline",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Browser Request",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Dev Server",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Native ESM Import",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Dynamic Bundle",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Browser requests individual source file over development network.",
-          "values": {
-            "n1": {
-              "text": "\"Browser Request\""
-            },
-            "n2": {
-              "text": "\"Dev Server\""
-            },
-            "n3": {
-              "text": "\"Native ESM Import\""
-            },
-            "n4": {
-              "text": "\"Dynamic Bundle\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "Development server transforms single requested module on demand.",
-          "values": {
-            "n1": {
-              "text": "\"Browser Request\""
-            },
-            "n2": {
-              "text": "\"Dev Server\""
-            },
-            "n3": {
-              "text": "\"Native ESM Import\""
-            },
-            "n4": {
-              "text": "\"Dynamic Bundle\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Native browser module loader executes modern import directly.",
-          "values": {
-            "n1": {
-              "text": "\"Browser Request\""
-            },
-            "n2": {
-              "text": "\"Dev Server\""
-            },
-            "n3": {
-              "text": "\"Native ESM Import\""
-            },
-            "n4": {
-              "text": "\"Dynamic Bundle\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Heavy production bundling defers entirely until deployment build.",
-          "values": {
-            "n1": {
-              "text": "\"Browser Request\""
-            },
-            "n2": {
-              "text": "\"Dev Server\""
-            },
-            "n3": {
-              "text": "\"Native ESM Import\""
-            },
-            "n4": {
-              "text": "\"Dynamic Bundle\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
-            ]
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 7,
-    "part": 5,
-    "codeHash": "34d1bed23958b24facdeb680cfef7bcc098d0968327d135a7b5586b1b5032996",
-    "spec": {
-      "template": "flow",
-      "title": "Dynamic Import Chunking and Network Asset Streaming",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Main Bundle",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Dynamic Trigger",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Lazy Request",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Dynamic Exec",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Initial page loads minimal main JavaScript execution bundle.",
-          "values": {
-            "n1": {
-              "text": "\"Main Bundle\""
-            },
-            "n2": {
-              "text": "\"Dynamic Trigger\""
-            },
-            "n3": {
-              "text": "\"Lazy Request\""
-            },
-            "n4": {
-              "text": "\"Dynamic Exec\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "User interaction or route transition triggers dynamic import.",
-          "values": {
-            "n1": {
-              "text": "\"Main Bundle\""
-            },
-            "n2": {
-              "text": "\"Dynamic Trigger\""
-            },
-            "n3": {
-              "text": "\"Lazy Request\""
-            },
-            "n4": {
-              "text": "\"Dynamic Exec\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Browser fetches isolated code chunk asynchronously over the network.",
-          "values": {
-            "n1": {
-              "text": "\"Main Bundle\""
-            },
-            "n2": {
-              "text": "\"Dynamic Trigger\""
-            },
-            "n3": {
-              "text": "\"Lazy Request\""
-            },
-            "n4": {
-              "text": "\"Dynamic Exec\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Module executes and hydrates secondary component tree on demand.",
-          "values": {
-            "n1": {
-              "text": "\"Main Bundle\""
-            },
-            "n2": {
-              "text": "\"Dynamic Trigger\""
-            },
-            "n3": {
-              "text": "\"Lazy Request\""
-            },
-            "n4": {
-              "text": "\"Dynamic Exec\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
-            ]
-          ]
-        }
-      ]
-    }
-  }
-]
+  ]
+}
