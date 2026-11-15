@@ -6032,15 +6032,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Simulate three aborted render passes in RenderSideEffectAuditor and observe log inflation.",
         check: {
-          question: "Why is placing imperative side effects directly in a component's render body dangerous in Concurrent React?",
+          question: "Why is placing imperative side effects directly in a component render body dangerous in Concurrent React?",
           options: [
-            "React can pause, abort, or restart speculative render passes, causing side effects to execute multiple duplicate times",
-            "JavaScript engines revoke network access permissions from functions that declare JSX syntax",
-            "The browser garbage collector cannot free variables modified inside functional component bodies",
-            "Concurrent React enforces that all component functions must be compiled into read-only WebAssembly modules",
+            "JavaScript engines revoke network execution privileges from functions that output JSX element trees.",
+            "The browser layout engine forces synchronous reflows whenever external APIs are called during render.",
+            "React can pause, abort, or restart speculative render passes, causing duplicate side effect executions.",
+            "Direct imperative mutations permanently corrupt the Fiber memory allocator heap during garbage collection."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "In Concurrent React, render execution is not guaranteed to commit; aborted renders leave orphaned mutations in the external universe.",
           explanation: "Because React can evaluate component functions speculatively and discard uncommitted passes, render bodies must be pure. Side effects belong strictly in useEffect."
         }
@@ -6103,10 +6103,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "When does a standard useEffect callback execute in relation to the browser rendering pipeline?",
           options: [
-            "Asynchronously after the browser has completed layout and painted pixels to the physical monitor",
-            "Synchronously during the initial virtual DOM tree computation before commit",
-            "Synchronously in the commit phase before the browser recalculates CSS layout",
-            "Exclusively during idle periods when the user moves their mouse pointer outside the window",
+            "Asynchronously after the browser has completed DOM layout recalculations and painted pixels to screen.",
+            "Synchronously during the initial virtual DOM tree construction phase before changes commit to the DOM.",
+            "Synchronously within the commit phase immediately before the browser computes geometric element layouts.",
+            "Asynchronously inside an idle callback only when the user moves their active pointer outside the viewport."
           ],
           answer: 0,
           answerIndex: 0,
@@ -6187,13 +6187,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "When does the cleanup function returned by a useEffect callback execute?",
           options: [
-            "Before the effect runs again due to dependency updates, and once more upon final component unmount",
-            "Exclusively when the browser window is closed or refreshed by the user",
-            "Immediately after the effect callback finishes executing on the same render tick",
-            "Only if the effect callback throws an unhandled JavaScript Error exception",
+            "Exclusively when the browser tab closes or when the user navigates to an entirely different web origin.",
+            "Immediately after the effect callback resolves its microtask queue on the same component render cycle.",
+            "Only when the component throws an unhandled runtime error exception during asynchronous data fetching.",
+            "Before the effect re-runs due to updated dependencies, and once more upon final component unmounting."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "React runs the old effect's cleanup before executing the new effect on re-renders, and also on unmount.",
           explanation: "To prevent overlapping connections and resource leaks, React systematically cleans up the previous effect pass before applying the updated effect pass."
         }
@@ -6259,13 +6259,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does React 18 Strict Mode intentionally execute effect setup and cleanup twice in development mode?",
           options: [
-            "To stress-test effect idempotence and verify that cleanup logic correctly releases resources for Reusable State",
-            "Because V8 TurboFan requires two compilation passes to optimize functional component closures",
-            "To verify that the client computer has at least two available CPU cores for concurrent multitasking",
-            "To benchmark browser garbage collection pause latency across rapid allocations",
+            "Because modern JavaScript engines require two consecutive compilation cycles to optimize hook closures.",
+            "To stress-test effect idempotency and verify that cleanup logic safely releases resources on remount.",
+            "To benchmark browser garbage collection latency and profile heap allocation limits across mount passes.",
+            "To synchronize virtual DOM node trees across multiple parallel Web Worker execution threads in memory."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Double-mounting exposes missing cleanups and non-idempotent code, preparing components for React 18 Reusable State.",
           explanation: "In React 18, components can be unmounted and remounted without losing state (Offscreen/Activity). StrictMode catches effects that fail to clean up resources in development."
         }
@@ -6347,15 +6347,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Replace boolean isIgnored with an AbortController instance and test socket signal cancellation.",
         check: {
-          question: "Why is declaring useEffect(async () => { ... }, []) directly an error in React?",
+          question: "Why is declaring useEffect(async () => { ... }, []) directly an architectural error in React?",
           options: [
-            "Async functions return a Promise, whereas React expects an effect to return undefined or a synchronous cleanup function",
-            "JavaScript engines prohibit the await keyword inside browser event loop callbacks",
-            "Async functions execute exclusively in Node.js and cannot run in browser environments",
-            "Promises allocate permanent non-collectable heap slots that trigger browser memory warnings",
+            "Async functions block the browser JavaScript main thread and permanently suspend user interface painting.",
+            "The ECMAScript specification forbids the await keyword from executing inside functional component closures.",
+            "Async functions return a Promise, whereas React expects an effect to return a synchronous cleanup destructor.",
+            "Promises allocate non-collectable microtask heap allocations that trigger browser memory leak notifications."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Effects must return a destructor cleanup function; returning a Promise prevents React from invoking teardown.",
           explanation: "An async function returns a Promise. React cannot invoke a Promise to clean up subscriptions on unmount. Async logic must be declared inside an inner function."
         }

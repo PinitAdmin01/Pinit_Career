@@ -1,703 +1,1309 @@
 {
   "schemaVersion": 1,
-  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 16,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Passive Execution Timing Cycle",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "622ff4999f63b9e1cf08fbc755a866460af340ef9aa342ccb102834a52c2f15d"
+      "partTitle": "The Pure Rendering Invariant vs Impure Side Effects: Why Side Effects Destroy Render Predictability",
+      "codeHash": "622ff4999f63b9e1cf08fbc755a866460af340ef9aa342ccb102834a52c2f15d",
+      "spec": {
+        "template": "flow",
+        "title": "Pure Rendering Invariant & Side Effect Boundary",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "pure",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "side",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "effects",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "render",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Pure functions guarantee predictable mathematical execution.",
+            "values": {
+              "n1": {
+                "text": "pure"
+              },
+              "n2": {
+                "text": "side"
+              },
+              "n3": {
+                "text": "effects"
+              },
+              "n4": {
+                "text": "render"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Concurrent architecture relies on pure rendering invariant.",
+            "values": {
+              "n1": {
+                "text": "pure"
+              },
+              "n2": {
+                "text": "side"
+              },
+              "n3": {
+                "text": "effects"
+              },
+              "n4": {
+                "text": "render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "JavaScript engines optimize pure component functions.",
+            "values": {
+              "n1": {
+                "text": "pure"
+              },
+              "n2": {
+                "text": "side"
+              },
+              "n3": {
+                "text": "effects"
+              },
+              "n4": {
+                "text": "render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Imperative side effects break component render purity.",
+            "values": {
+              "n1": {
+                "text": "pure"
+              },
+              "n2": {
+                "text": "side"
+              },
+              "n3": {
+                "text": "effects"
+              },
+              "n4": {
+                "text": "render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Reconciliation computes new virtual tree in memory.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Phase",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "DOM Mutation",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Browser Paint",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Pure Rendering Invariant & Side Effect Boundary",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "pure",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "side",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "effects",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "render",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Commit phase attaches real host nodes to document.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Phase",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Pure functions guarantee predictable mathematical execution.",
+            "values": {
+              "n1": {
+                "text": "pure"
               },
-              {
-                "id": "n2",
-                "label": "DOM Mutation",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "side"
               },
-              {
-                "id": "n3",
-                "label": "Browser Paint",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "effects"
               },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "render"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Browser flushes rasterized pixels to physical display.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Phase",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Concurrent architecture relies on pure rendering invariant.",
+            "values": {
+              "n1": {
+                "text": "pure"
               },
-              {
-                "id": "n2",
-                "label": "DOM Mutation",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "side"
               },
-              {
-                "id": "n3",
-                "label": "Browser Paint",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "effects"
               },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "render"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Passive effect executes asynchronously after paint.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Phase",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "JavaScript engines optimize pure component functions.",
+            "values": {
+              "n1": {
+                "text": "pure"
               },
-              {
-                "id": "n2",
-                "label": "DOM Mutation",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "side"
               },
-              {
-                "id": "n3",
-                "label": "Browser Paint",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "effects"
               },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "render"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Imperative side effects break component render purity.",
+            "values": {
+              "n1": {
+                "text": "pure"
+              },
+              "n2": {
+                "text": "side"
+              },
+              "n3": {
+                "text": "effects"
+              },
+              "n4": {
+                "text": "render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Symmetrical Effect Cleanup Pipeline",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "4ed22e95e05ba6c29b911b3df38cdd27dae2837b0d240bccdd37fcac631caf2a"
+      "partTitle": "Passive Execution Timing & The Browser Paint Pipeline: useEffect vs Synchronous Execution",
+      "codeHash": "4ed22e95e05ba6c29b911b3df38cdd27dae2837b0d240bccdd37fcac631caf2a",
+      "spec": {
+        "template": "boxes",
+        "title": "Browser Paint Pipeline & Passive Effect Scheduling",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "paint",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "passive",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "layout",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "commit",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Senior engineers analyze execution timing within the browser.",
+            "values": {
+              "b1": {
+                "text": "paint"
+              },
+              "b2": {
+                "text": "passive"
+              },
+              "b3": {
+                "text": "layout"
+              },
+              "b4": {
+                "text": "commit"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Render phase computes work in progress fiber tree.",
+            "values": {
+              "b1": {
+                "text": "paint"
+              },
+              "b2": {
+                "text": "passive"
+              },
+              "b3": {
+                "text": "layout"
+              },
+              "b4": {
+                "text": "commit"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Browser engine computes layout and painting pipeline.",
+            "values": {
+              "b1": {
+                "text": "paint"
+              },
+              "b2": {
+                "text": "passive"
+              },
+              "b3": {
+                "text": "layout"
+              },
+              "b4": {
+                "text": "commit"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Passive effects execute after paint via MessageChannel.",
+            "values": {
+              "b1": {
+                "text": "paint"
+              },
+              "b2": {
+                "text": "passive"
+              },
+              "b3": {
+                "text": "layout"
+              },
+              "b4": {
+                "text": "commit"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Initial synchronization pipeline operates normally.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Active Effect",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Dependency Change",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Teardown Call",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Fresh Setup",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Browser Paint Pipeline & Passive Effect Scheduling",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "paint",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "passive",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "layout",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "commit",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Reactive dependency receives updated values from parent.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Active Effect",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Senior engineers analyze execution timing within the browser.",
+            "values": {
+              "b1": {
+                "text": "paint"
               },
-              {
-                "id": "n2",
-                "label": "Dependency Change",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "passive"
               },
-              {
-                "id": "n3",
-                "label": "Teardown Call",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "layout"
               },
-              {
-                "id": "n4",
-                "label": "Fresh Setup",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "commit"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Previous cleanup callback executes to disconnect resource.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Active Effect",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Render phase computes work in progress fiber tree.",
+            "values": {
+              "b1": {
+                "text": "paint"
               },
-              {
-                "id": "n2",
-                "label": "Dependency Change",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "passive"
               },
-              {
-                "id": "n3",
-                "label": "Teardown Call",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "layout"
               },
-              {
-                "id": "n4",
-                "label": "Fresh Setup",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "commit"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Fresh synchronization callback executes with latest inputs.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Active Effect",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Browser engine computes layout and painting pipeline.",
+            "values": {
+              "b1": {
+                "text": "paint"
               },
-              {
-                "id": "n2",
-                "label": "Dependency Change",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "passive"
               },
-              {
-                "id": "n3",
-                "label": "Teardown Call",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "layout"
               },
-              {
-                "id": "n4",
-                "label": "Fresh Setup",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "commit"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Passive effects execute after paint via MessageChannel.",
+            "values": {
+              "b1": {
+                "text": "paint"
+              },
+              "b2": {
+                "text": "passive"
+              },
+              "b3": {
+                "text": "layout"
+              },
+              "b4": {
+                "text": "commit"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Asynchronous Data Race Condition Guard",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "86086b5d72a1d59b04f6b3b929bf45515170254740df874f929e1d7d3d68403e"
+      "partTitle": "The Effect Cleanup Protocol: Teardown Lifecycles, Memory Leaks & Stale Subscriptions",
+      "codeHash": "86086b5d72a1d59b04f6b3b929bf45515170254740df874f929e1d7d3d68403e",
+      "spec": {
+        "template": "flow",
+        "title": "Symmetrical Teardown & Subscription Cleanup Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "cleanup",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "teardown",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "subscriptions",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "unmount",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Active subscriptions establish external browser relationships.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
+              },
+              "n2": {
+                "text": "teardown"
+              },
+              "n3": {
+                "text": "subscriptions"
+              },
+              "n4": {
+                "text": "unmount"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Cleanup protocol returns destructor to release resources.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
+              },
+              "n2": {
+                "text": "teardown"
+              },
+              "n3": {
+                "text": "subscriptions"
+              },
+              "n4": {
+                "text": "unmount"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Component subscribes to channels across lifecycle updates.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
+              },
+              "n2": {
+                "text": "teardown"
+              },
+              "n3": {
+                "text": "subscriptions"
+              },
+              "n4": {
+                "text": "unmount"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Symmetrical teardown prevents overlapping subscriptions.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
+              },
+              "n2": {
+                "text": "teardown"
+              },
+              "n3": {
+                "text": "subscriptions"
+              },
+              "n4": {
+                "text": "unmount"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "First asynchronous query departs for remote endpoint.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Request",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Second Request",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Out-Of-Order Return",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Active Flag Check",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Symmetrical Teardown & Subscription Cleanup Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "cleanup",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "teardown",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "subscriptions",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "unmount",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Second query departs following rapid user interaction.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Request",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Active subscriptions establish external browser relationships.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
               },
-              {
-                "id": "b2",
-                "label": "Second Request",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "teardown"
               },
-              {
-                "id": "b3",
-                "label": "Out-Of-Order Return",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "subscriptions"
               },
-              {
-                "id": "b4",
-                "label": "Active Flag Check",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "unmount"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "First query returns late after second query resolves.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Request",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Cleanup protocol returns destructor to release resources.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
               },
-              {
-                "id": "b2",
-                "label": "Second Request",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "teardown"
               },
-              {
-                "id": "b3",
-                "label": "Out-Of-Order Return",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "subscriptions"
               },
-              {
-                "id": "b4",
-                "label": "Active Flag Check",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "unmount"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Boolean active flag ignores stale response safely.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Request",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Component subscribes to channels across lifecycle updates.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
               },
-              {
-                "id": "b2",
-                "label": "Second Request",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "teardown"
               },
-              {
-                "id": "b3",
-                "label": "Out-Of-Order Return",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "subscriptions"
               },
-              {
-                "id": "b4",
-                "label": "Active Flag Check",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "unmount"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Symmetrical teardown prevents overlapping subscriptions.",
+            "values": {
+              "n1": {
+                "text": "cleanup"
+              },
+              "n2": {
+                "text": "teardown"
+              },
+              "n3": {
+                "text": "subscriptions"
+              },
+              "n4": {
+                "text": "unmount"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Strict Mode Symmetrical Stress Test",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1ba988d55d3ae73af2ba0e58cbecd38bd8ac6974f9a39e3bd6b022b4b98fc244"
+      "partTitle": "React 18 Strict Mode Double-Mounting: Resilient Idempotent Effect Architecture",
+      "codeHash": "1ba988d55d3ae73af2ba0e58cbecd38bd8ac6974f9a39e3bd6b022b4b98fc244",
+      "spec": {
+        "template": "boxes",
+        "title": "Strict Mode Double-Mount & Idempotency Verification",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "StrictMode",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "double-mount",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "idempotent",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "remount",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Developers observe effects executing twice on initial mount.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
+              },
+              "b2": {
+                "text": "double-mount"
+              },
+              "b3": {
+                "text": "idempotent"
+              },
+              "b4": {
+                "text": "remount"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "StrictMode simulates immediate unmount and remount cycle.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
+              },
+              "b2": {
+                "text": "double-mount"
+              },
+              "b3": {
+                "text": "idempotent"
+              },
+              "b4": {
+                "text": "remount"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Concurrent features require reusable state across remounts.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
+              },
+              "b2": {
+                "text": "double-mount"
+              },
+              "b3": {
+                "text": "idempotent"
+              },
+              "b4": {
+                "text": "remount"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Idempotent components safely unmount and remount repeatedly.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
+              },
+              "b2": {
+                "text": "double-mount"
+              },
+              "b3": {
+                "text": "idempotent"
+              },
+              "b4": {
+                "text": "remount"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component mounts and executes initial effect setup.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Simulated Unmount",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Immediate Remount",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Clean State",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Strict Mode Double-Mount & Idempotency Verification",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "StrictMode",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "double-mount",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "idempotent",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "remount",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Development engine executes synthetic teardown instantly.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Developers observe effects executing twice on initial mount.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
               },
-              {
-                "id": "n2",
-                "label": "Simulated Unmount",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "double-mount"
               },
-              {
-                "id": "n3",
-                "label": "Immediate Remount",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "idempotent"
               },
-              {
-                "id": "n4",
-                "label": "Clean State",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "remount"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Reconciler executes second setup to verify idempotency.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "StrictMode simulates immediate unmount and remount cycle.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
               },
-              {
-                "id": "n2",
-                "label": "Simulated Unmount",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "double-mount"
               },
-              {
-                "id": "n3",
-                "label": "Immediate Remount",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "idempotent"
               },
-              {
-                "id": "n4",
-                "label": "Clean State",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "remount"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Symmetrical teardown guarantees zero memory leaks.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Concurrent features require reusable state across remounts.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
               },
-              {
-                "id": "n2",
-                "label": "Simulated Unmount",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "double-mount"
               },
-              {
-                "id": "n3",
-                "label": "Immediate Remount",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "idempotent"
               },
-              {
-                "id": "n4",
-                "label": "Clean State",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "remount"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Idempotent components safely unmount and remount repeatedly.",
+            "values": {
+              "b1": {
+                "text": "StrictMode"
+              },
+              "b2": {
+                "text": "double-mount"
+              },
+              "b3": {
+                "text": "idempotent"
+              },
+              "b4": {
+                "text": "remount"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Resilient Data Subscription Engine",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "ec844734568e3c542ed974405cf78d6d0db83a6d9bcd932d878101b92a466a49"
+      "partTitle": "Asynchronous Effects & The Promise Anti-Pattern: Race Conditions & Abort Protocols",
+      "codeHash": "ec844734568e3c542ed974405cf78d6d0db83a6d9bcd932d878101b92a466a49",
+      "spec": {
+        "template": "flow",
+        "title": "Asynchronous Effect Handling & Promise Invariant Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "async",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Promise",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "closure",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "destructor",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asynchronous data fetching represents common side effect.",
+            "values": {
+              "n1": {
+                "text": "async"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "closure"
+              },
+              "n4": {
+                "text": "destructor"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Async functions return a promise instead of a cleanup destructor.",
+            "values": {
+              "n1": {
+                "text": "async"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "closure"
+              },
+              "n4": {
+                "text": "destructor"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Canonical pattern invokes internal asynchronous function.",
+            "values": {
+              "n1": {
+                "text": "async"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "closure"
+              },
+              "n4": {
+                "text": "destructor"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Multiple asynchronous fetch calls create network races.",
+            "values": {
+              "n1": {
+                "text": "async"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "closure"
+              },
+              "n4": {
+                "text": "destructor"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Client initiates real-time duplex network channel.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Socket Connect",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Stream Dispatch",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Disconnection Flap",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Automatic Resync",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Asynchronous Effect Handling & Promise Invariant Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "async",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Promise",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "closure",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "destructor",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Streaming payload dispatches continuous state packets.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Socket Connect",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asynchronous data fetching represents common side effect.",
+            "values": {
+              "n1": {
+                "text": "async"
               },
-              {
-                "id": "b2",
-                "label": "Stream Dispatch",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "Promise"
               },
-              {
-                "id": "b3",
-                "label": "Disconnection Flap",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "closure"
               },
-              {
-                "id": "b4",
-                "label": "Automatic Resync",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "destructor"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Network interruption triggers graceful disconnect handler.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Socket Connect",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Async functions return a promise instead of a cleanup destructor.",
+            "values": {
+              "n1": {
+                "text": "async"
               },
-              {
-                "id": "b2",
-                "label": "Stream Dispatch",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "Promise"
               },
-              {
-                "id": "b3",
-                "label": "Disconnection Flap",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "closure"
               },
-              {
-                "id": "b4",
-                "label": "Automatic Resync",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "destructor"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Retry mechanism re-establishes synchronization stream.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Socket Connect",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Canonical pattern invokes internal asynchronous function.",
+            "values": {
+              "n1": {
+                "text": "async"
               },
-              {
-                "id": "b2",
-                "label": "Stream Dispatch",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "Promise"
               },
-              {
-                "id": "b3",
-                "label": "Disconnection Flap",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "closure"
               },
-              {
-                "id": "b4",
-                "label": "Automatic Resync",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "destructor"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Multiple asynchronous fetch calls create network races.",
+            "values": {
+              "n1": {
+                "text": "async"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "closure"
+              },
+              "n4": {
+                "text": "destructor"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
