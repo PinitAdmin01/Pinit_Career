@@ -2,665 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 21,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "flow",
-      "title": "Context Return Pointer Traversal",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "bc6d32426f5a091dcc198bdbe1513dc74fb1b4bb034a70df72a0d8bc9f062f2b"
+      "partTitle": "React Context Internals: Dependency Injection & Fiber Tree Ancestor Traversal",
+      "codeHash": "bc6d32426f5a091dcc198bdbe1513dc74fb1b4bb034a70df72a0d8bc9f062f2b",
+      "spec": {
+        "template": "flow",
+        "title": "Context Dependency Injection & Fiber Tree Traversal",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Context",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Provider",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "traversal",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engineers master context dependency injection mechanisms.",
+            "values": {
+              "n1": {
+                "text": "Context"
+              },
+              "n2": {
+                "text": "Provider"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "traversal"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber reconciler completely rearchitects pipeline traversal.",
+            "values": {
+              "n1": {
+                "text": "Context"
+              },
+              "n2": {
+                "text": "Provider"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "traversal"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Reconciliation pops context values from the stack.",
+            "values": {
+              "n1": {
+                "text": "Context"
+              },
+              "n2": {
+                "text": "Provider"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "traversal"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Context supports scoped hierarchical provider instances.",
+            "values": {
+              "n1": {
+                "text": "Context"
+              },
+              "n2": {
+                "text": "Provider"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "traversal"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Consumer invokes hook and requests context value.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Node",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Parent Fiber",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Context Provider",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Resolved Value",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Context Dependency Injection & Fiber Tree Traversal",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Context",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Provider",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "traversal",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Reconciler traverses upward along fiber return pointers.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Node",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engineers master context dependency injection mechanisms.",
+            "values": {
+              "n1": {
+                "text": "Context"
               },
-              {
-                "id": "n2",
-                "label": "Parent Fiber",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "Provider"
               },
-              {
-                "id": "n3",
-                "label": "Context Provider",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "Fiber"
               },
-              {
-                "id": "n4",
-                "label": "Resolved Value",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "traversal"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Nearest matching provider boundary is located in tree.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Node",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber reconciler completely rearchitects pipeline traversal.",
+            "values": {
+              "n1": {
+                "text": "Context"
               },
-              {
-                "id": "n2",
-                "label": "Parent Fiber",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Provider"
               },
-              {
-                "id": "n3",
-                "label": "Context Provider",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "Fiber"
               },
-              {
-                "id": "n4",
-                "label": "Resolved Value",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "traversal"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Current provider value resolves to consumer cleanly.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Node",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Reconciliation pops context values from the stack.",
+            "values": {
+              "n1": {
+                "text": "Context"
               },
-              {
-                "id": "n2",
-                "label": "Parent Fiber",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Provider"
               },
-              {
-                "id": "n3",
-                "label": "Context Provider",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "Fiber"
               },
-              {
-                "id": "n4",
-                "label": "Resolved Value",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "traversal"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Context supports scoped hierarchical provider instances.",
+            "values": {
+              "n1": {
+                "text": "Context"
+              },
+              "n2": {
+                "text": "Provider"
+              },
+              "n3": {
+                "text": "Fiber"
+              },
+              "n4": {
+                "text": "traversal"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "compare",
-      "title": "Context Value Reference Comparison",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "8987ed29b4667e9dcae6aa6121ddd7c9bd1ac27bdf7e77e4652bc54acbd85eb7"
+      "partTitle": "The Re-Render Broadcast Problem: Object.is Value Propagation & Unintended Subtree Churn",
+      "codeHash": "8987ed29b4667e9dcae6aa6121ddd7c9bd1ac27bdf7e77e4652bc54acbd85eb7",
+      "spec": {
+        "template": "boxes",
+        "title": "Re-Render Broadcast Problem & Subtree Churn",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "broadcast",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "memo",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Object.is",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Provider",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Context propagation triggers notorious broadcast hazards.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Commit phase executes propagateContextChange across fibers.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Memo bailouts fail to block context state propagation.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Fresh object literals allocate new heap addresses on render.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Inline object values generate new pointers on every pass.",
-          "data": {
-            "left": {
-              "title": "Inline Literal Object",
-              "items": [
-                "Fresh reference allocated",
-                "Shallow equality fails",
-                "Forces consumer render"
-              ]
-            },
-            "right": {
-              "title": "Memoized Value Object",
-              "items": [
-                "Stable memory pointer",
-                "Shallow equality passes",
-                "Bails out clean subtrees"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "boxes",
+        "title": "Re-Render Broadcast Problem & Subtree Churn",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "broadcast",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "memo",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Object.is",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Provider",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Object equality checks fail and trigger child updates.",
-          "data": {
-            "left": {
-              "title": "Inline Literal Object",
-              "items": [
-                "Fresh reference allocated",
-                "Shallow equality fails",
-                "Forces consumer render"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Context propagation triggers notorious broadcast hazards.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
             },
-            "right": {
-              "title": "Memoized Value Object",
-              "items": [
-                "Stable memory pointer",
-                "Shallow equality passes",
-                "Bails out clean subtrees"
-              ]
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Commit phase executes propagateContextChange across fibers.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Memo bailouts fail to block context state propagation.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Fresh object literals allocate new heap addresses on render.",
+            "values": {
+              "b1": {
+                "text": "broadcast"
+              },
+              "b2": {
+                "text": "memo"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "Memoized context values preserve stable memory pointers.",
-          "data": {
-            "left": {
-              "title": "Inline Literal Object",
-              "items": [
-                "Fresh reference allocated",
-                "Shallow equality fails",
-                "Forces consumer render"
-              ]
-            },
-            "right": {
-              "title": "Memoized Value Object",
-              "items": [
-                "Stable memory pointer",
-                "Shallow equality passes",
-                "Bails out clean subtrees"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Subtree consumers bail out of rendering successfully.",
-          "data": {
-            "left": {
-              "title": "Inline Literal Object",
-              "items": [
-                "Fresh reference allocated",
-                "Shallow equality fails",
-                "Forces consumer render"
-              ]
-            },
-            "right": {
-              "title": "Memoized Value Object",
-              "items": [
-                "Stable memory pointer",
-                "Shallow equality passes",
-                "Bails out clean subtrees"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "boxes",
-      "title": "Split Context Architecture Topology",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "f9bcc8f25f24d0830c848b334e97f9986e5f5839c28c6f23b042297733d2dc92"
+      "partTitle": "Context Splitting Architecture: Decoupling Volatile State from Stable Dispatch Functions",
+      "codeHash": "f9bcc8f25f24d0830c848b334e97f9986e5f5839c28c6f23b042297733d2dc92",
+      "spec": {
+        "template": "flow",
+        "title": "Context Splitting Architecture & Action Dispatch Isolation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "splitting",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "dispatch",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "actions",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "stable",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architects apply context splitting to isolate re-renders.",
+            "values": {
+              "n1": {
+                "text": "splitting"
+              },
+              "n2": {
+                "text": "dispatch"
+              },
+              "n3": {
+                "text": "actions"
+              },
+              "n4": {
+                "text": "stable"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Bundling state and dispatch together forces unwanted renders.",
+            "values": {
+              "n1": {
+                "text": "splitting"
+              },
+              "n2": {
+                "text": "dispatch"
+              },
+              "n3": {
+                "text": "actions"
+              },
+              "n4": {
+                "text": "stable"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Consumer components remain untouched when state updates.",
+            "values": {
+              "n1": {
+                "text": "splitting"
+              },
+              "n2": {
+                "text": "dispatch"
+              },
+              "n3": {
+                "text": "actions"
+              },
+              "n4": {
+                "text": "stable"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Split-context pattern forms foundation of enterprise kits.",
+            "values": {
+              "n1": {
+                "text": "splitting"
+              },
+              "n2": {
+                "text": "dispatch"
+              },
+              "n3": {
+                "text": "actions"
+              },
+              "n4": {
+                "text": "stable"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "State context holds volatile domain data.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Data Consumer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Action Button",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Context Splitting Architecture & Action Dispatch Isolation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "splitting",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "dispatch",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "actions",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "stable",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Dispatch context exposes permanently stable updater.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architects apply context splitting to isolate re-renders.",
+            "values": {
+              "n1": {
+                "text": "splitting"
               },
-              {
-                "id": "b2",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "dispatch"
               },
-              {
-                "id": "b3",
-                "label": "Data Consumer",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "actions"
               },
-              {
-                "id": "b4",
-                "label": "Action Button",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "stable"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Data consumers subscribe only to changing state values.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Bundling state and dispatch together forces unwanted renders.",
+            "values": {
+              "n1": {
+                "text": "splitting"
               },
-              {
-                "id": "b2",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "dispatch"
               },
-              {
-                "id": "b3",
-                "label": "Data Consumer",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "actions"
               },
-              {
-                "id": "b4",
-                "label": "Action Button",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "stable"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Action buttons consume dispatch and avoid re-renders.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Consumer components remain untouched when state updates.",
+            "values": {
+              "n1": {
+                "text": "splitting"
               },
-              {
-                "id": "b2",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "dispatch"
               },
-              {
-                "id": "b3",
-                "label": "Data Consumer",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "actions"
               },
-              {
-                "id": "b4",
-                "label": "Action Button",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "stable"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Split-context pattern forms foundation of enterprise kits.",
+            "values": {
+              "n1": {
+                "text": "splitting"
+              },
+              "n2": {
+                "text": "dispatch"
+              },
+              "n3": {
+                "text": "actions"
+              },
+              "n4": {
+                "text": "stable"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "flow",
-      "title": "Selector Store Subscription Loop",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "92911ecd5b4699486c6b7c2feecb7170ed036f2eb461737acb59e99db1e98746"
+      "partTitle": "Fine-Grained Selectors & External Stores: useSyncExternalStore & Context Alternatives",
+      "codeHash": "92911ecd5b4699486c6b7c2feecb7170ed036f2eb461737acb59e99db1e98746",
+      "spec": {
+        "template": "boxes",
+        "title": "Fine-Grained Selectors & External Store Subscriptions",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "selectors",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "useSyncExternalStore",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "subscription",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "snapshot",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Complex state slices contain multiple independent fields.",
+            "values": {
+              "b1": {
+                "text": "selectors"
+              },
+              "b2": {
+                "text": "useSyncExternalStore"
+              },
+              "b3": {
+                "text": "subscription"
+              },
+              "b4": {
+                "text": "snapshot"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Hook subscribes directly to external store snapshot.",
+            "values": {
+              "b1": {
+                "text": "selectors"
+              },
+              "b2": {
+                "text": "useSyncExternalStore"
+              },
+              "b3": {
+                "text": "subscription"
+              },
+              "b4": {
+                "text": "snapshot"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Architects pair selectors with shallow equality comparators.",
+            "values": {
+              "b1": {
+                "text": "selectors"
+              },
+              "b2": {
+                "text": "useSyncExternalStore"
+              },
+              "b3": {
+                "text": "subscription"
+              },
+              "b4": {
+                "text": "snapshot"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Identical snapshots prevent hydration mismatch errors.",
+            "values": {
+              "b1": {
+                "text": "selectors"
+              },
+              "b2": {
+                "text": "useSyncExternalStore"
+              },
+              "b3": {
+                "text": "subscription"
+              },
+              "b4": {
+                "text": "snapshot"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "External state store receives high frequency event.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "External Store",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "State Slice",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Selector Diff",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Targeted Render",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Fine-Grained Selectors & External Store Subscriptions",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "selectors",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "useSyncExternalStore",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "subscription",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "snapshot",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Component selector extracts target data slice.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "External Store",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Complex state slices contain multiple independent fields.",
+            "values": {
+              "b1": {
+                "text": "selectors"
               },
-              {
-                "id": "n2",
-                "label": "State Slice",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "useSyncExternalStore"
               },
-              {
-                "id": "n3",
-                "label": "Selector Diff",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "subscription"
               },
-              {
-                "id": "n4",
-                "label": "Targeted Render",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "snapshot"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Equality comparator checks if selected slice changed.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "External Store",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Hook subscribes directly to external store snapshot.",
+            "values": {
+              "b1": {
+                "text": "selectors"
               },
-              {
-                "id": "n2",
-                "label": "State Slice",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "useSyncExternalStore"
               },
-              {
-                "id": "n3",
-                "label": "Selector Diff",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "subscription"
               },
-              {
-                "id": "n4",
-                "label": "Targeted Render",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "snapshot"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Render pass triggers only when selected slice updates.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "External Store",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Architects pair selectors with shallow equality comparators.",
+            "values": {
+              "b1": {
+                "text": "selectors"
               },
-              {
-                "id": "n2",
-                "label": "State Slice",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "useSyncExternalStore"
               },
-              {
-                "id": "n3",
-                "label": "Selector Diff",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "subscription"
               },
-              {
-                "id": "n4",
-                "label": "Targeted Render",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "snapshot"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Identical snapshots prevent hydration mismatch errors.",
+            "values": {
+              "b1": {
+                "text": "selectors"
+              },
+              "b2": {
+                "text": "useSyncExternalStore"
+              },
+              "b3": {
+                "text": "subscription"
+              },
+              "b4": {
+                "text": "snapshot"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "boxes",
-      "title": "Enterprise Provider Hierarchy Pipeline",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "ea77b345c3c7bb1abacddb59a05f1fe3fa30b44e343e2e0234e311fb8211a45f"
+      "partTitle": "Enterprise Modular Theme & Authentication Topology Engine: The Complete Production System",
+      "codeHash": "ea77b345c3c7bb1abacddb59a05f1fe3fa30b44e343e2e0234e311fb8211a45f",
+      "spec": {
+        "template": "flow",
+        "title": "Enterprise Provider Topology & Modular Engine Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "topology",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "authentication",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "composition",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "governance",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Synthesized mastery of dependency injection containers.",
+            "values": {
+              "n1": {
+                "text": "topology"
+              },
+              "n2": {
+                "text": "authentication"
+              },
+              "n3": {
+                "text": "composition"
+              },
+              "n4": {
+                "text": "governance"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Declarative composition flattens provider bootstrapping.",
+            "values": {
+              "n1": {
+                "text": "topology"
+              },
+              "n2": {
+                "text": "authentication"
+              },
+              "n3": {
+                "text": "composition"
+              },
+              "n4": {
+                "text": "governance"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Performance engineers audit architectures with profilers.",
+            "values": {
+              "n1": {
+                "text": "topology"
+              },
+              "n2": {
+                "text": "authentication"
+              },
+              "n3": {
+                "text": "composition"
+              },
+              "n4": {
+                "text": "governance"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Robust governance enforces automated static analysis rules.",
+            "values": {
+              "n1": {
+                "text": "topology"
+              },
+              "n2": {
+                "text": "authentication"
+              },
+              "n3": {
+                "text": "composition"
+              },
+              "n4": {
+                "text": "governance"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Telemetry provider captures operational events at root.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Telemetry Provider",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Auth Provider",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Theme Provider",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Feature Provider",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Enterprise Provider Topology & Modular Engine Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "topology",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "authentication",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "composition",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "governance",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Authentication provider verifies credentials synchronously.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Telemetry Provider",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Synthesized mastery of dependency injection containers.",
+            "values": {
+              "n1": {
+                "text": "topology"
               },
-              {
-                "id": "b2",
-                "label": "Auth Provider",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "authentication"
               },
-              {
-                "id": "b3",
-                "label": "Theme Provider",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "composition"
               },
-              {
-                "id": "b4",
-                "label": "Feature Provider",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "governance"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Theme provider injects design tokens down layout tree.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Telemetry Provider",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Declarative composition flattens provider bootstrapping.",
+            "values": {
+              "n1": {
+                "text": "topology"
               },
-              {
-                "id": "b2",
-                "label": "Auth Provider",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "authentication"
               },
-              {
-                "id": "b3",
-                "label": "Theme Provider",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "composition"
               },
-              {
-                "id": "b4",
-                "label": "Feature Provider",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "governance"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Feature flag provider scopes capabilities per tenant.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Telemetry Provider",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Performance engineers audit architectures with profilers.",
+            "values": {
+              "n1": {
+                "text": "topology"
               },
-              {
-                "id": "b2",
-                "label": "Auth Provider",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "authentication"
               },
-              {
-                "id": "b3",
-                "label": "Theme Provider",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "composition"
               },
-              {
-                "id": "b4",
-                "label": "Feature Provider",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "governance"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Robust governance enforces automated static analysis rules.",
+            "values": {
+              "n1": {
+                "text": "topology"
+              },
+              "n2": {
+                "text": "authentication"
+              },
+              "n3": {
+                "text": "composition"
+              },
+              "n4": {
+                "text": "governance"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
