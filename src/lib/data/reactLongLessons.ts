@@ -6462,15 +6462,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "sim.state = functionalTick(sim.state);\nconsole.log('Next State:', sim.state);",
         check: {
-          question: "Why does an interval effect with an empty dependency array ([]) fail to advance a counter beyond 1 when calling setCount(count + 1)?",
+          question: "Why does an interval effect with an empty dependency array fail to advance a counter beyond 1 when calling setCount(count + 1)?",
           options: [
-            "The effect closure was bound once during mount, freezing count at 0 so it repeatedly calculates 0 + 1",
-            "React automatically cancels intervals declared with empty dependency arrays after one tick",
-            "The JavaScript event loop pauses intervals in functional components to prevent memory leaks",
-            "State updates inside setInterval are executed asynchronously and discarded by V8 garbage collection",
+            "React cancels intervals declared with empty dependency arrays after the initial component tick resolves.",
+            "The effect closure was bound at mount time, freezing count at zero so it calculates zero plus one on ticks.",
+            "State updates triggered inside intervals are queued asynchronously and discarded during browser idle runs.",
+            "The JavaScript event loop automatically suspends interval timers when components finish initial rendering."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Because the effect callback is never re-run after mount, its lexical environment record permanently closes over the initial render scope where count is frozen at 0.",
           explanation: "With an empty dependency array, the effect is never rescheduled, trapping the callback in the initial render closure where count is 0. Calling setCount(prev => prev + 1) resolves this by bypassing the closure."
         }
@@ -6532,15 +6532,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "console.log('Comparison:', areHookInputsEqual([1, 2], [1, 2]));",
         check: {
-          question: "What internal comparison algorithm does React Fiber use to determine whether an effect must re-run based on its dependency array?",
+          question: "What comparison algorithm does React Fiber use to determine whether an effect must re-run based on its dependencies?",
           options: [
-            "Object.is shallow comparison on each item in the dependency array (areHookInputsEqual)",
-            "Deep recursive JSON structural equivalence comparison across all dependency properties",
-            "Bitwise CRC32 checksum hashing of the serialized dependency array values",
-            "Strict prototype identity matching via the JavaScript instanceof operator",
+            "Deep recursive structural equality comparison checking all nested keys across dependency objects.",
+            "Bitwise CRC32 cryptographic checksum hashing across serialized array values on each render frame.",
+            "Strict prototype identity matching using the JavaScript instanceof operator on dependency inputs.",
+            "Object.is shallow reference comparison performed pairwise across dependency indices on each pass."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "React iterates through nextDeps and prevDeps and compares corresponding indices using Object.is, which checks reference equality for objects and value equality for primitives.",
           explanation: "React's areHookInputsEqual performs a shallow comparison using Object.is. If any pair returns false, the effect's cleanup and setup routines are scheduled for the next frame."
         }
@@ -6617,12 +6617,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "const nextPass = detector.simulateRenderPass(false, 'active');\nconsole.log(Object.is(prim1, nextPass));",
         check: {
-          question: "Why does passing an inline object literal dependency like options = { role: 'admin' } into useEffect cause an infinite render loop if the effect updates state?",
+          question: "Why does passing an inline object literal dependency like options = { role: 'admin' } into useEffect cause an infinite render loop?",
           options: [
-            "A fresh object is allocated on the heap every render pass, so Object.is shallow comparison always returns false",
-            "React forbids non-primitive variables inside dependency arrays and throws a runtime syntax exception",
-            "Object literals automatically trigger JavaScript garbage collection cycles that force re-rendering",
-            "The V8 compiler serializes object literals into dynamic strings that fail character encoding validation",
+            "A fresh object reference is allocated on the heap each render, causing Object.is comparison to fail.",
+            "React throws a runtime type error whenever non-primitive values are supplied to dependency arrays.",
+            "Object literals force the JavaScript garbage collector to invalidate all cached component vDOM trees.",
+            "Inline object declarations prevent React Fiber from resolving closure scopes during commit phases."
           ],
           answer: 0,
           answerIndex: 0,
@@ -6711,13 +6711,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural purpose of wrapping a helper function in useCallback before passing it to useEffect?",
           options: [
-            "To stabilize the function's heap reference across renders so areHookInputsEqual does not trigger spurious effect runs",
-            "To prevent the V8 engine from compiling the helper function until it is invoked by the browser event loop",
-            "To execute the function asynchronously inside a background web worker thread without blocking paint",
-            "To automatically inject functional state updaters into any setState calls made inside the helper",
+            "To prevent the V8 JavaScript compiler from executing the helper function until called by the event loop.",
+            "To execute the function asynchronously in a background Web Worker pool without blocking layout paint.",
+            "To stabilize the function heap reference so areHookInputsEqual does not trigger spurious effect cycles.",
+            "To automatically transform all internal state mutations into atomic optimistic updates during rendering."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "useCallback caches the function pointer on the Fiber node, returning the identical memory address across renders until its own dependencies change.",
           explanation: "By returning a stable function reference, useCallback satisfies areHookInputsEqual shallow comparison, preventing dependent effects from firing unnecessarily."
         }
@@ -6794,15 +6794,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "bridge.sync('STATE_SNAPSHOT_V3');\nconsole.log(logger());",
         check: {
-          question: "How does the Mutable Ref Bridge pattern allow an effect to read the latest state without re-running whenever that state updates?",
+          question: "How does the Mutable Ref Bridge pattern allow an effect to read the latest state without triggering re-runs on state updates?",
           options: [
-            "A ref holds a persistent object whose .current property is mutated synchronously without changing the ref's identity or triggering renders",
-            "Modifying ref.current automatically detaches the effect callback from the React Fiber reconciliation tree",
-            "Refs convert reactive state variables into immutable Symbols that bypass JavaScript garbage collection",
-            "The ref forces the effect to execute exclusively during the microtask queue flush before the paint cycle",
+            "Modifying ref.current detaches the effect callback from the React Fiber reconciliation tree during updates.",
+            "A persistent ref stores the live value in its current property without altering ref identity or rendering.",
+            "Refs convert reactive state variables into immutable Symbols that bypass JavaScript garbage collection runs.",
+            "The ref forces the effect to execute exclusively during the microtask queue flush before the paint cycle."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "The ref object identity remains constant, so reading ref.current inside the effect accesses the latest value without requiring the ref in the dependency array.",
           explanation: "Because mutating ref.current does not trigger renders or alter object identity, the effect can safely omit the volatile state from its dependencies while still reading its latest value."
         }
