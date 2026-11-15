@@ -5586,13 +5586,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural rule for locating shared state in a React component tree?",
           options: [
-            "Lift state to the Lowest Common Ancestor (deepest shared parent) of all components consuming that state",
-            "Always place shared state at the root App component using a global React Context provider",
-            "Store shared state inside the browser window object and poll for changes using setInterval",
-            "Pass state horizontally across sibling components using direct DOM querySelector bindings",
+            "Hoist shared state to the top-level application root to guarantee predictable global data dispatch.",
+            "Lift state to the Lowest Common Ancestor of all components that require access to that state.",
+            "Distribute local copies across consumer nodes and synchronize them using custom DOM window events.",
+            "Position state in the consumer with the highest render frequency to isolate downstream updates."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Lifting to the LCA establishes a single source of truth at the minimal possible elevation, avoiding over-hoisting and unnecessary re-renders.",
           explanation: "Lifting state to the lowest common ancestor ensures both siblings receive data via props without forcing higher-level layout ancestors or distant branches to re-render."
         }
@@ -5669,15 +5669,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Profile render blast radius with a three-level component hierarchy in RenderBlastProfiler.",
         check: {
-          question: "What does 'State Colocation' mean in modern React software architecture?",
+          question: "What is the primary architectural benefit of State Colocation in React component hierarchies?",
           options: [
-            "Keeping state as close as possible to where it is rendered and consumed, pushing state down to minimize re-render blast radiuses",
-            "Consolidating all database schemas and frontend interfaces into a single unified JavaScript bundle",
-            "Storing all state in the client machine's GPU memory cache for instant shader computation",
-            "Enforcing that state variables must have identical string names across all components in a repository",
+            "It allows child components to mutate ancestor props directly without triggering re-render cycles.",
+            "It enables React to automatically serialize state trees to IndexedDB during idle background tasks.",
+            "It forces asynchronous event loop callbacks to execute synchronously within the main render pass.",
+            "It confines state to consuming leaves, preventing unnecessary re-render cascades in parent trees."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "Pushing state down prevents parent containers and unaffected sibling trees from re-rendering needlessly.",
           explanation: "State colocation localizes state to its consuming leaf. By avoiding unnecessary state lifting, updates are confined to the smallest possible subtree, eliminating lag."
         }
@@ -5743,12 +5743,12 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a floating action button slot to SlotContainer and inspect the rendered view output.",
         check: {
-          question: "How does component composition using children slots eliminate prop drilling without requiring global state?",
+          question: "How does component composition using children slots mitigate prop drilling without global state?",
           options: [
-            "The parent instantiates the leaf element directly and passes it as JSX into the layout, bypassing intermediate components",
-            "Component composition rewrites JavaScript bytecode at runtime to inject variables into lexical closures",
-            "Children slots automatically serialize props into the browser localStorage for global retrieval",
-            "Component composition converts all functional components into synchronous WebAssembly functions",
+            "The parent instantiates the leaf element with its props and passes it as pre-rendered JSX slots.",
+            "Intermediate layout wrappers automatically forward undeclared props down to terminal leaf nodes.",
+            "React Fiber injects prop references directly into intermediate component closures during render.",
+            "The virtual DOM compiler automatically promotes drilled props into component prototype chains."
           ],
           answer: 0,
           answerIndex: 0,
@@ -5827,15 +5827,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a foreign key relation linking orders to user IDs and write an O(1) selector.",
         check: {
-          question: "Why is normalizing state into byId dictionaries and allIds arrays preferred over deeply nested object hierarchies?",
+          question: "Why is normalizing state into byId dictionaries preferred over deeply nested object hierarchies?",
           options: [
-            "Enables O(1) updates, eliminates entity duplication/split-brain bugs, and simplifies immutable updates",
-            "Deeply nested objects exceed the V8 compiler call stack depth limit during JSON serialization",
-            "Normalized objects bypass JavaScript prototype chains and execute directly in CPU L1 cache",
-            "The W3C DOM specification strictly prohibits storing arrays nested more than two levels deep",
+            "It allows JavaScript engines to compress objects into continuous linear memory buffers in RAM.",
+            "It eliminates the need for unique identity keys when mapping items into virtual DOM elements.",
+            "It provides O(1) lookups, prevents entity duplication bugs, and simplifies immutable updates.",
+            "It forces React Fiber to batch entity mutations asynchronously across web worker thread pools."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Nested trees require expensive multi-level spreads and duplicate shared entities; normalized tables provide single-source-of-truth O(1) mutations.",
           explanation: "Deeply nested state creates immutability friction (nested map cascades) and duplicate copies of entities. Normalizing mirrors relational tables: each entity has a single authoritative record in byId."
         }
@@ -5935,13 +5935,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What architectural pattern ensures that a multi-step checkout wizard maintains transactional consistency across network drops?",
           options: [
-            "A finite state machine controller coupled with normalized session persistence and cryptographic idempotency keys",
-            "A single monolithic useState hook containing raw HTML string markup for all four wizard steps",
-            "An interval timer that polls the backend server every 200 milliseconds to refresh step state",
-            "An inline script tag that reloads the entire webpage on each step transition",
+            "An optimistic user interface queue that re-executes failed HTTP requests on exponential backoff.",
+            "A finite state machine controller coupled with normalized session stores and idempotency tokens.",
+            "A centralized WebSocket connection that streams raw database transaction logs to the client UI.",
+            "A global error boundary that rolls back browser history entries whenever network requests fail."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Finite state machines enforce valid transitions, while idempotency keys prevent duplicate payments and normalized stores retain user data.",
           explanation: "By managing wizard flow with a finite state machine, illegal step jumps are blocked. Idempotency keys prevent duplicate charges during network reconnects, and normalized persistence prevents data loss."
         }

@@ -2,677 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 15,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Lowest Common Ancestor State Placement Resolution",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "6332442942850150c3bbe2be467e21a8cbbc530d73cc7a11c92699b6314c3d84"
+      "partTitle": "Lowest Common Ancestor (LCA) Heuristics & The 'Lifting State Up' Algorithm",
+      "codeHash": "6332442942850150c3bbe2be467e21a8cbbc530d73cc7a11c92699b6314c3d84",
+      "spec": {
+        "template": "flow",
+        "title": "Lowest Common Ancestor State Lifting Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "LCA",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "state",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "props",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Component trees require rigorous state architecture.",
+            "values": {
+              "n1": {
+                "text": "LCA"
+              },
+              "n2": {
+                "text": "state"
+              },
+              "n3": {
+                "text": "props"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Naive implementations maintain duplicate state copies.",
+            "values": {
+              "n1": {
+                "text": "LCA"
+              },
+              "n2": {
+                "text": "state"
+              },
+              "n3": {
+                "text": "props"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engineers trace component hierarchy to locate shared parent.",
+            "values": {
+              "n1": {
+                "text": "LCA"
+              },
+              "n2": {
+                "text": "state"
+              },
+              "n3": {
+                "text": "props"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Fiber engine processes updates at lowest common ancestor.",
+            "values": {
+              "n1": {
+                "text": "LCA"
+              },
+              "n2": {
+                "text": "state"
+              },
+              "n3": {
+                "text": "props"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Multiple sibling components require synchronized data access.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Nodes",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Ancestry Search",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Deepest Parent",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "State Hoisting",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Lowest Common Ancestor State Lifting Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "LCA",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "state",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "props",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Fiber",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Traversal traces fiber parent pointers upward toward root.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Nodes",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Component trees require rigorous state architecture.",
+            "values": {
+              "n1": {
+                "text": "LCA"
               },
-              {
-                "id": "n2",
-                "label": "Ancestry Search",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "state"
               },
-              {
-                "id": "n3",
-                "label": "Deepest Parent",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "props"
               },
-              {
-                "id": "n4",
-                "label": "State Hoisting",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "Fiber"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Algorithm identifies deepest shared ancestral component.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Nodes",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Naive implementations maintain duplicate state copies.",
+            "values": {
+              "n1": {
+                "text": "LCA"
               },
-              {
-                "id": "n2",
-                "label": "Ancestry Search",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "state"
               },
-              {
-                "id": "n3",
-                "label": "Deepest Parent",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "props"
               },
-              {
-                "id": "n4",
-                "label": "State Hoisting",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "Fiber"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "State hoists to minimal common parent preserving boundaries.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Consumer Nodes",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engineers trace component hierarchy to locate shared parent.",
+            "values": {
+              "n1": {
+                "text": "LCA"
               },
-              {
-                "id": "n2",
-                "label": "Ancestry Search",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "state"
               },
-              {
-                "id": "n3",
-                "label": "Deepest Parent",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "props"
               },
-              {
-                "id": "n4",
-                "label": "State Hoisting",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "Fiber"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Fiber engine processes updates at lowest common ancestor.",
+            "values": {
+              "n1": {
+                "text": "LCA"
+              },
+              "n2": {
+                "text": "state"
+              },
+              "n3": {
+                "text": "props"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Over-Hoisted Parent vs Colocated Leaf State Blast Radius",
-      "template": "compare",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "8d22a503bc438feb64b91ddcb8da9fe9268673f520ae73d75886eb7cebe12d05"
+      "partTitle": "State Colocation Principles: Pushing State Down to Contain Re-Render Blast Radiuses",
+      "codeHash": "8d22a503bc438feb64b91ddcb8da9fe9268673f520ae73d75886eb7cebe12d05",
+      "spec": {
+        "template": "boxes",
+        "title": "State Colocation & Blast Radius Isolation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "colocation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "over-hoisting",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "blast",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "radius",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "State colocation serves as complementary architectural rule.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Over-hoisting creates severe re-render blast radiuses.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Profiler flamegraph visualizes excessive rendering costs.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Colocation confines state to components that consume data.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Hoisting state to top layout triggers widespread cascades.",
-          "data": {
-            "left": {
-              "title": "Over-Hoisted State",
-              "items": [
-                "Parent Re-renders",
-                "Unrelated Siblings Run",
-                "Cascading Diff Cycles",
-                "High Total Blocking Time"
-              ],
-              "highlightIndex": 0
-            },
-            "right": {
-              "title": "Colocated State",
-              "items": [
-                "Leaf Isolated Update",
-                "Zero Parent Cycles",
-                "Untouched Siblings",
-                "Zero Millisecond Frame Lag"
-              ],
-              "highlightIndex": 0
-            }
+      "filled": {
+        "template": "boxes",
+        "title": "State Colocation & Blast Radius Isolation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "colocation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "over-hoisting",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "blast",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "radius",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Unrelated widgets spend cpu cycles on unneeded diffs.",
-          "data": {
-            "left": {
-              "title": "Over-Hoisted State",
-              "items": [
-                "Parent Re-renders",
-                "Unrelated Siblings Run",
-                "Cascading Diff Cycles",
-                "High Total Blocking Time"
-              ],
-              "highlightIndex": 1
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "State colocation serves as complementary architectural rule.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
             },
-            "right": {
-              "title": "Colocated State",
-              "items": [
-                "Leaf Isolated Update",
-                "Zero Parent Cycles",
-                "Untouched Siblings",
-                "Zero Millisecond Frame Lag"
-              ],
-              "highlightIndex": 1
-            }
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Colocating state confines updates to consuming leaf bounds.",
-          "data": {
-            "left": {
-              "title": "Over-Hoisted State",
-              "items": [
-                "Parent Re-renders",
-                "Unrelated Siblings Run",
-                "Cascading Diff Cycles",
-                "High Total Blocking Time"
-              ],
-              "highlightIndex": 2
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             },
-            "right": {
-              "title": "Colocated State",
-              "items": [
-                "Leaf Isolated Update",
-                "Zero Parent Cycles",
-                "Untouched Siblings",
-                "Zero Millisecond Frame Lag"
-              ],
-              "highlightIndex": 2
-            }
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Parent layouts remain quiescent achieving optimal throughput.",
-          "data": {
-            "left": {
-              "title": "Over-Hoisted State",
-              "items": [
-                "Parent Re-renders",
-                "Unrelated Siblings Run",
-                "Cascading Diff Cycles",
-                "High Total Blocking Time"
-              ],
-              "highlightIndex": 3
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Over-hoisting creates severe re-render blast radiuses.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
             },
-            "right": {
-              "title": "Colocated State",
-              "items": [
-                "Leaf Isolated Update",
-                "Zero Parent Cycles",
-                "Untouched Siblings",
-                "Zero Millisecond Frame Lag"
-              ],
-              "highlightIndex": 3
-            }
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Profiler flamegraph visualizes excessive rendering costs.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Colocation confines state to components that consume data.",
+            "values": {
+              "b1": {
+                "text": "colocation"
+              },
+              "b2": {
+                "text": "over-hoisting"
+              },
+              "b3": {
+                "text": "blast"
+              },
+              "b4": {
+                "text": "radius"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Component Composition Slots Inversion Architecture",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "70a0415a70a93536fdb1079a87dd9fb995975619601c5ed1dacd81e169810188"
+      "partTitle": "Mitigating Prop Drilling via Component Composition: Inversion of Control with Children Slots",
+      "codeHash": "70a0415a70a93536fdb1079a87dd9fb995975619601c5ed1dacd81e169810188",
+      "spec": {
+        "template": "flow",
+        "title": "Component Composition & Inversion of Control Slots",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "drilling",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "composition",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "children",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "slots",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Deep component trees create pervasive prop drilling pain.",
+            "values": {
+              "n1": {
+                "text": "drilling"
+              },
+              "n2": {
+                "text": "composition"
+              },
+              "n3": {
+                "text": "children"
+              },
+              "n4": {
+                "text": "slots"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Prop drilling exposes sensitive data to intermediate nodes.",
+            "values": {
+              "n1": {
+                "text": "drilling"
+              },
+              "n2": {
+                "text": "composition"
+              },
+              "n3": {
+                "text": "children"
+              },
+              "n4": {
+                "text": "slots"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Component composition eliminates prop drilling via slots.",
+            "values": {
+              "n1": {
+                "text": "drilling"
+              },
+              "n2": {
+                "text": "composition"
+              },
+              "n3": {
+                "text": "children"
+              },
+              "n4": {
+                "text": "slots"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Layout containers render children slots without drilling.",
+            "values": {
+              "n1": {
+                "text": "drilling"
+              },
+              "n2": {
+                "text": "composition"
+              },
+              "n3": {
+                "text": "children"
+              },
+              "n4": {
+                "text": "slots"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Top level parent owns domain models and state bindings.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Top Container",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Pre-built Slots",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Layout Shell",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Zero Drilling",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Component Composition & Inversion of Control Slots",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "drilling",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "composition",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "children",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "slots",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Parent instantiates leaf element directly into named slot.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Top Container",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Deep component trees create pervasive prop drilling pain.",
+            "values": {
+              "n1": {
+                "text": "drilling"
               },
-              {
-                "id": "b2",
-                "label": "Pre-built Slots",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "composition"
               },
-              {
-                "id": "b3",
-                "label": "Layout Shell",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "children"
               },
-              {
-                "id": "b4",
-                "label": "Zero Drilling",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "slots"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Intermediate layout accepts children without domain knowledge.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Top Container",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Prop drilling exposes sensitive data to intermediate nodes.",
+            "values": {
+              "n1": {
+                "text": "drilling"
               },
-              {
-                "id": "b2",
-                "label": "Pre-built Slots",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "composition"
               },
-              {
-                "id": "b3",
-                "label": "Layout Shell",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "children"
               },
-              {
-                "id": "b4",
-                "label": "Zero Drilling",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "slots"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Inversion of control completely eliminates prop drilling.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Top Container",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Component composition eliminates prop drilling via slots.",
+            "values": {
+              "n1": {
+                "text": "drilling"
               },
-              {
-                "id": "b2",
-                "label": "Pre-built Slots",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "composition"
               },
-              {
-                "id": "b3",
-                "label": "Layout Shell",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "children"
               },
-              {
-                "id": "b4",
-                "label": "Zero Drilling",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "slots"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Layout containers render children slots without drilling.",
+            "values": {
+              "n1": {
+                "text": "drilling"
+              },
+              "n2": {
+                "text": "composition"
+              },
+              "n3": {
+                "text": "children"
+              },
+              "n4": {
+                "text": "slots"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Relational Normalized Entity Store Lookup",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c9f27730d80c2f98f2b54672e2191612f5de78268cb7122e112b60b134bdb412"
+      "partTitle": "Relational State Normalization: Redux/Flux byId Entity Tables vs Deeply Nested Trees",
+      "codeHash": "c9f27730d80c2f98f2b54672e2191612f5de78268cb7122e112b60b134bdb412",
+      "spec": {
+        "template": "boxes",
+        "title": "Relational State Normalization byId Dictionary Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "normalization",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "byId",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "allIds",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "relational",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Data-intensive enterprise apps manage relational state.",
+            "values": {
+              "b1": {
+                "text": "normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "relational"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Nested state hierarchies increase immutability friction.",
+            "values": {
+              "b1": {
+                "text": "normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "relational"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Entity duplication triggers synchronization state bugs.",
+            "values": {
+              "b1": {
+                "text": "normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "relational"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "State normalization flattens entities into table stores.",
+            "values": {
+              "b1": {
+                "text": "normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "relational"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Raw nested json payload arrives from backend service.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Nested Payload",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Entity Normalizer",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "By ID Tables",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Constant Lookup",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Relational State Normalization byId Dictionary Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "normalization",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "byId",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "allIds",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "relational",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Normalizer flattens hierarchy into relational collections.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Nested Payload",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Data-intensive enterprise apps manage relational state.",
+            "values": {
+              "b1": {
+                "text": "normalization"
               },
-              {
-                "id": "n2",
-                "label": "Entity Normalizer",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "byId"
               },
-              {
-                "id": "n3",
-                "label": "By ID Tables",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "allIds"
               },
-              {
-                "id": "n4",
-                "label": "Constant Lookup",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "relational"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Entities store in dictionary tables alongside id lists.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Nested Payload",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Nested state hierarchies increase immutability friction.",
+            "values": {
+              "b1": {
+                "text": "normalization"
               },
-              {
-                "id": "n2",
-                "label": "Entity Normalizer",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "byId"
               },
-              {
-                "id": "n3",
-                "label": "By ID Tables",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "allIds"
               },
-              {
-                "id": "n4",
-                "label": "Constant Lookup",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "relational"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Components perform constant time updates without nested maps.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Nested Payload",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Entity duplication triggers synchronization state bugs.",
+            "values": {
+              "b1": {
+                "text": "normalization"
               },
-              {
-                "id": "n2",
-                "label": "Entity Normalizer",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "byId"
               },
-              {
-                "id": "n3",
-                "label": "By ID Tables",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "allIds"
               },
-              {
-                "id": "n4",
-                "label": "Constant Lookup",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "relational"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "State normalization flattens entities into table stores.",
+            "values": {
+              "b1": {
+                "text": "normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "relational"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Milestone Three Multi-Step Checkout Transaction Engine",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "451d7386b15cf7141c671c5ed3fa2ad068c409a819e4074b69e2a914660413b7"
+      "partTitle": "Milestone 3 Capstone: The Multi-Step Transaction & Checkout Engine",
+      "codeHash": "451d7386b15cf7141c671c5ed3fa2ad068c409a819e4074b69e2a914660413b7",
+      "spec": {
+        "template": "flow",
+        "title": "Milestone 3 Transaction Engine State Machine",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "wizard",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "transaction",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "machine",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "idempotency",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Capstone engine synthesizes enterprise state architecture.",
+            "values": {
+              "n1": {
+                "text": "wizard"
+              },
+              "n2": {
+                "text": "transaction"
+              },
+              "n3": {
+                "text": "machine"
+              },
+              "n4": {
+                "text": "idempotency"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Multi-step transaction flows require transactional rigor.",
+            "values": {
+              "n1": {
+                "text": "wizard"
+              },
+              "n2": {
+                "text": "transaction"
+              },
+              "n3": {
+                "text": "machine"
+              },
+              "n4": {
+                "text": "idempotency"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Controller owns centralized state at lowest common ancestor.",
+            "values": {
+              "n1": {
+                "text": "wizard"
+              },
+              "n2": {
+                "text": "transaction"
+              },
+              "n3": {
+                "text": "machine"
+              },
+              "n4": {
+                "text": "idempotency"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Session persistence and idempotency keys secure checkout.",
+            "values": {
+              "n1": {
+                "text": "wizard"
+              },
+              "n2": {
+                "text": "transaction"
+              },
+              "n3": {
+                "text": "machine"
+              },
+              "n4": {
+                "text": "idempotency"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Cart stage verifies inventory stock and pricing totals.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Cart Review",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Shipping Address",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Payment Gateway",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Order Confirmed",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Milestone 3 Transaction Engine State Machine",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "wizard",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "transaction",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "machine",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "idempotency",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Shipping stage extracts validated addresses via form data.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Cart Review",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Capstone engine synthesizes enterprise state architecture.",
+            "values": {
+              "n1": {
+                "text": "wizard"
               },
-              {
-                "id": "n2",
-                "label": "Shipping Address",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "transaction"
               },
-              {
-                "id": "n3",
-                "label": "Payment Gateway",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "machine"
               },
-              {
-                "id": "n4",
-                "label": "Order Confirmed",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "idempotency"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Payment stage executes secure asynchronous token charge.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Cart Review",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Multi-step transaction flows require transactional rigor.",
+            "values": {
+              "n1": {
+                "text": "wizard"
               },
-              {
-                "id": "n2",
-                "label": "Shipping Address",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "transaction"
               },
-              {
-                "id": "n3",
-                "label": "Payment Gateway",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "machine"
               },
-              {
-                "id": "n4",
-                "label": "Order Confirmed",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "idempotency"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Transaction state machine commits receipt confirming order.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Cart Review",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Controller owns centralized state at lowest common ancestor.",
+            "values": {
+              "n1": {
+                "text": "wizard"
               },
-              {
-                "id": "n2",
-                "label": "Shipping Address",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "transaction"
               },
-              {
-                "id": "n3",
-                "label": "Payment Gateway",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "machine"
               },
-              {
-                "id": "n4",
-                "label": "Order Confirmed",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "idempotency"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Session persistence and idempotency keys secure checkout.",
+            "values": {
+              "n1": {
+                "text": "wizard"
+              },
+              "n2": {
+                "text": "transaction"
+              },
+              "n3": {
+                "text": "machine"
+              },
+              "n4": {
+                "text": "idempotency"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
