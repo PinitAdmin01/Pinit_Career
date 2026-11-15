@@ -1,679 +1,1393 @@
-[
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 10,
-    "part": 1,
-    "codeHash": "2d6fcdf246d9f1cb7fe1900248ddefd3005f5d55bc85c6adf9958e752b8b0356",
-    "spec": {
-      "template": "flow",
-      "title": "Two Pass Multi Child Diffing Algorithm and Map Resolution",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Sequential Match",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Key Mismatch",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Children Map",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Reused Fiber",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Reconciler walks sequential nodes while keys and types match.",
-          "values": {
-            "n1": {
-              "text": "\"Sequential Match\""
-            },
-            "n2": {
-              "text": "\"Key Mismatch\""
-            },
-            "n3": {
-              "text": "\"Children Map\""
-            },
-            "n4": {
-              "text": "\"Reused Fiber\""
-            }
+{
+  "schemaVersion": 1,
+  "prefix": "react-basics",
+  "day": 10,
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
+    {
+      "partTitle": "Reconciliation Mechanics of Array Children & The Multi-Child Diffing Algorithm",
+      "codeHash": "2d6fcdf246d9f1cb7fe1900248ddefd3005f5d55bc85c6adf9958e752b8b0356",
+      "spec": {
+        "template": "flow",
+        "title": "Two Pass Multi Child Diffing Algorithm and Map Resolution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "linear",
+            "tappable": false
           },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
+          {
+            "id": "n2",
+            "label": "keys",
+            "tappable": false
           },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "First key mismatch terminates sequential traversal immediately.",
-          "values": {
-            "n1": {
-              "text": "\"Sequential Match\""
-            },
-            "n2": {
-              "text": "\"Key Mismatch\""
-            },
-            "n3": {
-              "text": "\"Children Map\""
-            },
-            "n4": {
-              "text": "\"Reused Fiber\""
-            }
+          {
+            "id": "n3",
+            "label": "Map",
+            "tappable": false
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
+          {
+            "id": "n4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Rendering collections of dynamic data occurs in the UI layer.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
           },
-          "arrows": [
-            [
-              "n1",
-              "n2"
+          {
+            "at": "say2",
+            "caption": "General purpose tree diffing requires complex traversal algorithms.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Remaining old fibers collect into key indexed hash map table.",
-          "values": {
-            "n1": {
-              "text": "\"Sequential Match\""
-            },
-            "n2": {
-              "text": "\"Key Mismatch\""
-            },
-            "n3": {
-              "text": "\"Children Map\""
-            },
-            "n4": {
-              "text": "\"Reused Fiber\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
+          {
+            "at": "say3",
+            "caption": "Reconciliation divides children array processing into two distinct passes.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Reconciler extracts matching fibers in constant time linear diff.",
-          "values": {
-            "n1": {
-              "text": "\"Sequential Match\""
-            },
-            "n2": {
-              "text": "\"Key Mismatch\""
-            },
-            "n3": {
-              "text": "\"Children Map\""
-            },
-            "n4": {
-              "text": "\"Reused Fiber\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
+          {
+            "at": "say4",
+            "caption": "Key mismatch terminates the first traversal pass immediately.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 10,
-    "part": 2,
-    "codeHash": "23858384df6351b7ff3305523177e5c9ccc95109acb78154ffe9da33706f9f4c",
-    "spec": {
-      "template": "compare",
-      "title": "Stable Primary Key vs Positional Index Key Under Mutation",
-      "left": {
-        "label": "Standard Implementation"
+          }
+        ]
       },
-      "right": {
-        "label": "Architectural Pattern"
+      "filled": {
+        "template": "flow",
+        "title": "Two Pass Multi Child Diffing Algorithm and Map Resolution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "linear",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "keys",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Map",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Rendering collections of dynamic data occurs in the UI layer.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "General purpose tree diffing requires complex traversal algorithms.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Reconciliation divides children array processing into two distinct passes.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Key mismatch terminates the first traversal pass immediately.",
+            "values": {
+              "n1": {
+                "text": "linear"
+              },
+              "n2": {
+                "text": "keys"
+              },
+              "n3": {
+                "text": "Map"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The Pitfalls of Array Indices as Keys: Mutation Inversion & State Corruption",
+      "codeHash": "23858384df6351b7ff3305523177e5c9ccc95109acb78154ffe9da33706f9f4c",
+      "spec": {
+        "template": "boxes",
+        "title": "Stable Primary Key vs Positional Index Key Under Mutation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "index",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Mutation Inversion",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "key",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Passing array indices as keys creates dangerous anti patterns.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Prepending a new entry shifts existing task list items downward.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Matching index keys causes components to reuse the wrong fiber.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Uncontrolled inputs and text selections lose state consistency.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
       },
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Index keys bind component identity to current array sequence.",
-          "left": {
-            "code": "// Left pipeline phase 1",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "idle"
+      "filled": {
+        "template": "boxes",
+        "title": "Stable Primary Key vs Positional Index Key Under Mutation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "index",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 1",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Prepend mutations shift indices causing state to attach to wrong rows.",
-          "left": {
-            "code": "// Left pipeline phase 2",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "b2",
+            "label": "Mutation Inversion",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 2",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Stable domain keys track entity identity across array movements.",
-          "left": {
-            "code": "// Left pipeline phase 3",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "b3",
+            "label": "key",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 3",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
+          {
+            "id": "b4",
+            "label": "Fiber",
+            "tappable": false
           }
-        },
-        {
-          "at": "say4",
-          "caption": "Component inputs and focus follow correct data items seamlessly.",
-          "left": {
-            "code": "// Left pipeline phase 4",
-            "result": {
-              "text": "\"Standard\""
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Passing array indices as keys creates dangerous anti patterns.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
             },
-            "tone": "data"
-          },
-          "right": {
-            "code": "// Optimized pipeline phase 4",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 10,
-    "part": 3,
-    "codeHash": "6749563a1a49172eb834859525bfadf942424153d2b63eaee7038f85088628d6",
-    "spec": {
-      "template": "flow",
-      "title": "Last Placed Index Tracking and Minimal DOM Relocation",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Element Order",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Old Index Lookup",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Placement Check",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Insert Before",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Reconciler inspects new element list in desired DOM order.",
-          "values": {
-            "n1": {
-              "text": "\"Element Order\""
-            },
-            "n2": {
-              "text": "\"Old Index Lookup\""
-            },
-            "n3": {
-              "text": "\"Placement Check\""
-            },
-            "n4": {
-              "text": "\"Insert Before\""
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "Engine looks up matching old fiber position in previous render.",
-          "values": {
-            "n1": {
-              "text": "\"Element Order\""
+          {
+            "at": "say2",
+            "caption": "Prepending a new entry shifts existing task list items downward.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
             },
-            "n2": {
-              "text": "\"Old Index Lookup\""
-            },
-            "n3": {
-              "text": "\"Placement Check\""
-            },
-            "n4": {
-              "text": "\"Insert Before\""
+            "tones": {
+              "b1": "error",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
+          {
+            "at": "say3",
+            "caption": "Matching index keys causes components to reuse the wrong fiber.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            }
           },
-          "arrows": [
-            [
-              "n1",
-              "n2"
+          {
+            "at": "say4",
+            "caption": "Uncontrolled inputs and text selections lose state consistency.",
+            "values": {
+              "b1": {
+                "text": "index"
+              },
+              "b2": {
+                "text": "Mutation Inversion"
+              },
+              "b3": {
+                "text": "key"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "DOM Node Reordering Heuristics & Keyed Fiber Lifecycle (Placement, Update, Deletion)",
+      "codeHash": "6749563a1a49172eb834859525bfadf942424153d2b63eaee7038f85088628d6",
+      "spec": {
+        "template": "flow",
+        "title": "Last Placed Index Tracking and Minimal DOM Relocation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "DOM",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "lastPlacedIndex",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Placement",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "insertBefore",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reconciliation schedules physical DOM manipulations for the commit phase.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "DOM node mutations trigger expensive browser style recalculations.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "If old index is less than last placed index a move is scheduled.",
-          "values": {
-            "n1": {
-              "text": "\"Element Order\""
-            },
-            "n2": {
-              "text": "\"Old Index Lookup\""
-            },
-            "n3": {
-              "text": "\"Placement Check\""
-            },
-            "n4": {
-              "text": "\"Insert Before\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
+          {
+            "at": "say3",
+            "caption": "Tracking lastPlacedIndex records the highest old fiber position placed.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Commit phase executes insert before to reposition node cleanly.",
-          "values": {
-            "n1": {
-              "text": "\"Element Order\""
-            },
-            "n2": {
-              "text": "\"Old Index Lookup\""
-            },
-            "n3": {
-              "text": "\"Placement Check\""
-            },
-            "n4": {
-              "text": "\"Insert Before\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
+          {
+            "at": "say4",
+            "caption": "Nodes with lower indices move rightward and receive placement flags.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
-          ]
-        }
-      ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Last Placed Index Tracking and Minimal DOM Relocation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "DOM",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "lastPlacedIndex",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Placement",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "insertBefore",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reconciliation schedules physical DOM manipulations for the commit phase.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "DOM node mutations trigger expensive browser style recalculations.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Tracking lastPlacedIndex records the highest old fiber position placed.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Nodes with lower indices move rightward and receive placement flags.",
+            "values": {
+              "n1": {
+                "text": "DOM"
+              },
+              "n2": {
+                "text": "lastPlacedIndex"
+              },
+              "n3": {
+                "text": "Placement"
+              },
+              "n4": {
+                "text": "insertBefore"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Virtualization Architecture for Large Collections: Windowing, Overscan & Layout Slicing",
+      "codeHash": "3cf8c420954b897c51c14f61302a92237ffc2085208208cd397fe666ebc794ac",
+      "spec": {
+        "template": "boxes",
+        "title": "Viewport Virtualization and Scroll Windowing Engine",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Virtualization",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Windowing",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "viewport",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "overscan",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Browsers face physical limits managing thousands of simultaneous DOM nodes.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "List virtualization and windowing display massive datasets efficiently.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Virtualized lists calculate container height and precise item positions.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Overscan buffers render extra items to prevent visual scroll flashes.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Viewport Virtualization and Scroll Windowing Engine",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Virtualization",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Windowing",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "viewport",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "overscan",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Browsers face physical limits managing thousands of simultaneous DOM nodes.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "List virtualization and windowing display massive datasets efficiently.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Virtualized lists calculate container height and precise item positions.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Overscan buffers render extra items to prevent visual scroll flashes.",
+            "values": {
+              "b1": {
+                "text": "Virtualization"
+              },
+              "b2": {
+                "text": "Windowing"
+              },
+              "b3": {
+                "text": "viewport"
+              },
+              "b4": {
+                "text": "overscan"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Milestone 2 Capstone: Architecting the High-Throughput Dynamic Feed Engine",
+      "codeHash": "c8be7d4dcb2a24fb035cde126b1c63356935f32f5cd563d5c94a68af23decb2a",
+      "spec": {
+        "template": "boxes",
+        "title": "Milestone Two Capstone Dynamic Feed Engine Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Capstone",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "WebSocket",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "dynamic",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "GPU",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architecture capstone synthesizes modern frontend engineering principles.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Enterprise platforms construct dynamic feed engines for high throughput.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Raw telemetry packets enter the multi stage ingestion pipeline.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Windowed virtualization controllers calculate visible slice boundaries.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Milestone Two Capstone Dynamic Feed Engine Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Capstone",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "WebSocket",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "dynamic",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "GPU",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architecture capstone synthesizes modern frontend engineering principles.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Enterprise platforms construct dynamic feed engines for high throughput.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Raw telemetry packets enter the multi stage ingestion pipeline.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Windowed virtualization controllers calculate visible slice boundaries.",
+            "values": {
+              "b1": {
+                "text": "Capstone"
+              },
+              "b2": {
+                "text": "WebSocket"
+              },
+              "b3": {
+                "text": "dynamic"
+              },
+              "b4": {
+                "text": "GPU"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
     }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 10,
-    "part": 4,
-    "codeHash": "3cf8c420954b897c51c14f61302a92237ffc2085208208cd397fe666ebc794ac",
-    "spec": {
-      "template": "boxes",
-      "title": "Viewport Virtualization and Scroll Windowing Engine",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "Scroll Canvas",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Viewport Slice",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "Overscan Buffer",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "GPU Transform",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Virtual canvas establishes scrollbar reflecting total item count.",
-          "values": {
-            "b1": {
-              "text": "\"Scroll Canvas\""
-            },
-            "b2": {
-              "text": "\"Viewport Slice\""
-            },
-            "b3": {
-              "text": "\"Overscan Buffer\""
-            },
-            "b4": {
-              "text": "\"GPU Transform\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Engine calculates visible index boundaries based on scroll offset.",
-          "values": {
-            "b1": {
-              "text": "\"Scroll Canvas\""
-            },
-            "b2": {
-              "text": "\"Viewport Slice\""
-            },
-            "b3": {
-              "text": "\"Overscan Buffer\""
-            },
-            "b4": {
-              "text": "\"GPU Transform\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Overscan buffer renders extra rows to prevent scrolling blank frames.",
-          "values": {
-            "b1": {
-              "text": "\"Scroll Canvas\""
-            },
-            "b2": {
-              "text": "\"Viewport Slice\""
-            },
-            "b3": {
-              "text": "\"Overscan Buffer\""
-            },
-            "b4": {
-              "text": "\"GPU Transform\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "GPU accelerated transform positions active slice with minimal cost.",
-          "values": {
-            "b1": {
-              "text": "\"Scroll Canvas\""
-            },
-            "b2": {
-              "text": "\"Viewport Slice\""
-            },
-            "b3": {
-              "text": "\"Overscan Buffer\""
-            },
-            "b4": {
-              "text": "\"GPU Transform\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 10,
-    "part": 5,
-    "codeHash": "c8be7d4dcb2a24fb035cde126b1c63356935f32f5cd563d5c94a68af23decb2a",
-    "spec": {
-      "template": "boxes",
-      "title": "Milestone Two Capstone Dynamic Feed Engine Architecture",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "Ingestion Pipeline",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Surrogate Keying",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "Virtual Window",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "Composited Row",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Telemetry ingestion pipeline parses high frequency event stream.",
-          "values": {
-            "b1": {
-              "text": "\"Ingestion Pipeline\""
-            },
-            "b2": {
-              "text": "\"Surrogate Keying\""
-            },
-            "b3": {
-              "text": "\"Virtual Window\""
-            },
-            "b4": {
-              "text": "\"Composited Row\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Composite surrogate keys ensure bulletproof reconciliation identity.",
-          "values": {
-            "b1": {
-              "text": "\"Ingestion Pipeline\""
-            },
-            "b2": {
-              "text": "\"Surrogate Keying\""
-            },
-            "b3": {
-              "text": "\"Virtual Window\""
-            },
-            "b4": {
-              "text": "\"Composited Row\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Windowed virtualization caps active DOM elements to viewport size.",
-          "values": {
-            "b1": {
-              "text": "\"Ingestion Pipeline\""
-            },
-            "b2": {
-              "text": "\"Surrogate Keying\""
-            },
-            "b3": {
-              "text": "\"Virtual Window\""
-            },
-            "b4": {
-              "text": "\"Composited Row\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "Hardware composited rows render smooth frames without thread jank.",
-          "values": {
-            "b1": {
-              "text": "\"Ingestion Pipeline\""
-            },
-            "b2": {
-              "text": "\"Surrogate Keying\""
-            },
-            "b3": {
-              "text": "\"Virtual Window\""
-            },
-            "b4": {
-              "text": "\"Composited Row\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  }
-]
+  ]
+}

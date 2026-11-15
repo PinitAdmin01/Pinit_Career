@@ -3376,13 +3376,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the computational complexity of React's multi-child reconciliation algorithm when stable keys are provided?",
           options: [
-            "O(n) linear time, leveraging a two-pass algorithm and a key-indexed Map for unvisited nodes",
-            "O(n^3) cubic time, comparing every possible tree mutation across all hierarchical permutations",
-            "O(n^2) quadratic time, iterating through the entire previous DOM tree for every single new child",
-            "O(log n) logarithmic time, utilizing binary search trees across virtual memory addresses",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "O(n^3) cubic time because general graph diffing algorithms evaluate all hierarchical tree permutations across arbitrary depths.",
+            "O(n^2) quadratic time because the reconciler iterates through the entire preceding DOM child list for each newly received item.",
+            "O(n) linear time, leveraging a two-pass algorithm and a key-indexed hash map to resolve sibling reordering in constant lookups.",
+            "O(log n) logarithmic time because the reconciler organizes virtual fiber nodes into balanced binary search trees in heap memory."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "React achieves O(n) linear complexity by using a two-pass algorithm: the first pass matches sequential identical keys, and the second pass uses a Map to resolve reorders in O(1) time.",
           explanation: "Because general tree diffing is O(n^3), React employs heuristic assumptions: identical component types and stable sibling keys reduce tree comparison to a linear O(n) walk."
         }
@@ -3447,13 +3447,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Prepend a third item with simulateListPrepend and observe how index keys shift state to the wrong task.",
         check: {
-          question: "What catastrophic failure occurs when an array item is prepended to a list rendered with `key={index}`?",
+          question: "What catastrophic failure occurs when an array item is prepended to a list rendered with key={index}?",
           options: [
-            "Mutation Inversion and State Corruption: React reuses the Fiber at index 0, attaching old local input state to the new item",
-            "Immediate JavaScript runtime fatal exception: React throws 'KeyIndexCollisionError' and halts execution",
-            "Browser engine DOM freeze: the HTML parser rejects duplicate positional index attributes",
-            "Network socket disconnection: the virtual DOM server synchronization channel closes",
-          ],
+            "Mutation Inversion: React reuses the Fiber at index zero, binding existing local input and component state to the new incoming item.",
+            "Memory Leaks: the JavaScript garbage collector retains detached DOM subtrees indefinitely because duplicate keys block sweep passes.",
+            "Hydration Mismatches: server rendering engines refuse to serialize lists where keys do not correspond to cryptographic entity UUIDs.",
+            "Syntax Exceptions: the browser DOM parser rejects duplicate integer key attributes and throws fatal element collision error events."
+],
           answer: 0,
           answerIndex: 0,
           why: "Because index 0 still matches key 0, React reuses the existing Fiber at that position, preserving its local useState and uncontrolled DOM inputs while applying the new item's props.",
@@ -3528,15 +3528,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Reverse the nextOrder array and observe how many MOVE operations are scheduled.",
         check: {
-          question: "How does React's `lastPlacedIndex` heuristic determine whether a DOM node must be physically relocated?",
+          question: "How does React's lastPlacedIndex heuristic determine whether an existing DOM node must be physically relocated?",
           options: [
-            "If the matched old Fiber's index is strictly less than `lastPlacedIndex`, the node has moved and receives a Placement flag",
-            "React checks whether the DOM node's CSS bounding rect coordinates have shifted by more than one pixel",
-            "React generates a hash of the node's innerHTML and compares it against the browser layout cache",
-            "React queries the browser's MutationObserver registry to determine if layout thrashing occurred",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "It inspects browser style recalculation counters to verify whether the node layout coordinates changed during the current tick.",
+            "It registers mutation observer listeners on every child element to track whether DOM offsets deviate from viewport constraints.",
+            "It generates a cryptographic hash of innerHTML content and checks whether child text nodes match cached layout render buffers.",
+            "If the matched old Fiber index is strictly less than lastPlacedIndex, the node has moved left-to-right and receives a Placement flag."
+],
+          answer: 3,
+          answerIndex: 3,
           why: "lastPlacedIndex tracks the highest old index encountered; any old node with an index below it was positioned to the left of already-placed nodes, requiring insertBefore to move right.",
           explanation: "The lastPlacedIndex heuristic minimizes physical DOM operations during reordering by preserving elements that remain in ascending relative order."
         }
@@ -3621,13 +3621,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why is List Virtualization (Windowing) essential when displaying collections of ten thousand or more items in the DOM?",
           options: [
-            "Mounting 10,000+ DOM nodes consumes massive C++ heap memory and causes multi-second layout freezes during scroll",
-            "The React reconciler has an architectural hard limit of 256 children per array node",
-            "Modern browser rendering engines throw a security violation if DOM trees exceed 5,000 total nodes",
-            "HTTP/2 protocol multiplexing cannot stream data payloads that exceed 64 kilobytes",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Browser networking stacks throttle HTTP responses whenever page documents contain more than one thousand simultaneous image nodes.",
+            "Mounting tens of thousands of DOM nodes causes severe layout thrashing and high C++ heap memory consumption during scrolling.",
+            "Modern JavaScript engines disable garbage collection sweeps when arrays passed into component JSX templates exceed five hundred items.",
+            "React reconciliation algorithms throw fatal stack overflow exceptions when mapping collections larger than one thousand elements."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "Each DOM node consumes ~2KB memory and participates in layout and style calculations. Virtualization bounds active DOM elements to only those visible in the viewport.",
           explanation: "Virtualization bounds the DOM footprint to ~30-50 nodes regardless of dataset size, eliminating garbage collection pauses and preserving 60 FPS scrolling."
         }
@@ -3722,15 +3722,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Load additional mock telemetry items into VirtualFeedEngine and compute slice at scrollTop=100.",
         check: {
-          question: "Which combination of design patterns guarantees 60 FPS rendering in high-throughput enterprise event streams?",
+          question: "Which combination of architectural patterns guarantees 60 FPS rendering in high-throughput enterprise event streams?",
           options: [
-            "Surrogate entity keys, windowed viewport virtualization with overscan, and GPU-composited CSS translateY transforms",
-            "Index-based keys, full DOM mounting of all historical records, and inline Math.random() UUID generation",
-            "Frequent document.write calls, synchronous recursive DOM traversal, and disabling React reconciliation",
-            "Inline styling with setTimeout polling, deep object cloning on every frame, and unkeyed array mapping",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Positional index keys, unwindowed continuous DOM appending, and synchronous recursive tree traversal on every WebSocket payload.",
+            "Volatile Math.random keys, client side full collection sorting on scroll, and inline style recalculations inside requestAnimationFrame.",
+            "Surrogate entity keys, windowed viewport virtualization with overscan, and GPU-composited CSS translateY transforms for positioning.",
+            "Unkeyed array mapping, deep object cloning on incoming stream events, and forced synchronous document layout flushes across workers."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "Surrogate keys prevent state corruption, windowed virtualization caps DOM node count, and GPU translateY avoids expensive layout reflows.",
           explanation: "High-throughput streaming requires predictable O(1) key lookups, bounded DOM element counts via virtualization, and offloading layer repositioning to the GPU compositor."
         }
