@@ -2,701 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 14,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Controlled Component Synchronous Keystroke Loop",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "53031797e5133b9bf16b06c9eceadefaa3c9418ec589f2ce9d0f69e5e1b5ca14"
+      "partTitle": "The Controlled Component Paradigm: Single Source of Truth & Synchronous Keystroke Reconciliation",
+      "codeHash": "53031797e5133b9bf16b06c9eceadefaa3c9418ec589f2ce9d0f69e5e1b5ca14",
+      "spec": {
+        "template": "flow",
+        "title": "Controlled Component Keystroke Reconciliation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "controlled",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "value",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "onChange",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "re-render",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "User input creates volatile events in frontend engineering.",
+            "values": {
+              "n1": {
+                "text": "controlled"
+              },
+              "n2": {
+                "text": "value"
+              },
+              "n3": {
+                "text": "onChange"
+              },
+              "n4": {
+                "text": "re-render"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Controlled inputs require synchronized state bindings.",
+            "values": {
+              "n1": {
+                "text": "controlled"
+              },
+              "n2": {
+                "text": "value"
+              },
+              "n3": {
+                "text": "onChange"
+              },
+              "n4": {
+                "text": "re-render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "React evaluates component tree during reconciliation.",
+            "values": {
+              "n1": {
+                "text": "controlled"
+              },
+              "n2": {
+                "text": "value"
+              },
+              "n3": {
+                "text": "onChange"
+              },
+              "n4": {
+                "text": "re-render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Every single keypress triggers complete rendering overhead.",
+            "values": {
+              "n1": {
+                "text": "controlled"
+              },
+              "n2": {
+                "text": "value"
+              },
+              "n3": {
+                "text": "onChange"
+              },
+              "n4": {
+                "text": "re-render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Physical keystroke fires browser input change event.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Physical Key",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Change Handler",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "State Cell",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Reconciled DOM",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Controlled Component Keystroke Reconciliation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "controlled",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "value",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "onChange",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "re-render",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Synthetic handler sanitizes and formats string characters.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Physical Key",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "User input creates volatile events in frontend engineering.",
+            "values": {
+              "n1": {
+                "text": "controlled"
               },
-              {
-                "id": "n2",
-                "label": "Change Handler",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "value"
               },
-              {
-                "id": "n3",
-                "label": "State Cell",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "onChange"
               },
-              {
-                "id": "n4",
-                "label": "Reconciled DOM",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "re-render"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "State setter schedules synchronous reconciliation pass.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Physical Key",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Controlled inputs require synchronized state bindings.",
+            "values": {
+              "n1": {
+                "text": "controlled"
               },
-              {
-                "id": "n2",
-                "label": "Change Handler",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "value"
               },
-              {
-                "id": "n3",
-                "label": "State Cell",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "onChange"
               },
-              {
-                "id": "n4",
-                "label": "Reconciled DOM",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "re-render"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Reconciliation writes formatted value back into input element.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Physical Key",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "React evaluates component tree during reconciliation.",
+            "values": {
+              "n1": {
+                "text": "controlled"
               },
-              {
-                "id": "n2",
-                "label": "Change Handler",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "value"
               },
-              {
-                "id": "n3",
-                "label": "State Cell",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "onChange"
               },
-              {
-                "id": "n4",
-                "label": "Reconciled DOM",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "re-render"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Every single keypress triggers complete rendering overhead.",
+            "values": {
+              "n1": {
+                "text": "controlled"
+              },
+              "n2": {
+                "text": "value"
+              },
+              "n3": {
+                "text": "onChange"
+              },
+              "n4": {
+                "text": "re-render"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Uncontrolled Component Native DOM Buffer Pipeline",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "55f744a83de3074a19db875bbc70920ce47980bba2b07967592cfb45d97f21e7"
+      "partTitle": "The Uncontrolled Component Alternative: DOM Ref Buffers & Performance in High-Frequency Inputs",
+      "codeHash": "55f744a83de3074a19db875bbc70920ce47980bba2b07967592cfb45d97f21e7",
+      "spec": {
+        "template": "boxes",
+        "title": "Uncontrolled Component Ref Buffer Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "uncontrolled",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "buffer",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "useRef",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "DOM",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise applications require optimal typing performance.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
+              },
+              "b2": {
+                "text": "buffer"
+              },
+              "b3": {
+                "text": "useRef"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Native input buffer maintains physical element state.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
+              },
+              "b2": {
+                "text": "buffer"
+              },
+              "b3": {
+                "text": "useRef"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Mutable ref container stores reference to element.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
+              },
+              "b2": {
+                "text": "buffer"
+              },
+              "b3": {
+                "text": "useRef"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Uncontrolled architectures show dramatic memory advantage.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
+              },
+              "b2": {
+                "text": "buffer"
+              },
+              "b3": {
+                "text": "useRef"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "User types directly into browser native input field.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Typing",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Internal Buffer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Ref Inspection",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Payload Read",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Uncontrolled Component Ref Buffer Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "uncontrolled",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "buffer",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "useRef",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "DOM",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Engine buffers characters without virtual tree diffing.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Typing",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise applications require optimal typing performance.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
               },
-              {
-                "id": "b2",
-                "label": "Internal Buffer",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "buffer"
               },
-              {
-                "id": "b3",
-                "label": "Ref Inspection",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "useRef"
               },
-              {
-                "id": "b4",
-                "label": "Payload Read",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "DOM"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Component reference holds direct handle to physical node.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Typing",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Native input buffer maintains physical element state.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
               },
-              {
-                "id": "b2",
-                "label": "Internal Buffer",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "buffer"
               },
-              {
-                "id": "b3",
-                "label": "Ref Inspection",
-                "tappable": false,
-                "highlight": true
+              "b3": {
+                "text": "useRef"
               },
-              {
-                "id": "b4",
-                "label": "Payload Read",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "DOM"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Submission handler reads buffer imperatively on demand.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Typing",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Mutable ref container stores reference to element.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
               },
-              {
-                "id": "b2",
-                "label": "Internal Buffer",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "buffer"
               },
-              {
-                "id": "b3",
-                "label": "Ref Inspection",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "useRef"
               },
-              {
-                "id": "b4",
-                "label": "Payload Read",
-                "tappable": false,
-                "highlight": true
+              "b4": {
+                "text": "DOM"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Uncontrolled architectures show dramatic memory advantage.",
+            "values": {
+              "b1": {
+                "text": "uncontrolled"
+              },
+              "b2": {
+                "text": "buffer"
+              },
+              "b3": {
+                "text": "useRef"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Declarative Form Data Multi-Type Extraction",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "fff3b97fbe8c225237aef455d77c7ea5b4aebe84c13a9714cb6d63912ce09c80"
+      "partTitle": "Native FormData API & Declarative Form Submission Pipelines: Multi-Field Extraction Without State Overhead",
+      "codeHash": "fff3b97fbe8c225237aef455d77c7ea5b4aebe84c13a9714cb6d63912ce09c80",
+      "spec": {
+        "template": "flow",
+        "title": "Native FormData Extraction & Submission Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "FormData",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "form",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "submit",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "boundary",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Overuse of state creates pervasive legacy complexity.",
+            "values": {
+              "n1": {
+                "text": "FormData"
+              },
+              "n2": {
+                "text": "form"
+              },
+              "n3": {
+                "text": "submit"
+              },
+              "n4": {
+                "text": "boundary"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "FormData compiles fields directly from form element.",
+            "values": {
+              "n1": {
+                "text": "FormData"
+              },
+              "n2": {
+                "text": "form"
+              },
+              "n3": {
+                "text": "submit"
+              },
+              "n4": {
+                "text": "boundary"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Submit handler prevents full page browser navigation.",
+            "values": {
+              "n1": {
+                "text": "FormData"
+              },
+              "n2": {
+                "text": "form"
+              },
+              "n3": {
+                "text": "submit"
+              },
+              "n4": {
+                "text": "boundary"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Traversal methods retrieve values for complex schemas.",
+            "values": {
+              "n1": {
+                "text": "FormData"
+              },
+              "n2": {
+                "text": "form"
+              },
+              "n3": {
+                "text": "submit"
+              },
+              "n4": {
+                "text": "boundary"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Form submission event captures reference to parent form.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Form Element",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Data Collector",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Named Entries",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Typed Payload",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Native FormData Extraction & Submission Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "FormData",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "form",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "submit",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "boundary",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Form data constructor iterates all named input elements.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Form Element",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Overuse of state creates pervasive legacy complexity.",
+            "values": {
+              "n1": {
+                "text": "FormData"
               },
-              {
-                "id": "n2",
-                "label": "Data Collector",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "form"
               },
-              {
-                "id": "n3",
-                "label": "Named Entries",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "submit"
               },
-              {
-                "id": "n4",
-                "label": "Typed Payload",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "boundary"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Multi-select checkboxes and files collect into entry pairs.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Form Element",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "FormData compiles fields directly from form element.",
+            "values": {
+              "n1": {
+                "text": "FormData"
               },
-              {
-                "id": "n2",
-                "label": "Data Collector",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "form"
               },
-              {
-                "id": "n3",
-                "label": "Named Entries",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "submit"
               },
-              {
-                "id": "n4",
-                "label": "Typed Payload",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "boundary"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Structured object transforms entries into clean network payload.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Form Element",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Submit handler prevents full page browser navigation.",
+            "values": {
+              "n1": {
+                "text": "FormData"
               },
-              {
-                "id": "n2",
-                "label": "Data Collector",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "form"
               },
-              {
-                "id": "n3",
-                "label": "Named Entries",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "submit"
               },
-              {
-                "id": "n4",
-                "label": "Typed Payload",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "boundary"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Traversal methods retrieve values for complex schemas.",
+            "values": {
+              "n1": {
+                "text": "FormData"
+              },
+              "n2": {
+                "text": "form"
+              },
+              "n3": {
+                "text": "submit"
+              },
+              "n4": {
+                "text": "boundary"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Asynchronous Validation Queue and Race Invalidation",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "5fa220af45bd8077b09aca81590d0bc2e9d269ccb8d1b87d51b19fc3324b9b66"
+      "partTitle": "Asynchronous Validation Engines: Debouncing, Microtask Validation Queues & Cancellation Tokens",
+      "codeHash": "5fa220af45bd8077b09aca81590d0bc2e9d269ccb8d1b87d51b19fc3324b9b66",
+      "spec": {
+        "template": "boxes",
+        "title": "Asynchronous Validation Queue & Cancellation Tokens",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "validation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "asynchronous",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "AbortController",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "signal",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Validation boundaries ensure robust data integrity.",
+            "values": {
+              "b1": {
+                "text": "validation"
+              },
+              "b2": {
+                "text": "asynchronous"
+              },
+              "b3": {
+                "text": "AbortController"
+              },
+              "b4": {
+                "text": "signal"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Asynchronous validation hazards create network races.",
+            "values": {
+              "b1": {
+                "text": "validation"
+              },
+              "b2": {
+                "text": "asynchronous"
+              },
+              "b3": {
+                "text": "AbortController"
+              },
+              "b4": {
+                "text": "signal"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Cancellation tokens eliminate dangerous race conditions.",
+            "values": {
+              "b1": {
+                "text": "validation"
+              },
+              "b2": {
+                "text": "asynchronous"
+              },
+              "b3": {
+                "text": "AbortController"
+              },
+              "b4": {
+                "text": "signal"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Passing controller signal cancels outdated network requests.",
+            "values": {
+              "b1": {
+                "text": "validation"
+              },
+              "b2": {
+                "text": "asynchronous"
+              },
+              "b3": {
+                "text": "AbortController"
+              },
+              "b4": {
+                "text": "signal"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Typing pause satisfies debounce quiet threshold interval.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keystroke Pause",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Debounce Timer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Request Token",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Stale Rejection",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Asynchronous Validation Queue & Cancellation Tokens",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "validation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "asynchronous",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "AbortController",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "signal",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Timer initiates asynchronous server availability check.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keystroke Pause",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Validation boundaries ensure robust data integrity.",
+            "values": {
+              "b1": {
+                "text": "validation"
               },
-              {
-                "id": "b2",
-                "label": "Debounce Timer",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "asynchronous"
               },
-              {
-                "id": "b3",
-                "label": "Request Token",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "AbortController"
               },
-              {
-                "id": "b4",
-                "label": "Stale Rejection",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "signal"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Request token increments identifying active transaction.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keystroke Pause",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Asynchronous validation hazards create network races.",
+            "values": {
+              "b1": {
+                "text": "validation"
               },
-              {
-                "id": "b2",
-                "label": "Debounce Timer",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "asynchronous"
               },
-              {
-                "id": "b3",
-                "label": "Request Token",
-                "tappable": false,
-                "highlight": true
+              "b3": {
+                "text": "AbortController"
               },
-              {
-                "id": "b4",
-                "label": "Stale Rejection",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "signal"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Out of order delayed responses are safely discarded.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keystroke Pause",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Cancellation tokens eliminate dangerous race conditions.",
+            "values": {
+              "b1": {
+                "text": "validation"
               },
-              {
-                "id": "b2",
-                "label": "Debounce Timer",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "asynchronous"
               },
-              {
-                "id": "b3",
-                "label": "Request Token",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "AbortController"
               },
-              {
-                "id": "b4",
-                "label": "Stale Rejection",
-                "tappable": false,
-                "highlight": true
+              "b4": {
+                "text": "signal"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Passing controller signal cancels outdated network requests.",
+            "values": {
+              "b1": {
+                "text": "validation"
+              },
+              "b2": {
+                "text": "asynchronous"
+              },
+              "b3": {
+                "text": "AbortController"
+              },
+              "b4": {
+                "text": "signal"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Schema Driven Form Finite State Machine",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "07c166538a681e9ca49a07dd1c376262dab0abb1e5e08e648cbcfa89fb9bdddb"
+      "partTitle": "Schema-Driven Validation & Finite State Machine Form Controllers: Zod-Style Declarative Parsers",
+      "codeHash": "07c166538a681e9ca49a07dd1c376262dab0abb1e5e08e648cbcfa89fb9bdddb",
+      "spec": {
+        "template": "flow",
+        "title": "Declarative Schema Parser & Isomorphic Contract Engine",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "schema",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Zod",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "isomorphic",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "parsers",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Imperative validation logic creates fragile codebases.",
+            "values": {
+              "n1": {
+                "text": "schema"
+              },
+              "n2": {
+                "text": "Zod"
+              },
+              "n3": {
+                "text": "isomorphic"
+              },
+              "n4": {
+                "text": "parsers"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Immutable schema defines declarative validation rules.",
+            "values": {
+              "n1": {
+                "text": "schema"
+              },
+              "n2": {
+                "text": "Zod"
+              },
+              "n3": {
+                "text": "isomorphic"
+              },
+              "n4": {
+                "text": "parsers"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Parsing transformations sanitize and normalize field inputs.",
+            "values": {
+              "n1": {
+                "text": "schema"
+              },
+              "n2": {
+                "text": "Zod"
+              },
+              "n3": {
+                "text": "isomorphic"
+              },
+              "n4": {
+                "text": "parsers"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Isomorphic schemas share identical code across servers.",
+            "values": {
+              "n1": {
+                "text": "schema"
+              },
+              "n2": {
+                "text": "Zod"
+              },
+              "n3": {
+                "text": "isomorphic"
+              },
+              "n4": {
+                "text": "parsers"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "User submits completed form payload for verification.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Submission Data",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Schema Parser",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "State Machine",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Accessible Error",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Declarative Schema Parser & Isomorphic Contract Engine",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "schema",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Zod",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "isomorphic",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "parsers",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Declarative schema parser verifies type and string rules.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Submission Data",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Imperative validation logic creates fragile codebases.",
+            "values": {
+              "n1": {
+                "text": "schema"
               },
-              {
-                "id": "n2",
-                "label": "Schema Parser",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "Zod"
               },
-              {
-                "id": "n3",
-                "label": "State Machine",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "isomorphic"
               },
-              {
-                "id": "n4",
-                "label": "Accessible Error",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "parsers"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "State machine advances to validating or submitting state.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Submission Data",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Immutable schema defines declarative validation rules.",
+            "values": {
+              "n1": {
+                "text": "schema"
               },
-              {
-                "id": "n2",
-                "label": "Schema Parser",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Zod"
               },
-              {
-                "id": "n3",
-                "label": "State Machine",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "isomorphic"
               },
-              {
-                "id": "n4",
-                "label": "Accessible Error",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "parsers"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Invalid fields receive aria error descriptions and focus.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Submission Data",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Parsing transformations sanitize and normalize field inputs.",
+            "values": {
+              "n1": {
+                "text": "schema"
               },
-              {
-                "id": "n2",
-                "label": "Schema Parser",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Zod"
               },
-              {
-                "id": "n3",
-                "label": "State Machine",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "isomorphic"
               },
-              {
-                "id": "n4",
-                "label": "Accessible Error",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "parsers"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Isomorphic schemas share identical code across servers.",
+            "values": {
+              "n1": {
+                "text": "schema"
+              },
+              "n2": {
+                "text": "Zod"
+              },
+              "n3": {
+                "text": "isomorphic"
+              },
+              "n4": {
+                "text": "parsers"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
