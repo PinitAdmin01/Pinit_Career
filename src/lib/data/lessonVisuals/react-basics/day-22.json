@@ -2,629 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 22,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "flow",
-      "title": "Fiber Reconciliation Bailout Check",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "e9eba033b9d9b3a1334f0c7b39df6a874c623ae3a67698b3a1536d5edf11d90d"
+      "partTitle": "React Reconciliation Bailout Mechanics: When Does React Skip Rendering?",
+      "codeHash": "e9eba033b9d9b3a1334f0c7b39df6a874c623ae3a67698b3a1536d5edf11d90d",
+      "spec": {
+        "template": "flow",
+        "title": "Fiber Reconciliation Bailout Check",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "reconciler",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "bailout",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "beginWork",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "memoizedProps",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Fiber reconciler traverses the tree during beginWork.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
+              },
+              "n2": {
+                "text": "bailout"
+              },
+              "n3": {
+                "text": "beginWork"
+              },
+              "n4": {
+                "text": "memoizedProps"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Pending update lanes immediately disqualify bailout.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
+              },
+              "n2": {
+                "text": "bailout"
+              },
+              "n3": {
+                "text": "beginWork"
+              },
+              "n4": {
+                "text": "memoizedProps"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Strict pointer equality compares pending and memoizedProps.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
+              },
+              "n2": {
+                "text": "bailout"
+              },
+              "n3": {
+                "text": "beginWork"
+              },
+              "n4": {
+                "text": "memoizedProps"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Clean bailout returns memoized child pointer instantly.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
+              },
+              "n2": {
+                "text": "bailout"
+              },
+              "n3": {
+                "text": "beginWork"
+              },
+              "n4": {
+                "text": "memoizedProps"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Fiber reconciler begins work on current node.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Begin Work",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Lane Inspection",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Props Pointer Diff",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Subtree Bailout",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Fiber Reconciliation Bailout Check",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "reconciler",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "bailout",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "beginWork",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "memoizedProps",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Engine checks if pending work lanes overlap current pass.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Begin Work",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Fiber reconciler traverses the tree during beginWork.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
               },
-              {
-                "id": "n2",
-                "label": "Lane Inspection",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "bailout"
               },
-              {
-                "id": "n3",
-                "label": "Props Pointer Diff",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "beginWork"
               },
-              {
-                "id": "n4",
-                "label": "Subtree Bailout",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "memoizedProps"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Old props pointer is checked against pending props pointer.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Begin Work",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Pending update lanes immediately disqualify bailout.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
               },
-              {
-                "id": "n2",
-                "label": "Lane Inspection",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "bailout"
               },
-              {
-                "id": "n3",
-                "label": "Props Pointer Diff",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "beginWork"
               },
-              {
-                "id": "n4",
-                "label": "Subtree Bailout",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "memoizedProps"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Matching pointers allow entire subtree to bail out.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Begin Work",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Strict pointer equality compares pending and memoizedProps.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
               },
-              {
-                "id": "n2",
-                "label": "Lane Inspection",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "bailout"
               },
-              {
-                "id": "n3",
-                "label": "Props Pointer Diff",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "beginWork"
               },
-              {
-                "id": "n4",
-                "label": "Subtree Bailout",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "memoizedProps"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Clean bailout returns memoized child pointer instantly.",
+            "values": {
+              "n1": {
+                "text": "reconciler"
+              },
+              "n2": {
+                "text": "bailout"
+              },
+              "n3": {
+                "text": "beginWork"
+              },
+              "n4": {
+                "text": "memoizedProps"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "compare",
-      "title": "Shallow Equality Object Evaluation",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "cea3f51140b3dab95e8b181f754a618ad4639b9fbd4707e3ee32ec4c9d4e3b72"
+      "partTitle": "React.memo & Higher-Order Component Memoization: Shallow Comparison & arePropsEqual",
+      "codeHash": "cea3f51140b3dab95e8b181f754a618ad4639b9fbd4707e3ee32ec4c9d4e3b72",
+      "spec": {
+        "template": "boxes",
+        "title": "React.memo & Shallow Equality Validation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "React.memo",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "shallowEqual",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Object.is",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "arePropsEqual",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "React.memo intercepts default render behavior cleanly.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Algorithm evaluates shallowEqual over all prop keys.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Inline literals fail Object.is shallow equality checks.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Custom arePropsEqual functions guard complex payloads.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Shallow equality compares top level keys and pointers.",
-          "data": {
-            "left": {
-              "title": "Shallow Comparison",
-              "items": [
-                "Evaluates scalar fields",
-                "Checks key count match",
-                "Fast pointer comparison"
-              ]
-            },
-            "right": {
-              "title": "Deep Comparison",
-              "items": [
-                "Traverses nested keys",
-                "High memory overhead",
-                "Severe CPU bottleneck"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "boxes",
+        "title": "React.memo & Shallow Equality Validation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "React.memo",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "shallowEqual",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Object.is",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "arePropsEqual",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Key count mismatches reject memoization immediately.",
-          "data": {
-            "left": {
-              "title": "Shallow Comparison",
-              "items": [
-                "Evaluates scalar fields",
-                "Checks key count match",
-                "Fast pointer comparison"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "React.memo intercepts default render behavior cleanly.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
             },
-            "right": {
-              "title": "Deep Comparison",
-              "items": [
-                "Traverses nested keys",
-                "High memory overhead",
-                "Severe CPU bottleneck"
-              ]
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Algorithm evaluates shallowEqual over all prop keys.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Inline literals fail Object.is shallow equality checks.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Custom arePropsEqual functions guard complex payloads.",
+            "values": {
+              "b1": {
+                "text": "React.memo"
+              },
+              "b2": {
+                "text": "shallowEqual"
+              },
+              "b3": {
+                "text": "Object.is"
+              },
+              "b4": {
+                "text": "arePropsEqual"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "Nested object mutations require structural sharing.",
-          "data": {
-            "left": {
-              "title": "Shallow Comparison",
-              "items": [
-                "Evaluates scalar fields",
-                "Checks key count match",
-                "Fast pointer comparison"
-              ]
-            },
-            "right": {
-              "title": "Deep Comparison",
-              "items": [
-                "Traverses nested keys",
-                "High memory overhead",
-                "Severe CPU bottleneck"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Shallow checks preserve high frame rates on render.",
-          "data": {
-            "left": {
-              "title": "Shallow Comparison",
-              "items": [
-                "Evaluates scalar fields",
-                "Checks key count match",
-                "Fast pointer comparison"
-              ]
-            },
-            "right": {
-              "title": "Deep Comparison",
-              "items": [
-                "Traverses nested keys",
-                "High memory overhead",
-                "Severe CPU bottleneck"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "boxes",
-      "title": "Computational Memoization Cache",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "d89f5703a7fac4011b54f751087be9f3bcf8c9d6d9aece0a14b35a2c5f383259"
+      "partTitle": "useMemo Architecture: Computational Economics & Referential Identity Stabilization",
+      "codeHash": "d89f5703a7fac4011b54f751087be9f3bcf8c9d6d9aece0a14b35a2c5f383259",
+      "spec": {
+        "template": "flow",
+        "title": "useMemo Computational Economics & Cache Invalidation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useMemo",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "referential",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "computation",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "dependencies",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Hook caches result across subsequent render passes.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
+              },
+              "n2": {
+                "text": "referential"
+              },
+              "n3": {
+                "text": "computation"
+              },
+              "n4": {
+                "text": "dependencies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Engineers evaluate computational costs against overhead.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
+              },
+              "n2": {
+                "text": "referential"
+              },
+              "n3": {
+                "text": "computation"
+              },
+              "n4": {
+                "text": "dependencies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Stable referential identity prevents downstream re-renders.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
+              },
+              "n2": {
+                "text": "referential"
+              },
+              "n3": {
+                "text": "computation"
+              },
+              "n4": {
+                "text": "dependencies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Strict dependency arrays dictate cache invalidation timing.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
+              },
+              "n2": {
+                "text": "referential"
+              },
+              "n3": {
+                "text": "computation"
+              },
+              "n4": {
+                "text": "dependencies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Expensive calculation evaluates on initial mount pass.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Compute Function",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Dependency Array",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Cached Result",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Returned Output",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "useMemo Computational Economics & Cache Invalidation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useMemo",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "referential",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "computation",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "dependencies",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Dependencies are captured in fiber hook record.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Compute Function",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Hook caches result across subsequent render passes.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
               },
-              {
-                "id": "b2",
-                "label": "Dependency Array",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "referential"
               },
-              {
-                "id": "b3",
-                "label": "Cached Result",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "computation"
               },
-              {
-                "id": "b4",
-                "label": "Returned Output",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "dependencies"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Calculated result is cached in memory for reuse.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Compute Function",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Engineers evaluate computational costs against overhead.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
               },
-              {
-                "id": "b2",
-                "label": "Dependency Array",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "referential"
               },
-              {
-                "id": "b3",
-                "label": "Cached Result",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "computation"
               },
-              {
-                "id": "b4",
-                "label": "Returned Output",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "dependencies"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Cache returns stored value while dependencies match.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Compute Function",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Stable referential identity prevents downstream re-renders.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
               },
-              {
-                "id": "b2",
-                "label": "Dependency Array",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "referential"
               },
-              {
-                "id": "b3",
-                "label": "Cached Result",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "computation"
               },
-              {
-                "id": "b4",
-                "label": "Returned Output",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "dependencies"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Strict dependency arrays dictate cache invalidation timing.",
+            "values": {
+              "n1": {
+                "text": "useMemo"
+              },
+              "n2": {
+                "text": "referential"
+              },
+              "n3": {
+                "text": "computation"
+              },
+              "n4": {
+                "text": "dependencies"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "flow",
-      "title": "Callback Reference Preservation",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "6118ab71fcf6e16de20b01eb12b451149d83d6e88b07b21d40c62f0917c51c68"
+      "partTitle": "useCallback Mechanics: Function Identity Preservation & Dependency Invalidation Cascades",
+      "codeHash": "6118ab71fcf6e16de20b01eb12b451149d83d6e88b07b21d40c62f0917c51c68",
+      "spec": {
+        "template": "boxes",
+        "title": "useCallback Mechanics & Function Identity Stabilization",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useCallback",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "reference",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "dependency",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "identity",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Unmemoized inline callbacks produce fresh references.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
+              },
+              "b2": {
+                "text": "reference"
+              },
+              "b3": {
+                "text": "dependency"
+              },
+              "b4": {
+                "text": "identity"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Hook preserves function reference across render cycles.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
+              },
+              "b2": {
+                "text": "reference"
+              },
+              "b3": {
+                "text": "dependency"
+              },
+              "b4": {
+                "text": "identity"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Functional state updates eliminate unstable dependencies.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
+              },
+              "b2": {
+                "text": "reference"
+              },
+              "b3": {
+                "text": "dependency"
+              },
+              "b4": {
+                "text": "identity"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Exhaustive dependency arrays prevent dangerous stale closures.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
+              },
+              "b2": {
+                "text": "reference"
+              },
+              "b3": {
+                "text": "dependency"
+              },
+              "b4": {
+                "text": "identity"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Parent component begins new execution render pass.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Parent Render",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Hook Evaluation",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Cached Pointer",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Child Bailout",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "useCallback Mechanics & Function Identity Stabilization",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useCallback",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "reference",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "dependency",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "identity",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Callback hook verifies dependency equality list.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Parent Render",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Unmemoized inline callbacks produce fresh references.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
               },
-              {
-                "id": "n2",
-                "label": "Hook Evaluation",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "reference"
               },
-              {
-                "id": "n3",
-                "label": "Cached Pointer",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "dependency"
               },
-              {
-                "id": "n4",
-                "label": "Child Bailout",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "identity"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Cached function reference is returned intact.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Parent Render",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Hook preserves function reference across render cycles.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
               },
-              {
-                "id": "n2",
-                "label": "Hook Evaluation",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "reference"
               },
-              {
-                "id": "n3",
-                "label": "Cached Pointer",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "dependency"
               },
-              {
-                "id": "n4",
-                "label": "Child Bailout",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "identity"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Memoized child receives identical pointer and skips.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Parent Render",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Functional state updates eliminate unstable dependencies.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
               },
-              {
-                "id": "n2",
-                "label": "Hook Evaluation",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "reference"
               },
-              {
-                "id": "n3",
-                "label": "Cached Pointer",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "dependency"
               },
-              {
-                "id": "n4",
-                "label": "Child Bailout",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "identity"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Exhaustive dependency arrays prevent dangerous stale closures.",
+            "values": {
+              "b1": {
+                "text": "useCallback"
+              },
+              "b2": {
+                "text": "reference"
+              },
+              "b3": {
+                "text": "dependency"
+              },
+              "b4": {
+                "text": "identity"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "compare",
-      "title": "Flame Chart Render Cost Breakdown",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1e8f59a60a7bb466229fe21d4969a17bdbc2bd5cf2fc3d87eeb5cbb5f181fe1a"
+      "partTitle": "Profiling & Measuring Performance: React DevTools Profiler, Flame Charts & React 19 Compiler",
+      "codeHash": "1e8f59a60a7bb466229fe21d4969a17bdbc2bd5cf2fc3d87eeb5cbb5f181fe1a",
+      "spec": {
+        "template": "flow",
+        "title": "React DevTools Profiler & Flamegraph Analysis",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Profiler",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Flamegraph",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "telemetry",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Compiler",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Teams profile interactions using empirical telemetry.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Flamegraph chart visualizes component render durations.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Telemetry records actual duration across committed subtrees.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Modern React Compiler injects automated memoization.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Unmemoized components show wide yellow flame bars.",
-          "data": {
-            "left": {
-              "title": "Unmemoized Churn",
-              "items": [
-                "Wide yellow bars",
-                "Dropped display frames",
-                "High execution cost"
-              ]
-            },
-            "right": {
-              "title": "Memoized Execution",
-              "items": [
-                "Thin blue bars",
-                "Sustained high refresh",
-                "Hatched gray bailouts"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "flow",
+        "title": "React DevTools Profiler & Flamegraph Analysis",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Profiler",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Flamegraph",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "telemetry",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Compiler",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Main thread blocks on unnecessary rendering passes.",
-          "data": {
-            "left": {
-              "title": "Unmemoized Churn",
-              "items": [
-                "Wide yellow bars",
-                "Dropped display frames",
-                "High execution cost"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Teams profile interactions using empirical telemetry.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
             },
-            "right": {
-              "title": "Memoized Execution",
-              "items": [
-                "Thin blue bars",
-                "Sustained high refresh",
-                "Hatched gray bailouts"
-              ]
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Flamegraph chart visualizes component render durations.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Telemetry records actual duration across committed subtrees.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Modern React Compiler injects automated memoization.",
+            "values": {
+              "n1": {
+                "text": "Profiler"
+              },
+              "n2": {
+                "text": "Flamegraph"
+              },
+              "n3": {
+                "text": "telemetry"
+              },
+              "n4": {
+                "text": "Compiler"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "Memoized components show narrow blue execution bars.",
-          "data": {
-            "left": {
-              "title": "Unmemoized Churn",
-              "items": [
-                "Wide yellow bars",
-                "Dropped display frames",
-                "High execution cost"
-              ]
-            },
-            "right": {
-              "title": "Memoized Execution",
-              "items": [
-                "Thin blue bars",
-                "Sustained high refresh",
-                "Hatched gray bailouts"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Clean bailouts render as gray hatched patterns.",
-          "data": {
-            "left": {
-              "title": "Unmemoized Churn",
-              "items": [
-                "Wide yellow bars",
-                "Dropped display frames",
-                "High execution cost"
-              ]
-            },
-            "right": {
-              "title": "Memoized Execution",
-              "items": [
-                "Thin blue bars",
-                "Sustained high refresh",
-                "Hatched gray bailouts"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
