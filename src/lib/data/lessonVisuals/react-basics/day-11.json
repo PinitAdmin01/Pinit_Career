@@ -2,677 +2,1392 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 11,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Falsy Zero Value Evaluation and Guarded Branching",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "2f17d961ebf9bcee6dcb2e8ac14e8e6df8b85ea6cc6a478cc697591774225b5b"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Numeric count holds raw zero value inside memory.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Numeric Zero",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Logical AND",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Falsy Value Output",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Guarded Compare",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "partTitle": "Boolean Short-Circuit Evaluation (&&) & The Falsy Zero Hazard in JSX",
+      "codeHash": "2f17d961ebf9bcee6dcb2e8ac14e8e6df8b85ea6cc6a478cc697591774225b5b",
+      "spec": {
+        "template": "boxes",
+        "title": "Falsy Zero Value Evaluation and Guarded Branching",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Falsy Zero",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "count",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Badge",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "boolean",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Logical operator evaluates left expression for falsy state.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Numeric Zero",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Conditional rendering adapts dynamic user interfaces to state changes.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
               },
-              {
-                "id": "b2",
-                "label": "Logical AND",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "count"
               },
-              {
-                "id": "b3",
-                "label": "Falsy Value Output",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "Badge"
               },
-              {
-                "id": "b4",
-                "label": "Guarded Compare",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "boolean"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Raw zero passes through operator directly into virtual tree.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Numeric Zero",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Logical AND",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Falsy Value Output",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b4",
-                "label": "Guarded Compare",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Explicit comparison forces boolean resolution eliminating hazard.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Numeric Zero",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Logical AND",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Falsy Value Output",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Guarded Compare",
-                "tappable": false,
-                "highlight": true
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "part": 2,
-      "title": "View Router State Table Dispatch Execution",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "6a2c7746bfb0287b1ae39d372b2d7eedc31b7dea68b2e2bc714da3bc82ed50c8"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component receives current discrete lifecycle status.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Current State",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Lookup Table",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Render Function",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Mounted View",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 2,
-          "caption": "Router inspects pre-registered key mapping table.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Current State",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Lookup Table",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n3",
-                "label": "Render Function",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Mounted View",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Matching render function retrieves specific view factory.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Current State",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Lookup Table",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Render Function",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n4",
-                "label": "Mounted View",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Virtual tree mounts clean branch without nested conditionals.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Current State",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Lookup Table",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Render Function",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Mounted View",
-                "tappable": false,
-                "active": true
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "part": 3,
-      "title": "Early Return Guard Clause Lifecycle Tree",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "3dffc07be9a68e1ae309204799aa861bdfff4b9063feb7c154ead005993f9f4d"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "All component hooks execute unconditionally on entrance.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Guard Evaluation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Early Branch",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Primary Render",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 2,
-          "caption": "Guard clauses evaluate preconditions in priority order.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Guard Evaluation",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b3",
-                "label": "Early Branch",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Primary Render",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Failing precondition returns dedicated fallback view early.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Guard Evaluation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Early Branch",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b4",
-                "label": "Primary Render",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Valid conditions proceed smoothly to complete main layout.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Guard Evaluation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Early Branch",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Primary Render",
-                "tappable": false,
-                "highlight": true
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "part": 4,
-      "title": "Fiber Reconciliation Identity Without and With Keys",
-      "template": "compare",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c249851f83b013764d6517c7073937f63f5d5a9852aebdf9e3b730bec9619636"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Matching component types at identical tree index share state.",
-          "data": {
-            "left": {
-              "title": "Shared Position (No Keys)",
-              "items": [
-                "Same Component Type",
-                "Fiber Node Reused",
-                "Internal State Bleeds",
-                "Inputs Retain Old Text"
-              ],
-              "highlightIndex": 0
             },
-            "right": {
-              "title": "Explicit Keys Assigned",
-              "items": [
-                "Distinct Key Identities",
-                "Old Fiber Unmounted",
-                "Fresh State Allocated",
-                "Clean Input Fields"
-              ],
-              "highlightIndex": 0
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Short circuit evaluation executes under the ECMAScript specification.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "data"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Notification badges evaluate unread count before mounting.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Deterministic language mechanics govern JavaScript bytecode execution.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
-        },
-        {
-          "step": 2,
-          "caption": "Reusing existing fiber preserves previous internal values.",
-          "data": {
-            "left": {
-              "title": "Shared Position (No Keys)",
-              "items": [
-                "Same Component Type",
-                "Fiber Node Reused",
-                "Internal State Bleeds",
-                "Inputs Retain Old Text"
-              ],
-              "highlightIndex": 1
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Falsy Zero Value Evaluation and Guarded Branching",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Falsy Zero",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "count",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Badge",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "boolean",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Conditional rendering adapts dynamic user interfaces to state changes.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
             },
-            "right": {
-              "title": "Explicit Keys Assigned",
-              "items": [
-                "Distinct Key Identities",
-                "Old Fiber Unmounted",
-                "Fresh State Allocated",
-                "Clean Input Fields"
-              ],
-              "highlightIndex": 1
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Short circuit evaluation executes under the ECMAScript specification.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "data"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Notification badges evaluate unread count before mounting.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Deterministic language mechanics govern JavaScript bytecode execution.",
+            "values": {
+              "b1": {
+                "text": "Falsy Zero"
+              },
+              "b2": {
+                "text": "count"
+              },
+              "b3": {
+                "text": "Badge"
+              },
+              "b4": {
+                "text": "boolean"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
-        },
-        {
-          "step": 3,
-          "caption": "Unique key flags mandate complete fiber unmounting.",
-          "data": {
-            "left": {
-              "title": "Shared Position (No Keys)",
-              "items": [
-                "Same Component Type",
-                "Fiber Node Reused",
-                "Internal State Bleeds",
-                "Inputs Retain Old Text"
-              ],
-              "highlightIndex": 2
-            },
-            "right": {
-              "title": "Explicit Keys Assigned",
-              "items": [
-                "Distinct Key Identities",
-                "Old Fiber Unmounted",
-                "Fresh State Allocated",
-                "Clean Input Fields"
-              ],
-              "highlightIndex": 2
-            }
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Fresh fiber mounts with isolated state eliminating state bleed.",
-          "data": {
-            "left": {
-              "title": "Shared Position (No Keys)",
-              "items": [
-                "Same Component Type",
-                "Fiber Node Reused",
-                "Internal State Bleeds",
-                "Inputs Retain Old Text"
-              ],
-              "highlightIndex": 3
-            },
-            "right": {
-              "title": "Explicit Keys Assigned",
-              "items": [
-                "Distinct Key Identities",
-                "Old Fiber Unmounted",
-                "Fresh State Allocated",
-                "Clean Input Fields"
-              ],
-              "highlightIndex": 3
-            }
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Four State Asynchronous UI Topology Pipeline",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "b1c9e9583c5dfeb0cd92d365bee61eda0a847d155e14c96cbedc984bb61e1b9f"
+      "partTitle": "Ternary Operators vs Multi-Branch Layout Switch Engines & Null Returns",
+      "codeHash": "6a2c7746bfb0287b1ae39d372b2d7eedc31b7dea68b2e2bc714da3bc82ed50c8",
+      "spec": {
+        "template": "flow",
+        "title": "View Router State Table Dispatch Execution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "ternary",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "dispatch table",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Record",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "exhaustive",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Unary conditional displays toggle components between presence and absence.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Application complexity scales when components navigate multiple states.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Declarative record tables dispatch matching branches cleanly.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Multi branch dispatch patterns deliver network bandwidth savings.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Asynchronous network fetch begins initial transaction.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Request Trigger",
-                "tappable": false,
-                "active": true
+      "filled": {
+        "template": "flow",
+        "title": "View Router State Table Dispatch Execution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "ternary",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "dispatch table",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Record",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "exhaustive",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Unary conditional displays toggle components between presence and absence.",
+            "values": {
+              "n1": {
+                "text": "ternary"
               },
-              {
-                "id": "n2",
-                "label": "Status Selector",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "dispatch table"
               },
-              {
-                "id": "n3",
-                "label": "Dedicated View",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "Record"
               },
-              {
-                "id": "n4",
-                "label": "User Feedback",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "exhaustive"
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Application complexity scales when components navigate multiple states.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Declarative record tables dispatch matching branches cleanly.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Multi branch dispatch patterns deliver network bandwidth savings.",
+            "values": {
+              "n1": {
+                "text": "ternary"
+              },
+              "n2": {
+                "text": "dispatch table"
+              },
+              "n3": {
+                "text": "Record"
+              },
+              "n4": {
+                "text": "exhaustive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 2,
-          "caption": "Controller routes current status to explicit layout branch.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Request Trigger",
-                "tappable": false,
-                "active": false
+        ]
+      }
+    },
+    {
+      "partTitle": "Early Return Guard Clauses & Component Boundary Pruning",
+      "codeHash": "3dffc07be9a68e1ae309204799aa861bdfff4b9063feb7c154ead005993f9f4d",
+      "spec": {
+        "template": "boxes",
+        "title": "Early Return Guard Clause Lifecycle Tree",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "early return",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "guard clauses",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "hooks",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Validating prerequisites occurs before rendering primary domain content.",
+            "values": {
+              "b1": {
+                "text": "early return"
               },
-              {
-                "id": "n2",
-                "label": "Status Selector",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "guard clauses"
               },
-              {
-                "id": "n3",
-                "label": "Dedicated View",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "hooks"
               },
-              {
-                "id": "n4",
-                "label": "User Feedback",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "Fiber"
               }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Early return guard clauses inspect prerequisites at top level.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Guard clauses flatten indentation and prevent catastrophic nesting.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Hook execution order invariants maintain internal fiber linked lists.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Early Return Guard Clause Lifecycle Tree",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "early return",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "guard clauses",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "hooks",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Validating prerequisites occurs before rendering primary domain content.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Early return guard clauses inspect prerequisites at top level.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Guard clauses flatten indentation and prevent catastrophic nesting.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Hook execution order invariants maintain internal fiber linked lists.",
+            "values": {
+              "b1": {
+                "text": "early return"
+              },
+              "b2": {
+                "text": "guard clauses"
+              },
+              "b3": {
+                "text": "hooks"
+              },
+              "b4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Element Identity Preservation vs Destructive Remounting Across Conditional Branches",
+      "codeHash": "c249851f83b013764d6517c7073937f63f5d5a9852aebdf9e3b730bec9619636",
+      "spec": {
+        "template": "flow",
+        "title": "Fiber Reconciliation Identity Without and With Keys",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "identity",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "local state",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "keys",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reconcilers manage component state across dynamic interface views.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Swapping different component types unmounts and discards subtrees.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Identical component types preserve internal state across branches.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Uncontrolled form inputs risk leaking state across entity switches.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 3,
-          "caption": "Skeleton screen reserves geometric space during loading.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Request Trigger",
-                "tappable": false,
-                "active": false
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Fiber Reconciliation Identity Without and With Keys",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "identity",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "local state",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "keys",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reconcilers manage component state across dynamic interface views.",
+            "values": {
+              "n1": {
+                "text": "identity"
               },
-              {
-                "id": "n2",
-                "label": "Status Selector",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Fiber"
               },
-              {
-                "id": "n3",
-                "label": "Dedicated View",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "local state"
               },
-              {
-                "id": "n4",
-                "label": "User Feedback",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "keys"
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Swapping different component types unmounts and discards subtrees.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Identical component types preserve internal state across branches.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Uncontrolled form inputs risk leaking state across entity switches.",
+            "values": {
+              "n1": {
+                "text": "identity"
+              },
+              "n2": {
+                "text": "Fiber"
+              },
+              "n3": {
+                "text": "local state"
+              },
+              "n4": {
+                "text": "keys"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 4,
-          "caption": "Error banner offers clear actionable retry button.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Request Trigger",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Status Selector",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Dedicated View",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "User Feedback",
-                "tappable": false,
-                "active": true
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "partTitle": "Error Fallbacks, Empty Collection Placeholders & Loading Skeleton Topologies",
+      "codeHash": "b1c9e9583c5dfeb0cd92d365bee61eda0a847d155e14c96cbedc984bb61e1b9f",
+      "spec": {
+        "template": "boxes",
+        "title": "Four State Asynchronous UI Topology Pipeline",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Skeleton",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "fallback",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "error boundary",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "layout",
+            "tappable": false
           }
-        }
-      ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asynchronous network operations trigger conditional UI branching.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Loading states replace centered spinning wheels with structured views.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Empty collection states display helpful guidance when records are absent.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Error states provide recovery actions when microservices fail.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "error",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Four State Asynchronous UI Topology Pipeline",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Skeleton",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "fallback",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "error boundary",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "layout",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asynchronous network operations trigger conditional UI branching.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Loading states replace centered spinning wheels with structured views.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Empty collection states display helpful guidance when records are absent.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Error states provide recovery actions when microservices fail.",
+            "values": {
+              "b1": {
+                "text": "Skeleton"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "error boundary"
+              },
+              "b4": {
+                "text": "layout"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "error",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
     }
   ]
 }

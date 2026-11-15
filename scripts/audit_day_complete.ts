@@ -114,7 +114,7 @@ if (!fs.existsSync(visualPath)) {
   if (!dayFile) {
     console.log(`❌ loadDayFile failed!`);
   } else {
-    console.log(`✅ Loaded day file with ${dayFile.entries.length} entries.`);
+    console.log(`✅ Loaded day file with ${dayFile?.entries?.length || 0} entries.`);
     // Run gate checkDayFile
     const raw = fs.readFileSync(visualPath, 'utf-8');
     const parsed = JSON.parse(raw);

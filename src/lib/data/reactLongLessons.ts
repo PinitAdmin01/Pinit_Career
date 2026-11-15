@@ -3820,15 +3820,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Pass negative or null counts into renderBadge and observe how guarded comparison handles falsy inputs.",
         check: {
-          question: "Why does `{count && <Badge />}` render the number '0' on the screen when `count === 0`?",
+          question: "Why does `{count && <Badge />}` render the number 0 on screen when count equals 0?",
           options: [
-            "JavaScript's && operator returns the falsy left operand itself (0), which React renders as a text DOM node",
-            "React's JSX compiler converts all boolean operators into numerical string cast expressions",
-            "The browser HTML parser defaults missing attributes to zero during initial layout construction",
-            "V8 TurboFan JIT compiler eliminates React reconciliation whenever variables equal zero",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "React compilers cast all logical expressions into strings during the JSX abstract syntax tree transformation phase.",
+            "JavaScript short-circuit evaluation returns the falsy left operand itself (0), which React renders as a text node.",
+            "Browser DOM engines treat numerical values as attribute identifiers and insert them into child rendering pipelines.",
+            "V8 memory allocators cannot differentiate between false booleans and zero integers during component instantiation."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "When expr1 is falsy, expr1 && expr2 returns expr1 (0). React ignores false, null, and undefined, but renders numbers as text nodes.",
           explanation: "Because JavaScript returns the falsy value itself, 0 evaluates as an integer rather than false. Converting to count > 0 produces false, which React ignores."
         }
@@ -3898,15 +3898,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Register an EXPIRED status in ViewRouter and verify its rendered string output.",
         check: {
-          question: "What is the architectural advantage of using an object or Map dispatch table over nested ternary operators for multi-state rendering?",
+          question: "What is the primary architectural advantage of using record dispatch tables over nested ternary operators for multi-state rendering?",
           options: [
-            "O(1) constant-time lookup, clean separation of concerns, testability of individual states, and zero nested indentation",
-            "It forces the V8 engine to allocate state views directly on the CPU L1 cache",
-            "It allows components to bypass React's virtual DOM reconciliation entirely",
-            "It automatically synchronizes component state across all cluster nodes via WebSockets",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Dispatch tables compile rendering branches into optimized WebAssembly modules that bypass browser rendering pipelines.",
+            "Dispatch tables allow components to mutate global application state trees directly without triggering re-render cycles.",
+            "Dispatch tables serialize branch templates into shared worker threads to ensure parallel DOM updates across browser tabs.",
+            "Dispatch tables provide O(1) routing, eliminate complex nested indentation, and allow individual view branches to be isolated."
+],
+          answer: 3,
+          answerIndex: 3,
           why: "Dispatch tables decouple state mapping from JSX markup, eliminate nested conditional nesting, and allow individual branch renderers to be isolated and tested.",
           explanation: "Nested ternaries become unmaintainable beyond two branches. Record tables provide O(1) routing, clean fallbacks via nullish coalescing, and type-safe exhaustiveness."
         }
@@ -3972,13 +3972,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Swap the order of the guard clauses and observe which early exit is triggered first.",
         check: {
-          question: "Why must all React hooks be declared unconditionally before any early return guard clauses?",
+          question: "Why must all React hooks be declared unconditionally before any early return guard clauses in component functions?",
           options: [
-            "React stores hooks in a positional linked list; varying the number of hook calls between renders corrupts internal Fiber state",
-            "JavaScript strict mode throws a SyntaxError if return statements appear below variable assignments",
-            "Early returns immediately detach the browser DOM window object from the V8 execution context",
-            "The React compiler only allows early returns inside asynchronous generator functions",
-          ],
+            "Hooks rely on a positional linked list inside the Fiber; varying invocation order between renders corrupts internal state.",
+            "Early returns cause JavaScript execution contexts to terminate immediately, preventing subsequent variable initialization.",
+            "React reconciliation engines require all component functions to execute in strictly identical microsecond time budgets.",
+            "Modern JavaScript modules forbid conditional branch statements when compiling TypeScript code in strict ECMAScript mode."
+],
           answer: 0,
           answerIndex: 0,
           why: "Hooks rely on stable call order. An early return placed before a hook causes the number of hook invocations to fluctuate, desynchronizing the Fiber hook linked list.",
@@ -4043,15 +4043,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a third branch with a unique key in ElementTree and verify new Fiber mounting.",
         check: {
-          question: "What happens when a ternary branch alternates between instances of the same component type without explicit keys (`isVIP ? <Profile role='vip' /> : <Profile role='guest' />`)?",
+          question: "What happens when a ternary branch alternates between instances of the same component type without explicit keys?",
           options: [
-            "React reuses the existing Fiber node, preserving local state and uncontrolled DOM inputs across the branch transition",
-            "React throws an UnhandledBranchCollision exception and unmounts the parent application tree",
-            "The browser triggers a hard page refresh to clear cached DOM properties",
-            "The component automatically clones its state to session storage before remounting",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "React throws a runtime branch collision error and unmounts the parent application subtree to prevent undefined behavior.",
+            "The browser document parser forces a full page reload to clear cached event listener bindings and recreate the layout.",
+            "React reuses the existing Fiber node, preserving internal state and uncontrolled DOM inputs across the branch switch.",
+            "The JavaScript garbage collector purges all component closures, forcing inputs to re-initialize with undefined values."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "Because component type and tree position match, React's diffing heuristic treats it as an update rather than an unmount, preserving internal useState.",
           explanation: "React assumes identical component types at the same tree position represent the same entity. Passing explicit keys forces React to unmount the old Fiber and mount fresh state."
         }
@@ -4116,15 +4116,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a RETRYING status to ResilientAsyncRenderer and test its output.",
         check: {
-          question: "Why are Skeleton Screens preferred over centered spinning loaders in enterprise web applications?",
+          question: "Why are Skeleton Screens preferred over centered spinning loaders in production enterprise web applications?",
           options: [
-            "Skeletons preserve layout geometry, eliminating Cumulative Layout Shift (CLS) when real data mounts",
-            "Skeletons execute on the browser GPU thread, whereas spinners run on the JavaScript main thread",
-            "Spinning loaders trigger automatic garbage collection pauses in modern browser engines",
-            "Web Content Accessibility Guidelines completely prohibit the use of CSS animation keyframes",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Skeleton screens run directly on hardware compositor threads whereas circular spinning loaders execute on the main thread.",
+            "Skeleton screens preserve layout geometry, eliminating Cumulative Layout Shift when asynchronous data replaces placeholders.",
+            "Web Content Accessibility Guidelines strictly prohibit all CSS rotation keyframes and animated svg elements in UI views.",
+            "Modern browser engines disable hardware acceleration whenever circular canvas elements rotate continuously on the screen."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "Skeletons occupy the exact dimensions of upcoming content, preventing surrounding layout from shifting abruptly upon data arrival and improving Core Web Vitals.",
           explanation: "Spinners leave layout dimensions undefined, causing jarring shifts (high CLS) when data arrives. Skeletons reserve layout space and communicate loading context cleanly."
         }
