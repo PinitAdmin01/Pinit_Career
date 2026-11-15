@@ -4692,13 +4692,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why did React 17 move event delegation from document to the application's root DOM container?",
           options: [
-            "To isolate micro-frontends and multi-version React trees, preventing stopPropagation leaks across roots",
-            "Because modern browsers deprecated the document.addEventListener API in the HTML5 living standard",
-            "To allow React events to bypass the browser main thread and execute directly on GPU compositor threads",
-            "To eliminate JavaScript heap memory allocations during event listener initialization",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Because modern browsers completely deprecated document event listeners in the HTML5 living specification.",
+            "To isolate micro-frontends and multi-version React trees, preventing stopPropagation leaks across roots.",
+            "To allow event handler dispatches to execute on isolated GPU threads instead of the JavaScript thread.",
+            "To prevent native DOM event bubbling from triggering garbage collection passes inside the V8 engine heap."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "Delegating to rootNode bounds event bubbling within that specific React application, allowing nested or adjacent micro-frontends to stop propagation safely without affecting host documents.",
           explanation: "In React 16, delegating to document caused embedded apps to interfere with parent apps. In React 17+, events bubble only to the mounted root container, guaranteeing architectural isolation."
         }
@@ -4775,13 +4775,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why was Event Pooling completely eliminated from React in version 17?",
           options: [
-            "Modern V8 generational GC collects short-lived objects efficiently, rendering pooling benefits negligible while eliminating closure bugs",
-            "Event pooling violated the W3C Web Components shadow DOM boundary encapsulation specifications",
-            "Modern JavaScript prohibits setting object properties to null inside synchronous event execution loops",
-            "Object pooling caused permanent memory leaks in the browser heap that required full page reloads to clear",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Event pooling violated shadow DOM encapsulation standards enforced by modern web component architectures.",
+            "Modern browser security policies prohibit reusing object references across asynchronous execution scopes.",
+            "Event pooling caused severe native memory leaks in the browser heap that required full page reloads to fix.",
+            "Modern generational GC reclaims short-lived objects efficiently, rendering pooling obsolete and error-prone."
+],
+          answer: 3,
+          answerIndex: 3,
           why: "Modern JS engines clean up short-lived objects in nursery spaces with sub-millisecond GC passes; pooling caused massive developer confusion when accessing events in async closures.",
           explanation: "Event pooling forced developers to use e.persist() to prevent event fields from nullifying in async callbacks. Modern engines allocate and reclaim transient objects with minimal cost, making pooling obsolete."
         }
@@ -4859,13 +4859,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a synthetic capture handler (onClickCapture) and verify top-down execution order.",
         check: {
-          question: "What happens if a native event listener attached to a child DOM node calls nativeEvent.stopPropagation() before the event reaches #root?",
+          question: "What happens if a native listener attached to a child DOM node calls stopPropagation before reaching #root?",
           options: [
-            "The native event never reaches #root, so React's delegated listener never receives it and no JSX handlers fire",
-            "React automatically re-dispatches the event using a synthetic timer on the window object",
-            "The browser throws an unhandled SecurityError for attempting to stop delegated root events",
-            "React catches the interruption and executes only synthetic capture handlers while skipping bubble handlers",
-          ],
+            "The native event never reaches #root, so React's delegated listener never receives it and no JSX handlers fire.",
+            "React intercepts the interruption and falls back to dispatching synthetic bubble handlers via the window target.",
+            "The browser throws an unhandled DOM security exception because native propagation cannot be halted early.",
+            "React captures the event through passive fallback timers and dispatches update actions directly to the fiber."
+],
           answer: 0,
           answerIndex: 0,
           why: "React's delegated listener is registered on #root; stopping native bubbling beneath #root prevents React from ever intercepting the event.",
@@ -4938,15 +4938,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why do high-frequency touchmove and wheel event listeners cause scroll jank when attached as non-passive listeners?",
           options: [
-            "The browser compositor thread must freeze and wait for the JavaScript main thread to verify preventDefault() was not called",
-            "Non-passive listeners force the browser to recompile CSS stylesheets on every mouse movement tick",
-            "The operating system drops hardware frame rates from 120Hz to 30Hz whenever JavaScript touches DOM nodes",
-            "The V8 compiler triggers immediate full garbage collection pauses upon every non-passive touch event",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Non-passive event handlers force the browser layout engine to recompile all stylesheets on every touch tick.",
+            "The operating system drops hardware refresh rates from 120Hz to 60Hz whenever touch listeners allocate memory.",
+            "The compositor thread must block scrolling and wait for the main thread to confirm preventDefault was not called.",
+            "The JavaScript engine triggers synchronous full garbage collection cycles upon every non-passive scroll event."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "Compositor thread must synchronize with main thread to see if preventDefault() cancels the scroll, causing dropped frames.",
-          explanation: "Because non-passive handlers can cancel scrolling via preventDefault(), the GPU compositor cannot scroll until the main thread finishes executing JavaScript. Flagging listeners with { passive: true } unblocks the compositor."
+          explanation: "Because non-passive handlers can cancel scrolling via preventDefault(), the GPU compositor cannot scroll until the main thread finishes executing JavaScript. Flagging listeners with { passive: true } avoids thread blocking."
         }
       },
       {
@@ -5028,17 +5028,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add an Escape key handler that cancels actions and returns focus to previous document element.",
         check: {
-          question: "What critical accessibility attributes and behaviors must be added when making a non-semantic <div> interactive?",
+          question: "What critical accessibility attributes and behaviors must be added when making a non-semantic div interactive?",
           options: [
-            "Explicit role='button', tabIndex={0}, and onKeyDown handling for Enter and Space with preventDefault() on Space",
-            "An inline CSS property cursor: pointer and a title attribute describing the button function",
-            "A data-clickable='true' HTML attribute and an onMouseOver hover animation handler",
-            "An automatic window.focus() call inside a useEffect hook upon component mount",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "A data-clickable attribute and an onMouseOver hover animation handler to notify browser focus managers.",
+            "Explicit role='button', tabIndex={0}, and onKeyDown handling for Enter and Space with preventDefault on Space.",
+            "An inline CSS cursor pointer rule and an aria-live assertive tag to force immediate screen reader focus.",
+            "An automatic focus assignment call inside a layout effect hook to register the element in the document tab loop."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "Divs lack keyboard accessibility; tabIndex={0} adds it to the tab order, role communicates semantics, and onKeyDown handles Enter/Space.",
-          explanation: "Screen readers and keyboard navigators cannot activate or identify a div by default. Providing role='button', tabIndex={0}, and Enter/Space handling fulfills WCAG requirements for custom controls."
+          explanation: "Screen readers and keyboard navigators cannot activate or identify a div by default. Providing role='button', tabIndex={0}, and keyboard event handling restores full semantic accessibility."
         }
       },
     ],

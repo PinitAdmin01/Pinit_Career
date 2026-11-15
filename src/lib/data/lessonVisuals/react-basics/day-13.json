@@ -2,677 +2,1392 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 13,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Centralized Root Container Event Delegation",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c70911bc7bc27930e82b81285461ac76f3dcf16ffb042a84570dc4c035c8674f"
+      "partTitle": "Event Delegation Architecture & The Root Mount Container: React 16 (document) vs React 17+ (rootNode)",
+      "codeHash": "c70911bc7bc27930e82b81285461ac76f3dcf16ffb042a84570dc4c035c8674f",
+      "spec": {
+        "template": "flow",
+        "title": "Centralized Root Container Event Delegation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Event Delegation",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "document",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "rootNode",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "centralized",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Event handling in graphical interfaces presents major challenges.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Event delegation attaches single centralized listeners to parent elements.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Legacy frameworks attached centralized event listeners to the document.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Modern architectures delegate events directly to the root DOM container.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "User clicks interactive button deep within tree.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Leaf Element",
-                "tappable": false,
-                "active": true
+      "filled": {
+        "template": "flow",
+        "title": "Centralized Root Container Event Delegation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Event Delegation",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "document",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "rootNode",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "centralized",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Event handling in graphical interfaces presents major challenges.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
               },
-              {
-                "id": "n2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "document"
               },
-              {
-                "id": "n3",
-                "label": "Root Container",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "rootNode"
               },
-              {
-                "id": "n4",
-                "label": "Synthetic Dispatch",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "centralized"
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Event delegation attaches single centralized listeners to parent elements.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Legacy frameworks attached centralized event listeners to the document.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Modern architectures delegate events directly to the root DOM container.",
+            "values": {
+              "n1": {
+                "text": "Event Delegation"
+              },
+              "n2": {
+                "text": "document"
+              },
+              "n3": {
+                "text": "rootNode"
+              },
+              "n4": {
+                "text": "centralized"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 2,
-          "caption": "Native browser event bubbles naturally through document.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Leaf Element",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n3",
-                "label": "Root Container",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Synthetic Dispatch",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Centralized listener intercepts event at root boundary.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Leaf Element",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Root Container",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n4",
-                "label": "Synthetic Dispatch",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "React routes synthetic event to matching component fiber.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Leaf Element",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Root Container",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Synthetic Dispatch",
-                "tappable": false,
-                "active": true
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Legacy Event Pooling vs Modern Immutable Allocation",
-      "template": "compare",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "f2f194b043594470209cfc21948277e0f2b5d06c84fa16d60a9490bf8f7c7452"
+      "partTitle": "The SyntheticEvent Wrapper & The Demise of Event Pooling: Memory Recycling vs Modern V8 Optimization",
+      "codeHash": "f2f194b043594470209cfc21948277e0f2b5d06c84fa16d60a9490bf8f7c7452",
+      "spec": {
+        "template": "boxes",
+        "title": "Legacy Event Pooling vs Modern Immutable Allocation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SyntheticEvent",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Event Pooling",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "wrapper",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "dispatched",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Early browser platforms handled DOM events with sharp differences.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "SyntheticEvent wrappers normalize event properties across modern browsers.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Allocating wrapper objects created significant overhead in legacy engines.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "error",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Event pooling recycled shared wrapper instances across dispatched events.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Legacy architecture recycled single event object across actions.",
-          "data": {
-            "left": {
-              "title": "Legacy Pooled Events",
-              "items": [
-                "Shared Instance Pool",
-                "Fields Wiped to Null",
-                "Broken Async Closures",
-                "Persist Method Required"
-              ],
-              "highlightIndex": 0
+      "filled": {
+        "template": "boxes",
+        "title": "Legacy Event Pooling vs Modern Immutable Allocation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SyntheticEvent",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Event Pooling",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "wrapper",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "dispatched",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Early browser platforms handled DOM events with sharp differences.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
             },
-            "right": {
-              "title": "Modern Unpooled Events",
-              "items": [
-                "Fresh Heap Instances",
-                "Permanent Event Data",
-                "Safe Async Access",
-                "Scavenge GC Efficiency"
-              ],
-              "highlightIndex": 0
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "SyntheticEvent wrappers normalize event properties across modern browsers.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Allocating wrapper objects created significant overhead in legacy engines.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "error",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Event pooling recycled shared wrapper instances across dispatched events.",
+            "values": {
+              "b1": {
+                "text": "SyntheticEvent"
+              },
+              "b2": {
+                "text": "Event Pooling"
+              },
+              "b3": {
+                "text": "wrapper"
+              },
+              "b4": {
+                "text": "dispatched"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
-        },
-        {
-          "step": 2,
-          "caption": "Asynchronous closures encountered wiped null properties.",
-          "data": {
-            "left": {
-              "title": "Legacy Pooled Events",
-              "items": [
-                "Shared Instance Pool",
-                "Fields Wiped to Null",
-                "Broken Async Closures",
-                "Persist Method Required"
-              ],
-              "highlightIndex": 1
-            },
-            "right": {
-              "title": "Modern Unpooled Events",
-              "items": [
-                "Fresh Heap Instances",
-                "Permanent Event Data",
-                "Safe Async Access",
-                "Scavenge GC Efficiency"
-              ],
-              "highlightIndex": 1
-            }
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Modern architecture allocates independent immutable instances.",
-          "data": {
-            "left": {
-              "title": "Legacy Pooled Events",
-              "items": [
-                "Shared Instance Pool",
-                "Fields Wiped to Null",
-                "Broken Async Closures",
-                "Persist Method Required"
-              ],
-              "highlightIndex": 2
-            },
-            "right": {
-              "title": "Modern Unpooled Events",
-              "items": [
-                "Fresh Heap Instances",
-                "Permanent Event Data",
-                "Safe Async Access",
-                "Scavenge GC Efficiency"
-              ],
-              "highlightIndex": 2
-            }
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Generational nursery garbage collection cleans objects fast.",
-          "data": {
-            "left": {
-              "title": "Legacy Pooled Events",
-              "items": [
-                "Shared Instance Pool",
-                "Fields Wiped to Null",
-                "Broken Async Closures",
-                "Persist Method Required"
-              ],
-              "highlightIndex": 3
-            },
-            "right": {
-              "title": "Modern Unpooled Events",
-              "items": [
-                "Fresh Heap Instances",
-                "Permanent Event Data",
-                "Safe Async Access",
-                "Scavenge GC Efficiency"
-              ],
-              "highlightIndex": 3
-            }
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Propagation Phases and Stop Propagation Boundary",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "4ca6b49f41eaf825183c6afc2108eccaf266a234664e302be0f7a50fff59b74e"
+      "partTitle": "Propagation Mechanics: React Bubble vs Native Capture & stopPropagation Boundaries",
+      "codeHash": "4ca6b49f41eaf825183c6afc2108eccaf266a234664e302be0f7a50fff59b74e",
+      "spec": {
+        "template": "boxes",
+        "title": "Propagation Phases and Stop Propagation Boundary",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "propagation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "stopPropagation",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "capture",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "bubble",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Event propagation navigates dual layer pipelines across component trees.",
+            "values": {
+              "b1": {
+                "text": "propagation"
+              },
+              "b2": {
+                "text": "stopPropagation"
+              },
+              "b3": {
+                "text": "capture"
+              },
+              "b4": {
+                "text": "bubble"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Native browser events bubble through target nodes to reach the root.",
+            "values": {
+              "b1": {
+                "text": "propagation"
+              },
+              "b2": {
+                "text": "stopPropagation"
+              },
+              "b3": {
+                "text": "capture"
+              },
+              "b4": {
+                "text": "bubble"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Deterministic execution sequences trigger native capture listeners first.",
+            "values": {
+              "b1": {
+                "text": "propagation"
+              },
+              "b2": {
+                "text": "stopPropagation"
+              },
+              "b3": {
+                "text": "capture"
+              },
+              "b4": {
+                "text": "bubble"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Invoking stopPropagation halts synthetic bubbling along the virtual tree.",
+            "values": {
+              "b1": {
+                "text": "propagation"
+              },
+              "b2": {
+                "text": "stopPropagation"
+              },
+              "b3": {
+                "text": "capture"
+              },
+              "b4": {
+                "text": "bubble"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Native event travels downward from window through ancestors.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Capture",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Synthetic Tree",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Stop Action",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Propagation Phases and Stop Propagation Boundary",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "propagation",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "stopPropagation",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "capture",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "bubble",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Event reverses direction ascending through parent elements.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Capture",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Event propagation navigates dual layer pipelines across component trees.",
+            "values": {
+              "b1": {
+                "text": "propagation"
               },
-              {
-                "id": "b2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "stopPropagation"
               },
-              {
-                "id": "b3",
-                "label": "Synthetic Tree",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "capture"
               },
-              {
-                "id": "b4",
-                "label": "Stop Action",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "bubble"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Root delegator constructs synthetic fiber traversal path.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Capture",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Native browser events bubble through target nodes to reach the root.",
+            "values": {
+              "b1": {
+                "text": "propagation"
               },
-              {
-                "id": "b2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "stopPropagation"
               },
-              {
-                "id": "b3",
-                "label": "Synthetic Tree",
-                "tappable": false,
-                "highlight": true
+              "b3": {
+                "text": "capture"
               },
-              {
-                "id": "b4",
-                "label": "Stop Action",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "bubble"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Stop propagation halts synthetic queue without breaking native.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Native Capture",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Deterministic execution sequences trigger native capture listeners first.",
+            "values": {
+              "b1": {
+                "text": "propagation"
               },
-              {
-                "id": "b2",
-                "label": "Native Bubble",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "stopPropagation"
               },
-              {
-                "id": "b3",
-                "label": "Synthetic Tree",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "capture"
               },
-              {
-                "id": "b4",
-                "label": "Stop Action",
-                "tappable": false,
-                "highlight": true
+              "b4": {
+                "text": "bubble"
               }
-            ]
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Invoking stopPropagation halts synthetic bubbling along the virtual tree.",
+            "values": {
+              "b1": {
+                "text": "propagation"
+              },
+              "b2": {
+                "text": "stopPropagation"
+              },
+              "b3": {
+                "text": "capture"
+              },
+              "b4": {
+                "text": "bubble"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Hardware Accelerated Passive Scroll Pipeline",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "8f78bf2749874153822b3abf2e56c6a2af8ca64194a05aef428d9e13de59f664"
+      "partTitle": "High-Frequency Streaming Events & Passive Event Listeners: scroll, touchmove & wheel Off the Main Thread",
+      "codeHash": "8f78bf2749874153822b3abf2e56c6a2af8ca64194a05aef428d9e13de59f664",
+      "spec": {
+        "template": "flow",
+        "title": "Hardware Accelerated Passive Scroll Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "touchmove",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "wheel",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "compositor",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "passive",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Synthetic dispatch handles discrete interactions such as button clicks.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser engines divide rendering workloads across distinct threads.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Non passive listeners force the compositor thread to wait for main loops.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Hardware touch coordinates stream directly to browser compositors.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "User gesture sends high frequency coordinate interrupts.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Touch Hardware",
-                "tappable": false,
-                "active": true
+      "filled": {
+        "template": "flow",
+        "title": "Hardware Accelerated Passive Scroll Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "touchmove",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "wheel",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "compositor",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "passive",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Synthetic dispatch handles discrete interactions such as button clicks.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
               },
-              {
-                "id": "n2",
-                "label": "Compositor Thread",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "wheel"
               },
-              {
-                "id": "n3",
-                "label": "Passive Contract",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "compositor"
               },
-              {
-                "id": "n4",
-                "label": "Hardware Scroll",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "passive"
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser engines divide rendering workloads across distinct threads.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Non passive listeners force the compositor thread to wait for main loops.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Hardware touch coordinates stream directly to browser compositors.",
+            "values": {
+              "n1": {
+                "text": "touchmove"
+              },
+              "n2": {
+                "text": "wheel"
+              },
+              "n3": {
+                "text": "compositor"
+              },
+              "n4": {
+                "text": "passive"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 2,
-          "caption": "Compositor thread inspects registered listener flags.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Touch Hardware",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Compositor Thread",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n3",
-                "label": "Passive Contract",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Hardware Scroll",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Passive flag promises listener will never cancel scroll.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Touch Hardware",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Compositor Thread",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Passive Contract",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n4",
-                "label": "Hardware Scroll",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Compositor shifts pixels on graphics processor with zero lag.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Touch Hardware",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Compositor Thread",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Passive Contract",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Hardware Scroll",
-                "tappable": false,
-                "active": true
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Keyboard Accessibility Interaction Contract",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "30b7e5adbab540a5d4697444005d4292ef8a3de849db314706b51c5d7ec790ae"
+      "partTitle": "Keyboard Accessibility Dispatch & Interactive Focus Pipelines: a11y, onKeyDown vs onKeyUp & Focus Traps",
+      "codeHash": "30b7e5adbab540a5d4697444005d4292ef8a3de849db314706b51c5d7ec790ae",
+      "spec": {
+        "template": "boxes",
+        "title": "Keyboard Accessibility Interaction Contract",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "accessibility",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "tabindex",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "keyboard",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "focus",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Authoring guidelines recommend implementing roving tabindex patterns.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
+              },
+              "b2": {
+                "text": "tabindex"
+              },
+              "b3": {
+                "text": "keyboard"
+              },
+              "b4": {
+                "text": "focus"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Digital accessibility standards require full keyboard navigation support.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
+              },
+              "b2": {
+                "text": "tabindex"
+              },
+              "b3": {
+                "text": "keyboard"
+              },
+              "b4": {
+                "text": "focus"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Keyboard users navigate focusable elements across the document flow.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
+              },
+              "b2": {
+                "text": "tabindex"
+              },
+              "b3": {
+                "text": "keyboard"
+              },
+              "b4": {
+                "text": "focus"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Custom interactive widgets must implement complete accessibility contracts.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
+              },
+              "b2": {
+                "text": "tabindex"
+              },
+              "b3": {
+                "text": "keyboard"
+              },
+              "b4": {
+                "text": "focus"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Tab index integrates custom element into sequential focus order.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keyboard Focus",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Role Contract",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Key Evaluation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Semantic Action",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Keyboard Accessibility Interaction Contract",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "accessibility",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "tabindex",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "keyboard",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "focus",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Explicit button role announces semantic identity to readers.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keyboard Focus",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Authoring guidelines recommend implementing roving tabindex patterns.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
               },
-              {
-                "id": "b2",
-                "label": "Role Contract",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "tabindex"
               },
-              {
-                "id": "b3",
-                "label": "Key Evaluation",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "keyboard"
               },
-              {
-                "id": "b4",
-                "label": "Semantic Action",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "focus"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Keyboard listener filters Enter and Space key activations.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keyboard Focus",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Digital accessibility standards require full keyboard navigation support.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
               },
-              {
-                "id": "b2",
-                "label": "Role Contract",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "tabindex"
               },
-              {
-                "id": "b3",
-                "label": "Key Evaluation",
-                "tappable": false,
-                "highlight": true
+              "b3": {
+                "text": "keyboard"
               },
-              {
-                "id": "b4",
-                "label": "Semantic Action",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "focus"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Prevent default cancels space scroll executing business action.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Keyboard Focus",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Keyboard users navigate focusable elements across the document flow.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
               },
-              {
-                "id": "b2",
-                "label": "Role Contract",
-                "tappable": false,
-                "highlight": false
+              "b2": {
+                "text": "tabindex"
               },
-              {
-                "id": "b3",
-                "label": "Key Evaluation",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "keyboard"
               },
-              {
-                "id": "b4",
-                "label": "Semantic Action",
-                "tappable": false,
-                "highlight": true
+              "b4": {
+                "text": "focus"
               }
-            ]
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Custom interactive widgets must implement complete accessibility contracts.",
+            "values": {
+              "b1": {
+                "text": "accessibility"
+              },
+              "b2": {
+                "text": "tabindex"
+              },
+              "b3": {
+                "text": "keyboard"
+              },
+              "b4": {
+                "text": "focus"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
