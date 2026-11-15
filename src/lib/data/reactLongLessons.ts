@@ -6893,15 +6893,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "console.log('Total Steps Recorded:', pipeline.timeline.length);",
         check: {
-          question: "Why does measuring DOM dimensions and updating state inside useEffect cause visual flicker (Cumulative Layout Shift)?",
+          question: "Why does measuring DOM dimensions and updating state inside useEffect cause visual layout flicker?",
           options: [
-            "useEffect runs asynchronously after the browser has already painted the initial unpositioned frame to the display buffer",
-            "useEffect runs before the virtual DOM is attached to the real browser document object model",
-            "The browser compositor pauses GPU rasterization whenever useEffect callbacks access the window object",
-            "React Fiber cancels asynchronous layout measurements if the component contains inline styling objects",
+            "useEffect executes before the virtual DOM is attached to the physical browser document model.",
+            "The browser compositor pauses GPU rasterization whenever useEffect accesses the window object.",
+            "useEffect executes after the browser paints the initial unpositioned frame to the screen buffer.",
+            "React Fiber cancels asynchronous layout measurements if components declare inline CSS style rules."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Because useEffect executes passively after the browser paint cycle, users perceive the element at its initial unaligned position before the measurement update paints.",
           explanation: "useEffect runs after the browser paints the frame. When state updates inside it, a second paint cycle occurs, resulting in a visible position jump."
         }
@@ -6974,10 +6974,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What happens when a component calls a setState updater synchronously inside useLayoutEffect?",
           options: [
-            "React flushes the update immediately in the same JavaScript turn, re-rendering before the browser paints the screen",
-            "React schedules a background web worker task to defer the update until the next idle frame tick",
-            "The browser engine emits a fatal DOMException warning and falls back to standard asynchronous rendering",
-            "The update is discarded because state mutations are strictly forbidden during the commit layout phase",
+            "React flushes the update immediately in the same turn, re-rendering before browser pixel paint.",
+            "React schedules a background web worker task to defer the update until the next idle frame tick.",
+            "The browser engine throws a fatal DOMException and falls back to asynchronous rendering cycles.",
+            "The update is discarded because state mutations are strictly forbidden during the commit phase."
           ],
           answer: 0,
           answerIndex: 0,
@@ -7086,15 +7086,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "batcher.queueRead('card-3', 200);\nconsole.log('Queued Reads:', batcher.reads.length);",
         check: {
-          question: "What causes layout thrashing in web browser rendering engines?",
+          question: "What causes layout thrashing in web browser rendering engines during DOM manipulation?",
           options: [
-            "Alternating between mutating DOM styles and reading geometric properties (such as offsetHeight or getBoundingClientRect)",
-            "Rendering more than fifty React functional components inside a single synchronous execution frame",
-            "Applying CSS flexbox layouts inside an HTML table element without specifying fixed column dimensions",
-            "Loading external Google Fonts synchronously through standard HTML link tags in the document head",
+            "Rendering dozens of nested functional components inside a single synchronous execution frame.",
+            "Applying CSS flexbox rules inside an HTML table element without specifying column dimensions.",
+            "Loading external font assets synchronously through standard HTML link tags in document head.",
+            "Alternating between mutating DOM styles and reading geometric layout properties repeatedly."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "Writing to the DOM dirties the layout cache, so immediately reading geometric properties forces the browser to synchronously recalculate layout on the spot.",
           explanation: "Interleaving DOM writes with reads destroys the browser's deferred batching optimization, forcing repeated synchronous layout recalculations that freeze the main thread."
         }
@@ -7163,13 +7163,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does React emit a console warning when useLayoutEffect is invoked during Server-Side Rendering (SSR)?",
           options: [
-            "Servers have no DOM or paint cycle, so layout effects cannot run or be encoded into static server HTML",
-            "Server-side V8 engines disable JavaScript closures to prevent cross-request session contamination",
-            "The HTTP protocol forbids transmitting React components that contain synchronous lifecycle callbacks",
-            "Server-Side Rendering requires all effects to be declared inside asynchronous async/await wrapper functions",
+            "Server-side JavaScript runtimes disable closures to prevent cross-request session state leaks.",
+            "Servers lack a DOM and paint pipeline, so synchronous layout effects cannot execute in HTML.",
+            "The HTTP transport protocol prohibits transmitting components containing synchronous hooks.",
+            "Server rendering requires all lifecycle callbacks to be declared inside asynchronous wrappers."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Server environments only render static markup strings and do not have layout geometry or paint pipelines to execute layout effects against.",
           explanation: "useLayoutEffect requires a real DOM and paint pipeline to measure layout. Because servers generate static HTML, useLayoutEffect cannot execute on the server."
         }
@@ -7257,15 +7257,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "const bottomAnchor = resolver.resolvePlacement(700, 50);\nconsole.log('Placement:', bottomAnchor.placement);",
         check: {
-          question: "Why does a production tooltip positioning engine apply coordinates via CSS translate3d transforms instead of top/left properties?",
+          question: "Why does a production tooltip positioning engine apply coordinates via CSS translate transforms?",
           options: [
-            "CSS transforms are handled by the GPU compositor without triggering layout reflows on subsequent frames",
-            "Top and left style properties are deprecated in modern HTML5 responsive rendering specifications",
-            "React Fiber throws an unrecoverable reconciliation exception if top or left inline styles change",
-            "The browser event loop pauses user interaction if absolute positioning properties exceed 100 pixels",
+            "Top and left positioning style properties are fully deprecated in modern responsive web apps.",
+            "React Fiber throws a reconciliation exception if top or left styles mutate after initial mount.",
+            "GPU compositors handle transforms directly without triggering expensive CPU layout reflow runs.",
+            "The browser event loop suspends user interaction if absolute layout positions exceed bounds."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Transform modifications do not invalidate the layout or paint trees; they are composited directly on the GPU layer, preventing costly layout reflows.",
           explanation: "Using CSS transforms allows repositioning to happen entirely on the compositor thread, avoiding CPU layout recalculations and keeping animations fluid."
         }

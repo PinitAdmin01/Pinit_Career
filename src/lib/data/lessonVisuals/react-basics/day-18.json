@@ -1,703 +1,1309 @@
 {
   "schemaVersion": 1,
-  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 18,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Browser Render Pipeline Stages",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c116e023f901de78966963dd8e046f10221d905b72a8bb02ba96316ba24f0165"
+      "partTitle": "The Browser Render Pipeline & Asynchronous Paint: Layout Shift Mechanics",
+      "codeHash": "c116e023f901de78966963dd8e046f10221d905b72a8bb02ba96316ba24f0165",
+      "spec": {
+        "template": "flow",
+        "title": "Browser Render Pipeline & Asynchronous Layout Shifts",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "pipeline",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "paint",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "browser",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "flicker",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engineers master low-level rendering mechanics.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
+              },
+              "n2": {
+                "text": "paint"
+              },
+              "n3": {
+                "text": "browser"
+              },
+              "n4": {
+                "text": "flicker"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser traverses render tree during layout phase.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
+              },
+              "n2": {
+                "text": "paint"
+              },
+              "n3": {
+                "text": "browser"
+              },
+              "n4": {
+                "text": "flicker"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Fiber reconciler computes virtual tree in memory.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
+              },
+              "n2": {
+                "text": "paint"
+              },
+              "n3": {
+                "text": "browser"
+              },
+              "n4": {
+                "text": "flicker"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Asynchronous passive effects execute after commit.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
+              },
+              "n2": {
+                "text": "paint"
+              },
+              "n3": {
+                "text": "browser"
+              },
+              "n4": {
+                "text": "flicker"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Browser engine calculates style rules and render tree.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Construction",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Layout Geometry",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Screen Paint",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Browser Render Pipeline & Asynchronous Layout Shifts",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "pipeline",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "paint",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "browser",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "flicker",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Layout phase computes physical geometric coordinates.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Construction",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engineers master low-level rendering mechanics.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
               },
-              {
-                "id": "n2",
-                "label": "Layout Geometry",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "paint"
               },
-              {
-                "id": "n3",
-                "label": "Screen Paint",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "browser"
               },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "flicker"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Compositor flushes rasterized pixels onto visual display.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Construction",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser traverses render tree during layout phase.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
               },
-              {
-                "id": "n2",
-                "label": "Layout Geometry",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "paint"
               },
-              {
-                "id": "n3",
-                "label": "Screen Paint",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "browser"
               },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "flicker"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Asynchronous effect runs after paint inducing visual shift.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Construction",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Fiber reconciler computes virtual tree in memory.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
               },
-              {
-                "id": "n2",
-                "label": "Layout Geometry",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "paint"
               },
-              {
-                "id": "n3",
-                "label": "Screen Paint",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "browser"
               },
-              {
-                "id": "n4",
-                "label": "Passive Effect",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "flicker"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Asynchronous passive effects execute after commit.",
+            "values": {
+              "n1": {
+                "text": "pipeline"
+              },
+              "n2": {
+                "text": "paint"
+              },
+              "n3": {
+                "text": "browser"
+              },
+              "n4": {
+                "text": "flicker"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Synchronous Pre-Paint Execution",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "61949ad9dcabb65dbb1df7661e04b84d21c4962bda740490fa64fe289e650072"
+      "partTitle": "useLayoutEffect Internals: Synchronous Pre-Paint Execution & Main Thread Blocking",
+      "codeHash": "61949ad9dcabb65dbb1df7661e04b84d21c4962bda740490fa64fe289e650072",
+      "spec": {
+        "template": "boxes",
+        "title": "useLayoutEffect Synchronous Execution & Paint Blocking",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useLayoutEffect",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "commit",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "synchronous",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "DOM",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Hook eliminates visual flicker and layout shifts.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
+              },
+              "b2": {
+                "text": "commit"
+              },
+              "b3": {
+                "text": "synchronous"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber reconciler traces synchronous commit call stack.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
+              },
+              "b2": {
+                "text": "commit"
+              },
+              "b3": {
+                "text": "synchronous"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Layout effects execute immediately after mutations.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
+              },
+              "b2": {
+                "text": "commit"
+              },
+              "b3": {
+                "text": "synchronous"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Browser engine runs layout and paint exactly once.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
+              },
+              "b2": {
+                "text": "commit"
+              },
+              "b3": {
+                "text": "synchronous"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Reconciler mutates host DOM tree synchronously in memory.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Commit Mutation",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Synchronous Hook",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Synchronous State",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Single Paint",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "useLayoutEffect Synchronous Execution & Paint Blocking",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useLayoutEffect",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "commit",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "synchronous",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "DOM",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Layout effect executes immediately before main thread yields.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Commit Mutation",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Hook eliminates visual flicker and layout shifts.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
               },
-              {
-                "id": "n2",
-                "label": "Synchronous Hook",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "commit"
               },
-              {
-                "id": "n3",
-                "label": "Synchronous State",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "synchronous"
               },
-              {
-                "id": "n4",
-                "label": "Single Paint",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "DOM"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Synchronous state update reconciles before initial paint.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Commit Mutation",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber reconciler traces synchronous commit call stack.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
               },
-              {
-                "id": "n2",
-                "label": "Synchronous Hook",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "commit"
               },
-              {
-                "id": "n3",
-                "label": "Synchronous State",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "synchronous"
               },
-              {
-                "id": "n4",
-                "label": "Single Paint",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "DOM"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Display paints final aligned coordinates with zero flicker.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Commit Mutation",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Layout effects execute immediately after mutations.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
               },
-              {
-                "id": "n2",
-                "label": "Synchronous Hook",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "commit"
               },
-              {
-                "id": "n3",
-                "label": "Synchronous State",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "synchronous"
               },
-              {
-                "id": "n4",
-                "label": "Single Paint",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "DOM"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Browser engine runs layout and paint exactly once.",
+            "values": {
+              "b1": {
+                "text": "useLayoutEffect"
+              },
+              "b2": {
+                "text": "commit"
+              },
+              "b3": {
+                "text": "synchronous"
+              },
+              "b4": {
+                "text": "DOM"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Layout Thrashing Reflow Batching",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "9086aede2530c1bbaffe07bfef2c3c9bc8c5a983c28849983632cb941533efb3"
+      "partTitle": "Forced Synchronous Layouts & Layout Thrashing: Separating Reads from Writes",
+      "codeHash": "9086aede2530c1bbaffe07bfef2c3c9bc8c5a983c28849983632cb941533efb3",
+      "spec": {
+        "template": "flow",
+        "title": "Layout Thrashing & Read-Write Interleaving Hazard",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "thrashing",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "forced",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "geometry",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "batching",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Manipulating geometry triggers severe performance hazards.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
+              },
+              "n2": {
+                "text": "forced"
+              },
+              "n3": {
+                "text": "geometry"
+              },
+              "n4": {
+                "text": "batching"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser engines batch style modifications lazily.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
+              },
+              "n2": {
+                "text": "forced"
+              },
+              "n3": {
+                "text": "geometry"
+              },
+              "n4": {
+                "text": "batching"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Interleaving reads and writes destroys batching optimization.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
+              },
+              "n2": {
+                "text": "forced"
+              },
+              "n3": {
+                "text": "geometry"
+              },
+              "n4": {
+                "text": "batching"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "error",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Synchronous recomputation freezes the single frame.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
+              },
+              "n2": {
+                "text": "forced"
+              },
+              "n3": {
+                "text": "geometry"
+              },
+              "n4": {
+                "text": "batching"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Alternating style writes and layout reads dirties geometry.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Interleaved Read",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Forced Reflow",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Batched Reads",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Consolidated Writes",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Layout Thrashing & Read-Write Interleaving Hazard",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "thrashing",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "forced",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "geometry",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "batching",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Browser engine forced into repeated synchronous reflows.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Interleaved Read",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Manipulating geometry triggers severe performance hazards.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
               },
-              {
-                "id": "b2",
-                "label": "Forced Reflow",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "forced"
               },
-              {
-                "id": "b3",
-                "label": "Batched Reads",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "geometry"
               },
-              {
-                "id": "b4",
-                "label": "Consolidated Writes",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "batching"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Engine measures all element geometries in consolidated pass.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Interleaved Read",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Browser engines batch style modifications lazily.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
               },
-              {
-                "id": "b2",
-                "label": "Forced Reflow",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "forced"
               },
-              {
-                "id": "b3",
-                "label": "Batched Reads",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "geometry"
               },
-              {
-                "id": "b4",
-                "label": "Consolidated Writes",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "batching"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Style mutations applied in single batch avoiding thrash.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Interleaved Read",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Interleaving reads and writes destroys batching optimization.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
               },
-              {
-                "id": "b2",
-                "label": "Forced Reflow",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "forced"
               },
-              {
-                "id": "b3",
-                "label": "Batched Reads",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "geometry"
               },
-              {
-                "id": "b4",
-                "label": "Consolidated Writes",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "batching"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "error",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Synchronous recomputation freezes the single frame.",
+            "values": {
+              "n1": {
+                "text": "thrashing"
+              },
+              "n2": {
+                "text": "forced"
+              },
+              "n3": {
+                "text": "geometry"
+              },
+              "n4": {
+                "text": "batching"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Isomorphic Layout Hook Gate",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "26218dc82aeaff3dac811671cbd353b60f93f614e706d7e7c0f6cb1036ed1b92"
+      "partTitle": "SSR Hydration Hazards & The Isomorphic Layout Effect Pattern",
+      "codeHash": "26218dc82aeaff3dac811671cbd353b60f93f614e706d7e7c0f6cb1036ed1b92",
+      "spec": {
+        "template": "boxes",
+        "title": "SSR Hydration Warnings & Isomorphic Layout Pattern",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SSR",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "hydration",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "isomorphic",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "warning",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Modern web architecture shifts toward universal rendering.",
+            "values": {
+              "b1": {
+                "text": "SSR"
+              },
+              "b2": {
+                "text": "hydration"
+              },
+              "b3": {
+                "text": "isomorphic"
+              },
+              "b4": {
+                "text": "warning"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "React emits warnings for server architectural divergence.",
+            "values": {
+              "b1": {
+                "text": "SSR"
+              },
+              "b2": {
+                "text": "hydration"
+              },
+              "b3": {
+                "text": "isomorphic"
+              },
+              "b4": {
+                "text": "warning"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Servers possess no layout or paint phases during execution.",
+            "values": {
+              "b1": {
+                "text": "SSR"
+              },
+              "b2": {
+                "text": "hydration"
+              },
+              "b3": {
+                "text": "isomorphic"
+              },
+              "b4": {
+                "text": "warning"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Isomorphic layout effects navigate server-client dichotomy.",
+            "values": {
+              "b1": {
+                "text": "SSR"
+              },
+              "b2": {
+                "text": "hydration"
+              },
+              "b3": {
+                "text": "isomorphic"
+              },
+              "b4": {
+                "text": "warning"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Isomorphic hook evaluates window global object availability.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Environment Check",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Server Fallback",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Client Resolution",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Clean Hydration",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "SSR Hydration Warnings & Isomorphic Layout Pattern",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "SSR",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "hydration",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "isomorphic",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "warning",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Server runtime safely selects passive effect implementation.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Environment Check",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Modern web architecture shifts toward universal rendering.",
+            "values": {
+              "b1": {
+                "text": "SSR"
               },
-              {
-                "id": "n2",
-                "label": "Server Fallback",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "hydration"
               },
-              {
-                "id": "n3",
-                "label": "Client Resolution",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "isomorphic"
               },
-              {
-                "id": "n4",
-                "label": "Clean Hydration",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "warning"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Browser client runtime resolves to synchronous layout hook.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Environment Check",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "React emits warnings for server architectural divergence.",
+            "values": {
+              "b1": {
+                "text": "SSR"
               },
-              {
-                "id": "n2",
-                "label": "Server Fallback",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "hydration"
               },
-              {
-                "id": "n3",
-                "label": "Client Resolution",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "isomorphic"
               },
-              {
-                "id": "n4",
-                "label": "Clean Hydration",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "warning"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Component hydrates seamlessly without console warnings.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Environment Check",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Servers possess no layout or paint phases during execution.",
+            "values": {
+              "b1": {
+                "text": "SSR"
               },
-              {
-                "id": "n2",
-                "label": "Server Fallback",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "hydration"
               },
-              {
-                "id": "n3",
-                "label": "Client Resolution",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "isomorphic"
               },
-              {
-                "id": "n4",
-                "label": "Clean Hydration",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "warning"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "data",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Isomorphic layout effects navigate server-client dichotomy.",
+            "values": {
+              "b1": {
+                "text": "SSR"
+              },
+              "b2": {
+                "text": "hydration"
+              },
+              "b3": {
+                "text": "isomorphic"
+              },
+              "b4": {
+                "text": "warning"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Viewport Collision Positioning Engine",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "d07dd961ee6499b4ee6da5b1ee25e39a54f86f0a6d6259994b5769521ded62df"
+      "partTitle": "Capstone: Building an Enterprise Viewport Collision & Tooltip Placement Engine",
+      "codeHash": "d07dd961ee6499b4ee6da5b1ee25e39a54f86f0a6d6259994b5769521ded62df",
+      "spec": {
+        "template": "flow",
+        "title": "Viewport Collision Detection & GPU Compositor Positioning",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "tooltip",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "positioning",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "collision",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "viewport",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Consolidated understanding of synchronous measurement.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
+              },
+              "n2": {
+                "text": "positioning"
+              },
+              "n3": {
+                "text": "collision"
+              },
+              "n4": {
+                "text": "viewport"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Positioning engine solves viewport collision detection.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
+              },
+              "n2": {
+                "text": "positioning"
+              },
+              "n3": {
+                "text": "collision"
+              },
+              "n4": {
+                "text": "viewport"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engine evaluates boundary collisions against window viewport.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
+              },
+              "n2": {
+                "text": "positioning"
+              },
+              "n3": {
+                "text": "collision"
+              },
+              "n4": {
+                "text": "viewport"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Horizontal axis evaluation clamps tooltip within viewport.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
+              },
+              "n2": {
+                "text": "positioning"
+              },
+              "n3": {
+                "text": "collision"
+              },
+              "n4": {
+                "text": "viewport"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Subpixel bounding rectangles measured via layout hook.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Bounding Measure",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Boundary Detection",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Axis Placement Flip",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "GPU Transform Apply",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Viewport Collision Detection & GPU Compositor Positioning",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "tooltip",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "positioning",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "collision",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "viewport",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Engine evaluates overflow collisions against viewport edges.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Bounding Measure",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Consolidated understanding of synchronous measurement.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
               },
-              {
-                "id": "b2",
-                "label": "Boundary Detection",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "positioning"
               },
-              {
-                "id": "b3",
-                "label": "Axis Placement Flip",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "collision"
               },
-              {
-                "id": "b4",
-                "label": "GPU Transform Apply",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "viewport"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Detected collision flips placement axis dynamically.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Bounding Measure",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Positioning engine solves viewport collision detection.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
               },
-              {
-                "id": "b2",
-                "label": "Boundary Detection",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "positioning"
               },
-              {
-                "id": "b3",
-                "label": "Axis Placement Flip",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "collision"
               },
-              {
-                "id": "b4",
-                "label": "GPU Transform Apply",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "viewport"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "GPU accelerated transform positions tooltip cleanly.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Bounding Measure",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engine evaluates boundary collisions against window viewport.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
               },
-              {
-                "id": "b2",
-                "label": "Boundary Detection",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "positioning"
               },
-              {
-                "id": "b3",
-                "label": "Axis Placement Flip",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "collision"
               },
-              {
-                "id": "b4",
-                "label": "GPU Transform Apply",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "viewport"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Horizontal axis evaluation clamps tooltip within viewport.",
+            "values": {
+              "n1": {
+                "text": "tooltip"
+              },
+              "n2": {
+                "text": "positioning"
+              },
+              "n3": {
+                "text": "collision"
+              },
+              "n4": {
+                "text": "viewport"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
