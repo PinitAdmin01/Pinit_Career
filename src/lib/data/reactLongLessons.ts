@@ -2582,13 +2582,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural improvement introduced by the modern React JSX transform (react/jsx-runtime)?",
           options: [
-            "It eliminates the need to manually import React in every JSX file and passes children and keys directly without runtime argument spreading",
-            "It converts JSX into physical HTML files stored on the client SSD hard drive",
-            "It permanently disables all CSS style rules on the rendered webpage",
-            "It forces all React components to be written as class constructors",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "It bundles an integrated virtual machine into client scripts to parse raw JSX tags directly inside browser rendering threads at runtime.",
+            "It forces compilers to inline HTML string templates directly into the DOM tree without constructing intermediate JavaScript descriptor objects.",
+            "It eliminates manual React imports in every file and passes children and keys directly without runtime argument spreading or key extraction.",
+            "It replaces static AST lowering with dynamic eval parsing so components can interpret nested expressions without ahead-of-time build tools."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "The modern JSX transform automatically imports the _jsx runtime and consolidates props at compile time, eliminating runtime key extraction overhead.",
           explanation: "The modern JSX transform automatically imports the _jsx runtime and consolidates props at compile time, eliminating runtime key extraction overhead."
         }
@@ -2648,11 +2648,11 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary security vulnerability mitigated by tagging React Elements with Symbol.for('react.element') in the $$typeof property?",
           options: [
-            "It prevents Cross-Site Scripting (XSS) attacks by ensuring untrusted JSON payloads from databases or APIs cannot forge valid React Elements",
-            "It stops users from copying text from the browser screen",
-            "It prevents search engines from indexing the webpage content",
-            "It encrypts all network packets using RSA public key cryptography",
-          ],
+            "It prevents Cross-Site Scripting via injected JSON payloads because symbols cannot be serialized across network responses or stored databases.",
+            "It prevents prototype pollution attacks by freezing the global Object prototype whenever untrusted third-party script libraries execute.",
+            "It encrypts in-memory element descriptors with public keys so browser DevTools extensions cannot inspect sensitive component state trees.",
+            "It enforces strict Same-Origin Policy headers on dynamic image tags to prevent unauthorized cross-site tracking across subdomains."
+],
           answer: 0,
           answerIndex: 0,
           why: "JSON cannot serialize or deserialize symbols; therefore, injected JSON objects cannot contain Symbol.for('react.element') and are rejected by React.",
@@ -2730,13 +2730,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary performance benefit of using a Virtual DOM diffing engine over direct imperative DOM mutations?",
           options: [
-            "It calculates the minimal set of required DOM mutations in memory and batches them into a single commit, eliminating layout thrashing and reflow cascades",
-            "It converts all JavaScript files into encrypted WebAssembly assembly code",
-            "It compresses HTML images using SVG vectorization",
-            "It forces the browser GPU to run at maximum overclocked frequencies",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "It bypasses browser layout engines by writing pre-computed rasterized pixel buffers directly into the underlying hardware GPU memory.",
+            "It executes synchronous DOM updates across worker threads so the main user interface thread never experiences event queue latency.",
+            "It caches compiled WebAssembly binaries across client page reloads to prevent garbage collection pauses during complex DOM operations.",
+            "It computes minimal required mutation patches in lightweight memory objects, batching updates to eliminate browser layout thrashing."
+],
+          answer: 3,
+          answerIndex: 3,
           why: "By computing diffs in lightweight in-memory objects, React avoids expensive browser layout thrashing and applies only necessary mutations in a single batch.",
           explanation: "By computing diffs in lightweight in-memory objects, React avoids expensive browser layout thrashing and applies only necessary mutations in a single batch."
         }
@@ -2795,15 +2795,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Set isActive: false in inputProps and verify status evaluates deterministically to OFFLINE.",
         check: {
-          question: "Why does React StrictMode intentionally invoke component functions twice during development?",
+          question: "Why does React StrictMode intentionally invoke component render functions twice in development mode?",
           options: [
-            "To detect and expose accidental side effects and impure mutations occurring during the render phase",
-            "To double the application frame rate on mobile devices",
-            "To test if the monitor display supports HDR color profiles",
-            "To verify that the user is connected to a high-speed fiber internet connection",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "To benchmark component rendering speed and automatically apply memoization wrappers when computation thresholds exceed frame budgets.",
+            "To expose accidental side effects and impure mutations in render logic so developers can ensure pure referential idempotence.",
+            "To pre-warm JavaScript engine JIT compilers so production builds execute with optimized inline caches and peak instruction pipelining.",
+            "To verify that network requests dispatched during render phases handle duplicate server responses without triggering hydration errors."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "StrictMode double-invokes components in development so that any impure mutations or side effects in the render phase become immediately visible and fixable.",
           explanation: "StrictMode double-invokes components in development so that any impure mutations or side effects in the render phase become immediately visible and fixable."
         }
@@ -2872,15 +2872,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Replace 0 with (count > 0 && 'Data') and observe how false is safely stripped by normalizer.",
         check: {
-          question: "Why must developers use <React.Fragment key={id}> instead of the shorthand <> syntax when mapping over lists?",
+          question: "Why must developers use explicit <React.Fragment key={id}> instead of the empty <> shorthand when mapping collections?",
           options: [
-            "The shorthand <> syntax does not support any attributes or props, making it impossible to pass the mandatory key prop required for list reconciliation",
-            "The shorthand syntax is only supported on Google Chrome and fails on Safari",
-            "Keyed fragments automatically translate text into French and Spanish",
-            "The shorthand syntax permanently deletes all CSS stylesheets on render",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "The empty shorthand produces detached shadow DOM roots that cause browser accessibility screen readers to skip child items completely.",
+            "The shorthand syntax forces React to wrap child items in real HTML span elements, distorting CSS flexbox and grid layout coordinates.",
+            "The shorthand syntax does not support props or attributes, making it impossible to assign the mandatory key required for reconciliation.",
+            "The shorthand syntax is deprecated in modern ECMAScript standards and triggers severe runtime parsing errors across strict transpilers."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "The empty <> shorthand syntax cannot accept attributes; dynamic lists require a key prop, demanding explicit <React.Fragment key={id}> syntax.",
           explanation: "The empty <> shorthand syntax cannot accept attributes; dynamic lists require a key prop, demanding explicit <React.Fragment key={id}> syntax."
         }
