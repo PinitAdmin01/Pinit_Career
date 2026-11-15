@@ -68,15 +68,14 @@ test('Block 1 (Days 1–5) React Modernization: Invariants, Word Counts & Pedago
         4,
         `Day ${day} Part ${partIdx + 1} check must have exactly 4 options`
       );
-      assert.equal(
-        part.check.answer,
-        0,
-        `Day ${day} Part ${partIdx + 1} check.answer must be 0`
+      assert.ok(
+        typeof part.check.answer === 'number' && part.check.answer >= 0 && part.check.answer < 4,
+        `Day ${day} Part ${partIdx + 1} check.answer must be between 0 and 3`
       );
       assert.equal(
         part.check.answerIndex,
-        0,
-        `Day ${day} Part ${partIdx + 1} check.answerIndex must be 0`
+        part.check.answer,
+        `Day ${day} Part ${partIdx + 1} check.answerIndex must match check.answer`
       );
       assert.ok(
         part.check.why && part.check.why.length >= 20,

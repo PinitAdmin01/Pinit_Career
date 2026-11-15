@@ -10,7 +10,7 @@
       "codeHash": "03edefe8ea5dd86ec8b412b67181828c4d016684033aabb8bfc7621587735e4d",
       "spec": {
         "template": "flow",
-        "title": "V8 Runtime Architecture and Event Loop Execution",
+        "title": "V8 Runtime Architecture and Memory Topology",
         "nodes": [
           {
             "id": "n1",
@@ -19,61 +19,36 @@
           },
           {
             "id": "n2",
-            "label": "V8 Managed Heap",
+            "label": "Stack Frame",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Microtask Queue",
+            "label": "Heap Memory",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Macrotask Queue",
+            "label": "Garbage Collector",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Call stack pushes execution frame for top-level script parsing.",
+            "caption": "The engine allocates memory across stack frames and the managed heap.",
             "values": {
               "n1": {
-                "text": "\"Call Stack\""
+                "text": "V8 JavaScript engine"
               },
               "n2": {
-                "text": "\"V8 Managed Heap\""
+                "text": "hardware memory"
               },
               "n3": {
-                "text": "\"Microtask Queue\""
+                "text": "heap memory"
               },
               "n4": {
-                "text": "\"Macrotask Queue\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Asynchronous task schedules network callback into task queue.",
-            "values": {
-              "n1": {
-                "text": "\"Call Stack\""
-              },
-              "n2": {
-                "text": "\"V8 Managed Heap\""
-              },
-              "n3": {
-                "text": "\"Microtask Queue\""
-              },
-              "n4": {
-                "text": "\"Macrotask Queue\""
+                "text": "call stack"
               }
             },
             "tones": {
@@ -86,75 +61,101 @@
               [
                 "n1",
                 "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Function calls push stack frames with fixed-size local variables.",
+            "values": {
+              "n1": {
+                "text": "Call Stack"
+              },
+              "n2": {
+                "text": "stack frames"
+              },
+              "n3": {
+                "text": "stack pointer"
+              },
+              "n4": {
+                "text": "hardware memory"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Microtask queue processes promise reactions before browser render.",
+            "caption": "Dynamic objects allocate persistent space inside the managed heap.",
             "values": {
               "n1": {
-                "text": "\"Call Stack\""
+                "text": "dynamically sized"
               },
               "n2": {
-                "text": "\"V8 Managed Heap\""
+                "text": "Managed Memory Heap"
               },
               "n3": {
-                "text": "\"Microtask Queue\""
+                "text": "New Space"
               },
               "n4": {
-                "text": "\"Macrotask Queue\""
+                "text": "Old Space"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "data"
             },
             "arrows": [
               [
-                "n1",
-                "n2"
-              ],
-              [
                 "n2",
                 "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Event loop clears microtasks then executes task queue callback.",
+            "caption": "The garbage collector analyzes heap topology to reclaim dead objects.",
             "values": {
               "n1": {
-                "text": "\"Call Stack\""
+                "text": "heap memory"
               },
               "n2": {
-                "text": "\"V8 Managed Heap\""
+                "text": "garbage collector"
               },
               "n3": {
-                "text": "\"Microtask Queue\""
+                "text": "Scavenger"
               },
               "n4": {
-                "text": "\"Macrotask Queue\""
+                "text": "Mark-Sweep"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
+              "n1": "idle",
+              "n2": "ok",
               "n3": "data",
-              "n4": "data"
+              "n4": "ok"
             },
             "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ],
               [
                 "n3",
                 "n4"
@@ -164,159 +165,7 @@
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "V8 Runtime Architecture and Event Loop Execution",
-        "nodes": [
-          {
-            "id": "n1",
-            "label": "Call Stack",
-            "tappable": false
-          },
-          {
-            "id": "n2",
-            "label": "V8 Managed Heap",
-            "tappable": false
-          },
-          {
-            "id": "n3",
-            "label": "Microtask Queue",
-            "tappable": false
-          },
-          {
-            "id": "n4",
-            "label": "Macrotask Queue",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Call stack pushes execution frame for top-level script parsing.",
-            "values": {
-              "n1": {
-                "text": "\"Call Stack\""
-              },
-              "n2": {
-                "text": "\"V8 Managed Heap\""
-              },
-              "n3": {
-                "text": "\"Microtask Queue\""
-              },
-              "n4": {
-                "text": "\"Macrotask Queue\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Asynchronous task schedules network callback into task queue.",
-            "values": {
-              "n1": {
-                "text": "\"Call Stack\""
-              },
-              "n2": {
-                "text": "\"V8 Managed Heap\""
-              },
-              "n3": {
-                "text": "\"Microtask Queue\""
-              },
-              "n4": {
-                "text": "\"Macrotask Queue\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Microtask queue processes promise reactions before browser render.",
-            "values": {
-              "n1": {
-                "text": "\"Call Stack\""
-              },
-              "n2": {
-                "text": "\"V8 Managed Heap\""
-              },
-              "n3": {
-                "text": "\"Microtask Queue\""
-              },
-              "n4": {
-                "text": "\"Macrotask Queue\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Event loop clears microtasks then executes task queue callback.",
-            "values": {
-              "n1": {
-                "text": "\"Call Stack\""
-              },
-              "n2": {
-                "text": "\"V8 Managed Heap\""
-              },
-              "n3": {
-                "text": "\"Microtask Queue\""
-              },
-              "n4": {
-                "text": "\"Macrotask Queue\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ],
-              [
-                "n3",
-                "n4"
-              ]
-            ]
-          }
-        ]
+        "step": 1
       }
     },
     {
@@ -328,247 +177,126 @@
         "boxes": [
           {
             "id": "b1",
-            "label": "Call Stack Frame",
+            "label": "Primitive Value",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Pointer Address",
+            "label": "Stack Memory",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Heap Allocation",
+            "label": "Reference Pointer",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Scavenger Collector",
+            "label": "Heap Object",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Primitive scalar values allocate directly on active call stack.",
+            "caption": "Primitive types allocate independent data values directly on the stack.",
             "values": {
               "b1": {
-                "text": "\"Call Stack Frame\""
+                "text": "primitive types"
               },
               "b2": {
-                "text": "\"Pointer Address\""
+                "text": "stack"
               },
               "b3": {
-                "text": "\"Heap Allocation\""
+                "text": "reference"
               },
               "b4": {
-                "text": "\"Scavenger Collector\""
+                "text": "heap object"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "idle",
+              "b1": "ok",
+              "b2": "ok",
               "b3": "idle",
               "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Composite object allocates memory address block on garbage heap.",
+            "caption": "Assigning an object copies only its heap memory address pointer.",
             "values": {
               "b1": {
-                "text": "\"Call Stack Frame\""
+                "text": "Reference Copy"
               },
               "b2": {
-                "text": "\"Pointer Address\""
+                "text": "stack"
               },
               "b3": {
-                "text": "\"Heap Allocation\""
+                "text": "pointer"
               },
               "b4": {
-                "text": "\"Scavenger Collector\""
+                "text": "heap object"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "Stack variable stores pointer address to object heap memory.",
+            "caption": "Mutating shared references introduces side effects across components.",
             "values": {
               "b1": {
-                "text": "\"Call Stack Frame\""
+                "text": "pointer"
               },
               "b2": {
-                "text": "\"Pointer Address\""
+                "text": "reference"
               },
               "b3": {
-                "text": "\"Heap Allocation\""
+                "text": "stack"
               },
               "b4": {
-                "text": "\"Scavenger Collector\""
+                "text": "heap object"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
+              "b1": "error",
+              "b2": "error",
+              "b3": "error",
               "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Pointer reassignment leaves unreferenced object for scavenger cycle.",
+            "caption": "Strict equality evaluates reference identity rather than contents.",
             "values": {
               "b1": {
-                "text": "\"Call Stack Frame\""
+                "text": "strict equality"
               },
               "b2": {
-                "text": "\"Pointer Address\""
+                "text": "reference"
               },
               "b3": {
-                "text": "\"Heap Allocation\""
+                "text": "memory address"
               },
               "b4": {
-                "text": "\"Scavenger Collector\""
+                "text": "pointer"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "data",
-              "b4": "data"
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Stack Memory Allocation and Heap Reference Resolution",
-        "boxes": [
-          {
-            "id": "b1",
-            "label": "Call Stack Frame",
-            "tappable": false
-          },
-          {
-            "id": "b2",
-            "label": "Pointer Address",
-            "tappable": false
-          },
-          {
-            "id": "b3",
-            "label": "Heap Allocation",
-            "tappable": false
-          },
-          {
-            "id": "b4",
-            "label": "Scavenger Collector",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Primitive scalar values allocate directly on active call stack.",
-            "values": {
-              "b1": {
-                "text": "\"Call Stack Frame\""
-              },
-              "b2": {
-                "text": "\"Pointer Address\""
-              },
-              "b3": {
-                "text": "\"Heap Allocation\""
-              },
-              "b4": {
-                "text": "\"Scavenger Collector\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "idle",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Composite object allocates memory address block on garbage heap.",
-            "values": {
-              "b1": {
-                "text": "\"Call Stack Frame\""
-              },
-              "b2": {
-                "text": "\"Pointer Address\""
-              },
-              "b3": {
-                "text": "\"Heap Allocation\""
-              },
-              "b4": {
-                "text": "\"Scavenger Collector\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Stack variable stores pointer address to object heap memory.",
-            "values": {
-              "b1": {
-                "text": "\"Call Stack Frame\""
-              },
-              "b2": {
-                "text": "\"Pointer Address\""
-              },
-              "b3": {
-                "text": "\"Heap Allocation\""
-              },
-              "b4": {
-                "text": "\"Scavenger Collector\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Pointer reassignment leaves unreferenced object for scavenger cycle.",
-            "values": {
-              "b1": {
-                "text": "\"Call Stack Frame\""
-              },
-              "b2": {
-                "text": "\"Pointer Address\""
-              },
-              "b3": {
-                "text": "\"Heap Allocation\""
-              },
-              "b4": {
-                "text": "\"Scavenger Collector\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "data"
-            }
-          }
-        ]
+        "step": 1
       }
     },
     {
@@ -576,163 +304,46 @@
       "codeHash": "7daf6a5105dafea7f73402ce352d6952c030994c3421a680463ff544ad59455f",
       "spec": {
         "template": "compare",
-        "title": "Type Coercion Dynamics and Referential Identity",
-        "leftLabel": "Standard Execution",
-        "rightLabel": "Optimized Pipeline",
+        "title": "Mutable In-Place Mutation vs Immutable State Derivation",
+        "left": {
+          "title": "Mutable In-Place Mutation",
+          "items": [
+            "Overwrites existing heap payload",
+            "Preserves identical memory pointer",
+            "Fails React Object.is equality",
+            "Triggers subtle silent UI bugs"
+          ]
+        },
+        "right": {
+          "title": "Immutable State Derivation",
+          "items": [
+            "Allocates brand new container copy",
+            "Produces distinct memory pointer",
+            "Enables O(1) shallow detection",
+            "Guarantees predictable rendering"
+          ]
+        },
         "steps": [
           {
             "at": "say1",
-            "caption": "Abstract equality triggers implicit operand type conversions.",
-            "left": {
-              "code": "// Left pipeline phase 1",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 1",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
+            "caption": "Immutability is an architectural invariant ensuring system predictability."
           },
           {
             "at": "say2",
-            "caption": "Boolean coercion evaluates truthy and falsy values at runtime.",
-            "left": {
-              "code": "// Left pipeline phase 2",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 2",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
+            "caption": "Mutable state requires expensive recursive traversal for change detection."
           },
           {
             "at": "say3",
-            "caption": "Strict equality bypasses coercion verifying identical type and value.",
-            "left": {
-              "code": "// Left pipeline phase 3",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 3",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
+            "caption": "Immutability enables fast shallow reference comparison in constant time."
           },
           {
             "at": "say4",
-            "caption": "Referential comparison evaluates physical heap pointer equality.",
-            "left": {
-              "code": "// Left pipeline phase 4",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 4",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
+            "caption": "Immutable state snapshots allow concurrent rendering without tearing."
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Type Coercion Dynamics and Referential Identity",
-        "leftLabel": "Standard Execution",
-        "rightLabel": "Optimized Pipeline",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Abstract equality triggers implicit operand type conversions.",
-            "left": {
-              "code": "// Left pipeline phase 1",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 1",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Boolean coercion evaluates truthy and falsy values at runtime.",
-            "left": {
-              "code": "// Left pipeline phase 2",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 2",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Strict equality bypasses coercion verifying identical type and value.",
-            "left": {
-              "code": "// Left pipeline phase 3",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 3",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Referential comparison evaluates physical heap pointer equality.",
-            "left": {
-              "code": "// Left pipeline phase 4",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 4",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+        "step": 1
       }
     },
     {
@@ -740,99 +351,50 @@
       "codeHash": "205c55a7b3019e8d32ab0334c8503f635c40228b6f67fa247e4b267b956c8314",
       "spec": {
         "template": "states",
-        "title": "Immutable State Boundaries and Defensive Copying",
+        "title": "JavaScript Numeric Precision and Coercion Dynamics",
         "states": [
           {
             "id": "s1",
-            "label": "Initialization"
+            "label": "Dynamic Weak Typing",
+            "active": true
           },
           {
             "id": "s2",
-            "label": "Execution"
+            "label": "Implicit String Coercion",
+            "active": false
           },
           {
             "id": "s3",
-            "label": "Derivation"
+            "label": "IEEE 754 Binary Float",
+            "active": false
           },
           {
             "id": "s4",
-            "label": "Resolution"
+            "label": "Exact BigInt Arithmetic",
+            "active": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Original application configuration initializes in frozen state.",
-            "activeId": "s1",
-            "tone": "idle"
+            "caption": "Weak typing permits implicit coercion during binary operations."
           },
           {
             "at": "say2",
-            "caption": "Defensive clone derives fresh memory container for incoming update.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Addition with strings prioritizes concatenation over numeric math."
           },
           {
             "at": "say3",
-            "caption": "Update applies immutably preserving previous state reference intact.",
-            "activeId": "s3",
-            "tone": "ok"
+            "caption": "Loose equality triggers multi-step conversions between types."
           },
           {
             "at": "say4",
-            "caption": "Downstream views verify referential integrity across boundaries.",
-            "activeId": "s4",
-            "tone": "ok"
+            "caption": "IEEE binary float standard represents numbers in sixty-four bits."
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Immutable State Boundaries and Defensive Copying",
-        "states": [
-          {
-            "id": "s1",
-            "label": "Initialization"
-          },
-          {
-            "id": "s2",
-            "label": "Execution"
-          },
-          {
-            "id": "s3",
-            "label": "Derivation"
-          },
-          {
-            "id": "s4",
-            "label": "Resolution"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Original application configuration initializes in frozen state.",
-            "activeId": "s1",
-            "tone": "idle"
-          },
-          {
-            "at": "say2",
-            "caption": "Defensive clone derives fresh memory container for incoming update.",
-            "activeId": "s2",
-            "tone": "data"
-          },
-          {
-            "at": "say3",
-            "caption": "Update applies immutably preserving previous state reference intact.",
-            "activeId": "s3",
-            "tone": "ok"
-          },
-          {
-            "at": "say4",
-            "caption": "Downstream views verify referential integrity across boundaries.",
-            "activeId": "s4",
-            "tone": "ok"
-          }
-        ]
+        "step": 1
       }
     },
     {
@@ -849,66 +411,41 @@
           },
           {
             "id": "n2",
-            "label": "Type Erasure",
+            "label": "Discriminated Union",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Zod Schema Guard",
+            "label": "Exhaustiveness Check",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Domain Logic",
+            "label": "Runtime Guard",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "TypeScript compiler verifies type constraints at compile time.",
+            "caption": "TypeScript enforces static type safety during development.",
             "values": {
               "n1": {
-                "text": "\"TypeScript AST\""
+                "text": "static type"
               },
               "n2": {
-                "text": "\"Type Erasure\""
+                "text": "compiles"
               },
               "n3": {
-                "text": "\"Zod Schema Guard\""
+                "text": "JavaScript"
               },
               "n4": {
-                "text": "\"Domain Logic\""
+                "text": "runtimes"
               }
             },
             "tones": {
-              "n1": "data",
+              "n1": "ok",
               "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Type erasure strips all interfaces producing raw JavaScript.",
-            "values": {
-              "n1": {
-                "text": "\"TypeScript AST\""
-              },
-              "n2": {
-                "text": "\"Type Erasure\""
-              },
-              "n3": {
-                "text": "\"Zod Schema Guard\""
-              },
-              "n4": {
-                "text": "\"Domain Logic\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
               "n3": "idle",
               "n4": "idle"
             },
@@ -916,75 +453,101 @@
               [
                 "n1",
                 "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Discriminated unions combine interface schemas sharing a discriminant.",
+            "values": {
+              "n1": {
+                "text": "Discriminated Union"
+              },
+              "n2": {
+                "text": "interface schemas"
+              },
+              "n3": {
+                "text": "Discriminant"
+              },
+              "n4": {
+                "text": "TypeScript"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Runtime schema interceptor validates incoming external payload.",
+            "caption": "Modeled union states make impossible domain states unrepresentable.",
             "values": {
               "n1": {
-                "text": "\"TypeScript AST\""
+                "text": "Discriminated Union"
               },
               "n2": {
-                "text": "\"Type Erasure\""
+                "text": "TypeScript"
               },
               "n3": {
-                "text": "\"Zod Schema Guard\""
+                "text": "interface schemas"
               },
               "n4": {
-                "text": "\"Domain Logic\""
+                "text": "Discriminant"
               }
             },
             "tones": {
               "n1": "data",
               "n2": "data",
               "n3": "data",
-              "n4": "idle"
+              "n4": "ok"
             },
             "arrows": [
               [
-                "n1",
-                "n2"
-              ],
-              [
                 "n2",
                 "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           },
           {
             "at": "say4",
-            "caption": "Certified valid payload forwards safely to internal business domain.",
+            "caption": "Assigning unhandled variants to never guarantees build-time coverage.",
             "values": {
               "n1": {
-                "text": "\"TypeScript AST\""
+                "text": "never"
               },
               "n2": {
-                "text": "\"Type Erasure\""
+                "text": "TypeScript"
               },
               "n3": {
-                "text": "\"Zod Schema Guard\""
+                "text": "compile-time"
               },
               "n4": {
-                "text": "\"Domain Logic\""
+                "text": "Discriminated Union"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ],
               [
                 "n3",
                 "n4"
@@ -994,159 +557,7 @@
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "TypeScript Compilation and Runtime Schema Validation",
-        "nodes": [
-          {
-            "id": "n1",
-            "label": "TypeScript AST",
-            "tappable": false
-          },
-          {
-            "id": "n2",
-            "label": "Type Erasure",
-            "tappable": false
-          },
-          {
-            "id": "n3",
-            "label": "Zod Schema Guard",
-            "tappable": false
-          },
-          {
-            "id": "n4",
-            "label": "Domain Logic",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "TypeScript compiler verifies type constraints at compile time.",
-            "values": {
-              "n1": {
-                "text": "\"TypeScript AST\""
-              },
-              "n2": {
-                "text": "\"Type Erasure\""
-              },
-              "n3": {
-                "text": "\"Zod Schema Guard\""
-              },
-              "n4": {
-                "text": "\"Domain Logic\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "idle",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Type erasure strips all interfaces producing raw JavaScript.",
-            "values": {
-              "n1": {
-                "text": "\"TypeScript AST\""
-              },
-              "n2": {
-                "text": "\"Type Erasure\""
-              },
-              "n3": {
-                "text": "\"Zod Schema Guard\""
-              },
-              "n4": {
-                "text": "\"Domain Logic\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "idle",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Runtime schema interceptor validates incoming external payload.",
-            "values": {
-              "n1": {
-                "text": "\"TypeScript AST\""
-              },
-              "n2": {
-                "text": "\"Type Erasure\""
-              },
-              "n3": {
-                "text": "\"Zod Schema Guard\""
-              },
-              "n4": {
-                "text": "\"Domain Logic\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "idle"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Certified valid payload forwards safely to internal business domain.",
-            "values": {
-              "n1": {
-                "text": "\"TypeScript AST\""
-              },
-              "n2": {
-                "text": "\"Type Erasure\""
-              },
-              "n3": {
-                "text": "\"Zod Schema Guard\""
-              },
-              "n4": {
-                "text": "\"Domain Logic\""
-              }
-            },
-            "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
-            },
-            "arrows": [
-              [
-                "n1",
-                "n2"
-              ],
-              [
-                "n2",
-                "n3"
-              ],
-              [
-                "n3",
-                "n4"
-              ]
-            ]
-          }
-        ]
+        "step": 1
       }
     }
   ]

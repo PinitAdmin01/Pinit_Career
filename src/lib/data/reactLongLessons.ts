@@ -707,15 +707,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary technical cause of the Temporal Dead Zone (TDZ) for variables declared with 'let' and 'const' in JavaScript?",
           options: [
-            "The variable identifier is hoisted into the Lexical Environment during the creation phase but remains un-initialized until the execution phase reaches the declaration statement",
-            "The V8 engine stores let and const variables on the GPU rather than system RAM",
-            "The browser network stack locks variable names until all external CSS stylesheets finish downloading",
-            "Variables declared with let require an asynchronous Promise resolution before accessing their values",
+            "They are allocated on the managed heap rather than the execution stack frame, requiring asynchronous garbage collection before use.",
+            "The variable identifier is registered during the creation phase but remains uninitialized until execution reaches the declaration.",
+            "The JavaScript engine defers binding resolution until all top-level asynchronous microtasks in the event loop complete.",
+            "Lexical declarations are completely ignored by the compiler until runtime evaluation encounters the source code statement.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "During context creation, let/const identifiers are registered in the environment but not initialized (unlike var which is initialized to undefined). Accessing them before initialization throws a ReferenceError.",
-          explanation: "During context creation, let/const identifiers are registered in the environment but not initialized (unlike var which is initialized to undefined). Accessing them before initialization throws a ReferenceError."
+          answer: 1,
+          answerIndex: 1,
+          why: "During the execution context creation phase, let and const declarations are bound in the lexical environment record in an uninitialized state. Accessing an uninitialized binding throws a ReferenceError until evaluation reaches the declaration statement.",
+          explanation: "During the execution context creation phase, let and const declarations are bound in the lexical environment record in an uninitialized state. Accessing an uninitialized binding throws a ReferenceError until evaluation reaches the declaration statement."
         }
       },
       {
@@ -770,17 +770,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Simulate time t0 + 65000 (after window reset) and verify that consumeToken allows a new request.",
         check: {
-          question: "What happens to variables allocated inside an outer function when an inner function that references them is returned and executed after the outer function has completed?",
+          question: "What mechanism allows an inner function in JavaScript to access variables declared in an enclosing scope after the outer function's execution context has returned and popped off the call stack?",
           options: [
-            "V8 promotes the referenced variables from the stack frame into a managed Heap Context record, allowing the inner function to access them indefinitely",
-            "The operating system crashes with a segmentation fault because stack memory has been cleared",
-            "The variables are converted into global window attributes accessible by all scripts",
-            "JavaScript converts the variables into base64 strings stored in local storage",
+            "The inner function retains a closure reference, prompting the engine to retain the enclosing environment in a heap-allocated context.",
+            "The runtime engine clones the enclosing stack frame and pushes a backup copy into the global microtask execution queue.",
+            "Variables referenced by the inner function are promoted to global properties on the window or globalThis root object.",
+            "The JavaScript engine serializes the outer function's local variables into a persistent string buffer on disk.",
           ],
           answer: 0,
           answerIndex: 0,
-          why: "When inner functions outlive their parent execution context, V8 promotes closed-over variables from the stack frame into a heap-allocated context object.",
-          explanation: "When inner functions outlive their parent execution context, V8 promotes closed-over variables from the stack frame into a heap-allocated context object."
+          why: "When an inner function outlives its enclosing function and retains references to outer variables, JavaScript's closure semantics cause the engine to allocate the closed-over scope in a heap context rather than deallocating it when the stack frame pops.",
+          explanation: "When an inner function outlives its enclosing function and retains references to outer variables, JavaScript's closure semantics cause the engine to allocate the closed-over scope in a heap context rather than deallocating it when the stack frame pops."
         }
       },
       {
@@ -832,17 +832,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Pass subtotal 250 and taxRate 0.10 to pureCalculateTotal and confirm predictable output with uncorrupted inputs.",
         check: {
-          question: "What is the primary architectural consequence of introducing an impure side effect (such as mutating a global variable) inside a React component's render body?",
+          question: "Why does mutating an external variable or module-scoped state during a React component's render phase cause severe bugs in modern UI applications?",
           options: [
-            "It violates referential transparency, causing non-deterministic render cycles, hydration mismatches in SSR, and impossible-to-reproduce visual glitches during concurrent rendering",
-            "The browser operating system crashes because GPU memory rejects impure mathematical operations",
-            "The React compiler permanently converts the application into an HTML email template",
-            "Node.js deletes the package.json file to protect server security",
+            "Browser security sandboxes terminate script execution whenever a component attempts to modify variables outside its local scope.",
+            "The JavaScript garbage collector permanently marks mutated external objects as corrupted, triggering an unrecoverable type error.",
+            "React enforces static type immutability by running all render functions inside isolated Web Workers that block memory writes.",
+            "It destroys referential transparency, causing unpredictable hydration mismatches and inconsistent rendering across concurrent renders.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "React component render functions must be pure projections of props and state. Impure mutations cause state desynchronization and break React concurrent features.",
-          explanation: "React component render functions must be pure projections of props and state. Impure mutations cause state desynchronization and break React concurrent features."
+          answer: 3,
+          answerIndex: 3,
+          why: "React component render functions must be pure calculations of props and state. Introducing side effects like mutating external variables breaks idempotence, leading to subtle race conditions, hydration failures, and inconsistent UI snapshots during concurrent time-slicing.",
+          explanation: "React component render functions must be pure calculations of props and state. Introducing side effects like mutating external variables breaks idempotence, leading to subtle race conditions, hydration failures, and inconsistent UI snapshots during concurrent time-slicing."
         }
       },
       {
@@ -898,17 +898,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a new pure function to the pipeline that prefixes the email with 'user:' and verify execution.",
         check: {
-          question: "What is the primary architectural benefit of utilizing a functional composition pipeline (pipe) over deeply nested function calls?",
+          question: "In functional architecture, what is the primary benefit of decomposing complex business logic into composable higher-order pipelines using utilities like pipe()?",
           options: [
-            "It decomposes complex data transformations into discrete, modular, single-responsibility pure functions executed in clear linear order",
-            "It forces the V8 engine to execute all operations inside hardware GPU shaders",
-            "It compresses JavaScript string payloads by forty percent automatically",
-            "It allows functions to read private variables across browser security origins",
+            "It eliminates asynchronous execution overhead by forcing the runtime engine to compile all piped functions into WebAssembly.",
+            "It separates processing into focused, single-responsibility functions that can be tested in isolation and combined predictably.",
+            "It bypasses standard V8 call stack size limits by executing all intermediate pipeline steps inside a shared background worker.",
+            "It prevents downstream functions from receiving input arguments by enforcing strict private memory encryption between stages.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Functional composition (pipe) replaces deeply nested, unreadable code with a clean, linear pipeline of reusable pure functions.",
-          explanation: "Functional composition (pipe) replaces deeply nested, unreadable code with a clean, linear pipeline of reusable pure functions."
+          answer: 1,
+          answerIndex: 1,
+          why: "Functional composition chains small, focused, single-responsibility pure functions together in a clear, declarative sequence. Each stage can be independently unit tested, refactored, and reused across different pipelines without hidden state coupling.",
+          explanation: "Functional composition chains small, focused, single-responsibility pure functions together in a clear, declarative sequence. Each stage can be independently unit tested, refactored, and reused across different pipelines without hidden state coupling."
         }
       },
       {
@@ -962,17 +962,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Pass age 16 to processUserProfile and confirm that the MINIMUM_AGE_NOT_MET guard clause catches the error.",
         check: {
-          question: "How does implementing a Finite State Machine (FSM) prevent race conditions in asynchronous user interfaces?",
+          question: "How does modeling complex asynchronous user interface workflows as a Finite State Machine (FSM) protect against race conditions?",
           options: [
-            "It constrains the application to exactly one valid state at a time and strictly enforces a declarative transition table, ignoring invalid events during in-flight operations",
-            "It compresses all JavaScript files into encrypted assembly language",
-            "It increases browser CPU voltage to resolve promises faster",
-            "It stores application variables inside the operating system swap file",
+            "It halts all browser network traffic until the active UI state transitions back to the initial idle condition.",
+            "It dynamically rewires event listener callbacks to execute synchronously on the graphics rendering thread.",
+            "It restricts the system to explicit valid states and transitions, naturally discarding events that arrive in incompatible states.",
+            "It automatically retries failed asynchronous promises indefinitely until the server returns an affirmative success status.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "A state machine eliminates impossible states by guaranteeing the system only occupies one discrete state and ignores events that have no valid transition from that state.",
-          explanation: "A state machine eliminates impossible states by guaranteeing the system only occupies one discrete state and ignores events that have no valid transition from that state."
+          answer: 2,
+          answerIndex: 2,
+          why: "An FSM restricts the system to a single active state at any given moment and declares a strict matrix of valid transitions. Any event or asynchronous response that arrives when the system is in an incompatible state is cleanly ignored, preventing race conditions.",
+          explanation: "An FSM restricts the system to a single active state at any given moment and declares a strict matrix of valid transitions. Any event or asynchronous response that arrives when the system is in an incompatible state is cleanly ignored, preventing race conditions."
         }
       },
     ],

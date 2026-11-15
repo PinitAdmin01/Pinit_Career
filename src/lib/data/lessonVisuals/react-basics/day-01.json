@@ -414,7 +414,7 @@
           },
           {
             "at": "say3",
-            "caption": "HTTP/2 multiplexes streams over TCP, so transport loss can delay them all.",
+            "caption": "Modern HTTP multiplexes streams over TCP, so packet loss delays them all.",
             "values": {
               "n1": {
                 "text": "client"
@@ -582,7 +582,7 @@
           },
           {
             "at": "say3",
-            "caption": "HTTP/2 multiplexes streams over TCP, so transport loss can delay them all.",
+            "caption": "Modern HTTP multiplexes streams over TCP, so packet loss delays them all.",
             "values": {
               "n1": {
                 "text": "client"
