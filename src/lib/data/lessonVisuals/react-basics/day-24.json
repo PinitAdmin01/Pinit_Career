@@ -2,665 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 24,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "flow",
-      "title": "Suspense Promise Interception Pipeline",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "b7a30b90349dc546fd2a89176c474d5fc7e274db1e277f1313c10384fcd69097"
+      "partTitle": "Declarative Asynchronous UI & The Suspense Mental Model: Promise Throwing & Interception",
+      "codeHash": "b7a30b90349dc546fd2a89176c474d5fc7e274db1e277f1313c10384fcd69097",
+      "spec": {
+        "template": "flow",
+        "title": "Suspense Mental Model & Promise Resolution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Suspense",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Promise",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "fallback",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "resolution",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Declarative architecture replaces boilerplate loading state.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "fallback"
+              },
+              "n4": {
+                "text": "resolution"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Component throws pending promise to halt current pass.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "fallback"
+              },
+              "n4": {
+                "text": "resolution"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Suspense boundary mounts fallback placeholder immediately.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "fallback"
+              },
+              "n4": {
+                "text": "resolution"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Promise resolution triggers clean component re-render pass.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "fallback"
+              },
+              "n4": {
+                "text": "resolution"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component attempts to read unresolved resource from cache.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Resource Read",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Thrown Promise",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Suspense Catch",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Fallback Commit",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Suspense Mental Model & Promise Resolution",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Suspense",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Promise",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "fallback",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "resolution",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Pending resource throws promise up the component tree.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Resource Read",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Declarative architecture replaces boilerplate loading state.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
               },
-              {
-                "id": "n2",
-                "label": "Thrown Promise",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "Promise"
               },
-              {
-                "id": "n3",
-                "label": "Suspense Catch",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "fallback"
               },
-              {
-                "id": "n4",
-                "label": "Fallback Commit",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "resolution"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Nearest suspense boundary catches thrown promise cleanly.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Resource Read",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Component throws pending promise to halt current pass.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
               },
-              {
-                "id": "n2",
-                "label": "Thrown Promise",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Promise"
               },
-              {
-                "id": "n3",
-                "label": "Suspense Catch",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "fallback"
               },
-              {
-                "id": "n4",
-                "label": "Fallback Commit",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "resolution"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Configured skeleton fallback mounts in active view.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Resource Read",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Suspense boundary mounts fallback placeholder immediately.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
               },
-              {
-                "id": "n2",
-                "label": "Thrown Promise",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "Promise"
               },
-              {
-                "id": "n3",
-                "label": "Suspense Catch",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "fallback"
               },
-              {
-                "id": "n4",
-                "label": "Fallback Commit",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "resolution"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Promise resolution triggers clean component re-render pass.",
+            "values": {
+              "n1": {
+                "text": "Suspense"
+              },
+              "n2": {
+                "text": "Promise"
+              },
+              "n3": {
+                "text": "fallback"
+              },
+              "n4": {
+                "text": "resolution"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "compare",
-      "title": "Sequential Waterfall Versus Parallel Resolution",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "4669c678b9cf8b822e7ca231dfb37c37304f99e9cf68c8ff2a521de2a05c9519"
+      "partTitle": "Suspense Coordination & Waterfall Elimination: Parallel Resource Kicking & SuspenseList",
+      "codeHash": "4669c678b9cf8b822e7ca231dfb37c37304f99e9cf68c8ff2a521de2a05c9519",
+      "spec": {
+        "template": "flow",
+        "title": "Suspense Coordination & Waterfall Elimination",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "waterfall",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "parallel",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "coordination",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "SuspenseList",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Serial fetching cascades create painful waterfall delays.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Parallel data fetching initiates before component mounting.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Boundary coordination synchronizes visual reveal order.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Streaming server renders hydrate progressive chunks.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Fetch on render architectures cause sequential network delays.",
-          "data": {
-            "left": {
-              "title": "Sequential Waterfall",
-              "items": [
-                "Parent renders first",
-                "Child fetches late",
-                "Cumulative delay spikes"
-              ]
-            },
-            "right": {
-              "title": "Parallel Resolution",
-              "items": [
-                "Promises kicked early",
-                "Concurrent requests",
-                "Fast atomic render"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "flow",
+        "title": "Suspense Coordination & Waterfall Elimination",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "waterfall",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "parallel",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "coordination",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "SuspenseList",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Total loading time equals sum of all nested requests.",
-          "data": {
-            "left": {
-              "title": "Sequential Waterfall",
-              "items": [
-                "Parent renders first",
-                "Child fetches late",
-                "Cumulative delay spikes"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Serial fetching cascades create painful waterfall delays.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
             },
-            "right": {
-              "title": "Parallel Resolution",
-              "items": [
-                "Promises kicked early",
-                "Concurrent requests",
-                "Fast atomic render"
-              ]
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Parallel data fetching initiates before component mounting.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Boundary coordination synchronizes visual reveal order.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Streaming server renders hydrate progressive chunks.",
+            "values": {
+              "n1": {
+                "text": "waterfall"
+              },
+              "n2": {
+                "text": "parallel"
+              },
+              "n3": {
+                "text": "coordination"
+              },
+              "n4": {
+                "text": "SuspenseList"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "Parallel loading kicks all promises before rendering.",
-          "data": {
-            "left": {
-              "title": "Sequential Waterfall",
-              "items": [
-                "Parent renders first",
-                "Child fetches late",
-                "Cumulative delay spikes"
-              ]
-            },
-            "right": {
-              "title": "Parallel Resolution",
-              "items": [
-                "Promises kicked early",
-                "Concurrent requests",
-                "Fast atomic render"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Total loading time equals single slowest request only.",
-          "data": {
-            "left": {
-              "title": "Sequential Waterfall",
-              "items": [
-                "Parent renders first",
-                "Child fetches late",
-                "Cumulative delay spikes"
-              ]
-            },
-            "right": {
-              "title": "Parallel Resolution",
-              "items": [
-                "Promises kicked early",
-                "Concurrent requests",
-                "Fast atomic render"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "boxes",
-      "title": "Concurrent Scheduler Priority Lanes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "69d6b54e3af4442b2e31ea2705717044376525047050fdfbbc97086f4b37d219"
+      "partTitle": "Concurrent Rendering & Non-Blocking State Updates: useTransition, isPending & Urgency Lanes",
+      "codeHash": "69d6b54e3af4442b2e31ea2705717044376525047050fdfbbc97086f4b37d219",
+      "spec": {
+        "template": "states",
+        "title": "Concurrent Rendering & Transition State Machine",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Urgent",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Transition",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Interruptible",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "isPending",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Urgent updates prioritize immediate physical feedback.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
+              },
+              "s2": {
+                "text": "Transition"
+              },
+              "s3": {
+                "text": "Interruptible"
+              },
+              "s4": {
+                "text": "isPending"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Scheduler assigns transition updates to lower lanes.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
+              },
+              "s2": {
+                "text": "Transition"
+              },
+              "s3": {
+                "text": "Interruptible"
+              },
+              "s4": {
+                "text": "isPending"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Interruptible transitions yield control for new input.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
+              },
+              "s2": {
+                "text": "Transition"
+              },
+              "s3": {
+                "text": "Interruptible"
+              },
+              "s4": {
+                "text": "isPending"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "error",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Flag isPending maintains visible responsive views.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
+              },
+              "s2": {
+                "text": "Transition"
+              },
+              "s3": {
+                "text": "Interruptible"
+              },
+              "s4": {
+                "text": "isPending"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Keystroke events schedule in urgent input priority lanes.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Urgent Input Lane",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Transition Lane",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Scheduler Window",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Committed Screen",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "states",
+        "title": "Concurrent Rendering & Transition State Machine",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Urgent",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Transition",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Interruptible",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "isPending",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Heavy view updates schedule in deferred transition lanes.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Urgent Input Lane",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Urgent updates prioritize immediate physical feedback.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
               },
-              {
-                "id": "b2",
-                "label": "Transition Lane",
-                "tappable": false,
-                "highlight": true
+              "s2": {
+                "text": "Transition"
               },
-              {
-                "id": "b3",
-                "label": "Scheduler Window",
-                "tappable": false,
-                "highlight": false
+              "s3": {
+                "text": "Interruptible"
               },
-              {
-                "id": "b4",
-                "label": "Committed Screen",
-                "tappable": false,
-                "highlight": false
+              "s4": {
+                "text": "isPending"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Scheduler yields every five milliseconds to handle input.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Urgent Input Lane",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Scheduler assigns transition updates to lower lanes.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
               },
-              {
-                "id": "b2",
-                "label": "Transition Lane",
-                "tappable": false,
-                "highlight": false
+              "s2": {
+                "text": "Transition"
               },
-              {
-                "id": "b3",
-                "label": "Scheduler Window",
-                "tappable": false,
-                "highlight": true
+              "s3": {
+                "text": "Interruptible"
               },
-              {
-                "id": "b4",
-                "label": "Committed Screen",
-                "tappable": false,
-                "highlight": false
+              "s4": {
+                "text": "isPending"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "UI updates smoothly without locking browser main thread.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Urgent Input Lane",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Interruptible transitions yield control for new input.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
               },
-              {
-                "id": "b2",
-                "label": "Transition Lane",
-                "tappable": false,
-                "highlight": false
+              "s2": {
+                "text": "Transition"
               },
-              {
-                "id": "b3",
-                "label": "Scheduler Window",
-                "tappable": false,
-                "highlight": false
+              "s3": {
+                "text": "Interruptible"
               },
-              {
-                "id": "b4",
-                "label": "Committed Screen",
-                "tappable": false,
-                "highlight": true
+              "s4": {
+                "text": "isPending"
               }
-            ]
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "error",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Flag isPending maintains visible responsive views.",
+            "values": {
+              "s1": {
+                "text": "Urgent"
+              },
+              "s2": {
+                "text": "Transition"
+              },
+              "s3": {
+                "text": "Interruptible"
+              },
+              "s4": {
+                "text": "isPending"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "flow",
-      "title": "Error Boundary Crash Containment",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "28b8a48ef62d4186ca9c024d57ef8a093c867206bc66a3784d8a409efe74f1d2"
+      "partTitle": "Production Error Boundary Architecture: getDerivedStateFromError & Telemetry Integration",
+      "codeHash": "28b8a48ef62d4186ca9c024d57ef8a093c867206bc66a3784d8a409efe74f1d2",
+      "spec": {
+        "template": "boxes",
+        "title": "Error Boundary Architecture & Telemetry Integration",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Boundary",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "getDerivedStateFromError",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "componentDidCatch",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "telemetry",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Error boundary encapsulates unexpected component failures.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
+              },
+              "b2": {
+                "text": "getDerivedStateFromError"
+              },
+              "b3": {
+                "text": "componentDidCatch"
+              },
+              "b4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Method getDerivedStateFromError renders crash fallback UI.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
+              },
+              "b2": {
+                "text": "getDerivedStateFromError"
+              },
+              "b3": {
+                "text": "componentDidCatch"
+              },
+              "b4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Hook componentDidCatch captures stack trace telemetry info.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
+              },
+              "b2": {
+                "text": "getDerivedStateFromError"
+              },
+              "b3": {
+                "text": "componentDidCatch"
+              },
+              "b4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated telemetry reporting tracks client-side errors.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
+              },
+              "b2": {
+                "text": "getDerivedStateFromError"
+              },
+              "b3": {
+                "text": "componentDidCatch"
+              },
+              "b4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Child component throws unhandled exception during render.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Exception",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Derived State Update",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Telemetry Dispatch",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Recovery Fallback",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Error Boundary Architecture & Telemetry Integration",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Boundary",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "getDerivedStateFromError",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "componentDidCatch",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "telemetry",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Boundary catches crash and computes error fallback state.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Exception",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Error boundary encapsulates unexpected component failures.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
               },
-              {
-                "id": "n2",
-                "label": "Derived State Update",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "getDerivedStateFromError"
               },
-              {
-                "id": "n3",
-                "label": "Telemetry Dispatch",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "componentDidCatch"
               },
-              {
-                "id": "n4",
-                "label": "Recovery Fallback",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "telemetry"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Component stack trace dispatches to observability service.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Exception",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Method getDerivedStateFromError renders crash fallback UI.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
               },
-              {
-                "id": "n2",
-                "label": "Derived State Update",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "getDerivedStateFromError"
               },
-              {
-                "id": "n3",
-                "label": "Telemetry Dispatch",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "componentDidCatch"
               },
-              {
-                "id": "n4",
-                "label": "Recovery Fallback",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "telemetry"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Isolated crash card displays retry option to user.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Exception",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Hook componentDidCatch captures stack trace telemetry info.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
               },
-              {
-                "id": "n2",
-                "label": "Derived State Update",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "getDerivedStateFromError"
               },
-              {
-                "id": "n3",
-                "label": "Telemetry Dispatch",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "componentDidCatch"
               },
-              {
-                "id": "n4",
-                "label": "Recovery Fallback",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "telemetry"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated telemetry reporting tracks client-side errors.",
+            "values": {
+              "b1": {
+                "text": "Boundary"
+              },
+              "b2": {
+                "text": "getDerivedStateFromError"
+              },
+              "b3": {
+                "text": "componentDidCatch"
+              },
+              "b4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "boxes",
-      "title": "Multi Tiered Resilient Boundary Architecture",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1eacfda56c362b5298b3dee32d17abe8b2a2fda8a4ad71cd126805820fdac537"
+      "partTitle": "Enterprise Resilient Boundary Hierarchy: Multi-Tiered Isolation & Chaos Engineering",
+      "codeHash": "1eacfda56c362b5298b3dee32d17abe8b2a2fda8a4ad71cd126805820fdac537",
+      "spec": {
+        "template": "flow",
+        "title": "Enterprise Resilient Boundary Hierarchy",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Root",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Route",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Leaf",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Circuit",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Root boundary isolates catastrophic infrastructural crashes.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "Route"
+              },
+              "n3": {
+                "text": "Leaf"
+              },
+              "n4": {
+                "text": "Circuit"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Route boundaries preserve navigation when features crash.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "Route"
+              },
+              "n3": {
+                "text": "Leaf"
+              },
+              "n4": {
+                "text": "Circuit"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Circuit breaker pattern trips after consecutive failures.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "Route"
+              },
+              "n3": {
+                "text": "Leaf"
+              },
+              "n4": {
+                "text": "Circuit"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated alerts trigger incident webhooks for teams.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "Route"
+              },
+              "n3": {
+                "text": "Leaf"
+              },
+              "n4": {
+                "text": "Circuit"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Root boundary catches critical application shell failures.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Root Shell Boundary",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Route View Boundary",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Widget Boundary",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Live UI Element",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Enterprise Resilient Boundary Hierarchy",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Root",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Route",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Leaf",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Circuit",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Route boundary keeps navigation working if page fails.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Root Shell Boundary",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Root boundary isolates catastrophic infrastructural crashes.",
+            "values": {
+              "n1": {
+                "text": "Root"
               },
-              {
-                "id": "b2",
-                "label": "Route View Boundary",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "Route"
               },
-              {
-                "id": "b3",
-                "label": "Widget Boundary",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "Leaf"
               },
-              {
-                "id": "b4",
-                "label": "Live UI Element",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Circuit"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Widget boundary isolates crashes to single dashboard cards.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Root Shell Boundary",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Route boundaries preserve navigation when features crash.",
+            "values": {
+              "n1": {
+                "text": "Root"
               },
-              {
-                "id": "b2",
-                "label": "Route View Boundary",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "Route"
               },
-              {
-                "id": "b3",
-                "label": "Widget Boundary",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "Leaf"
               },
-              {
-                "id": "b4",
-                "label": "Live UI Element",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Circuit"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Healthy components continue operating without disruption.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Root Shell Boundary",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Circuit breaker pattern trips after consecutive failures.",
+            "values": {
+              "n1": {
+                "text": "Root"
               },
-              {
-                "id": "b2",
-                "label": "Route View Boundary",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "Route"
               },
-              {
-                "id": "b3",
-                "label": "Widget Boundary",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "Leaf"
               },
-              {
-                "id": "b4",
-                "label": "Live UI Element",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "Circuit"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated alerts trigger incident webhooks for teams.",
+            "values": {
+              "n1": {
+                "text": "Root"
+              },
+              "n2": {
+                "text": "Route"
+              },
+              "n3": {
+                "text": "Leaf"
+              },
+              "n4": {
+                "text": "Circuit"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
