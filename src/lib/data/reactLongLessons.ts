@@ -7369,13 +7369,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary difference between updating React state via useState versus mutating a ref's .current property?",
           options: [
-            "State updates schedule reconciliation and trigger a re-render, whereas mutating ref.current updates synchronously without re-rendering",
-            "State updates persist in local storage automatically, whereas refs are cleared on every microtask queue flush",
-            "Mutating ref.current is an asynchronous operation handled by the browser compositor thread",
-            "Refs cannot store primitive values like strings and numbers, whereas state supports all JavaScript types",
+            "State updates persist in local storage automatically, whereas refs are cleared on every microtask queue flush.",
+            "State updates schedule reconciliation passes, whereas ref mutations update synchronously without re-rendering.",
+            "State updates occur synchronously on the main thread, whereas mutating refs is dispatched to background workers.",
+            "State variables support primitive types, whereas mutable refs can only store objects and host DOM element nodes."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "useRef provides a mutable heap container whose modifications bypass the Fiber work loop, leaving the component unrendered until reactive state changes.",
           explanation: "State triggers UI re-renders through the React Fiber reconciler. Mutating ref.current alters the stored value in place on the heap without triggering re-render."
         }
@@ -7459,13 +7459,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why should an engineer use useImperativeHandle instead of exposing the raw host DOM element directly via forwardRef?",
           options: [
-            "To prevent parent components from directly mutating internal DOM properties, exposing only an explicit, curated imperative API",
-            "Because raw DOM references cause immediate memory leaks during concurrent rendering passes",
-            "useImperativeHandle automatically converts synchronous DOM operations into asynchronous background worker tasks",
-            "The HTML5 DOM standard requires all custom components to implement an imperative interface proxy",
+            "Because raw DOM references cause immediate memory leaks during concurrent rendering passes in React Fiber.",
+            "useImperativeHandle automatically converts synchronous DOM operations into asynchronous background tasks.",
+            "The HTML5 DOM standard requires all custom components to implement an imperative interface proxy wrapper.",
+            "To enforce component encapsulation by restricting parent access exclusively to a curated imperative API."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 3,
+          answerIndex: 3,
           why: "useImperativeHandle creates a facade object that restricts parent access to defined methods (like focus), preserving component encapsulation.",
           explanation: "Exposing raw DOM nodes leaks internal implementation details. useImperativeHandle restricts parent components to authorized operations, safeguarding component boundaries."
         }
@@ -7560,10 +7560,10 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why should network cancellation handles (AbortController) and timer IDs be stored in a useRef rather than useState?",
           options: [
-            "Updating them does not affect the visual UI, so refs avoid triggering redundant, performance-degrading re-renders",
-            "React state cannot serialize native browser objects like AbortController without throwing a runtime error",
-            "The JavaScript event loop automatically garbage collects any AbortController stored inside useState",
-            "Storing timer IDs in state causes the browser timer resolution to degrade from 4 milliseconds to 1000 milliseconds",
+            "Updating non-visual infrastructure handles does not alter the UI, so refs prevent superfluous re-renders.",
+            "React state cannot serialize native browser objects like AbortController without throwing a runtime error.",
+            "The JavaScript event loop automatically garbage collects any AbortController instance stored inside state.",
+            "Storing timer IDs in state causes the browser timer resolution to degrade significantly across frame ticks."
           ],
           answer: 0,
           answerIndex: 0,
@@ -7647,13 +7647,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "How does the usePrevious custom hook manage to return the previous render's value without triggering a re-render?",
           options: [
-            "It reads ref.current during the render phase and updates ref.current inside a post-paint useEffect",
-            "It queries the browser history API to inspect the previous JavaScript call stack snapshot",
-            "It clones the component's Fiber memoizedState tree using deep structuredClone serialization",
-            "It intercepts React's reconciler work loop using an asynchronous microtask queue listener",
+            "It queries the browser history API to inspect the previous JavaScript call stack snapshot during rendering.",
+            "It clones the component Fiber memoizedState tree using deep structuredClone serialization on mount cycles.",
+            "It reads ref.current during render and updates ref.current with the latest value inside a post-paint effect.",
+            "It intercepts React's reconciler work loop using an asynchronous microtask queue listener on every frame."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 2,
+          answerIndex: 2,
           why: "Because effects run after render and paint, reading the ref during render returns the value saved by the previous effect execution.",
           explanation: "During render, ref.current still holds the value from the last frame. The useEffect then updates ref.current after paint, cleanly caching the value for the next render pass."
         }
@@ -7759,13 +7759,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why is an in-memory cache for API queries ideally stored inside a useRef rather than standard component state?",
           options: [
-            "Cache insertions and lookups occur synchronously without incurring virtual DOM reconciliation or component re-renders",
-            "React state has a maximum 10-megabyte storage quota enforced by browser security sandboxes",
-            "Refs automatically synchronize cached data with the service worker Cache Storage API",
-            "Component state deletes all object properties whenever the browser executes a Garbage Collection cycle",
+            "React state has a strict memory quota enforced by browser security sandboxes that blocks caching payloads.",
+            "Cache insertions and lookups occur synchronously in memory without triggering virtual DOM reconciliation.",
+            "Refs automatically synchronize cached data with the service worker Cache Storage API across network drops.",
+            "Component state deletes all object properties whenever the browser executes an idle garbage collection run."
           ],
-          answer: 0,
-          answerIndex: 0,
+          answer: 1,
+          answerIndex: 1,
           why: "Storing cache entries in a ref allows rapid synchronous reads and writes without triggering superfluous UI re-renders on every query hit.",
           explanation: "Because caching is an internal optimization, updates should not cause UI recalculations. A ref keeps cache mutations isolated from the rendering lifecycle."
         }

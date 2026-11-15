@@ -1,703 +1,1309 @@
 {
   "schemaVersion": 1,
-  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 19,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Mutable Ref Memory Cell Anatomy",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c52c6b241b7f67901a415e0e916dbcc4c611d5fbb6a31da2947ba78c702c7bb6"
+      "partTitle": "The Anatomy of a Ref: Heap Object Identity vs Reactive State Snapshots",
+      "codeHash": "c52c6b241b7f67901a415e0e916dbcc4c611d5fbb6a31da2947ba78c702c7bb6",
+      "spec": {
+        "template": "flow",
+        "title": "Mutable Ref Heap Identity vs Reactive Snapshots",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useRef",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "heap",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "identity",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Fiber",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Mutable references provide persistent memory in architecture.",
+            "values": {
+              "n1": {
+                "text": "useRef"
+              },
+              "n2": {
+                "text": "heap"
+              },
+              "n3": {
+                "text": "identity"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber reconciler executes hook mounting in architecture.",
+            "values": {
+              "n1": {
+                "text": "useRef"
+              },
+              "n2": {
+                "text": "heap"
+              },
+              "n3": {
+                "text": "identity"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Module level variables share scope across all instances.",
+            "values": {
+              "n1": {
+                "text": "useRef"
+              },
+              "n2": {
+                "text": "heap"
+              },
+              "n3": {
+                "text": "identity"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Lazy initialization manages expensive instantiated objects.",
+            "values": {
+              "n1": {
+                "text": "useRef"
+              },
+              "n2": {
+                "text": "heap"
+              },
+              "n3": {
+                "text": "identity"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Fiber initializes persistent container on component mount.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Persistent Address",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "In-Place Mutation",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Bypass Reconciler",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Mutable Ref Heap Identity vs Reactive Snapshots",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useRef",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "heap",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "identity",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Fiber",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Memory pointer to ref container remains invariant on renders.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Mutable references provide persistent memory in architecture.",
+            "values": {
+              "n1": {
+                "text": "useRef"
               },
-              {
-                "id": "b2",
-                "label": "Persistent Address",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "heap"
               },
-              {
-                "id": "b3",
-                "label": "In-Place Mutation",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "identity"
               },
-              {
-                "id": "b4",
-                "label": "Bypass Reconciler",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Fiber"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Modifying current property mutates data in place on heap.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber reconciler executes hook mounting in architecture.",
+            "values": {
+              "n1": {
+                "text": "useRef"
               },
-              {
-                "id": "b2",
-                "label": "Persistent Address",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "heap"
               },
-              {
-                "id": "b3",
-                "label": "In-Place Mutation",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "identity"
               },
-              {
-                "id": "b4",
-                "label": "Bypass Reconciler",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Fiber"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Mutation bypasses work loop without scheduling re-render.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Hook Allocation",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Module level variables share scope across all instances.",
+            "values": {
+              "n1": {
+                "text": "useRef"
               },
-              {
-                "id": "b2",
-                "label": "Persistent Address",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "heap"
               },
-              {
-                "id": "b3",
-                "label": "In-Place Mutation",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "identity"
               },
-              {
-                "id": "b4",
-                "label": "Bypass Reconciler",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "Fiber"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Lazy initialization manages expensive instantiated objects.",
+            "values": {
+              "n1": {
+                "text": "useRef"
+              },
+              "n2": {
+                "text": "heap"
+              },
+              "n3": {
+                "text": "identity"
+              },
+              "n4": {
+                "text": "Fiber"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "title": "Host DOM Binding and Imperative Masking",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "3f3f22a2596e210792c89e4e66f4cd8c75d58a40db84bf78c199cc989a359d09"
+      "partTitle": "Host DOM Node Binding & Encapsulation: forwardRef and useImperativeHandle",
+      "codeHash": "3f3f22a2596e210792c89e4e66f4cd8c75d58a40db84bf78c199cc989a359d09",
+      "spec": {
+        "template": "boxes",
+        "title": "Host DOM Node Encapsulation & Imperative Handles",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "forwardRef",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "useImperativeHandle",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "DOM",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "encapsulation",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Mutable refs establish direct bindings to host elements.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
+              },
+              "b2": {
+                "text": "useImperativeHandle"
+              },
+              "b3": {
+                "text": "DOM"
+              },
+              "b4": {
+                "text": "encapsulation"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "React coordinates ref bindings during the commit phase.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
+              },
+              "b2": {
+                "text": "useImperativeHandle"
+              },
+              "b3": {
+                "text": "DOM"
+              },
+              "b4": {
+                "text": "encapsulation"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engineers pass refs down through component architectures.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
+              },
+              "b2": {
+                "text": "useImperativeHandle"
+              },
+              "b3": {
+                "text": "DOM"
+              },
+              "b4": {
+                "text": "encapsulation"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Conditional nodes require careful notification callbacks.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
+              },
+              "b2": {
+                "text": "useImperativeHandle"
+              },
+              "b3": {
+                "text": "DOM"
+              },
+              "b4": {
+                "text": "encapsulation"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Commit mutation phase attaches host element to document.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Attachment",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Ref Current Bind",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Handle Masking",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Curated Interface",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Host DOM Node Encapsulation & Imperative Handles",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "forwardRef",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "useImperativeHandle",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "DOM",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "encapsulation",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "React binds physical node reference to ref current field.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Attachment",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Mutable refs establish direct bindings to host elements.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
               },
-              {
-                "id": "n2",
-                "label": "Ref Current Bind",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "useImperativeHandle"
               },
-              {
-                "id": "n3",
-                "label": "Handle Masking",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "DOM"
               },
-              {
-                "id": "n4",
-                "label": "Curated Interface",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "encapsulation"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Imperative handle hook creates specialized facade object.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Attachment",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "React coordinates ref bindings during the commit phase.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
               },
-              {
-                "id": "n2",
-                "label": "Ref Current Bind",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "useImperativeHandle"
               },
-              {
-                "id": "n3",
-                "label": "Handle Masking",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "DOM"
               },
-              {
-                "id": "n4",
-                "label": "Curated Interface",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "encapsulation"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Parent component accesses only exposed control functions.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "DOM Attachment",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engineers pass refs down through component architectures.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
               },
-              {
-                "id": "n2",
-                "label": "Ref Current Bind",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "useImperativeHandle"
               },
-              {
-                "id": "n3",
-                "label": "Handle Masking",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "DOM"
               },
-              {
-                "id": "n4",
-                "label": "Curated Interface",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "encapsulation"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Conditional nodes require careful notification callbacks.",
+            "values": {
+              "b1": {
+                "text": "forwardRef"
+              },
+              "b2": {
+                "text": "useImperativeHandle"
+              },
+              "b3": {
+                "text": "DOM"
+              },
+              "b4": {
+                "text": "encapsulation"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "title": "Non-Visual Mutable Infrastructure",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "17ad300132935939af1af6e550af220cdae40002b9c0affb1c6e361d8b885949"
+      "partTitle": "Non-Visual Mutable Infrastructure: Managing Timers, AbortControllers & WebSockets",
+      "codeHash": "17ad300132935939af1af6e550af220cdae40002b9c0affb1c6e361d8b885949",
+      "spec": {
+        "template": "flow",
+        "title": "Non-Visual Infrastructure & Network Cancellation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "timers",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "AbortController",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "infrastructure",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "cancellation",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Mutable refs serve as backbone for enterprise applications.",
+            "values": {
+              "n1": {
+                "text": "timers"
+              },
+              "n2": {
+                "text": "AbortController"
+              },
+              "n3": {
+                "text": "infrastructure"
+              },
+              "n4": {
+                "text": "cancellation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Engineers manage interval timers inside component loops.",
+            "values": {
+              "n1": {
+                "text": "timers"
+              },
+              "n2": {
+                "text": "AbortController"
+              },
+              "n3": {
+                "text": "infrastructure"
+              },
+              "n4": {
+                "text": "cancellation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Immutable ref container stores timer handles cleanly.",
+            "values": {
+              "n1": {
+                "text": "timers"
+              },
+              "n2": {
+                "text": "AbortController"
+              },
+              "n3": {
+                "text": "infrastructure"
+              },
+              "n4": {
+                "text": "cancellation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Infrastructure pattern manages network cancellation tokens.",
+            "values": {
+              "n1": {
+                "text": "timers"
+              },
+              "n2": {
+                "text": "AbortController"
+              },
+              "n3": {
+                "text": "infrastructure"
+              },
+              "n4": {
+                "text": "cancellation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Background interval scheduled during effect setup.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Timer Instantiation",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Handle Persistence",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Background Tick",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Guaranteed Teardown",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Non-Visual Infrastructure & Network Cancellation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "timers",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "AbortController",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "infrastructure",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "cancellation",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Timer identifier saved directly into mutable ref container.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Timer Instantiation",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Mutable refs serve as backbone for enterprise applications.",
+            "values": {
+              "n1": {
+                "text": "timers"
               },
-              {
-                "id": "b2",
-                "label": "Handle Persistence",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "AbortController"
               },
-              {
-                "id": "b3",
-                "label": "Background Tick",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "infrastructure"
               },
-              {
-                "id": "b4",
-                "label": "Guaranteed Teardown",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "cancellation"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Timer executes without triggering unwanted UI re-renders.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Timer Instantiation",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Engineers manage interval timers inside component loops.",
+            "values": {
+              "n1": {
+                "text": "timers"
               },
-              {
-                "id": "b2",
-                "label": "Handle Persistence",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "AbortController"
               },
-              {
-                "id": "b3",
-                "label": "Background Tick",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "infrastructure"
               },
-              {
-                "id": "b4",
-                "label": "Guaranteed Teardown",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "cancellation"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Teardown routine cleanly clears timer handle on unmount.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Timer Instantiation",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Immutable ref container stores timer handles cleanly.",
+            "values": {
+              "n1": {
+                "text": "timers"
               },
-              {
-                "id": "b2",
-                "label": "Handle Persistence",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "AbortController"
               },
-              {
-                "id": "b3",
-                "label": "Background Tick",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "infrastructure"
               },
-              {
-                "id": "b4",
-                "label": "Guaranteed Teardown",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "cancellation"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Infrastructure pattern manages network cancellation tokens.",
+            "values": {
+              "n1": {
+                "text": "timers"
+              },
+              "n2": {
+                "text": "AbortController"
+              },
+              "n3": {
+                "text": "infrastructure"
+              },
+              "n4": {
+                "text": "cancellation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "title": "Temporal State Differencing Pipeline",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "cdc2510d5c0fb014f41bd42320907d98ffcef653676079380263f1faea1814c3"
+      "partTitle": "The usePrevious Pattern: Zero-Cost Temporal State Differencing",
+      "codeHash": "cdc2510d5c0fb014f41bd42320907d98ffcef653676079380263f1faea1814c3",
+      "spec": {
+        "template": "boxes",
+        "title": "Temporal State Differencing & usePrevious Lifecycle",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "usePrevious",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "temporal",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "differencing",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "lifecycle",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The usePrevious hook provides state-differencing primitives.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
+              },
+              "b2": {
+                "text": "temporal"
+              },
+              "b3": {
+                "text": "differencing"
+              },
+              "b4": {
+                "text": "lifecycle"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Production tickers animate based on price differentials.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
+              },
+              "b2": {
+                "text": "temporal"
+              },
+              "b3": {
+                "text": "differencing"
+              },
+              "b4": {
+                "text": "lifecycle"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Storing previous values in state triggers redundant renders.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
+              },
+              "b2": {
+                "text": "temporal"
+              },
+              "b3": {
+                "text": "differencing"
+              },
+              "b4": {
+                "text": "lifecycle"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Execution lifecycle tracks values across consecutive renders.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
+              },
+              "b2": {
+                "text": "temporal"
+              },
+              "b3": {
+                "text": "differencing"
+              },
+              "b4": {
+                "text": "lifecycle"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component evaluates current state during active render pass.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Evaluation",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Previous Value Read",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Delta Calculation",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Post-Paint Update",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "Temporal State Differencing & usePrevious Lifecycle",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "usePrevious",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "temporal",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "differencing",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "lifecycle",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Render reads previous snapshot still held in ref container.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Evaluation",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The usePrevious hook provides state-differencing primitives.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
               },
-              {
-                "id": "n2",
-                "label": "Previous Value Read",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "temporal"
               },
-              {
-                "id": "n3",
-                "label": "Delta Calculation",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "differencing"
               },
-              {
-                "id": "n4",
-                "label": "Post-Paint Update",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "lifecycle"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Component derives delta metrics and motion indicators cleanly.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Evaluation",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Production tickers animate based on price differentials.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
               },
-              {
-                "id": "n2",
-                "label": "Previous Value Read",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "temporal"
               },
-              {
-                "id": "n3",
-                "label": "Delta Calculation",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "differencing"
               },
-              {
-                "id": "n4",
-                "label": "Post-Paint Update",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "lifecycle"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Post-paint effect synchronizes ref for next render frame.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Render Evaluation",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Storing previous values in state triggers redundant renders.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
               },
-              {
-                "id": "n2",
-                "label": "Previous Value Read",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "temporal"
               },
-              {
-                "id": "n3",
-                "label": "Delta Calculation",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "differencing"
               },
-              {
-                "id": "n4",
-                "label": "Post-Paint Update",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "lifecycle"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Execution lifecycle tracks values across consecutive renders.",
+            "values": {
+              "b1": {
+                "text": "usePrevious"
+              },
+              "b2": {
+                "text": "temporal"
+              },
+              "b3": {
+                "text": "differencing"
+              },
+              "b4": {
+                "text": "lifecycle"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "In-Memory LRU Cache Engine",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "c926d5980747412bc396644d2ce263dbe869c2ae88146bd78da977da86b35ee1"
+      "partTitle": "Capstone: Building an In-Memory LRU Query Cache with Imperative Facade Controls",
+      "codeHash": "c926d5980747412bc396644d2ce263dbe869c2ae88146bd78da977da86b35ee1",
+      "spec": {
+        "template": "flow",
+        "title": "In-Memory LRU Cache & Imperative Facade Controls",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "cache",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "LRU",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "capacity",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "TTL",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architectural construction synthesizes persistent memory cells.",
+            "values": {
+              "n1": {
+                "text": "cache"
+              },
+              "n2": {
+                "text": "LRU"
+              },
+              "n3": {
+                "text": "capacity"
+              },
+              "n4": {
+                "text": "TTL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Cache maintains maximum capacity and evicts oldest items.",
+            "values": {
+              "n1": {
+                "text": "cache"
+              },
+              "n2": {
+                "text": "LRU"
+              },
+              "n3": {
+                "text": "capacity"
+              },
+              "n4": {
+                "text": "TTL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engine re-inserts accessed keys at the end of the map.",
+            "values": {
+              "n1": {
+                "text": "cache"
+              },
+              "n2": {
+                "text": "LRU"
+              },
+              "n3": {
+                "text": "capacity"
+              },
+              "n4": {
+                "text": "TTL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Senior architects enrich caches with expiration timestamps.",
+            "values": {
+              "n1": {
+                "text": "cache"
+              },
+              "n2": {
+                "text": "LRU"
+              },
+              "n3": {
+                "text": "capacity"
+              },
+              "n4": {
+                "text": "TTL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Query response stored inside persistent memory map ref.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Map Insertion",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Order Refresh",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Capacity Exceeded",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Oldest Evicted",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "In-Memory LRU Cache & Imperative Facade Controls",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "cache",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "LRU",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "capacity",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "TTL",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Cache hit reorders key entry to mark as recently used.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Map Insertion",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architectural construction synthesizes persistent memory cells.",
+            "values": {
+              "n1": {
+                "text": "cache"
               },
-              {
-                "id": "b2",
-                "label": "Order Refresh",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "LRU"
               },
-              {
-                "id": "b3",
-                "label": "Capacity Exceeded",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "capacity"
               },
-              {
-                "id": "b4",
-                "label": "Oldest Evicted",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "TTL"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Cache checks item count against maximum capacity boundary.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Map Insertion",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Cache maintains maximum capacity and evicts oldest items.",
+            "values": {
+              "n1": {
+                "text": "cache"
               },
-              {
-                "id": "b2",
-                "label": "Order Refresh",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "LRU"
               },
-              {
-                "id": "b3",
-                "label": "Capacity Exceeded",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "capacity"
               },
-              {
-                "id": "b4",
-                "label": "Oldest Evicted",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "TTL"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Oldest entry removed in constant time without re-renders.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Map Insertion",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Engine re-inserts accessed keys at the end of the map.",
+            "values": {
+              "n1": {
+                "text": "cache"
               },
-              {
-                "id": "b2",
-                "label": "Order Refresh",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "LRU"
               },
-              {
-                "id": "b3",
-                "label": "Capacity Exceeded",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "capacity"
               },
-              {
-                "id": "b4",
-                "label": "Oldest Evicted",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "TTL"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Senior architects enrich caches with expiration timestamps.",
+            "values": {
+              "n1": {
+                "text": "cache"
+              },
+              "n2": {
+                "text": "LRU"
+              },
+              "n3": {
+                "text": "capacity"
+              },
+              "n4": {
+                "text": "TTL"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
