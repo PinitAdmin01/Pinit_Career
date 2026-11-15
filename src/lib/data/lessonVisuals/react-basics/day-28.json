@@ -2,141 +2,1220 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 28,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "compare",
-      "title": "Modern Rendering Strategies Comparison",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "0495f0f08879d70db050098263e2fcf3a488442ecdee873cb1bf9751befe00e4"
+      "partTitle": "Rendering Paradigms: CSR, SSR, SSG & Incremental Static Regeneration (ISR)",
+      "codeHash": "0495f0f08879d70db050098263e2fcf3a488442ecdee873cb1bf9751befe00e4",
+      "spec": {
+        "template": "compare",
+        "title": "Modern Rendering Strategies Comparison",
+        "left": {
+          "id": "c1",
+          "label": "static",
+          "tappable": false
+        },
+        "right": {
+          "id": "c2",
+          "label": "dynamic",
+          "tappable": false
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static generation delivers instant edge cache delivery.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dynamic rendering executes on demand per incoming request.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "data"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Incremental static regeneration updates pages in background.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Hybrid architecture balances latency against fresh data.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "idle"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Static generator creates fixed pages at build time."
+      "filled": {
+        "template": "compare",
+        "title": "Modern Rendering Strategies Comparison",
+        "left": {
+          "id": "c1",
+          "label": "static",
+          "tappable": false
         },
-        {
-          "step": 2,
-          "caption": "Incremental regeneration updates pages on interval."
+        "right": {
+          "id": "c2",
+          "label": "dynamic",
+          "tappable": false
         },
-        {
-          "step": 3,
-          "caption": "Server rendering dynamically creates markup per call."
-        },
-        {
-          "step": 4,
-          "caption": "Edge cache delivers optimal time to first byte."
-        }
-      ]
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static generation delivers instant edge cache delivery.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dynamic rendering executes on demand per incoming request.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "data"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Incremental static regeneration updates pages in background.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "ok",
+              "c2": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Hybrid architecture balances latency against fresh data.",
+            "values": {
+              "c1": {
+                "text": "static"
+              },
+              "c2": {
+                "text": "dynamic"
+              }
+            },
+            "tones": {
+              "c1": "idle",
+              "c2": "idle"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "boxes",
-      "title": "Hydration Tree Reconciliation Contract",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "b4eafd1b7e6c7e9c43302ea1b6a6ba5fcf5eea89928f04e5c9b646fbdac6c77e"
+      "partTitle": "The Hydration Contract: DOM Deserialization, Fiber Reconciliation & Mismatch Pitfalls",
+      "codeHash": "b4eafd1b7e6c7e9c43302ea1b6a6ba5fcf5eea89928f04e5c9b646fbdac6c77e",
+      "spec": {
+        "template": "boxes",
+        "title": "Hydration Tree Reconciliation Contract",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "server",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "DOM",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "mismatch",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Browser receives static server markup without hydration.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Reconciler walks existing DOM tree attaching listeners.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Fiber tree adopts existing nodes during reconciliation.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Unexpected mismatch triggers full client re-render pass.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Browser parses server rendered static document."
-        },
-        {
-          "step": 2,
-          "caption": "Client runtime walks host document nodes."
-        },
-        {
-          "step": 3,
-          "caption": "Reconciler detects structural or text divergences."
-        },
-        {
-          "step": 4,
-          "caption": "Event listeners attach to matching elements cleanly."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Hydration Tree Reconciliation Contract",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "server",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "DOM",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "mismatch",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Browser receives static server markup without hydration.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Reconciler walks existing DOM tree attaching listeners.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Fiber tree adopts existing nodes during reconciliation.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Unexpected mismatch triggers full client re-render pass.",
+            "values": {
+              "b1": {
+                "text": "server"
+              },
+              "b2": {
+                "text": "DOM"
+              },
+              "b3": {
+                "text": "Fiber"
+              },
+              "b4": {
+                "text": "mismatch"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "error"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "flow",
-      "title": "React Server Component Wire Stream",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "82832b23d15645d77a462b933f770a18e0ff4030e36d17a256555f15843de6c8"
+      "partTitle": "React Server Components (RSC): Execution Isolation & The RSC Wire Format",
+      "codeHash": "82832b23d15645d77a462b933f770a18e0ff4030e36d17a256555f15843de6c8",
+      "spec": {
+        "template": "flow",
+        "title": "React Server Component Wire Stream",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Server",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Actions",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Components",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "directive",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Server components integrate with server actions cleanly.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Backend queries fetch analytics for dashboard layout.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Components paradigm separates server and client models.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Directive use client creates clean component boundary.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Server executes component and resolves dependencies."
-        },
-        {
-          "step": 2,
-          "caption": "Server emits virtual elements into stream format."
-        },
-        {
-          "step": 3,
-          "caption": "Client reference placeholders point to bundles."
-        },
-        {
-          "step": 4,
-          "caption": "Browser stitches interactive islands into view."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "React Server Component Wire Stream",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Server",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Actions",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Components",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "directive",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Server components integrate with server actions cleanly.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Backend queries fetch analytics for dashboard layout.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Components paradigm separates server and client models.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Directive use client creates clean component boundary.",
+            "values": {
+              "n1": {
+                "text": "Server"
+              },
+              "n2": {
+                "text": "Actions"
+              },
+              "n3": {
+                "text": "Components"
+              },
+              "n4": {
+                "text": "directive"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "states",
-      "title": "Streaming Suspense Chunk Pipeline",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "20c88d2778b68ade547cbd6de4451bb08a790f1f54961565e58641b160036d68"
+      "partTitle": "Asynchronous Streaming SSR with Suspense: HTML Chunk Flushing & Selective Hydration",
+      "codeHash": "20c88d2778b68ade547cbd6de4451bb08a790f1f54961565e58641b160036d68",
+      "spec": {
+        "template": "boxes",
+        "title": "Streaming Suspense Chunk Pipeline",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "streaming",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "fallback",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Encoding",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "template",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Streaming SSR drastically reduces server memory usage.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Boundary renders fallback error message into stream.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Chunked Transfer Encoding flushes HTML progressively.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Resolved component renders inside hidden template tag.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Server flushes initial outer layout shell."
-        },
-        {
-          "step": 2,
-          "caption": "Client displays fallback skeleton instantly."
-        },
-        {
-          "step": 3,
-          "caption": "Async boundary resolves and server streams chunk."
-        },
-        {
-          "step": 4,
-          "caption": "Inline script replaces placeholder with real content."
-        }
-      ]
+      "filled": {
+        "template": "boxes",
+        "title": "Streaming Suspense Chunk Pipeline",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "streaming",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "fallback",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Encoding",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "template",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Streaming SSR drastically reduces server memory usage.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Boundary renders fallback error message into stream.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Chunked Transfer Encoding flushes HTML progressively.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Resolved component renders inside hidden template tag.",
+            "values": {
+              "b1": {
+                "text": "streaming"
+              },
+              "b2": {
+                "text": "fallback"
+              },
+              "b3": {
+                "text": "Encoding"
+              },
+              "b4": {
+                "text": "template"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "component-tree",
-      "title": "Server Client Boundary Slot Topology",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "b9fce4b70a3660f696c3eb342f9aa9445f9c6b5402e7d5f0bd8d66817c8ffb2b"
+      "partTitle": "Server-Client Boundary: Serialization Invariants & The Component Slot Pattern",
+      "codeHash": "b9fce4b70a3660f696c3eb342f9aa9445f9c6b5402e7d5f0bd8d66817c8ffb2b",
+      "spec": {
+        "template": "flow",
+        "title": "Server Client Boundary Slot Topology",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "boundary",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Server",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Client",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "children",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Directive use client defines boundary in module graph.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Server component evaluates data before passing to slot.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Client component manages local interactive state wrapper.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Children slot pattern composes server tree without bloat.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Server parent wraps interactive client component."
-        },
-        {
-          "step": 2,
-          "caption": "Client boundary accepts generic children slot."
-        },
-        {
-          "step": 3,
-          "caption": "Nested server view renders on backend without leak."
-        },
-        {
-          "step": 4,
-          "caption": "Client manages interactive state seamlessly."
-        }
-      ]
+      "filled": {
+        "template": "flow",
+        "title": "Server Client Boundary Slot Topology",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "boundary",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Server",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Client",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "children",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Directive use client defines boundary in module graph.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Server component evaluates data before passing to slot.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Client component manages local interactive state wrapper.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Children slot pattern composes server tree without bloat.",
+            "values": {
+              "n1": {
+                "text": "boundary"
+              },
+              "n2": {
+                "text": "Server"
+              },
+              "n3": {
+                "text": "Client"
+              },
+              "n4": {
+                "text": "children"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
+      }
     }
   ]
 }
