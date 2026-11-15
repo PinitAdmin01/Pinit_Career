@@ -1,679 +1,1393 @@
-[
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 9,
-    "part": 1,
-    "codeHash": "9065b6210548020e3a4545bde46e641633da55ac20756bf129ce9ade810a395d",
-    "spec": {
-      "template": "flow",
-      "title": "Top Down Props Propagation and Event Callback Architecture",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Parent State",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Props Downward",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "User Action",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Callback Upward",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Single source of truth holds canonical application state.",
-          "values": {
-            "n1": {
-              "text": "\"Parent State\""
-            },
-            "n2": {
-              "text": "\"Props Downward\""
-            },
-            "n3": {
-              "text": "\"User Action\""
-            },
-            "n4": {
-              "text": "\"Callback Upward\""
-            }
+{
+  "schemaVersion": 1,
+  "prefix": "react-basics",
+  "day": 9,
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
+    {
+      "partTitle": "Unidirectional Data Flow & State Ownership: Top-Down Invariants, Props Passing & Single Sources of Truth",
+      "codeHash": "9065b6210548020e3a4545bde46e641633da55ac20756bf129ce9ade810a395d",
+      "spec": {
+        "template": "flow",
+        "title": "Top Down Props Propagation and Event Callback Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Single Source of Truth",
+            "tappable": false
           },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
+          {
+            "id": "n2",
+            "label": "props",
+            "tappable": false
           },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "State values propagate down the component hierarchy via props.",
-          "values": {
-            "n1": {
-              "text": "\"Parent State\""
-            },
-            "n2": {
-              "text": "\"Props Downward\""
-            },
-            "n3": {
-              "text": "\"User Action\""
-            },
-            "n4": {
-              "text": "\"Callback Upward\""
-            }
+          {
+            "id": "n3",
+            "label": "Controlled Components",
+            "tappable": false
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "User interactions trigger event handlers inside child components.",
-          "values": {
-            "n1": {
-              "text": "\"Parent State\""
-            },
-            "n2": {
-              "text": "\"Props Downward\""
-            },
-            "n3": {
-              "text": "\"User Action\""
-            },
-            "n4": {
-              "text": "\"Callback Upward\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Callback functions signal parent components to dispatch mutations.",
-          "values": {
-            "n1": {
-              "text": "\"Parent State\""
-            },
-            "n2": {
-              "text": "\"Props Downward\""
-            },
-            "n3": {
-              "text": "\"User Action\""
-            },
-            "n4": {
-              "text": "\"Callback Upward\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
-            ]
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 9,
-    "part": 2,
-    "codeHash": "d740b0c33dde48ff1b82b253578f935883a0555086a679ea70f9d0b66dffa3c4",
-    "spec": {
-      "template": "boxes",
-      "title": "Props Immutability Enforcement and Shallow Object Freezing",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "Input Props",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Object Freeze",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "Dev Guard",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "Pure Pipeline",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "React wraps component props in shallow frozen object containers.",
-          "values": {
-            "b1": {
-              "text": "\"Input Props\""
-            },
-            "b2": {
-              "text": "\"Object Freeze\""
-            },
-            "b3": {
-              "text": "\"Dev Guard\""
-            },
-            "b4": {
-              "text": "\"Pure Pipeline\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
+          {
+            "id": "n4",
+            "label": "Unidirectional Data Flow",
+            "tappable": false
           }
-        },
-        {
-          "at": "say2",
-          "caption": "Direct mutation of props throws error in strict development mode.",
-          "values": {
-            "b1": {
-              "text": "\"Input Props\""
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Data travels down the component tree strictly in one direction.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
             },
-            "b2": {
-              "text": "\"Object Freeze\""
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "b3": {
-              "text": "\"Dev Guard\""
-            },
-            "b4": {
-              "text": "\"Pure Pipeline\""
-            }
+            "arrows": []
           },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Shallow freeze does not protect deep nested object references.",
-          "values": {
-            "b1": {
-              "text": "\"Input Props\""
+          {
+            "at": "say3",
+            "caption": "The root component maintains the single source of truth.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
             },
-            "b2": {
-              "text": "\"Object Freeze\""
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "b3": {
-              "text": "\"Dev Guard\""
-            },
-            "b4": {
-              "text": "\"Pure Pipeline\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "Immutable update patterns prevent corrupting shared parent state.",
-          "values": {
-            "b1": {
-              "text": "\"Input Props\""
-            },
-            "b2": {
-              "text": "\"Object Freeze\""
-            },
-            "b3": {
-              "text": "\"Dev Guard\""
-            },
-            "b4": {
-              "text": "\"Pure Pipeline\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 9,
-    "part": 3,
-    "codeHash": "38f4eed5b931cf60f4cd24be959d01a74793250fc5d41d9f86505ea387a6eb8e",
-    "spec": {
-      "template": "flow",
-      "title": "Compound Component Composition and Context Sharing",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Root Container",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Layout Slots",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Context Bridge",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Sub Components",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Root component coordinates shared state and layout constraints.",
-          "values": {
-            "n1": {
-              "text": "\"Root Container\""
-            },
-            "n2": {
-              "text": "\"Layout Slots\""
-            },
-            "n3": {
-              "text": "\"Context Bridge\""
-            },
-            "n4": {
-              "text": "\"Sub Components\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "Children prop provides inversion of control over rendered layout.",
-          "values": {
-            "n1": {
-              "text": "\"Root Container\""
-            },
-            "n2": {
-              "text": "\"Layout Slots\""
-            },
-            "n3": {
-              "text": "\"Context Bridge\""
-            },
-            "n4": {
-              "text": "\"Sub Components\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Internal context bridge shares active state across sub components.",
-          "values": {
-            "n1": {
-              "text": "\"Root Container\""
-            },
-            "n2": {
-              "text": "\"Layout Slots\""
-            },
-            "n3": {
-              "text": "\"Context Bridge\""
-            },
-            "n4": {
-              "text": "\"Sub Components\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
+          {
+            "at": "say4",
+            "caption": "Child components receive inputs passively through props.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Sub components render cleanly without explicit prop drilling.",
-          "values": {
-            "n1": {
-              "text": "\"Root Container\""
-            },
-            "n2": {
-              "text": "\"Layout Slots\""
-            },
-            "n3": {
-              "text": "\"Context Bridge\""
-            },
-            "n4": {
-              "text": "\"Sub Components\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
+          {
+            "at": "say6",
+            "caption": "Controlled components report state changes through callbacks.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 9,
-    "part": 4,
-    "codeHash": "d67db8f15af4581145c11aaa787a2e911b2f68e9aaf98b901b4cc8c45717b71b",
-    "spec": {
-      "template": "compare",
-      "title": "Discriminated Union Props vs Fragile Boolean Combinations",
-      "left": {
-        "label": "Standard Implementation"
+          }
+        ]
       },
-      "right": {
-        "label": "Architectural Pattern"
+      "filled": {
+        "template": "flow",
+        "title": "Top Down Props Propagation and Event Callback Architecture",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Single Source of Truth",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "props",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Controlled Components",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Unidirectional Data Flow",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Data travels down the component tree strictly in one direction.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "The root component maintains the single source of truth.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Child components receive inputs passively through props.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Controlled components report state changes through callbacks.",
+            "values": {
+              "n1": {
+                "text": "Single Source of Truth"
+              },
+              "n2": {
+                "text": "props"
+              },
+              "n3": {
+                "text": "Controlled Components"
+              },
+              "n4": {
+                "text": "Unidirectional Data Flow"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Props Immutability & Defensive Freezing: The Read-Only Contract, Shallow Object.freeze & Anti-Patterns",
+      "codeHash": "d740b0c33dde48ff1b82b253578f935883a0555086a679ea70f9d0b66dffa3c4",
+      "spec": {
+        "template": "boxes",
+        "title": "Props Immutability Enforcement and Shallow Object Freezing",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "props",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Object.freeze()",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Shallow",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "React.memo",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Incoming props represent an immutable snapshot of configuration.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Development engines freeze prop descriptors to prevent mutation.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Native freezing applies shallow protection to top level keys.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Referential equality allows memoized components to skip renders.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
       },
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Multiple optional boolean flags create invalid component states.",
-          "left": {
-            "code": "// Left pipeline phase 1",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "idle"
+      "filled": {
+        "template": "boxes",
+        "title": "Props Immutability Enforcement and Shallow Object Freezing",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "props",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 1",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Runtime prop checks require defensive validation boilerplate.",
-          "left": {
-            "code": "// Left pipeline phase 2",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "b2",
+            "label": "Object.freeze()",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 2",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Discriminated union types enforce companion properties at build time.",
-          "left": {
-            "code": "// Left pipeline phase 3",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "b3",
+            "label": "Shallow",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 3",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
+          {
+            "id": "b4",
+            "label": "React.memo",
+            "tappable": false
           }
-        },
-        {
-          "at": "say4",
-          "caption": "TypeScript compiler prevents impossible UI configurations instantly.",
-          "left": {
-            "code": "// Left pipeline phase 4",
-            "result": {
-              "text": "\"Standard\""
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Incoming props represent an immutable snapshot of configuration.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
             },
-            "tone": "data"
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
-          "right": {
-            "code": "// Optimized pipeline phase 4",
-            "result": {
-              "text": "\"Optimized\""
+          {
+            "at": "say2",
+            "caption": "Development engines freeze prop descriptors to prevent mutation.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
             },
-            "tone": "ok"
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Native freezing applies shallow protection to top level keys.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Referential equality allows memoized components to skip renders.",
+            "values": {
+              "b1": {
+                "text": "props"
+              },
+              "b2": {
+                "text": "Object.freeze()"
+              },
+              "b3": {
+                "text": "Shallow"
+              },
+              "b4": {
+                "text": "React.memo"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
-        }
-      ]
+        ]
+      }
+    },
+    {
+      "partTitle": "Component Composition Paradigms: Compound Components, Props.children & Inversion of Control",
+      "codeHash": "38f4eed5b931cf60f4cd24be959d01a74793250fc5d41d9f86505ea387a6eb8e",
+      "spec": {
+        "template": "flow",
+        "title": "Compound Component Composition and Inversion of Control",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "props.children",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Compound Component",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "React.cloneElement()",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Inversion of Control",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Containers render nested child elements using the children prop.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Compound systems coordinate sub components through shared state.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Legacy implementations clone elements to inject implicit props.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Engineers build maintainable component libraries using composition.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Compound Component Composition and Inversion of Control",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "props.children",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Compound Component",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "React.cloneElement()",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Inversion of Control",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Containers render nested child elements using the children prop.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Compound systems coordinate sub components through shared state.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Legacy implementations clone elements to inject implicit props.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Engineers build maintainable component libraries using composition.",
+            "values": {
+              "n1": {
+                "text": "props.children"
+              },
+              "n2": {
+                "text": "Compound Component"
+              },
+              "n3": {
+                "text": "React.cloneElement()"
+              },
+              "n4": {
+                "text": "Inversion of Control"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Type-Safe Prop Contracts with TypeScript: Discriminated Union Props, Polymorphic 'as' Props & Generics",
+      "codeHash": "d67db8f15af4581145c11aaa787a2e911b2f68e9aaf98b901b4cc8c45717b71b",
+      "spec": {
+        "template": "compare",
+        "title": "Discriminated Union Props vs Fragile Boolean Combinations",
+        "rows": [
+          {
+            "id": "r1",
+            "label": "Discriminated Union Props",
+            "tappable": false
+          },
+          {
+            "id": "r2",
+            "label": "TypeScript",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Polymorphic Component",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Forwarded Refs",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static type systems eliminate invalid runtime state errors.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Discriminated unions link variant tags with matching companion props.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Polymorphic components validate custom element render tags.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "data",
+              "r3": "data",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Forwarded refs pass element handles safely to parent observers.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Discriminated Union Props vs Fragile Boolean Combinations",
+        "rows": [
+          {
+            "id": "r1",
+            "label": "Discriminated Union Props",
+            "tappable": false
+          },
+          {
+            "id": "r2",
+            "label": "TypeScript",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Polymorphic Component",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Forwarded Refs",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static type systems eliminate invalid runtime state errors.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Discriminated unions link variant tags with matching companion props.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Polymorphic components validate custom element render tags.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "data",
+              "r3": "data",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Forwarded refs pass element handles safely to parent observers.",
+            "values": {
+              "r1": {
+                "text": "Discriminated Union Props"
+              },
+              "r2": {
+                "text": "TypeScript"
+              },
+              "r3": {
+                "text": "Polymorphic Component"
+              },
+              "r4": {
+                "text": "Forwarded Refs"
+              }
+            },
+            "tones": {
+              "r1": "data",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Default Props vs Destructuring Defaults: Evaluation Timing, Nullish Coalescing & Modern Best Practices",
+      "codeHash": "19e02eb628d502d1cd46a7c57bff7ad174e2fd5e2047f3cb4361181ea0beb346",
+      "spec": {
+        "template": "boxes",
+        "title": "Modern Parameter Destructuring Defaults and Fallback Evaluation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "defaultProps",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Destructuring Defaults",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Nullish Coalescing",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "React",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Static default properties face deprecation in modern architectures.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Destructuring defaults provide clean parameter fallback assignments.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Undefined values trigger fallbacks while null preserves presence.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Nullish coalescing avoids false positive fallbacks for zero and false.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Modern Parameter Destructuring Defaults and Fallback Evaluation",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "defaultProps",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Destructuring Defaults",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Nullish Coalescing",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "React",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Static default properties face deprecation in modern architectures.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Destructuring defaults provide clean parameter fallback assignments.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "error",
+              "b2": "ok",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Undefined values trigger fallbacks while null preserves presence.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Nullish coalescing avoids false positive fallbacks for zero and false.",
+            "values": {
+              "b1": {
+                "text": "defaultProps"
+              },
+              "b2": {
+                "text": "Destructuring Defaults"
+              },
+              "b3": {
+                "text": "Nullish Coalescing"
+              },
+              "b4": {
+                "text": "React"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
     }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 9,
-    "part": 5,
-    "codeHash": "19e02eb628d502d1cd46a7c57bff7ad174e2fd5e2047f3cb4361181ea0beb346",
-    "spec": {
-      "template": "boxes",
-      "title": "Modern Parameter Destructuring Defaults and Fallback Evaluation",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "Param Destructure",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Default Value",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "Nullish Check",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "Resolved Prop",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "JavaScript function parameters destructure incoming props object.",
-          "values": {
-            "b1": {
-              "text": "\"Param Destructure\""
-            },
-            "b2": {
-              "text": "\"Default Value\""
-            },
-            "b3": {
-              "text": "\"Nullish Check\""
-            },
-            "b4": {
-              "text": "\"Resolved Prop\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Default values assign only when passed property is strictly undefined.",
-          "values": {
-            "b1": {
-              "text": "\"Param Destructure\""
-            },
-            "b2": {
-              "text": "\"Default Value\""
-            },
-            "b3": {
-              "text": "\"Nullish Check\""
-            },
-            "b4": {
-              "text": "\"Resolved Prop\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Nullish coalescing preserves valid zero and empty string values.",
-          "values": {
-            "b1": {
-              "text": "\"Param Destructure\""
-            },
-            "b2": {
-              "text": "\"Default Value\""
-            },
-            "b3": {
-              "text": "\"Nullish Check\""
-            },
-            "b4": {
-              "text": "\"Resolved Prop\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "Component executes cleanly with guaranteed non nullish properties.",
-          "values": {
-            "b1": {
-              "text": "\"Param Destructure\""
-            },
-            "b2": {
-              "text": "\"Default Value\""
-            },
-            "b3": {
-              "text": "\"Nullish Check\""
-            },
-            "b4": {
-              "text": "\"Resolved Prop\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  }
-]
+  ]
+}

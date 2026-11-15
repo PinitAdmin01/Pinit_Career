@@ -2978,13 +2978,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why is Unidirectional Data Flow superior to legacy Two-Way Data Binding in large enterprise applications?",
           options: [
-            "It eliminates circular mutation cascades and makes state changes predictable by ensuring data flows strictly downwards and events flow upwards",
-            "It automatically converts all React components into WebGL 3D graphics",
-            "It eliminates the need to write unit tests for backend database queries",
-            "It forces mobile devices to use satellite internet connections",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "It allows child components to directly mutate parent model memory through implicit background references without dispatching callbacks.",
+            "It eliminates circular mutation cascades and makes state transitions predictable by ensuring data flows down and events bubble upwards.",
+            "It guarantees that DOM reconciliation runs in background service workers rather than competing for execution cycles on the UI thread.",
+            "It serializes all state transitions into indexed database storage before committing element hierarchy changes to the active document."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "Unidirectional data flow ensures that state is owned by a single source of truth and flows strictly downwards, preventing circular update loops.",
           explanation: "Unidirectional data flow ensures that state is owned by a single source of truth and flows strictly downwards, preventing circular update loops."
         }
@@ -3045,15 +3045,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Verify that parentState.metrics[0] remains 85 after deriving sortedMetrics.",
         check: {
-          question: "Why is in-place mutation of a nested array passed as a prop (e.g. props.items.sort()) a critical anti-pattern in React?",
+          question: "Why is in-place mutation of a nested array passed as a prop (such as props.items.sort()) a critical anti-pattern in React?",
           options: [
-            "Because props are shallow-frozen, mutating nested objects directly alters the parent's heap state without triggering change detection, causing stale UI and corrupted state snapshots",
-            "It causes the client browser to immediately restart in safe mode",
-            "It permanently converts the component into a WebAssembly binary file",
-            "It deletes all cookie headers from outgoing HTTP requests",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "It forces the browser to discard existing CSS stylesheets and trigger global document re-parsing whenever sorted arrays are mapped.",
+            "It causes JavaScript memory allocators to lock the thread heap, preventing garbage collection sweeps from reclaiming dead closures.",
+            "It triggers immediate uncaught runtime exceptions because the engine freezes all deeply nested child objects recursively on render.",
+            "It mutates parent heap state directly without new references, bypassing change detection and leaving the UI inconsistent and stale."
+],
+          answer: 3,
+          answerIndex: 3,
           why: "React only shallow-freezes props. Mutating nested references corrupts parent state and bypasses shallow equality checks, causing silent rendering failures.",
           explanation: "React only shallow-freezes props. Mutating nested references corrupts parent state and bypasses shallow equality checks, causing silent rendering failures."
         }
@@ -3115,11 +3115,11 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural advantage of the Compound Component pattern over passing dozens of configuration props to a single component?",
           options: [
-            "It inverts control of UI composition to the consumer, eliminating monolithic prop drilling and providing flexible, declarative layouts",
-            "It speeds up internet connection bandwidth by fifty megabits per second",
-            "It compresses SVG images into web fonts automatically",
-            "It forces all React components to be written in WebAssembly",
-          ],
+            "It inverts control of UI composition to the consumer, eliminating monolithic prop drilling and providing flexible, declarative layouts.",
+            "It automatically generates intermediate memoized wrapper classes around each nested sub-component to eliminate virtual DOM creation.",
+            "It replaces JavaScript runtime reconciliation with static CSS attribute selectors that control child layout visibility declaratively.",
+            "It isolates each child component into separate iframe browsing contexts to prevent parent stylesheet leakage across DOM boundaries."
+],
           answer: 0,
           answerIndex: 0,
           why: "Compound components invert control, allowing consumers to compose related sub-components declaratively without bloating components with dozens of configuration props.",
@@ -3186,13 +3186,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "What is the primary architectural purpose of using Discriminated Union Props in TypeScript React components?",
           options: [
-            "To mathematically prevent invalid prop combinations at compile time by linking companion props to a specific discriminant variant key",
-            "To reduce the size of JPEG images downloaded by the browser",
-            "To automatically translate component comments into binary assembly",
-            "To bypass all browser CORS security policies",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "To compile runtime property validation schemas into WebAssembly modules that inspect incoming network request headers automatically.",
+            "To prevent parent components from overriding CSS class names or inline styles defined in underlying child component styling sheets.",
+            "To mathematically enforce valid prop combinations at compile time by linking companion props to a specific discriminant variant key.",
+            "To ensure that all component event callbacks return resolved promises before subsequent user interface interactions can be queued."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "Discriminated unions ensure that when a specific variant is selected, TypeScript mandates only the valid companion props and forbids incompatible ones.",
           explanation: "Discriminated unions ensure that when a specific variant is selected, TypeScript mandates only the valid companion props and forbids incompatible ones."
         }
@@ -3252,13 +3252,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why is Component.defaultProps deprecated in modern React in favor of native JavaScript destructuring defaults?",
           options: [
-            "Destructuring defaults use native ECMAScript syntax, eliminate React framework runtime overhead, and provide flawless TypeScript type inference",
-            "defaultProps is known to cause physical damage to laptop speakers",
-            "Web browsers banned defaultProps in the latest HTML6 specification",
-            "defaultProps makes all component text render upside down",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "Default props cannot evaluate literal string constants or numerical primitive values when components render on mobile user agents.",
+            "Destructuring defaults use native ECMAScript syntax, eliminate React runtime merging overhead, and provide exact TypeScript inference.",
+            "Modern JavaScript engines ban external property assignments on function objects when executing in strict ECMAScript modules mode.",
+            "Default props force the reconciler to duplicate entire virtual DOM subtrees for each instance where optional props remain undefined."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "Native destructuring defaults eliminate runtime prop merging overhead and integrate seamlessly with TypeScript's automatic type narrowing.",
           explanation: "Native destructuring defaults eliminate runtime prop merging overhead and integrate seamlessly with TypeScript's automatic type narrowing."
         }
