@@ -10,45 +10,45 @@
       "codeHash": "a80b7e185984e01c38be19d78e4c5b64bc442e9a44359a1936e9d7472c0583dc",
       "spec": {
         "template": "boxes",
-        "title": "V8 Array ElementsKind Layout and Transition Hierarchy",
+        "title": "V8 ElementsKind Transitions and Array Memory Layouts",
         "boxes": [
           {
             "id": "b1",
-            "label": "Packed Smi Buffer",
+            "label": "Packed Elements",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Packed Double Buffer",
+            "label": "Holey Elements",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Packed Elements Heap",
+            "label": "PACKED_SMI_ELEMENTS",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Holey Dictionary Table",
+            "label": "Array",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Array initializes with contiguous small integer machine buffer.",
+            "at": "say2",
+            "caption": "Packed elements store contiguous values across every sequential index.",
             "values": {
               "b1": {
-                "text": "\"Packed Smi Buffer\""
+                "text": "Packed Elements"
               },
               "b2": {
-                "text": "\"Packed Double Buffer\""
+                "text": "Holey Elements"
               },
               "b3": {
-                "text": "\"Packed Elements Heap\""
+                "text": "PACKED_SMI_ELEMENTS"
               },
               "b4": {
-                "text": "\"Holey Dictionary Table\""
+                "text": "Array"
               }
             },
             "tones": {
@@ -59,120 +59,120 @@
             }
           },
           {
-            "at": "say2",
-            "caption": "Inserting floating-point value degrades kind to packed doubles.",
-            "values": {
-              "b1": {
-                "text": "\"Packed Smi Buffer\""
-              },
-              "b2": {
-                "text": "\"Packed Double Buffer\""
-              },
-              "b3": {
-                "text": "\"Packed Elements Heap\""
-              },
-              "b4": {
-                "text": "\"Holey Dictionary Table\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "Inserting object pointer transitions kind to generic packed elements.",
+            "caption": "Contiguous smi elements run at raw machine speed in flat memory buffers.",
             "values": {
               "b1": {
-                "text": "\"Packed Smi Buffer\""
+                "text": "Packed Elements"
               },
               "b2": {
-                "text": "\"Packed Double Buffer\""
+                "text": "Holey Elements"
               },
               "b3": {
-                "text": "\"Packed Elements Heap\""
+                "text": "PACKED_SMI_ELEMENTS"
               },
               "b4": {
-                "text": "\"Holey Dictionary Table\""
+                "text": "Array"
               }
             },
             "tones": {
               "b1": "data",
-              "b2": "data",
+              "b2": "idle",
               "b3": "data",
               "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Deleting index creates hole degrading array to slow dictionary mode.",
+            "caption": "Holey elements force the engine to check prototype chains on misses.",
             "values": {
               "b1": {
-                "text": "\"Packed Smi Buffer\""
+                "text": "Packed Elements"
               },
               "b2": {
-                "text": "\"Packed Double Buffer\""
+                "text": "Holey Elements"
               },
               "b3": {
-                "text": "\"Packed Elements Heap\""
+                "text": "PACKED_SMI_ELEMENTS"
               },
               "b4": {
-                "text": "\"Holey Dictionary Table\""
+                "text": "Array"
               }
             },
             "tones": {
               "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "data"
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Preallocating bounds maintains peak optimization across hardware loops.",
+            "values": {
+              "b1": {
+                "text": "Packed Elements"
+              },
+              "b2": {
+                "text": "Holey Elements"
+              },
+              "b3": {
+                "text": "PACKED_SMI_ELEMENTS"
+              },
+              "b4": {
+                "text": "Array"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "V8 Array ElementsKind Layout and Transition Hierarchy",
+        "title": "V8 ElementsKind Transitions and Array Memory Layouts",
         "boxes": [
           {
             "id": "b1",
-            "label": "Packed Smi Buffer",
+            "label": "Packed Elements",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Packed Double Buffer",
+            "label": "Holey Elements",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Packed Elements Heap",
+            "label": "PACKED_SMI_ELEMENTS",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Holey Dictionary Table",
+            "label": "Array",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Array initializes with contiguous small integer machine buffer.",
+            "at": "say2",
+            "caption": "Packed elements store contiguous values across every sequential index.",
             "values": {
               "b1": {
-                "text": "\"Packed Smi Buffer\""
+                "text": "Packed Elements"
               },
               "b2": {
-                "text": "\"Packed Double Buffer\""
+                "text": "Holey Elements"
               },
               "b3": {
-                "text": "\"Packed Elements Heap\""
+                "text": "PACKED_SMI_ELEMENTS"
               },
               "b4": {
-                "text": "\"Holey Dictionary Table\""
+                "text": "Array"
               }
             },
             "tones": {
@@ -183,75 +183,75 @@
             }
           },
           {
-            "at": "say2",
-            "caption": "Inserting floating-point value degrades kind to packed doubles.",
-            "values": {
-              "b1": {
-                "text": "\"Packed Smi Buffer\""
-              },
-              "b2": {
-                "text": "\"Packed Double Buffer\""
-              },
-              "b3": {
-                "text": "\"Packed Elements Heap\""
-              },
-              "b4": {
-                "text": "\"Holey Dictionary Table\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
             "at": "say3",
-            "caption": "Inserting object pointer transitions kind to generic packed elements.",
+            "caption": "Contiguous smi elements run at raw machine speed in flat memory buffers.",
             "values": {
               "b1": {
-                "text": "\"Packed Smi Buffer\""
+                "text": "Packed Elements"
               },
               "b2": {
-                "text": "\"Packed Double Buffer\""
+                "text": "Holey Elements"
               },
               "b3": {
-                "text": "\"Packed Elements Heap\""
+                "text": "PACKED_SMI_ELEMENTS"
               },
               "b4": {
-                "text": "\"Holey Dictionary Table\""
+                "text": "Array"
               }
             },
             "tones": {
               "b1": "data",
-              "b2": "data",
+              "b2": "idle",
               "b3": "data",
               "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Deleting index creates hole degrading array to slow dictionary mode.",
+            "caption": "Holey elements force the engine to check prototype chains on misses.",
             "values": {
               "b1": {
-                "text": "\"Packed Smi Buffer\""
+                "text": "Packed Elements"
               },
               "b2": {
-                "text": "\"Packed Double Buffer\""
+                "text": "Holey Elements"
               },
               "b3": {
-                "text": "\"Packed Elements Heap\""
+                "text": "PACKED_SMI_ELEMENTS"
               },
               "b4": {
-                "text": "\"Holey Dictionary Table\""
+                "text": "Array"
               }
             },
             "tones": {
               "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "data"
+              "b2": "error",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Preallocating bounds maintains peak optimization across hardware loops.",
+            "values": {
+              "b1": {
+                "text": "Packed Elements"
+              },
+              "b2": {
+                "text": "Holey Elements"
+              },
+              "b3": {
+                "text": "PACKED_SMI_ELEMENTS"
+              },
+              "b4": {
+                "text": "Array"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -262,248 +262,248 @@
       "codeHash": "c479fee709a345481f160b02a63d7aae600d6f2f52ee1a148e8c02bb0a2ce9d7",
       "spec": {
         "template": "boxes",
-        "title": "Structural Sharing and Shallow Heap Pointers",
+        "title": "Structural Sharing and Shallow vs Deep Copy Topologies",
         "boxes": [
           {
             "id": "b1",
-            "label": "Original Root Container",
+            "label": "Structural Sharing",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Cloned Root Container",
+            "label": "spread operator",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Shared Child Branch",
+            "label": "immutability",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Modified Child Branch",
+            "label": "state trees",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Source state tree contains root container and nested child objects.",
+            "caption": "Declarative architectures mandate immutability when data updates.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
-              "b1": "data",
+              "b1": "idle",
               "b2": "idle",
-              "b3": "idle",
+              "b3": "data",
               "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Shallow copy creates fresh root container on garbage heap.",
+            "caption": "The spread operator copies root keys while sharing nested addresses.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "idle",
+              "b3": "data",
               "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Unmodified child branches share identical heap reference pointers.",
+            "caption": "Structural sharing preserves unchanged references across state trees.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
-              "b1": "data",
+              "b1": "ok",
               "b2": "data",
-              "b3": "data",
-              "b4": "idle"
+              "b3": "ok",
+              "b4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "Modified branch derives fresh object preserving source tree integrity.",
+            "caption": "Recursive copy procedures isolate nested mutations safely.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "data"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Structural Sharing and Shallow Heap Pointers",
+        "title": "Structural Sharing and Shallow vs Deep Copy Topologies",
         "boxes": [
           {
             "id": "b1",
-            "label": "Original Root Container",
+            "label": "Structural Sharing",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Cloned Root Container",
+            "label": "spread operator",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Shared Child Branch",
+            "label": "immutability",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Modified Child Branch",
+            "label": "state trees",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Source state tree contains root container and nested child objects.",
+            "caption": "Declarative architectures mandate immutability when data updates.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
-              "b1": "data",
+              "b1": "idle",
               "b2": "idle",
-              "b3": "idle",
+              "b3": "data",
               "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Shallow copy creates fresh root container on garbage heap.",
+            "caption": "The spread operator copies root keys while sharing nested addresses.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "idle",
+              "b3": "data",
               "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Unmodified child branches share identical heap reference pointers.",
+            "caption": "Structural sharing preserves unchanged references across state trees.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
-              "b1": "data",
+              "b1": "ok",
               "b2": "data",
-              "b3": "data",
-              "b4": "idle"
+              "b3": "ok",
+              "b4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "Modified branch derives fresh object preserving source tree integrity.",
+            "caption": "Recursive copy procedures isolate nested mutations safely.",
             "values": {
               "b1": {
-                "text": "\"Original Root Container\""
+                "text": "Structural Sharing"
               },
               "b2": {
-                "text": "\"Cloned Root Container\""
+                "text": "spread operator"
               },
               "b3": {
-                "text": "\"Shared Child Branch\""
+                "text": "immutability"
               },
               "b4": {
-                "text": "\"Modified Child Branch\""
+                "text": "state trees"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "data"
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -514,45 +514,45 @@
       "codeHash": "8a5ab97fd20151e20c0254b03f2dcfc0fbeb0d49015fd02f4e7fc006c85cbff4",
       "spec": {
         "template": "flow",
-        "title": "V8 Hidden Class Shapes and Monomorphic Inline Caching",
+        "title": "Hidden Classes, Shapes, and Inline Caching Transitions",
         "nodes": [
           {
             "id": "n1",
-            "label": "Root Shape",
+            "label": "Shape",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "Transition Offset",
+            "label": "Hidden Classes",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Final Shape",
+            "label": "Inline Caching",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Inline Cache Site",
+            "label": "Monomorphic",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Empty object literal initializes with baseline root shape pointer.",
+            "at": "say2",
+            "caption": "The engine assigns an internal shape pointer when creating objects.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
@@ -564,20 +564,20 @@
             "arrows": []
           },
           {
-            "at": "say2",
-            "caption": "Property assignment triggers shape transition recording field offset.",
+            "at": "say3",
+            "caption": "Divergent property assignment orders generate distinct shape paths.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
@@ -594,20 +594,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Subsequent assignment advances transition tree to final shape.",
+            "at": "say4",
+            "caption": "Hidden classes enable inline caching for high speed property lookups.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
@@ -628,27 +628,27 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Identical property order reuses shape enabling monomorphic cache.",
+            "at": "say6",
+            "caption": "Consistent initialization preserves monomorphic inline caches cleanly.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
@@ -669,45 +669,45 @@
       },
       "filled": {
         "template": "flow",
-        "title": "V8 Hidden Class Shapes and Monomorphic Inline Caching",
+        "title": "Hidden Classes, Shapes, and Inline Caching Transitions",
         "nodes": [
           {
             "id": "n1",
-            "label": "Root Shape",
+            "label": "Shape",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "Transition Offset",
+            "label": "Hidden Classes",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Final Shape",
+            "label": "Inline Caching",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Inline Cache Site",
+            "label": "Monomorphic",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Empty object literal initializes with baseline root shape pointer.",
+            "at": "say2",
+            "caption": "The engine assigns an internal shape pointer when creating objects.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
@@ -719,20 +719,20 @@
             "arrows": []
           },
           {
-            "at": "say2",
-            "caption": "Property assignment triggers shape transition recording field offset.",
+            "at": "say3",
+            "caption": "Divergent property assignment orders generate distinct shape paths.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
@@ -749,20 +749,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Subsequent assignment advances transition tree to final shape.",
+            "at": "say4",
+            "caption": "Hidden classes enable inline caching for high speed property lookups.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
@@ -783,27 +783,27 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Identical property order reuses shape enabling monomorphic cache.",
+            "at": "say6",
+            "caption": "Consistent initialization preserves monomorphic inline caches cleanly.",
             "values": {
               "n1": {
-                "text": "\"Root Shape\""
+                "text": "Shape"
               },
               "n2": {
-                "text": "\"Transition Offset\""
+                "text": "Hidden Classes"
               },
               "n3": {
-                "text": "\"Final Shape\""
+                "text": "Inline Caching"
               },
               "n4": {
-                "text": "\"Inline Cache Site\""
+                "text": "Monomorphic"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
             },
             "arrows": [
               [
@@ -828,248 +828,248 @@
       "codeHash": "41441f424d278a9bfa9a78c87ab76845d462b19157c055b9ba4f28106c978a02",
       "spec": {
         "template": "boxes",
-        "title": "Normalized Entity Dictionaries and Relational State Stores",
+        "title": "Relational Entity Normalization and Dictionary Lookup Indexes",
         "boxes": [
           {
             "id": "b1",
-            "label": "Denormalized Tree",
+            "label": "Database Normalization",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Normalized ById Table",
+            "label": "byId",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Ordered AllIds List",
+            "label": "allIds",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Foreign Key References",
+            "label": "normalized",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Nested tree structure duplicates child entity across parents.",
+            "at": "say2",
+            "caption": "Nested structures duplicate entities causing synchronization drift.",
             "values": {
               "b1": {
-                "text": "\"Denormalized Tree\""
+                "text": "Database Normalization"
               },
               "b2": {
-                "text": "\"Normalized ById Table\""
+                "text": "byId"
               },
               "b3": {
-                "text": "\"Ordered AllIds List\""
+                "text": "allIds"
               },
               "b4": {
-                "text": "\"Foreign Key References\""
+                "text": "normalized"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "error"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Database normalization organizes client records into flat tables.",
+            "values": {
+              "b1": {
+                "text": "Database Normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "normalized"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "idle",
               "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Normalization flattens entities into primary key lookup tables.",
-            "values": {
-              "b1": {
-                "text": "\"Denormalized Tree\""
-              },
-              "b2": {
-                "text": "\"Normalized ById Table\""
-              },
-              "b3": {
-                "text": "\"Ordered AllIds List\""
-              },
-              "b4": {
-                "text": "\"Foreign Key References\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Parent entities record array of foreign key identifier strings.",
-            "values": {
-              "b1": {
-                "text": "\"Denormalized Tree\""
-              },
-              "b2": {
-                "text": "\"Normalized ById Table\""
-              },
-              "b3": {
-                "text": "\"Ordered AllIds List\""
-              },
-              "b4": {
-                "text": "\"Foreign Key References\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
+              "b4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "Single atomic update to entity reflects across all referencing views.",
+            "caption": "Normalized state indexes records in byId lookup dictionaries.",
             "values": {
               "b1": {
-                "text": "\"Denormalized Tree\""
+                "text": "Database Normalization"
               },
               "b2": {
-                "text": "\"Normalized ById Table\""
+                "text": "byId"
               },
               "b3": {
-                "text": "\"Ordered AllIds List\""
+                "text": "allIds"
               },
               "b4": {
-                "text": "\"Foreign Key References\""
+                "text": "normalized"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
               "b3": "data",
-              "b4": "data"
+              "b4": "ok"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Normalized stores allow surgical UI updates during reconciliation.",
+            "values": {
+              "b1": {
+                "text": "Database Normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "normalized"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Normalized Entity Dictionaries and Relational State Stores",
+        "title": "Relational Entity Normalization and Dictionary Lookup Indexes",
         "boxes": [
           {
             "id": "b1",
-            "label": "Denormalized Tree",
+            "label": "Database Normalization",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Normalized ById Table",
+            "label": "byId",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Ordered AllIds List",
+            "label": "allIds",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Foreign Key References",
+            "label": "normalized",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Nested tree structure duplicates child entity across parents.",
+            "at": "say2",
+            "caption": "Nested structures duplicate entities causing synchronization drift.",
             "values": {
               "b1": {
-                "text": "\"Denormalized Tree\""
+                "text": "Database Normalization"
               },
               "b2": {
-                "text": "\"Normalized ById Table\""
+                "text": "byId"
               },
               "b3": {
-                "text": "\"Ordered AllIds List\""
+                "text": "allIds"
               },
               "b4": {
-                "text": "\"Foreign Key References\""
+                "text": "normalized"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "error"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Database normalization organizes client records into flat tables.",
+            "values": {
+              "b1": {
+                "text": "Database Normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "normalized"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "idle",
               "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Normalization flattens entities into primary key lookup tables.",
-            "values": {
-              "b1": {
-                "text": "\"Denormalized Tree\""
-              },
-              "b2": {
-                "text": "\"Normalized ById Table\""
-              },
-              "b3": {
-                "text": "\"Ordered AllIds List\""
-              },
-              "b4": {
-                "text": "\"Foreign Key References\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Parent entities record array of foreign key identifier strings.",
-            "values": {
-              "b1": {
-                "text": "\"Denormalized Tree\""
-              },
-              "b2": {
-                "text": "\"Normalized ById Table\""
-              },
-              "b3": {
-                "text": "\"Ordered AllIds List\""
-              },
-              "b4": {
-                "text": "\"Foreign Key References\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
+              "b4": "data"
             }
           },
           {
             "at": "say4",
-            "caption": "Single atomic update to entity reflects across all referencing views.",
+            "caption": "Normalized state indexes records in byId lookup dictionaries.",
             "values": {
               "b1": {
-                "text": "\"Denormalized Tree\""
+                "text": "Database Normalization"
               },
               "b2": {
-                "text": "\"Normalized ById Table\""
+                "text": "byId"
               },
               "b3": {
-                "text": "\"Ordered AllIds List\""
+                "text": "allIds"
               },
               "b4": {
-                "text": "\"Foreign Key References\""
+                "text": "normalized"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
               "b3": "data",
-              "b4": "data"
+              "b4": "ok"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Normalized stores allow surgical UI updates during reconciliation.",
+            "values": {
+              "b1": {
+                "text": "Database Normalization"
+              },
+              "b2": {
+                "text": "byId"
+              },
+              "b3": {
+                "text": "allIds"
+              },
+              "b4": {
+                "text": "normalized"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -1080,97 +1080,249 @@
       "codeHash": "de02b2f1176197309c20f01908f6ae713b9daa6d9c0b3967216c89022c905335",
       "spec": {
         "template": "states",
-        "title": "Recursive Deep Freezing and State Immutability Seals",
+        "title": "Immutability Protocols, Deep Freezing, and Proxy Drafts",
         "states": [
           {
             "id": "s1",
-            "label": "Initialization"
+            "label": "Object.freeze",
+            "tappable": false
           },
           {
             "id": "s2",
-            "label": "Execution"
+            "label": "deep freezing",
+            "tappable": false
           },
           {
             "id": "s3",
-            "label": "Derivation"
+            "label": "Copy-on-Write",
+            "tappable": false
           },
           {
             "id": "s4",
-            "label": "Resolution"
+            "label": "Immer",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Top-level object properties seal with non-writable flag descriptors.",
-            "activeId": "s1",
-            "tone": "idle"
-          },
-          {
             "at": "say2",
-            "caption": "Recursive traversal visits every nested child object and array.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Native object freeze marks top level attributes as non writable.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Child properties mark non-configurable and non-writable in memory.",
-            "activeId": "s3",
-            "tone": "ok"
+            "caption": "Shallow freezing leaves nested child objects completely mutable.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "error",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Strict mode blocks accidental mutations throwing type error alarms.",
-            "activeId": "s4",
-            "tone": "ok"
+            "at": "say5",
+            "caption": "Recursive deep freezing enforces absolute structural immutability.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Immer implements copy on write proxies for elegant state drafts.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Recursive Deep Freezing and State Immutability Seals",
+        "title": "Immutability Protocols, Deep Freezing, and Proxy Drafts",
         "states": [
           {
             "id": "s1",
-            "label": "Initialization"
+            "label": "Object.freeze",
+            "tappable": false
           },
           {
             "id": "s2",
-            "label": "Execution"
+            "label": "deep freezing",
+            "tappable": false
           },
           {
             "id": "s3",
-            "label": "Derivation"
+            "label": "Copy-on-Write",
+            "tappable": false
           },
           {
             "id": "s4",
-            "label": "Resolution"
+            "label": "Immer",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Top-level object properties seal with non-writable flag descriptors.",
-            "activeId": "s1",
-            "tone": "idle"
-          },
-          {
             "at": "say2",
-            "caption": "Recursive traversal visits every nested child object and array.",
-            "activeId": "s2",
-            "tone": "data"
+            "caption": "Native object freeze marks top level attributes as non writable.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Child properties mark non-configurable and non-writable in memory.",
-            "activeId": "s3",
-            "tone": "ok"
+            "caption": "Shallow freezing leaves nested child objects completely mutable.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "error",
+              "s3": "idle",
+              "s4": "idle"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Strict mode blocks accidental mutations throwing type error alarms.",
-            "activeId": "s4",
-            "tone": "ok"
+            "at": "say5",
+            "caption": "Recursive deep freezing enforces absolute structural immutability.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Immer implements copy on write proxies for elegant state drafts.",
+            "values": {
+              "s1": {
+                "text": "Object.freeze"
+              },
+              "s2": {
+                "text": "deep freezing"
+              },
+              "s3": {
+                "text": "Copy-on-Write"
+              },
+              "s4": {
+                "text": "Immer"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
           }
         ]
       }

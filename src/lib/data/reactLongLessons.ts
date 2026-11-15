@@ -1048,17 +1048,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Increase size to 5000 and verify that both loops complete deterministically with the hole reflected in the sum.",
         check: {
-          question: "Why does deleting an index from a JavaScript array using the delete operator degrade V8 execution performance?",
+          question: "Why does deleting an index from a JavaScript array using the delete operator degrade V8 runtime execution performance?",
           options: [
-            "It introduces an unassigned hole, transitioning the array from PACKED to HOLEY elements and forcing V8 to perform prototype chain traversals on missing indices",
-            "The delete operator instructs the operating system to format the hard drive partition",
-            "Deleting an index forces V8 to recompile all browser CSS stylesheets",
-            "The array length property is permanently converted into a floating-point string",
+            "It triggers an immediate synchronous garbage collection sweep that blocks the main thread while compacting array buffers.",
+            "It causes the array length property to decrement incorrectly, desynchronizing bounds checks inside optimized JIT loops.",
+            "It creates an empty hole, transitioning the array to a HOLEY kind that requires prototype chain lookups for missing indices.",
+            "It forces the engine to serialize the entire elements backing store into a slow string dictionary on the managed heap.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Using delete creates a hole in the array. Holey arrays cannot be read via direct memory pointer offsets because the spec requires checking Array.prototype for the index.",
-          explanation: "Using delete creates a hole in the array. Holey arrays cannot be read via direct memory pointer offsets because the spec requires checking Array.prototype for the index."
+          answer: 2,
+          answerIndex: 2,
+          why: "Using the delete operator introduces an unassigned hole into the contiguous element store. This transitions the array from PACKED to HOLEY elements mode. Because missing indices must fall back to checking Array.prototype per the ECMAScript specification, V8 can no longer perform direct O(1) indexed pointer offsets.",
+          explanation: "Using the delete operator introduces an unassigned hole into the contiguous element store. This transitions the array from PACKED to HOLEY elements mode. Because missing indices must fall back to checking Array.prototype per the ECMAScript specification, V8 can no longer perform direct O(1) indexed pointer offsets."
         }
       },
       {
@@ -1112,17 +1112,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a new user immutably to the users array using array spread and verify initialStore.users remains unmutated.",
         check: {
-          question: "What happens to nested object properties when an object is duplicated using the spread operator ({ ...original })?",
+          question: "What is the memory behavior of nested objects when a JavaScript object is duplicated using the spread operator ({ ...original })?",
           options: [
-            "The nested object pointers are copied by reference, meaning both the original and copied objects point to the identical shared nested memory address",
-            "All nested objects are deeply converted into immutable WebAssembly byte buffers",
-            "The runtime deletes all nested properties to prevent memory leak accumulation",
-            "Nested objects are converted into flat comma-delimited strings",
+            "Top-level properties are cloned, but nested objects copy by reference and continue sharing the same heap address.",
+            "All nested object properties are recursively cloned into distinct heap allocations to ensure complete state isolation.",
+            "The JavaScript engine converts nested objects into immutable read-only records that reject subsequent property writes.",
+            "Properties residing beyond the first nesting level are stripped during spread evaluation to prevent circular references.",
           ],
           answer: 0,
           answerIndex: 0,
-          why: "The spread operator performs a shallow copy: top-level properties are copied, but nested objects remain shared reference pointers pointing to the original heap memory.",
-          explanation: "The spread operator performs a shallow copy: top-level properties are copied, but nested objects remain shared reference pointers pointing to the original heap memory."
+          why: "Object spread syntax creates a shallow copy. While top-level primitive values and direct property keys are copied into a new object instance, properties that hold object references simply copy the pointer address, leaving nested objects structurally shared between both copies.",
+          explanation: "Object spread syntax creates a shallow copy. While top-level primitive values and direct property keys are copied into a new object instance, properties that hold object references simply copy the pointer address, leaving nested objects structurally shared between both copies."
         }
       },
       {
@@ -1179,17 +1179,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add user4Keys with the same order as user1Keys and confirm it reuses Shape_0.",
         check: {
-          question: "What is the primary technical reason why initializing object properties in different orders degrades V8 execution performance?",
+          question: "Why does initializing object properties in different orders across instances degrade property access performance in V8?",
           options: [
-            "V8 constructs separate Hidden Classes (Shapes) for different property transition orders, causing call sites to degrade from monomorphic to polymorphic or megamorphic inline caching",
-            "The browser operating system locks memory pages when object keys are not alphabetical",
-            "V8 converts out-of-order objects into 16-bit audio waveform files",
-            "Different key orders force the CPU to restart the physical motherboard clock",
+            "It breaks lexical scope resolution, forcing the engine to look up property identifiers in the global environment record.",
+            "Out-of-order properties trigger syntax validation re-evaluations during garbage collection marking cycles.",
+            "The runtime must dynamically re-sort object keys alphabetically before executing any property lookup or method invocation.",
+            "It creates divergent Hidden Class transition trees, causing monomorphic inline caches at property access sites to megamorph.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "V8 tracks property offsets in Shape transition trees. Inserting keys in different orders creates divergent Shapes, degrading inline caches to slow megamorphic lookups.",
-          explanation: "V8 tracks property offsets in Shape transition trees. Inserting keys in different orders creates divergent Shapes, degrading inline caches to slow megamorphic lookups."
+          answer: 3,
+          answerIndex: 3,
+          why: "V8 builds deterministic Shape (Hidden Class) transition trees as properties are assigned. Initializing identical properties in different orders produces branching transition paths and distinct Shapes. Functions accessing these objects encounter multiple Shapes, causing fast monomorphic inline caches to degrade into slow megamorphic dictionary lookups.",
+          explanation: "V8 builds deterministic Shape (Hidden Class) transition trees as properties are assigned. Initializing identical properties in different orders produces branching transition paths and distinct Shapes. Functions accessing these objects encounter multiple Shapes, causing fast monomorphic inline caches to degrade into slow megamorphic dictionary lookups."
         }
       },
       {
@@ -1253,17 +1253,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a new post 'p3' referencing authorId 'u1' and verify getPostDetails resolves with the updated name.",
         check: {
-          question: "What is the primary architectural advantage of normalizing client-side application state into 'byId' lookup dictionaries?",
+          question: "What is the primary architectural advantage of normalizing client-side application state into flat 'byId' entity tables?",
           options: [
-            "It eliminates duplicate entity records, ensuring a single source of truth where an update to an entity reflects across all referencing views with zero synchronization drift",
-            "It forces V8 to compress object keys using zip compression",
-            "It prevents users from taking screenshots of application screens",
-            "It automatically converts relational data into SQL statements executed on the client GPU",
+            "It eliminates asynchronous request delays by caching relational server responses directly in client CPU registers.",
+            "It guarantees each entity has a single source of truth, preventing state desynchronization when entities update.",
+            "It minimizes initial JavaScript bundle payload size by compressing entity names into single-character tokens.",
+            "It enables client frameworks to skip virtual DOM reconciliations entirely by bypassing React lifecycle methods.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Normalized state stores each entity exactly once in a byId dictionary, eliminating duplicate copies and ensuring updates are atomic and globally consistent.",
-          explanation: "Normalized state stores each entity exactly once in a byId dictionary, eliminating duplicate copies and ensuring updates are atomic and globally consistent."
+          answer: 1,
+          answerIndex: 1,
+          why: "Normalizing relational state into a single 'byId' lookup table ensures each entity exists in exactly one canonical location. When an entity is updated, all views referencing its identifier immediately reflect the fresh data without requiring complex recursive tree traversals or risking synchronization drift.",
+          explanation: "Normalizing relational state into a single 'byId' lookup table ensures each entity exists in exactly one canonical location. When an entity is updated, all views referencing its identifier immediately reflect the fresh data without requiring complex recursive tree traversals or risking synchronization drift."
         }
       },
       {
@@ -1320,17 +1320,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Verify that attempting to push a new origin into allowedOrigins is blocked by deepFreeze.",
         check: {
-          question: "Why is standard Object.freeze() insufficient on its own for securing deeply nested enterprise state structures?",
+          question: "Why is native Object.freeze() insufficient on its own for safeguarding deeply nested enterprise application state?",
           options: [
-            "Object.freeze() is strictly shallow: it freezes top-level properties but leaves nested objects and arrays completely mutable",
-            "Object.freeze() permanently disables network sockets in Node.js",
-            "Frozen objects cannot be serialized into JSON strings",
-            "Browser engines delete frozen objects after sixty seconds to reclaim heap space",
+            "Frozen objects lose their prototype links, preventing instances from calling inherited array or object utility methods.",
+            "Modern browser engines unfreeze objects automatically once execution transitions out of the current stack frame.",
+            "Object.freeze() is shallow, preventing modifications only to top-level properties while nested objects remain mutable.",
+            "Applying Object.freeze() disables JSON serialization, causing network requests carrying the state to fail silently.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Standard Object.freeze() only prevents modifications to direct top-level properties; any nested objects or arrays retain their mutable behavior unless deepFreeze is recursively applied.",
-          explanation: "Standard Object.freeze() only prevents modifications to direct top-level properties; any nested objects or arrays retain their mutable behavior unless deepFreeze is recursively applied."
+          answer: 2,
+          answerIndex: 2,
+          why: "Object.freeze() performs a shallow freeze: it sets the [[Configurable]] and [[Writable]] attributes of direct top-level properties to false. Any nested child objects or arrays referenced by those properties remain fully mutable unless a recursive deep-freeze utility is applied.",
+          explanation: "Object.freeze() performs a shallow freeze: it sets the [[Configurable]] and [[Writable]] attributes of direct top-level properties to false. Any nested child objects or arrays referenced by those properties remain fully mutable unless a recursive deep-freeze utility is applied."
         }
       },
     ],
