@@ -2,629 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 23,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "compare",
-      "title": "Monolithic Bundle Versus Granular Chunks",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "2f3b28b30abca8ae4754b47d199c264dd75334b6aa396ded65b7f1c753639f69"
+      "partTitle": "The Monolithic Bundle Crisis: Critical Rendering Path & Dynamic import() Specification",
+      "codeHash": "2f3b28b30abca8ae4754b47d199c264dd75334b6aa396ded65b7f1c753639f69",
+      "spec": {
+        "template": "flow",
+        "title": "Dynamic import() & Code Splitting Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "monolithic",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "dynamic",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "chunk",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "asynchronous",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Monolithic client bundles delay initial application paint.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dynamic import specification returns asynchronous promise.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Bundlers extract modules into distinct chunk bundles.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Asynchronous loading optimizes network resource transfers.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Monolithic bundles load all application code upfront.",
-          "data": {
-            "left": {
-              "title": "Monolithic Bundle",
-              "items": [
-                "Excessive initial size",
-                "Heavy parse latency",
-                "Blocks main thread"
-              ]
-            },
-            "right": {
-              "title": "Granular Chunks",
-              "items": [
-                "Split route files",
-                "Parallel multiplexing",
-                "Fast first paint"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "flow",
+        "title": "Dynamic import() & Code Splitting Pipeline",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "monolithic",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "dynamic",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "chunk",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "asynchronous",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Heavy bundles block main thread and delay interactivity.",
-          "data": {
-            "left": {
-              "title": "Monolithic Bundle",
-              "items": [
-                "Excessive initial size",
-                "Heavy parse latency",
-                "Blocks main thread"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Monolithic client bundles delay initial application paint.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
             },
-            "right": {
-              "title": "Granular Chunks",
-              "items": [
-                "Split route files",
-                "Parallel multiplexing",
-                "Fast first paint"
-              ]
+            "tones": {
+              "n1": "error",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dynamic import specification returns asynchronous promise.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Bundlers extract modules into distinct chunk bundles.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Asynchronous loading optimizes network resource transfers.",
+            "values": {
+              "n1": {
+                "text": "monolithic"
+              },
+              "n2": {
+                "text": "dynamic"
+              },
+              "n3": {
+                "text": "chunk"
+              },
+              "n4": {
+                "text": "asynchronous"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "Code splitting generates discrete asynchronous chunks.",
-          "data": {
-            "left": {
-              "title": "Monolithic Bundle",
-              "items": [
-                "Excessive initial size",
-                "Heavy parse latency",
-                "Blocks main thread"
-              ]
-            },
-            "right": {
-              "title": "Granular Chunks",
-              "items": [
-                "Split route files",
-                "Parallel multiplexing",
-                "Fast first paint"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Initial viewport loads fast with minimal byte transfer.",
-          "data": {
-            "left": {
-              "title": "Monolithic Bundle",
-              "items": [
-                "Excessive initial size",
-                "Heavy parse latency",
-                "Blocks main thread"
-              ]
-            },
-            "right": {
-              "title": "Granular Chunks",
-              "items": [
-                "Split route files",
-                "Parallel multiplexing",
-                "Fast first paint"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "flow",
-      "title": "Asynchronous Chunk Resolution Lifecycle",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "8e22458649194a28cb166ab1c9c005e825db3c3e273716311af07513e75f30c5"
+      "partTitle": "React.lazy State Machine & Suspense Boundaries: Declarative Asynchronous Module Resolution",
+      "codeHash": "8e22458649194a28cb166ab1c9c005e825db3c3e273716311af07513e75f30c5",
+      "spec": {
+        "template": "states",
+        "title": "React.lazy State Machine & Suspense Resolution",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Uninitialized",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Pending",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Resolved",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "Rejected",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Component initiates in uninitialized wrapper state.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
+              },
+              "s2": {
+                "text": "Pending"
+              },
+              "s3": {
+                "text": "Resolved"
+              },
+              "s4": {
+                "text": "Rejected"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Module request dispatches while pending promise resolves.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
+              },
+              "s2": {
+                "text": "Pending"
+              },
+              "s3": {
+                "text": "Resolved"
+              },
+              "s4": {
+                "text": "Rejected"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Resolved component renders smoothly inside suspense tree.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
+              },
+              "s2": {
+                "text": "Pending"
+              },
+              "s3": {
+                "text": "Resolved"
+              },
+              "s4": {
+                "text": "Rejected"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Network failures transition state machine to rejected.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
+              },
+              "s2": {
+                "text": "Pending"
+              },
+              "s3": {
+                "text": "Resolved"
+              },
+              "s4": {
+                "text": "Rejected"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Dynamic import initiates network request for target chunk.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Import Trigger",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Network Fetch",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Bytecode Parse",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Component Mount",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "states",
+        "title": "React.lazy State Machine & Suspense Resolution",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Uninitialized",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Pending",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Resolved",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "Rejected",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Browser downloads chunk over multiplexed connection.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Import Trigger",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Component initiates in uninitialized wrapper state.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
               },
-              {
-                "id": "n2",
-                "label": "Network Fetch",
-                "tappable": false,
-                "active": true
+              "s2": {
+                "text": "Pending"
               },
-              {
-                "id": "n3",
-                "label": "Bytecode Parse",
-                "tappable": false,
-                "active": false
+              "s3": {
+                "text": "Resolved"
               },
-              {
-                "id": "n4",
-                "label": "Component Mount",
-                "tappable": false,
-                "active": false
+              "s4": {
+                "text": "Rejected"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Engine parses and compiles module bytecode off thread.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Import Trigger",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Module request dispatches while pending promise resolves.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
               },
-              {
-                "id": "n2",
-                "label": "Network Fetch",
-                "tappable": false,
-                "active": false
+              "s2": {
+                "text": "Pending"
               },
-              {
-                "id": "n3",
-                "label": "Bytecode Parse",
-                "tappable": false,
-                "active": true
+              "s3": {
+                "text": "Resolved"
               },
-              {
-                "id": "n4",
-                "label": "Component Mount",
-                "tappable": false,
-                "active": false
+              "s4": {
+                "text": "Rejected"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Lazy component resolves and replaces skeleton fallback.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Import Trigger",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Resolved component renders smoothly inside suspense tree.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
               },
-              {
-                "id": "n2",
-                "label": "Network Fetch",
-                "tappable": false,
-                "active": false
+              "s2": {
+                "text": "Pending"
               },
-              {
-                "id": "n3",
-                "label": "Bytecode Parse",
-                "tappable": false,
-                "active": false
+              "s3": {
+                "text": "Resolved"
               },
-              {
-                "id": "n4",
-                "label": "Component Mount",
-                "tappable": false,
-                "active": true
+              "s4": {
+                "text": "Rejected"
               }
-            ]
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Network failures transition state machine to rejected.",
+            "values": {
+              "s1": {
+                "text": "Uninitialized"
+              },
+              "s2": {
+                "text": "Pending"
+              },
+              "s3": {
+                "text": "Resolved"
+              },
+              "s4": {
+                "text": "Rejected"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "error"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "boxes",
-      "title": "Predictive Route Prefetch Pipeline",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "2aa786a6d80dded903e5a5d3cfa88b7d9af26342adb0515f777657c43a1df22d"
+      "partTitle": "Route-Based Splitting & Predictive Prefetching: link rel=modulepreload & Viewport Intersection",
+      "codeHash": "2aa786a6d80dded903e5a5d3cfa88b7d9af26342adb0515f777657c43a1df22d",
+      "spec": {
+        "template": "flow",
+        "title": "Route-Based Splitting & Predictive Prefetching",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "route",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "prefetch",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "network",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "navigation",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architects partition bundles along distinct route paths.",
+            "values": {
+              "n1": {
+                "text": "route"
+              },
+              "n2": {
+                "text": "prefetch"
+              },
+              "n3": {
+                "text": "network"
+              },
+              "n4": {
+                "text": "navigation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Predictive prefetch fetches modules before navigation.",
+            "values": {
+              "n1": {
+                "text": "route"
+              },
+              "n2": {
+                "text": "prefetch"
+              },
+              "n3": {
+                "text": "network"
+              },
+              "n4": {
+                "text": "navigation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Network heuristics initiate prefetching ahead of time.",
+            "values": {
+              "n1": {
+                "text": "route"
+              },
+              "n2": {
+                "text": "prefetch"
+              },
+              "n3": {
+                "text": "network"
+              },
+              "n4": {
+                "text": "navigation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Declarative hints eliminate latency during navigation.",
+            "values": {
+              "n1": {
+                "text": "route"
+              },
+              "n2": {
+                "text": "prefetch"
+              },
+              "n3": {
+                "text": "network"
+              },
+              "n4": {
+                "text": "navigation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Navigation link enters user viewport or hover focus.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Link Viewport Entry",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Idle Callback",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Preload Fetch",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Instant Navigation",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Route-Based Splitting & Predictive Prefetching",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "route",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "prefetch",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "network",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "navigation",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Idle callback schedules prefetch during spare cycles.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Link Viewport Entry",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Architects partition bundles along distinct route paths.",
+            "values": {
+              "n1": {
+                "text": "route"
               },
-              {
-                "id": "b2",
-                "label": "Idle Callback",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "prefetch"
               },
-              {
-                "id": "b3",
-                "label": "Preload Fetch",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "network"
               },
-              {
-                "id": "b4",
-                "label": "Instant Navigation",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "navigation"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Module preload fetches chunk into browser disk cache.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Link Viewport Entry",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Predictive prefetch fetches modules before navigation.",
+            "values": {
+              "n1": {
+                "text": "route"
               },
-              {
-                "id": "b2",
-                "label": "Idle Callback",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "prefetch"
               },
-              {
-                "id": "b3",
-                "label": "Preload Fetch",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "network"
               },
-              {
-                "id": "b4",
-                "label": "Instant Navigation",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "navigation"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "User navigation transitions instantly without spinners.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Link Viewport Entry",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Network heuristics initiate prefetching ahead of time.",
+            "values": {
+              "n1": {
+                "text": "route"
               },
-              {
-                "id": "b2",
-                "label": "Idle Callback",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "prefetch"
               },
-              {
-                "id": "b3",
-                "label": "Preload Fetch",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "network"
               },
-              {
-                "id": "b4",
-                "label": "Instant Navigation",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "navigation"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Declarative hints eliminate latency during navigation.",
+            "values": {
+              "n1": {
+                "text": "route"
+              },
+              "n2": {
+                "text": "prefetch"
+              },
+              "n3": {
+                "text": "network"
+              },
+              "n4": {
+                "text": "navigation"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "compare",
-      "title": "Tree Shaking Dead Code Pruning",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "6fc15d6355c9211e6a70f4ea586516b6e21ce021de523cd776750cd45bfe1b37"
+      "partTitle": "Tree-Shaking & Dead Code Elimination: ESM Static Analysis, sideEffects: false & Barrel Mitigation",
+      "codeHash": "6fc15d6355c9211e6a70f4ea586516b6e21ce021de523cd776750cd45bfe1b37",
+      "spec": {
+        "template": "boxes",
+        "title": "Tree-Shaking & Dead Code Elimination Mechanics",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "shaking",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "sideEffects",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "barrel",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "elimination",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static import syntax allows bundlers to detect unused code.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Configuring sideEffects flag allows safe pruning.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Shared barrel files prevent fine-grained module pruning.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Dead code elimination purges unreferenced module exports.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Libraries often export hundreds of unreferenced symbols.",
-          "data": {
-            "left": {
-              "title": "Unpruned Library",
-              "items": [
-                "Unused icon exports",
-                "Dead utility functions",
-                "Heavy bundle payload"
-              ]
-            },
-            "right": {
-              "title": "Tree Shaken Module",
-              "items": [
-                "Live symbols only",
-                "Side effects disabled",
-                "Lean production chunk"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "boxes",
+        "title": "Tree-Shaking & Dead Code Elimination Mechanics",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "shaking",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "sideEffects",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "barrel",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "elimination",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Common module formats bundle dead exports conservatively.",
-          "data": {
-            "left": {
-              "title": "Unpruned Library",
-              "items": [
-                "Unused icon exports",
-                "Dead utility functions",
-                "Heavy bundle payload"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Static import syntax allows bundlers to detect unused code.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
             },
-            "right": {
-              "title": "Tree Shaken Module",
-              "items": [
-                "Live symbols only",
-                "Side effects disabled",
-                "Lean production chunk"
-              ]
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Configuring sideEffects flag allows safe pruning.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Shared barrel files prevent fine-grained module pruning.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "error",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Dead code elimination purges unreferenced module exports.",
+            "values": {
+              "b1": {
+                "text": "shaking"
+              },
+              "b2": {
+                "text": "sideEffects"
+              },
+              "b3": {
+                "text": "barrel"
+              },
+              "b4": {
+                "text": "elimination"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "Static imports enable static graph dependency analysis.",
-          "data": {
-            "left": {
-              "title": "Unpruned Library",
-              "items": [
-                "Unused icon exports",
-                "Dead utility functions",
-                "Heavy bundle payload"
-              ]
-            },
-            "right": {
-              "title": "Tree Shaken Module",
-              "items": [
-                "Live symbols only",
-                "Side effects disabled",
-                "Lean production chunk"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Production chunks retain only actively referenced symbols.",
-          "data": {
-            "left": {
-              "title": "Unpruned Library",
-              "items": [
-                "Unused icon exports",
-                "Dead utility functions",
-                "Heavy bundle payload"
-              ]
-            },
-            "right": {
-              "title": "Tree Shaken Module",
-              "items": [
-                "Live symbols only",
-                "Side effects disabled",
-                "Lean production chunk"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "flow",
-      "title": "Immutable Asset Delivery Verification",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "aec95c1fe0dfe1af5498c1d522a8eacdf8c04b646b445fc330a1171f0ff4664a"
+      "partTitle": "Enterprise Asset Delivery & Production Bundle Auditing: CI Budgets, Content Hashing & Brotli",
+      "codeHash": "aec95c1fe0dfe1af5498c1d522a8eacdf8c04b646b445fc330a1171f0ff4664a",
+      "spec": {
+        "template": "flow",
+        "title": "Production Asset Delivery & Immutable Caching",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "delivery",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "immutable",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "compression",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "budget",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asset delivery pipeline ensures fast global distribution.",
+            "values": {
+              "n1": {
+                "text": "delivery"
+              },
+              "n2": {
+                "text": "immutable"
+              },
+              "n3": {
+                "text": "compression"
+              },
+              "n4": {
+                "text": "budget"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Content hashes enable immutable caching on edge servers.",
+            "values": {
+              "n1": {
+                "text": "delivery"
+              },
+              "n2": {
+                "text": "immutable"
+              },
+              "n3": {
+                "text": "compression"
+              },
+              "n4": {
+                "text": "budget"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Modern Brotli compression shrinks chunk transfer sizes.",
+            "values": {
+              "n1": {
+                "text": "delivery"
+              },
+              "n2": {
+                "text": "immutable"
+              },
+              "n3": {
+                "text": "compression"
+              },
+              "n4": {
+                "text": "budget"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated CI budget alerts catch unexpected bundle spikes.",
+            "values": {
+              "n1": {
+                "text": "delivery"
+              },
+              "n2": {
+                "text": "immutable"
+              },
+              "n3": {
+                "text": "compression"
+              },
+              "n4": {
+                "text": "budget"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Build pipeline assigns cryptographic hash to each chunk.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Content Hashing",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Immutable Header",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Edge Compression",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Browser Cache Hit",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Production Asset Delivery & Immutable Caching",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "delivery",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "immutable",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "compression",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "budget",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Edge headers configure one year immutable cache policy.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Content Hashing",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asset delivery pipeline ensures fast global distribution.",
+            "values": {
+              "n1": {
+                "text": "delivery"
               },
-              {
-                "id": "n2",
-                "label": "Immutable Header",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "immutable"
               },
-              {
-                "id": "n3",
-                "label": "Edge Compression",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "compression"
               },
-              {
-                "id": "n4",
-                "label": "Browser Cache Hit",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "budget"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Brotli compression pre-compresses static chunks.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Content Hashing",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Content hashes enable immutable caching on edge servers.",
+            "values": {
+              "n1": {
+                "text": "delivery"
               },
-              {
-                "id": "n2",
-                "label": "Immutable Header",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "immutable"
               },
-              {
-                "id": "n3",
-                "label": "Edge Compression",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "compression"
               },
-              {
-                "id": "n4",
-                "label": "Browser Cache Hit",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "budget"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Returning users load assets instantly from local disk.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Content Hashing",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Modern Brotli compression shrinks chunk transfer sizes.",
+            "values": {
+              "n1": {
+                "text": "delivery"
               },
-              {
-                "id": "n2",
-                "label": "Immutable Header",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "immutable"
               },
-              {
-                "id": "n3",
-                "label": "Edge Compression",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "compression"
               },
-              {
-                "id": "n4",
-                "label": "Browser Cache Hit",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "budget"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated CI budget alerts catch unexpected bundle spikes.",
+            "values": {
+              "n1": {
+                "text": "delivery"
+              },
+              "n2": {
+                "text": "immutable"
+              },
+              "n3": {
+                "text": "compression"
+              },
+              "n4": {
+                "text": "budget"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
