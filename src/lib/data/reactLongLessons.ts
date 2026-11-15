@@ -1414,17 +1414,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Expand customRange to 5 and verify that iterableValues logs [10, 20, 30, 40, 50] deterministically.",
         check: {
-          question: "Why is iterating arrays with for...in considered an anti-pattern in high-performance JavaScript engines?",
+          question: "Why is iterating through an array using a for...in loop considered an anti-pattern in performance-critical JavaScript?",
           options: [
-            "for...in traverses the entire prototype chain and yields array indices as strings rather than numbers, defeating JIT compiler optimizations",
-            "for...in triggers an immediate kernel page fault on POSIX operating systems",
-            "for...in deletes all even indices from the underlying array buffer",
-            "for...in converts the JavaScript runtime into synchronous single-byte assembly",
+            "It halts asynchronous timers and microtasks until the entire array traversal has fully completed.",
+            "It forces the engine to serialize the array elements into a JSON string before beginning iteration.",
+            "It enumerates enumerable prototype properties and yields string indices, disabling optimized loop JIT paths.",
+            "It allocates an independent iterator object on the managed heap for every individual array element visited.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "for...in enumerates all own and inherited enumerable string properties across the prototype chain, causing severe performance penalties and string index coercion.",
-          explanation: "for...in enumerates all own and inherited enumerable string properties across the prototype chain, causing severe performance penalties and string index coercion."
+          answer: 2,
+          answerIndex: 2,
+          why: "A for...in loop is intended for arbitrary object property enumeration. When used on arrays, it traverses the prototype chain, visits non-index enumerable properties, and yields indices as string keys rather than integer offsets, deoptimizing V8's contiguous indexing paths.",
+          explanation: "A for...in loop is intended for arbitrary object property enumeration. When used on arrays, it traverses the prototype chain, visits non-index enumerable properties, and yields indices as string keys rather than integer offsets, deoptimizing V8's contiguous indexing paths."
         }
       },
       {
@@ -1474,17 +1474,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a new error event to telemetryEvents and verify both chained and single-pass pipelines output 3 items.",
         check: {
-          question: "What is the primary performance drawback of chaining multiple array methods (.filter().map().filter()) on large datasets?",
+          question: "What is the primary memory and runtime performance cost of chaining multiple array methods like .filter().map().filter()?",
           options: [
-            "Each chained method allocates a completely new intermediate array in memory, creating significant heap allocation and garbage collection churn",
-            "Chaining array methods permanently reduces the available virtual RAM in the host operating system",
-            "Method chaining forces the browser to serialize all data over WebSockets",
-            "JavaScript only permits a maximum of two chained higher-order methods per application",
+            "Each pipeline stage creates a complete intermediate array buffer, increasing memory consumption and GC churn.",
+            "The JavaScript engine converts the entire dataset into a synchronous generator, blocking event loop processing.",
+            "Chained higher-order methods must compile to native WebAssembly modules before evaluating data records.",
+            "Each method invocation forces the browser to re-render visible DOM elements before passing data down the chain.",
           ],
           answer: 0,
           answerIndex: 0,
-          why: "Every method in a chain produces a complete intermediate array buffer, increasing memory consumption and forcing the GC to scavenge short-lived objects.",
-          explanation: "Every method in a chain produces a complete intermediate array buffer, increasing memory consumption and forcing the GC to scavenge short-lived objects."
+          why: "Standard array transformation methods (.filter(), .map()) eagerly allocate and return a completely new array instance for each step. Chaining multiple methods over large datasets generates multiple discarded intermediate arrays, bloating the heap and triggering frequent garbage collection scavenge pauses.",
+          explanation: "Standard array transformation methods (.filter(), .map()) eagerly allocate and return a completely new array instance for each step. Chaining multiple methods over large datasets generates multiple discarded intermediate arrays, bloating the heap and triggering frequent garbage collection scavenge pauses."
         }
       },
       {
@@ -1530,17 +1530,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Verify that originalScores[1] is still 10 even after modifiedScores replaces index 1 with 99.",
         check: {
-          question: "Why does calling originalArray.sort() inside a React state setter or reducer frequently cause UI update failure?",
+          question: "Why does invoking array.sort() directly on state arrays inside React event handlers or reducers frequently fail to trigger a re-render?",
           options: [
-            "sort() mutates the array in place without changing its memory pointer, causing React's shallow equality check (prev === next) to conclude state has not changed",
-            "sort() immediately triggers an unhandled network abort signal",
-            "sort() converts all array elements into binary executable files",
-            "React explicitly blocks all array methods that begin with the letter s",
+            "React intercepts calls to sort() and throws a silent warning that suppresses the active state dispatch.",
+            "Modern browser engines freeze arrays automatically whenever they are passed into React component props.",
+            "Sorting causes all array elements to be converted into string types, which React refuses to reconcile.",
+            "sort() mutates the array in place, so the reference pointer remains identical and React's shallow check detects no change.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "React relies on referential identity. Because sort() mutates in place, the array pointer remains identical, causing React to skip reconciliation.",
-          explanation: "React relies on referential identity. Because sort() mutates in place, the array pointer remains identical, causing React to skip reconciliation."
+          answer: 3,
+          answerIndex: 3,
+          why: "Native sort() mutates array elements in place without allocating a new array instance. Because React uses Object.is() shallow reference equality to determine if state has changed, it sees the exact same memory address (previous === next) and skips re-rendering the component.",
+          explanation: "Native sort() mutates array elements in place without allocating a new array instance. Because React uses Object.is() shallow reference equality to determine if state has changed, it sees the exact same memory address (previous === next) and skips re-rendering the component."
         }
       },
       {
@@ -1606,17 +1606,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Simulate appending item_C to initial and compare operation counts between index and stable ID matching.",
         check: {
-          question: "What critical user-facing bug occurs when array indices are used as React keys on lists that support sorting or insertion?",
+          question: "What failure occurs when using array indices as keys for dynamic list items that can be reordered, inserted, or deleted in React?",
           options: [
-            "Uncontrolled component state (such as input text and focus) remains tethered to the array index, bleeding onto the wrong items when the collection is reordered",
-            "The browser GPU overheats and terminates the display driver",
-            "React crashes with an uncatchable syntax error",
-            "The backend database rolls back the latest committed transaction",
+            "The React reconciler crashes with an unhandled exception because keys must be globally unique strings.",
+            "Uncontrolled state like text inputs remains bound to the index, bleeding onto the wrong items when order shifts.",
+            "The browser virtual DOM engine deletes the parent container element when an item index changes position.",
+            "React permanently disables component memoization for the entire application when array indices are detected.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Because React associates Fiber nodes with keys, matching by index causes React to preserve local DOM and state in the wrong items when order shifts.",
-          explanation: "Because React associates Fiber nodes with keys, matching by index causes React to preserve local DOM and state in the wrong items when order shifts."
+          answer: 1,
+          answerIndex: 1,
+          why: "When items reorder or an element is prepended, array indices change. Because React uses the key prop to preserve component instance and DOM node identity across reconciliation passes, matching by index causes React to preserve local state (like input focus or checkbox checked state) on the same index rather than following the moving item.",
+          explanation: "When items reorder or an element is prepended, array indices change. Because React uses the key prop to preserve component instance and DOM node identity across reconciliation passes, matching by index causes React to preserve local state (like input focus or checkbox checked state) on the same index rather than following the moving item."
         }
       },
       {
@@ -1713,17 +1713,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a transaction for u102 and verify that report for u101 is completely unaffected.",
         check: {
-          question: "In the Milestone 1 Architecture Capstone, how does the query engine achieve high throughput when aggregating user spending?",
+          question: "In the Milestone 1 Architecture Capstone, how does the analytical query engine compute aggregated user metrics efficiently?",
           options: [
-            "It uses a single-pass reduce loop over normalized byId/allIds structures, eliminating intermediate array allocations while executing relational filtering and summation in O(N) time",
-            "It spawns four hundred background web workers to perform basic integer addition",
-            "It sends SQL queries over WebSockets to an external server on every function call",
-            "It serializes the entire store into base64 strings and executes regex pattern matching",
+            "It offloads all arithmetic operations to a background web worker that compiles the records to WebAssembly.",
+            "It reads from normalized byId dictionaries in a single-pass reduce loop, avoiding intermediate array allocations.",
+            "It creates deeply nested state clones at each step to ensure full structural isolation during calculation.",
+            "It serializes the transaction history into an indexed IndexedDB storage database before running queries.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "The engine processes normalized entity dictionaries directly in a single pass, avoiding the GC overhead of intermediate arrays and providing instant O(N) aggregation.",
-          explanation: "The engine processes normalized entity dictionaries directly in a single pass, avoiding the GC overhead of intermediate arrays and providing instant O(N) aggregation."
+          answer: 1,
+          answerIndex: 1,
+          why: "By structuring state in normalized byId lookup dictionaries, the engine accesses records in O(1) time and aggregates transactions via a single-pass reduce loop. This achieves deterministic O(N) throughput while eliminating the memory bloat and GC pauses of intermediate array allocations.",
+          explanation: "By structuring state in normalized byId lookup dictionaries, the engine accesses records in O(1) time and aggregates transactions via a single-pass reduce loop. This achieves deterministic O(N) throughput while eliminating the memory bloat and GC pauses of intermediate array allocations."
         }
       },
     ],

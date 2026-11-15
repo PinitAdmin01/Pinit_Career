@@ -10,45 +10,45 @@
       "codeHash": "80e9d94ae5f9ed87084e35560ce8b82d74c7097f5667df513cb6ba409718405d",
       "spec": {
         "template": "flow",
-        "title": "Loop Topologies and Virtual Machine Optimization",
+        "title": "Loop Topologies, Iterable Protocols, and JIT Optimization",
         "nodes": [
           {
             "id": "n1",
-            "label": "Indexed For Loop",
+            "label": "classic indexed",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "Iterable Protocol",
+            "label": "On-Stack Replacement",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Prototype Traverser",
+            "label": "Iterable Protocol",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "On-Stack Replacement",
+            "label": "prototype chain",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Indexed for loop compiles to vectorized machine instructions.",
+            "at": "say2",
+            "caption": "Classic indexed loops run at raw machine speed in flat memory buffers.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
@@ -60,20 +60,20 @@
             "arrows": []
           },
           {
-            "at": "say2",
-            "caption": "For-of loop instantiates iterator protocol wrapper objects.",
+            "at": "say3",
+            "caption": "On stack replacement upgrades long running loops directly in memory.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
@@ -90,20 +90,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "For-in loop traverses full prototype chain extracting string keys.",
+            "at": "say4",
+            "caption": "The iterable protocol governs standard iteration across collections.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
@@ -124,27 +124,27 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "On-stack replacement promotes hot loops to compiled native code.",
+            "at": "say6",
+            "caption": "Iterating arrays with prototype chain traversal causes deoptimization.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "error"
             },
             "arrows": [
               [
@@ -165,45 +165,45 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Loop Topologies and Virtual Machine Optimization",
+        "title": "Loop Topologies, Iterable Protocols, and JIT Optimization",
         "nodes": [
           {
             "id": "n1",
-            "label": "Indexed For Loop",
+            "label": "classic indexed",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "Iterable Protocol",
+            "label": "On-Stack Replacement",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Prototype Traverser",
+            "label": "Iterable Protocol",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "On-Stack Replacement",
+            "label": "prototype chain",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Indexed for loop compiles to vectorized machine instructions.",
+            "at": "say2",
+            "caption": "Classic indexed loops run at raw machine speed in flat memory buffers.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
@@ -215,20 +215,20 @@
             "arrows": []
           },
           {
-            "at": "say2",
-            "caption": "For-of loop instantiates iterator protocol wrapper objects.",
+            "at": "say3",
+            "caption": "On stack replacement upgrades long running loops directly in memory.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
@@ -245,20 +245,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "For-in loop traverses full prototype chain extracting string keys.",
+            "at": "say4",
+            "caption": "The iterable protocol governs standard iteration across collections.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
@@ -279,27 +279,27 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "On-stack replacement promotes hot loops to compiled native code.",
+            "at": "say6",
+            "caption": "Iterating arrays with prototype chain traversal causes deoptimization.",
             "values": {
               "n1": {
-                "text": "\"Indexed For Loop\""
+                "text": "classic indexed"
               },
               "n2": {
-                "text": "\"Iterable Protocol\""
+                "text": "On-Stack Replacement"
               },
               "n3": {
-                "text": "\"Prototype Traverser\""
+                "text": "Iterable Protocol"
               },
               "n4": {
-                "text": "\"On-Stack Replacement\""
+                "text": "prototype chain"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "error"
             },
             "arrows": [
               [
@@ -324,248 +324,248 @@
       "codeHash": "9109a4e2ceefd6df00dd95f9aa9e358799987c4d6e33591b6b17254ab19a0234",
       "spec": {
         "template": "boxes",
-        "title": "Chained Method Allocations vs Single-Pass Reduction",
+        "title": "Declarative Collection Pipelines and Single-Pass Aggregations",
         "boxes": [
           {
             "id": "b1",
-            "label": "Source Collection",
+            "label": "Category Theory",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Filter Intermediate",
+            "label": "Functor Laws",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Map Intermediate",
+            "label": "Single-Pass Aggregation",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Single-Pass Accumulator",
+            "label": "Young Generation",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Method chaining allocates intermediate array for filter pass.",
+            "at": "say2",
+            "caption": "Chaining array methods creates heavy intermediate buffer allocations.",
             "values": {
               "b1": {
-                "text": "\"Source Collection\""
+                "text": "Category Theory"
               },
               "b2": {
-                "text": "\"Filter Intermediate\""
+                "text": "Functor Laws"
               },
               "b3": {
-                "text": "\"Map Intermediate\""
+                "text": "Single-Pass Aggregation"
               },
               "b4": {
-                "text": "\"Single-Pass Accumulator\""
+                "text": "Young Generation"
               }
             },
             "tones": {
-              "b1": "data",
+              "b1": "idle",
               "b2": "idle",
               "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Secondary map allocates second intermediate array in heap nursery.",
-            "values": {
-              "b1": {
-                "text": "\"Source Collection\""
-              },
-              "b2": {
-                "text": "\"Filter Intermediate\""
-              },
-              "b3": {
-                "text": "\"Map Intermediate\""
-              },
-              "b4": {
-                "text": "\"Single-Pass Accumulator\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
+              "b4": "data"
             }
           },
           {
             "at": "say3",
-            "caption": "Garbage collector pauses main thread to scavenge intermediate arrays.",
+            "caption": "Declarative collection pipelines satisfy mathematical functor laws.",
             "values": {
               "b1": {
-                "text": "\"Source Collection\""
+                "text": "Category Theory"
               },
               "b2": {
-                "text": "\"Filter Intermediate\""
+                "text": "Functor Laws"
               },
               "b3": {
-                "text": "\"Map Intermediate\""
+                "text": "Single-Pass Aggregation"
               },
               "b4": {
-                "text": "\"Single-Pass Accumulator\""
+                "text": "Young Generation"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "data",
+              "b3": "idle",
               "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Single-pass reduce computes final result with zero throwaway arrays.",
+            "caption": "Single pass aggregation eliminates multiple discarded array buffers.",
             "values": {
               "b1": {
-                "text": "\"Source Collection\""
+                "text": "Category Theory"
               },
               "b2": {
-                "text": "\"Filter Intermediate\""
+                "text": "Functor Laws"
               },
               "b3": {
-                "text": "\"Map Intermediate\""
+                "text": "Single-Pass Aggregation"
               },
               "b4": {
-                "text": "\"Single-Pass Accumulator\""
+                "text": "Young Generation"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "data",
+              "b1": "ok",
+              "b2": "ok",
               "b3": "data",
-              "b4": "data"
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Avoiding nursery allocation protects the young generation from churn.",
+            "values": {
+              "b1": {
+                "text": "Category Theory"
+              },
+              "b2": {
+                "text": "Functor Laws"
+              },
+              "b3": {
+                "text": "Single-Pass Aggregation"
+              },
+              "b4": {
+                "text": "Young Generation"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Chained Method Allocations vs Single-Pass Reduction",
+        "title": "Declarative Collection Pipelines and Single-Pass Aggregations",
         "boxes": [
           {
             "id": "b1",
-            "label": "Source Collection",
+            "label": "Category Theory",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Filter Intermediate",
+            "label": "Functor Laws",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Map Intermediate",
+            "label": "Single-Pass Aggregation",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Single-Pass Accumulator",
+            "label": "Young Generation",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Method chaining allocates intermediate array for filter pass.",
+            "at": "say2",
+            "caption": "Chaining array methods creates heavy intermediate buffer allocations.",
             "values": {
               "b1": {
-                "text": "\"Source Collection\""
+                "text": "Category Theory"
               },
               "b2": {
-                "text": "\"Filter Intermediate\""
+                "text": "Functor Laws"
               },
               "b3": {
-                "text": "\"Map Intermediate\""
+                "text": "Single-Pass Aggregation"
               },
               "b4": {
-                "text": "\"Single-Pass Accumulator\""
+                "text": "Young Generation"
               }
             },
             "tones": {
-              "b1": "data",
+              "b1": "idle",
               "b2": "idle",
               "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Secondary map allocates second intermediate array in heap nursery.",
-            "values": {
-              "b1": {
-                "text": "\"Source Collection\""
-              },
-              "b2": {
-                "text": "\"Filter Intermediate\""
-              },
-              "b3": {
-                "text": "\"Map Intermediate\""
-              },
-              "b4": {
-                "text": "\"Single-Pass Accumulator\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
+              "b4": "data"
             }
           },
           {
             "at": "say3",
-            "caption": "Garbage collector pauses main thread to scavenge intermediate arrays.",
+            "caption": "Declarative collection pipelines satisfy mathematical functor laws.",
             "values": {
               "b1": {
-                "text": "\"Source Collection\""
+                "text": "Category Theory"
               },
               "b2": {
-                "text": "\"Filter Intermediate\""
+                "text": "Functor Laws"
               },
               "b3": {
-                "text": "\"Map Intermediate\""
+                "text": "Single-Pass Aggregation"
               },
               "b4": {
-                "text": "\"Single-Pass Accumulator\""
+                "text": "Young Generation"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
-              "b3": "data",
+              "b3": "idle",
               "b4": "idle"
             }
           },
           {
             "at": "say4",
-            "caption": "Single-pass reduce computes final result with zero throwaway arrays.",
+            "caption": "Single pass aggregation eliminates multiple discarded array buffers.",
             "values": {
               "b1": {
-                "text": "\"Source Collection\""
+                "text": "Category Theory"
               },
               "b2": {
-                "text": "\"Filter Intermediate\""
+                "text": "Functor Laws"
               },
               "b3": {
-                "text": "\"Map Intermediate\""
+                "text": "Single-Pass Aggregation"
               },
               "b4": {
-                "text": "\"Single-Pass Accumulator\""
+                "text": "Young Generation"
               }
             },
             "tones": {
-              "b1": "data",
-              "b2": "data",
+              "b1": "ok",
+              "b2": "ok",
               "b3": "data",
-              "b4": "data"
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Avoiding nursery allocation protects the young generation from churn.",
+            "values": {
+              "b1": {
+                "text": "Category Theory"
+              },
+              "b2": {
+                "text": "Functor Laws"
+              },
+              "b3": {
+                "text": "Single-Pass Aggregation"
+              },
+              "b4": {
+                "text": "Young Generation"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
@@ -576,160 +576,248 @@
       "codeHash": "b44c04fcc260928b365c6d0d035880ddcb2045151410b487506fc18df12ed98b",
       "spec": {
         "template": "compare",
-        "title": "Mutating Array Methods vs Change-By-Copy Derivation",
-        "leftLabel": "Standard Execution",
-        "rightLabel": "Optimized Pipeline",
-        "steps": [
+        "title": "In-Place Array Mutation vs Immutable Derivation Contracts",
+        "rows": [
           {
-            "at": "say1",
-            "caption": "In-place sort mutates original memory buffer destroying history.",
-            "left": {
-              "code": "// Left pipeline phase 1",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 1",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
+            "id": "r1",
+            "label": "sort",
+            "tappable": false
           },
           {
+            "id": "r2",
+            "label": "toSorted",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Timsort",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Concurrent Mode",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Identical pointer tricks reactive frameworks into skipping renders.",
-            "left": {
-              "code": "// Left pipeline phase 2",
-              "result": {
-                "text": "\"Standard\""
+            "caption": "Built in sorting algorithms mutate original memory buffers in place.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "data"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
             },
-            "right": {
-              "code": "// Optimized pipeline phase 2",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Immutable derivation creates clean copy with modifications applied.",
-            "left": {
-              "code": "// Left pipeline phase 3",
-              "result": {
-                "text": "\"Standard\""
+            "caption": "Modern engines optimize sorting passes using the timsort algorithm.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "data"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
             },
-            "right": {
-              "code": "// Optimized pipeline phase 3",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "data",
+              "r4": "idle"
             }
           },
           {
-            "at": "say4",
-            "caption": "Fresh memory address triggers reliable reconciliation across views.",
-            "left": {
-              "code": "// Left pipeline phase 4",
-              "result": {
-                "text": "\"Standard\""
+            "at": "say5",
+            "caption": "In place array mutation breaks rendering in modern concurrent mode.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "data"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
             },
-            "right": {
-              "code": "// Optimized pipeline phase 4",
-              "result": {
-                "text": "\"Optimized\""
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "data",
+              "r4": "error"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Immutable derivation methods return fresh array copies deterministically.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "ok"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "compare",
-        "title": "Mutating Array Methods vs Change-By-Copy Derivation",
-        "leftLabel": "Standard Execution",
-        "rightLabel": "Optimized Pipeline",
-        "steps": [
+        "title": "In-Place Array Mutation vs Immutable Derivation Contracts",
+        "rows": [
           {
-            "at": "say1",
-            "caption": "In-place sort mutates original memory buffer destroying history.",
-            "left": {
-              "code": "// Left pipeline phase 1",
-              "result": {
-                "text": "\"Standard\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "// Optimized pipeline phase 1",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
-            }
+            "id": "r1",
+            "label": "sort",
+            "tappable": false
           },
           {
+            "id": "r2",
+            "label": "toSorted",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Timsort",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Concurrent Mode",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
             "at": "say2",
-            "caption": "Identical pointer tricks reactive frameworks into skipping renders.",
-            "left": {
-              "code": "// Left pipeline phase 2",
-              "result": {
-                "text": "\"Standard\""
+            "caption": "Built in sorting algorithms mutate original memory buffers in place.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "data"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
             },
-            "right": {
-              "code": "// Optimized pipeline phase 2",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Immutable derivation creates clean copy with modifications applied.",
-            "left": {
-              "code": "// Left pipeline phase 3",
-              "result": {
-                "text": "\"Standard\""
+            "caption": "Modern engines optimize sorting passes using the timsort algorithm.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "data"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
             },
-            "right": {
-              "code": "// Optimized pipeline phase 3",
-              "result": {
-                "text": "\"Optimized\""
-              },
-              "tone": "ok"
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "data",
+              "r4": "idle"
             }
           },
           {
-            "at": "say4",
-            "caption": "Fresh memory address triggers reliable reconciliation across views.",
-            "left": {
-              "code": "// Left pipeline phase 4",
-              "result": {
-                "text": "\"Standard\""
+            "at": "say5",
+            "caption": "In place array mutation breaks rendering in modern concurrent mode.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "data"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
             },
-            "right": {
-              "code": "// Optimized pipeline phase 4",
-              "result": {
-                "text": "\"Optimized\""
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "data",
+              "r4": "error"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Immutable derivation methods return fresh array copies deterministically.",
+            "values": {
+              "r1": {
+                "text": "sort"
               },
-              "tone": "ok"
+              "r2": {
+                "text": "toSorted"
+              },
+              "r3": {
+                "text": "Timsort"
+              },
+              "r4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "ok"
             }
           }
         ]
@@ -740,45 +828,45 @@
       "codeHash": "f331d364eccb07d92bd2067fc18d3839f9e747fbff9a5706c087413cf8436732",
       "spec": {
         "template": "flow",
-        "title": "React Fiber Reconciliation and Spatial Identity Keys",
+        "title": "React Fiber List Reconciliation and Key Prop Heuristics",
         "nodes": [
           {
             "id": "n1",
-            "label": "Sequential Scan",
+            "label": "Spatial Identity",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "Key Mismatch",
+            "label": "ReactChildFiber",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Map Lookup Table",
+            "label": "Fiber",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Reused Fiber Node",
+            "label": "key prop",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Reconciler executes fast sequential scan across matching keys.",
+            "at": "say2",
+            "caption": "The key prop establishes a spatial identity for each component fiber.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
@@ -790,20 +878,20 @@
             "arrows": []
           },
           {
-            "at": "say2",
-            "caption": "Key mismatch switches diffing engine to key-value lookup map.",
+            "at": "say3",
+            "caption": "The fiber reconciler traverses child nodes to match existing elements.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
@@ -820,20 +908,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Existing Fiber reuses corresponding DOM node preserving input state.",
+            "at": "say4",
+            "caption": "React indexes previous fibers in a temporary map keyed by their string.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
@@ -854,27 +942,27 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Unmatched previous keys schedule for graceful DOM tree removal.",
+            "at": "say5",
+            "caption": "Using array indices as keys creates severe UI state synchronization bugs.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "error"
             },
             "arrows": [
               [
@@ -895,45 +983,45 @@
       },
       "filled": {
         "template": "flow",
-        "title": "React Fiber Reconciliation and Spatial Identity Keys",
+        "title": "React Fiber List Reconciliation and Key Prop Heuristics",
         "nodes": [
           {
             "id": "n1",
-            "label": "Sequential Scan",
+            "label": "Spatial Identity",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "Key Mismatch",
+            "label": "ReactChildFiber",
             "tappable": false
           },
           {
             "id": "n3",
-            "label": "Map Lookup Table",
+            "label": "Fiber",
             "tappable": false
           },
           {
             "id": "n4",
-            "label": "Reused Fiber Node",
+            "label": "key prop",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Reconciler executes fast sequential scan across matching keys.",
+            "at": "say2",
+            "caption": "The key prop establishes a spatial identity for each component fiber.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
@@ -945,20 +1033,20 @@
             "arrows": []
           },
           {
-            "at": "say2",
-            "caption": "Key mismatch switches diffing engine to key-value lookup map.",
+            "at": "say3",
+            "caption": "The fiber reconciler traverses child nodes to match existing elements.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
@@ -975,20 +1063,20 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Existing Fiber reuses corresponding DOM node preserving input state.",
+            "at": "say4",
+            "caption": "React indexes previous fibers in a temporary map keyed by their string.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
@@ -1009,27 +1097,27 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Unmatched previous keys schedule for graceful DOM tree removal.",
+            "at": "say5",
+            "caption": "Using array indices as keys creates severe UI state synchronization bugs.",
             "values": {
               "n1": {
-                "text": "\"Sequential Scan\""
+                "text": "Spatial Identity"
               },
               "n2": {
-                "text": "\"Key Mismatch\""
+                "text": "ReactChildFiber"
               },
               "n3": {
-                "text": "\"Map Lookup Table\""
+                "text": "Fiber"
               },
               "n4": {
-                "text": "\"Reused Fiber Node\""
+                "text": "key prop"
               }
             },
             "tones": {
-              "n1": "data",
-              "n2": "data",
-              "n3": "data",
-              "n4": "data"
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "error"
             },
             "arrows": [
               [
@@ -1054,45 +1142,45 @@
       "codeHash": "42805b04490369473cc65f6dd4c4ec9e8a8739ec2b722c980fac914576587272",
       "spec": {
         "template": "boxes",
-        "title": "Integrated Relational Query and State Engine Architecture",
+        "title": "Milestone Capstone In-Memory Relational Engine Architecture",
         "boxes": [
           {
             "id": "b1",
-            "label": "Normalized Ingestion",
+            "label": "Data Ingestion",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Monomorphic Factory",
+            "label": "referential transparency",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Single-Pass Query",
+            "label": "structural sharing",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Structural Immutability",
+            "label": "Milestone 1",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Stream parser ingests raw network events into normalized tables.",
+            "at": "say2",
+            "caption": "Enterprise memory stores require rigorous transactional architecture.",
             "values": {
               "b1": {
-                "text": "\"Normalized Ingestion\""
+                "text": "Data Ingestion"
               },
               "b2": {
-                "text": "\"Monomorphic Factory\""
+                "text": "referential transparency"
               },
               "b3": {
-                "text": "\"Single-Pass Query\""
+                "text": "structural sharing"
               },
               "b4": {
-                "text": "\"Structural Immutability\""
+                "text": "Milestone 1"
               }
             },
             "tones": {
@@ -1103,120 +1191,120 @@
             }
           },
           {
-            "at": "say2",
-            "caption": "Monomorphic factory creates records sharing uniform engine shapes.",
-            "values": {
-              "b1": {
-                "text": "\"Normalized Ingestion\""
-              },
-              "b2": {
-                "text": "\"Monomorphic Factory\""
-              },
-              "b3": {
-                "text": "\"Single-Pass Query\""
-              },
-              "b4": {
-                "text": "\"Structural Immutability\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Single-pass query processor aggregates relational data in linear time.",
-            "values": {
-              "b1": {
-                "text": "\"Normalized Ingestion\""
-              },
-              "b2": {
-                "text": "\"Monomorphic Factory\""
-              },
-              "b3": {
-                "text": "\"Single-Pass Query\""
-              },
-              "b4": {
-                "text": "\"Structural Immutability\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
-          },
-          {
             "at": "say4",
-            "caption": "Immutable update preserves structural sharing across unmutated slices.",
+            "caption": "Immutable state updates with structural sharing ensure clean telemetry.",
             "values": {
               "b1": {
-                "text": "\"Normalized Ingestion\""
+                "text": "Data Ingestion"
               },
               "b2": {
-                "text": "\"Monomorphic Factory\""
+                "text": "referential transparency"
               },
               "b3": {
-                "text": "\"Single-Pass Query\""
+                "text": "structural sharing"
               },
               "b4": {
-                "text": "\"Structural Immutability\""
+                "text": "Milestone 1"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
               "b3": "data",
-              "b4": "data"
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "The data ingestion layer normalizes relational records into flat maps.",
+            "values": {
+              "b1": {
+                "text": "Data Ingestion"
+              },
+              "b2": {
+                "text": "referential transparency"
+              },
+              "b3": {
+                "text": "structural sharing"
+              },
+              "b4": {
+                "text": "Milestone 1"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "The capstone architecture guarantees deterministic relational throughput.",
+            "values": {
+              "b1": {
+                "text": "Data Ingestion"
+              },
+              "b2": {
+                "text": "referential transparency"
+              },
+              "b3": {
+                "text": "structural sharing"
+              },
+              "b4": {
+                "text": "Milestone 1"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Integrated Relational Query and State Engine Architecture",
+        "title": "Milestone Capstone In-Memory Relational Engine Architecture",
         "boxes": [
           {
             "id": "b1",
-            "label": "Normalized Ingestion",
+            "label": "Data Ingestion",
             "tappable": false
           },
           {
             "id": "b2",
-            "label": "Monomorphic Factory",
+            "label": "referential transparency",
             "tappable": false
           },
           {
             "id": "b3",
-            "label": "Single-Pass Query",
+            "label": "structural sharing",
             "tappable": false
           },
           {
             "id": "b4",
-            "label": "Structural Immutability",
+            "label": "Milestone 1",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "Stream parser ingests raw network events into normalized tables.",
+            "at": "say2",
+            "caption": "Enterprise memory stores require rigorous transactional architecture.",
             "values": {
               "b1": {
-                "text": "\"Normalized Ingestion\""
+                "text": "Data Ingestion"
               },
               "b2": {
-                "text": "\"Monomorphic Factory\""
+                "text": "referential transparency"
               },
               "b3": {
-                "text": "\"Single-Pass Query\""
+                "text": "structural sharing"
               },
               "b4": {
-                "text": "\"Structural Immutability\""
+                "text": "Milestone 1"
               }
             },
             "tones": {
@@ -1227,75 +1315,75 @@
             }
           },
           {
-            "at": "say2",
-            "caption": "Monomorphic factory creates records sharing uniform engine shapes.",
-            "values": {
-              "b1": {
-                "text": "\"Normalized Ingestion\""
-              },
-              "b2": {
-                "text": "\"Monomorphic Factory\""
-              },
-              "b3": {
-                "text": "\"Single-Pass Query\""
-              },
-              "b4": {
-                "text": "\"Structural Immutability\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "idle",
-              "b4": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Single-pass query processor aggregates relational data in linear time.",
-            "values": {
-              "b1": {
-                "text": "\"Normalized Ingestion\""
-              },
-              "b2": {
-                "text": "\"Monomorphic Factory\""
-              },
-              "b3": {
-                "text": "\"Single-Pass Query\""
-              },
-              "b4": {
-                "text": "\"Structural Immutability\""
-              }
-            },
-            "tones": {
-              "b1": "data",
-              "b2": "data",
-              "b3": "data",
-              "b4": "idle"
-            }
-          },
-          {
             "at": "say4",
-            "caption": "Immutable update preserves structural sharing across unmutated slices.",
+            "caption": "Immutable state updates with structural sharing ensure clean telemetry.",
             "values": {
               "b1": {
-                "text": "\"Normalized Ingestion\""
+                "text": "Data Ingestion"
               },
               "b2": {
-                "text": "\"Monomorphic Factory\""
+                "text": "referential transparency"
               },
               "b3": {
-                "text": "\"Single-Pass Query\""
+                "text": "structural sharing"
               },
               "b4": {
-                "text": "\"Structural Immutability\""
+                "text": "Milestone 1"
               }
             },
             "tones": {
               "b1": "data",
               "b2": "data",
               "b3": "data",
-              "b4": "data"
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "The data ingestion layer normalizes relational records into flat maps.",
+            "values": {
+              "b1": {
+                "text": "Data Ingestion"
+              },
+              "b2": {
+                "text": "referential transparency"
+              },
+              "b3": {
+                "text": "structural sharing"
+              },
+              "b4": {
+                "text": "Milestone 1"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "The capstone architecture guarantees deterministic relational throughput.",
+            "values": {
+              "b1": {
+                "text": "Data Ingestion"
+              },
+              "b2": {
+                "text": "referential transparency"
+              },
+              "b3": {
+                "text": "structural sharing"
+              },
+              "b4": {
+                "text": "Milestone 1"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
         ]
