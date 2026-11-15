@@ -4233,13 +4233,13 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does React strictly prohibit placing useState calls inside conditional statements or loops?",
           options: [
-            "Hooks rely on fixed linked list positional index; branching offsets the cursor and maps wrong state cells",
-            "V8 TurboFan JIT deoptimizes functions whenever variable declarations occur inside conditional branches",
-            "Conditional statements force React to invoke class constructors under the hood, degrading throughput",
-            "JavaScript garbage collector cannot reclaim heap memory allocated inside loop blocks",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "V8 TurboFan JIT deoptimizes functions whenever variable declarations occur inside conditional branches.",
+            "Conditional statements force React to invoke legacy class constructors under the hood, degrading throughput.",
+            "Hooks rely on a fixed linked list cursor; conditional branching shifts the index and maps wrong state cells.",
+            "The JavaScript garbage collector cannot reclaim heap memory allocated inside dynamic conditional code blocks."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "React walks the Fiber memoizedState linked list in identical sequential order on every render pass; conditional calls shift cursor alignment.",
           explanation: "Because hooks have no explicit string identifiers, React matches state cells solely by call order. Skipping a hook desynchronizes all subsequent state cells in the linked list."
         }
@@ -4323,11 +4323,11 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         check: {
           question: "Why does calling setCount(count + 1) three consecutive times inside one event handler only increment count by 1?",
           options: [
-            "All three invocations capture the identical stale count value from the current render's closure scope",
-            "React automatically debounces state setters by dropping all calls after the first within 16 milliseconds",
-            "The browser microtask queue prioritizes DOM paint events over subsequent synchronous JavaScript calls",
-            "JavaScript prohibits modifying variables declared with const even through setter dispatch functions",
-          ],
+            "All three invocations capture the identical stale count value from the current render closure scope.",
+            "React automatically debounces state setters by dropping calls occurring within sixteen milliseconds.",
+            "Browser microtask queues prioritize layout paint events over subsequent synchronous JavaScript calls.",
+            "JavaScript engines prohibit reassigning immutable variables declared with functional scope qualifiers."
+],
           answer: 0,
           answerIndex: 0,
           why: "Inside a single render pass, count is an immutable closure constant; passing count + 1 three times queues three identical values.",
@@ -4422,15 +4422,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Wrap multiple state dispatches in flushSync and observe synchronous render enforcement.",
         check: {
-          question: "How did React 18 alter state batching behavior compared to React 17 and earlier versions?",
+          question: "How did React 18 alter state batching behavior compared to React 17 and earlier legacy versions?",
           options: [
-            "React 18 batches updates across promises, setTimeout, and native event handlers via createRoot",
-            "React 18 eliminated batching entirely to support streaming server-side HTML rendering",
-            "React 18 batches only updates triggered by mouse click events, leaving network promises unbatched",
-            "React 18 forces all state updates to execute synchronously on the browser main UI thread",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "React 18 eliminated batching entirely to support streaming server-side HTML rendering architectures.",
+            "React 18 batches only updates triggered by synthetic mouse events, leaving fetch promises unbatched.",
+            "React 18 forces all state updates to execute synchronously on the browser main user interface thread.",
+            "React 18 automatically batches updates across promises, timeouts, and native DOM listeners via createRoot."
+],
+          answer: 3,
+          answerIndex: 3,
           why: "React 18 unified batching under createRoot, grouping updates across microtasks, timeouts, and asynchronous fetch callbacks into single render passes.",
           explanation: "Legacy React only batched inside synthetic React event handlers. React 18 automatic batching extends transaction bundling across all JavaScript asynchronous boundaries."
         }
@@ -4496,15 +4496,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Test evaluateBailout with an array mutation versus an array slice/spread copy.",
         check: {
-          question: "Why does mutating an object property and passing that object to setState fail to trigger a component re-render?",
+          question: "Why does mutating an object property and passing that same object to setState fail to trigger a re-render?",
           options: [
-            "React performs an Object.is reference equality check; identical memory pointers trigger an eager bailout",
-            "JavaScript objects freeze their internal prototype chains once passed into functional React components",
-            "The browser virtual memory manager revokes write permissions on state objects after initial mount",
-            "React requires all objects to inherit directly from Immutable.js record classes to trigger updates",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "JavaScript objects freeze their internal prototype chains once passed into functional React components.",
+            "React executes an Object.is reference check; identical memory pointers trigger an eager render bailout.",
+            "The browser virtual memory manager revokes write permissions on state objects after initial mounting.",
+            "React requires state objects to implement explicit deep observable proxies to detect nested mutations."
+],
+          answer: 1,
+          answerIndex: 1,
           why: "React optimizes rendering performance by checking Object.is(currentState, nextState); mutating in-place yields true, skipping reconciliation.",
           explanation: "React compares heap memory references rather than deep inspecting object keys. In-place mutations share identical references, causing React to assume nothing changed."
         }
@@ -4584,15 +4584,15 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Measure invocation count of an expensive JSON parse inside a lazy initializer versus eager argument.",
         check: {
-          question: "What is the performance advantage of passing a function callback useState(() => computeInitialData()) instead of useState(computeInitialData())?",
+          question: "What is the primary performance advantage of passing a function callback to useState instead of a raw value?",
           options: [
-            "The callback executes only once during the initial mount phase, preventing expensive recomputation on re-renders",
-            "The callback moves computation off the JavaScript main thread onto an isolated Web Worker thread",
-            "The callback compiles the initializer function directly into WebAssembly bytecode for faster execution",
-            "The callback prevents JavaScript memory leaks by isolating variables from the garbage collector",
-          ],
-          answer: 0,
-          answerIndex: 0,
+            "The callback moves expensive calculations off the main thread onto an isolated background Web Worker.",
+            "The callback compiles the initializer function directly into WebAssembly bytecode for peak throughput.",
+            "The initializer callback executes only once during initial mount, skipping re-evaluation on re-renders.",
+            "The callback prevents memory leaks by detaching internal variable references from garbage collection."
+],
+          answer: 2,
+          answerIndex: 2,
           why: "Passing computeInitialData() executes the expression on every re-render pass; passing a callback tells React to invoke it solely on mount.",
           explanation: "Arguments to useState evaluate before the function executes. A function argument is only invoked by React's mountState dispatcher, completely skipping invocation on updateState."
         }

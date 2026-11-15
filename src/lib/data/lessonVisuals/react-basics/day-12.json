@@ -2,677 +2,1392 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 12,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "title": "Fiber Hook Singly Linked List Traversal",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "de2c8443da6f3dbcc09c788d17c1f07f037faa0c1900e59468b9765fead948b6"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Internal fiber stores memoized state linked list head.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Fiber Node",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "First Hook Cell",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Next Pointer",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Subsequent Hook",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "partTitle": "Hook Memory Layout & Fiber Linked List Mechanics: How useState Stores State in the Heap",
+      "codeHash": "de2c8443da6f3dbcc09c788d17c1f07f037faa0c1900e59468b9765fead948b6",
+      "spec": {
+        "template": "boxes",
+        "title": "Fiber Hook Singly Linked List Traversal",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "state",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "memoizedState",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "mountState",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Initial hook invocation maps to first memory record.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Fiber Node",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Interactive applications manage state that triggers visual updates on screen.",
+            "values": {
+              "b1": {
+                "text": "state"
               },
-              {
-                "id": "n2",
-                "label": "First Hook Cell",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "Fiber"
               },
-              {
-                "id": "n3",
-                "label": "Next Pointer",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "memoizedState"
               },
-              {
-                "id": "n4",
-                "label": "Subsequent Hook",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "mountState"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Pointer advances sequentially along next attribute.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Fiber Node",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "First Hook Cell",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Next Pointer",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n4",
-                "label": "Subsequent Hook",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Subsequent hook retrieves exact matching state cell.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Fiber Node",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "First Hook Cell",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Next Pointer",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Subsequent Hook",
-                "tappable": false,
-                "active": true
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "part": 2,
-      "title": "Asynchronous State Dispatch FIFO Update Queue",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "1417276dd2652536ce34126cd20bc71007765752f56d847cbbca42e00c5320b7"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Event trigger dispatches state transition request.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "User Action",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Update Reducer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Queue Buffer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Computed State",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 2,
-          "caption": "Functional update encapsulates pure reducer callback.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "User Action",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Update Reducer",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b3",
-                "label": "Queue Buffer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Computed State",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Pending queue buffers sequential updates atomically.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "User Action",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Update Reducer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Queue Buffer",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b4",
-                "label": "Computed State",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Reconciliation resolves accumulated updates to fresh value.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "User Action",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Update Reducer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Queue Buffer",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Computed State",
-                "tappable": false,
-                "highlight": true
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "part": 3,
-      "title": "Automatic Batching across Asynchronous Boundaries",
-      "template": "flow",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "7ebeedeb7b35f5e7d8471a72f5d179c70951aba5b09a665e262e9d65556903b9"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Multiple state setters fire inside asynchronous promise.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Multiple Updates",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Batch Collector",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Microtask Flush",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Single Render",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 2,
-          "caption": "Batch manager aggregates updates into unified transaction.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Multiple Updates",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Batch Collector",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n3",
-                "label": "Microtask Flush",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Single Render",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Single microtask schedule defers execution to end of tick.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Multiple Updates",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Batch Collector",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Microtask Flush",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n4",
-                "label": "Single Render",
-                "tappable": false,
-                "active": false
-              }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Reconciliation executes single atomic pass preserving frames.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Multiple Updates",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n2",
-                "label": "Batch Collector",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Microtask Flush",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Single Render",
-                "tappable": false,
-                "active": true
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "part": 4,
-      "title": "Object Reference Equality vs Immutability Bailout",
-      "template": "compare",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "f43897861d2c4858b891edda5d55696f90f6025b5e4844c92285b9cb6457da97"
-      },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Mutating object in place retains identical memory pointer.",
-          "data": {
-            "left": {
-              "title": "Direct Mutation",
-              "items": [
-                "Same Memory Address",
-                "Object Is Evaluates True",
-                "Eager Bailout Triggered",
-                "Screen Fails to Update"
-              ],
-              "highlightIndex": 0
             },
-            "right": {
-              "title": "Immutable Spread",
-              "items": [
-                "Fresh Heap Allocation",
-                "Object Is Evaluates False",
-                "Reconciliation Queued",
-                "Visual Tree Updates"
-              ],
-              "highlightIndex": 0
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber nodes maintain state directly inside the memoizedState heap field.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Initial mount phases invoke dispatcher functions to allocate hook cells.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Dual buffering strategies maintain current and work in progress fibers.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
-        },
-        {
-          "step": 2,
-          "caption": "Equality check evaluates true triggering eager bailout.",
-          "data": {
-            "left": {
-              "title": "Direct Mutation",
-              "items": [
-                "Same Memory Address",
-                "Object Is Evaluates True",
-                "Eager Bailout Triggered",
-                "Screen Fails to Update"
-              ],
-              "highlightIndex": 1
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Fiber Hook Singly Linked List Traversal",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "state",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Fiber",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "memoizedState",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "mountState",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Interactive applications manage state that triggers visual updates on screen.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
             },
-            "right": {
-              "title": "Immutable Spread",
-              "items": [
-                "Fresh Heap Allocation",
-                "Object Is Evaluates False",
-                "Reconciliation Queued",
-                "Visual Tree Updates"
-              ],
-              "highlightIndex": 1
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Fiber nodes maintain state directly inside the memoizedState heap field.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Initial mount phases invoke dispatcher functions to allocate hook cells.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Dual buffering strategies maintain current and work in progress fibers.",
+            "values": {
+              "b1": {
+                "text": "state"
+              },
+              "b2": {
+                "text": "Fiber"
+              },
+              "b3": {
+                "text": "memoizedState"
+              },
+              "b4": {
+                "text": "mountState"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
             }
           }
-        },
-        {
-          "step": 3,
-          "caption": "Object spread allocates fresh unique reference address.",
-          "data": {
-            "left": {
-              "title": "Direct Mutation",
-              "items": [
-                "Same Memory Address",
-                "Object Is Evaluates True",
-                "Eager Bailout Triggered",
-                "Screen Fails to Update"
-              ],
-              "highlightIndex": 2
-            },
-            "right": {
-              "title": "Immutable Spread",
-              "items": [
-                "Fresh Heap Allocation",
-                "Object Is Evaluates False",
-                "Reconciliation Queued",
-                "Visual Tree Updates"
-              ],
-              "highlightIndex": 2
-            }
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Reference divergence schedules immediate virtual DOM update.",
-          "data": {
-            "left": {
-              "title": "Direct Mutation",
-              "items": [
-                "Same Memory Address",
-                "Object Is Evaluates True",
-                "Eager Bailout Triggered",
-                "Screen Fails to Update"
-              ],
-              "highlightIndex": 3
-            },
-            "right": {
-              "title": "Immutable Spread",
-              "items": [
-                "Fresh Heap Allocation",
-                "Object Is Evaluates False",
-                "Reconciliation Queued",
-                "Visual Tree Updates"
-              ],
-              "highlightIndex": 3
-            }
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "title": "Lazy Initializer Mount Execution Strategy",
-      "template": "boxes",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "fe0e1ad050ca84ae1905af5c72a46ed338ce455f6504cd89685b9ae4907bfacf"
+      "partTitle": "Asynchronous Batching & Dispatch Update Queues: Direct vs Functional State Updates",
+      "codeHash": "1417276dd2652536ce34126cd20bc71007765752f56d847cbbca42e00c5320b7",
+      "spec": {
+        "template": "flow",
+        "title": "Asynchronous State Dispatch FIFO Update Queue",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useState",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "stale closure",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "update queue",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "circular",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "State setters schedule updates asynchronously without immediate rerenders.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Reading updated state immediately encounters previous closed scope values.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Multiple state updates within one event handler capture closed values.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Update queues track pending actions in circular singly linked lists.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component enters initial mount lifecycle phase.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "highlight": true
+      "filled": {
+        "template": "flow",
+        "title": "Asynchronous State Dispatch FIFO Update Queue",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "useState",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "stale closure",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "update queue",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "circular",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "State setters schedule updates asynchronously without immediate rerenders.",
+            "values": {
+              "n1": {
+                "text": "useState"
               },
-              {
-                "id": "b2",
-                "label": "Callback Run",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "stale closure"
               },
-              {
-                "id": "b3",
-                "label": "State Cached",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "update queue"
               },
-              {
-                "id": "b4",
-                "label": "Update Bypass",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "circular"
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Reading updated state immediately encounters previous closed scope values.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Multiple state updates within one event handler capture closed values.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Update queues track pending actions in circular singly linked lists.",
+            "values": {
+              "n1": {
+                "text": "useState"
+              },
+              "n2": {
+                "text": "stale closure"
+              },
+              "n3": {
+                "text": "update queue"
+              },
+              "n4": {
+                "text": "circular"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 2,
-          "caption": "Lazy initializer function executes expensive calculation once.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "highlight": false
+        ]
+      }
+    },
+    {
+      "partTitle": "Automatic Batching in React 18 Concurrent Mode vs Microtask & Promise Flushes",
+      "codeHash": "7ebeedeb7b35f5e7d8471a72f5d179c70951aba5b09a665e262e9d65556903b9",
+      "spec": {
+        "template": "boxes",
+        "title": "Automatic Batching across Asynchronous Boundaries",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Synthetic Event Handlers",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Event Loop",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Automatic Batching",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Concurrent Mode",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Minimizing browser rendering overhead remains a primary engineering goal.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
               },
-              {
-                "id": "b2",
-                "label": "Callback Run",
-                "tappable": false,
-                "highlight": true
+              "b2": {
+                "text": "Event Loop"
               },
-              {
-                "id": "b3",
-                "label": "State Cached",
-                "tappable": false,
-                "highlight": false
+              "b3": {
+                "text": "Automatic Batching"
               },
-              {
-                "id": "b4",
-                "label": "Update Bypass",
-                "tappable": false,
-                "highlight": false
+              "b4": {
+                "text": "Concurrent Mode"
               }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Synthetic event handlers bundled state mutations in single passes.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Event loop execution processes synchronous call stacks before task queues.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Automatic batching unifies state updates across all execution contexts.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Automatic Batching across Asynchronous Boundaries",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Synthetic Event Handlers",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Event Loop",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Automatic Batching",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Concurrent Mode",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Minimizing browser rendering overhead remains a primary engineering goal.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Synthetic event handlers bundled state mutations in single passes.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Event loop execution processes synchronous call stacks before task queues.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Automatic batching unifies state updates across all execution contexts.",
+            "values": {
+              "b1": {
+                "text": "Synthetic Event Handlers"
+              },
+              "b2": {
+                "text": "Event Loop"
+              },
+              "b3": {
+                "text": "Automatic Batching"
+              },
+              "b4": {
+                "text": "Concurrent Mode"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Object Reference Equality (Object.is) & The Mutation Bailout Trap",
+      "codeHash": "f43897861d2c4858b891edda5d55696f90f6025b5e4844c92285b9cb6457da97",
+      "spec": {
+        "template": "flow",
+        "title": "Object Reference Equality vs Immutability Bailout",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Object.is",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "reference",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "State Tearing",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Concurrent React",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise domains store composite state entities inside component memory.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dispatch pipelines evaluate object reference equality before rerendering.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Mutating object properties directly shares identical memory pointers.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Direct in place mutations cause catastrophic tearing across render trees.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "error",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 3,
-          "caption": "Computed result caches directly on fiber hook cell.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "highlight": false
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Object Reference Equality vs Immutability Bailout",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Object.is",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "reference",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "State Tearing",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Concurrent React",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise domains store composite state entities inside component memory.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
               },
-              {
-                "id": "b2",
-                "label": "Callback Run",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "reference"
               },
-              {
-                "id": "b3",
-                "label": "State Cached",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "State Tearing"
               },
-              {
-                "id": "b4",
-                "label": "Update Bypass",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Concurrent React"
               }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dispatch pipelines evaluate object reference equality before rerendering.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Mutating object properties directly shares identical memory pointers.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Direct in place mutations cause catastrophic tearing across render trees.",
+            "values": {
+              "n1": {
+                "text": "Object.is"
+              },
+              "n2": {
+                "text": "reference"
+              },
+              "n3": {
+                "text": "State Tearing"
+              },
+              "n4": {
+                "text": "Concurrent React"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "error",
+              "n3": "error",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
-        },
-        {
-          "step": 4,
-          "caption": "Subsequent re-renders bypass initializer callback completely.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Initial Mount",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b2",
-                "label": "Callback Run",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "State Cached",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Update Bypass",
-                "tappable": false,
-                "highlight": true
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "partTitle": "Lazy State Initialization: Eliminating Expensive Recomputation on Re-renders",
+      "codeHash": "fe0e1ad050ca84ae1905af5c72a46ed338ce455f6504cd89685b9ae4907bfacf",
+      "spec": {
+        "template": "boxes",
+        "title": "Lazy Initializer Mount Execution Strategy",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Lazy Initial State",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "computation",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "call-by-value",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "localStorage",
+            "tappable": false
           }
-        }
-      ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Initial state computation requires significant resources on client devices.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Call by value evaluation semantics execute direct expressions repeatedly.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Lazy initial state computation eliminates redundant execution overhead.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Reading browser storage APIs benefits directly from lazy initialization.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Lazy Initializer Mount Execution Strategy",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Lazy Initial State",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "computation",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "call-by-value",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "localStorage",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Initial state computation requires significant resources on client devices.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Call by value evaluation semantics execute direct expressions repeatedly.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Lazy initial state computation eliminates redundant execution overhead.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Reading browser storage APIs benefits directly from lazy initialization.",
+            "values": {
+              "b1": {
+                "text": "Lazy Initial State"
+              },
+              "b2": {
+                "text": "computation"
+              },
+              "b3": {
+                "text": "call-by-value"
+              },
+              "b4": {
+                "text": "localStorage"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
     }
   ]
 }
