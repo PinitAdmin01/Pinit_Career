@@ -2,665 +2,1308 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 25,
-  "visuals": [
+  "promptSha": "manual-gate-v2-remediated",
+  "model": "manual-gate-v2",
+  "entries": [
     {
-      "part": 1,
-      "template": "compare",
-      "title": "Disjoint Boolean State Versus Finite State Machine",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "ed64f89ef1175749b4b593c4e014b03b7172990cc3cb81789c1e84e41d62b660"
+      "partTitle": "Limitations of useState for Relational Domains: Tangled State, Impossible States & FSMs",
+      "codeHash": "ed64f89ef1175749b4b593c4e014b03b7172990cc3cb81789c1e84e41d62b660",
+      "spec": {
+        "template": "states",
+        "title": "Finite State Machine Query Transitions",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Idle",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Loading",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Success",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "Error",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Initial state machine rests in idle query state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dispatching fetch moves machine to loading state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Successful network response resolves to success state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Failed request transitions machine into error state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Multiple boolean flags allow impossible concurrent states.",
-          "data": {
-            "left": {
-              "title": "Disjoint Booleans",
-              "items": [
-                "Tangled state flags",
-                "Impossible states",
-                "Desynchronized UI"
-              ]
-            },
-            "right": {
-              "title": "Finite State Machine",
-              "items": [
-                "Strict enum statuses",
-                "Declared transitions",
-                "Guaranteed invariants"
-              ]
-            },
-            "highlight": "left"
+      "filled": {
+        "template": "states",
+        "title": "Finite State Machine Query Transitions",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Idle",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Loading",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Success",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "Error",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Race conditions create simultaneous loading and error views.",
-          "data": {
-            "left": {
-              "title": "Disjoint Booleans",
-              "items": [
-                "Tangled state flags",
-                "Impossible states",
-                "Desynchronized UI"
-              ]
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Initial state machine rests in idle query state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
             },
-            "right": {
-              "title": "Finite State Machine",
-              "items": [
-                "Strict enum statuses",
-                "Declared transitions",
-                "Guaranteed invariants"
-              ]
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
             },
-            "highlight": "right"
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dispatching fetch moves machine to loading state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "data",
+              "s3": "idle",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Successful network response resolves to success state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "ok",
+              "s4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Failed request transitions machine into error state.",
+            "values": {
+              "s1": {
+                "text": "Idle"
+              },
+              "s2": {
+                "text": "Loading"
+              },
+              "s3": {
+                "text": "Success"
+              },
+              "s4": {
+                "text": "Error"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "error"
+            },
+            "arrows": []
           }
-        },
-        {
-          "step": 3,
-          "caption": "State machines enforce mutually exclusive status values.",
-          "data": {
-            "left": {
-              "title": "Disjoint Booleans",
-              "items": [
-                "Tangled state flags",
-                "Impossible states",
-                "Desynchronized UI"
-              ]
-            },
-            "right": {
-              "title": "Finite State Machine",
-              "items": [
-                "Strict enum statuses",
-                "Declared transitions",
-                "Guaranteed invariants"
-              ]
-            },
-            "highlight": "left"
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Transitions execute only on legal declared event triggers.",
-          "data": {
-            "left": {
-              "title": "Disjoint Booleans",
-              "items": [
-                "Tangled state flags",
-                "Impossible states",
-                "Desynchronized UI"
-              ]
-            },
-            "right": {
-              "title": "Finite State Machine",
-              "items": [
-                "Strict enum statuses",
-                "Declared transitions",
-                "Guaranteed invariants"
-              ]
-            },
-            "highlight": "right"
-          }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 2,
-      "template": "flow",
-      "title": "Unidirectional Reducer Dispatch Cycle",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "48cdf4b505a91af24cfca9b3c82ba0335107cb609cb4d5e337fb4dafda538c57"
+      "partTitle": "useReducer Internals & Reducer Purity: Action Contracts, Immutability & Lazy init",
+      "codeHash": "48cdf4b505a91af24cfca9b3c82ba0335107cb609cb4d5e337fb4dafda538c57",
+      "spec": {
+        "template": "boxes",
+        "title": "useReducer Internals & Reducer Purity",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useReducer",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "dispatch",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "immutable",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "pure",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Hook useReducer manages complex transition domains.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
+              },
+              "b2": {
+                "text": "dispatch"
+              },
+              "b3": {
+                "text": "immutable"
+              },
+              "b4": {
+                "text": "pure"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dispatch emits typed action objects into reducer queue.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
+              },
+              "b2": {
+                "text": "dispatch"
+              },
+              "b3": {
+                "text": "immutable"
+              },
+              "b4": {
+                "text": "pure"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Pure reducer returns completely fresh immutable state.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
+              },
+              "b2": {
+                "text": "dispatch"
+              },
+              "b3": {
+                "text": "immutable"
+              },
+              "b4": {
+                "text": "pure"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Immutable state discipline eliminates side effect races.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
+              },
+              "b2": {
+                "text": "dispatch"
+              },
+              "b3": {
+                "text": "immutable"
+              },
+              "b4": {
+                "text": "pure"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Component dispatches typed action object to pipeline.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Dispatched Action",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Pure Reducer",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Next Immutable State",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Component Render",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "boxes",
+        "title": "useReducer Internals & Reducer Purity",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "useReducer",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "dispatch",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "immutable",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "pure",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Pure reducer evaluates current state and action payload.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Dispatched Action",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Hook useReducer manages complex transition domains.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
               },
-              {
-                "id": "n2",
-                "label": "Pure Reducer",
-                "tappable": false,
-                "active": true
+              "b2": {
+                "text": "dispatch"
               },
-              {
-                "id": "n3",
-                "label": "Next Immutable State",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "immutable"
               },
-              {
-                "id": "n4",
-                "label": "Component Render",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "pure"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "New immutable state object returns via structural sharing.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Dispatched Action",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Dispatch emits typed action objects into reducer queue.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
               },
-              {
-                "id": "n2",
-                "label": "Pure Reducer",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "dispatch"
               },
-              {
-                "id": "n3",
-                "label": "Next Immutable State",
-                "tappable": false,
-                "active": true
+              "b3": {
+                "text": "immutable"
               },
-              {
-                "id": "n4",
-                "label": "Component Render",
-                "tappable": false,
-                "active": false
+              "b4": {
+                "text": "pure"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Fiber detects pointer change and updates subscribed views.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Dispatched Action",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Pure reducer returns completely fresh immutable state.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
               },
-              {
-                "id": "n2",
-                "label": "Pure Reducer",
-                "tappable": false,
-                "active": false
+              "b2": {
+                "text": "dispatch"
               },
-              {
-                "id": "n3",
-                "label": "Next Immutable State",
-                "tappable": false,
-                "active": false
+              "b3": {
+                "text": "immutable"
               },
-              {
-                "id": "n4",
-                "label": "Component Render",
-                "tappable": false,
-                "active": true
+              "b4": {
+                "text": "pure"
               }
-            ]
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "ok",
+              "b4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Immutable state discipline eliminates side effect races.",
+            "values": {
+              "b1": {
+                "text": "useReducer"
+              },
+              "b2": {
+                "text": "dispatch"
+              },
+              "b3": {
+                "text": "immutable"
+              },
+              "b4": {
+                "text": "pure"
+              }
+            },
+            "tones": {
+              "b1": "idle",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 3,
-      "template": "boxes",
-      "title": "Split Context State And Dispatch Container",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "30f326e859e3d87ff261efd740c5809593639c5982588712c8b45d4b553f0745"
+      "partTitle": "useReducer with Context API: The Scalable Enterprise Store Pattern",
+      "codeHash": "30f326e859e3d87ff261efd740c5809593639c5982588712c8b45d4b553f0745",
+      "spec": {
+        "template": "flow",
+        "title": "Split Context Store & Dispatch Decoupling",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "State",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Dispatch",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "consumer",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Provider",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise patterns split volatile state from dispatch.",
+            "values": {
+              "n1": {
+                "text": "State"
+              },
+              "n2": {
+                "text": "Dispatch"
+              },
+              "n3": {
+                "text": "consumer"
+              },
+              "n4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Stable dispatch reference guarantees zero button renders.",
+            "values": {
+              "n1": {
+                "text": "State"
+              },
+              "n2": {
+                "text": "Dispatch"
+              },
+              "n3": {
+                "text": "consumer"
+              },
+              "n4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "State consumer components subscribe to state context.",
+            "values": {
+              "n1": {
+                "text": "State"
+              },
+              "n2": {
+                "text": "Dispatch"
+              },
+              "n3": {
+                "text": "consumer"
+              },
+              "n4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Clean provider hierarchy eliminates redundant render work.",
+            "values": {
+              "n1": {
+                "text": "State"
+              },
+              "n2": {
+                "text": "Dispatch"
+              },
+              "n3": {
+                "text": "consumer"
+              },
+              "n4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Single reducer manages core transactional domain logic.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Store Reducer",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Action Handlers",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Split Context Store & Dispatch Decoupling",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "State",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Dispatch",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "consumer",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Provider",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "State context provides read access to dynamic values.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Store Reducer",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise patterns split volatile state from dispatch.",
+            "values": {
+              "n1": {
+                "text": "State"
               },
-              {
-                "id": "b2",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "Dispatch"
               },
-              {
-                "id": "b3",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "consumer"
               },
-              {
-                "id": "b4",
-                "label": "Action Handlers",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Provider"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Dispatch context provides stable action triggers.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Store Reducer",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Stable dispatch reference guarantees zero button renders.",
+            "values": {
+              "n1": {
+                "text": "State"
               },
-              {
-                "id": "b2",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "Dispatch"
               },
-              {
-                "id": "b3",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "consumer"
               },
-              {
-                "id": "b4",
-                "label": "Action Handlers",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "Provider"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Action handlers dispatch updates without re-render churn.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Store Reducer",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "ok",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "State consumer components subscribe to state context.",
+            "values": {
+              "n1": {
+                "text": "State"
               },
-              {
-                "id": "b2",
-                "label": "State Context",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "Dispatch"
               },
-              {
-                "id": "b3",
-                "label": "Dispatch Context",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "consumer"
               },
-              {
-                "id": "b4",
-                "label": "Action Handlers",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "Provider"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Clean provider hierarchy eliminates redundant render work.",
+            "values": {
+              "n1": {
+                "text": "State"
+              },
+              "n2": {
+                "text": "Dispatch"
+              },
+              "n3": {
+                "text": "consumer"
+              },
+              "n4": {
+                "text": "Provider"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 4,
-      "template": "flow",
-      "title": "Middleware Interceptor And Logging Pipeline",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "ddc415d4345ad90cff8ef2689d5219da98c7b759cb493afed22d78ee2a629747"
+      "partTitle": "Middleware Pipelines, Action Logging & Time-Travel Debugging Architecture",
+      "codeHash": "ddc415d4345ad90cff8ef2689d5219da98c7b759cb493afed22d78ee2a629747",
+      "spec": {
+        "template": "flow",
+        "title": "Middleware Pipelines & Telemetry Interception",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "action",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "middleware",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "reducer",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "telemetry",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Components dispatch action objects into middleware chain.",
+            "values": {
+              "n1": {
+                "text": "action"
+              },
+              "n2": {
+                "text": "middleware"
+              },
+              "n3": {
+                "text": "reducer"
+              },
+              "n4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Pipeline executes telemetry logging and schema checks.",
+            "values": {
+              "n1": {
+                "text": "action"
+              },
+              "n2": {
+                "text": "middleware"
+              },
+              "n3": {
+                "text": "reducer"
+              },
+              "n4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Sanitized actions pass cleanly to the root reducer.",
+            "values": {
+              "n1": {
+                "text": "action"
+              },
+              "n2": {
+                "text": "middleware"
+              },
+              "n3": {
+                "text": "reducer"
+              },
+              "n4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated telemetry streams logs to remote dashboards.",
+            "values": {
+              "n1": {
+                "text": "action"
+              },
+              "n2": {
+                "text": "middleware"
+              },
+              "n3": {
+                "text": "reducer"
+              },
+              "n4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Action triggers and enters custom middleware chain.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Raw Dispatch",
-                "tappable": false,
-                "active": true
-              },
-              {
-                "id": "n2",
-                "label": "Schema Validator",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n3",
-                "label": "Telemetry Logger",
-                "tappable": false,
-                "active": false
-              },
-              {
-                "id": "n4",
-                "label": "Reducer Execution",
-                "tappable": false,
-                "active": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Middleware Pipelines & Telemetry Interception",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "action",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "middleware",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "reducer",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "telemetry",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Schema validator confirms payload satisfies contracts.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Raw Dispatch",
-                "tappable": false,
-                "active": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Components dispatch action objects into middleware chain.",
+            "values": {
+              "n1": {
+                "text": "action"
               },
-              {
-                "id": "n2",
-                "label": "Schema Validator",
-                "tappable": false,
-                "active": true
+              "n2": {
+                "text": "middleware"
               },
-              {
-                "id": "n3",
-                "label": "Telemetry Logger",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "reducer"
               },
-              {
-                "id": "n4",
-                "label": "Reducer Execution",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "telemetry"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Telemetry logger records action type and state snapshots.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Raw Dispatch",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Pipeline executes telemetry logging and schema checks.",
+            "values": {
+              "n1": {
+                "text": "action"
               },
-              {
-                "id": "n2",
-                "label": "Schema Validator",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "middleware"
               },
-              {
-                "id": "n3",
-                "label": "Telemetry Logger",
-                "tappable": false,
-                "active": true
+              "n3": {
+                "text": "reducer"
               },
-              {
-                "id": "n4",
-                "label": "Reducer Execution",
-                "tappable": false,
-                "active": false
+              "n4": {
+                "text": "telemetry"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Validated action passes to pure reducer for calculation.",
-          "data": {
-            "nodes": [
-              {
-                "id": "n1",
-                "label": "Raw Dispatch",
-                "tappable": false,
-                "active": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Sanitized actions pass cleanly to the root reducer.",
+            "values": {
+              "n1": {
+                "text": "action"
               },
-              {
-                "id": "n2",
-                "label": "Schema Validator",
-                "tappable": false,
-                "active": false
+              "n2": {
+                "text": "middleware"
               },
-              {
-                "id": "n3",
-                "label": "Telemetry Logger",
-                "tappable": false,
-                "active": false
+              "n3": {
+                "text": "reducer"
               },
-              {
-                "id": "n4",
-                "label": "Reducer Execution",
-                "tappable": false,
-                "active": true
+              "n4": {
+                "text": "telemetry"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Automated telemetry streams logs to remote dashboards.",
+            "values": {
+              "n1": {
+                "text": "action"
+              },
+              "n2": {
+                "text": "middleware"
+              },
+              "n3": {
+                "text": "reducer"
+              },
+              "n4": {
+                "text": "telemetry"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "ok"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     },
     {
-      "part": 5,
-      "template": "boxes",
-      "title": "Enterprise Commerce State Machine Topology",
-      "codeBinding": {
-        "type": "sha256",
-        "hash": "5ac505d22c382070781a557b0fe90aa37cb2b9143dc226b5d7933e85d2ca8505"
+      "partTitle": "Milestone 5 Capstone: Enterprise E-Commerce & Inventory State Engine",
+      "codeHash": "5ac505d22c382070781a557b0fe90aa37cb2b9143dc226b5d7933e85d2ca8505",
+      "spec": {
+        "template": "flow",
+        "title": "Milestone 5 Capstone: Commerce & Inventory Engine",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Cart",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "inventory",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "checkout",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "warehouse",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engine tracks item quantities and applied discount codes.",
+            "values": {
+              "n1": {
+                "text": "Cart"
+              },
+              "n2": {
+                "text": "inventory"
+              },
+              "n3": {
+                "text": "checkout"
+              },
+              "n4": {
+                "text": "warehouse"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "State machine reserves inventory units across warehouse.",
+            "values": {
+              "n1": {
+                "text": "Cart"
+              },
+              "n2": {
+                "text": "inventory"
+              },
+              "n3": {
+                "text": "checkout"
+              },
+              "n4": {
+                "text": "warehouse"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Checkout pipeline coordinates payment gateway actions.",
+            "values": {
+              "n1": {
+                "text": "Cart"
+              },
+              "n2": {
+                "text": "inventory"
+              },
+              "n3": {
+                "text": "checkout"
+              },
+              "n4": {
+                "text": "warehouse"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Failed transactions trigger clean inventory rollback.",
+            "values": {
+              "n1": {
+                "text": "Cart"
+              },
+              "n2": {
+                "text": "inventory"
+              },
+              "n3": {
+                "text": "checkout"
+              },
+              "n4": {
+                "text": "warehouse"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
+          }
+        ]
       },
-      "steps": [
-        {
-          "step": 1,
-          "caption": "Cart items record selected products and quantities.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Cart Items",
-                "tappable": false,
-                "highlight": true
-              },
-              {
-                "id": "b2",
-                "label": "Inventory Hold",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b3",
-                "label": "Discount Logic",
-                "tappable": false,
-                "highlight": false
-              },
-              {
-                "id": "b4",
-                "label": "Checkout State",
-                "tappable": false,
-                "highlight": false
-              }
-            ]
+      "filled": {
+        "template": "flow",
+        "title": "Milestone 5 Capstone: Commerce & Inventory Engine",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Cart",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "inventory",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "checkout",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "warehouse",
+            "tappable": false
           }
-        },
-        {
-          "step": 2,
-          "caption": "Inventory holds reserve warehouse stock optimistically.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Cart Items",
-                "tappable": false,
-                "highlight": false
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Engine tracks item quantities and applied discount codes.",
+            "values": {
+              "n1": {
+                "text": "Cart"
               },
-              {
-                "id": "b2",
-                "label": "Inventory Hold",
-                "tappable": false,
-                "highlight": true
+              "n2": {
+                "text": "inventory"
               },
-              {
-                "id": "b3",
-                "label": "Discount Logic",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "checkout"
               },
-              {
-                "id": "b4",
-                "label": "Checkout State",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "warehouse"
               }
-            ]
-          }
-        },
-        {
-          "step": 3,
-          "caption": "Discount engine validates promotional coupon rules.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Cart Items",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "State machine reserves inventory units across warehouse.",
+            "values": {
+              "n1": {
+                "text": "Cart"
               },
-              {
-                "id": "b2",
-                "label": "Inventory Hold",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "inventory"
               },
-              {
-                "id": "b3",
-                "label": "Discount Logic",
-                "tappable": false,
-                "highlight": true
+              "n3": {
+                "text": "checkout"
               },
-              {
-                "id": "b4",
-                "label": "Checkout State",
-                "tappable": false,
-                "highlight": false
+              "n4": {
+                "text": "warehouse"
               }
-            ]
-          }
-        },
-        {
-          "step": 4,
-          "caption": "Checkout state machine manages commit and rollback flows.",
-          "data": {
-            "boxes": [
-              {
-                "id": "b1",
-                "label": "Cart Items",
-                "tappable": false,
-                "highlight": false
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Checkout pipeline coordinates payment gateway actions.",
+            "values": {
+              "n1": {
+                "text": "Cart"
               },
-              {
-                "id": "b2",
-                "label": "Inventory Hold",
-                "tappable": false,
-                "highlight": false
+              "n2": {
+                "text": "inventory"
               },
-              {
-                "id": "b3",
-                "label": "Discount Logic",
-                "tappable": false,
-                "highlight": false
+              "n3": {
+                "text": "checkout"
               },
-              {
-                "id": "b4",
-                "label": "Checkout State",
-                "tappable": false,
-                "highlight": true
+              "n4": {
+                "text": "warehouse"
               }
-            ]
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "ok",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say4",
+            "caption": "Failed transactions trigger clean inventory rollback.",
+            "values": {
+              "n1": {
+                "text": "Cart"
+              },
+              "n2": {
+                "text": "inventory"
+              },
+              "n3": {
+                "text": "checkout"
+              },
+              "n4": {
+                "text": "warehouse"
+              }
+            },
+            "tones": {
+              "n1": "idle",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "error"
+            },
+            "arrows": []
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }
