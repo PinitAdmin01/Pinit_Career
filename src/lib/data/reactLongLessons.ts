@@ -1799,17 +1799,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Set port to undefined in serverConfig and verify that port resolves to 8080.",
         check: {
-          question: "Under what exact condition does a destructuring default value (e.g. const { timeout = 3000 } = config;) evaluate?",
+          question: "Under what exact condition does a JavaScript destructuring default value expression evaluate during assignment?",
           options: [
-            "Strictly and exclusively when the resolved target property is undefined",
-            "Whenever the target property is falsy (including 0, false, null, and empty string)",
-            "Only when the browser operating system is running in low-memory mode",
-            "Whenever the source object has more than five properties",
+            "Whenever the incoming value evaluates to any falsy primitive such as false, zero, or an empty string.",
+            "Exclusively when the resolved property or iterator element is strictly equal to the undefined primitive.",
+            "Whenever the target property key is completely absent from the object or its prototype inheritance chain.",
+            "Only when the expression fails a TypeScript schema validation check during compilation or runtime.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "ECMAScript specification mandates that default values evaluate only when the resolved value is strictly undefined; null and falsy values are assigned directly.",
-          explanation: "ECMAScript specification mandates that default values evaluate only when the resolved value is strictly undefined; null and falsy values are assigned directly."
+          answer: 1,
+          answerIndex: 1,
+          why: "In ECMAScript destructuring semantics, default value initializers evaluate only when the resolved target value is strictly undefined. If a property exists with a value of null, false, 0, or NaN, the default value is bypassed and the explicit falsy value is retained.",
+          explanation: "In ECMAScript destructuring semantics, default value initializers evaluate only when the resolved target value is strictly undefined. If a property exists with a value of null, false, 0, or NaN, the default value is bypassed and the explicit falsy value is retained."
         }
       },
       {
@@ -1863,17 +1863,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Add a third condition for department = 'engineering' and verify it renders as $3 in parameters.",
         check: {
-          question: "Why is utilizing tagged template literals for database queries architecturally superior to standard string concatenation?",
+          question: "Why is utilizing tagged template literals considered the industry standard pattern for constructing safe database queries?",
           options: [
-            "It separates static SQL query structure from untrusted user inputs, enabling parameterization that eliminates SQL injection vulnerabilities",
-            "It automatically compiles JavaScript code directly into C++ binary shared objects",
-            "It compresses the database table on the hard drive using Huffman coding",
-            "It forces all database records to be stored strictly in the client browser localStorage",
+            "Tagged functions compress dynamic query parameters into base64 strings to reduce serialization overhead.",
+            "Browser engines automatically execute tagged queries inside isolated Web Workers to prevent thread blocking.",
+            "The runtime engine verifies that query strings contain valid SQL syntax before sending network requests.",
+            "Static string chunks and dynamic variables pass as separate arguments, enabling parameterized query binding.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Tagged templates receive static strings and dynamic variables separately, allowing the engine to construct parameterized query strings with isolated value arrays.",
-          explanation: "Tagged templates receive static strings and dynamic variables separately, allowing the engine to construct parameterized query strings with isolated value arrays."
+          answer: 3,
+          answerIndex: 3,
+          why: "Tagged template literals provide the tagged handler function with an array of immutable static string chunks and dynamic interpolated values as separate arguments. This separation allows query builders to create true parameterized queries where user inputs are safely escaped, completely eliminating SQL injection vectors.",
+          explanation: "Tagged template literals provide the tagged handler function with an array of immutable static string chunks and dynamic interpolated values as separate arguments. This separation allows query builders to create true parameterized queries where user inputs are safely escaped, completely eliminating SQL injection vectors."
         }
       },
       {
@@ -1924,17 +1924,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Pass additional readings to aggregateTelemetry and verify sampleCount and average scale deterministically.",
         check: {
-          question: "What is the primary performance and architectural benefit of using Rest Parameters over the legacy arguments object?",
+          question: "What is the primary architectural advantage of utilizing ES6 rest parameters (...args) over the legacy arguments object?",
           options: [
-            "Rest parameters produce genuine Array instances, support arrow functions, and allow V8 to perform escape analysis and avoid heap materialization",
-            "Rest parameters automatically encrypt function variables using AES-256",
-            "Rest parameters increase maximum call stack capacity by five hundred megabytes",
-            "Rest parameters force synchronous network requests to resolve immediately",
+            "Rest parameters construct genuine Array instances with full prototype access without deoptimizing stack frames.",
+            "Rest parameters store incoming values in thread-safe shared memory buffers to allow parallel worker processing.",
+            "The compiler automatically infers strict numeric types for rest parameters to accelerate CPU vector math.",
+            "Rest parameters enforce a compile-time ceiling on argument counts to prevent execution stack overflow errors.",
           ],
           answer: 0,
           answerIndex: 0,
-          why: "Rest parameters are true arrays that avoid the de-optimization penalties of the legacy arguments object and integrate cleanly with modern JIT escape analysis.",
-          explanation: "Rest parameters are true arrays that avoid the de-optimization penalties of the legacy arguments object and integrate cleanly with modern JIT escape analysis."
+          why: "Rest parameters (...args) produce true Array instances that inherit from Array.prototype, giving immediate access to array methods (.map(), .filter(), .reduce()). Furthermore, unlike the legacy arguments object—which can leak the execution activation frame and disable JIT optimizations—rest parameters are cleanly optimized by V8 on the call stack.",
+          explanation: "Rest parameters (...args) produce true Array instances that inherit from Array.prototype, giving immediate access to array methods (.map(), .filter(), .reduce()). Furthermore, unlike the legacy arguments object—which can leak the execution activation frame and disable JIT optimizations—rest parameters are cleanly optimized by V8 on the call stack."
         }
       },
       {
@@ -1996,17 +1996,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Perform price1 > price2 comparison and verify it uses the number hint deterministically.",
         check: {
-          question: "How does implementing Symbol.toPrimitive benefit custom domain value classes (such as Currency or Units)?",
+          question: "How does implementing the well-known Symbol.toPrimitive method on a domain object enhance runtime predictability?",
           options: [
-            "It allows the object to define exact, deterministic scalar outputs for 'number', 'string', and 'default' coercion hints",
-            "It permanently freezes all CPU clock cycles during arithmetic calculations",
-            "It compresses class methods into base64 strings stored in memory",
-            "It enables the class to bypass all JavaScript syntax error checks",
+            "It permanently converts the domain object into a flat string record that can be stored directly in local storage.",
+            "It forces the JavaScript engine to serialize the instance into a compact binary buffer before comparison.",
+            "It grants explicit, deterministic control over type coercion across number, string, and default context hints.",
+            "It prevents other scripts from inspecting or mutating any property values declared on the object instance.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Symbol.toPrimitive gives developers precise control over how an object converts when subjected to arithmetic or string operations based on the engine's coercion hint.",
-          explanation: "Symbol.toPrimitive gives developers precise control over how an object converts when subjected to arithmetic or string operations based on the engine's coercion hint."
+          answer: 2,
+          answerIndex: 2,
+          why: "Symbol.toPrimitive is a well-known symbol that overrides default type coercion. It accepts a specific hint ('number', 'string', or 'default') and returns a corresponding primitive value, replacing the ambiguous, multi-step valueOf() and toString() fallback sequence with a single deterministic function.",
+          explanation: "Symbol.toPrimitive is a well-known symbol that overrides default type coercion. It accepts a specific hint ('number', 'string', or 'default') and returns a corresponding primitive value, replacing the ambiguous, multi-step valueOf() and toString() fallback sequence with a single deterministic function."
         }
       },
       {
@@ -2065,17 +2065,17 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
         ],
         tryIt: "Verify that JSON.stringify(secureSession) produces only {\"sessionId\":\"sess_404\"} without leaking _internalNonce.",
         check: {
-          question: "Why is Object.hasOwn(obj, key) preferred over obj.hasOwnProperty(key) in modern enterprise codebases?",
+          question: "Why is static Object.hasOwn(obj, prop) preferred over calling Object.prototype.hasOwnProperty on modern enterprise objects?",
           options: [
-            "Object.hasOwn is a static method that works safely on objects without prototypes (Object.create(null)) and cannot be hijacked by malicious own properties",
-            "Object.hasOwn automatically sends error telemetry to external monitoring servers",
-            "Object.hasOwn converts all string properties into binary 64-bit floating point numbers",
-            "Object.hasOwn bypasses the V8 call stack and executes on the operating system kernel",
+            "Object.hasOwn automatically clones the target property into a read-only frozen state before validation.",
+            "It functions reliably on objects with null prototypes and cannot be shadowed by overriding property keys.",
+            "It performs an asynchronous deep scan across all prototype chains to verify recursive key inheritance.",
+            "Browser security policies restrict Object.prototype access to scripts originating from verified domains.",
           ],
-          answer: 0,
-          answerIndex: 0,
-          why: "Object.hasOwn is immune to prototype pollution, works on prototype-less objects, and avoids errors when an object overrides hasOwnProperty.",
-          explanation: "Object.hasOwn is immune to prototype pollution, works on prototype-less objects, and avoids errors when an object overrides hasOwnProperty."
+          answer: 1,
+          answerIndex: 1,
+          why: "Calling obj.hasOwnProperty() directly fails if the object was created with Object.create(null) (since it has no prototype) or if the object defines its own property named 'hasOwnProperty'. Object.hasOwn() is a static ECMAScript 2022 method that safely checks own-property existence without relying on prototype delegation.",
+          explanation: "Calling obj.hasOwnProperty() directly fails if the object was created with Object.create(null) (since it has no prototype) or if the object defines its own property named 'hasOwnProperty'. Object.hasOwn() is a static ECMAScript 2022 method that safely checks own-property existence without relying on prototype delegation."
         }
       },
     ],

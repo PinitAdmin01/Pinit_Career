@@ -1,679 +1,1315 @@
-[
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 6,
-    "part": 1,
-    "codeHash": "9ded8c9161bbcc33bfdee7df4414656b8c1178c66049cabb7c1564584cb82171",
-    "spec": {
-      "template": "boxes",
-      "title": "Tagged Template Compiler Interleaving and Security Sanitizer",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "String Chunks",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Variable Expressions",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "SQL Sanitizer",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "Clean Output",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Compiler isolates static string literals into permanent memory array.",
-          "values": {
-            "b1": {
-              "text": "\"String Chunks\""
-            },
-            "b2": {
-              "text": "\"Variable Expressions\""
-            },
-            "b3": {
-              "text": "\"SQL Sanitizer\""
-            },
-            "b4": {
-              "text": "\"Clean Output\""
-            }
+{
+  "schemaVersion": 1,
+  "prefix": "react-basics",
+  "day": 6,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
+  "entries": [
+    {
+      "partTitle": "Destructuring Protocols: Array Iteration Semantics vs Object Property Enumeration & Default Value Evaluation",
+      "codeHash": "9ded8c9161bbcc33bfdee7df4414656b8c1178c66049cabb7c1564584cb82171",
+      "spec": {
+        "template": "flow",
+        "title": "Destructuring Protocols and Default Value Evaluation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Array Destructuring",
+            "tappable": false
           },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
+          {
+            "id": "n2",
+            "label": "ToObject",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Object Destructuring",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Default Value Evaluation",
+            "tappable": false
           }
-        },
-        {
-          "at": "say2",
-          "caption": "Dynamic expressions evaluate separately inside calling scope.",
-          "values": {
-            "b1": {
-              "text": "\"String Chunks\""
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Array destructuring consumes source collections through iterators.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
             },
-            "b2": {
-              "text": "\"Variable Expressions\""
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "b3": {
-              "text": "\"SQL Sanitizer\""
-            },
-            "b4": {
-              "text": "\"Clean Output\""
-            }
+            "arrows": []
           },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Tagged function intercepts raw chunks and variables simultaneously.",
-          "values": {
-            "b1": {
-              "text": "\"String Chunks\""
+          {
+            "at": "say3",
+            "caption": "Object destructuring performs internal to object conversion first.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
             },
-            "b2": {
-              "text": "\"Variable Expressions\""
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "b3": {
-              "text": "\"SQL Sanitizer\""
-            },
-            "b4": {
-              "text": "\"Clean Output\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "Sanitizer escapes malicious inputs preventing injection exploits.",
-          "values": {
-            "b1": {
-              "text": "\"String Chunks\""
-            },
-            "b2": {
-              "text": "\"Variable Expressions\""
-            },
-            "b3": {
-              "text": "\"SQL Sanitizer\""
-            },
-            "b4": {
-              "text": "\"Clean Output\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 6,
-    "part": 2,
-    "codeHash": "e6abaf38d0bb4c4e110fb7abfbfd4df0164c48d4568353b9a0116efed34e68e5",
-    "spec": {
-      "template": "flow",
-      "title": "Object Destructuring Bytecode Lowering and Property Lookup",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Object Ref",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "GetNamedProperty",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Stack Slot",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Nullish Guard",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Engine loads source object reference onto virtual machine operand stack.",
-          "values": {
-            "n1": {
-              "text": "\"Object Ref\""
-            },
-            "n2": {
-              "text": "\"GetNamedProperty\""
-            },
-            "n3": {
-              "text": "\"Stack Slot\""
-            },
-            "n4": {
-              "text": "\"Nullish Guard\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "Bytecode instructions trigger named property lookups on prototype.",
-          "values": {
-            "n1": {
-              "text": "\"Object Ref\""
-            },
-            "n2": {
-              "text": "\"GetNamedProperty\""
-            },
-            "n3": {
-              "text": "\"Stack Slot\""
-            },
-            "n4": {
-              "text": "\"Nullish Guard\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Extracted property primitives store into designated local stack slots.",
-          "values": {
-            "n1": {
-              "text": "\"Object Ref\""
-            },
-            "n2": {
-              "text": "\"GetNamedProperty\""
-            },
-            "n3": {
-              "text": "\"Stack Slot\""
-            },
-            "n4": {
-              "text": "\"Nullish Guard\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
+          {
+            "at": "say4",
+            "caption": "Nested destructuring extracts properties across deep payload trees.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
             ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Fallback expressions evaluate only when resolved property is undefined.",
-          "values": {
-            "n1": {
-              "text": "\"Object Ref\""
-            },
-            "n2": {
-              "text": "\"GetNamedProperty\""
-            },
-            "n3": {
-              "text": "\"Stack Slot\""
-            },
-            "n4": {
-              "text": "\"Nullish Guard\""
-            }
           },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
+          {
+            "at": "say5",
+            "caption": "Default value evaluation triggers only when values are undefined.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 6,
-    "part": 3,
-    "codeHash": "7eb6d36b2bfb2a40a8bae9e338da32508887d5a6303cd297450b13c9835d3a9f",
-    "spec": {
-      "template": "compare",
-      "title": "Shallow Spread Copying vs Deep Object Reference Mutation",
-      "left": {
-        "label": "Standard Implementation"
+          }
+        ]
       },
-      "right": {
-        "label": "Architectural Pattern"
+      "filled": {
+        "template": "flow",
+        "title": "Destructuring Protocols and Default Value Evaluation",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Array Destructuring",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "ToObject",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Object Destructuring",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Default Value Evaluation",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Array destructuring consumes source collections through iterators.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say3",
+            "caption": "Object destructuring performs internal to object conversion first.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Nested destructuring extracts properties across deep payload trees.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Default value evaluation triggers only when values are undefined.",
+            "values": {
+              "n1": {
+                "text": "Array Destructuring"
+              },
+              "n2": {
+                "text": "ToObject"
+              },
+              "n3": {
+                "text": "Object Destructuring"
+              },
+              "n4": {
+                "text": "Default Value Evaluation"
+              }
+            },
+            "tones": {
+              "n1": "ok",
+              "n2": "ok",
+              "n3": "ok",
+              "n4": "ok"
+            },
+            "arrows": [
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Tagged Template Literals: AST String Interpolation, Cooked vs Raw Buffers & Secure Domain-Specific Languages",
+      "codeHash": "e6abaf38d0bb4c4e110fb7abfbfd4df0164c48d4568353b9a0116efed34e68e5",
+      "spec": {
+        "template": "boxes",
+        "title": "Tagged Template Literals and Security Sanitization",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "tagged template",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "TemplateStringsArray",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Call Site Memoization",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Security Sanitization",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Tagged template handlers receive static chunks and dynamic expressions.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Call site memoization caches static string arrays across invocations.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "The template strings array exposes cooked and raw literal buffers.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Security sanitization escapes untrusted inputs before string assembly.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
       },
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Spread operator iterates top level enumerable own properties.",
-          "left": {
-            "code": "// Left pipeline phase 1",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "idle"
+      "filled": {
+        "template": "boxes",
+        "title": "Tagged Template Literals and Security Sanitization",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "tagged template",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 1",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Nested object references copy identical pointers without cloning.",
-          "left": {
-            "code": "// Left pipeline phase 2",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "b2",
+            "label": "TemplateStringsArray",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 2",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Mutating nested properties corrupts the shared memory target.",
-          "left": {
-            "code": "// Left pipeline phase 3",
-            "result": {
-              "text": "\"Standard\""
-            },
-            "tone": "data"
+          {
+            "id": "b3",
+            "label": "Call Site Memoization",
+            "tappable": false
           },
-          "right": {
-            "code": "// Optimized pipeline phase 3",
-            "result": {
-              "text": "\"Optimized\""
-            },
-            "tone": "ok"
+          {
+            "id": "b4",
+            "label": "Security Sanitization",
+            "tappable": false
           }
-        },
-        {
-          "at": "say4",
-          "caption": "Structured clone guarantees isolated deep memory separation.",
-          "left": {
-            "code": "// Left pipeline phase 4",
-            "result": {
-              "text": "\"Standard\""
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Tagged template handlers receive static chunks and dynamic expressions.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
             },
-            "tone": "data"
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
-          "right": {
-            "code": "// Optimized pipeline phase 4",
-            "result": {
-              "text": "\"Optimized\""
+          {
+            "at": "say3",
+            "caption": "Call site memoization caches static string arrays across invocations.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
             },
-            "tone": "ok"
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "The template strings array exposes cooked and raw literal buffers.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Security sanitization escapes untrusted inputs before string assembly.",
+            "values": {
+              "b1": {
+                "text": "tagged template"
+              },
+              "b2": {
+                "text": "TemplateStringsArray"
+              },
+              "b3": {
+                "text": "Call Site Memoization"
+              },
+              "b4": {
+                "text": "Security Sanitization"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
           }
-        }
-      ]
+        ]
+      }
+    },
+    {
+      "partTitle": "Rest Parameters vs The Arguments Object: V8 Frame Allocation, Variadic Functions & Spread Mechanics",
+      "codeHash": "7eb6d36b2bfb2a40a8bae9e338da32508887d5a6303cd297450b13c9835d3a9f",
+      "spec": {
+        "template": "compare",
+        "title": "Rest Parameters vs The Arguments Object Allocation",
+        "rows": [
+          {
+            "id": "r1",
+            "label": "arguments",
+            "tappable": false
+          },
+          {
+            "id": "r2",
+            "label": "Rest Parameters",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Spread",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Call Stack Frame Limits",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The legacy arguments object provides non array index properties.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Rest parameters construct genuine array instances on the stack frame.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Spread syntax expands iterable collections into separate parameters.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "data",
+              "r3": "data",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Excessive array spread risks exceeding call stack frame limits.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "error"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Rest Parameters vs The Arguments Object Allocation",
+        "rows": [
+          {
+            "id": "r1",
+            "label": "arguments",
+            "tappable": false
+          },
+          {
+            "id": "r2",
+            "label": "Rest Parameters",
+            "tappable": false
+          },
+          {
+            "id": "r3",
+            "label": "Spread",
+            "tappable": false
+          },
+          {
+            "id": "r4",
+            "label": "Call Stack Frame Limits",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The legacy arguments object provides non array index properties.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "idle",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Rest parameters construct genuine array instances on the stack frame.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "error",
+              "r2": "data",
+              "r3": "idle",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Spread syntax expands iterable collections into separate parameters.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "data",
+              "r3": "data",
+              "r4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Excessive array spread risks exceeding call stack frame limits.",
+            "values": {
+              "r1": {
+                "text": "arguments"
+              },
+              "r2": {
+                "text": "Rest Parameters"
+              },
+              "r3": {
+                "text": "Spread"
+              },
+              "r4": {
+                "text": "Call Stack Frame Limits"
+              }
+            },
+            "tones": {
+              "r1": "idle",
+              "r2": "ok",
+              "r3": "ok",
+              "r4": "error"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Well-Known Symbols & Runtime Metaprogramming: Symbol.iterator, Symbol.toPrimitive & Symbol.hasInstance",
+      "codeHash": "38752d7d005c7a14f23ad997ec8375bcaa3fc30fb5581315c04fe8811b834d78",
+      "spec": {
+        "template": "boxes",
+        "title": "Well-Known Symbols and Metaprogramming Interfaces",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Symbol.iterator",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Global Symbol Registry",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Symbol.toPrimitive",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Symbol.hasInstance",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The iterator symbol defines custom collection traversal protocols.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "The global symbol registry shares unique symbols across runtime scopes.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "The to primitive symbol overrides type coercion deterministically.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "The has instance symbol customizes instanceof behavior on classes.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Well-Known Symbols and Metaprogramming Interfaces",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Symbol.iterator",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Global Symbol Registry",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Symbol.toPrimitive",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Symbol.hasInstance",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The iterator symbol defines custom collection traversal protocols.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "The global symbol registry shares unique symbols across runtime scopes.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "The to primitive symbol overrides type coercion deterministically.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "The has instance symbol customizes instanceof behavior on classes.",
+            "values": {
+              "b1": {
+                "text": "Symbol.iterator"
+              },
+              "b2": {
+                "text": "Global Symbol Registry"
+              },
+              "b3": {
+                "text": "Symbol.toPrimitive"
+              },
+              "b4": {
+                "text": "Symbol.hasInstance"
+              }
+            },
+            "tones": {
+              "b1": "ok",
+              "b2": "ok",
+              "b3": "ok",
+              "b4": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Modern Object Property Manipulation: Computed Property Names, Object.hasOwn & Property Descriptor Integrity",
+      "codeHash": "83c3667ae48fd00940ca9e20419eddb3cd0a87dd710606037d8c49a4376fe462",
+      "spec": {
+        "template": "states",
+        "title": "Object Property Security, Descriptors, and Computed Keys",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Object.hasOwn",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Prototype Pollution",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Property Descriptors",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "computed property",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Defending microservices against prototype pollution requires vigilance.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "error",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Static object has own safely verifies properties on null prototypes.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Property descriptors govern attribute writability and enumeration.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "data",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Dynamic computed property names enable atomic state record updates.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Object Property Security, Descriptors, and Computed Keys",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Object.hasOwn",
+            "tappable": false
+          },
+          {
+            "id": "s2",
+            "label": "Prototype Pollution",
+            "tappable": false
+          },
+          {
+            "id": "s3",
+            "label": "Property Descriptors",
+            "tappable": false
+          },
+          {
+            "id": "s4",
+            "label": "computed property",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Defending microservices against prototype pollution requires vigilance.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "idle",
+              "s2": "error",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Static object has own safely verifies properties on null prototypes.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "idle",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Property descriptors govern attribute writability and enumeration.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "idle",
+              "s3": "data",
+              "s4": "idle"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Dynamic computed property names enable atomic state record updates.",
+            "values": {
+              "s1": {
+                "text": "Object.hasOwn"
+              },
+              "s2": {
+                "text": "Prototype Pollution"
+              },
+              "s3": {
+                "text": "Property Descriptors"
+              },
+              "s4": {
+                "text": "computed property"
+              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "s3": "ok",
+              "s4": "ok"
+            }
+          }
+        ]
+      }
     }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 6,
-    "part": 4,
-    "codeHash": "38752d7d005c7a14f23ad997ec8375bcaa3fc30fb5581315c04fe8811b834d78",
-    "spec": {
-      "template": "boxes",
-      "title": "JavaScript Symbol Registry and Hidden Property Slots",
-      "boxes": [
-        {
-          "id": "b1",
-          "label": "Symbol Id",
-          "tappable": false
-        },
-        {
-          "id": "b2",
-          "label": "Property Key",
-          "tappable": false
-        },
-        {
-          "id": "b3",
-          "label": "Reflection Barrier",
-          "tappable": false
-        },
-        {
-          "id": "b4",
-          "label": "Iterator Protocol",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Unique symbol primitives avoid collision with string properties.",
-          "values": {
-            "b1": {
-              "text": "\"Symbol Id\""
-            },
-            "b2": {
-              "text": "\"Property Key\""
-            },
-            "b3": {
-              "text": "\"Reflection Barrier\""
-            },
-            "b4": {
-              "text": "\"Iterator Protocol\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "idle",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say2",
-          "caption": "Hidden symbol keys hide from standard object key iterations.",
-          "values": {
-            "b1": {
-              "text": "\"Symbol Id\""
-            },
-            "b2": {
-              "text": "\"Property Key\""
-            },
-            "b3": {
-              "text": "\"Reflection Barrier\""
-            },
-            "b4": {
-              "text": "\"Iterator Protocol\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "idle",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say3",
-          "caption": "Reflection methods access symbol metadata without polluting schema.",
-          "values": {
-            "b1": {
-              "text": "\"Symbol Id\""
-            },
-            "b2": {
-              "text": "\"Property Key\""
-            },
-            "b3": {
-              "text": "\"Reflection Barrier\""
-            },
-            "b4": {
-              "text": "\"Iterator Protocol\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "idle"
-          }
-        },
-        {
-          "at": "say4",
-          "caption": "Well known symbol controls internal engine iteration protocols.",
-          "values": {
-            "b1": {
-              "text": "\"Symbol Id\""
-            },
-            "b2": {
-              "text": "\"Property Key\""
-            },
-            "b3": {
-              "text": "\"Reflection Barrier\""
-            },
-            "b4": {
-              "text": "\"Iterator Protocol\""
-            }
-          },
-          "tones": {
-            "b1": "data",
-            "b2": "data",
-            "b3": "data",
-            "b4": "data"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "prefix": "react-basics",
-    "day": 6,
-    "part": 5,
-    "codeHash": "83c3667ae48fd00940ca9e20419eddb3cd0a87dd710606037d8c49a4376fe462",
-    "spec": {
-      "template": "flow",
-      "title": "Short Circuit Bytecode Evaluation for Optional Chaining",
-      "nodes": [
-        {
-          "id": "n1",
-          "label": "Receiver Eval",
-          "tappable": false
-        },
-        {
-          "id": "n2",
-          "label": "Nullish Check",
-          "tappable": false
-        },
-        {
-          "id": "n3",
-          "label": "Short Circuit",
-          "tappable": false
-        },
-        {
-          "id": "n4",
-          "label": "Value Extract",
-          "tappable": false
-        }
-      ],
-      "steps": [
-        {
-          "at": "say1",
-          "caption": "Virtual machine evaluates receiver expression on the stack.",
-          "values": {
-            "n1": {
-              "text": "\"Receiver Eval\""
-            },
-            "n2": {
-              "text": "\"Nullish Check\""
-            },
-            "n3": {
-              "text": "\"Short Circuit\""
-            },
-            "n4": {
-              "text": "\"Value Extract\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "idle",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": []
-        },
-        {
-          "at": "say2",
-          "caption": "Engine checks whether value is strictly null or undefined.",
-          "values": {
-            "n1": {
-              "text": "\"Receiver Eval\""
-            },
-            "n2": {
-              "text": "\"Nullish Check\""
-            },
-            "n3": {
-              "text": "\"Short Circuit\""
-            },
-            "n4": {
-              "text": "\"Value Extract\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "idle",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ]
-          ]
-        },
-        {
-          "at": "say3",
-          "caption": "Nullish condition triggers immediate short circuit jump past call.",
-          "values": {
-            "n1": {
-              "text": "\"Receiver Eval\""
-            },
-            "n2": {
-              "text": "\"Nullish Check\""
-            },
-            "n3": {
-              "text": "\"Short Circuit\""
-            },
-            "n4": {
-              "text": "\"Value Extract\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "idle"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ]
-          ]
-        },
-        {
-          "at": "say4",
-          "caption": "Valid object reference permits property extraction and downstream logic.",
-          "values": {
-            "n1": {
-              "text": "\"Receiver Eval\""
-            },
-            "n2": {
-              "text": "\"Nullish Check\""
-            },
-            "n3": {
-              "text": "\"Short Circuit\""
-            },
-            "n4": {
-              "text": "\"Value Extract\""
-            }
-          },
-          "tones": {
-            "n1": "data",
-            "n2": "data",
-            "n3": "data",
-            "n4": "data"
-          },
-          "arrows": [
-            [
-              "n1",
-              "n2"
-            ],
-            [
-              "n2",
-              "n3"
-            ],
-            [
-              "n3",
-              "n4"
-            ]
-          ]
-        }
-      ]
-    }
-  }
-]
+  ]
+}
